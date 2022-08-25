@@ -36,7 +36,7 @@ public class FieldsOfInteger {
   private transient Integer Integer12;
   private transient Integer Integer13;
   private transient Integer Integer14;
-  private final Integer Integer15 = Integer.valueOf((int)5);
+  private final Integer Integer15 = Integer.valueOf(5);
   private volatile Integer Integer16;
   private volatile Integer Integer17;
   private volatile Integer Integer18;
@@ -46,16 +46,16 @@ public class FieldsOfInteger {
   private volatile Integer Integer22;
   private volatile Integer Integer23;
   private static transient Integer Integer24;
-  private static final Integer Integer25 = Integer.valueOf((int)5);
+  private static final Integer Integer25 = Integer.valueOf(5);
   private static volatile Integer Integer26;
-  private transient final Integer Integer27 = Integer.valueOf((int)5);
+  private transient final Integer Integer27 = Integer.valueOf(5);
   private transient volatile Integer Integer28;
   private transient volatile Integer Integer29;
   private transient volatile Integer Integer30;
   private transient volatile Integer Integer31;
   private transient volatile Integer Integer32;
   private transient volatile Integer Integer33;
-  private static transient final Integer Integer34 = Integer.valueOf((int)5);
+  private static transient final Integer Integer34 = Integer.valueOf(5);
   private static transient volatile Integer Integer35;
   public Integer Integer36;
   public Integer Integer37;
@@ -72,7 +72,7 @@ public class FieldsOfInteger {
   public transient Integer Integer48;
   public transient Integer Integer49;
   public transient Integer Integer50;
-  public final Integer Integer51 = Integer.valueOf((int)5);
+  public final Integer Integer51 = Integer.valueOf(5);
   public volatile Integer Integer52;
   public volatile Integer Integer53;
   public volatile Integer Integer54;
@@ -82,16 +82,16 @@ public class FieldsOfInteger {
   public volatile Integer Integer58;
   public volatile Integer Integer59;
   public static transient Integer Integer60;
-  public static final Integer Integer61 = Integer.valueOf((int)5);
+  public static final Integer Integer61 = Integer.valueOf(5);
   public static volatile Integer Integer62;
-  public transient final Integer Integer63 = Integer.valueOf((int)5);
+  public transient final Integer Integer63 = Integer.valueOf(5);
   public transient volatile Integer Integer64;
   public transient volatile Integer Integer65;
   public transient volatile Integer Integer66;
   public transient volatile Integer Integer67;
   public transient volatile Integer Integer68;
   public transient volatile Integer Integer69;
-  public static transient final Integer Integer70 = Integer.valueOf((int)5);
+  public static transient final Integer Integer70 = Integer.valueOf(5);
   public static transient volatile Integer Integer71;
   protected Integer Integer72;
   protected Integer Integer73;
@@ -108,7 +108,7 @@ public class FieldsOfInteger {
   protected transient Integer Integer84;
   protected transient Integer Integer85;
   protected transient Integer Integer86;
-  protected final Integer Integer87 = Integer.valueOf((int)5);
+  protected final Integer Integer87 = Integer.valueOf(5);
   protected volatile Integer Integer88;
   protected volatile Integer Integer89;
   protected volatile Integer Integer90;
@@ -118,16 +118,16 @@ public class FieldsOfInteger {
   protected volatile Integer Integer94;
   protected volatile Integer Integer95;
   protected static transient Integer Integer96;
-  protected static final Integer Integer97 = Integer.valueOf((int)5);
+  protected static final Integer Integer97 = Integer.valueOf(5);
   protected static volatile Integer Integer98;
-  protected transient final Integer Integer99 = Integer.valueOf((int)5);
+  protected transient final Integer Integer99 = Integer.valueOf(5);
   protected transient volatile Integer Integer100;
   protected transient volatile Integer Integer101;
   protected transient volatile Integer Integer102;
   protected transient volatile Integer Integer103;
   protected transient volatile Integer Integer104;
   protected transient volatile Integer Integer105;
-  protected static transient final Integer Integer106 = Integer.valueOf((int)5);
+  protected static transient final Integer Integer106 = Integer.valueOf(5);
   protected static transient volatile Integer Integer107;
   Integer Integer108;
   Integer Integer109;
@@ -144,7 +144,7 @@ public class FieldsOfInteger {
   transient Integer Integer120;
   transient Integer Integer121;
   transient Integer Integer122;
-  final Integer Integer123 = Integer.valueOf((int)5);
+  final Integer Integer123 = Integer.valueOf(5);
   volatile Integer Integer124;
   volatile Integer Integer125;
   volatile Integer Integer126;
@@ -154,16 +154,16 @@ public class FieldsOfInteger {
   volatile Integer Integer130;
   volatile Integer Integer131;
   static transient Integer Integer132;
-  static final Integer Integer133 = Integer.valueOf((int)5);
+  static final Integer Integer133 = Integer.valueOf(5);
   static volatile Integer Integer134;
-  transient final Integer Integer135 = Integer.valueOf((int)5);
+  transient final Integer Integer135 = Integer.valueOf(5);
   transient volatile Integer Integer136;
   transient volatile Integer Integer137;
   transient volatile Integer Integer138;
   transient volatile Integer Integer139;
   transient volatile Integer Integer140;
   transient volatile Integer Integer141;
-  static transient final Integer Integer142 = Integer.valueOf((int)5);
+  static transient final Integer Integer142 = Integer.valueOf(5);
   static transient volatile Integer Integer143;
 
 public static final boolean [] isPersistent = { 
@@ -1063,6 +1063,9 @@ false,false,true,false
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -1072,7 +1075,7 @@ false,false,true,false
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

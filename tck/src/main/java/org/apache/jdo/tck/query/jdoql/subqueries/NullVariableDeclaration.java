@@ -17,17 +17,11 @@
  
 package org.apache.jdo.tck.query.jdoql.subqueries;
 
-import java.util.List;
-
 import javax.jdo.JDOException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -65,7 +59,7 @@ public class NullVariableDeclaration extends SubqueriesTest {
 
     /** */
     void runTestNullVariable(PersistenceManager pm) {
-        Query apiQuery = pm.newQuery(Employee.class);
+        Query<Employee> apiQuery = pm.newQuery(Employee.class);
         try {
             apiQuery.addSubquery(null, null, null);
             apiQuery.compile();
@@ -78,7 +72,7 @@ public class NullVariableDeclaration extends SubqueriesTest {
 
     /** */
     void runTestEmptyVariable(PersistenceManager pm) {
-        Query apiQuery = pm.newQuery(Employee.class);
+        Query<Employee> apiQuery = pm.newQuery(Employee.class);
         try {
             apiQuery.addSubquery(null, " ", null);
             apiQuery.compile();

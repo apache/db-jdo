@@ -99,14 +99,14 @@ public interface PersistenceManager extends AutoCloseable {
      * @param pcs the <code>Collection</code> of instances to evict from the 
      * cache.
      */
-    void evictAll (Collection pcs);
+    void evictAll (Collection<?> pcs);
 
     /** Mark the parameter instances as no longer needed in the cache.
      * @param pcClass the class of instances to evict
      * @param subclasses if true, mark instances of subclasses also
      * @since 2.1
      */
-    void evictAll (boolean subclasses, Class pcClass);
+    void evictAll (boolean subclasses, Class<?> pcClass);
 
     /** Mark all persistent-nontransactional instances as no longer needed 
      * in the cache.  It transitions
@@ -141,7 +141,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @see #refresh(Object pc)
      * @param pcs the <code>Collection</code> of instances to refresh.
      */
-    void refreshAll (Collection pcs);
+    void refreshAll (Collection<?> pcs);
     
     /** Refresh the state of all applicable instances from the data store.
      * <P>If called with an active transaction, all transactional instances
@@ -446,7 +446,7 @@ public interface PersistenceManager extends AutoCloseable {
      * of toString() on the object id instance.
      * @return an instance of the object identity class
      */
-    Object newObjectIdInstance (Class pcClass, Object key);
+    Object newObjectIdInstance (Class<?> pcClass, Object key);
     
     /**
      * Return the objects with the given oids.
@@ -458,7 +458,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @see #getObjectById(Object,boolean)
      * @since 2.0
      */
-    Collection getObjectsById (Collection oids, boolean validate);
+    Collection getObjectsById (Collection<?> oids, boolean validate);
 
     /**
      * Return the objects with the given oids. This method is equivalent 
@@ -470,7 +470,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @see #getObjectsById(Collection,boolean)
      * @since 2.0
      */
-    Collection getObjectsById (Collection oids);
+    Collection getObjectsById (Collection<?> oids);
 
     /**
      * Return the objects with the given oids.
@@ -601,7 +601,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @param pcs a <code>Collection</code> of persistent instances
      * @see #deletePersistent(Object pc)
      */
-    void deletePersistentAll (Collection pcs);
+    void deletePersistentAll (Collection<?> pcs);
     
     /** Make an instance transient, removing it from management by this
      * <code>PersistenceManager</code>.
@@ -631,7 +631,7 @@ public interface PersistenceManager extends AutoCloseable {
      * is preserved unchanged.
      * @param pcs the instances to make transient.
      */ 
-    void makeTransientAll (Collection pcs);
+    void makeTransientAll (Collection<?> pcs);
 
     /** Make an instance transient, removing it from management by this 
      * <code>PersistenceManager</code>. If the useFetchPlan parameter is 
@@ -696,7 +696,7 @@ public interface PersistenceManager extends AutoCloseable {
      * which fields to load and which instances to make transient
      * @since 2.0
      */
-    void makeTransientAll (Collection pcs, boolean useFetchPlan);
+    void makeTransientAll (Collection<?> pcs, boolean useFetchPlan);
 
     /** Make an instance subject to transactional boundaries.
      *
@@ -727,7 +727,7 @@ public interface PersistenceManager extends AutoCloseable {
      * transactional.
      * @see #makeTransactional(Object pc)
      */
-    void makeTransactionalAll (Collection pcs);
+    void makeTransactionalAll (Collection<?> pcs);
     
     /** Make an instance non-transactional after commit.
      *
@@ -754,7 +754,7 @@ public interface PersistenceManager extends AutoCloseable {
      * nontransactional.
      * @see #makeNontransactional(Object pc)
      */
-    void makeNontransactionalAll (Collection pcs);
+    void makeNontransactionalAll (Collection<?> pcs);
 
     /** Retrieve field values of an instance from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use 
@@ -791,7 +791,7 @@ public interface PersistenceManager extends AutoCloseable {
      * the class to retrieve associated instances.
      * @param pcs the instances
      */
-    void retrieveAll (Collection pcs);
+    void retrieveAll (Collection<?> pcs);
     
     /** Retrieve field values of instances from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use 
@@ -812,7 +812,7 @@ public interface PersistenceManager extends AutoCloseable {
      * which fields to load and which instances to retrieve.
      * @since 1.0.1
      */
-    void retrieveAll (Collection pcs, boolean useFetchPlan);
+    void retrieveAll (Collection<?> pcs, boolean useFetchPlan);
     
     /** Retrieve field values of instances from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use 
@@ -882,7 +882,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @return the <code>Class</code> of the ObjectId of the parameter
      * @see #getObjectById
      */
-    Class getObjectIdClass(Class cls);
+    Class<?> getObjectIdClass(Class<?> cls);
   
     /** Set the Multithreaded flag for this <code>PersistenceManager</code>.  
      * Applications that use multiple threads to invoke methods or access fields 
@@ -1215,7 +1215,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @since 2.0
      */
     void addInstanceLifecycleListener (InstanceLifecycleListener listener,
-        Class... classes);
+        Class<?>... classes);
 
     /**
      * Removes the listener instance from the list of lifecycle event listeners.
@@ -1259,7 +1259,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @return the objects
      * @since 2.1
      */
-    Set getManagedObjects(Class... classes);
+    Set getManagedObjects(Class<?>... classes);
 
     /**
      * Get the objects managed by this persistence manager having the
@@ -1269,7 +1269,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @return the objects
      * @since 2.1
      */
-    Set getManagedObjects(EnumSet<ObjectState> states, Class... classes);
+    Set getManagedObjects(EnumSet<ObjectState> states, Class<?>... classes);
 
     /**
      * Get a modifiable <code>FetchGroup</code> for the Class and name.
@@ -1291,7 +1291,7 @@ public interface PersistenceManager extends AutoCloseable {
      * class or interface
      * @since 2.2
      */
-    FetchGroup getFetchGroup(Class cls, String name);
+    FetchGroup getFetchGroup(Class<?> cls, String name);
 
     /**
      * Set a persistence manager property. This can be a standard property

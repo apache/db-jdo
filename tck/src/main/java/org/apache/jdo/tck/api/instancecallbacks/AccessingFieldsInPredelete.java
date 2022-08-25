@@ -24,7 +24,6 @@ import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -115,12 +114,10 @@ public class AccessingFieldsInPredelete extends TestParts {
         try {
             primaryObj = (InstanceCallbackClass)pm.getObjectById(primaryObjId, true);
             fail(ASSERTION_FAILED, "primaryObj deleted but getObjectById() on its Id succeeded.");
-        } catch (JDOUserException e) {
-            // expected one of these exceptions
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // expected one of these exceptions
         }
-        
+
         // check that jdoPreDelete() provided proper access to the attributes in primaryObj
         checkFieldValues(ASSERTION_FAILED, "jdoPreDelete attribute access:  ", 1, "primaryObj", createTime, 1.0, (short)3, '1');
         checkInstances(ASSERTION_FAILED, "jdoPreDelete instance access:  ", 1, "secondaryObj", 2, 7);
@@ -135,12 +132,10 @@ public class AccessingFieldsInPredelete extends TestParts {
         try {
             secondaryObj = (InstanceCallbackClass)pm.getObjectById(secondaryObjId, true);
             fail(ASSERTION_FAILED, "secondaryObj should have been deleted but getObjectById() on its Id succeeded.");
-        } catch (JDOUserException e) {
-            // expected one of these exceptions
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // expected one of these exceptions
         }
-        
+
         // check that first added member of Set had jdoPreDelete() called on it and provided proper access to its attributes.
         checkFieldValues(ASSERTION_FAILED, "jdoPreDelete attribute access:  ", 3, "childA", createTime, 3.0, (short)-2, '3');
         checkInstances(ASSERTION_FAILED, "jdoPreDelete instance access:  ", 3, null, 0, 0);
@@ -150,12 +145,10 @@ public class AccessingFieldsInPredelete extends TestParts {
         try {
             childA = (InstanceCallbackClass)pm.getObjectById(childAId, true);
             fail(ASSERTION_FAILED, "First added member of Set primaryObj.children should have been deleted but getObjectById() on its Id succeeded.");
-        } catch (JDOUserException e) {
-            // expected one of these exceptions
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // expected one of these exceptions
         }
-        
+
         // check that the second added member of Set did not have jdoPreDelete() called on it and it was not deleted.
         if(InstanceCallbackClass.processedIndex[4] == true) {
             fail(ASSERTION_FAILED, "jdoPreDelete() called on childB--it was not deleted.");

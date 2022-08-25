@@ -20,6 +20,7 @@ package org.apache.jdo.tck.extents;
 
 import javax.jdo.Extent;
 
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -52,10 +53,10 @@ public class GetCandidateClass extends ExtentTest {
 
     /** */
     public void test() {
-        Extent ex = getExtent();
-        if (extentClass != ex.getCandidateClass()) {
+        Extent<Employee> ex = getExtent();
+        if (Employee.class != ex.getCandidateClass()) {
             fail(ASSERTION_FAILED,
-                 "Candidate class in extent should be: " + extentClass.getClass().getName());
+                 "Candidate class in extent should be: " + Employee.class.getName());
         }
     }
 }

@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
@@ -26,6 +25,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> StartsWith and EndsWith Query Operators
@@ -60,13 +60,13 @@ public class StartsWithAndEndsWith extends QueryTest {
     /** */
     public void testPositive0() {
         // startsWith
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.firstname.startsWith("emp1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -91,13 +91,13 @@ public class StartsWithAndEndsWith extends QueryTest {
     /** */
     public void testPositive1() {
         // endsWith
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.firstname.endsWith("1First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

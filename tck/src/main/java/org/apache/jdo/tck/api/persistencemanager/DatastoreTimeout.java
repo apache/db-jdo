@@ -51,22 +51,22 @@ public class DatastoreTimeout extends JDO_Test {
         "Assertion A12.6.9-1, A14.6.1-7 (DatastoreTimeout) failed: ";
 
     /** Timeout value for datastore read */
-    private static Integer READ_TIMEOUT = Integer.valueOf(100);
+    private static final Integer READ_TIMEOUT = Integer.valueOf(100);
 
     /** Timeout value for datastore write */
-    private static Integer WRITE_TIMEOUT = Integer.valueOf(100);
+    private static final Integer WRITE_TIMEOUT = Integer.valueOf(100);
 
     /** Zero Timeout value */
-    private static Integer ZERO_TIMEOUT = Integer.valueOf(0);
+    private static final Integer ZERO_TIMEOUT = Integer.valueOf(0);
 
     /** Time for the main thread to sleep after starting a parallel thread. */
-    private static int MAIN_SLEEP_MILLIS = 1000;
+    private static final int MAIN_SLEEP_MILLIS = 1000;
 
     /** Time for the parallel threads to sleep before commit. */
-    private static int THREAD_SLEEP_MILLIS_SHORT = 2500;
+    private static final int THREAD_SLEEP_MILLIS_SHORT = 2500;
 
     /** Time for the parallel threads to sleep before commit. */
-    private static int THREAD_SLEEP_MILLIS_LONG = 7500;
+    private static final int THREAD_SLEEP_MILLIS_LONG = 7500;
 
     /** Oid of the PCRect instance created by localSetUp */
     private Object rectOid;
@@ -110,14 +110,14 @@ public class DatastoreTimeout extends JDO_Test {
         }
         finally {
             t.join();
-            Throwable problem = group.getUncaughtException(t);
-            if (problem != null) {
-                if (problem instanceof AssertionFailedError)
-                    throw (AssertionFailedError)problem;
-                else
-                    throw new JDOFatalException( "Thread " + t.getName()+ 
-                                                 " results in exception ", problem);
-            }
+        }
+        Throwable problem = group.getUncaughtException(t);
+        if (problem != null) {
+            if (problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)problem;
+            else
+                throw new JDOFatalException( "Thread " + t.getName()+
+                                             " results in exception ", problem);
         }
     }
 
@@ -145,14 +145,14 @@ public class DatastoreTimeout extends JDO_Test {
         } 
         finally {
             t.join();
-            Throwable problem = group.getUncaughtException(t);
-            if (problem != null) {
-                if (problem instanceof AssertionFailedError)
-                    throw (AssertionFailedError)problem;
-                else
-                    throw new JDOFatalException( "Thread " + t.getName()+ 
-                                                 " results in exception ", problem);
-            }
+        }
+        Throwable problem = group.getUncaughtException(t);
+        if (problem != null) {
+            if (problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)problem;
+            else
+                throw new JDOFatalException( "Thread " + t.getName()+
+                                             " results in exception ", problem);
         }
     }
 
@@ -176,14 +176,14 @@ public class DatastoreTimeout extends JDO_Test {
         }
         finally {
             t.join();
-            Throwable problem = group.getUncaughtException(t);
-            if (problem != null) {
-                if (problem instanceof AssertionFailedError)
-                    throw (AssertionFailedError)problem;
-                else
-                    throw new JDOFatalException( "Thread " + t.getName()+ 
-                                                 " results in exception ", problem);
-            }
+        }
+        Throwable problem = group.getUncaughtException(t);
+        if (problem != null) {
+            if (problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)problem;
+            else
+                throw new JDOFatalException( "Thread " + t.getName()+
+                                             " results in exception ", problem);
         }
     }
 
@@ -207,14 +207,14 @@ public class DatastoreTimeout extends JDO_Test {
         }
         finally {
             t.join();
-            Throwable problem = group.getUncaughtException(t);
-            if (problem != null) {
-                if (problem instanceof AssertionFailedError)
-                    throw (AssertionFailedError)problem;
-                else
-                    throw new JDOFatalException( "Thread " + t.getName()+ 
-                                                 " results in exception ", problem);
-            }
+        }
+        Throwable problem = group.getUncaughtException(t);
+        if (problem != null) {
+            if (problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)problem;
+            else
+                throw new JDOFatalException( "Thread " + t.getName()+
+                                             " results in exception ", problem);
         }
     }
 
@@ -251,10 +251,10 @@ public class DatastoreTimeout extends JDO_Test {
         getPM();
         try {
             pm.currentTransaction().begin();
-            Query q = pm.newQuery(PCPoint.class);
+            Query<PCPoint> q = pm.newQuery(PCPoint.class);
             q.setDatastoreReadTimeoutMillis(timeout);
             @SuppressWarnings("unused")
-            List<?> result = (List<?>)q.execute();
+            List<PCPoint> result = q.executeList();
             pm.currentTransaction().commit();
             if (!isDatastoreTimeoutSupported()) {
                 fail(ASSERTION_FAILED, "Query.setDatastoreReadTimeoutMillis should throw a " +
@@ -423,7 +423,7 @@ public class DatastoreTimeout extends JDO_Test {
         getPM();
         try {
             pm.currentTransaction().begin();
-            Query q = pm.newQuery(PCPoint.class);
+            Query<PCPoint> q = pm.newQuery(PCPoint.class);
             q.setDatastoreWriteTimeoutMillis(timeout);
             q.deletePersistentAll();
             pm.currentTransaction().commit();

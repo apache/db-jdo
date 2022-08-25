@@ -30,7 +30,7 @@ import javax.jdo.PersistenceManager;
 public  class CompanyFactoryConcreteClass implements CompanyFactory {
 
     /** */
-    public static final Class[] tearDownClasses = new Class[] {
+    public static final Class<?>[] tearDownClasses = new Class<?>[] {
         DentalInsurance.class, MedicalInsurance.class,
         PartTimeEmployee.class, FullTimeEmployee.class,  
         Project.class, Department.class, Company.class, MeetingRoom.class
@@ -148,7 +148,7 @@ public  class CompanyFactoryConcreteClass implements CompanyFactory {
         return new Project(projid, name, budget);
     }
 
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return tearDownClasses;
     }
 }

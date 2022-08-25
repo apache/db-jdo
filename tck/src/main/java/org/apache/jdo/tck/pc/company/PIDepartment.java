@@ -30,14 +30,14 @@ public interface PIDepartment extends IDepartment {
     String getName();
     ICompany getCompany();
     IEmployee getEmployeeOfTheMonth();
-    Set getEmployees();
-    Set getFundedEmps();
+    Set<IEmployee> getEmployees();
+    Set<IEmployee> getFundedEmps();
     
     void setDeptid(long deptid);
     void setName(String name);
     void setCompany(ICompany company);
     void setEmployeeOfTheMonth(IEmployee employeeOfTheMonth);
-    void setEmployees(Set employees);
-    void setFundedEmps(Set employees);
+    void setEmployees(Set<IEmployee> employees);
+    void setFundedEmps(Set<IEmployee> employees);
 
 }

@@ -47,9 +47,9 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
      * The original value of the X field of the pc instance, 
      * set by method createAndModifyInstance. 
      */
-    protected int originalXValue = 100;
-    protected int newXValue = 999;
-    protected int conflictXValue = 555;
+    protected static final int ORIGINAL_XVALUE = 100;
+    protected static final int NEW_XVALUE = 999;
+    protected static final int CONFLICT_XVALUE = 555;
 
     /**
      * Create a new VersionedPCPoint instance,modify its X value,
@@ -67,11 +67,11 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
         pm.currentTransaction().setNontransactionalWrite(true);
         pm.currentTransaction().setNontransactionalRead(true);
         pm.currentTransaction().setRetainValues(true);
-        VersionedPCPoint instance =  new VersionedPCPoint(originalXValue, 200);
+        VersionedPCPoint instance =  new VersionedPCPoint(ORIGINAL_XVALUE, 200);
         pm.makePersistent(instance);
         oid = pm.getObjectId(instance);
         pm.currentTransaction().commit();
-        instance.setX(newXValue);
+        instance.setX(NEW_XVALUE);
         return instance;
     }
 
@@ -158,7 +158,7 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
             pmConflict.currentTransaction().begin();
             VersionedPCPoint instance = 
                 (VersionedPCPoint)pmConflict.getObjectById(oid);
-            instance.setX(conflictXValue);
+            instance.setX(CONFLICT_XVALUE);
             pmConflict.currentTransaction().commit();
         } finally {
             cleanupPM(pmConflict);

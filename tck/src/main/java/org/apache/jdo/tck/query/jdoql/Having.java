@@ -19,8 +19,8 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.util.Arrays;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -50,37 +50,37 @@ public class Having extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // HAVING clause is not a boolean expression
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "department, AVG(weeklyhours)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    "department HAVING firstname",
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "department, AVG(weeklyhours)",
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    "department HAVING firstname",
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         // HAVING clause is a non-aggregate expression using a non-grouping field
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "department, AVG(weeklyhours)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    "department HAVING firstname == 'emp1First'",
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "department, AVG(weeklyhours)",
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    "department HAVING firstname == 'emp1First'",
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
         
     /**
@@ -96,10 +96,10 @@ public class Having extends QueryTest {
     public void testPositive0() {
         Object expected = Arrays.asList(new Object[] {
                 new Object[] {
-                        getTransientCompanyModelInstance("dept1"),
+                        getTransientCompanyModelInstance(Department.class, "dept1"),
                         Double.valueOf(33.0)},
                 new Object[] {
-                        getTransientCompanyModelInstance("dept2"),
+                        getTransientCompanyModelInstance(Department.class, "dept2"),
                         Double.valueOf(0.0)}});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
@@ -107,7 +107,7 @@ public class Having extends QueryTest {
         query.groupBy(cand.department).having(cand.department.count().gt(0L));
         query.result(false, cand.department, cand.weeklyhours.avg());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department, AVG(weeklyhours)",
                 /*INTO*/        null,
@@ -134,10 +134,10 @@ public class Having extends QueryTest {
         // HAVING clause uses field that isn't contained in the SELECT clause.
         Object expected = Arrays.asList(new Object[] {
                 new Object[] {
-                        getTransientCompanyModelInstance("dept1"),
+                        getTransientCompanyModelInstance(Department.class, "dept1"),
                         Double.valueOf(33.0)},
                 new Object[] {
-                        getTransientCompanyModelInstance("dept2"),
+                        getTransientCompanyModelInstance(Department.class, "dept2"),
                         Double.valueOf(0.0)}});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
@@ -145,7 +145,7 @@ public class Having extends QueryTest {
         query.groupBy(cand.department).having(cand.personid.count().gt(1L));
         query.result(false, cand.department, cand.weeklyhours.avg());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department, AVG(weeklyhours)",
                 /*INTO*/        null,
@@ -169,9 +169,9 @@ public class Having extends QueryTest {
     
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
-            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
+            compileSingleStringQuery(ASSERTION_FAILED, invalidQuery,
                     false);
         }
     }

@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -69,14 +68,14 @@ public class ConversionHelper {
      * Converts the given array into a {@link Map}. 
      * The first dimension represents the map entries,
      * the second dimension holds the keys and values, e.g.
-     * { {"key1", "value1"}, {"key2", {"value2"} }.
+     * { {"key1", "value1"}, {"key2", "value2"} }.
      * @param array the array
      * @return the map
      */
-    public static Map arrayToMap(Object[][] array) {
-        Map map = new HashMap();
-        for (int i = 0; i < array.length; i++) {
-            map.put(array[i][0], array[i][1]);
+    public static Map<Object, Object> arrayToMap(Object[][] array) {
+        Map<Object, Object> map = new HashMap<>();
+        for (Object[] objects : array) {
+            map.put(objects[0], objects[1]);
         }
         return map;
     }
@@ -90,10 +89,11 @@ public class ConversionHelper {
      * @param collection the collection
      * @return the converted collection
      */
-    public static Collection convertsElementsOfTypeObjectArray(Collection collection) {
-        Collection result = new ArrayList();
-        for (Iterator i = collection.iterator(); i.hasNext(); ) {
-            Object current = convertObjectArrayElements(i.next());
+    @SuppressWarnings("unchecked")
+    public static <T> Collection<T> convertsElementsOfTypeObjectArray(Collection<T> collection) {
+        Collection<T>  result = new ArrayList<>();
+        for (T t : collection) {
+            T current = (T) convertObjectArrayElements(t);
             result.add(current);
         }
         return result;
@@ -108,13 +108,13 @@ public class ConversionHelper {
      * @param map the map
      * @return the converted map
      */
-    public static Map convertsElementsOfTypeObjectArray(Map map) {
-        Map result = new HashMap();
-        for (Iterator i = map.entrySet().iterator(); i.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) i.next();
+    @SuppressWarnings("unchecked")
+    public static <K, V> Map<K, V> convertsElementsOfTypeObjectArray(Map<K, V> map) {
+        Map<K, V> result = new HashMap<>();
+        for (Map.Entry<K, V> entry : map.entrySet()) {
             Object key = convertObjectArrayElements(entry.getKey());
             Object value = convertObjectArrayElements(entry.getValue());
-            result.put(key, value);
+            result.put((K) key, (V) value);
         }
         return result;
     }
@@ -134,9 +134,9 @@ public class ConversionHelper {
             result = Arrays.asList(
                     convertObjectArrayElements((Object[])object));
         } else if (object instanceof Collection) {
-            result = convertsElementsOfTypeObjectArray((Collection)object);
+            result = convertsElementsOfTypeObjectArray((Collection<?>)object);
         } else if (object instanceof Map) {
-            result = convertsElementsOfTypeObjectArray((Map)object);
+            result = convertsElementsOfTypeObjectArray((Map<?, ?>)object);
         } else {
             result = object;
         }

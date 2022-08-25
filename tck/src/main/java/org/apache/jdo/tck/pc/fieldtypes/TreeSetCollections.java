@@ -18,49 +18,52 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.TreeSet;
 
 public class TreeSetCollections { 
   public int identifier;
-  public TreeSet TreeSetOfObject0;
-  public TreeSet TreeSetOfObject1;
-  public TreeSet TreeSetOfObject2;
-  public TreeSet TreeSetOfSimpleClass3;
-  public TreeSet TreeSetOfSimpleClass4;
-  public TreeSet TreeSetOfSimpleClass5;
-  public TreeSet TreeSetOfSimpleInterface6;
-  public TreeSet TreeSetOfSimpleInterface7;
-  public TreeSet TreeSetOfSimpleInterface8;
-  public TreeSet TreeSetOfString9;
-  public TreeSet TreeSetOfString10;
-  public TreeSet TreeSetOfString11;
-  public TreeSet TreeSetOfDate12;
-  public TreeSet TreeSetOfDate13;
-  public TreeSet TreeSetOfDate14;
-  public TreeSet TreeSetOfBigDecimal15;
-  public TreeSet TreeSetOfBigDecimal16;
-  public TreeSet TreeSetOfBigDecimal17;
-  public TreeSet TreeSetOfBigInteger18;
-  public TreeSet TreeSetOfBigInteger19;
-  public TreeSet TreeSetOfBigInteger20;
-  public TreeSet TreeSetOfByte21;
-  public TreeSet TreeSetOfByte22;
-  public TreeSet TreeSetOfByte23;
-  public TreeSet TreeSetOfDouble24;
-  public TreeSet TreeSetOfDouble25;
-  public TreeSet TreeSetOfDouble26;
-  public TreeSet TreeSetOfFloat27;
-  public TreeSet TreeSetOfFloat28;
-  public TreeSet TreeSetOfFloat29;
-  public TreeSet TreeSetOfInteger30;
-  public TreeSet TreeSetOfInteger31;
-  public TreeSet TreeSetOfInteger32;
-  public TreeSet TreeSetOfLong33;
-  public TreeSet TreeSetOfLong34;
-  public TreeSet TreeSetOfLong35;
-  public TreeSet TreeSetOfShort36;
-  public TreeSet TreeSetOfShort37;
-  public TreeSet TreeSetOfShort38;
+  public TreeSet<Object> TreeSetOfObject0;
+  public TreeSet<Object> TreeSetOfObject1;
+  public TreeSet<Object> TreeSetOfObject2;
+  public TreeSet<SimpleClass> TreeSetOfSimpleClass3;
+  public TreeSet<SimpleClass> TreeSetOfSimpleClass4;
+  public TreeSet<SimpleClass> TreeSetOfSimpleClass5;
+  public TreeSet<SimpleInterface> TreeSetOfSimpleInterface6;
+  public TreeSet<SimpleInterface> TreeSetOfSimpleInterface7;
+  public TreeSet<SimpleInterface> TreeSetOfSimpleInterface8;
+  public TreeSet<String> TreeSetOfString9;
+  public TreeSet<String> TreeSetOfString10;
+  public TreeSet<String> TreeSetOfString11;
+  public TreeSet<Date> TreeSetOfDate12;
+  public TreeSet<Date> TreeSetOfDate13;
+  public TreeSet<Date> TreeSetOfDate14;
+  public TreeSet<BigDecimal> TreeSetOfBigDecimal15;
+  public TreeSet<BigDecimal> TreeSetOfBigDecimal16;
+  public TreeSet<BigDecimal> TreeSetOfBigDecimal17;
+  public TreeSet<BigInteger> TreeSetOfBigInteger18;
+  public TreeSet<BigInteger> TreeSetOfBigInteger19;
+  public TreeSet<BigInteger> TreeSetOfBigInteger20;
+  public TreeSet<Byte> TreeSetOfByte21;
+  public TreeSet<Byte> TreeSetOfByte22;
+  public TreeSet<Byte> TreeSetOfByte23;
+  public TreeSet<Double> TreeSetOfDouble24;
+  public TreeSet<Double> TreeSetOfDouble25;
+  public TreeSet<Double> TreeSetOfDouble26;
+  public TreeSet<Float> TreeSetOfFloat27;
+  public TreeSet<Float> TreeSetOfFloat28;
+  public TreeSet<Float> TreeSetOfFloat29;
+  public TreeSet<Integer> TreeSetOfInteger30;
+  public TreeSet<Integer> TreeSetOfInteger31;
+  public TreeSet<Integer> TreeSetOfInteger32;
+  public TreeSet<Long> TreeSetOfLong33;
+  public TreeSet<Long> TreeSetOfLong34;
+  public TreeSet<Long> TreeSetOfLong35;
+  public TreeSet<Short> TreeSetOfShort36;
+  public TreeSet<Short> TreeSetOfShort37;
+  public TreeSet<Short> TreeSetOfShort38;
 
   public static final String [] fieldSpecs = { 
   "public TreeSet TreeSetOfObject0",
@@ -107,6 +110,8 @@ public class TreeSetCollections {
   {
     return fieldSpecs.length;
   }
+
+  @SuppressWarnings("rawtypes")
   public TreeSet get(int index)
   {
     switch (index)
@@ -193,7 +198,9 @@ public class TreeSetCollections {
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index,TreeSet value)
+
+  @SuppressWarnings("unchecked")
+  public boolean set(int index, @SuppressWarnings("rawtypes") TreeSet value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -323,6 +330,9 @@ public class TreeSetCollections {
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -332,7 +342,7 @@ public class TreeSetCollections {
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

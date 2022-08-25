@@ -26,7 +26,7 @@ public interface StringExpression extends ComparableExpression<String>
      * @param expr The other expression
      * @return The summation
      */
-    StringExpression add(Expression expr);
+    StringExpression add(Expression<?> expr);
 
     /**
      * Method to return an expression for this expression added to the passed string (String concatenation).

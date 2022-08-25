@@ -37,8 +37,10 @@ public class CompanyFactoryAnnotatedJPAAppPM
     public CompanyFactoryAnnotatedJPAAppPM(PersistenceManager pm) {
         super(pm);
     }
-    
-    public Class[] getTearDownClasses() {
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             JPAAppDentalInsurance.class,
             JPAAppMedicalInsurance.class,
@@ -52,38 +54,38 @@ public class CompanyFactoryAnnotatedJPAAppPM
     }
     
     public IAddress newAddress() {
-        return (IAddress)pm.newInstance(JPAAppAddress.class);
+        return pm.newInstance(JPAAppAddress.class);
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return null;
     }
     
     public ICompany newCompany() {
-        return (ICompany)pm.newInstance(JPAAppCompany.class);
+        return pm.newInstance(JPAAppCompany.class);
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(JPAAppDentalInsurance.class);
+        return pm.newInstance(JPAAppDentalInsurance.class);
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(JPAAppDepartment.class);
+        return pm.newInstance(JPAAppDepartment.class);
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(JPAAppFullTimeEmployee.class);
+        return pm.newInstance(JPAAppFullTimeEmployee.class);
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(JPAAppMedicalInsurance.class);
+        return pm.newInstance(JPAAppMedicalInsurance.class);
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(JPAAppPartTimeEmployee.class);
+        return pm.newInstance(JPAAppPartTimeEmployee.class);
     }
     
     public IProject newProject() {
-        return (IProject)pm.newInstance(JPAAppProject.class);
+        return pm.newInstance(JPAAppProject.class);
     }
 }

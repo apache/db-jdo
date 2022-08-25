@@ -51,12 +51,12 @@ public class DetachUndetachable extends DetachTest {
     public void testDetachUndetachable() {
         setupUndetachable();
         getPM().currentTransaction().begin();
-        Undetachable instance = (Undetachable)pm.detachCopy(un1);
-        if (JDOHelper.isPersistent((Object)instance)) {
+        Undetachable instance = pm.detachCopy(un1);
+        if (JDOHelper.isPersistent(instance)) {
             appendMessage("testDetachUndetachable: should be transient" + 
                 " but is not. The object state is: " +
-                states[currentState((Object)instance)] 
-                + " " + getStateOfInstance((Object)instance));
+                states[currentState(instance)]
+                + " " + getStateOfInstance(instance));
         }
         pm.currentTransaction().commit();
         failOnError();

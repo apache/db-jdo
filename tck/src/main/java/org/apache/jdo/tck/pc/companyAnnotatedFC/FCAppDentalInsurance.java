@@ -32,6 +32,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class FCAppDentalInsurance extends FCAppInsurance implements IDentalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="LIFETIME_ORTHO_BENEFIT")
     private BigDecimal lifetimeOrthoBenefit;
 
@@ -89,6 +91,7 @@ public class FCAppDentalInsurance extends FCAppInsurance implements IDentalInsur
      * @return a String representation of a <code>FCAppDentalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "FCDentalInsurance(" + getFieldRepr()+ ")";
     }
@@ -97,8 +100,9 @@ public class FCAppDentalInsurance extends FCAppInsurance implements IDentalInsur
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", lifetimeOrthoBenefit ").append(lifetimeOrthoBenefit);
         return rc.toString();
@@ -115,7 +119,8 @@ public class FCAppDentalInsurance extends FCAppInsurance implements IDentalInsur
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         FCAppDentalInsurance otherIns = (FCAppDentalInsurance)other;
         String where = "FCDentalInsurance<" + getInsid() + ">";

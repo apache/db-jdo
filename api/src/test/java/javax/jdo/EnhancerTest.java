@@ -38,10 +38,10 @@ import javax.jdo.util.BatchTestRunner;
 public class EnhancerTest extends AbstractTest {
 
     /** The path delimiter for constructing classpaths. */
-    private static String pathDelimiter = System.getProperty("path.separator");
+    private static final String PATH_DELIMITER = System.getProperty("path.separator");
 
     /** The maven basedir identifying the directory of the execution environment. */
-    private static String basedir = System.getProperty("basedir");
+    private static final String BASEDIR = System.getProperty("basedir");
 
     /**
      * Main
@@ -192,7 +192,7 @@ public class EnhancerTest extends AbstractTest {
         // invoke enhancer with a classpath parameter
         // JDOHelper must be loadable from this path
         // the File.toURI should append "/" to the path, so only "target/classes" is needed
-        InvocationResult result = invokeEnhancer("-v -cp " + basedir + "/target/classes");
+        InvocationResult result = invokeEnhancer("-v -cp " + BASEDIR + "/target/classes");
         String outputString = result.getOutputString();
         String errorString = result.getErrorString();
         assertEquals("Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
@@ -214,11 +214,11 @@ public class EnhancerTest extends AbstractTest {
         // JDOHelper must be loadable from this path
         // create the jar file from the target/classes directory
         String uuid = UUID.randomUUID().toString();
-        File uuidDir = new File(basedir + "/target/" + uuid);
+        File uuidDir = new File(BASEDIR + "/target/" + uuid);
         uuidDir.mkdirs();
         String enhancerJar = "target/" + uuid + "/enhancer-test.jar";
-        String enhancerJarPathname = basedir + "/" + enhancerJar;
-        Process create = Runtime.getRuntime().exec("jar -cf " + enhancerJarPathname + " -C " + basedir + "/target/classes .");
+        String enhancerJarPathname = BASEDIR + "/" + enhancerJar;
+        Process create = Runtime.getRuntime().exec("jar -cf " + enhancerJarPathname + " -C " + BASEDIR + "/target/classes .");
         int returnCode = create.waitFor();
         assertEquals("jar command returned wrong return code.", 0, returnCode);
         // find the jdo.jar in target
@@ -246,7 +246,7 @@ public class EnhancerTest extends AbstractTest {
 
     public void testDir() {
         // invoke enhancer with directory and not recurse
-        InvocationResult result = invokeEnhancer("-v " + basedir + "/target/test-classes/enhancer-test-dir");
+        InvocationResult result = invokeEnhancer("-v " + BASEDIR + "/target/test-classes/enhancer-test-dir");
         String outputString = result.getOutputString();
         String errorString = result.getErrorString();
         assertEquals("Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
@@ -260,7 +260,7 @@ public class EnhancerTest extends AbstractTest {
 
     public void testDirRecurse() {
         // invoke enhancer with directory and recurse
-        InvocationResult result = invokeEnhancer("-v -r " + basedir + "/target/test-classes/enhancer-test-dir");
+        InvocationResult result = invokeEnhancer("-v -r " + BASEDIR + "/target/test-classes/enhancer-test-dir");
         String outputString = result.getOutputString();
         String errorString = result.getErrorString();
         assertEquals("Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
@@ -279,11 +279,11 @@ public class EnhancerTest extends AbstractTest {
         InvocationResult result = new InvocationResult();
         try {
             // create the java command to invoke the Enhancer
-            List<String> commands = new ArrayList<String>();
+            List<String> commands = new ArrayList<>();
             // find the java command in the user's path
             commands.add("java");
             commands.add("-cp");
-            commands.add("" + basedir + "/target/classes" + pathDelimiter + "" + basedir + "/target/test-classes");
+            commands.add("" + BASEDIR + "/target/classes" + PATH_DELIMITER + "" + BASEDIR + "/target/test-classes");
             commands.add("javax.jdo.Enhancer");
             // add the test options (from the method parameter) to the java command
             String[] optionArray = string.split(" ");
@@ -324,19 +324,17 @@ public class EnhancerTest extends AbstractTest {
     private Thread createReaderThread(final InputStream input, final CharBuffer output) {
         final Reader reader = new InputStreamReader(input);
         Thread thread = new Thread(
-                new Runnable() {
-                    public void run() {
-                        int count = 0;
-                        int outputBytesRead = 0;
-                        try {
-                            while (-1 != (outputBytesRead = reader.read(output))) {
-                                count += outputBytesRead;
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } finally {
-                            output.flip();
+                () -> {
+                    int count = 0;
+                    int outputBytesRead = 0;
+                    try {
+                        while (-1 != (outputBytesRead = reader.read(output))) {
+                            count += outputBytesRead;
                         }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        output.flip();
                     }
                 });
         thread.start();

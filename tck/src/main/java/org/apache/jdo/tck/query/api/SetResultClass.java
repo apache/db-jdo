@@ -21,7 +21,6 @@ import java.util.Arrays;
 
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
@@ -48,7 +47,7 @@ public class SetResultClass extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         Arrays.asList(new Object[] {
                 new FullName("emp1First", "emp1Last"), 
                 new FullName("emp2First", "emp2Last"),
@@ -69,7 +68,7 @@ public class SetResultClass extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(Person.class);
+        Query<Person> query = getPM().newQuery(Person.class);
         query.setResultClass(FullName.class);
         query.setResult("firstname, lastname");
         String singleStringQuery = 

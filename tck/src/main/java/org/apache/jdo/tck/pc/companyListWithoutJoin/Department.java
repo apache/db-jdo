@@ -18,10 +18,7 @@
 package org.apache.jdo.tck.pc.companyListWithoutJoin;
 
 import java.io.Serializable;
-import java.io.ObjectInputStream;
-import java.io.IOException;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -32,14 +29,16 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a department within a company.
  */
 public class Department
-    implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
+    implements IDepartment, Serializable, Comparable<IDepartment>, Comparator<IDepartment>, DeepEquality {
+
+    private static final long serialVersionUID = 1L;
 
     public static final int RECOMMENDED_NO_OF_EMPS = 2;
     
     private long    deptid;
     private String  name;
     private Company company;
-    private List employees;
+    private List<IEmployee> employees;
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -75,11 +74,10 @@ public class Department
      * @param company The company that the department is associated with.
      * @param employees List of employees
      */
-    public Department(long deptid, String name, Company company, 
-                      List employees) {
+    public Department(long deptid, String name, Company company, List<IEmployee> employees) {
         this.deptid = deptid;
         this.name = name;
-        this.company = (Company)company;
+        this.company = company;
         this.employees = employees;
     }
 
@@ -139,7 +137,7 @@ public class Department
      * @return The set of employees in the department, as an unmodifiable
      * set. 
      */
-    public List getEmployees() {
+    public List<IEmployee> getEmployees() {
         return employees;
     }
 
@@ -163,7 +161,7 @@ public class Department
      * Set the employees to be in this department.
      * @param employees The employees for this department.
      */
-    public void setEmployees(List employees) {
+    public void setEmployees(List<IEmployee> employees) {
         this.employees = employees;
     }
 
@@ -202,31 +200,10 @@ public class Department
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(deptid);
         rc.append(", name ").append(name);
         return rc.toString();
-    }
-
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((IDepartment)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((IDepartment)o1, (IDepartment)o2);
     }
 
     /** 
@@ -252,7 +229,7 @@ public class Department
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IDepartment o1, IDepartment o2) {
+    public int compare(IDepartment o1, IDepartment o2) {
         return EqualityHelper.compare(o1.getDeptid(), o2.getDeptid());
     }
     
@@ -281,7 +258,9 @@ public class Department
      * The application identity class associated with the
      * <code>Department</code> class. 
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the application identifier field 
@@ -328,12 +307,8 @@ public class Department
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( deptid < other.deptid ) return -1;
-            if( deptid > other.deptid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(deptid, obj.deptid);
         }
 
     }

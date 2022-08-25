@@ -39,16 +39,18 @@ import javax.jdo.spi.I18NHelper;
  * a new user-defined class for the purpose.
  * @version 2.0
  */
-public abstract class SingleFieldIdentity
-    implements Externalizable, Comparable {
-    
+public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<SUBCLASS>>
+        implements Externalizable, Comparable<SUBCLASS>  {
+
+    private static final long serialVersionUID = 1L;
+
     /** The Internationalization message helper.
      */
-    protected static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
+    protected static final I18NHelper MSG = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
 
     /** The class of the target object.
      */
-    transient private Class targetClass;
+    transient private Class<?> targetClass;
     
     /** The name of the class of the target object.
      */
@@ -66,7 +68,7 @@ public abstract class SingleFieldIdentity
      * @param pcClass the class of the target
      * @since 2.0
      */
-    protected SingleFieldIdentity(Class pcClass) {
+    protected SingleFieldIdentity(Class<?> pcClass) {
         if (pcClass == null)
             throw new NullPointerException();
         targetClass = pcClass;
@@ -97,7 +99,7 @@ public abstract class SingleFieldIdentity
     protected void assertKeyNotNull(Object key) {
         if (key == null) {
             throw new JDONullIdentityException(
-                msg.msg("EXC_SingleFieldIdentityNullParameter")); //NOI18N
+                MSG.msg("EXC_SingleFieldIdentityNullParameter")); //NOI18N
         }
     }
     
@@ -105,7 +107,7 @@ public abstract class SingleFieldIdentity
      * @return the target class.
      * @since 2.0
      */
-    public Class getTargetClass() {
+    public Class<?> getTargetClass() {
         return targetClass;
     }
 
@@ -135,7 +137,7 @@ public abstract class SingleFieldIdentity
      */
     protected Object createKeyAsObject() {
         throw new JDOFatalInternalException
-                (msg.msg("EXC_CreateKeyAsObjectMustNotBeCalled"));
+                (MSG.msg("EXC_CreateKeyAsObjectMustNotBeCalled"));
     }
     
     /** Check the class and class name and object type. If restored
@@ -149,7 +151,7 @@ public abstract class SingleFieldIdentity
         } else if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         } else {
-            SingleFieldIdentity other = (SingleFieldIdentity) obj;
+            SingleFieldIdentity<?> other = (SingleFieldIdentity<?>) obj;
             if (targetClass != null && targetClass == other.targetClass)
                 return true;
             return targetClassName.equals (other.targetClassName);
@@ -195,7 +197,7 @@ public abstract class SingleFieldIdentity
      * @return The relative ordering between the objects
      * @since 2.2
      */
-    protected int compare(SingleFieldIdentity o) {
+    protected int compare(SingleFieldIdentity<?> o) {
             return targetClassName.compareTo(o.targetClassName);
         }
  

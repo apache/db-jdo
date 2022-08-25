@@ -20,7 +20,6 @@ import java.util.Arrays;
 
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
@@ -43,13 +42,13 @@ public class SaveAsNamedQuery extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-22 (SaveAsNamedQuery) failed: ";
     
-    private static String singleStringQuery = 
+    private static final String SINGLE_STRING_QUERY =
         "SELECT firstname, lastname FROM org.apache.jdo.tck.pc.company.Person";
 
     /**
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         Arrays.asList(new Object[] {
                 new FullName("emp1First", "emp1Last"), 
                 new FullName("emp2First", "emp2Last"),
@@ -68,13 +67,14 @@ public class SaveAsNamedQuery extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testSave() {
         int index = 0;
-        Query query = getPM().newQuery(singleStringQuery);
+        Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
         query.setResultClass(FullName.class);
         query.setRange(0, 5);
         query.setIgnoreCache(true);
-        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, false, null, expectedResult[index], true);
+        executeJDOQuery(ASSERTION_FAILED, query, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
 
         // Save query under this name
         String savedName = "MySavedName";
@@ -82,9 +82,9 @@ public class SaveAsNamedQuery extends QueryTest {
         query.closeAll();
 
         // Retrieve via the name, and execute
-        Query namedQuery = getPM().newNamedQuery(Person.class, savedName);
+        Query<Person> namedQuery = getPM().newNamedQuery(Person.class, savedName);
         assertNotNull(namedQuery);
-        executeJDOQuery(ASSERTION_FAILED, namedQuery, singleStringQuery, false, null, expectedResult[index], true);
+        executeJDOQuery(ASSERTION_FAILED, namedQuery, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
         namedQuery.closeAll();
     }
 

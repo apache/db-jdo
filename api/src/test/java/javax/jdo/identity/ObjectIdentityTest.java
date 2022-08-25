@@ -52,14 +52,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     /** The JDOImplHelper instance used for Date formatting.
      */
-    private static JDOImplHelper helper = (JDOImplHelper)
-        doPrivileged(
-            new PrivilegedAction<JDOImplHelper> () {
-                public JDOImplHelper run () {
-                    return JDOImplHelper.getInstance();
-                }
-            }
-        );
+    private static final JDOImplHelper helper = doPrivileged(JDOImplHelper::getInstance);
 
     @SuppressWarnings("unchecked")
     private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
@@ -268,25 +261,25 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
 
     public void testStringLocaleConstructorLanguage() {
         if (!isClassLoadable("java.util.Currency")) return;
-        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
+        SingleFieldIdentity<ObjectIdentity> c1 = new ObjectIdentity(Object.class,
                     "java.util.Locale:en");
         assertEquals(new Locale("en"), c1.getKeyAsObject());
     }
 
     public void testStringLocaleConstructorCountry() {
-        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
+        SingleFieldIdentity<ObjectIdentity> c1 = new ObjectIdentity(Object.class,
                     "java.util.Locale:_US");
         assertEquals(new Locale("","US"), c1.getKeyAsObject());
     }
 
     public void testStringLocaleConstructorLanguageCountry() {
-        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
+        SingleFieldIdentity<ObjectIdentity> c1 = new ObjectIdentity(Object.class,
                     "java.util.Locale:en_US");
         assertEquals(new Locale("en","US"), c1.getKeyAsObject());
     }
 
     public void testStringLocaleConstructorLanguageCountryVariant() {
-        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
+        SingleFieldIdentity<ObjectIdentity> c1 = new ObjectIdentity(Object.class,
                     "java.util.Locale:en_US_MAC");
         assertEquals(new Locale("en","US","MAC"), c1.getKeyAsObject());
     }
@@ -423,7 +416,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     public static class IdClass implements Serializable {
 		private static final long serialVersionUID = 5718122068872969580L;
 
-		public int value;
+		public final int value;
         public IdClass() {value = 0;}
         public IdClass(int value) {this.value = value;}
         public IdClass(String str) {this.value = Integer.parseInt(str);}

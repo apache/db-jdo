@@ -21,7 +21,6 @@ import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -59,14 +58,14 @@ public class ParameterBoundToDifferentPM extends QueryTest {
     public void testNegative() {
         // get parameter dept1
         getPM().currentTransaction().begin();
-        Department dept1 = (Department) getPersistentCompanyModelInstance("dept1");
+        Department dept1 = getPersistentCompanyModelInstance(Department.class, "dept1");
         getPM().currentTransaction().commit();
         
         // pass parameter dept1 to query of different pm
         PersistenceManager pm2 = pmf.getPersistenceManager();
         pm2.currentTransaction().begin();
         try {
-            Query q = pm2.newQuery(Employee.class, "department == d");
+            Query<Employee> q = pm2.newQuery(Employee.class, "department == d");
             q.declareParameters("Department d"); 
             try {
                 q.execute(dept1);

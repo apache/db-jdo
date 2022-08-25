@@ -17,8 +17,8 @@
 
 package org.apache.jdo.tck.query.api;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -45,29 +45,29 @@ public class NewQuerySingleString extends QueryTest {
      * The array of valid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+    private static final QueryElementHolder<?>[] VALID_QUERIES = {
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Person.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
 
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"})
+    private final Object[] expectedResult = {
+        getTransientCompanyModelInstancesAsList(Employee.class,
+                "emp1", "emp2", "emp3", "emp4", "emp5")
     };
             
     /**

@@ -21,10 +21,14 @@ package org.apache.jdo.tck.pc.lifecycle;
 import java.io.Serializable;
 
 public class StateTransitionObj implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private static int counter = 0;
     
     private int      id;
     private int      int_field;
+
     private transient int nonmanaged_field;
     
     public StateTransitionObj()
@@ -71,7 +75,9 @@ public class StateTransitionObj implements Serializable {
      * The class to be used as the application identifier
      * for the <code>StateTransitionObj</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field is part of the identifier and should match in name
@@ -115,10 +121,8 @@ public class StateTransitionObj implements Serializable {
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            return id - other.id;
+        public int compareTo(Oid obj) {
+            return id - obj.id;
         }
         
     }

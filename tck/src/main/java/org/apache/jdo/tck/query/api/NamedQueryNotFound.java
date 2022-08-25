@@ -55,7 +55,7 @@ public class NamedQueryNotFound extends QueryTest {
             fail(ASSERTION_FAILED + 
                     "The lookup of named query 'nonExistingNamedQuery' " +
                     "is successful, though that named query is undefined.");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
 }

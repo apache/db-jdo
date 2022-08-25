@@ -64,8 +64,8 @@ public class SystemCfgSummary {
     static String getSystemInfo() {
         
         Properties props = System.getProperties();
-        Enumeration propEnum = props.propertyNames();
-        StringBuffer sysinfo = new StringBuffer();
+        Enumeration<?> propEnum = props.propertyNames();
+        StringBuilder sysinfo = new StringBuilder();
         while (propEnum.hasMoreElements()) {
             String key = (String)propEnum.nextElement();
             sysinfo.append(key + ":  " + props.getProperty(key) + newLine);
@@ -80,16 +80,11 @@ public class SystemCfgSummary {
      * @param message the message
      */
     static void saveSystemInfo(String path, String message) {
-        PrintStream resultStream = null;
-        try {
-            resultStream = new PrintStream(
-                    new FileOutputStream(path, true));
+        try (PrintStream resultStream = new PrintStream(
+                new FileOutputStream(path, true))) {
             resultStream.println(message);
         } catch (FileNotFoundException e) {
             throw new JDOFatalException("Cannot create file " + path, e);
-        } finally {
-            if (resultStream != null)
-                resultStream.close();
         }
     }
 }

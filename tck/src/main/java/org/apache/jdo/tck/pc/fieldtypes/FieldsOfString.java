@@ -36,7 +36,7 @@ public class FieldsOfString {
   private transient String String12;
   private transient String String13;
   private transient String String14;
-  private final String String15 = new String("JDO TCK");
+  private final String String15 = "JDO TCK";
   private volatile String String16;
   private volatile String String17;
   private volatile String String18;
@@ -46,16 +46,16 @@ public class FieldsOfString {
   private volatile String String22;
   private volatile String String23;
   private static transient String String24;
-  private static final String String25 = new String("JDO TCK");
+  private static final String String25 = "JDO TCK";
   private static volatile String String26;
-  private transient final String String27 = new String("JDO TCK");
+  private transient final String String27 = "JDO TCK";
   private transient volatile String String28;
   private transient volatile String String29;
   private transient volatile String String30;
   private transient volatile String String31;
   private transient volatile String String32;
   private transient volatile String String33;
-  private static transient final String String34 = new String("JDO TCK");
+  private static transient final String String34 = "JDO TCK";
   private static transient volatile String String35;
   public String String36;
   public String String37;
@@ -72,7 +72,7 @@ public class FieldsOfString {
   public transient String String48;
   public transient String String49;
   public transient String String50;
-  public final String String51 = new String("JDO TCK");
+  public final String String51 = "JDO TCK";
   public volatile String String52;
   public volatile String String53;
   public volatile String String54;
@@ -82,16 +82,16 @@ public class FieldsOfString {
   public volatile String String58;
   public volatile String String59;
   public static transient String String60;
-  public static final String String61 = new String("JDO TCK");
+  public static final String String61 = "JDO TCK";
   public static volatile String String62;
-  public transient final String String63 = new String("JDO TCK");
+  public transient final String String63 = "JDO TCK";
   public transient volatile String String64;
   public transient volatile String String65;
   public transient volatile String String66;
   public transient volatile String String67;
   public transient volatile String String68;
   public transient volatile String String69;
-  public static transient final String String70 = new String("JDO TCK");
+  public static transient final String String70 = "JDO TCK";
   public static transient volatile String String71;
   protected String String72;
   protected String String73;
@@ -108,7 +108,7 @@ public class FieldsOfString {
   protected transient String String84;
   protected transient String String85;
   protected transient String String86;
-  protected final String String87 = new String("JDO TCK");
+  protected final String String87 = "JDO TCK";
   protected volatile String String88;
   protected volatile String String89;
   protected volatile String String90;
@@ -118,16 +118,16 @@ public class FieldsOfString {
   protected volatile String String94;
   protected volatile String String95;
   protected static transient String String96;
-  protected static final String String97 = new String("JDO TCK");
+  protected static final String String97 = "JDO TCK";
   protected static volatile String String98;
-  protected transient final String String99 = new String("JDO TCK");
+  protected transient final String String99 = "JDO TCK";
   protected transient volatile String String100;
   protected transient volatile String String101;
   protected transient volatile String String102;
   protected transient volatile String String103;
   protected transient volatile String String104;
   protected transient volatile String String105;
-  protected static transient final String String106 = new String("JDO TCK");
+  protected static transient final String String106 = "JDO TCK";
   protected static transient volatile String String107;
   String String108;
   String String109;
@@ -144,7 +144,7 @@ public class FieldsOfString {
   transient String String120;
   transient String String121;
   transient String String122;
-  final String String123 = new String("JDO TCK");
+  final String String123 = "JDO TCK";
   volatile String String124;
   volatile String String125;
   volatile String String126;
@@ -154,16 +154,16 @@ public class FieldsOfString {
   volatile String String130;
   volatile String String131;
   static transient String String132;
-  static final String String133 = new String("JDO TCK");
+  static final String String133 = "JDO TCK";
   static volatile String String134;
-  transient final String String135 = new String("JDO TCK");
+  transient final String String135 = "JDO TCK";
   transient volatile String String136;
   transient volatile String String137;
   transient volatile String String138;
   transient volatile String String139;
   transient volatile String String140;
   transient volatile String String141;
-  static transient final String String142 = new String("JDO TCK");
+  static transient final String String142 = "JDO TCK";
   static transient volatile String String143;
 
 public static final boolean [] isPersistent = { 
@@ -1063,6 +1063,9 @@ false,false,true,false
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -1072,7 +1075,7 @@ false,false,true,false
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

@@ -19,13 +19,14 @@ package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
 import java.util.Date;
 
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
  * This class represents a full-time employee.
  */
 public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
+
+    private static final long serialVersionUID = 1L;
 
     private double  salary;
 
@@ -81,7 +82,7 @@ public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
      * @return a String representation of the non-relationship fields.
      */
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $").append(salary);
         return rc.toString();

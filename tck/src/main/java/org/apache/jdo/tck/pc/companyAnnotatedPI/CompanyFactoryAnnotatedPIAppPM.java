@@ -38,8 +38,10 @@ public class CompanyFactoryAnnotatedPIAppPM
     public CompanyFactoryAnnotatedPIAppPM(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
-    public Class[] getTearDownClasses() {
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PIAppDentalInsurance.class,
             PIAppMedicalInsurance.class,
@@ -53,38 +55,38 @@ public class CompanyFactoryAnnotatedPIAppPM
     }
     
     public IAddress newAddress() {
-        return (IAddress)pm.newInstance(PIAppAddress.class);
+        return pm.newInstance(PIAppAddress.class);
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return null;
     }
     
     public ICompany newCompany() {
-        return (ICompany)pm.newInstance(PIAppCompany.class);
+        return pm.newInstance(PIAppCompany.class);
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(PIAppDentalInsurance.class);
+        return pm.newInstance(PIAppDentalInsurance.class);
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(PIAppDepartment.class);
+        return pm.newInstance(PIAppDepartment.class);
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(PIAppFullTimeEmployee.class);
+        return pm.newInstance(PIAppFullTimeEmployee.class);
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(PIAppMedicalInsurance.class);
+        return pm.newInstance(PIAppMedicalInsurance.class);
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(PIAppPartTimeEmployee.class);
+        return pm.newInstance(PIAppPartTimeEmployee.class);
     }
     
     public IProject newProject() {
-        return (IProject)pm.newInstance(PIAppProject.class);
+        return pm.newInstance(PIAppProject.class);
     }
 }

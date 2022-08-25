@@ -29,10 +29,10 @@ public interface IDepartment {
     long getDeptid();
     String getName();
     ICompany getCompany();
-    List getEmployees();
+    List<IEmployee> getEmployees();
     
     void setDeptid(long deptid);
     void setName(String name);
     void setCompany(ICompany company);
-    void setEmployees(List employees);
+    void setEmployees(List<IEmployee> employees);
 }

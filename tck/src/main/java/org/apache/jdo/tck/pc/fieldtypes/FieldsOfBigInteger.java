@@ -1064,6 +1064,9 @@ false,false,true,false
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -1073,7 +1076,7 @@ false,false,true,false
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

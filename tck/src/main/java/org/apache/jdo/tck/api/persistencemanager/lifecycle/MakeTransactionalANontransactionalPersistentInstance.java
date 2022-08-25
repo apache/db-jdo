@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
@@ -61,8 +62,8 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection col1 = new java.util.HashSet();
-    private Collection col2 = new java.util.HashSet();
+    private final Collection<PCPoint> col1 = new HashSet<>();
+    private final Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInstance() {
@@ -158,7 +159,7 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
             tx.begin();
 
             if (makePersistentNonTranInstance(p1)) {
-                ; // expected result
+                // expected result
             }
             tx.commit();
             tx = null;
@@ -217,7 +218,7 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
             if ( makePersistentNonTranInstance(p2) &&
                  makePersistentNonTranInstance(p3) &&
                  makePersistentNonTranInstance(p4)) {
-                ;  // expected result
+                // expected result
             }
             tx.commit();
 
@@ -277,7 +278,7 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
             if ( makePersistentNonTranInstance(p5) &&
                  makePersistentNonTranInstance(p6) &&
                  makePersistentNonTranInstance(p7)) {
-                ;  // expected result
+                // expected result
             }
             tx.commit();
 

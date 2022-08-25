@@ -125,7 +125,7 @@ public class TestFieldsOfDouble extends JDO_Test {
                 fail(ASSERTION_FAILED,
                      "Incorrect value for " + FieldsOfDouble.fieldSpecs[i] +
                      ", expected value " + startValue.toString() +
-                     ", value is " + val.toString());
+                     ", value is " + val);
             }
         }
     }

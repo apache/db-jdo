@@ -20,6 +20,7 @@ package org.apache.jdo.tck.query.api;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -63,7 +63,8 @@ public class NewQueryFromRestoredSerializedQuery extends QueryTest {
      *
      * @throws Exception exception
      */
-    public void testPositive() throws Exception {
+    @SuppressWarnings("unchecked")
+    public void testPositive() throws IOException, ClassNotFoundException {
         PersistenceManager pm = getPM();
         if (debug)
             logger.debug("\nExecuting test NewQueryFromRestoredSerializedQuery01() ...");
@@ -72,8 +73,7 @@ public class NewQueryFromRestoredSerializedQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == 3");
             query.compile();
@@ -88,14 +88,14 @@ public class NewQueryFromRestoredSerializedQuery extends QueryTest {
             } 
             finally {
                 if (oos != null) {
-                    try { oos.flush();} catch(Exception ex) {}
-                    try { oos.close();} catch(Exception ex) {}
+                    try { oos.flush();} catch(Exception ignored) {}
+                    try { oos.close();} catch(Exception ignored) {}
                 }
             }
 
             ObjectInputStream in = 
                 new ObjectInputStream(new FileInputStream(SERIALZED_QUERY));
-            Query query1 = (Query)in.readObject();
+            Query<PCPoint> query1 = (Query<PCPoint>)in.readObject();
             
             // init and execute query
             query = pm.newQuery(query1);
@@ -103,8 +103,8 @@ public class NewQueryFromRestoredSerializedQuery extends QueryTest {
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p4 = new PCPoint(3, 3);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p4 = new PCPoint(3, 3);
             expected.add(p4);
             expected = getFromInserted(expected);
             printOutput(results, expected);

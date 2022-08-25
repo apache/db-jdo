@@ -27,7 +27,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.QDentalInsurance;
@@ -75,14 +74,14 @@ public class OrderingSpecification extends QueryTest {
     /** */
     public void testPositiveCompanyQueries0() {
         // nulls first
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "dentalIns99", "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5"});
+        List<DentalInsurance> expected = getTransientCompanyModelInstancesAsList(DentalInsurance.class,
+                "dentalIns99", "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5");
 
         JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
         QDentalInsurance cand = QDentalInsurance.candidate();
         query.orderBy(cand.lifetimeOrthoBenefit.asc().nullsFirst());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -107,14 +106,14 @@ public class OrderingSpecification extends QueryTest {
     /** */
     public void testPositiveCompanyQueries1() {
         // nulls last
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5", "dentalIns99"});
+        List<DentalInsurance> expected = getTransientCompanyModelInstancesAsList(DentalInsurance.class,
+                "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5", "dentalIns99");
 
         JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
         QDentalInsurance cand = QDentalInsurance.candidate();
         query.orderBy(cand.lifetimeOrthoBenefit.asc().nullsLast());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -154,8 +153,7 @@ public class OrderingSpecification extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setOrdering("x ascending");
             Object results = query.execute();
@@ -184,18 +182,17 @@ public class OrderingSpecification extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setOrdering("x descending");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            ListIterator li = inserted.listIterator(inserted.size());
+            List<PCPoint> expected = new ArrayList<>();
+            ListIterator<PCPoint> li = inserted.listIterator(inserted.size());
             // construct expected results by iterating inserted objects backwards
             while (li.hasPrevious()) {
-                Object obj = li.previous();
+                PCPoint obj = li.previous();
                 expected.add(obj);
             }
             expected = getFromInserted(expected);
@@ -216,15 +213,13 @@ public class OrderingSpecification extends QueryTest {
     /** */
     void checkOrderingTypes(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
-        Class clazz = PCPoint.class;
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(AllTypes.class);
+            Query<AllTypes> query = pm.newQuery(AllTypes.class);
             query.setCandidates(pm.getExtent(AllTypes.class, false));
             
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             buffer.append("  fld_byte ascending");
             buffer.append(", fld_char ascending");
             buffer.append(", fld_double ascending");

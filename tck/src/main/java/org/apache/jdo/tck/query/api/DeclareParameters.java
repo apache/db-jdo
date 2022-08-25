@@ -25,7 +25,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -70,16 +69,15 @@ public class DeclareParameters extends QueryTest {
         try {
             tx.begin();
     
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param");
             query.setFilter("x == param");
             Object results = query.execute(Integer.valueOf(2));
     
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -101,16 +99,15 @@ public class DeclareParameters extends QueryTest {
         try {
             tx.begin();
             
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param1, Integer param2");
             query.setFilter("x == param1 && y == param2");
             Object results = query.execute(Integer.valueOf(2), Integer.valueOf(2));
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -132,16 +129,15 @@ public class DeclareParameters extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("int a, int b");
             query.setFilter("x == a && y == b");
             Object results = query.execute(Integer.valueOf(1), Integer.valueOf(1));
 
             // check query result
-            List expected = new ArrayList();
-            Object p = new PCPoint(1, 1);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p = new PCPoint(1, 1);
             expected.add(p);
             expected = getFromInserted(expected);
             printOutput(results, expected);

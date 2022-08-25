@@ -21,9 +21,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
@@ -64,7 +64,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
     }
     
     /** Parameters of valid queries. */
-    private Object[][] parameters = {
+    private final Object[][] parameters = {
         // date field == date parameter
         {FIRST_OF_JAN_1999},
         // date field >= date parameter
@@ -86,7 +86,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
      *
      */
     public void testFieldEqualsParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -97,7 +97,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
         paramValues.put("param", FIRST_OF_JAN_1999);
 
         // date field == date parameter
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -123,8 +123,8 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
      *
      */
     public void testFieldGEParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4"});
+        List<Employee> expected =
+                getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3", "emp4");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -135,7 +135,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
         paramValues.put("param", FIRST_OF_JAN_1999);
 
         // date field >= date parameter
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -161,7 +161,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
      *
      */
     public void testParameterLTField() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -172,8 +172,8 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
         paramValues.put("param", FIRST_OF_JAN_1999);
 
         // Import Department twice
-        QueryElementHolder holder = // date parameter < date field
-                new QueryElementHolder(
+        QueryElementHolder<Employee> holder = // date parameter < date field
+                new QueryElementHolder<>(
                         /*UNIQUE*/      null,
                         /*RESULT*/      null,
                         /*INTO*/        null,

@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Person;
@@ -29,6 +28,7 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QPerson;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Identifiers Equal Field Names.
@@ -59,13 +59,13 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.eq("emp1First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -89,14 +89,14 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
     /** */
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
+                "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.personid.lt((long)Byte.MAX_VALUE));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -119,14 +119,15 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.size().gt(org.apache.jdo.tck.pc.company.Department.RECOMMENDED_NO_OF_EMPS));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -149,14 +150,15 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive3() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -179,14 +181,15 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive4() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"}) ;
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1") ;
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

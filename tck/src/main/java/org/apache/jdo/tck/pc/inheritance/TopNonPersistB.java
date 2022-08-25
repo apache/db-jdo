@@ -27,7 +27,7 @@ public class TopNonPersistB extends TopNonPersist {  //  persistent
     public int intB; // persistent
     
     private int keyValue;  // persistent--used as key field in application identity
-    static private int nextKeyValue = 1;
+    private static int nextKeyValue = 1;
     
     public TopNonPersistB() {
         doubleB = 2.0;
@@ -42,6 +42,9 @@ public class TopNonPersistB extends TopNonPersist {  //  persistent
     }
     
     public static class Id implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int keyValue;
 
         public Id() {

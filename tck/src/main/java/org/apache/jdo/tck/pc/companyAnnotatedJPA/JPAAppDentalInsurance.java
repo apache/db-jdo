@@ -33,6 +33,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class JPAAppDentalInsurance extends JPAAppInsurance
     implements IDentalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="LIFETIME_ORTHO_BENEFIT")
     private BigDecimal lifetimeOrthoBenefit;
 
@@ -92,6 +94,7 @@ public class JPAAppDentalInsurance extends JPAAppInsurance
      * @return a String representation of a <code>JPAAppDentalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "JPAAppDentalInsurance(" + getFieldRepr()+ ")";
     }
@@ -100,8 +103,9 @@ public class JPAAppDentalInsurance extends JPAAppInsurance
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", lifetimeOrthoBenefit ").append(lifetimeOrthoBenefit);
         return rc.toString();
@@ -118,7 +122,8 @@ public class JPAAppDentalInsurance extends JPAAppInsurance
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         JPAAppDentalInsurance otherIns = (JPAAppDentalInsurance)other;
         String where = "JPAAppDentalInsurance<" + getInsid() + ">";

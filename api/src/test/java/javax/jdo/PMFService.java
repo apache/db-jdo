@@ -28,25 +28,23 @@ public class PMFService implements Constants{
     }
 
     public static PersistenceManagerFactory getPersistenceManagerFactory(
-            Map overrides, Map props) {
-        PersistenceManagerFactory pmf =
-                (PersistenceManagerFactory) PMFProxy.newInstance();
+            Map<?, ?> overrides, Map<?, ?> props) {
+        PersistenceManagerFactory pmf = PMFProxy.newInstance();
         setPMFProperties(pmf, props, overrides);
 
         return pmf;
     }
 
     public static PersistenceManagerFactory getPersistenceManagerFactory(
-            Map props) {
-        PersistenceManagerFactory pmf =
-                (PersistenceManagerFactory) PMFProxy.newInstance();
+            Map<?, ?> props) {
+        PersistenceManagerFactory pmf = PMFProxy.newInstance();
         setPMFProperties(pmf, props, null);
 
         return pmf;
     }
 
     private static void setPMFProperties(PersistenceManagerFactory pmf,
-            Map props, Map overrides) {
+            Map<?, ?> props, Map<?, ?> overrides) {
 
         pmf.setConnectionDriverName((String)props.get(PROPERTY_CONNECTION_DRIVER_NAME));
 

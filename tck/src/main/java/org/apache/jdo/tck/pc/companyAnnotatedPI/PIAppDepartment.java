@@ -50,17 +50,17 @@ public interface PIAppDepartment extends IDepartment {
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT, 
             mappedBy="department")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
-    Set getEmployees();
+    Set<IEmployee> getEmployees();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="fundingDept")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
-    Set getFundedEmps();
+    Set<IEmployee> getFundedEmps();
     
     void setDeptid(long deptid);
     void setName(String name);
     void setCompany(ICompany company);
     void setEmployeeOfTheMonth(IEmployee employeeOfTheMonth);
-    void setEmployees(Set employees);
-    void setFundedEmps(Set employees);
+    void setEmployees(Set<IEmployee> employees);
+    void setFundedEmps(Set<IEmployee> employees);
 
 }

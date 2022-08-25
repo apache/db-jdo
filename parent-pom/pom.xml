@@ -27,7 +27,7 @@
 
     <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.2.2-SNAPSHOT</version>
+    <version>3.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>JDO PARENT</name>
@@ -163,7 +163,9 @@
   </scm>
 
     <properties>
-        <project.build.outputTimestamp>1653505066</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1661453031</project.build.outputTimestamp>
+        <showWarnings></showWarnings>
+        <compilerArgument></compilerArgument>
     </properties>
 
     <dependencyManagement>
@@ -171,17 +173,17 @@
             <dependency>
                 <groupId>javax.jdo</groupId>
                 <artifactId>jdo-api</artifactId>
-                <version>3.2.2-SNAPSHOT</version>
+                <version>3.3-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-exectck</artifactId>
-                <version>3.2.2-SNAPSHOT</version>
+                <version>3.3-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-tck</artifactId>
-                <version>3.2.2-SNAPSHOT</version>
+                <version>3.3-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
@@ -291,6 +293,9 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <showWarnings>${showWarnings}</showWarnings>
+                    <fork>true</fork>
+                    <compilerArgument>${compilerArgument}</compilerArgument>
                 </configuration>
             </plugin>
             <plugin>
@@ -335,4 +340,14 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>warnings</id>
+            <properties>
+                <showWarnings>true</showWarnings>
+                <compilerArgument>-Xlint:all,-rawtypes</compilerArgument>
+            </properties>
+        </profile>
+    </profiles>
 </project>

@@ -17,12 +17,11 @@
 
 package org.apache.jdo.tck.query.result;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -61,18 +60,17 @@ public class ImmutableQueryResult extends QueryTest {
         tx.begin();
 
         // get PrimitiveTypes instance with id 5
-        Collection instance5Collection = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 5").execute();
-        PrimitiveTypes instance5 = 
-            (PrimitiveTypes)instance5Collection.iterator().next();
+        List<PrimitiveTypes> instance5Collection = pm.newQuery(
+            PrimitiveTypes.class, "id == 5").executeList();
+        PrimitiveTypes instance5 = instance5Collection.iterator().next();
         
         // get query result collection
-        Collection result = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id > 3").execute();
+        List<PrimitiveTypes> result = pm.newQuery(
+            PrimitiveTypes.class, "id > 3").executeList();
         
         // method add
         try {
-            result.add(Integer.valueOf(1));
+            result.add(null);
             fail(ASSERTION_FAILED,
                  "Method add called on a query result show throw " + 
                  "UnsupportedOperationException"); 

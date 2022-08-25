@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.HashSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -124,19 +124,18 @@ public class MakeTransient extends PersistenceManagerTest {
         try {
             tx.begin();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
             
             pm.makeTransientAll(col1);
             tx.commit();
             tx = null;
-            
-            for (Iterator iter = col1.iterator(); iter.hasNext();) {
-                PCPoint p = (PCPoint) iter.next();
+
+            for (PCPoint p : col1) {
                 if (!testState(p, TRANSIENT, "transient")) {
-                    fail("expected TRANSIENT instance, instance " + p1 + 
-                         " is " + getStateOfInstance(p));
+                    fail("expected TRANSIENT instance, instance " + p1 +
+                            " is " + getStateOfInstance(p));
                 }
             }
         }
@@ -153,7 +152,7 @@ public class MakeTransient extends PersistenceManagerTest {
             int NUM_OBJS = 2;
             tx.begin();
             
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p4);
             col1.add(p5);
             Object[] obj1= col1.toArray();

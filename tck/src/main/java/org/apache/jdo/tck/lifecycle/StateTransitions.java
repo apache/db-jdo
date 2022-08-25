@@ -439,8 +439,8 @@ public class StateTransitions extends JDO_Test {
         boolean ret;
         Transaction t = pm.currentTransaction();
         t.begin();
-        Extent e = pm.getExtent(StateTransitionObj.class, false);
-        Iterator iter = e.iterator();
+        Extent<StateTransitionObj> e = pm.getExtent(StateTransitionObj.class, false);
+        Iterator<StateTransitionObj> iter = e.iterator();
         ret = iter.hasNext();
         t.rollback();
         return ret;
@@ -617,176 +617,100 @@ public class StateTransitions extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("ThrowFromFinallyBlock")
     void applyOperation(int operation, StateTransitionObj stobj)
     {
-        StateTransitionObj obj = (StateTransitionObj) stobj;
-        switch( operation ){
-        case MAKEPERSISTENT:
-        {
-            pm.makePersistent(obj);
-            break;
-        }
-        case DELETEPERSISTENT:
-        {
-            pm.deletePersistent(obj);
-            break;
-        }
-        case MAKETRANSACTIONAL:
-        {
-            pm.makeTransactional(obj);
-            break;
-        }
-        case MAKENONTRANSACTIONAL:
-        {
-            pm.makeNontransactional(obj);
-            break;
-        }
-        case MAKETRANSIENT:
-        {
-            pm.makeTransient(obj);
-            break;
-        }
-        case COMMITNORETAINVALUES:
-        {
-            pm.currentTransaction().commit();
-            break;
-        }
-        case COMMITRETAINVALUES:
-        {
-            pm.currentTransaction().commit();
-            break;
-        }
-        case ROLLBACKNORESTOREVALUES:
-        {
-            pm.currentTransaction().rollback();
-            break;
-        }
-        case ROLLBACKRESTOREVALUES:
-        {
-            pm.currentTransaction().rollback();
-            break;
-        }
-        case REFRESHDATASTORE:
-        {
-            pm.refresh(obj);
-            break;
-        }
-        case REFRESHOPTIMISTIC:
-        {
-            pm.refresh(obj);
-            break;
-        }
-        case EVICT:
-        {
-            pm.evict(obj);
-            break;
-        }
-        case READOUTSIDETX:
-        {
-            obj.readField();
-            break;
-        }
-        case READOPTIMISTIC:
-        {
-            obj.readField();
-            break;
-        }
-        case READDATASTORE:
-        {
-            obj.readField();
-            break;
-        }
-        case WRITEOUTSIDETX:
-        {
-            obj.writeField(42);
-            break;
-        }
-        case WRITEINSIDETX:
-        {
-            obj.writeField(42);
-            break;
-        }
-        case RETRIEVEOUTSIDETX:
-        {
-            pm.retrieve(obj);
-            break;
-        }
-        case RETRIEVEINSIDETX:
-        {
-            pm.retrieve(obj);
-            break;      
-        }
-        case DETACHALLONCOMMIT:
-        {
-            pm.currentTransaction().commit();
-            break;      
-        }
-        case DETACHCOPYOUTSIDETXNTRTRU:
-        {
-            pm.detachCopy(obj);
-            break;      
-        }
-        case DETACHCOPYOUTSIDETXNTRFLS:
-        {
-            pm.detachCopy(obj);
-            break;      
-        }
-        case DETACHCOPYINSIDEDATASTORETX:
-        {
-            pm.detachCopy(obj);
-            break;      
-        }
-        case DETACHCOPYINSIDEOPTIMISTICTX:
-        {
-            pm.detachCopy(obj);
-            break;      
-        }
-        case SERIALIZEOUTSIDETX:
-        {
-            ObjectOutputStream oos = null;
-            try {
-                oos = new ObjectOutputStream(new ByteArrayOutputStream());
-                oos.writeObject(obj);
-            } catch (IOException e) {
-                throw new JDOFatalException(e.getMessage(), e);
-            } finally {
-                if (oos != null) {
-                    try {
-                        oos.close();
-                    } catch (IOException e) {
-                        throw new JDOFatalException(e.getMessage(), e);
+        StateTransitionObj obj = stobj;
+        switch(operation) {
+            case MAKEPERSISTENT: {
+                pm.makePersistent(obj);
+                break;
+            }
+            case DELETEPERSISTENT: {
+                pm.deletePersistent(obj);
+                break;
+            }
+            case MAKETRANSACTIONAL: {
+                pm.makeTransactional(obj);
+                break;
+            }
+            case MAKENONTRANSACTIONAL: {
+                pm.makeNontransactional(obj);
+                break;
+            }
+            case MAKETRANSIENT: {
+                pm.makeTransient(obj);
+                break;
+            }
+            case COMMITNORETAINVALUES:
+            case COMMITRETAINVALUES:
+            case DETACHALLONCOMMIT: {
+                pm.currentTransaction().commit();
+                break;
+            }
+            case ROLLBACKNORESTOREVALUES:
+            case ROLLBACKRESTOREVALUES: {
+                pm.currentTransaction().rollback();
+                break;
+            }
+            case REFRESHDATASTORE:
+            case REFRESHOPTIMISTIC: {
+                pm.refresh(obj);
+                break;
+            }
+            case EVICT: {
+                pm.evict(obj);
+                break;
+            }
+            case READOUTSIDETX:
+            case READOPTIMISTIC:
+            case READDATASTORE: {
+                obj.readField();
+                break;
+            }
+            case WRITEOUTSIDETX:
+            case WRITEINSIDETX: {
+                obj.writeField(42);
+                break;
+            }
+            case RETRIEVEOUTSIDETX:
+            case RETRIEVEINSIDETX: {
+                pm.retrieve(obj);
+                break;
+            }
+            case DETACHCOPYOUTSIDETXNTRTRU:
+            case DETACHCOPYOUTSIDETXNTRFLS:
+            case DETACHCOPYINSIDEDATASTORETX:
+            case DETACHCOPYINSIDEOPTIMISTICTX: {
+                pm.detachCopy(obj);
+                break;
+            }
+            case SERIALIZEOUTSIDETX:
+            case SERIALIZEDATASTORE:
+            case SERIALIZEOPTIMISTIC: {
+                ObjectOutputStream oos = null;
+                try {
+                    oos = new ObjectOutputStream(new ByteArrayOutputStream());
+                    oos.writeObject(obj);
+                } catch (IOException e) {
+                    throw new JDOFatalException(e.getMessage(), e);
+                } finally {
+                    if (oos != null) {
+                        try {
+                            oos.close();
+                        } catch (IOException e) {
+                            throw new JDOFatalException(e.getMessage(), e);
+                        }
                     }
                 }
+                break;
             }
-            break;      
-        }
-        case SERIALIZEDATASTORE:
-        case SERIALIZEOPTIMISTIC:
-        {
-            ObjectOutputStream oos = null;
-            try {
-                oos = new ObjectOutputStream(new ByteArrayOutputStream());
-                oos.writeObject(obj);
-            } catch (IOException e) {
-                throw new JDOFatalException(e.getMessage(), e);
-            } finally {
-                if (oos != null) {
-                    try {
-                        oos.close();
-                    } catch (IOException e) {
-                        throw new JDOFatalException(e.getMessage(), e);
-                    }
-                }
+            default: {
+                appendMessage(ASSERTION_FAILED + NL +
+                        "StateTransitions: " +
+                        scenario_string[scenario] +
+                        "; internal error, illegal operation: " + operation);
             }
-            break;      
-        }
-        default:
-        {
-            appendMessage(ASSERTION_FAILED + NL +
-                          "StateTransitions: " +
-                          scenario_string[scenario] +
-                          "; internal error, illegal operation: " + operation);
-        }
         }
     }
 
@@ -876,7 +800,7 @@ public class StateTransitions extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        StateTransitionObj sto = (StateTransitionObj) obj;
+        StateTransitionObj sto = obj;
         sto.readField();
         int curr = currentState(sto);
         if( curr != PERSISTENT_CLEAN ) {
@@ -898,7 +822,7 @@ public class StateTransitions extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        StateTransitionObj pcobj = (StateTransitionObj) obj;
+        StateTransitionObj pcobj = obj;
         pcobj.writeField(23);
         int curr = currentState(obj);
         if( curr != PERSISTENT_DIRTY ) {
@@ -924,14 +848,14 @@ public class StateTransitions extends JDO_Test {
             if (debug)
                 logger.debug("getHollowInstance: Transaction should be active, but it is not");
         
-        Extent extent = pm.getExtent(StateTransitionObj.class, false);
-        Iterator iter = extent.iterator();
+        Extent<StateTransitionObj> extent = pm.getExtent(StateTransitionObj.class, false);
+        Iterator<StateTransitionObj> iter = extent.iterator();
         if( !iter.hasNext() ){
             if (debug)
                 logger.debug("Extent for StateTransitionObj should not be empty");
             return null;
         }
-        StateTransitionObj obj = (StateTransitionObj) iter.next();
+        StateTransitionObj obj = iter.next();
         
         pm.makeTransactional(obj);
         transaction.setRetainValues(false);
@@ -979,7 +903,7 @@ public class StateTransitions extends JDO_Test {
     {
         StateTransitionObj obj = getTransientCleanInstance();
         if( obj == null ) return null;
-        StateTransitionObj pcobj = (StateTransitionObj) obj;
+        StateTransitionObj pcobj = obj;
         pcobj.writeField(23);
         int curr = currentState(obj);
         if( curr != TRANSIENT_DIRTY ) { 
@@ -1090,7 +1014,7 @@ public class StateTransitions extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        obj = (StateTransitionObj) pm.detachCopy(obj);
+        obj = pm.detachCopy(obj);
         int curr = currentState(obj);
         if( curr != DETACHED_CLEAN ) { 
             if (debug) {
@@ -1111,7 +1035,7 @@ public class StateTransitions extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        obj = (StateTransitionObj) pm.detachCopy(obj);
+        obj = pm.detachCopy(obj);
         obj.writeField(1000);
         int curr = currentState(obj);
         if( curr != DETACHED_DIRTY ) { 

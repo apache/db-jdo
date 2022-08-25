@@ -19,6 +19,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -125,7 +126,7 @@ public class MakeTransientNotSubjectToRollback extends PersistenceManagerTest {
         try {
             tx.begin();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
             pm.makeTransientAll(col1);
@@ -156,7 +157,7 @@ public class MakeTransientNotSubjectToRollback extends PersistenceManagerTest {
         try {
             tx.begin();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p4);
             col1.add(p5);
 

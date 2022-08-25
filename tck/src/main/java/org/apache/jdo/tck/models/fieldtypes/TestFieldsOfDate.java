@@ -126,7 +126,7 @@ public class TestFieldsOfDate extends JDO_Test {
                 fail(ASSERTION_FAILED,
                      "Incorrect value for " + FieldsOfDate.fieldSpecs[i] +
                      ", expected value " + startValue.toString() +
-                     ", value is " + val.toString());
+                     ", value is " + val);
             }
         }
     }

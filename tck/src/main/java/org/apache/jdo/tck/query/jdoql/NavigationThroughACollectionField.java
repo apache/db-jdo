@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.QDepartment;
@@ -27,6 +26,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Navigation Through a Collection Field
@@ -69,15 +69,16 @@ public class NavigationThroughACollectionField extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         QEmployee e = QEmployee.variable("e");
         query.filter(cand.employees.contains(e).and(e.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

@@ -63,11 +63,11 @@ public class OptimisticFailure extends PersistenceManagerTest {
         BatchTestRunner.run(OptimisticFailure.class);
     }
 
-    private VersionedPCPoint p1 = new VersionedPCPoint(1,1); // this will be updated in tx1, updated in tx2, verified in tx3
-    private VersionedPCPoint p2 = new VersionedPCPoint(2,2); // this will be updated in tx1, deleted in tx2, verified in tx3
-    private VersionedPCPoint p3 = new VersionedPCPoint(3,3); // this will be deleted in tx1, updated in tx2
-    private VersionedPCPoint p4 = new VersionedPCPoint(4,4); // this will be deleted in tx1, deleted in tx2
-    private VersionedPCPoint p5 = new VersionedPCPoint(5,5); // this will be unchanged in tx1, updated in tx2, verified in tx3
+    private final VersionedPCPoint p1 = new VersionedPCPoint(1,1); // this will be updated in tx1, updated in tx2, verified in tx3
+    private final VersionedPCPoint p2 = new VersionedPCPoint(2,2); // this will be updated in tx1, deleted in tx2, verified in tx3
+    private final VersionedPCPoint p3 = new VersionedPCPoint(3,3); // this will be deleted in tx1, updated in tx2
+    private final VersionedPCPoint p4 = new VersionedPCPoint(4,4); // this will be deleted in tx1, deleted in tx2
+    private final VersionedPCPoint p5 = new VersionedPCPoint(5,5); // this will be unchanged in tx1, updated in tx2, verified in tx3
     private Object p1oid = null;
     private Object p2oid = null;
     private Object p3oid = null;
@@ -155,7 +155,7 @@ public class OptimisticFailure extends PersistenceManagerTest {
            p3tx2.setX(202);
            pm2.deletePersistent(p4tx2);
            p5tx2.setX(502); // this change must not be committed
-           Set expectedFailedObjects = new HashSet();
+           Set<VersionedPCPoint> expectedFailedObjects = new HashSet<>();
            expectedFailedObjects.add(p1tx2);
            expectedFailedObjects.add(p2tx2);
            expectedFailedObjects.add(p3tx2);
@@ -184,7 +184,7 @@ public class OptimisticFailure extends PersistenceManagerTest {
                    Throwable t = ts[i];
                    if (t instanceof JDOOptimisticVerificationException) {
                        if (debug)
-                           logger.debug("Expected exception caught " + t.toString());
+                           logger.debug("Expected exception caught " + t);
                        JDOException jex = (JDOException)t;
                        Object failed = jex.getFailedObject();
                        if (failed == null) {
@@ -199,7 +199,7 @@ public class OptimisticFailure extends PersistenceManagerTest {
                            } 
                            else {
                                fail(ASSERTION_FAILED,
-                                    "Unexpected failed instance: " + failed.toString());
+                                    "Unexpected failed instance: " + failed);
                            }
                        }
                    } 

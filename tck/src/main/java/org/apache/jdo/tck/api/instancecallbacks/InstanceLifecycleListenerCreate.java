@@ -17,24 +17,11 @@
  
 package org.apache.jdo.tck.api.instancecallbacks;
 
-import javax.jdo.JDOHelper;
-
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.AttachLifecycleListener;
-import javax.jdo.listener.ClearLifecycleListener;
-import javax.jdo.listener.CreateLifecycleListener;
-import javax.jdo.listener.DeleteLifecycleListener;
-import javax.jdo.listener.DetachLifecycleListener;
-import javax.jdo.listener.LoadLifecycleListener;
-import javax.jdo.listener.StoreLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
 
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
-
 
 /**
  * <B>Title:</B> Test TestInstanceLifecycleListener
@@ -56,7 +43,7 @@ public class InstanceLifecycleListenerCreate
     /**
      * The InstanceLifecycleListener used for this test
      */
-    InstanceLifecycleListenerImpl listener = 
+    private final InstanceLifecycleListenerImpl listener =
             new InstanceLifecycleListenerCreateImpl();
 
     /** Return the listener.
@@ -68,11 +55,12 @@ public class InstanceLifecycleListenerCreate
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PCPoint.class};
+    @SuppressWarnings("rawtypes")
+    private final static Class<?>[] persistentClasses = new Class[] {PCPoint.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 
@@ -100,7 +88,7 @@ public class InstanceLifecycleListenerCreate
 
         // verify that the listener was called
         listener.verifyCallbacks(ASSERTION1_FAILED, new int[] {
-                listener.POST_CREATE_LISTENER});
+                InstanceLifecycleListenerImpl.POST_CREATE_LISTENER});
     }
     
     /** 
@@ -110,6 +98,7 @@ public class InstanceLifecycleListenerCreate
     private static class InstanceLifecycleListenerCreateImpl 
             extends InstanceLifecycleListenerImpl {
 
+        @Override
         public void postCreate(InstanceLifecycleEvent event) {
             notifyEvent(POST_CREATE_LISTENER);
             checkEventType(ASSERTION1_FAILED,

@@ -122,7 +122,7 @@ public class TestCollectionCollections extends JDO_Test {
     /** */
     private void setValues(CollectionCollections colcol, int order)
     {
-        Vector value;
+        Vector<?> value;
         int n = colcol.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
@@ -137,13 +137,13 @@ public class TestCollectionCollections extends JDO_Test {
     /** */
     private void checkValues(Object oid, CollectionCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         CollectionCollections pi = (CollectionCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
-            Collection expected = expectedValue.get(i);
-            Collection actual = pi.get(i);
+            Collection<?> expected = expectedValue.get(i);
+            Collection<?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -156,10 +156,10 @@ public class TestCollectionCollections extends JDO_Test {
                 	logger.debug("Field is " + i + " Class name is "
                           +  actual.getClass().getName()
 			              + "   isInstance of Vector is "
-			              + actual.getClass().isInstance((Object)new Vector()));
+			              + actual.getClass().isInstance(new Vector<>()));
 		            }
-                    List expectedL = (List)expected;
-                    List actualL = (List)actual;
+                    List<?> expectedL = (List<?>)expected;
+                    List<?> actualL = (List<?>)actual;
                     for (int j = 0; j < actualL.size(); ++j) {
                         BigDecimal bigDecCompareWith =
                             (BigDecimal)expectedL.get(j);
@@ -179,7 +179,7 @@ public class TestCollectionCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

@@ -50,7 +50,7 @@ public @interface Sequence
     /** Name of a factory class for generating the sequence values. 
      * @return the name of the factory class for the sequence
      */
-    Class factoryClass() default void.class;
+    Class<?> factoryClass() default void.class;
 
     /** Vendor extensions for this sequence. 
      * @return vendor extensions

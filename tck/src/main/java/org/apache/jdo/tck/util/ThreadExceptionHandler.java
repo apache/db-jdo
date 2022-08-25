@@ -33,7 +33,7 @@ public class ThreadExceptionHandler extends ThreadGroup
      * Map of uncaught exceptions. The thread is the key and the uncaught
      * Throwable is the value in the map. 
      */
-    private final Map uncaughtExceptions = new HashMap();
+    private final Map<Thread, Throwable> uncaughtExceptions = new HashMap<>();
     
     /** Constructor. */
     public ThreadExceptionHandler() {
@@ -43,7 +43,8 @@ public class ThreadExceptionHandler extends ThreadGroup
     /** Called by the Java Virtual Machine when a thread in this thread
      * group stops because of an uncaught exception. This implementation
      * stores the uncaught exception in a map for later retrieval.
-     */ 
+     */
+    @Override
     public void uncaughtException(Thread t, Throwable e) {
         uncaughtExceptions.put(t, e);
     }
@@ -54,7 +55,7 @@ public class ThreadExceptionHandler extends ThreadGroup
      * @return uncaught exception for the specified thread
      */
     public Throwable getUncaughtException(Thread t) {
-        return (Throwable)uncaughtExceptions.get(t);
+        return uncaughtExceptions.get(t);
     }
 
     /** 
@@ -63,7 +64,7 @@ public class ThreadExceptionHandler extends ThreadGroup
      * thread as the key and the uncaught Throwable is the value.
      * @return Set of uncaught exceptions
      */
-    public Set getAllUncaughtExceptions() {
+    public Set<Map.Entry<Thread, Throwable>> getAllUncaughtExceptions() {
         return uncaughtExceptions.entrySet();
     }
 

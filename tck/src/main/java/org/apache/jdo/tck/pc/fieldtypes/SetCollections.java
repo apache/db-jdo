@@ -18,53 +18,57 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 public class SetCollections { 
   public int identifier;
-  public Set SetOfObject0;
-  public Set SetOfObject1;
-  public Set SetOfObject2;
-  public Set SetOfSimpleClass3;
-  public Set SetOfSimpleClass4;
-  public Set SetOfSimpleClass5;
-  public Set SetOfSimpleInterface6;
-  public Set SetOfSimpleInterface7;
-  public Set SetOfSimpleInterface8;
-  public Set SetOfString9;
-  public Set SetOfString10;
-  public Set SetOfString11;
-  public Set SetOfDate12;
-  public Set SetOfDate13;
-  public Set SetOfDate14;
-  public Set SetOfLocale15;
-  public Set SetOfLocale16;
-  public Set SetOfLocale17;
-  public Set SetOfBigDecimal18;
-  public Set SetOfBigDecimal19;
-  public Set SetOfBigDecimal20;
-  public Set SetOfBigInteger21;
-  public Set SetOfBigInteger22;
-  public Set SetOfBigInteger23;
-  public Set SetOfByte24;
-  public Set SetOfByte25;
-  public Set SetOfByte26;
-  public Set SetOfDouble27;
-  public Set SetOfDouble28;
-  public Set SetOfDouble29;
-  public Set SetOfFloat30;
-  public Set SetOfFloat31;
-  public Set SetOfFloat32;
-  public Set SetOfInteger33;
-  public Set SetOfInteger34;
-  public Set SetOfInteger35;
-  public Set SetOfLong36;
-  public Set SetOfLong37;
-  public Set SetOfLong38;
-  public Set SetOfShort39;
-  public Set SetOfShort40;
-  public Set SetOfShort41;
-  public Set SetOfSimpleClass42;
+  public Set<Object> SetOfObject0;
+  public Set<Object> SetOfObject1;
+  public Set<Object> SetOfObject2;
+  public Set<SimpleClass> SetOfSimpleClass3;
+  public Set<SimpleClass> SetOfSimpleClass4;
+  public Set<SimpleClass> SetOfSimpleClass5;
+  public Set<SimpleInterface> SetOfSimpleInterface6;
+  public Set<SimpleInterface> SetOfSimpleInterface7;
+  public Set<SimpleInterface> SetOfSimpleInterface8;
+  public Set<String> SetOfString9;
+  public Set<String> SetOfString10;
+  public Set<String> SetOfString11;
+  public Set<Date> SetOfDate12;
+  public Set<Date> SetOfDate13;
+  public Set<Date> SetOfDate14;
+  public Set<Locale> SetOfLocale15;
+  public Set<Locale> SetOfLocale16;
+  public Set<Locale> SetOfLocale17;
+  public Set<BigDecimal> SetOfBigDecimal18;
+  public Set<BigDecimal> SetOfBigDecimal19;
+  public Set<BigDecimal> SetOfBigDecimal20;
+  public Set<BigInteger> SetOfBigInteger21;
+  public Set<BigInteger> SetOfBigInteger22;
+  public Set<BigInteger> SetOfBigInteger23;
+  public Set<Byte> SetOfByte24;
+  public Set<Byte> SetOfByte25;
+  public Set<Byte> SetOfByte26;
+  public Set<Double> SetOfDouble27;
+  public Set<Double> SetOfDouble28;
+  public Set<Double> SetOfDouble29;
+  public Set<Float> SetOfFloat30;
+  public Set<Float> SetOfFloat31;
+  public Set<Float> SetOfFloat32;
+  public Set<Integer> SetOfInteger33;
+  public Set<Integer> SetOfInteger34;
+  public Set<Integer> SetOfInteger35;
+  public Set<Long> SetOfLong36;
+  public Set<Long> SetOfLong37;
+  public Set<Long> SetOfLong38;
+  public Set<Short> SetOfShort39;
+  public Set<Short> SetOfShort40;
+  public Set<Short> SetOfShort41;
+  public Set<SimpleClass> SetOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public Set SetOfObject0",
@@ -115,7 +119,7 @@ public class SetCollections {
   {
     return fieldSpecs.length;
   }
-  public Set get(int index)
+  public Set<?> get(int index)
   {
     switch (index)
     {
@@ -209,7 +213,9 @@ public class SetCollections {
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index,Set value)
+
+  @SuppressWarnings("unchecked")
+  public boolean set(int index, @SuppressWarnings("rawtypes") Set value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -351,6 +357,9 @@ public class SetCollections {
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -360,7 +369,7 @@ public class SetCollections {
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

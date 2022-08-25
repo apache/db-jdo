@@ -127,7 +127,7 @@ public class TestFieldsOfLocale extends JDO_Test {
                 fail(ASSERTION_FAILED,
                      "Incorrect value for " + FieldsOfLocale.fieldSpecs[i] +
 					 ", expected value " + startValue.toString() +
-					 ", value is " + val.toString());
+					 ", value is " + val);
             }
         }
     }

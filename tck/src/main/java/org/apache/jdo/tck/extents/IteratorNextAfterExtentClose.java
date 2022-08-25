@@ -61,12 +61,12 @@ public class IteratorNextAfterExtentClose extends ExtentTest {
 
         try {
             beginTransaction();
-            Extent ex = getPM().getExtent (Employee.class, true);
-            Iterator it1 = ex.iterator();
-            deleteEmployee((Employee)it1.next());
-            Iterator it2 = ex.iterator();
+            Extent<Employee> ex = getPM().getExtent (Employee.class, true);
+            Iterator<Employee> it1 = ex.iterator();
+            deleteEmployee(it1.next());
+            Iterator<Employee> it2 = ex.iterator();
             addEmployee();
-            Iterator it3 = ex.iterator();
+            Iterator<Employee> it3 = ex.iterator();
             ex.close(it1);
             ex.close(it2);
             ex.close(it3);
@@ -78,7 +78,7 @@ public class IteratorNextAfterExtentClose extends ExtentTest {
                 rollbackTransaction();
     
                 beginTransaction();
-                Iterator it4 = ex.iterator();
+                Iterator<Employee> it4 = ex.iterator();
                 int count4 = countIterator(it4);
                 commitTransaction();
                 
@@ -99,7 +99,7 @@ public class IteratorNextAfterExtentClose extends ExtentTest {
     }
 
     /** */
-    void tryNext (Iterator it) throws Exception {
+    void tryNext (Iterator<Employee> it) {
         try {
             it.next();
             fail(ASSERTION_FAILED,

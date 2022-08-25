@@ -29,6 +29,8 @@ import javax.jdo.annotations.PersistenceCapable;
 @PersistenceCapable
 public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     private double  salary;
 
     /** This is the JDO-required no-args constructor. The TCK relies on
@@ -91,6 +93,7 @@ public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
      * Return a String representation of a <code>FullTimeEmployee</code> object.
      * @return a String representation of a <code>FullTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FullTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -99,8 +102,9 @@ public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $").append(salary);
         return rc.toString();
@@ -118,7 +122,8 @@ public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         IFullTimeEmployee otherEmp = (IFullTimeEmployee)other;
         String where = "FullTimeEmployee<" + getPersonid() + ">";

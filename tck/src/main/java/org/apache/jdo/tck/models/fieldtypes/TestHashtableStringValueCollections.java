@@ -20,7 +20,6 @@ package org.apache.jdo.tck.models.fieldtypes;
 import java.math.BigDecimal;
 
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
@@ -134,34 +133,35 @@ public class TestHashtableStringValueCollections extends JDO_Test {
         int valueOrder = (order == 1) ? 2 : 1; // why??
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
-            Vector fieldSpecs = TestUtil.getFieldSpecsForMap(
+            Vector<String> fieldSpecs = TestUtil.getFieldSpecsForMap(
                     HashtableStringValueCollections.fieldSpecs[i]);
-            Vector key = TestUtil.makeNewVectorInstance(
-                    (String)fieldSpecs.get(0), keyOrder);
-            Vector value = TestUtil.makeNewVectorInstance(
-                    (String)fieldSpecs.get(1), valueOrder);
+            Vector<?> key = TestUtil.makeNewVectorInstance(
+                    fieldSpecs.get(0), keyOrder);
+            Vector<?> value = TestUtil.makeNewVectorInstance(
+                    fieldSpecs.get(1), valueOrder);
 
-            Hashtable map = new Hashtable();
+            Hashtable<Object, Object> map = new Hashtable<>();
             for (int j = 0; j< key.size(); j++) {
                 map.put(key.get(j), value.get(j));
             }
             collect.set(i, map);
             if (debug)
-                logger.debug("Set " + i + "th value to: " + map.toString());
+                logger.debug("Set " + i + "th value to: " + map);
         }
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     private void checkValues(Object oid,
             HashtableStringValueCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         HashtableStringValueCollections pi = (HashtableStringValueCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
-            Hashtable expected = expectedValue.get(i);
-            Hashtable actual = pi.get(i);
+            Hashtable<?, ?> expected = expectedValue.get(i);
+            Hashtable<?, ?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -171,29 +171,28 @@ public class TestHashtableStringValueCollections extends JDO_Test {
                 if (TestUtil.getFieldSpecsForMap(
                             HashtableStringValueCollections.fieldSpecs[i]
                             ).get(0).equals("BigDecimal")) {
-                    Set expectedKeySet = expected.keySet();
+                    Set<?> expectedKeySet = expected.keySet();
+                    @SuppressWarnings("rawtypes")
                     Set actualKeySet = actual.keySet();
-                    Iterator expectedIter = expectedKeySet.iterator();
-                    while (expectedIter.hasNext()) {
-                        BigDecimal expectedKey = (BigDecimal) expectedIter.next();
+                    for (Object o : expectedKeySet) {
+                        BigDecimal expectedKey = (BigDecimal) o;
                         // compare keys
                         if (!TestUtil.containsBigDecimalKey(expectedKey, actualKeySet)) {
                             sbuf.append("\nFor element " + i +
                                     " expected key = " + expectedKey +
                                     " not found in actual Map.  Actual keyset is "
-                                    + actualKeySet.toString());
-                        // compare values
+                                    + actualKeySet);
+                            // compare values
                         } else {
                             String expectedVal = (String) expected.get(expectedKey);
                             String actualValue = (String)
-                               actual.get(TestUtil.getBigDecimalKey(expectedKey,
-                                                                    actualKeySet));
+                                    actual.get(TestUtil.getBigDecimalKey(expectedKey, actualKeySet));
                             if (!expectedVal.equals(actualValue)) {
                                 sbuf.append("\nFor element " + i +
-                                    " expected value = " + expectedVal +
-                                    " actual Value = " + actualValue);
-                           }
-                       }
+                                        " expected value = " + expectedVal +
+                                        " actual Value = " + actualValue);
+                            }
+                        }
                     }
             }
             else {
@@ -204,7 +203,7 @@ public class TestHashtableStringValueCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

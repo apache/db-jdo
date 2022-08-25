@@ -38,8 +38,10 @@ public class CompanyFactoryAnnotatedPCAppConcrete
     public CompanyFactoryAnnotatedPCAppConcrete(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
-    public Class[] getTearDownClasses() {
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PCAppDentalInsurance.class,
             PCAppMedicalInsurance.class,
@@ -53,38 +55,38 @@ public class CompanyFactoryAnnotatedPCAppConcrete
     }
     
     public IAddress newAddress() {
-        return (IAddress) new PCAppAddress();
+        return new PCAppAddress();
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return null;
     }
     
     public ICompany newCompany() {
-        return (ICompany) new PCAppCompany();
+        return new PCAppCompany();
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance) new PCAppDentalInsurance();
+        return new PCAppDentalInsurance();
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment) new PCAppDepartment();
+        return new PCAppDepartment();
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee) new PCAppFullTimeEmployee();
+        return new PCAppFullTimeEmployee();
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance) new PCAppMedicalInsurance();
+        return new PCAppMedicalInsurance();
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee) new PCAppPartTimeEmployee();
+        return new PCAppPartTimeEmployee();
     }
     
     public IProject newProject() {
-        return (IProject) new PCAppProject();
+        return new PCAppProject();
     }
 }

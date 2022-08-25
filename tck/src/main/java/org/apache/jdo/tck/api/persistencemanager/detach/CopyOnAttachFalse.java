@@ -57,7 +57,7 @@ public class CopyOnAttachFalse extends DetachTest {
         Cart detachedCart = createDetachedInstance(ASSERTION_FAILED);
         pm.setCopyOnAttach(false);
         pm.currentTransaction().begin();
-        Cart attachedCart = (Cart)pm.makePersistent(detachedCart);
+        Cart attachedCart = pm.makePersistent(detachedCart);
         assertTrue("Expected attached object to == detached object.", 
                 attachedCart == detachedCart);
         pm.currentTransaction().commit();
@@ -70,7 +70,7 @@ public class CopyOnAttachFalse extends DetachTest {
         pm.currentTransaction().begin();
         cartEntry1.setQuantity(500);
         goldenCartEntry.setQuantity(500);
-        Cart attachedCart = (Cart)pm.makePersistent(detachedCart);
+        Cart attachedCart = pm.makePersistent(detachedCart);
         assertTrue("Expected attached object to == detached object.", 
                 attachedCart == detachedCart);
         pm.currentTransaction().commit();
@@ -85,7 +85,7 @@ public class CopyOnAttachFalse extends DetachTest {
         // Obtain new instance of cart1
         pm.getObjectById(cart1oid, false);
         try {
-            Cart attachedCart = (Cart)pm.makePersistent(detachedCart);
+            Cart attachedCart = pm.makePersistent(detachedCart);
             fail("Expected JDOUserException. Object with same identity as "
                     + "attached object is already in the cache.");
         } catch (JDOUserException jdoe) {

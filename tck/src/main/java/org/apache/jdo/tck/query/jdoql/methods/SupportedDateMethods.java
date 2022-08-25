@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
@@ -26,6 +25,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Supported Date methods.
@@ -59,13 +59,13 @@ public class SupportedDateMethods extends QueryTest {
     
     /** */
     public void testGetDate() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.birthdate.getDay().eq(10));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -89,13 +89,13 @@ public class SupportedDateMethods extends QueryTest {
     
     /** */
     public void testGetMonth() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.birthdate.getMonth().eq(5));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -119,13 +119,13 @@ public class SupportedDateMethods extends QueryTest {
 
     /** */
     public void testGetYear() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.birthdate.getYear().eq(1970));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

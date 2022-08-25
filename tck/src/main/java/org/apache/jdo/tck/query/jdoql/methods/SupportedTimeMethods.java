@@ -20,12 +20,12 @@ package org.apache.jdo.tck.query.jdoql.methods;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.query.TimeSample;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -74,13 +74,12 @@ public class SupportedTimeMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfTime1));
+            Collection<TimeSample> expectedResult = new ArrayList<>();
+            expectedResult.add(pm.getObjectById(TimeSample.class, oidOfTime1));
 
-            Query q =  pm.newQuery();
-            q.setClass(TimeSample.class);
+            Query<TimeSample> q =  pm.newQuery(TimeSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<TimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
             tx = null;
@@ -99,13 +98,12 @@ public class SupportedTimeMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfTime2));
+            Collection<TimeSample> expectedResult = new ArrayList<>();
+            expectedResult.add((TimeSample)pm.getObjectById(oidOfTime2));
 
-            Query q =  pm.newQuery();
-            q.setClass(TimeSample.class);
+            Query<TimeSample> q =  pm.newQuery(TimeSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<TimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
             tx = null;
@@ -124,13 +122,12 @@ public class SupportedTimeMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfTime2));
+            Collection<TimeSample> expectedResult = new ArrayList<>();
+            expectedResult.add(pm.getObjectById(TimeSample.class, oidOfTime2));
 
-            Query q =  pm.newQuery();
-            q.setClass(TimeSample.class);
+            Query<TimeSample> q =  pm.newQuery(TimeSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<TimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
             tx = null;

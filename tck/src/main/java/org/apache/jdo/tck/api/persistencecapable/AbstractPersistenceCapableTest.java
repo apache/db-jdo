@@ -45,7 +45,8 @@ abstract class AbstractPersistenceCapableTest extends JDO_Test {
         pm.currentTransaction().commit();
         return result;
     }
-    
+
+    @Override
     protected boolean isTestToBePerformed() {
         String testName = getClass().getName();
         if (!isBinaryCompatibilitySupported()) {

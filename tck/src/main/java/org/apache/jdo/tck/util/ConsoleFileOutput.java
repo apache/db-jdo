@@ -31,7 +31,7 @@ import java.io.PrintStream;
  */
 class ConsoleFileOutput extends OutputStream {
 
-    private String fileName;
+    private final String fileName;
     private final PrintStream systemOut = System.out;
     private FileOutputStream fileOut;
     
@@ -55,6 +55,7 @@ class ConsoleFileOutput extends OutputStream {
     /**
      * @see java.io.OutputStream#close()
      */
+    @Override
     public void close()  throws IOException {
         this.fileOut.close();
         this.systemOut.close();
@@ -63,6 +64,7 @@ class ConsoleFileOutput extends OutputStream {
     /**
      * @see java.io.OutputStream#flush()
      */
+    @Override
     public void flush()  throws IOException {
         this.systemOut.flush();
         this.fileOut.flush();

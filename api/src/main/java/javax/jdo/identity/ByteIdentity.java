@@ -29,8 +29,10 @@ import java.io.ObjectOutput;
 /** This class is for identity with a single byte field.
  * @version 2.0
  */
-public class ByteIdentity extends SingleFieldIdentity {
-    
+public class ByteIdentity extends SingleFieldIdentity<ByteIdentity> {
+
+    private static final long serialVersionUID = 1L;
+
     /** The key.
      */
     private byte key;
@@ -46,7 +48,7 @@ public class ByteIdentity extends SingleFieldIdentity {
      * @param pcClass the target class
      * @param key the key
      */
-    public ByteIdentity(Class pcClass, byte key) {
+    public ByteIdentity(Class<?> pcClass, byte key) {
         super(pcClass);
         construct(key);
     }
@@ -55,7 +57,7 @@ public class ByteIdentity extends SingleFieldIdentity {
      * @param pcClass the target class
      * @param key the key
      */
-    public ByteIdentity(Class pcClass, Byte key) {
+    public ByteIdentity(Class<?> pcClass, Byte key) {
         super(pcClass);
         setKeyAsObject(key);
         construct(key.byteValue());
@@ -65,7 +67,7 @@ public class ByteIdentity extends SingleFieldIdentity {
      * @param pcClass the target class
      * @param str the key
      */
-    public ByteIdentity(Class pcClass, String str) {
+    public ByteIdentity(Class<?> pcClass, String str) {
         super(pcClass);
         assertKeyNotNull(str);
         construct(Byte.parseByte(str));
@@ -110,20 +112,12 @@ public class ByteIdentity extends SingleFieldIdentity {
      * @return The relative ordering between the objects
      * @since 2.2
      */
-    public int compareTo(Object o) {
-        if (o instanceof ByteIdentity) {
-        	ByteIdentity other = (ByteIdentity)o;
-            int result = super.compare(other);
-            if (result == 0) {
-                return (key - other.key);
-            } else {
-                return result;
-            }
-        }
-        else if (o == null) {
+    public int compareTo(ByteIdentity o) {
+        if (o == null) {
             throw new ClassCastException("object is null");
         }
-        throw new ClassCastException(this.getClass().getName() + " != " + o.getClass().getName());
+        int result = super.compare(o);
+        return (result == 0) ? (key - o.key) : result;
     }
 
     /** Create the key as an Object.

@@ -18,13 +18,12 @@
 package org.apache.jdo.tck.query.jdoql;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -56,7 +55,7 @@ public class WhiteSpaceIsACharacterAndIgnored extends QueryTest {
         BatchTestRunner.run(WhiteSpaceIsACharacterAndIgnored.class);
     }
 
-    Collection expected = null; 
+    List<PCPoint> expected = null;
     
     /** */
     public void testPositive() {
@@ -91,15 +90,14 @@ public class WhiteSpaceIsACharacterAndIgnored extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter(filter);
-            expected = (Collection) query.execute();
+            expected = query.executeList();
             // Create a new collection for the expected result.
             // This ensures that the expected result may be iterated
             // outside of the scope of the current transaction.
-            expected = new ArrayList(expected);
+            expected = new ArrayList<>(expected);
 
             tx.commit();
             tx = null;
@@ -114,15 +112,14 @@ public class WhiteSpaceIsACharacterAndIgnored extends QueryTest {
     void runTestWhiteSpaceIsACharacterAndIgnored01(PersistenceManager pm,
                                                    String filter) {
         Transaction tx = pm.currentTransaction();
-        Collection results = null;
+        List<PCPoint> results = null;
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter(filter);
-            results = (Collection) query.execute();
+            results = query.executeList();
             printOutput(results, expected);
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, 
                     results, expected);

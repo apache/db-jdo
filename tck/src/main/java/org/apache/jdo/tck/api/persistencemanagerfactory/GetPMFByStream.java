@@ -75,6 +75,7 @@ public class GetPMFByStream extends AbstractGetPMF {
     }
 
     /** */
+    @SuppressWarnings("ThrowFromFinallyBlock")
     protected PersistenceManagerFactory getPMF(String name) {
         FileInputStream stream = null;
         try {

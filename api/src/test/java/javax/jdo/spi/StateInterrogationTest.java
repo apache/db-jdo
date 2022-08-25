@@ -41,7 +41,7 @@ import javax.jdo.util.BatchTestRunner;
  */
 public class StateInterrogationTest extends AbstractTest {
     
-    private JDOImplHelper implHelper = JDOImplHelper.getInstance();
+    private final JDOImplHelper implHelper = JDOImplHelper.getInstance();
 
     /** Creates a new instance of StateInterrogationTest */
     public StateInterrogationTest() {
@@ -322,7 +322,7 @@ public class StateInterrogationTest extends AbstractTest {
     /** 
      * The non-binary-compatible PersistenceManager class instances.
      */
-    static private PersistenceManager pmProxy0 = (PersistenceManager)
+    private static final PersistenceManager pmProxy0 = (PersistenceManager)
             Proxy.newProxyInstance(
                 PersistenceManager.class.getClassLoader(),
                 new Class[] {PersistenceManager.class},
@@ -331,7 +331,7 @@ public class StateInterrogationTest extends AbstractTest {
     /** 
      * The non-binary-compatible PersistenceManager class instances.
      */
-    static private PersistenceManager pmProxy1 = (PersistenceManager)
+    private static final PersistenceManager pmProxy1 = (PersistenceManager)
             Proxy.newProxyInstance(
                 PersistenceManager.class.getClassLoader(),
                 new Class[] {PersistenceManager.class},
@@ -340,7 +340,7 @@ public class StateInterrogationTest extends AbstractTest {
     /** 
      * The non-binary-compatible PersistenceManager class instances.
      */
-    static private PersistenceManager pmProxy2 = (PersistenceManager)
+    private static final PersistenceManager pmProxy2 = (PersistenceManager)
             Proxy.newProxyInstance(
                 PersistenceManager.class.getClassLoader(),
                 new Class[] {PersistenceManager.class},
@@ -349,27 +349,27 @@ public class StateInterrogationTest extends AbstractTest {
     /**
      * The array of PersistenceManager proxies
      */
-    static PersistenceManager[] pmProxies = {pmProxy0, pmProxy1, pmProxy2};
+    static final PersistenceManager[] pmProxies = {pmProxy0, pmProxy1, pmProxy2};
     
     /** 
      * The array of NonBinaryCompatiblePersistenceCapable instances.
      */
-    NonBinaryCompatiblePersistenceCapable nbcpc0 = 
+    final NonBinaryCompatiblePersistenceCapable nbcpc0 =
        new NonBinaryCompatiblePersistenceCapable(0);
-    NonBinaryCompatiblePersistenceCapable nbcpc1 = 
+    final NonBinaryCompatiblePersistenceCapable nbcpc1 =
        new NonBinaryCompatiblePersistenceCapable(1);
-    NonBinaryCompatiblePersistenceCapable nbcpc2 = 
+    final NonBinaryCompatiblePersistenceCapable nbcpc2 =
        new NonBinaryCompatiblePersistenceCapable(2);
-    
-    NonBinaryCompatiblePersistenceCapable[] nbcpcs = {nbcpc0, nbcpc1, nbcpc2};
+
+    final NonBinaryCompatiblePersistenceCapable[] nbcpcs = {nbcpc0, nbcpc1, nbcpc2};
     
     /** 
      * The array of StateInterrogations
      */
-    static StateInterrogation si0 = new StateInterrogationImpl(0);
-    static StateInterrogation si1 = new StateInterrogationImpl(1);
-    static StateInterrogation si2 = new StateInterrogationImpl(2);
-    static StateInterrogation[] sis = {si0, si1, si2};
+    static final StateInterrogation si0 = new StateInterrogationImpl(0);
+    static final StateInterrogation si1 = new StateInterrogationImpl(1);
+    static final StateInterrogation si2 = new StateInterrogationImpl(2);
+    static final StateInterrogation[] sis = {si0, si1, si2};
     
     /** 
      * The StateInterrogation implementation manages 
@@ -387,7 +387,7 @@ public class StateInterrogationTest extends AbstractTest {
      */
     private static class StateInterrogationImpl implements StateInterrogation {
         
-        private int id;
+        private final int id;
         
         public int hashCode() {
             return id;
@@ -471,7 +471,7 @@ public class StateInterrogationTest extends AbstractTest {
      * The non-binary-compatible PersistenceCapable class.
      */
     public static class NonBinaryCompatiblePersistenceCapable {
-        private int id;
+        private final int id;
         private boolean dirty = false;
         private NonBinaryCompatiblePersistenceCapable(int id) {
             this.id = id;
@@ -491,7 +491,7 @@ public class StateInterrogationTest extends AbstractTest {
      * The non-binary-compatible object id class.
      */
     public static class ObjectIdImpl {
-        private int id;
+        private final int id;
         private ObjectIdImpl(int id) {
             this.id = id;
         }
@@ -509,7 +509,7 @@ public class StateInterrogationTest extends AbstractTest {
      *  for PersistenceManager proxy.
      */
     private static class InvocationHandlerImpl implements InvocationHandler {
-        private int id;
+        private final int id;
         private InvocationHandlerImpl(int id) {
             this.id = id;
         }

@@ -30,7 +30,9 @@ import org.apache.jdo.tck.pc.company.IDentalInsurance;
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**
  * This class represents an employee.
@@ -38,6 +40,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @DatastoreIdDiscriminatorClassNameInheritanceSuperclass
 @PersistenceCapable(table="persons")
 public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
+
+    private static final long serialVersionUID = 1L;
 
     @Column(name="HIREDATE")
     private Date             hiredate;
@@ -61,16 +65,16 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
     private FCDSEmployee         hradvisor;
     @Persistent(mappedBy="reviewers")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSProject.class)
-    private transient Set reviewedProjects = new HashSet();
+    private transient Set<IProject> reviewedProjects = new HashSet<>();
     @Persistent(mappedBy="members")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSProject.class)
-    private transient Set projects = new HashSet();
+    private transient Set<IProject> projects = new HashSet<>();
     @Persistent(mappedBy="manager")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
-    private transient Set team = new HashSet();
+    private transient Set<IEmployee> team = new HashSet<>();
     @Persistent(mappedBy="hradvisor")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
-    private transient Set hradvisees = new HashSet();
+    private transient Set<IEmployee> hradvisees = new HashSet<>();
 
 
     /** This is the JDO-required no-args constructor */
@@ -148,7 +152,7 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * Get the reviewed projects.
      * @return The reviewed projects as an unmodifiable set.
      */
-    public Set getReviewedProjects() {
+    public Set<IProject> getReviewedProjects() {
         return Collections.unmodifiableSet(reviewedProjects);
     }
 
@@ -172,11 +176,11 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * Set the reviewed projects for the employee.
      * @param reviewedProjects The set of reviewed projects.
      */
-    public void setReviewedProjects(Set reviewedProjects) {
+    public void setReviewedProjects(Set<IProject> reviewedProjects) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
         this.reviewedProjects = 
-            (reviewedProjects != null) ? new HashSet(reviewedProjects) : null;
+            (reviewedProjects != null) ? new HashSet<>(reviewedProjects) : null;
     }
 
     /**
@@ -184,7 +188,7 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * @return The employee's projects are returned as an unmodifiable
      * set. 
      */
-    public Set getProjects() {
+    public Set<IProject> getProjects() {
         return Collections.unmodifiableSet(projects);
     }
 
@@ -208,10 +212,10 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * Set the projects for the employee.
      * @param projects The set of projects of the employee.
      */
-    public void setProjects(Set projects) {
+    public void setProjects(Set<IProject> projects) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.projects = (projects != null) ? new HashSet(projects) : null;
+        this.projects = (projects != null) ? new HashSet<>(projects) : null;
     }
     
     /**
@@ -301,7 +305,7 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * @return The set of <code>FCDSEmployee</code>s on this employee's team,
      * returned as an unmodifiable set.
      */
-    public Set getTeam() {
+    public Set<IEmployee> getTeam() {
         return Collections.unmodifiableSet(team);
     }
 
@@ -334,10 +338,10 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * 
      * @param team The set of <code>FCDSEmployee</code>s.
      */
-    public void setTeam(Set team) {
+    public void setTeam(Set<IEmployee> team) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.team = (team != null) ? new HashSet(team) : null;
+        this.team = (team != null) ? new HashSet<>(team) : null;
     }
 
     /**
@@ -394,7 +398,7 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * @return An unmodifiable <code>Set</code> containing the
      * <code>FCDSEmployee</code>s that are HR advisees of this employee.
      */
-    public Set getHradvisees() {
+    public Set<IEmployee> getHradvisees() {
         return Collections.unmodifiableSet(hradvisees);
     }
 
@@ -429,10 +433,10 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * @param hradvisees The <code>FCDSEmployee</code>s that are HR advisees of
      * this employee.
      */
-    public void setHradvisees(Set hradvisees) {
+    public void setHradvisees(Set<IEmployee> hradvisees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.hradvisees = (hradvisees != null) ? new HashSet(hradvisees) : null;
+        this.hradvisees = (hradvisees != null) ? new HashSet<>(hradvisees) : null;
     }
 
     /**
@@ -444,10 +448,10 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        reviewedProjects = new HashSet();
-        projects = new HashSet();
-        team = new HashSet();
-        hradvisees = new HashSet();
+        reviewedProjects = new HashSet<>();
+        projects = new HashSet<>();
+        team = new HashSet<>();
+        hradvisees = new HashSet<>();
     }
 
     /**
@@ -455,6 +459,7 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * 
      * @return a String representation of a <code>FCDSEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FCEmployee(" + getFieldRepr() + ")";
     }
@@ -463,11 +468,11 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
-        rc.append(", hired ").append(
-            hiredate==null ? "null" : formatter.format(hiredate));
+        rc.append(", hired ").append(JDOCustomDateEditor.getDateRepr(hiredate));
         rc.append(", weeklyhours ").append(weeklyhours);
         return rc.toString();
     }
@@ -485,7 +490,8 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         FCDSEmployee otherEmp = (FCDSEmployee)other;
         String where = "Employee<" + getPersonid() + ">";

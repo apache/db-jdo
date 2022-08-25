@@ -17,14 +17,11 @@
 
 package org.apache.jdo.tck.query.result;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
@@ -65,12 +62,12 @@ public class DistinctCandidateInstances extends QueryTest {
     /** */
     public void testExtentQueries0() {
         if (isUnconstrainedVariablesSupported()) {
-            Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp1"});
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp1");
 
             JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
             query.variable("p", Person.class);
 
-            QueryElementHolder holder = new QueryElementHolder(
+            QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                     /*UNIQUE*/      null,
                     /*RESULT*/      null,
                     /*INTO*/        null,
@@ -96,14 +93,14 @@ public class DistinctCandidateInstances extends QueryTest {
     /** */
     public void testExtentQueries1() {
         if (isUnconstrainedVariablesSupported()) {
-            Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,"emp1");
 
             JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
             QEmployee cand = QEmployee.candidate();
             query.result(true, cand);
             query.variable("p", Person.class);
 
-            QueryElementHolder holder = new QueryElementHolder(
+            QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                     /*UNIQUE*/      null,
                     /*RESULT*/      "DISTINCT",
                     /*INTO*/        null,
@@ -132,20 +129,18 @@ public class DistinctCandidateInstances extends QueryTest {
         String singleStringDistinctQuery = 
             "SELECT DISTINCT FROM " + Person.class.getName();
         
-        List candidates = getPersistentCompanyModelInstancesAsList(
-            new String[]{"emp1", "emp1"});
-        Query query = pm.newQuery();
-        query.setClass(Person.class);
+        List<Person> candidates = getPersistentCompanyModelInstancesAsList(Person.class, "emp1", "emp1");
+        Query<Person> query = pm.newQuery(Person.class);
         query.setCandidates(candidates);
         query.setResult("this");
         executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
                 false, null,
-                getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp1"}), true);
+                getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp1"), true);
         
         query.setResult("DISTINCT this");
         executeJDOQuery(ASSERTION_FAILED, query, singleStringDistinctQuery, 
                 false, null,
-                getTransientCompanyModelInstancesAsList(new String[]{"emp1"}), true);
+                getTransientCompanyModelInstancesAsList(Person.class,"emp1"), true);
     }
 
     /**

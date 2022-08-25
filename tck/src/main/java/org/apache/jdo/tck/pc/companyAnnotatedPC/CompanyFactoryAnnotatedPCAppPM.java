@@ -38,8 +38,10 @@ public class CompanyFactoryAnnotatedPCAppPM
     public CompanyFactoryAnnotatedPCAppPM(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
-    public Class[] getTearDownClasses() {
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PCAppDentalInsurance.class,
             PCAppMedicalInsurance.class,
@@ -53,38 +55,38 @@ public class CompanyFactoryAnnotatedPCAppPM
     }
     
     public IAddress newAddress() {
-        return (IAddress)pm.newInstance(PCAppAddress.class);
+        return pm.newInstance(PCAppAddress.class);
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return null;
     }
     
     public ICompany newCompany() {
-        return (ICompany)pm.newInstance(PCAppCompany.class);
+        return pm.newInstance(PCAppCompany.class);
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(PCAppDentalInsurance.class);
+        return pm.newInstance(PCAppDentalInsurance.class);
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(PCAppDepartment.class);
+        return pm.newInstance(PCAppDepartment.class);
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(PCAppFullTimeEmployee.class);
+        return pm.newInstance(PCAppFullTimeEmployee.class);
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(PCAppMedicalInsurance.class);
+        return pm.newInstance(PCAppMedicalInsurance.class);
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(PCAppPartTimeEmployee.class);
+        return pm.newInstance(PCAppPartTimeEmployee.class);
     }
     
     public IProject newProject() {
-        return (IProject)pm.newInstance(PCAppProject.class);
+        return pm.newInstance(PCAppProject.class);
     }
 }

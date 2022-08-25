@@ -39,14 +39,14 @@ public class PCPoint
     protected transient byte jdoFlags;
     private static final int jdoInheritedFieldCount = 0;
     private static final String jdoFieldNames[] = { "x", "y" };
-    private static final Class jdoFieldTypes[]; 
+    private static final Class<?> jdoFieldTypes[];
     private static final byte jdoFieldFlags[] = { 
         (byte)(PersistenceCapable.CHECK_READ + PersistenceCapable.CHECK_WRITE + 
                PersistenceCapable.SERIALIZABLE), 
         (byte)(PersistenceCapable.CHECK_READ + PersistenceCapable.CHECK_WRITE + 
                PersistenceCapable.SERIALIZABLE), 
     }; 
-    private static final Class jdoPersistenceCapableSuperclass; 
+    private static final Class<?> jdoPersistenceCapableSuperclass;
 
     static 
     {
@@ -296,7 +296,7 @@ public class PCPoint
         return 2;
     }
 
-     public static final int jdoGetx(PCPoint pcpoint) {
+     public static int jdoGetx(PCPoint pcpoint) {
         if (pcpoint.jdoFlags <= PersistenceCapable.READ_WRITE_OK)
             return pcpoint.x;
         StateManager statemanager = pcpoint.jdoStateManager;
@@ -309,7 +309,7 @@ public class PCPoint
                 pcpoint, jdoInheritedFieldCount + 0, pcpoint.x);
     }
 
-    public static final Integer jdoGety(PCPoint pcpoint) {
+    public static Integer jdoGety(PCPoint pcpoint) {
         if (pcpoint.jdoFlags <= PersistenceCapable.READ_WRITE_OK)
             return pcpoint.y;
         StateManager statemanager = pcpoint.jdoStateManager;
@@ -322,7 +322,7 @@ public class PCPoint
                 pcpoint, jdoInheritedFieldCount + 1, pcpoint.y);
     }
 
-    public static final void jdoSetx(PCPoint pcpoint, int i) {
+    public static void jdoSetx(PCPoint pcpoint, int i) {
         if (pcpoint.jdoFlags == PersistenceCapable.READ_WRITE_OK) {
             pcpoint.x = i;
             return;
@@ -339,7 +339,7 @@ public class PCPoint
         }
     }
 
-    public static final void jdoSety(PCPoint pcpoint, Integer integer) {
+    public static void jdoSety(PCPoint pcpoint, Integer integer) {
         if (pcpoint.jdoFlags == PersistenceCapable.READ_WRITE_OK) {
             pcpoint.y = integer;
             return;
@@ -445,7 +445,7 @@ public class PCPoint
         out.defaultWriteObject();
     }
     
-    protected static final Class sunjdo$classForName$(String s) {
+    protected static Class<?> sunjdo$classForName$(String s) {
         try {
             return Class.forName(s);
         }

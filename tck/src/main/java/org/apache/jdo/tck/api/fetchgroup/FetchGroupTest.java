@@ -63,7 +63,7 @@ public class FetchGroupTest extends JDO_Test {
     }
 
     /** All fetch groups in this PMF. */
-    protected Set allPMFFetchGroups;
+    protected Set<FetchGroup> allPMFFetchGroups;
 
     /**
      * Employee.java:
@@ -90,26 +90,26 @@ public class FetchGroupTest extends JDO_Test {
     private Address address;
     private Map phoneNumbers = new HashMap();
      */
-    protected String[] basicMembers = new String[]{"hiredate", "weeklyhours", 
+    protected final String[] basicMembers = new String[]{"hiredate", "weeklyhours",
         "personid", "firstname", "lastname", "middlename", "birthdate"};
     /** In org/apache/jdo/tck/pc/package.jdo, middlename is not in DFG */
-    protected String[] defaultMembers = new String[]{"hiredate", "weeklyhours", 
+    protected final String[] defaultMembers = new String[]{"hiredate", "weeklyhours",
         "personid", "firstname", "lastname","birthdate"};
-    protected String[] allMembers = new String[]{"hiredate", "weeklyhours", 
+    protected final String[] allMembers = new String[]{"hiredate", "weeklyhours",
         "dentalInsurance", "medicalInsurance", "department", "fundingDept",
         "manager", "mentor", "protege", "hradvisor",
         "reviewedProjects", "projects", "team", "hradvisees",
         "personid", "firstname", "lastname", "middlename", "birthdate",
         "address", "phoneNumbers"};
     /** Address address is of type Address and is a relationship */
-    protected String[] relationshipMembers = new String[]{
+    protected final String[] relationshipMembers = new String[]{
         "dentalInsurance", "medicalInsurance", "department", "fundingDept",
         "manager", "mentor", "protege", "hradvisor",
         "reviewedProjects", "projects", "team", "hradvisees", "address"};
     /** Map phoneNumbers is not a relationship but is multivalued */
-    protected String[] multivaluedMembers = new String[]{
+    protected final String[] multivaluedMembers = new String[]{
         "reviewedProjects", "projects", "team", "hradvisees", "phoneNumbers"};
-    protected String[] allButMultivaluedMembers = new String[]
+    protected final String[] allButMultivaluedMembers = new String[]
         {"hiredate", "weeklyhours", 
         "dentalInsurance", "medicalInsurance", "department", "fundingDept",
         "manager", "mentor", "protege", "hradvisor",
@@ -123,9 +123,10 @@ public class FetchGroupTest extends JDO_Test {
         getPM(); // initialize pmf and pm fields
     }
 
+    @SuppressWarnings("unchecked")
     public void testPMFGetFetchGroup() {
         allPMFFetchGroups = pmf.getFetchGroups();
-        Map unscopedFetchGroupMap = new HashMap();    
+        Map<String , FetchGroup> unscopedFetchGroupMap = new HashMap<>();
         unscopedFetchGroupMap.put("Address+default", 
                 pmf.getFetchGroup(Address.class, "default"));
         unscopedFetchGroupMap.put("Company+default", 
@@ -234,11 +235,12 @@ public class FetchGroupTest extends JDO_Test {
         failOnError();
     }
 
+    @SuppressWarnings("unchecked")
     public void testRemoveCategory() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveCategory");
-        Set expectedSet = new HashSet();
+        Set<String> expectedSet = new HashSet<>();
         expectedSet.addAll(Arrays.asList(allButMultivaluedMembers));
-        Set members = fg.getMembers();
+        Set<String> members = fg.getMembers();
         fg.addCategory(FetchGroup.ALL);
         fg.removeCategory(FetchGroup.MULTIVALUED);
         members = fg.getMembers();
@@ -247,12 +249,13 @@ public class FetchGroupTest extends JDO_Test {
                 expectedSet, members);        
     }
 
+    @SuppressWarnings("unchecked")
     public void testAddMember() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testAddMember");
         for (int i = 0; i < allMembers.length; ++i) {
             String member = allMembers[i];
             fg.addMember(member);
-            Set members = fg.getMembers();
+            Set<String> members = fg.getMembers();
             assertTrue("FetchGroup should contain " + member + " but does not.\n"
                     + printFetchGroup(fg),
                     members.contains(member));
@@ -262,23 +265,25 @@ public class FetchGroupTest extends JDO_Test {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void testAddMembers() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testAddMembers");
         fg.addMembers(multivaluedMembers);
         fg.addMembers(allButMultivaluedMembers);
-        Set members = fg.getMembers();
-        Set expectedSet = new HashSet();
+        Set<String> members = fg.getMembers();
+        Set<String> expectedSet = new HashSet<>();
         expectedSet.addAll(Arrays.asList(allMembers));
         assertEquals("FetchGroup should contain all members.\n",
                 expectedSet, members);
     }
 
+    @SuppressWarnings("unchecked")
     public void testRemoveMembers() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveMembers");
         fg.addMembers(allMembers);
         fg.removeMembers(relationshipMembers);
-        Set members = fg.getMembers();
-        Set expectedSet = new HashSet();
+        Set<String> members = fg.getMembers();
+        Set<String> expectedSet = new HashSet<>();
         expectedSet.addAll(Arrays.asList(basicMembers));
         expectedSet.add("phoneNumbers");
         assertEquals("FetchGroup should contain basic members " +
@@ -286,19 +291,20 @@ public class FetchGroupTest extends JDO_Test {
                 expectedSet, members);
         fg.removeMembers(basicMembers);
         members = fg.getMembers();
-        expectedSet = new HashSet();
+        expectedSet = new HashSet<>();
         expectedSet.add("phoneNumbers");
         assertEquals("FetchGroup should contain address plus phoneNumbers.\n",
                 expectedSet, members);
     }
 
+    @SuppressWarnings("unchecked")
     public void testRemoveMember() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveMember");
         fg.addCategory(FetchGroup.ALL);
         for (int i = allMembers.length - 1; i >= 0; --i) {
             String member = allMembers[i];
             fg.removeMember(member);
-            Set members = fg.getMembers();
+            Set<String> members = fg.getMembers();
             assertFalse("FetchGroup should not contain " + member + " but does.\n"
                     + printFetchGroup(fg),
                     members.contains(member));
@@ -521,11 +527,12 @@ public class FetchGroupTest extends JDO_Test {
         }
     }
 
-    private void checkAddCategory(Class cls, String category, String[] expected) {
+    @SuppressWarnings("unchecked")
+    private void checkAddCategory(Class<?> cls, String category, String[] expected) {
         FetchGroup fg = pm.getFetchGroup(cls, "test" + count() + category);
-        Set expectedSet = new HashSet();
+        Set<String> expectedSet = new HashSet<>();
         expectedSet.addAll(Arrays.asList(expected));
-        Set members = fg.getMembers();
+        Set<String> members = fg.getMembers();
         assertTrue("New FetchGroup should have no members; "
                 + printFetchGroup(fg),
                 members.isEmpty());
@@ -538,6 +545,7 @@ public class FetchGroupTest extends JDO_Test {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private String printFetchGroup(FetchGroup fg) {
         StringBuffer sb = new StringBuffer("FetchGroup (");
         sb.append(fg.getType().isInterface()?"interface: ":"class: ");
@@ -545,16 +553,16 @@ public class FetchGroupTest extends JDO_Test {
         sb.append("; name: ");
         sb.append(fg.getName());
         sb.append(fg.isUnmodifiable()?"; unmodifiable":"; modifiable");
-        Set members = fg.getMembers();
-        Iterator it = members.iterator();
+        Set<String> members = fg.getMembers();
+        Iterator<String> it = members.iterator();
         if (it.hasNext()) {
             sb.append("; members: ");
-            String member = (String)it.next();
+            String member = it.next();
             formatMember(sb, fg, member);
         }
         while (it.hasNext()) {
             sb.append(", ");
-            String member = (String)it.next();
+            String member = it.next();
             formatMember(sb, fg, member);
         }
         sb.append(")");

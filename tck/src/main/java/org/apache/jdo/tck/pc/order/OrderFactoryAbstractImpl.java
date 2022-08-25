@@ -32,14 +32,14 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class OrderFactoryAbstractImpl implements OrderFactory {
     
-    protected PersistenceManager pm;
+    protected final PersistenceManager pm;
     
     /** Logger */
-    protected Log logger = 
+    protected final Log logger =
         LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
     /** true if debug logging is enabled. */
-    protected boolean debug = logger.isDebugEnabled();
+    protected final boolean debug = logger.isDebugEnabled();
     
     /**
      * Creates a new instance of OrderFactoryAbstractImpl
@@ -60,7 +60,7 @@ public abstract class OrderFactoryAbstractImpl implements OrderFactory {
         return result;
     }
 
-    public Order newOrder(long orderId, Set items, long customerId) {
+    public Order newOrder(long orderId, Set<OrderItem> items, long customerId) {
         Order result = newOrder();
         result.setOrderId(orderId);
         result.setItems(items);

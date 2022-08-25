@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.Project;
@@ -59,120 +58,120 @@ public class ResultClassRequirements extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // JDK class
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "personid, lastname",
-        /*INTO*/        Long.class, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "personid, lastname",
+                    /*INTO*/        Long.class,
+                    /*FROM*/        FullTimeEmployee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         
         // JDK class, non assignment compatible
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "this",
-        /*INTO*/        Long.class, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "this",
+                    /*INTO*/        Long.class,
+                    /*FROM*/        FullTimeEmployee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         
         // TCK class, salary field is not assignment compatible
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "personid AS l, salary AS s",
-        /*INTO*/        LongString.class, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "personid AS l, salary AS s",
+                    /*INTO*/        LongString.class,
+                    /*FROM*/        FullTimeEmployee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         
         // TCK class, non existing constructor
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "new LongString(personid)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     "import org.apache.jdo.tck.query.result.classes.LongString;",
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "new LongString(personid)",
+                    /*INTO*/        null,
+                    /*FROM*/        FullTimeEmployee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     "import org.apache.jdo.tck.query.result.classes.LongString;",
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         
         // TCK class, no no-args constructor
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "personid",
-        /*INTO*/        MissingNoArgsConstructor.class, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "personid",
+                    /*INTO*/        MissingNoArgsConstructor.class,
+                    /*FROM*/        FullTimeEmployee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         
         // TCK class, no no-args constructor
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "personid",
-        /*INTO*/        NoFieldsNoMethods.class, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "personid",
+                    /*INTO*/        NoFieldsNoMethods.class,
+                    /*FROM*/        FullTimeEmployee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
     };
         
     // Two dimensional arrays to be converted to maps 
     // in the expected result.
-    private static Object[][] emp1Map = 
+    private static final Object[][] emp1Map =
         {{"id", Long.valueOf(1)}, 
          {"name", "emp1Last"}};
-    private static Object[][] emp2Map = 
+    private static final Object[][] emp2Map =
         {{"id", Long.valueOf(2)}, 
          {"name", "emp2Last"}};
-    private static Object[][] emp5Map = 
+    private static final Object[][] emp5Map =
         {{"id", Long.valueOf(5)}, 
          {"name", "emp5Last"}};
-    private static Object[][] publicPutMethod1 =
+    private static final Object[][] publicPutMethod1 =
         {{"personid", Long.valueOf(1)}, {"lastname", "emp1Last"}};
-    private static Object[][] publicPutMethod2 =
+    private static final Object[][] publicPutMethod2 =
         {{"personid", Long.valueOf(2)}, {"lastname", "emp2Last"}};
-    private static Object[][] publicPutMethod5 =
+    private static final Object[][] publicPutMethod5 =
         {{"personid", Long.valueOf(5)}, {"lastname", "emp5Last"}};
     
     /**
@@ -192,7 +191,7 @@ public class ResultClassRequirements extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.personid);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "personid",
                 /*INTO*/        Long.class,
@@ -222,7 +221,7 @@ public class ResultClassRequirements extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.salary);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "salary",
                 /*INTO*/        Double.class,
@@ -253,7 +252,7 @@ public class ResultClassRequirements extends QueryTest {
         QProject cand = QProject.candidate();
         query.result(false, cand.budget);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "budget",
                 /*INTO*/        BigDecimal.class,
@@ -286,7 +285,7 @@ public class ResultClassRequirements extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.hiredate);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "hiredate",
                 /*INTO*/        java.util.Date.class,
@@ -320,7 +319,7 @@ public class ResultClassRequirements extends QueryTest {
         // JDOQLTypedQuery API: Map Result
         query.result(false, cand.personid.as("id"), cand.lastname.as("name"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "personid AS id, lastname AS name",
                 /*INTO*/        Map.class,
@@ -354,7 +353,7 @@ public class ResultClassRequirements extends QueryTest {
         // JDOQLTypedQuery API: user defined class
         query.result(false, cand.personid.as("l"), cand.lastname.as("s"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "personid AS l, lastname AS s",
                 /*INTO*/        LongString.class,
@@ -388,7 +387,7 @@ public class ResultClassRequirements extends QueryTest {
         // JDOQLTypedQuery API: constructor
         query.result(false, cand.personid, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "new LongString(personid, lastname)",
                 /*INTO*/        null,
@@ -422,7 +421,7 @@ public class ResultClassRequirements extends QueryTest {
         // JDOQLTypedQuery API: constructor
         query.result(false, cand.personid, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "personid, lastname",
                 /*INTO*/        LongString.class,
@@ -456,7 +455,7 @@ public class ResultClassRequirements extends QueryTest {
         // JDOQLTypedQuery API:
         query.result(false, cand.personid.as("l"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "personid AS l",
                 /*INTO*/        PublicLongField.class,
@@ -490,7 +489,7 @@ public class ResultClassRequirements extends QueryTest {
         // JDOQLTypedQuery API: constructor
         query.result(false, cand.personid.as("personid"), cand.lastname.as("lastname"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "personid, lastname",
                 /*INTO*/        PublicPutMethod.class,
@@ -514,9 +513,9 @@ public class ResultClassRequirements extends QueryTest {
 
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
-            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
+            compileSingleStringQuery(ASSERTION_FAILED, invalidQuery,
                     false);
         }
     }

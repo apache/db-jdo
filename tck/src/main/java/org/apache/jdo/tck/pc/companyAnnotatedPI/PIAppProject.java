@@ -21,6 +21,7 @@ import javax.jdo.annotations.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IProject;
 
 /**
@@ -45,16 +46,16 @@ public interface PIAppProject extends IProject {
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class,
             column="REVIEWER", foreignKey="PR_REV_FK")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
-    Set getReviewers();
+    Set<IEmployee> getReviewers();
     @Persistent(table="project_member")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class,
             column="MEMBER", foreignKey="PM_MEMB_FK")
     @Join(column="PROJID", foreignKey="PM_PROJ_FK")
-    Set getMembers();
+    Set<IEmployee> getMembers();
     
     void setProjid(long projid);
     void setName(String name);
     void setBudget(BigDecimal budget);
-    void setReviewers(Set reviewers);
-    void setMembers(Set employees);
+    void setReviewers(Set<IEmployee> reviewers);
+    void setMembers(Set<IEmployee> employees);
 }

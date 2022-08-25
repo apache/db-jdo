@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * List of inserted instances (see methods insertPCPoints and
      * getFromInserted). 
      */
-    protected List inserted = new ArrayList();
+    protected final List<PCPoint> inserted = new ArrayList<>();
     
     /**
      * The company model reader is used 
@@ -111,7 +112,7 @@ public abstract class QueryTest extends AbstractReaderTest {
         try {
             tx.begin();
             for(int i = 0; i<numInsert; i++) {
-                Object pc = new PCPoint(i, i);
+                PCPoint pc = new PCPoint(i, i);
                 pm.makePersistent(pc);
                 inserted.add(pc);
             }
@@ -129,16 +130,14 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param list list
      * @return list
      */
-    public List getFromInserted(List list) {
+    public List<PCPoint> getFromInserted(List<PCPoint> list) {
         if (list == null)
             return null;
         
-        List result = new ArrayList();
-        for (Iterator iter = list.iterator(); iter.hasNext();) {
-            Object pc = iter.next();
-            for (Iterator iteri = inserted.iterator(); iteri.hasNext();) {
-                Object pci = iteri.next();
-                if (((PCPoint)pc).getX() == ((PCPoint)pci).getX()) {
+        List<PCPoint> result = new ArrayList<>();
+        for (PCPoint pc : list) {
+            for (PCPoint pci : inserted) {
+                if (pc.getX() == pci.getX()) {
                     result.add(pci);
                     break;
                 }
@@ -242,7 +241,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param pm the PersistenceManager
      * @param pcInstances the pc instances to persist
      */
-    private void makePersistentAll(PersistenceManager pm, List pcInstances) {
+    private void makePersistentAll(PersistenceManager pm, List<?> pcInstances) {
         Transaction tx = pm.currentTransaction();
         tx.begin();
         try {
@@ -255,77 +254,56 @@ public abstract class QueryTest extends AbstractReaderTest {
             }
         }
     }
-    
+
     /**
      * Returns a persistent company model instance for the given bean name.
+     * @param clazz class of the returned instance
      * @param beanName the bean name.
      * @return the persistent company model instance. 
      */
-    protected Object getPersistentCompanyModelInstance(String beanName) {
+    protected <T> T getPersistentCompanyModelInstance(Class<T> clazz, String beanName) {
         return beanName == null ? null :
-            getBean(getCompanyModelReaderForPersistentInstances(),beanName);
+                getBean(getCompanyModelReaderForPersistentInstances(), clazz, beanName);
     }
     
     /**
      * Returns a transient company model instance for the given bean name.
+     * @param clazz the class of teh returned instance
      * @param beanName the bean name.
      * @return the transient company model instance. 
      */
-    protected Object getTransientCompanyModelInstance(String beanName) {
+    protected <T> T getTransientCompanyModelInstance(Class<T> clazz, String beanName) {
         return beanName == null ? null :
-            getBean(getCompanyModelReaderForTransientInstances(),beanName);
+                getBean(getCompanyModelReaderForTransientInstances(), clazz, beanName);
     }
-    
+
     /**
-     * Returns an array of persistent company model instances for bean names 
-     * in the given argument.
-     * @param beanNames the bean names of company mode instances.
-     * @return the array of persistent company model instances. 
-     */
-    protected Object[] getPersistentCompanyModelInstances(String[] beanNames) {
-        Object[] result = new Object[beanNames.length];
-        for (int i = 0; i < beanNames.length; i++) {
-            result[i] = getPersistentCompanyModelInstance(beanNames[i]);
-        }
-        return result;
-    }
-    
-    /**
-     * Returns an array of transient company model instances for bean names 
-     * in the given argument.
-     * @param beanNames the bean names of company mode instances.
-     * @return the array of transient company model instances. 
-     */
-    protected Object[] getTransientCompanyModelInstances(String[] beanNames) {
-        Object[] result = new Object[beanNames.length];
-        for (int i = 0; i < beanNames.length; i++) {
-            result[i] = getTransientCompanyModelInstance(beanNames[i]);
-        }
-        return result;
-    }
-    
-    /**
-     * Returns a list of persistent company model instances instances 
+     * Returns a list of persistent company model instances
      * for beans names in the given argument.
+     * @param elementType the element type of the returned list
      * @param beanNames the bean names of company model instances.
      * @return the list of persistent company model instances. 
      */
-    protected List getPersistentCompanyModelInstancesAsList(
-            String[] beanNames) {
-        return new ArrayList(
-                Arrays.asList(getPersistentCompanyModelInstances(beanNames)));
+    protected <T> List<T> getPersistentCompanyModelInstancesAsList(Class<T> elementType, String... beanNames) {
+        List<T> result = new ArrayList<>(beanNames.length);
+        for (String beanName : beanNames) {
+            result.add(getPersistentCompanyModelInstance(elementType, beanName));
+        }
+        return result;
     }
-    
     /**
-     * Returns a list of transient company model instances instances 
+     * Returns a list of transient company model instances
      * for beans names in the given argument.
+     * @param elementType the element type of the returned list
      * @param beanNames the bean names of company model instances.
      * @return the list of transient company model instances. 
      */
-    protected List getTransientCompanyModelInstancesAsList(
-            String[] beanNames) {
-        return new ArrayList(
-                Arrays.asList(getTransientCompanyModelInstances(beanNames)));
+    protected <T> List<T> getTransientCompanyModelInstancesAsList(Class<T> elementType, String... beanNames) {
+        List<T> result = new ArrayList<>(beanNames.length);
+        for (String beanName : beanNames) {
+            result.add(getTransientCompanyModelInstance(elementType, beanName));
+        }
+        return result;
     }
     
     /**
@@ -354,7 +332,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param beanNames the bean names of mylib instances.
      * @return the array of persistent mylib instances. 
      */
-    protected Object[] getPersistentMylibInstances(String[] beanNames) {
+    protected Object[] getPersistentMylibInstances(String... beanNames) {
         Object[] result = new Object[beanNames.length];
         for (int i = 0; i < beanNames.length; i++) {
             result[i] = getPersistentMylibInstance(beanNames[i]);
@@ -368,7 +346,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param beanNames the bean names of mylib instances.
      * @return the array of transient mylib instances. 
      */
-    protected Object[] getTransientMylibInstances(String[] beanNames) {
+    protected Object[] getTransientMylibInstances(String... beanNames) {
         Object[] result = new Object[beanNames.length];
         for (int i = 0; i < beanNames.length; i++) {
             result[i] = getTransientMylibInstance(beanNames[i]);
@@ -382,7 +360,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param beanNames the bean names of mylib instances.
      * @return the list of persistent mylib instances. 
      */
-    protected List getPersistentMylibInstancesAsList(String[] beanNames) {
+    protected List<Object> getPersistentMylibInstancesAsList(String... beanNames) {
         return Arrays.asList(getPersistentMylibInstances(beanNames));
     }
     
@@ -392,7 +370,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param beanNames the bean names of mylib instances.
      * @return the list of transient mylib instances. 
      */
-    protected List getTransientMylibInstancesAsList(String[] beanNames) {
+    protected List<Object> getTransientMylibInstancesAsList(String... beanNames) {
         return Arrays.asList(getTransientMylibInstances(beanNames));
     }
     
@@ -431,10 +409,10 @@ public abstract class QueryTest extends AbstractReaderTest {
                     charValue = 'E';
                 }
                 PrimitiveTypes primitiveObject = new PrimitiveTypes(
-                    (long)i, bFlag, Boolean.valueOf(bFlag), (byte)i, Byte.valueOf((byte)i),
-                    (short)i, Short.valueOf((short)i), (int) i, Integer.valueOf(i),
-                    (long)i, Long.valueOf(i), (float)i, Float.valueOf((float)i),
-                    (double)i, Double.valueOf(i), charValue, Character.valueOf(charValue),
+                    i, bFlag, Boolean.valueOf(bFlag), (byte)i, Byte.valueOf((byte)i),
+                    (short)i, Short.valueOf((short)i), i, Integer.valueOf(i),
+                    i, Long.valueOf(i), i, Float.valueOf(i),
+                    i, Double.valueOf(i), charValue, Character.valueOf(charValue),
                     Calendar.getInstance().getTime(), strValue,
                     new BigDecimal(String.valueOf(i)), 
                     new BigInteger(String.valueOf(i)),
@@ -461,12 +439,11 @@ public abstract class QueryTest extends AbstractReaderTest {
      */
     protected void runSimplePrimitiveTypesQuery(String filter,
                                                 PersistenceManager pm,
-                                                Collection expected,
+                                                Collection<PrimitiveTypes> expected,
                                                 String assertion) {
-        Query q = pm.newQuery();
-        q.setClass(PrimitiveTypes.class);
+        Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class);
         q.setFilter(filter);
-        Collection results = (Collection)q.execute();
+        List<PrimitiveTypes> results = q.executeList();
         if (debug)
             logger.debug("execute '" + filter + "' returns " +  results.size() +
                          " instance(s)");
@@ -488,13 +465,13 @@ public abstract class QueryTest extends AbstractReaderTest {
                                                    String paramDecl,
                                                    Object paramValue,
                                                    PersistenceManager pm,
-                                                   Collection expected,
+                                                   Collection<PrimitiveTypes> expected,
                                                    String assertion) {
-        Query q = pm.newQuery();
-        q.setClass(PrimitiveTypes.class);
+        Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class);
         q.setFilter(filter);
         q.declareParameters(paramDecl);
-        Collection results = (Collection)q.execute(paramValue);
+        q.setParameters(paramValue);
+        List<PrimitiveTypes> results = q.executeList();
         if (debug)
             logger.debug("execute '" + filter + "' with param '" + paramValue +
                          "' returns " +  results.size() + " instance(s)");
@@ -537,7 +514,7 @@ public abstract class QueryTest extends AbstractReaderTest {
         // on collections. This ensures, lists are compared without order
         // for queries without an ordering specification.
         if (result instanceof Collection && expected instanceof Collection) {
-            if (!equalsCollection((Collection)result, (Collection)expected)) {
+            if (!equalsCollection((Collection<?>)result, (Collection<?>)expected)) {
                 queryFailed(assertion, "null", result, expected);
             }
         } else {
@@ -594,7 +571,7 @@ public abstract class QueryTest extends AbstractReaderTest {
         // on collections. This ensures, lists are compared without order
         // for queries without an ordering specification.
         if (result instanceof Collection && expected instanceof Collection) {
-            if (!equalsCollection((Collection)result, (Collection)expected)) {
+            if (!equalsCollection((Collection<?>)result, (Collection<?>)expected)) {
                 queryFailed(assertion, query, result, expected);
             }
         } else {
@@ -625,11 +602,11 @@ public abstract class QueryTest extends AbstractReaderTest {
         } else if ((o1 instanceof Object[]) && (o2 instanceof Object[])) {
             result = equalsObjectArray((Object[])o1, (Object[])o2);
         } else if ((o1 instanceof List) && (o2 instanceof List)) {
-            result = equalsList((List)o1, (List)o2);
+            result = equalsList((List<?>)o1, (List<?>)o2);
         } else if ((o1 instanceof Collection) && (o2 instanceof Collection)) {
-            result = equalsCollection((Collection)o1, (Collection)o2);
+            result = equalsCollection((Collection<?>)o1, (Collection<?>)o2);
         } else if ((o1 instanceof Map) && (o2 instanceof Map)) {
-            result = equalsMap((Map)o1, (Map)o2);
+            result = equalsMap((Map<?, ?>)o1, (Map<?, ?>)o2);
         } else if ((o1 instanceof Float) && (o2 instanceof Float)) {
             result = closeEnough(((Float)o1).floatValue(), 
                     ((Float)o2).floatValue());
@@ -696,14 +673,14 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param o2 the second list
      * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
      */
-    protected boolean equalsList(List o1, List o2) {
+    protected <S, T> boolean equalsList(List<S> o1, List<T> o2) {
         boolean result = true;
         if (o1 != o2) {
             if (o1.size() != o2.size()) {
                 result = false;
             } else {
-                Iterator i = o1.iterator();
-                Iterator ii = o2.iterator();
+                Iterator<S> i = o1.iterator();
+                Iterator<T> ii = o2.iterator();
                 while (i.hasNext()) {
                     Object firstObject = i.next();
                     Object secondObject = ii.next();
@@ -731,20 +708,18 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param o2 the second collection
      * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
      */
-    protected boolean equalsCollection(Collection o1, Collection o2) {
+    protected <S, T> boolean equalsCollection(Collection<S> o1, Collection<T> o2) {
         // make a copy of o2 so we can destroy it
-        Collection o2copy = new ArrayList();
-        Iterator i2 = o2.iterator();
-        while (i2.hasNext()) {
-            o2copy.add(i2.next());
+        Collection<T> o2copy = new ArrayList<>();
+        for (T t : o2) {
+            o2copy.add(t);
         }
         boolean result = true;
         if (o1 != o2) {
             if (o1.size() != o2.size()) {
                 result = false;
             } else {
-                for (Iterator i = o1.iterator(); i.hasNext(); ) {
-                    Object oo1 = i.next();
+                for (S oo1 : o1) {
                     if (!remove(o2copy, oo1)) {
                         result = false;
                         break;
@@ -766,17 +741,16 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param o2 the second map
      * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
      */
-    protected boolean equalsMap(Map o1, Map o2) {
+    protected <K1,V1, K2, V2> boolean equalsMap(Map<K1,V1> o1, Map<K2,V2> o2) {
         boolean result = true;
         if (o1 != o2) {
             if (o1.size() != o2.size()) {
                 result = false;
             } else {
-                for (Iterator i = o1.entrySet().iterator(); i.hasNext(); ) {
-                    Map.Entry entry = (Map.Entry) i.next();
-                    Object key = entry.getKey();
-                    Object value = entry.getValue();
-                    Object value2 = o2.get(key);
+                for (Map.Entry<K1, V1> entry : o1.entrySet()) {
+                    K1 key = entry.getKey();
+                    V1 value = entry.getValue();
+                    V2 value2 = o2.get(key);
                     if (!equals(value, value2)) {
                         result = false;
                         break;
@@ -801,9 +775,9 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @return <code>true</code> if <code>o</code> is contained
      * in the given collection.
      */
-    private boolean contains(Collection col, Object o) {
-        for (Iterator i = col.iterator(); i.hasNext(); ) {
-            if (equals(o, i.next())) {
+    private boolean contains(Collection<Object> col, Object o) {
+        for (Object value : col) {
+            if (equals(o, value)) {
                 return true;
             }
         }
@@ -824,8 +798,8 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @return <code>true</code> if <code>o</code> is contained
      * in the given collection and was removed.
      */
-    private boolean remove(Collection col, Object o) {
-        for (Iterator i = col.iterator(); i.hasNext(); ) {
+    private <T> boolean remove(Collection<T> col, Object o) {
+        for (Iterator<T> i = col.iterator(); i.hasNext(); ) {
             if (equals(o, i.next())) {
                 i.remove();
                 return true;
@@ -881,13 +855,13 @@ public abstract class QueryTest extends AbstractReaderTest {
      */
     protected int size(Object o) {
         if (o instanceof Collection) {
-            return ((Collection)o).size();
+            return ((Collection<?>)o).size();
         }
         if (o instanceof Object[]) {
             return ((Object[])o).length;
         }
         if (o instanceof Map) {
-            return ((Map)o).size();
+            return ((Map<?, ?>)o).size();
         }
         return 1;
     }
@@ -899,28 +873,29 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param results the results
      * @param expected expected values
      */
-    protected void printOutput(Object results, Collection expected) {
+    protected void printOutput(Object results, Collection<?> expected) {
         if (!debug)
             return;
 
-        Iterator iter = null;
+        Iterator<?> iter = null;
         PCPoint pcp = null;
         if (results == null) {
             logger.debug("Query returns null");
+            return;
         }
         if (!(results instanceof Collection)) {
             logger.debug("Query result is not a collection: " +
-                         results.getClass().getName());
+                    (results == null ? "null" : results.getClass().getName()));
         }
         logger.debug("Retrived Objects are:");
-        iter = ((Collection)results).iterator();
+        iter = ((Collection<?>)results).iterator();
         while (iter.hasNext()) {
             pcp = (PCPoint)iter.next();
             logger.debug("X = " + pcp.getX() + "\tY = " + pcp.getY());
         }
             
         logger.debug("Expected Objects are:");
-        iter = ((Collection)expected).iterator();
+        iter = expected.iterator();
         while (iter.hasNext()) {
             pcp = (PCPoint)iter.next();
             logger.debug("X = " + pcp.getX() + "\tY = " + pcp.getY());
@@ -943,7 +918,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * to succeed or to fail.
      */
     protected void compileAPIQuery(String assertion,
-            QueryElementHolder queryElementHolder, boolean positive) {
+            QueryElementHolder<?> queryElementHolder, boolean positive) {
         if (logger.isDebugEnabled()) {
             logger.debug("Compiling API query: " + queryElementHolder);
         }
@@ -966,7 +941,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * to succeed or to fail.
      */
     protected void compileSingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, boolean positive) {
+            QueryElementHolder<?> queryElementHolder, boolean positive) {
         if (logger.isDebugEnabled())
             logger.debug("Compiling single string query: " + 
                     queryElementHolder);
@@ -1020,11 +995,11 @@ public abstract class QueryTest extends AbstractReaderTest {
      * to succeed or to fail.
      */
     private void compile(String assertion, 
-            QueryElementHolder queryElementHolder, boolean asSingleString,  
+            QueryElementHolder<?> queryElementHolder, boolean asSingleString,
             String singleStringQuery, boolean positive) {
         getPM();
         try {
-            Query query;
+            Query<?> query;
             if (queryElementHolder != null) {
                 if (asSingleString) {
                     query = queryElementHolder.getSingleStringQuery(pm);
@@ -1064,7 +1039,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param positive positive test
      */
     protected void compile(String assertion, 
-            Query query, String queryText, boolean positive) {
+            Query<?> query, String queryText, boolean positive) {
         getPM();
         Transaction tx = pm.currentTransaction();
         tx.begin();
@@ -1101,7 +1076,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedResult the expected query result.
      */
     protected void executeAPIQuery(String assertion,
-            QueryElementHolder queryElementHolder, Object expectedResult) {
+            QueryElementHolder<?> queryElementHolder, Object expectedResult) {
         if (logger.isDebugEnabled()) {
             logger.debug("Executing API query: " + queryElementHolder);
         }
@@ -1120,7 +1095,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedResult the expected query result.
      */
     protected void executeSingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, Object expectedResult) {
+            QueryElementHolder<?> queryElementHolder, Object expectedResult) {
         if (logger.isDebugEnabled())
             logger.debug("Executing single string query: " +
                     queryElementHolder);
@@ -1133,7 +1108,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param queryElementHolder query elements
      * @param expectedResult expected query result
      */
-    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
+    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder<?> queryElementHolder,
                                           Object expectedResult) {
         executeJDOQLTypedQuery(assertion, queryElementHolder, null, false, expectedResult);
     }
@@ -1146,7 +1121,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param resultClauseSpecified flag whether result clause is specified
      * @param expectedResult the expected query result
      */
-    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
+    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder<?> queryElementHolder,
                                           Class<?> resultClass, boolean resultClauseSpecified,
                                           Object expectedResult) {
         String singleStringQuery = queryElementHolder.toString();
@@ -1227,10 +1202,10 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedResult the expected query result.
      * @return the query result
      */
-    private Object execute(String assertion, QueryElementHolder queryElementHolder,
+    private Object execute(String assertion, QueryElementHolder<?> queryElementHolder,
                            boolean asSingleString, Object expectedResult) {
         getPM();
-        Query query = asSingleString ?
+        Query<?> query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
         Object result = execute(assertion, query, 
@@ -1255,7 +1230,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param positive indicates if query execution is supposed to fail
      * @return the query result
      */
-    protected Object executeJDOQuery(String assertion, Query query, 
+    protected Object executeJDOQuery(String assertion, Query<?> query,
             String singleStringQuery, boolean hasOrdering,
             Object[] parameters, Object expectedResult, boolean positive) {
         if (logger.isDebugEnabled()) {
@@ -1286,14 +1261,15 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param unique indicates, if the query is supposed 
      * to return a single result.
      */
-    protected void executeSQLQuery(String assertion, String sql, 
-            Class candidateClass, Class resultClass, boolean positive,
+    @SuppressWarnings("unchecked")
+    protected <T> void executeSQLQuery(String assertion, String sql,
+            Class<T> candidateClass, Class<?> resultClass, boolean positive,
             Object parameters, Object expectedResult, boolean unique) {
         String schema = getPMFProperty("javax.jdo.mapping.Schema");
         sql = MessageFormat.format(sql, new Object[]{schema});
         if (logger.isDebugEnabled())
             logger.debug("Executing SQL query: " + sql);
-        Query query = getPM().newQuery("javax.jdo.query.SQL", sql);
+        Query<T> query = getPM().newQuery("javax.jdo.query.SQL", sql);
         if (unique) {
             query.setUnique(unique);
         }
@@ -1346,7 +1322,8 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param positive indicates if query execution is supposed to fail
      * @return the query result
      */
-    private Object execute(String assertion, Query query, 
+    @SuppressWarnings("unchecked")
+    private Object execute(String assertion, Query<?> query,
             String singleStringQuery, boolean hasOrdering,
             Object parameters, Object expectedResult, boolean positive) {
         Object result = null;
@@ -1360,9 +1337,9 @@ public abstract class QueryTest extends AbstractReaderTest {
                 } else if (parameters instanceof Object[]) {
                     result = query.executeWithArray((Object[])parameters);
                 } else if (parameters instanceof Map) {
-                    result = query.executeWithMap((Map)parameters);
+                    result = query.executeWithMap((Map<String, Object>)parameters);
                 } else if (parameters instanceof List) {
-                    List list = (List) parameters;
+                    List<?> list = (List<?>) parameters;
                     switch (list.size()) {
                         case 1:
                             result = query.execute(list.get(0));
@@ -1452,7 +1429,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
     protected void deletePersistentAllByAPIQuery(String assertion,
-            QueryElementHolder queryElementHolder, 
+            QueryElementHolder<?> queryElementHolder,
             long expectedNrOfDeletedObjects) {
         if (logger.isDebugEnabled()) {
             logger.debug("Deleting persistent by API query: " + 
@@ -1476,7 +1453,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
     protected void deletePersistentAllBySingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, long expectedNrOfDeletedObjects) {
+            QueryElementHolder<?> queryElementHolder, long expectedNrOfDeletedObjects) {
         if (logger.isDebugEnabled()) {
             logger.debug("Deleting persistent by single string query: " + 
                     queryElementHolder);
@@ -1502,9 +1479,9 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
     private void delete(String assertion, 
-            QueryElementHolder queryElementHolder, boolean asSingleString, long expectedNrOfDeletedObjects) {
+            QueryElementHolder<?> queryElementHolder, boolean asSingleString, long expectedNrOfDeletedObjects) {
         getPM();
-        Query query = asSingleString ?
+        Query<?> query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
         delete(assertion, query, queryElementHolder.toString(), 
@@ -1512,7 +1489,7 @@ public abstract class QueryTest extends AbstractReaderTest {
         boolean positive = expectedNrOfDeletedObjects >= 0;
         if (positive) {
             execute(assertion, queryElementHolder, asSingleString,
-                    queryElementHolder.isUnique() ? null : new ArrayList());
+                    queryElementHolder.isUnique() ? null : Collections.emptyList());
         }
     }
 
@@ -1532,7 +1509,8 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param parameters the parmaters of the query.
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
-    private void delete(String assertion, Query query, 
+    @SuppressWarnings("unchecked")
+    private void delete(String assertion, Query<?> query,
             String singleStringQuery, Object parameters, 
             long expectedNrOfDeletedObjects) {
         boolean positive = expectedNrOfDeletedObjects >= 0;
@@ -1547,7 +1525,7 @@ public abstract class QueryTest extends AbstractReaderTest {
                 } else if (parameters instanceof Object[]) {
                     nr = query.deletePersistentAll((Object[])parameters);
                 } else if (parameters instanceof Map) {
-                    nr = query.deletePersistentAll((Map)parameters);
+                    nr = query.deletePersistentAll((Map<String, Object>)parameters);
                 } else {
                     throw new IllegalArgumentException("Argument parameters " +
                             "must be instance of Object[], Map, or null.");

@@ -69,7 +69,7 @@ public class GetObjectByIdNoValidationInstanceNotInCache extends PersistenceMana
             if ( curr == HOLLOW ||
                  curr == PERSISTENT_NONTRANSACTIONAL ||
                  curr == PERSISTENT_CLEAN ) {
-                ; // expected result
+                // expected result
             } 
             else {
                 fail(ASSERTION_FAILED,

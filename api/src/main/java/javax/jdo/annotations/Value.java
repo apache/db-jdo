@@ -41,7 +41,7 @@ public @interface Value
      * implementation supports multiple types.
      * @return the types of values
      */
-    Class[] types() default {};
+    Class<?>[] types() default {};
 
     /**
      * Whether the value  is to be stored serialized (into a single column of a

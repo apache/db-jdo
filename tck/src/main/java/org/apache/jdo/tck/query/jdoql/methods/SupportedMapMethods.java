@@ -17,9 +17,9 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
@@ -62,14 +62,15 @@ public class SupportedMapMethods extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testGet() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.get("home").eq("1111"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -92,15 +93,16 @@ public class SupportedMapMethods extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testContainsKey() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
+                "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.containsKey("home"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -123,14 +125,15 @@ public class SupportedMapMethods extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testContainsValue() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.containsValue("1111"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -154,13 +157,13 @@ public class SupportedMapMethods extends QueryTest {
 
     /** */
     public void testIsEmpty() {
-        Object expected = new ArrayList();
+        Object expected = Collections.emptyList();
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.isEmpty());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -183,15 +186,16 @@ public class SupportedMapMethods extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testSize() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
+                "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.size().eq(2));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

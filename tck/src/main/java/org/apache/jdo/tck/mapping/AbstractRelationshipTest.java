@@ -19,14 +19,13 @@ package org.apache.jdo.tck.mapping;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.company.CompanyFactoryRegistry;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.pc.company.Project;
+import org.apache.jdo.tck.pc.company.IEmployee;
+import org.apache.jdo.tck.pc.company.IProject;
 
 /*
  * Abstract class for managed relationship tests
@@ -50,11 +49,10 @@ public class AbstractRelationshipTest extends AbstractReaderTest {
             addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
-            List rootList = getRootList(reader);
+            List<Object> rootList = getRootList(reader);
             pm.makePersistentAll(rootList);
-            rootOids = new ArrayList();
-            for (Iterator i = rootList.iterator(); i.hasNext(); ) {
-                Object pc = i.next();
+            rootOids = new ArrayList<>();
+            for (Object pc : rootList) {
                 rootOids.add(pm.getObjectId(pc));
             }
             // DO THIS
@@ -76,8 +74,8 @@ public class AbstractRelationshipTest extends AbstractReaderTest {
         }
     }
 
-    protected boolean containsEmployee(Collection<Employee> employees, long empid) {
-        for (Employee emp: employees) {
+    protected boolean containsEmployee(Collection<IEmployee> employees, long empid) {
+        for (IEmployee emp: employees) {
             if (emp.getPersonid() == empid) {
                 return true;
             }
@@ -85,8 +83,8 @@ public class AbstractRelationshipTest extends AbstractReaderTest {
         return false;
     }
 
-    protected boolean containsProject(Collection<Project> projects, long projid) {
-        for (Project project: projects) {
+    protected boolean containsProject(Collection<IProject> projects, long projid) {
+        for (IProject project: projects) {
             if (project.getProjid() == projid) {
                 return true;
             }

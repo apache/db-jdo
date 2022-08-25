@@ -77,8 +77,8 @@ public class TestFieldsOfFloat extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Float firstValue = Float.valueOf((float)AllTypes.FLOAT_SMALLEST);
-        Float secondValue = Float.valueOf((float)AllTypes.FLOAT_LARGEST);
+        Float firstValue = Float.valueOf(AllTypes.FLOAT_SMALLEST);
+        Float secondValue = Float.valueOf(AllTypes.FLOAT_LARGEST);
         tx.begin();
         FieldsOfFloat pi = new FieldsOfFloat();
         pi.identifier = 1;
@@ -126,7 +126,7 @@ public class TestFieldsOfFloat extends JDO_Test {
                 fail(ASSERTION_FAILED,
                      "Incorrect value for " + FieldsOfFloat.fieldSpecs[i] + 
                      ", expected value " + startValue.toString() +
-                     ", value is " + val.toString());
+                     ", value is " + val);
             }
         }
     }

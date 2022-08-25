@@ -21,9 +21,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -93,7 +90,7 @@ public class DetachSerialize extends DetachTest {
             oos.writeObject(root);
             return baos.toByteArray();
         } catch (Exception ex) {
-            fail(ASSERTION_FAILED + "serializing cart:" + ex.toString());
+            fail(ASSERTION_FAILED + "serializing cart:" + ex);
             return null; // will not be reached
         }
     }
@@ -105,7 +102,7 @@ public class DetachSerialize extends DetachTest {
             ObjectInputStream ois = new ObjectInputStream(bais);
             return ois.readObject();
         } catch (Exception ex) {
-            fail(ASSERTION_FAILED + "deserializing cart:" + ex.toString());
+            fail(ASSERTION_FAILED + "deserializing cart:" + ex);
             return null; // will not be reached
         }
     }

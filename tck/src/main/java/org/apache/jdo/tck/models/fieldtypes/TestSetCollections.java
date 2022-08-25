@@ -122,17 +122,17 @@ public class TestSetCollections extends JDO_Test {
     /** */
     private void setValues(SetCollections collect, int order)
     {
-        Collection value;
+        Collection<?> value;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
                     SetCollections.fieldSpecs[i]);
-            value = (Collection)TestUtil.makeNewVectorInstance(
+            value = TestUtil.makeNewVectorInstance(
                     valueType, order);
-            Set lvalue = new HashSet(value);
+            Set<?> lvalue = new HashSet<>(value);
             collect.set(i, lvalue);
             if (debug)
-                logger.debug("Set " + i + "th value to: " + value.toString());
+                logger.debug("Set " + i + "th value to: " + value);
         }
     }
 
@@ -140,13 +140,13 @@ public class TestSetCollections extends JDO_Test {
     private void checkValues(Object oid, SetCollections expectedValue)
     {
         int i;
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         SetCollections pi = (SetCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            Set expected = expectedValue.get(i);
-            Set actual = pi.get(i);
+            Set<?> expected = expectedValue.get(i);
+            Set<?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -156,10 +156,10 @@ public class TestSetCollections extends JDO_Test {
                 if (TestUtil.getFieldSpecs(SetCollections.fieldSpecs[i]
                             ).equals("BigDecimal")) {
                     // sort values for comparison
-                    TreeSet expectedTS = new TreeSet(expected);
-                    TreeSet actualTS = new TreeSet(actual);
-                    Iterator expectedIter = expectedTS.iterator();
-                    Iterator actualIter = actualTS.iterator();
+                    TreeSet<?> expectedTS = new TreeSet<>(expected);
+                    TreeSet<?> actualTS = new TreeSet<>(actual);
+                    Iterator<?> expectedIter = expectedTS.iterator();
+                    Iterator<?> actualIter = actualTS.iterator();
                     for (int j=0; j < expectedTS.size(); j++) {
                         BigDecimal bigDecExpected =
                                 (BigDecimal)(expectedIter.next());
@@ -182,7 +182,7 @@ public class TestSetCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
   }
 }

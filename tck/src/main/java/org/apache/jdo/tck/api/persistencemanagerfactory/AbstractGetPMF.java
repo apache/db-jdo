@@ -20,8 +20,7 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 import java.lang.reflect.Method;
 
 import java.io.File;
-import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -55,7 +54,7 @@ abstract class AbstractGetPMF extends JDO_Test {
         validPropertiesFile.substring(0, validPropertiesFile.lastIndexOf(File.separatorChar)+1) +
         "logging.properties";
 */
-    protected static String invalidPropertiesFile;
+    protected static final String invalidPropertiesFile;
     static
     {
         if (validPropertiesFile==null)
@@ -119,7 +118,7 @@ abstract class AbstractGetPMF extends JDO_Test {
         } catch (JDOFatalUserException e) {
             // expected exception
             if (debug)
-                logger.debug("caught expected exception " + e.toString());
+                logger.debug("caught expected exception " + e);
         }
     }
     
@@ -144,19 +143,18 @@ abstract class AbstractGetPMF extends JDO_Test {
             Properties props) {
         Object[] noArgs = new Object[]{};
         String javaxjdooption = "javax.jdo.option.";
-        Class pmfclass = pmf.getClass();
-        Set entries = props.entrySet();
-        StringBuffer buffer = new StringBuffer();
-        for (Iterator it = entries.iterator(); it.hasNext();) {
-            Entry entry = (Entry)it.next();
-            String key = (String)entry.getKey();
+        Class<?> pmfclass = pmf.getClass();
+        Set<Map.Entry<Object, Object>> entries = props.entrySet();
+        StringBuilder buffer = new StringBuilder();
+        for (Map.Entry<Object, Object> entry : entries) {
+            String key = (String) entry.getKey();
             if (key.equals("javax.jdo.option.ConnectionPassword")) {
                 continue;
             }
             if (key.equals("javax.jdo.option.ConnectionUserName")) {
                 continue;
             }
-            String expected = (String)entry.getValue();
+            String expected = (String) entry.getValue();
             if (key.startsWith(javaxjdooption)) {
                 String optionName = key.substring(javaxjdooption.length());
                 Method getMethod = getGetMethod(pmfclass, optionName);
@@ -188,9 +186,9 @@ abstract class AbstractGetPMF extends JDO_Test {
     
     /** Get the "get" method corresponding to the option name.
      */
-    Method getGetMethod(Class cls, String optionName) {
+    Method getGetMethod(Class<?> cls, String optionName) {
         try {
-            return cls.getMethod("get" + optionName, new Class[]{});
+            return cls.getMethod("get" + optionName);
         } catch (Exception ex) {
             fail("Unexpected exception thrown from getMethod on PMF class with option name" + 
                     optionName);

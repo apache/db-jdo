@@ -19,7 +19,6 @@ package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -63,8 +62,8 @@ public class MakeTransactionalIsImmediate extends PersistenceManagerTest {
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection col1 = new HashSet();
-    private Collection col2 = new HashSet();
+    private final Collection<PCPoint> col1 = new HashSet<>();
+    private final Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInst() {
@@ -141,12 +140,11 @@ public class MakeTransactionalIsImmediate extends PersistenceManagerTest {
             pm.makeTransactionalAll(col1);
             tx.rollback();
 
-            for (Iterator iter = col1.iterator(); iter.hasNext();) {
-                PCPoint p = (PCPoint) iter.next();
+            for (PCPoint p : col1) {
                 if (!testState(p, TRANSIENT_CLEAN, "transient_clean")) {
                     fail(ASSERTION_FAILED,
-                         "expected T-CLEAN instance, instance " + p1 + 
-                         " is " + getStateOfInstance(p));
+                            "expected T-CLEAN instance, instance " + p1 +
+                                    " is " + getStateOfInstance(p));
                 }
             }
             tx = null;
@@ -167,13 +165,13 @@ public class MakeTransactionalIsImmediate extends PersistenceManagerTest {
             Object[] objArray = col2.toArray();
             pm.makeTransactionalAll(objArray);
             tx.rollback();
-            
-            for (int i=0; i < objArray.length; i++) {
-                PCPoint p = (PCPoint) objArray[i];
+
+            for (Object o : objArray) {
+                PCPoint p = (PCPoint) o;
                 if (!testState(p, TRANSIENT_CLEAN, "transient_clean")) {
                     fail(ASSERTION_FAILED,
-                         "expected T-CLEAN instance, instance " + p1 + 
-                         " is " + getStateOfInstance(p));
+                            "expected T-CLEAN instance, instance " + p1 +
+                                    " is " + getStateOfInstance(p));
                 }
             }
             tx = null;

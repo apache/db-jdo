@@ -20,8 +20,6 @@ package org.apache.jdo.tck.models.fieldtypes;
 import java.math.BigDecimal;
 
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
@@ -135,20 +133,20 @@ public class TestHashMapStringKeyCollections extends JDO_Test {
         int valueOrder = (order == 1) ? 2 : 1; // why??
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
-            Vector fieldSpecs = TestUtil.getFieldSpecsForMap(
+            Vector<String> fieldSpecs = TestUtil.getFieldSpecsForMap(
                     HashMapStringKeyCollections.fieldSpecs[i]);
-            Vector key = TestUtil.makeNewVectorInstance(
-                    (String)fieldSpecs.get(0), keyOrder);
-            Vector value = TestUtil.makeNewVectorInstance(
-                    (String)fieldSpecs.get(1), valueOrder);
+            Vector<?> key = TestUtil.makeNewVectorInstance(
+                    fieldSpecs.get(0), keyOrder);
+            Vector<?> value = TestUtil.makeNewVectorInstance(
+                    fieldSpecs.get(1), valueOrder);
 
-            HashMap map = new HashMap();
+            HashMap<Object, Object> map = new HashMap<>();
             for (int j = 0; j< key.size(); j++) {
                 map.put(key.get(j), value.get(j));
             }
             collect.set(i, map);
             if (debug)
-                logger.debug("Set " + i + "th value to: " + map.toString());
+                logger.debug("Set " + i + "th value to: " + map);
         }
     }
 
@@ -156,13 +154,13 @@ public class TestHashMapStringKeyCollections extends JDO_Test {
     private void checkValues(Object oid,
             HashMapStringKeyCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         HashMapStringKeyCollections pi = (HashMapStringKeyCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
-            HashMap expected = expectedValue.get(i);
-            HashMap actual = pi.get(i);
+            HashMap<?, ?> expected = expectedValue.get(i);
+            HashMap<?, ?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -172,21 +170,19 @@ public class TestHashMapStringKeyCollections extends JDO_Test {
                 if (TestUtil.getFieldSpecsForMap(
                             HashMapStringKeyCollections.fieldSpecs[i]
                             ).get(1).equals("BigDecimal")) {
-                    Set keys = expected.keySet();
-                    Iterator iter = keys.iterator();
-                    while (iter.hasNext()) {
-                        Object nextKey = iter.next();
-                        BigDecimal expectedMapValue = 
-                                (BigDecimal)expected.get(nextKey);
-                        BigDecimal actualMapValue = 
-                                (BigDecimal)actual.get(nextKey);
+                    Set<?> keys = expected.keySet();
+                    for (Object nextKey : keys) {
+                        BigDecimal expectedMapValue =
+                                (BigDecimal) expected.get(nextKey);
+                        BigDecimal actualMapValue =
+                                (BigDecimal) actual.get(nextKey);
                         if ((expectedMapValue.compareTo(actualMapValue) != 0)) {
-                            sbuf.append("\nFor element " + i + "(" 
-                                    + (String)nextKey +
+                            sbuf.append("\nFor element " + i + "("
+                                    + nextKey +
                                     "), expected = " + expectedMapValue +
                                     ", actual = " + actualMapValue + " . ");
+                        }
                     }
-                }
             }
             else {
                 sbuf.append("\nFor element " + i + ", expected = " +
@@ -196,7 +192,7 @@ public class TestHashMapStringKeyCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

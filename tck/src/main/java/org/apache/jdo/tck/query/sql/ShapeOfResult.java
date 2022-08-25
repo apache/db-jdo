@@ -22,7 +22,6 @@ import java.util.Arrays;
 
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
@@ -78,16 +77,16 @@ public class ShapeOfResult extends QueryTest {
     /** 
      * The expected results of valid SQL queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         // candidate class
-        getTransientMylibInstancesAsList(new String[]{
+        getTransientMylibInstancesAsList(
                 "primitiveTypesPositive", "primitiveTypesNegative",
-                "primitiveTypesCharacterStringLiterals"}),
+                "primitiveTypesCharacterStringLiterals"),
         // candidate class, unique
         getTransientMylibInstance("primitiveTypesPositive"),
         // single column
-        Arrays.asList(new Object[]{"emp1First", "emp2First", "emp3First", 
-            "emp4First", "emp5First"}),
+        Arrays.asList("emp1First", "emp2First", "emp3First",
+            "emp4First", "emp5First"),
         // single column, unique
         "emp1First",
         // mutiple columns
@@ -161,13 +160,13 @@ public class ShapeOfResult extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testNegative() {
         if (isSQLSupported()) {
             String schema = getPMFProperty("javax.jdo.mapping.Schema");
             String sql = MessageFormat.format(
-                    "SELECT stringNull FROM {0}.PrimitiveTypes", 
-                    new Object[]{schema});
-            Query query = getPM().newQuery("javax.jdo.query.SQL", sql);
+                    "SELECT stringNull FROM {0}.PrimitiveTypes", schema);
+            Query<PrimitiveTypes> query = getPM().newQuery("javax.jdo.query.SQL", sql);
             query.setClass(PrimitiveTypes.class);
             compile(ASSERTION_FAILED, query, sql, false);
         }

@@ -17,14 +17,11 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
-import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -32,6 +29,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,7 +64,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
      *
      */
     public void testParameterName() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -74,9 +72,9 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
         query.filter(cand.department.eq(empParam));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("Department", getPersistentCompanyModelInstance("dept1"));
+        paramValues.put("Department", getPersistentCompanyModelInstance(Department.class, "dept1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -101,15 +99,16 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
     /**
      * 
      */
+    @SuppressWarnings("unchecked")
     public void testVaiableName() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         QEmployee variable = QEmployee.variable("Employee");
         query.filter(cand.employees.contains(variable).and(variable.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

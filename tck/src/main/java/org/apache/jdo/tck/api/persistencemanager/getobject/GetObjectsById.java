@@ -65,12 +65,12 @@ public class GetObjectsById extends JDO_Test {
     private static final int NUMBER_OF_INSTANCES = 50;
 
     /** Persistent instances */
-    private final Collection instanceCollection = 
-            new ArrayList(NUMBER_OF_INSTANCES);
+    private final Collection<PCPoint> instanceCollection =
+            new ArrayList<>(NUMBER_OF_INSTANCES);
 
     /** Object ids */
-    private final Collection oidCollection =
-            new ArrayList(NUMBER_OF_INSTANCES);
+    private final Collection<Object> oidCollection =
+            new ArrayList<>(NUMBER_OF_INSTANCES);
 
     /** Persistent instances */
     private final Object[] instanceArray = 
@@ -96,7 +96,7 @@ public class GetObjectsById extends JDO_Test {
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
         getPM().currentTransaction().begin();
-        Object instance;
+        PCPoint instance;
         Object oid;
         instanceCollection.clear();
         oidCollection.clear();
@@ -113,9 +113,10 @@ public class GetObjectsById extends JDO_Test {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testCollection() {
         getPM().currentTransaction().begin();
-        Collection result = pm.getObjectsById(oidCollection);
+        Collection<PCPoint> result = pm.getObjectsById(oidCollection);
         pm.currentTransaction().commit();
         checkResultCollection("after getObjectsById(Collection)", 
                 result);
@@ -123,9 +124,10 @@ public class GetObjectsById extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testCollectionTrue() {
         getPM().currentTransaction().begin();
-        Collection result = pm.getObjectsById(oidCollection, true);
+        Collection<PCPoint> result = pm.getObjectsById(oidCollection, true);
         pm.currentTransaction().commit();
         checkResultCollection(
                 "after getObjectsById(Collection, true)", 
@@ -134,9 +136,10 @@ public class GetObjectsById extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testCollectionFalse() {
         getPM().currentTransaction().begin();
-        Collection result = pm.getObjectsById(oidCollection, false);
+        Collection<PCPoint> result = pm.getObjectsById(oidCollection, false);
         pm.currentTransaction().commit();
         checkResultCollection(
                 "after getObjectsById(Collection, false)", 
@@ -172,9 +175,9 @@ public class GetObjectsById extends JDO_Test {
     }
 
     /** Check the results of getObjectsById */
-    private void checkResultCollection(String location, Collection instances) {
-        Iterator expected = instanceCollection.iterator();
-        Iterator actual = instances.iterator();
+    private void checkResultCollection(String location, Collection<PCPoint> instances) {
+        Iterator<PCPoint> expected = instanceCollection.iterator();
+        Iterator<PCPoint> actual = instances.iterator();
         for (int i = 0; i < NUMBER_OF_INSTANCES; ++i) {
             checkIdentity(ASSERTION_FAILED + location + ", position " + i,
                     expected.next(), actual.next());
@@ -208,7 +211,7 @@ public class GetObjectsById extends JDO_Test {
     }
 
     /** Check that the iterator has no more elements */
-    private void checkIteratorComplete (String location, Iterator iterator) {
+    private void checkIteratorComplete (String location, Iterator<PCPoint> iterator) {
         if (iterator.hasNext()) {
             appendMessage(location + 
                     "result iterator has more elements than expected.");

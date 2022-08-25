@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
@@ -28,6 +27,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.StringExpression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,13 +62,13 @@ public class StringConcatenation extends QueryTest {
      *
      */
     public void testStringLiteralPlusStringLiteral() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.firstname.eq("emp1" + "First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -91,7 +91,7 @@ public class StringConcatenation extends QueryTest {
     }
 
     public void testStringFieldPlusStringLiteral() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -102,7 +102,7 @@ public class StringConcatenation extends QueryTest {
         paramValues.put("param", "emp1FirstExt");
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

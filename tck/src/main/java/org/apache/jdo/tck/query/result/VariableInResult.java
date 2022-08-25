@@ -18,8 +18,8 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.List;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -70,8 +70,9 @@ public class VariableInResult extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testDistinctNoNavigation() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1","emp2","emp3","emp4","emp5"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1","emp2","emp3","emp4","emp5");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -79,7 +80,7 @@ public class VariableInResult extends QueryTest {
         query.filter(cand.employees.contains(e));
         query.result(true, e);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "distinct e",
                 /*INTO*/        null,
@@ -102,6 +103,7 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testDistinctNavigation() {
         Object elem = new Object[]{Long.valueOf(1), "orange"};
         Object expected = Arrays.asList(elem);
@@ -112,7 +114,7 @@ public class VariableInResult extends QueryTest {
         query.filter(cand.projects.contains(p).and(p.name.eq("orange")));
         query.result(true, p.projid, p.name);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "distinct p.projid, p.name",
                 /*INTO*/        null,
@@ -135,6 +137,7 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigation() {
         Object expected = Arrays.asList(
                 new Object[]{Long.valueOf(1), "orange"},
@@ -147,7 +150,7 @@ public class VariableInResult extends QueryTest {
         query.filter(cand.projects.contains(p).and(p.name.eq("orange")));
         query.result(false, p.projid, p.name);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "p.projid, p.name",
                 /*INTO*/        null,
@@ -170,8 +173,9 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNoNavigation() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1","emp2","emp3","emp4","emp5"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1","emp2","emp3","emp4","emp5");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -179,7 +183,7 @@ public class VariableInResult extends QueryTest {
         query.filter(cand.employees.contains(e));
         query.result(false, e);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e",
                 /*INTO*/        null,
@@ -202,8 +206,9 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testMultipleProjectionWithConstraints() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp4","emp5"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp4","emp5");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -212,7 +217,7 @@ public class VariableInResult extends QueryTest {
         query.result(false, e);
 
         // SELECT e FROM Department WHERE deptid==2 & employees.contains(e) VARIABLES Employee e
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e",
                 /*INTO*/        null,

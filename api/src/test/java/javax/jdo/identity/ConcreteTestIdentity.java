@@ -30,9 +30,11 @@ import java.io.ObjectOutput;
  *
  * @author clr
  */
-    public class ConcreteTestIdentity extends SingleFieldIdentity {
-        
-        ConcreteTestIdentity(Class cls) {
+    public class ConcreteTestIdentity extends SingleFieldIdentity<ConcreteTestIdentity> {
+
+        private static final long serialVersionUID = 1L;
+
+        ConcreteTestIdentity(Class<?> cls) {
             super(cls);
         }
         
@@ -47,8 +49,8 @@ import java.io.ObjectOutput;
          * @return The relative ordering between the objects
          * @since 2.2
          */
-        public int compareTo(Object o) {
-            throw new ClassCastException("Not implemented");
+        public int compareTo(ConcreteTestIdentity o) {
+            throw new UnsupportedOperationException("Not implemented");
         }
 
         public void writeExternal(ObjectOutput out) throws IOException {

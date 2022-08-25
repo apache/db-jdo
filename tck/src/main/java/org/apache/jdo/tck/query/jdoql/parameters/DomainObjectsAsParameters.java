@@ -24,7 +24,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -63,6 +62,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with an equal operator comparing a field 
      * with a parameter of a domain object type.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterEqual() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -71,13 +71,14 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "this.department == d";
             Collection<Employee> expectedResult = new ArrayList<>();
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp1"));
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp2"));
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp3"));
-            Query q =  pm.newQuery(Employee.class);
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp1"));
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp2"));
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp3"));
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Department d");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("dept1"));
+            Collection<Employee> results =
+                    (Collection<Employee>)q.execute(getPersistentCompanyModelInstance(Department.class, "dept1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();
@@ -94,6 +95,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * with a parameter of a domain object type. The actual parameter is a copy of the
      * domain object referenced by the employees, thus the expected result is empty.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterEqualCopy() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -102,10 +104,10 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "this.department == d";
             Collection<Employee> expectedResult = new ArrayList<>();
-            Query q =  pm.newQuery(Employee.class);
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Department d");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPM().getObjectById(oidDept1Copy));
+            Collection<Employee> results = (Collection<Employee>)q.execute(getPM().getObjectById(oidDept1Copy));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -121,6 +123,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with a not equal operator comparing a field
      * with a parameter of a domain object type.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterNotEqual() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -129,12 +132,13 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "this.department != d";
             Collection<Employee> expectedResult = new ArrayList<>();
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp4"));
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp5"));
-            Query q =  pm.newQuery(Employee.class);
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp4"));
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp5"));
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Department d");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("dept1"));
+            Collection<Employee> results =
+                    (Collection<Employee>)q.execute(getPersistentCompanyModelInstance(Department.class, "dept1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();
@@ -150,6 +154,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with an equal operator comparing a field 
      * with a domain object navigated from a parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterNavigationToDomainObject() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -158,13 +163,14 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "this.department == e.department";
             Collection<Employee> expectedResult = new ArrayList<>();
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp1"));
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp2"));
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp3"));
-            Query q =  pm.newQuery(Employee.class);
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp1"));
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp2"));
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp3"));
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Employee e");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("emp1"));
+            Collection<Employee> results = (
+                    Collection<Employee>)q.execute(getPersistentCompanyModelInstance(Employee.class, "emp1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();
@@ -180,6 +186,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with an equal operator comparing a field
      * with a domain object navigated from a parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterNavigationToPrimitiveField() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -188,11 +195,12 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "this.salary > e.salary";
             Collection<Employee> expectedResult = new ArrayList<>();
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp5"));
-            Query q =  pm.newQuery(FullTimeEmployee.class);
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp5"));
+            Query<FullTimeEmployee> q =  pm.newQuery(FullTimeEmployee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.FullTimeEmployee e");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("emp1"));
+            Collection<FullTimeEmployee> results =
+                    (Collection<FullTimeEmployee>)q.execute(getPersistentCompanyModelInstance(Employee.class,  "emp1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -208,23 +216,24 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with an equal operator comparing a field
      * with a domain object navigated from a parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testDirtyParameterNavigationToPrimitiveField() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
 
-            FullTimeEmployee emp1 = (FullTimeEmployee)getPersistentCompanyModelInstance("emp1");
+            FullTimeEmployee emp1 = getPersistentCompanyModelInstance(FullTimeEmployee.class, "emp1");
             emp1.setSalary(5000d);
 
             String filter = "this.salary > e.salary";
             Collection<Employee> expectedResult = new ArrayList<>();
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp2"));
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp5"));
-            Query q =  pm.newQuery(FullTimeEmployee.class);
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp2"));
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp5"));
+            Query<FullTimeEmployee> q =  pm.newQuery(FullTimeEmployee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.FullTimeEmployee e");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(emp1);
+            Collection<FullTimeEmployee> results = (Collection<FullTimeEmployee>)q.execute(emp1);
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -239,6 +248,7 @@ public class DomainObjectsAsParameters extends QueryTest {
     /**
      * This methods runs a JDOQL query with a contains clause using a domain object parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testContainsParameter() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -247,11 +257,12 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "this.employees.contains(e)";
             Collection<Department> expectedResult = new ArrayList<>();
-            expectedResult.add((Department)getPersistentCompanyModelInstance("dept1"));
-            Query q =  pm.newQuery(Department.class);
+            expectedResult.add(getPersistentCompanyModelInstance(Department.class, "dept1"));
+            Query<Department> q =  pm.newQuery(Department.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Employee e");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("emp1"));
+            Collection<Department> results =
+                    (Collection<Department>)q.execute(getPersistentCompanyModelInstance(Employee.class, "emp1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -266,6 +277,7 @@ public class DomainObjectsAsParameters extends QueryTest {
     /**
      * This methods runs a JDOQL query with a contains clause using a navigated domain object parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testContainsParameterNavigation() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -274,11 +286,12 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "this.employees.contains(ins.employee)";
             Collection<Department> expectedResult = new ArrayList<>();
-            expectedResult.add((Department)getPersistentCompanyModelInstance("dept1"));
-            Query q =  pm.newQuery(Department.class);
+            expectedResult.add(getPersistentCompanyModelInstance(Department.class, "dept1"));
+            Query<Department> q =  pm.newQuery(Department.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Insurance ins");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("medicalIns1"));
+            Collection<Department> results =
+                    (Collection<Department>)q.execute(getPersistentCompanyModelInstance(MedicalInsurance.class, "medicalIns1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();
@@ -293,6 +306,7 @@ public class DomainObjectsAsParameters extends QueryTest {
     /**
      * This methods runs a JDOQL query with a contains clause using a collection parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterCollection() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -301,17 +315,17 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "insurances.contains(this.medicalInsurance)";
             Collection<Employee> expectedResult = new ArrayList<>();
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp1"));
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp3"));
-            expectedResult.add((Employee)getPersistentCompanyModelInstance("emp4"));
-            Query q =  pm.newQuery(Employee.class);
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp1"));
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp3"));
+            expectedResult.add(getPersistentCompanyModelInstance(Employee.class, "emp4"));
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("java.util.Collection insurances");
             q.setFilter(filter);
             Collection<MedicalInsurance> parameters = new ArrayList<>();
-            parameters.add((MedicalInsurance)getPersistentCompanyModelInstance("medicalIns1"));
-            parameters.add((MedicalInsurance)getPersistentCompanyModelInstance("medicalIns3"));
-            parameters.add((MedicalInsurance)getPersistentCompanyModelInstance("medicalIns4"));
-            Collection results = (Collection)q.execute(parameters);
+            parameters.add(getPersistentCompanyModelInstance(MedicalInsurance.class, "medicalIns1"));
+            parameters.add(getPersistentCompanyModelInstance(MedicalInsurance.class, "medicalIns3"));
+            parameters.add(getPersistentCompanyModelInstance(MedicalInsurance.class, "medicalIns4"));
+            Collection<Employee> results = (Collection<Employee>)q.execute(parameters);
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();
@@ -335,7 +349,7 @@ public class DomainObjectsAsParameters extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Department dept1 = (Department) getPersistentCompanyModelInstance("dept1");
+            Department dept1 = getPersistentCompanyModelInstance(Department.class, "dept1");
             Department dept1Copy = new Department (9999, dept1.getName(), dept1.getCompany(), dept1.getEmployeeOfTheMonth());
             pm.makePersistent(dept1Copy);
             oidDept1Copy = pm.getObjectId(dept1Copy);

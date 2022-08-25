@@ -86,11 +86,7 @@ public class Close extends JDO_Test {
                 fail(ASSERTION_FAILED,
                      "PMF.isClosed() returned false on a closed pmf");
             }
-        } catch (JDOUserException ex) {
-            // unexpected exception
-            fail(ASSERTION_FAILED, 
-                 "Unexpected exception at pmf.close()/isClosed(): " + ex);
-        } catch (JDOFatalUserException ex) {
+        } catch (JDOUserException | JDOFatalUserException ex) {
             // unexpected exception
             fail(ASSERTION_FAILED, 
                  "Unexpected exception at pmf.close()/isClosed(): " + ex);
@@ -100,18 +96,12 @@ public class Close extends JDO_Test {
         try {
             // don't use closePMF methods because they check isClosed before calling
             doPrivileged(
-                new PrivilegedAction () {
-                    public Object run () {
+                    () -> {
                         pmf.close();
                         return null;
                     }
-                }
             );
-        } catch (JDOUserException ex) {
-            // unexpected exception
-            fail(ASSERTION_FAILED, 
-                 "Unexpected exception at repeated pmf.close(): " + ex);
-        } catch (JDOFatalUserException ex) {
+        } catch (JDOUserException | JDOFatalUserException ex) {
             // unexpected exception
             fail(ASSERTION_FAILED, 
                  "Unexpected exception at repeated pmf.close(): " + ex);
@@ -125,7 +115,7 @@ public class Close extends JDO_Test {
         } catch (JDOUserException ex) {
             // expected exception
             if (debug) {
-                logger.debug("caught expected exception " + ex.toString());
+                logger.debug("caught expected exception " + ex);
             }
         } catch (JDOFatalUserException ex) {
             // unexpected exception

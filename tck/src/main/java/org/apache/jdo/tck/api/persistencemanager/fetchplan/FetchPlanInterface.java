@@ -112,14 +112,14 @@ public class FetchPlanInterface extends JDO_Test {
      * @param actual actual value
      * @return true if equal
      */
-    protected boolean setEquals
-            (Collection expected, Collection actual) {
+    protected <T> boolean setEquals
+            (Collection<T> expected, Collection<T> actual) {
         if (expected == actual) 
             return true;
         if (expected == null || actual == null) 
             return false;
-        Set expectedSet = new HashSet(expected);
-        Set actualSet = new HashSet(actual);
+        Set<T> expectedSet = new HashSet<>(expected);
+        Set<T> actualSet = new HashSet<>(actual);
         return expectedSet.equals(actualSet);
     }
 
@@ -228,11 +228,12 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkDefaultGroups() {
-        Set expectedGroups = new HashSet();
+        Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("default");
         FetchPlan fp = getPM().getFetchPlan();
-        Collection groups = fp.getGroups();
+        Collection<String> groups = fp.getGroups();
         if (!setEquals(expectedGroups, groups)) {
             failCompare(
                 "checkDefaultGroups(): wrong getGroups() " + 
@@ -243,11 +244,12 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkClearGroups() {
-        Set expectedGroups = new HashSet();
+        Set<String> expectedGroups = new HashSet<>();
         FetchPlan fp = getPM().getFetchPlan();
         fp.clearGroups();
-        Collection groups = fp.getGroups();
+        Collection<String> groups = fp.getGroups();
         if (!setEquals(expectedGroups, groups)) {
             failCompare(
                 "checkClearGroups(): wrong getGroups() " + 
@@ -258,12 +260,13 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkSetGroup() {
-        Set expectedGroups = new HashSet();
+        Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("group1");
         FetchPlan fp = getPM().getFetchPlan();
         fp.setGroup("group1");
-        Collection groups = fp.getGroups();
+        Collection<String> groups = fp.getGroups();
         if (!setEquals(expectedGroups, groups)) {
             failCompare(
                 "checkSetGroup(): wrong getGroups() " + 
@@ -274,13 +277,14 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkAddGroup() {
-        Set expectedGroups = new HashSet();
+        Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("default");
         expectedGroups.add("group1");
         FetchPlan fp = getPM().getFetchPlan();
         fp.addGroup("group1");
-        Collection groups = fp.getGroups();
+        Collection<String> groups = fp.getGroups();
         if (!setEquals(expectedGroups, groups)) {
             failCompare(
                 "checkAddGroup(): wrong getGroups() " + 
@@ -291,11 +295,12 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkRemoveGroup() {
-        Set expectedGroups = new HashSet();
+        Set<String> expectedGroups = new HashSet<>();
         FetchPlan fp = getPM().getFetchPlan();
         fp.removeGroup("default");
-        Collection groups = fp.getGroups();
+        Collection<String> groups = fp.getGroups();
         if (!setEquals(expectedGroups, groups)) {
             failCompare(
                 "checkRemoveGroup(): wrong getGroups() " + 
@@ -306,14 +311,15 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkSetGroupsCollection() {
-        Set expectedGroups = new HashSet();
+        Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("default");
         expectedGroups.add("group1");
         expectedGroups.add("group2");
         FetchPlan fp = getPM().getFetchPlan();
         fp.setGroups(expectedGroups);
-        Collection groups = fp.getGroups();
+        Collection<String> groups = fp.getGroups();
         if (!setEquals(expectedGroups, groups)) {
             failCompare(
                 "checkSetGroupsCollection(): wrong getGroups() " + 
@@ -324,14 +330,15 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkSetGroupsArray() {
-        Set expectedGroups = new HashSet();
+        Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("default");
         expectedGroups.add("group1");
         expectedGroups.add("group2");
         FetchPlan fp = getPM().getFetchPlan();
-        fp.setGroups(new String[] {"default", "group1", "group2"});
-        Collection groups = fp.getGroups();
+        fp.setGroups("default", "group1", "group2");
+        Collection<String> groups = fp.getGroups();
         if (!setEquals(expectedGroups, groups)) {
             failCompare(
                 "checkSetGroupsArray(): wrong getGroups() " + 
@@ -342,10 +349,11 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     protected void checkGetDetachmentRoots() {
-        Set expectedRoots = new HashSet();
+        Set<String> expectedRoots = new HashSet<>();
         FetchPlan fp = getPM().getFetchPlan();
-        Collection roots = fp.getDetachmentRoots();
+        Collection<String> roots = fp.getDetachmentRoots();
         if (!setEquals(expectedRoots, roots)) {
             failCompare(
                 "checkGetDetachmentRoots(): wrong getDetachmentRoots() " + 
@@ -356,13 +364,14 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     protected void checkSetDetachmentRoots() {
         PCPoint p = new PCPoint(10, 20);
-        Set expectedRoots = new HashSet();
+        Set<PCPoint> expectedRoots = new HashSet<>();
         expectedRoots.add(p);
         FetchPlan fp = getPM().getFetchPlan();
         fp.setDetachmentRoots(expectedRoots);
-        Collection roots = fp.getDetachmentRoots();
+        Collection<PCPoint> roots = fp.getDetachmentRoots();
         if (!setEquals(expectedRoots, roots)) {
             failCompare(
                 "checkGetDetachmentRoots(): wrong getDetachmentRoots() " + 
@@ -374,11 +383,12 @@ public class FetchPlanInterface extends JDO_Test {
 
     /** */
     private void checkSetDetachmentRootClasses() {
-        Class[] expectedRootClasses = new Class[] {PCPoint.class};
+        @SuppressWarnings("rawtypes")
+        Class<?>[] expectedRootClasses = new Class[] {PCPoint.class};
         FetchPlan fp = getPM().getFetchPlan();
         fp.setDetachmentRootClasses(
                 expectedRootClasses);
-        Class[] rootClasses = fp.getDetachmentRootClasses();
+        Class<?>[] rootClasses = fp.getDetachmentRootClasses();
         if (!Arrays.equals(expectedRootClasses, rootClasses)) {
             failCompare(
                 "checkGetDetachmentRootClasses(): " + 

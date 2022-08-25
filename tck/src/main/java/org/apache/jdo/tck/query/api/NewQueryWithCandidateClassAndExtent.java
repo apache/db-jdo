@@ -23,7 +23,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -61,13 +60,11 @@ public class NewQueryWithCandidateClassAndExtent extends QueryTest {
     public void testPositive() {
         PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
-        Class clazz = PCPoint.class;
         try {
-            Extent extent = pm.getExtent(clazz, true);
+            Extent<PCPoint> extent = pm.getExtent(PCPoint.class, true);
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(clazz);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(extent);
             Object results = query.execute();
 

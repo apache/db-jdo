@@ -20,6 +20,7 @@ package org.apache.jdo.tck.util;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class JDOCustomDateEditor extends CustomDateEditor {
@@ -29,5 +30,15 @@ public class JDOCustomDateEditor extends CustomDateEditor {
 
     public JDOCustomDateEditor() {
         super(new SimpleDateFormat(DATE_PATTERN, Locale.US), true);
+    }
+
+    /**
+     * Redturs a string representation of the specified date
+     * using DATE_PATTERN as date formatter pattern.
+     * @param date the date
+     * @return string representation of the specified date
+     */
+    public static String getDateRepr(Date date) {
+        return date == null ? "null" : new SimpleDateFormat(DATE_PATTERN).format(date);
     }
 }

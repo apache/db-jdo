@@ -22,9 +22,6 @@
 
 package org.apache.jdo.tck.pc.order;
 
-import java.math.BigDecimal;
-
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -33,10 +30,10 @@ import java.util.Set;
  * OrderFactoryRegistry.
  */
 public interface OrderFactory {
-    Order newOrder(long orderId, Set items, long customerId);
+    Order newOrder(long orderId, Set<OrderItem> items, long customerId);
     Order newOrder(long orderId, long customerId);
     OrderItem newOrderItem(Order order, long item, String description,
                 int quantity);
 
-    Class[] getTearDownClasses();
+    Class<?>[] getTearDownClasses();
 }

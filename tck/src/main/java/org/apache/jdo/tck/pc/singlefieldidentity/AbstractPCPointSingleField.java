@@ -29,9 +29,11 @@ import javax.jdo.identity.SingleFieldIdentity;
  * implementation.  
  * @author Michael Watzek
  */
-abstract public class AbstractPCPointSingleField implements Serializable {
-    
-    /** 
+public abstract class AbstractPCPointSingleField implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
      * This field is used by subclasses 
      * to compute the value of the primary key field.
      */ 
@@ -46,7 +48,7 @@ abstract public class AbstractPCPointSingleField implements Serializable {
      * <code>SingleFieldIdentity</code> instance equals the key in the subclass
      * of this class.
      */
-    abstract public boolean equalsPKField(SingleFieldIdentity singleFieldIdentity);
+    public abstract boolean equalsPKField(SingleFieldIdentity singleFieldIdentity);
 
     public String toString() {
         return '(' + getClass().getName() + ')';

@@ -67,6 +67,7 @@ public class SetIsolationLevel extends JDO_Test
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         pm = getPM();
     }
@@ -74,8 +75,7 @@ public class SetIsolationLevel extends JDO_Test
     /** Set IsolationLevel to all values. */ 
     public void testSetIsolationLevelOutsideTransaction() {
         // iterate through all possible IsolationLevels
-        for (int i = 0; i < isolationLevels.length; ++i) {
-            String isolationLevel = isolationLevels[i];
+        for (String isolationLevel : isolationLevels) {
             setIsolationLevel(isolationLevel);
         }
         closePMF(pmf);
@@ -87,22 +87,21 @@ public class SetIsolationLevel extends JDO_Test
         pm.currentTransaction().setOptimistic(false);
         pm.currentTransaction().begin();
         // iterate through all possible IsolationLevels
-        for (int i = 0; i < isolationLevels.length; ++i) {
-            String isolationLevel = isolationLevels[i];
+        for (String isolationLevel : isolationLevels) {
             try {
                 pm.currentTransaction().setIsolationLevel(isolationLevel);
-                appendMessage(ASSERTION_25_FAILED + 
+                appendMessage(ASSERTION_25_FAILED +
                         "active datastore transaction; no exception thrown for "
                         + "setIsolationLevel(" + isolationLevel + ").");
             } catch (JDOUnsupportedOptionException ex) {
                 // good catch
             } catch (Throwable t) {
-                appendMessage(ASSERTION_25_FAILED + 
+                appendMessage(ASSERTION_25_FAILED +
                         "active datastore transaction; " +
                         "JDOUnsupportedOptionException not thrown for " +
                         "setIsolationLevel(" + isolationLevel +
                         "). Unexpected exception: \n" + t);
-                
+
             }
         }
         pm.currentTransaction().commit();
@@ -121,8 +120,7 @@ public class SetIsolationLevel extends JDO_Test
         pm.currentTransaction().setOptimistic(true);
         pm.currentTransaction().begin();
         // iterate through all possible IsolationLevels
-        for (int i = 0; i < isolationLevels.length; ++i) {
-            String isolationLevel = isolationLevels[i];
+        for (String isolationLevel : isolationLevels) {
             setIsolationLevel(isolationLevel);
         }
         pm.currentTransaction().commit();

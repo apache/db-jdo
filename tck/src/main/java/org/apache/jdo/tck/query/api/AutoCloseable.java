@@ -69,12 +69,12 @@ public class AutoCloseable extends QueryTest {
         try {
             tx.begin();
 
-            Query query = null;
+            Query<PCPoint> query = null;
             List<PCPoint> queryResult = null;
             Iterator<PCPoint> iterator = null;
-            try (Query query1 = pm.newQuery(PCPoint.class)) {
+            try (Query<PCPoint> query1 = pm.newQuery(PCPoint.class)) {
                 query = query1;
-                queryResult = (List<PCPoint>) query1.execute();
+                queryResult = query1.executeList();
                 iterator = queryResult.iterator();
                 if (!iterator.hasNext()) {
                     fail(ASSERTION_FAILED, "(1) Iterator of open query result should have elements.");
@@ -130,7 +130,7 @@ public class AutoCloseable extends QueryTest {
                 // expected exception when accessing closed query result
             }
             // Check query instance is still usable
-            queryResult = (List<PCPoint>) query.execute();
+            queryResult = query.executeList();
             if (queryResult.isEmpty()) {
                 fail(ASSERTION_FAILED,
                         "(10) query instance should be usable and execution should return a non empty result.");
@@ -157,12 +157,12 @@ public class AutoCloseable extends QueryTest {
         try {
             tx.begin();
 
-            Query query = null;
+            Query<PCPoint> query = null;
             List<PCPoint> queryResult = null;
             Iterator<PCPoint> iterator = null;
-            try (Query query1 = pm.newQuery(PCPoint.class)) {
+            try (Query<PCPoint> query1 = pm.newQuery(PCPoint.class)) {
                 query = query1;
-                queryResult = (List<PCPoint>) query1.execute();
+                queryResult = query1.executeList();
                 iterator = queryResult.iterator();
                 if (!iterator.hasNext()) {
                     fail(ASSERTION_FAILED, "(1) Iterator of open query result should have elements.");
@@ -222,7 +222,7 @@ public class AutoCloseable extends QueryTest {
             }
 
             // Check query instance is still usable
-            queryResult = (List<PCPoint>) query.execute();
+            queryResult = query.executeList();
             if (queryResult.isEmpty()) {
                 fail(ASSERTION_FAILED,
                         "(10) query instance should be usable and execution should return a non empty result.");
@@ -248,5 +248,7 @@ public class AutoCloseable extends QueryTest {
     /**
      * DummyException used in method testTryWithResourceThrowingException.
      */
-    private static final class DummyException extends Exception {}
+    private static final class DummyException extends Exception {
+        private static final long serialVersionUID = 1L;
+    }
 }

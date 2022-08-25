@@ -17,6 +17,7 @@
 
 package org.apache.jdo.tck.query.api;
 
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 import junit.framework.AssertionFailedError;
@@ -28,7 +29,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.query.QueryTest;
@@ -59,17 +59,17 @@ thus the actual query execution is too fast to be canceled.
 public class QueryCancel extends QueryTest {
 
     /** Time for the main thread to sleep after starting a parallel thread. */
-    private static int MAIN_SLEEP_MILLIS = 40;
+    private static final int MAIN_SLEEP_MILLIS = 40;
 
     /** Number of instances to be created. */
-    private static int NO_OF_INSTANCES = 5000;
+    private static final int NO_OF_INSTANCES = 5000;
 
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.1-8 (QueryCancel) failed: ";
 
     /** Single String JDOQL Query to be canceled. */
-    private static String SSJDOQL = 
+    private static final String SSJDOQL =
         "select avg (this.x + point2.y) " +
         "from PCPoint " +
         "where this.y >= 0 && point2.x >= 0 " + 
@@ -90,10 +90,11 @@ public class QueryCancel extends QueryTest {
      *
      * @throws Exception exception
      */
-    public void testCancel() throws Exception {
+    @SuppressWarnings("unchecked")
+    public void testCancel() throws InterruptedException {
         PersistenceManager pm = getPM();
         // Test query 
-        Query query = pm.newQuery(SSJDOQL);
+        Query<PCPoint> query = pm.newQuery(SSJDOQL);
         query.compile();
 
         // Thread executing the query
@@ -118,7 +119,7 @@ public class QueryCancel extends QueryTest {
                      "if query canceling is not supported ");
             }
         }
-        catch (JDOUnsupportedOptionException ex) {
+        catch (JDOUnsupportedOptionException | InterruptedException | BrokenBarrierException ex) {
             if (isQueryCancelSupported()) {
                 fail(ASSERTION_FAILED,
                      "Query.cancel should not result in a JDOQueryInterruptedException, " + 
@@ -141,10 +142,11 @@ public class QueryCancel extends QueryTest {
      *
      * @throws Exception exception
      */
+    @SuppressWarnings("unchecked")
     public void testCancelAll() throws Exception {
         PersistenceManager pm = getPM();
         // Test query
-        Query query = pm.newQuery(SSJDOQL);
+        Query<PCPoint> query = pm.newQuery(SSJDOQL);
         query.compile();
 
         // Thread executing the query
@@ -191,11 +193,11 @@ public class QueryCancel extends QueryTest {
     /** Runnable class executing the query. */
     class QueryExecutor implements Runnable {
 
-        PersistenceManager pm;
-        CyclicBarrier barrier;
-        Query query;
+        final PersistenceManager pm;
+        final CyclicBarrier barrier;
+        final Query<?> query;
         
-        QueryExecutor(PersistenceManager pm, Query query, CyclicBarrier barrier) {
+        QueryExecutor(PersistenceManager pm, Query<?> query, CyclicBarrier barrier) {
             this.pm = pm;
             this.query = query;
             this.barrier = barrier;

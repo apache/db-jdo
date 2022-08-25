@@ -21,15 +21,7 @@ import java.util.Date;
 
 import javax.jdo.listener.ClearCallback;
 
-import javax.jdo.JDOHelper;
-
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.ClearLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
-
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -60,7 +52,7 @@ public class InstanceLifecycleListenerClear
     /**
      * The InstanceLifecycleListener used for this test
      */
-    InstanceLifecycleListenerImpl listener = 
+    private final InstanceLifecycleListenerImpl listener =
             new InstanceLifecycleListenerClearImpl();
 
     /** Return the listener.
@@ -72,11 +64,12 @@ public class InstanceLifecycleListenerClear
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PC.class};
+    @SuppressWarnings("rawtypes")
+    private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 
@@ -110,9 +103,9 @@ public class InstanceLifecycleListenerClear
 
         // now check the callback and listeners were called
         listener.verifyCallbacks(ASSERTION5_FAILED, new int[] {
-                listener.PRE_CLEAR_LISTENER,
-                listener.PRE_CLEAR_CALLBACK,
-                listener.POST_CLEAR_LISTENER});
+                InstanceLifecycleListenerImpl.PRE_CLEAR_LISTENER,
+                InstanceLifecycleListenerImpl.PRE_CLEAR_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_CLEAR_LISTENER});
     }
     
     /** 
@@ -122,6 +115,7 @@ public class InstanceLifecycleListenerClear
     private static class InstanceLifecycleListenerClearImpl 
             extends InstanceLifecycleListenerImpl {
 
+        @Override
         public void preClear(InstanceLifecycleEvent event) {
             notifyEvent(PRE_CLEAR_LISTENER);
             checkEventType(ASSERTION5_FAILED, 
@@ -131,6 +125,7 @@ public class InstanceLifecycleListenerClear
                     expectedSource);
         }
 
+        @Override
         public void postClear(InstanceLifecycleEvent event) {
             notifyEvent(POST_CLEAR_LISTENER);
             checkEventType(ASSERTION6_FAILED, 
@@ -157,7 +152,7 @@ public class InstanceLifecycleListenerClear
 
         public void jdoPreClear() {
             if (listener != null) {
-                listener.notifyEvent(listener.PRE_CLEAR_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.PRE_CLEAR_CALLBACK);
             }
         }
     }

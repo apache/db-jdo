@@ -17,8 +17,7 @@
  
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
@@ -29,32 +28,32 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 
 public abstract class ComparisonTests extends JDO_Test {    
-    protected   Query               query;
-    protected   Transaction         tx;
-    protected   Collection          query_result;
+    protected Query<AllTypes>       query;
+    protected Transaction           tx;
+    protected List<AllTypes>        queryResult;
         
-    protected static    String      BooleanParameter = "Boolean value";
-    protected static    String      booleanParameter = "boolean value";
-    protected static    String      ByteParameter = "Byte value";
-    protected static    String      byteParameter = "byte value";
-    protected static    String      CharacterParameter = "Character value";
-    protected static    String      charParameter = "char value";
-    protected static    String      DoubleParameter = "Double value";
-    protected static    String      doubleParameter = "double value";
-    protected static    String      FloatParameter = "Float value";
-    protected static    String      floatParameter = "float value";
-    protected static    String      IntegerParameter = "Integer value";
-    protected static    String      intParameter = "int value";
-    protected static    String      LongParameter = "Long value";
-    protected static    String      longParameter = "long value";
-    protected static    String      ShortParameter = "Short value";
-    protected static    String      shortParameter = "short value";
-    protected static    String      StringParameter = "String value";
-    protected static    String      LocaleParameter = "java.util.Locale value";
-    protected static    String      BigDecimalParameter = "java.math.BigDecimal value";
-    protected static    String      BigIntegerParameter = "java.math.BigInteger value";
-    protected static    String      DateParameter = "java.util.Date value";
-    protected static    String      AllTypesParameter = "org.apache.jdo.tck.pc.fieldtypes.AllTypes value";
+    protected static final String      BooleanParameter = "Boolean value";
+    protected static final String      booleanParameter = "boolean value";
+    protected static final String      ByteParameter = "Byte value";
+    protected static final String      byteParameter = "byte value";
+    protected static final String      CharacterParameter = "Character value";
+    protected static final String      charParameter = "char value";
+    protected static final String      DoubleParameter = "Double value";
+    protected static final String      doubleParameter = "double value";
+    protected static final String      FloatParameter = "Float value";
+    protected static final String      floatParameter = "float value";
+    protected static final String      IntegerParameter = "Integer value";
+    protected static final String      intParameter = "int value";
+    protected static final String      LongParameter = "Long value";
+    protected static final String      longParameter = "long value";
+    protected static final String      ShortParameter = "Short value";
+    protected static final String      shortParameter = "short value";
+    protected static final String      StringParameter = "String value";
+    protected static final String      LocaleParameter = "java.util.Locale value";
+    protected static final String      BigDecimalParameter = "java.math.BigDecimal value";
+    protected static final String      BigIntegerParameter = "java.math.BigInteger value";
+    protected static final String      DateParameter = "java.util.Date value";
+    protected static final String      AllTypesParameter = "org.apache.jdo.tck.pc.fieldtypes.AllTypes value";
 
     /**
      *
@@ -65,7 +64,7 @@ public abstract class ComparisonTests extends JDO_Test {
      */
     protected void fail(String assertion, String message, String filter, String parameter)
     {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(message);
         buf.append("(");
         buf.append(" filter \"").append(filter).append("\"");
@@ -89,28 +88,26 @@ public abstract class ComparisonTests extends JDO_Test {
                             String filter, String parameter, Object parameterValue, 
                             String assertion)
     {
-        Extent e = pm.getExtent(AllTypes.class, false);
+        Extent<AllTypes> e = pm.getExtent(AllTypes.class, false);
         query = pm.newQuery(e, filter);
-        query_result = null;
+        queryResult = null;
         try {
             if (parameter != null) {
                 query.declareParameters(parameter);
-                query_result = (Collection) query.execute(parameterValue);
-            } 
-            else {
-                query_result = (Collection) query.execute();
+                query.setParameters(parameterValue);
             }
-        } 
+            queryResult = query.executeList();
+        }
         catch (Throwable throwable) {
             if (debug)
                 throwable.printStackTrace();
             fail(assertion, "Exception on Query.execute " + throwable, filter, parameter);
-            query_result = null;
+            queryResult = null;
             if (tx.isActive()) 
                 tx.rollback();
             return;
         }
-        if (query_result == null) {
+        if (queryResult == null) {
             fail(assertion, "Query.execute returned a null", filter, parameter);
             if (tx.isActive()) 
                 tx.rollback();

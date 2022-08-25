@@ -16,7 +16,6 @@
  */
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.query.LocalTimeSample;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -71,10 +70,10 @@ public class SupportedLocalTimeMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<LocalTimeSample> expectedResult = new ArrayList();
+            List<LocalTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalTimeSample)pm.getObjectById(oidOfLocalTime1));
 
-            Query q =  pm.newQuery(LocalTimeSample.class, filter);
+            Query<LocalTimeSample> q =  pm.newQuery(LocalTimeSample.class, filter);
             List<LocalTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -93,10 +92,10 @@ public class SupportedLocalTimeMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<LocalTimeSample> expectedResult = new ArrayList();
+            List<LocalTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalTimeSample)pm.getObjectById(oidOfLocalTime2));
 
-            Query q =  pm.newQuery(LocalTimeSample.class, filter);
+            Query<LocalTimeSample> q =  pm.newQuery(LocalTimeSample.class, filter);
             List<LocalTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -115,10 +114,10 @@ public class SupportedLocalTimeMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<LocalTimeSample> expectedResult = new ArrayList();
+            List<LocalTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalTimeSample)pm.getObjectById(oidOfLocalTime1));
 
-            Query q =  pm.newQuery(LocalTimeSample.class, filter);
+            Query<LocalTimeSample> q =  pm.newQuery(LocalTimeSample.class, filter);
             List<LocalTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();

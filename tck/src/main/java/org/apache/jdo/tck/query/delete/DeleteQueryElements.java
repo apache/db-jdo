@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.Insurance;
@@ -54,135 +53,135 @@ public class DeleteQueryElements extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // The query is invalid because it defines a result clause.
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "carrier", 
-        /*INTO*/        null, 
-        /*FROM*/        Insurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "carrier",
+                    /*INTO*/        null,
+                    /*FROM*/        Insurance.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         // The query is invalid because it defines a result class.
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        String.class, 
-        /*FROM*/        Insurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        String.class,
+                    /*FROM*/        Insurance.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         // The query is invalid because it defines a result clause
         // and a result class.
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "carrier", 
-        /*INTO*/        String.class, 
-        /*FROM*/        Insurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "carrier",
+                    /*INTO*/        String.class,
+                    /*FROM*/        Insurance.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         // The query is invalid because it defines a grouping clause.
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Insurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    "carrier",
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Insurance.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    "carrier",
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         // The query is invalid because it defines a result clause
         // and a grouping clause
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "carrier", 
-        /*INTO*/        null, 
-        /*FROM*/        Insurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    "carrier",
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "carrier",
+                    /*INTO*/        null,
+                    /*FROM*/        Insurance.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    "carrier",
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         // The query is invalid because it defines an ordering clause.
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Insurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    "carrier",
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Insurance.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    "carrier",
+                    /*FROM*/        null,
+                    /*TO*/          null),
         // The query is invalid because it defines a range clause.
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Insurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        "0",
-        /*TO*/          "5"),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Insurance.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        "0",
+                    /*TO*/          "5"),
         // The query is valid but deletePersistentAll is expected 
         // to throw a JDOUserException because it defines a
         // unique clause but it affects multiple rows in the database.
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Insurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      Boolean.TRUE,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Insurance.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /** Parameters of valid queries. */
-    private Object[][] parameters = {
+    private final Object[][] parameters = {
         {new BigDecimal("2500000")}
     };
             
@@ -200,7 +199,7 @@ public class DeleteQueryElements extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("limit", new BigDecimal("2500000"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -227,7 +226,7 @@ public class DeleteQueryElements extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("limit", new BigDecimal("2500000"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -251,9 +250,9 @@ public class DeleteQueryElements extends QueryTest {
     
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            deletePersistentAllByAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], -1);
-            deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], -1);
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            deletePersistentAllByAPIQuery(ASSERTION_FAILED, invalidQuery, -1);
+            deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, invalidQuery, -1);
         }
     }
 

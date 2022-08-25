@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -118,7 +119,7 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
         try {
             tx = pm.currentTransaction();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new java.util.HashSet<>();
             col1.add(p2);
             col1.add(p3);
 
@@ -140,7 +141,7 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
     private void runTestDeletePersistentAll2(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p4);
             col1.add(p5);
 

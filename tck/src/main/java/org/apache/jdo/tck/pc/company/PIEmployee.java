@@ -29,32 +29,32 @@ public interface PIEmployee extends PIPerson, IEmployee {
 
     Date getHiredate();
     double getWeeklyhours();
-    Set getReviewedProjects();
-    Set getProjects();
+    Set<IProject> getReviewedProjects();
+    Set<IProject> getProjects();
     IDentalInsurance getDentalInsurance();
     IMedicalInsurance getMedicalInsurance();
     IDepartment getDepartment();
     IDepartment getFundingDept();
     IEmployee getManager();
-    Set getTeam();
+    Set<IEmployee> getTeam();
     IEmployee getMentor();
     IEmployee getProtege();
     IEmployee getHradvisor();
-    Set getHradvisees();
+    Set<IEmployee> getHradvisees();
     
     void setHiredate(Date hiredate);
     void setWeeklyhours(double weeklyhours);
-    void setReviewedProjects(Set reviewedProjects);
-    void setProjects(Set projects);
+    void setReviewedProjects(Set<IProject> reviewedProjects);
+    void setProjects(Set<IProject> projects);
     void setDentalInsurance(IDentalInsurance dentalInsurance);
     void setMedicalInsurance(IMedicalInsurance medicalInsurance);
     void setDepartment(IDepartment department);
     void setFundingDept(IDepartment department);
     void setManager(IEmployee manager);
-    void setTeam(Set team);
+    void setTeam(Set<IEmployee> team);
     void setMentor(IEmployee mentor);
     void setProtege(IEmployee protege);
     void setHradvisor(IEmployee hradvisor);
-    void setHradvisees(Set hradvisees);
+    void setHradvisees(Set<IEmployee> hradvisees);
     
 }

@@ -18,101 +18,104 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.Hashtable;
 
 public class HashtableStringValueCollections { 
   public int identifier;
-  public Hashtable HashtableOfObject_String0;
-  public Hashtable HashtableOfObject_String1;
-  public Hashtable HashtableOfObject_String2;
-  public Hashtable HashtableOfObject_String3;
-  public Hashtable HashtableOfObject_String4;
-  public Hashtable HashtableOfObject_String6;
-  public Hashtable HashtableOfObject_String8;
-  public Hashtable HashtableOfSimpleClass_String9;
-  public Hashtable HashtableOfSimpleClass_String10;
-  public Hashtable HashtableOfSimpleClass_String11;
-  public Hashtable HashtableOfSimpleClass_String12;
-  public Hashtable HashtableOfSimpleClass_String13;
-  public Hashtable HashtableOfSimpleClass_String15;
-  public Hashtable HashtableOfSimpleClass_String17;
-  public Hashtable HashtableOfSimpleInterface_String18;
-  public Hashtable HashtableOfSimpleInterface_String19;
-  public Hashtable HashtableOfSimpleInterface_String20;
-  public Hashtable HashtableOfSimpleInterface_String21;
-  public Hashtable HashtableOfSimpleInterface_String22;
-  public Hashtable HashtableOfSimpleInterface_String24;
-  public Hashtable HashtableOfSimpleInterface_String26;
-  public Hashtable HashtableOfString_String27;
-  public Hashtable HashtableOfString_String28;
-  public Hashtable HashtableOfString_String29;
-  public Hashtable HashtableOfString_String30;
-  public Hashtable HashtableOfString_String31;
-  public Hashtable HashtableOfString_String33;
-  public Hashtable HashtableOfString_String35;
-  public Hashtable HashtableOfDate_String36;
-  public Hashtable HashtableOfDate_String37;
-  public Hashtable HashtableOfDate_String38;
-  public Hashtable HashtableOfDate_String39;
-  public Hashtable HashtableOfDate_String40;
-  public Hashtable HashtableOfDate_String42;
-  public Hashtable HashtableOfDate_String44;
-  public Hashtable HashtableOfBigDecimal_String45;
-  public Hashtable HashtableOfBigDecimal_String46;
-  public Hashtable HashtableOfBigDecimal_String47;
-  public Hashtable HashtableOfBigDecimal_String48;
-  public Hashtable HashtableOfBigDecimal_String49;
-  public Hashtable HashtableOfBigDecimal_String51;
-  public Hashtable HashtableOfBigDecimal_String53;
-  public Hashtable HashtableOfBigInteger_String54;
-  public Hashtable HashtableOfBigInteger_String55;
-  public Hashtable HashtableOfBigInteger_String56;
-  public Hashtable HashtableOfBigInteger_String57;
-  public Hashtable HashtableOfBigInteger_String58;
-  public Hashtable HashtableOfBigInteger_String60;
-  public Hashtable HashtableOfBigInteger_String62;
-  public Hashtable HashtableOfByte_String63;
-  public Hashtable HashtableOfByte_String64;
-  public Hashtable HashtableOfByte_String65;
-  public Hashtable HashtableOfByte_String66;
-  public Hashtable HashtableOfByte_String67;
-  public Hashtable HashtableOfByte_String69;
-  public Hashtable HashtableOfByte_String71;
-  public Hashtable HashtableOfDouble_String72;
-  public Hashtable HashtableOfDouble_String73;
-  public Hashtable HashtableOfDouble_String74;
-  public Hashtable HashtableOfDouble_String75;
-  public Hashtable HashtableOfDouble_String76;
-  public Hashtable HashtableOfDouble_String78;
-  public Hashtable HashtableOfDouble_String80;
-  public Hashtable HashtableOfFloat_String81;
-  public Hashtable HashtableOfFloat_String82;
-  public Hashtable HashtableOfFloat_String83;
-  public Hashtable HashtableOfFloat_String84;
-  public Hashtable HashtableOfFloat_String85;
-  public Hashtable HashtableOfFloat_String87;
-  public Hashtable HashtableOfFloat_String89;
-  public Hashtable HashtableOfInteger_String90;
-  public Hashtable HashtableOfInteger_String91;
-  public Hashtable HashtableOfInteger_String92;
-  public Hashtable HashtableOfInteger_String93;
-  public Hashtable HashtableOfInteger_String94;
-  public Hashtable HashtableOfInteger_String96;
-  public Hashtable HashtableOfInteger_String98;
-  public Hashtable HashtableOfLong_String99;
-  public Hashtable HashtableOfLong_String100;
-  public Hashtable HashtableOfLong_String101;
-  public Hashtable HashtableOfLong_String102;
-  public Hashtable HashtableOfLong_String103;
-  public Hashtable HashtableOfLong_String105;
-  public Hashtable HashtableOfLong_String107;
-  public Hashtable HashtableOfShort_String108;
-  public Hashtable HashtableOfShort_String109;
-  public Hashtable HashtableOfShort_String110;
-  public Hashtable HashtableOfShort_String111;
-  public Hashtable HashtableOfShort_String112;
-  public Hashtable HashtableOfShort_String114;
-  public Hashtable HashtableOfShort_String116;
+  public Hashtable<Object, String> HashtableOfObject_String0;
+  public Hashtable<Object, String> HashtableOfObject_String1;
+  public Hashtable<Object, String> HashtableOfObject_String2;
+  public Hashtable<Object, String> HashtableOfObject_String3;
+  public Hashtable<Object, String> HashtableOfObject_String4;
+  public Hashtable<Object, String> HashtableOfObject_String6;
+  public Hashtable<Object, String> HashtableOfObject_String8;
+  public Hashtable<SimpleClass, String> HashtableOfSimpleClass_String9;
+  public Hashtable<SimpleClass, String> HashtableOfSimpleClass_String10;
+  public Hashtable<SimpleClass, String> HashtableOfSimpleClass_String11;
+  public Hashtable<SimpleClass, String> HashtableOfSimpleClass_String12;
+  public Hashtable<SimpleClass, String> HashtableOfSimpleClass_String13;
+  public Hashtable<SimpleClass, String> HashtableOfSimpleClass_String15;
+  public Hashtable<SimpleClass, String> HashtableOfSimpleClass_String17;
+  public Hashtable<SimpleInterface, String> HashtableOfSimpleInterface_String18;
+  public Hashtable<SimpleInterface, String> HashtableOfSimpleInterface_String19;
+  public Hashtable<SimpleInterface, String> HashtableOfSimpleInterface_String20;
+  public Hashtable<SimpleInterface, String> HashtableOfSimpleInterface_String21;
+  public Hashtable<SimpleInterface, String> HashtableOfSimpleInterface_String22;
+  public Hashtable<SimpleInterface, String> HashtableOfSimpleInterface_String24;
+  public Hashtable<SimpleInterface, String> HashtableOfSimpleInterface_String26;
+  public Hashtable<String, String> HashtableOfString_String27;
+  public Hashtable<String, String> HashtableOfString_String28;
+  public Hashtable<String, String> HashtableOfString_String29;
+  public Hashtable<String, String> HashtableOfString_String30;
+  public Hashtable<String, String> HashtableOfString_String31;
+  public Hashtable<String, String> HashtableOfString_String33;
+  public Hashtable<String, String> HashtableOfString_String35;
+  public Hashtable<Date, String> HashtableOfDate_String36;
+  public Hashtable<Date, String> HashtableOfDate_String37;
+  public Hashtable<Date, String> HashtableOfDate_String38;
+  public Hashtable<Date, String> HashtableOfDate_String39;
+  public Hashtable<Date, String> HashtableOfDate_String40;
+  public Hashtable<Date, String> HashtableOfDate_String42;
+  public Hashtable<Date, String> HashtableOfDate_String44;
+  public Hashtable<BigDecimal, String> HashtableOfBigDecimal_String45;
+  public Hashtable<BigDecimal, String> HashtableOfBigDecimal_String46;
+  public Hashtable<BigDecimal, String> HashtableOfBigDecimal_String47;
+  public Hashtable<BigDecimal, String> HashtableOfBigDecimal_String48;
+  public Hashtable<BigDecimal, String> HashtableOfBigDecimal_String49;
+  public Hashtable<BigDecimal, String> HashtableOfBigDecimal_String51;
+  public Hashtable<BigDecimal, String> HashtableOfBigDecimal_String53;
+  public Hashtable<BigInteger, String> HashtableOfBigInteger_String54;
+  public Hashtable<BigInteger, String> HashtableOfBigInteger_String55;
+  public Hashtable<BigInteger, String> HashtableOfBigInteger_String56;
+  public Hashtable<BigInteger, String> HashtableOfBigInteger_String57;
+  public Hashtable<BigInteger, String> HashtableOfBigInteger_String58;
+  public Hashtable<BigInteger, String> HashtableOfBigInteger_String60;
+  public Hashtable<BigInteger, String> HashtableOfBigInteger_String62;
+  public Hashtable<Byte, String> HashtableOfByte_String63;
+  public Hashtable<Byte, String> HashtableOfByte_String64;
+  public Hashtable<Byte, String> HashtableOfByte_String65;
+  public Hashtable<Byte, String> HashtableOfByte_String66;
+  public Hashtable<Byte, String> HashtableOfByte_String67;
+  public Hashtable<Byte, String> HashtableOfByte_String69;
+  public Hashtable<Byte, String> HashtableOfByte_String71;
+  public Hashtable<Double, String> HashtableOfDouble_String72;
+  public Hashtable<Double, String> HashtableOfDouble_String73;
+  public Hashtable<Double, String> HashtableOfDouble_String74;
+  public Hashtable<Double, String> HashtableOfDouble_String75;
+  public Hashtable<Double, String> HashtableOfDouble_String76;
+  public Hashtable<Double, String> HashtableOfDouble_String78;
+  public Hashtable<Double, String> HashtableOfDouble_String80;
+  public Hashtable<Float, String> HashtableOfFloat_String81;
+  public Hashtable<Float, String> HashtableOfFloat_String82;
+  public Hashtable<Float, String> HashtableOfFloat_String83;
+  public Hashtable<Float, String> HashtableOfFloat_String84;
+  public Hashtable<Float, String> HashtableOfFloat_String85;
+  public Hashtable<Float, String> HashtableOfFloat_String87;
+  public Hashtable<Float, String> HashtableOfFloat_String89;
+  public Hashtable<Integer, String> HashtableOfInteger_String90;
+  public Hashtable<Integer, String> HashtableOfInteger_String91;
+  public Hashtable<Integer, String> HashtableOfInteger_String92;
+  public Hashtable<Integer, String> HashtableOfInteger_String93;
+  public Hashtable<Integer, String> HashtableOfInteger_String94;
+  public Hashtable<Integer, String> HashtableOfInteger_String96;
+  public Hashtable<Integer, String> HashtableOfInteger_String98;
+  public Hashtable<Long, String> HashtableOfLong_String99;
+  public Hashtable<Long, String> HashtableOfLong_String100;
+  public Hashtable<Long, String> HashtableOfLong_String101;
+  public Hashtable<Long, String> HashtableOfLong_String102;
+  public Hashtable<Long, String> HashtableOfLong_String103;
+  public Hashtable<Long, String> HashtableOfLong_String105;
+  public Hashtable<Long, String> HashtableOfLong_String107;
+  public Hashtable<Short, String> HashtableOfShort_String108;
+  public Hashtable<Short, String> HashtableOfShort_String109;
+  public Hashtable<Short, String> HashtableOfShort_String110;
+  public Hashtable<Short, String> HashtableOfShort_String111;
+  public Hashtable<Short, String> HashtableOfShort_String112;
+  public Hashtable<Short, String> HashtableOfShort_String114;
+  public Hashtable<Short, String> HashtableOfShort_String116;
 
   public static final String [] fieldSpecs = { 
   "public Hashtable HashtableOfObject_String0",
@@ -211,7 +214,7 @@ public class HashtableStringValueCollections {
   {
     return fieldSpecs.length;
   }
-  public Hashtable get(int index)
+  public Hashtable<?, ?> get(int index)
   {
     switch (index)
     {
@@ -401,7 +404,9 @@ public class HashtableStringValueCollections {
         throw new IndexOutOfBoundsException("Bad index " + index);
     }
   }
-  public boolean set(int index,Hashtable value)
+
+  @SuppressWarnings("unchecked")
+  public boolean set(int index, @SuppressWarnings("rawtypes") Hashtable value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -687,6 +692,9 @@ public class HashtableStringValueCollections {
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -696,7 +704,7 @@ public class HashtableStringValueCollections {
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

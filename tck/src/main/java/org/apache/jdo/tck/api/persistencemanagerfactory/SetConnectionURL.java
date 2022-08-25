@@ -56,6 +56,7 @@ public class SetConnectionURL extends JDO_Test {
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         closePMF();
         pmf = getUnconfiguredPMF();

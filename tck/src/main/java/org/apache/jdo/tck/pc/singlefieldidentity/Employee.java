@@ -17,12 +17,16 @@
  
 package org.apache.jdo.tck.pc.singlefieldidentity;
 
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
+
 import java.util.Date;
 
 /**
  * This class represents an employee.
  */
 public abstract class Employee extends Person {
+
+    private static final long serialVersionUID = 1L;
 
     private Date             hiredate;
     private double           weeklyhours;
@@ -94,10 +98,9 @@ public abstract class Employee extends Person {
      */
     @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
-        rc.append(", hired ").append(
-            hiredate==null ? "null" : formatter.format(hiredate));
+        rc.append(", hired ").append(JDOCustomDateEditor.getDateRepr(hiredate));
         rc.append(", weeklyhours ").append(weeklyhours);
         return rc.toString();
     }

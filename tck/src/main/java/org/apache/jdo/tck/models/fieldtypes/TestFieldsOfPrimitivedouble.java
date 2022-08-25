@@ -82,7 +82,7 @@ public class TestFieldsOfPrimitivedouble extends JDO_Test {
         Object oid = pm.getObjectId(pi);
         n = pi.getLength();
         // Provide initial set of values
-        for( i = 0, value = (double)10.15; i < n; ++i){
+        for(i = 0, value = 10.15; i < n; ++i){
             pi.set( i, value);
         }
         tx.commit();
@@ -93,10 +93,10 @@ public class TestFieldsOfPrimitivedouble extends JDO_Test {
         tx.begin();
 
         pi = (FieldsOfPrimitivedouble) pm.getObjectById(oid, true);
-        checkValues(oid, (double)10.15);
+        checkValues(oid, 10.15);
 
         // Provide new set of values
-        for( i = 0, value = (double)68000.15; i < n; ++i){
+        for(i = 0, value = 68000.15; i < n; ++i){
             pi.set(i, value);
         }
         tx.commit();
@@ -106,7 +106,7 @@ public class TestFieldsOfPrimitivedouble extends JDO_Test {
 
         tx.begin();
         // check new values
-        checkValues(oid, (double)68000.15);
+        checkValues(oid, 68000.15);
         tx.commit();
     }
 

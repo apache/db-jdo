@@ -70,6 +70,7 @@ public class SetTransactionIsolationLevel extends JDO_Test
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         // setUp gets a PMF that needs to be closed
         closePMF();
@@ -78,8 +79,7 @@ public class SetTransactionIsolationLevel extends JDO_Test
     /** Set TransactionIsolationLevel to all values via API. */ 
     public void testSetTransactionIsolationLevelByAPI() {
         // iterate through all possible TransactionIsolationLevels
-        for (int i = 0; i < transactionIsolationLevels.length; ++i) {
-            String transactionIsolationLevel = transactionIsolationLevels[i];
+        for (String transactionIsolationLevel : transactionIsolationLevels) {
             setTransactionIsolationLevelByAPI(transactionIsolationLevel);
         }
         failOnError();
@@ -88,8 +88,7 @@ public class SetTransactionIsolationLevel extends JDO_Test
     /** Set TransactionIsolationLevel to all values from properties. */ 
     public void testSetTransactionIsolationLevelFromProperties() {
         // iterate through all possible TransactionIsolationLevels
-        for (int i = 0; i < transactionIsolationLevels.length; ++i) {
-            String transactionIsolationLevel = transactionIsolationLevels[i];
+        for (String transactionIsolationLevel : transactionIsolationLevels) {
             getPMFsetTransactionIsolationLevelFromProperties(transactionIsolationLevel);
         }
         failOnError();
@@ -151,7 +150,7 @@ public class SetTransactionIsolationLevel extends JDO_Test
     /** */
     private void getPMFsetTransactionIsolationLevelFromProperties(String level) {
         String property = PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
-        Map modifiedProps = new HashMap(PMFPropertiesObject);
+        Map<Object, Object> modifiedProps = new HashMap<>(PMFPropertiesObject);
         modifiedProps.put(PROPERTY_TRANSACTION_ISOLATION_LEVEL, level);
         if (isSupported(property)) {
             pmf2 = JDOHelper.getPersistenceManagerFactory(modifiedProps);

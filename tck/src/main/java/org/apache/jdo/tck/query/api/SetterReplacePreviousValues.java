@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.api;
 
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -49,64 +48,64 @@ public class SetterReplacePreviousValues extends QueryTest {
      * The array of valid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] VALID_QUERIES = {
+    private static final QueryElementHolder<?>[] VALID_QUERIES = {
         // replace parameter declaration
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "deptid == param",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  "String x",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Department.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "deptid == param",
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  "String x",
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         // replace filter setting
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1L",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "personid == 1L",
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
         // replace variable declaration
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.personid == 1",
-        /*VARIABLES*/   "Employee e1; Employee e2",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Department.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "employees.contains(e) && e.personid == 1",
+                    /*VARIABLES*/   "Employee e1; Employee e2",
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
         
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         // replace parameter declaration
-        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getTransientCompanyModelInstancesAsList(Department.class, "dept1"),
         // replace filter setting
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2"),
         // replace variable declaration
-        getTransientCompanyModelInstancesAsList(new String[]{"dept1"})
+        getTransientCompanyModelInstancesAsList(Department.class, "dept1")
     };
     
     /**
@@ -122,7 +121,7 @@ public class SetterReplacePreviousValues extends QueryTest {
     public void testPositive() {
         // replace parameter declaration
         int index = 0;
-        Query query = VALID_QUERIES[index].getAPIQuery(getPM());
+        Query<?> query = VALID_QUERIES[index].getAPIQuery(getPM());
         query.declareParameters("long param");
         Object[] parameters = new Object[] {Long.valueOf(1)};
         executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 

@@ -213,7 +213,7 @@ public class NewObjectIdInstance extends AbstractPersistenceCapableTest {
         } catch (JDONullIdentityException e) {
             // expected exception
             if (debug)
-                logger.debug("caught expected exception " + e.toString());
+                logger.debug("caught expected exception " + e);
         } 
     }
     

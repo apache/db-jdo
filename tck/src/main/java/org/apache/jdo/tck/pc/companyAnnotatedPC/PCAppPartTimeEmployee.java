@@ -22,7 +22,6 @@ import javax.jdo.annotations.*;
 import java.util.Date;
 
 import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
@@ -32,6 +31,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
 public class PCAppPartTimeEmployee extends PCAppEmployee 
         implements IPartTimeEmployee {
+
+    private static final long serialVersionUID = 1L;
 
     @NotPersistent()
     private double _wage;
@@ -100,6 +101,7 @@ public class PCAppPartTimeEmployee extends PCAppEmployee
      * 
      * @return a String representation of a <code>PCAppPartTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FCPartTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -108,8 +110,9 @@ public class PCAppPartTimeEmployee extends PCAppEmployee
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $" + _wage);
         return rc.toString();
@@ -130,7 +133,8 @@ public class PCAppPartTimeEmployee extends PCAppEmployee
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                         EqualityHelper helper) {
         PCAppPartTimeEmployee otherEmp = (PCAppPartTimeEmployee)other;
         String where = "FCPartTimeEmployee<" + getPersonid() + ">";

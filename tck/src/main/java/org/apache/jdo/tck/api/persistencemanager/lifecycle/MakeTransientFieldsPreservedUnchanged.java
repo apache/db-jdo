@@ -19,7 +19,6 @@ package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -187,20 +186,19 @@ public class MakeTransientFieldsPreservedUnchanged extends PersistenceManagerTes
         try {
             tx.begin();
 
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
 
             pm.makeTransientAll(col1);
             tx.commit();
             tx = null;
-            
-            for (Iterator iter = col1.iterator(); iter.hasNext();) {
-                PCPoint p = (PCPoint) iter.next();
+
+            for (PCPoint p : col1) {
                 if (!testState(p, TRANSIENT, "transient")) {
                     fail(ASSERTION_FAILED,
-                         "expected TRANSIENT instance, instance " + p + 
-                         " is " + getStateOfInstance(p));
+                            "expected TRANSIENT instance, instance " + p +
+                                    " is " + getStateOfInstance(p));
                 }
             }
         }
@@ -217,7 +215,7 @@ public class MakeTransientFieldsPreservedUnchanged extends PersistenceManagerTes
             int NUM_OBJS = 2;
             tx.begin();
 
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p4);
             col1.add(p5);
 

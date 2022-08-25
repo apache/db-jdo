@@ -20,13 +20,13 @@ package org.apache.jdo.tck.query.jdoql.methods;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.pc.mylib.QPrimitiveTypes;
@@ -81,14 +81,14 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testAbs0() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesPositive", "primitiveTypesNegative"});
+        Object expected = getTransientMylibInstancesAsList(
+                "primitiveTypesPositive", "primitiveTypesNegative");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.intNotNull.abs().eq(4));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -112,14 +112,14 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testAbs1() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesPositive", "primitiveTypesNegative"});
+        Object expected = getTransientMylibInstancesAsList(
+                "primitiveTypesPositive", "primitiveTypesNegative");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.intNull.abs().eq(4));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -143,14 +143,14 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testAbs2() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesPositive", "primitiveTypesNegative"});
+        Object expected = getTransientMylibInstancesAsList(
+                "primitiveTypesPositive", "primitiveTypesNegative");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.longNotNull.abs().eq(4L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -174,14 +174,14 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testAbs3() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesPositive", "primitiveTypesNegative"});
+        Object expected = getTransientMylibInstancesAsList(
+                "primitiveTypesPositive", "primitiveTypesNegative");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.longNull.abs().eq(4L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -205,15 +205,15 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testAbs4() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesPositive", "primitiveTypesNegative"});
+        Object expected = getTransientMylibInstancesAsList(
+                "primitiveTypesPositive", "primitiveTypesNegative");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.floatNotNull.abs().lt(4.1f).
                 and(cand.floatNotNull.abs().gt(3.9f)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -238,15 +238,15 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testAbs5() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesPositive", "primitiveTypesNegative"});
+        Object expected = getTransientMylibInstancesAsList(
+                "primitiveTypesPositive", "primitiveTypesNegative");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.floatNull.abs().lt(4.1f).
                 and(cand.floatNull.abs().gt(3.9f)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -271,15 +271,15 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testAbs6() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesPositive", "primitiveTypesNegative"});
+        Object expected = getTransientMylibInstancesAsList(
+                "primitiveTypesPositive", "primitiveTypesNegative");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.doubleNotNull.abs().lt(4.1).
                 and(cand.doubleNotNull.abs().gt(3.9)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -304,15 +304,15 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testAbs7() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesPositive", "primitiveTypesNegative"});
+        Object expected = getTransientMylibInstancesAsList(
+                "primitiveTypesPositive", "primitiveTypesNegative");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.doubleNull.abs().lt(4.1).
                 and(cand.doubleNull.abs().gt(3.9)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -337,14 +337,14 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testSqrt0() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{"primitiveTypesPositive"});
+        Object expected = getTransientMylibInstancesAsList("primitiveTypesPositive");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.doubleNotNull.gt(0d).and(cand.doubleNotNull.sqrt().lt(2.1).
                 and(cand.doubleNotNull.sqrt().gt(1.9))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -370,14 +370,14 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testSqrt1() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{"primitiveTypesPositive"});
+        Object expected = getTransientMylibInstancesAsList("primitiveTypesPositive");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.doubleNull.gt(0d).and(cand.doubleNull.sqrt().lt(2.1).
                 and(cand.doubleNull.sqrt().gt(1.9))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -403,14 +403,14 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testSqrt2() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{"primitiveTypesPositive"});
+        Object expected = getTransientMylibInstancesAsList("primitiveTypesPositive");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.intNotNull.gt(0).and(cand.intNotNull.sqrt().lt(2.1).
                 and(cand.intNotNull.sqrt().gt(1.9))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -436,14 +436,14 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     public void testSqrt3() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{"primitiveTypesPositive"});
+        Object expected = getTransientMylibInstancesAsList("primitiveTypesPositive");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.intNull.gt(0).and(cand.intNull.sqrt().lt(2.1).
                 and(cand.intNull.sqrt().gt(1.9))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -480,30 +480,27 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.sin(angle) < 0.02 && Math.sin(angle) > -0.02";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath1));
-            expectedResult.add(pm.getObjectById(oidOfMath3));
-            Query q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            Collection<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add((MathSample)pm.getObjectById(oidOfMath1));
+            expectedResult.add((MathSample)pm.getObjectById(oidOfMath3));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.sin(angle) < 1.02 && Math.sin(angle) > 0.98";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath2));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath2));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.sin(angle) < -0.98 && Math.sin(angle) > -1.02";
             expectedResult.clear();
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -528,30 +525,27 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.cos(angle) < 0.02 && Math.cos(angle) > -0.02";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath2));
-            Query q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            Collection<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add((MathSample)pm.getObjectById(oidOfMath2));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.cos(angle) < -0.98 && Math.cos(angle) > -1.02";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath1));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath1));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.cos(angle) < 1.02 && Math.cos(angle) > 0.98";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath3));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath3));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -576,13 +570,12 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.tan(angle) < 0.02 && Math.tan(angle) > -0.02";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath1));
-            expectedResult.add(pm.getObjectById(oidOfMath3));
-            Query q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            Collection<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath1));
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath3));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -607,30 +600,27 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.asin(trigValue) < 0.1 && Math.asin(trigValue) > -0.1";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath1));
-            Query q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            List<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath1));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.asin(trigValue) < 1.5714 && Math.asin(trigValue) > 1.570";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath2));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath2));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.asin(trigValue) < -1.570 && Math.asin(trigValue) > -1.5714";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath3));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath3));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -655,30 +645,27 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.acos(trigValue) < 1.5714 && Math.acos(trigValue) > 1.570";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath1));
-            Query q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            Collection<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath1));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.acos(trigValue) < 0.1 && Math.acos(trigValue) > -0.1";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath2));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath2));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.acos(trigValue) < 3.147 && Math.acos(trigValue) > 3.14";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath3));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath3));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -703,12 +690,11 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.atan(trigValue) < 0.5 && Math.atan(trigValue) > -0.5";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath1));
-            Query q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            Collection<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add((MathSample)pm.getObjectById(oidOfMath1));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -733,31 +719,28 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.ceil(doubleValue) == 5";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath1));
-            expectedResult.add(pm.getObjectById(oidOfMath2));
-            Query q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            Collection<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath1));
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath2));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.ceil(floatValue) == 3";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath3));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath3));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.ceil(intValue) == 5";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath1));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath1));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -782,31 +765,28 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.floor(doubleValue) == 4";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath1));
-            expectedResult.add(pm.getObjectById(oidOfMath2));
-            Query q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            Collection<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath1));
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath2));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.floor(floatValue) == 2";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath3));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath3));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             filter = "Math.floor(intValue) == 4";
             expectedResult.clear();
-            expectedResult.add(pm.getObjectById(oidOfMath2));
-            q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath2));
+            q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            results = (Collection)q.execute();
+            results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -831,12 +811,12 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.exp(doubleValue) < 85.63 && Math.exp(doubleValue) > 85.62";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath2));
-            Query q =  pm.newQuery();
+            Collection<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add(pm.getObjectById(MathSample.class, oidOfMath2));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setClass(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -861,12 +841,11 @@ public class SupportedMathMethods extends QueryTest {
             tx.begin();
 
             String filter = "Math.log(doubleValue) < 1.4935 && Math.log(doubleValue) > 1.491";
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfMath2));
-            Query q =  pm.newQuery();
-            q.setClass(MathSample.class);
+            Collection<MathSample> expectedResult = new ArrayList<>();
+            expectedResult.add((MathSample)pm.getObjectById(oidOfMath2));
+            Query<MathSample> q =  pm.newQuery(MathSample.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<MathSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();

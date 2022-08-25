@@ -43,29 +43,29 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
     }
     
     public void testConstructor() {
-        IntIdentity c1 = new IntIdentity(Object.class, (int)1);
-        IntIdentity c2 = new IntIdentity(Object.class, (int)1);
-        IntIdentity c3 = new IntIdentity(Object.class, (int)2);
+        IntIdentity c1 = new IntIdentity(Object.class, 1);
+        IntIdentity c2 = new IntIdentity(Object.class, 1);
+        IntIdentity c3 = new IntIdentity(Object.class, 2);
         assertEquals("Equal IntIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal IntIdentity instances compare equal", c1.equals(c3));
     }
 
     public void testIntegerConstructor() {
-        IntIdentity c1 = new IntIdentity(Object.class, (int)1);
-        IntIdentity c2 = new IntIdentity(Object.class, Integer.valueOf((int)1));
-        IntIdentity c3 = new IntIdentity(Object.class, Integer.valueOf((int)2));
+        IntIdentity c1 = new IntIdentity(Object.class, 1);
+        IntIdentity c2 = new IntIdentity(Object.class, Integer.valueOf(1));
+        IntIdentity c3 = new IntIdentity(Object.class, Integer.valueOf(2));
         assertEquals ("Equal intIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal IntIdentity instances compare equal", c1.equals(c3));
     }
 
     public void testToStringConstructor() {
-        IntIdentity c1 = new IntIdentity(Object.class, (int)1);
+        IntIdentity c1 = new IntIdentity(Object.class, 1);
         IntIdentity c2 = new IntIdentity(Object.class, c1.toString());
         assertEquals ("Equal IntIdentity instances compare not equal.", c1, c2);
     }
 
     public void testStringConstructor() {
-        IntIdentity c1 = new IntIdentity(Object.class, (int)1);
+        IntIdentity c1 = new IntIdentity(Object.class, 1);
         IntIdentity c2 = new IntIdentity(Object.class, "1");
         IntIdentity c3 = new IntIdentity(Object.class, "2");
         assertEquals ("Equal IntIdentity instances compare not equal.", c1, c2);
@@ -82,7 +82,7 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
     }
     
     public void testSerialized() {
-        IntIdentity c1 = new IntIdentity(Object.class, (int)1);
+        IntIdentity c1 = new IntIdentity(Object.class, 1);
         IntIdentity c2 = new IntIdentity(Object.class, "1");
         IntIdentity c3 = new IntIdentity(Object.class, "2");
         Object[] scis = writeReadSerialized(new Object[] {c1, c2, c3});

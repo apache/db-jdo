@@ -17,13 +17,12 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -62,11 +61,11 @@ public class NamespaceOfIdentifiers extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
 
-        Collection instance9 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 9").execute();
-        Collection allInstances = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "true").execute();
-        Collection empty = new HashSet();
+        List<PrimitiveTypes> instance9 = pm.newQuery(
+            PrimitiveTypes.class, "id == 9").executeList();
+        List<PrimitiveTypes> allInstances = pm.newQuery(
+            PrimitiveTypes.class, "true").executeList();
+        List<PrimitiveTypes> empty = Collections.emptyList();
         
         // use of field names
         runSimplePrimitiveTypesQuery("intNotNull == intNotNull", 

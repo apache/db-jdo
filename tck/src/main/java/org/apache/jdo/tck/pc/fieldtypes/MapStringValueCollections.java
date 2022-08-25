@@ -18,114 +18,117 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.Map;
 
 public class MapStringValueCollections { 
   public int identifier;
-  public Map MapOfObject_String0;
-  public Map MapOfObject_String1;
-  public Map MapOfObject_String2;
-  public Map MapOfObject_String3;
-  public Map MapOfObject_String4;
-  public Map MapOfObject_String6;
-  public Map MapOfObject_String8;
-  public Map MapOfSimpleClass_String9;
-  public Map MapOfSimpleClass_String10;
-  public Map MapOfSimpleClass_String11;
-  public Map MapOfSimpleClass_String12;
-  public Map MapOfSimpleClass_String13;
-  public Map MapOfSimpleClass_String15;
-  public Map MapOfSimpleClass_String17;
-  public Map MapOfSimpleInterface_String18;
-  public Map MapOfSimpleInterface_String19;
-  public Map MapOfSimpleInterface_String20;
-  public Map MapOfSimpleInterface_String21;
-  public Map MapOfSimpleInterface_String22;
-  public Map MapOfSimpleInterface_String24;
-  public Map MapOfSimpleInterface_String26;
-  public Map MapOfString_String27;
-  public Map MapOfString_String28;
-  public Map MapOfString_String29;
-  public Map MapOfString_String30;
-  public Map MapOfString_String31;
-  public Map MapOfString_String33;
-  public Map MapOfString_String35;
-  public Map MapOfDate_String36;
-  public Map MapOfDate_String37;
-  public Map MapOfDate_String38;
-  public Map MapOfDate_String39;
-  public Map MapOfDate_String40;
-  public Map MapOfDate_String42;
-  public Map MapOfDate_String44;
-  public Map MapOfBigDecimal_String45;
-  public Map MapOfBigDecimal_String46;
-  public Map MapOfBigDecimal_String47;
-  public Map MapOfBigDecimal_String48;
-  public Map MapOfBigDecimal_String49;
-  public Map MapOfBigDecimal_String51;
-  public Map MapOfBigDecimal_String53;
-  public Map MapOfBigInteger_String54;
-  public Map MapOfBigInteger_String55;
-  public Map MapOfBigInteger_String56;
-  public Map MapOfBigInteger_String57;
-  public Map MapOfBigInteger_String58;
-  public Map MapOfBigInteger_String60;
-  public Map MapOfBigInteger_String62;
-  public Map MapOfByte_String63;
-  public Map MapOfByte_String64;
-  public Map MapOfByte_String65;
-  public Map MapOfByte_String66;
-  public Map MapOfByte_String67;
-  public Map MapOfByte_String69;
-  public Map MapOfByte_String71;
-  public Map MapOfDouble_String72;
-  public Map MapOfDouble_String73;
-  public Map MapOfDouble_String74;
-  public Map MapOfDouble_String75;
-  public Map MapOfDouble_String76;
-  public Map MapOfDouble_String78;
-  public Map MapOfDouble_String80;
-  public Map MapOfFloat_String81;
-  public Map MapOfFloat_String82;
-  public Map MapOfFloat_String83;
-  public Map MapOfFloat_String84;
-  public Map MapOfFloat_String85;
-  public Map MapOfFloat_String87;
-  public Map MapOfFloat_String89;
-  public Map MapOfInteger_String90;
-  public Map MapOfInteger_String91;
-  public Map MapOfInteger_String92;
-  public Map MapOfInteger_String93;
-  public Map MapOfInteger_String94;
-  public Map MapOfInteger_String96;
-  public Map MapOfInteger_String98;
-  public Map MapOfLong_String99;
-  public Map MapOfLong_String100;
-  public Map MapOfLong_String101;
-  public Map MapOfLong_String102;
-  public Map MapOfLong_String103;
-  public Map MapOfLong_String105;
-  public Map MapOfLong_String107;
-  public Map MapOfShort_String108;
-  public Map MapOfShort_String109;
-  public Map MapOfShort_String110;
-  public Map MapOfShort_String111;
-  public Map MapOfShort_String112;
-  public Map MapOfShort_String114;
-  public Map MapOfShort_String116;
-  public Map MapOfSimpleEnum_String117;
-  public Map MapOfSimpleEnum_String118;
-  public Map MapOfSimpleEnum_String119;
-  public Map MapOfSimpleEnum_String120;
-  public Map MapOfSimpleEnum_String121;
-  public Map MapOfSimpleEnum_String122;
-  public Map MapOfSimpleEnum_String123;
-  public Map MapOfSimpleEnum_String124;
-  public Map MapOfSimpleEnum_String125;
-  public Map MapOfSimpleEnum_String126;
-  public Map MapOfSimpleEnum_String127;
-  public Map MapOfSimpleEnum_String128;
-  public Map MapOfSimpleEnum_String129;
+  public Map<Object, String> MapOfObject_String0;
+  public Map<Object, String> MapOfObject_String1;
+  public Map<Object, String> MapOfObject_String2;
+  public Map<Object, String> MapOfObject_String3;
+  public Map<Object, String> MapOfObject_String4;
+  public Map<Object, String> MapOfObject_String6;
+  public Map<Object, String> MapOfObject_String8;
+  public Map<SimpleClass, String> MapOfSimpleClass_String9;
+  public Map<SimpleClass, String> MapOfSimpleClass_String10;
+  public Map<SimpleClass, String> MapOfSimpleClass_String11;
+  public Map<SimpleClass, String> MapOfSimpleClass_String12;
+  public Map<SimpleClass, String> MapOfSimpleClass_String13;
+  public Map<SimpleClass, String> MapOfSimpleClass_String15;
+  public Map<SimpleClass, String> MapOfSimpleClass_String17;
+  public Map<SimpleInterface, String> MapOfSimpleInterface_String18;
+  public Map<SimpleInterface, String> MapOfSimpleInterface_String19;
+  public Map<SimpleInterface, String> MapOfSimpleInterface_String20;
+  public Map<SimpleInterface, String> MapOfSimpleInterface_String21;
+  public Map<SimpleInterface, String> MapOfSimpleInterface_String22;
+  public Map<SimpleInterface, String> MapOfSimpleInterface_String24;
+  public Map<SimpleInterface, String> MapOfSimpleInterface_String26;
+  public Map<String, String> MapOfString_String27;
+  public Map<String, String> MapOfString_String28;
+  public Map<String, String> MapOfString_String29;
+  public Map<String, String> MapOfString_String30;
+  public Map<String, String> MapOfString_String31;
+  public Map<String, String> MapOfString_String33;
+  public Map<String, String> MapOfString_String35;
+  public Map<Date, String> MapOfDate_String36;
+  public Map<Date, String> MapOfDate_String37;
+  public Map<Date, String> MapOfDate_String38;
+  public Map<Date, String> MapOfDate_String39;
+  public Map<Date, String> MapOfDate_String40;
+  public Map<Date, String> MapOfDate_String42;
+  public Map<Date, String> MapOfDate_String44;
+  public Map<BigDecimal, String> MapOfBigDecimal_String45;
+  public Map<BigDecimal, String> MapOfBigDecimal_String46;
+  public Map<BigDecimal, String> MapOfBigDecimal_String47;
+  public Map<BigDecimal, String> MapOfBigDecimal_String48;
+  public Map<BigDecimal, String> MapOfBigDecimal_String49;
+  public Map<BigDecimal, String> MapOfBigDecimal_String51;
+  public Map<BigDecimal, String> MapOfBigDecimal_String53;
+  public Map<BigInteger, String> MapOfBigInteger_String54;
+  public Map<BigInteger, String> MapOfBigInteger_String55;
+  public Map<BigInteger, String> MapOfBigInteger_String56;
+  public Map<BigInteger, String> MapOfBigInteger_String57;
+  public Map<BigInteger, String> MapOfBigInteger_String58;
+  public Map<BigInteger, String> MapOfBigInteger_String60;
+  public Map<BigInteger, String> MapOfBigInteger_String62;
+  public Map<Byte, String> MapOfByte_String63;
+  public Map<Byte, String> MapOfByte_String64;
+  public Map<Byte, String> MapOfByte_String65;
+  public Map<Byte, String> MapOfByte_String66;
+  public Map<Byte, String> MapOfByte_String67;
+  public Map<Byte, String> MapOfByte_String69;
+  public Map<Byte, String> MapOfByte_String71;
+  public Map<Double, String> MapOfDouble_String72;
+  public Map<Double, String> MapOfDouble_String73;
+  public Map<Double, String> MapOfDouble_String74;
+  public Map<Double, String> MapOfDouble_String75;
+  public Map<Double, String> MapOfDouble_String76;
+  public Map<Double, String> MapOfDouble_String78;
+  public Map<Double, String> MapOfDouble_String80;
+  public Map<Float, String> MapOfFloat_String81;
+  public Map<Float, String> MapOfFloat_String82;
+  public Map<Float, String> MapOfFloat_String83;
+  public Map<Float, String> MapOfFloat_String84;
+  public Map<Float, String> MapOfFloat_String85;
+  public Map<Float, String> MapOfFloat_String87;
+  public Map<Float, String> MapOfFloat_String89;
+  public Map<Integer, String> MapOfInteger_String90;
+  public Map<Integer, String> MapOfInteger_String91;
+  public Map<Integer, String> MapOfInteger_String92;
+  public Map<Integer, String> MapOfInteger_String93;
+  public Map<Integer, String> MapOfInteger_String94;
+  public Map<Integer, String> MapOfInteger_String96;
+  public Map<Integer, String> MapOfInteger_String98;
+  public Map<Long, String> MapOfLong_String99;
+  public Map<Long, String> MapOfLong_String100;
+  public Map<Long, String> MapOfLong_String101;
+  public Map<Long, String> MapOfLong_String102;
+  public Map<Long, String> MapOfLong_String103;
+  public Map<Long, String> MapOfLong_String105;
+  public Map<Long, String> MapOfLong_String107;
+  public Map<Short, String> MapOfShort_String108;
+  public Map<Short, String> MapOfShort_String109;
+  public Map<Short, String> MapOfShort_String110;
+  public Map<Short, String> MapOfShort_String111;
+  public Map<Short, String> MapOfShort_String112;
+  public Map<Short, String> MapOfShort_String114;
+  public Map<Short, String> MapOfShort_String116;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String117;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String118;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String119;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String120;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String121;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String122;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String123;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String124;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String125;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String126;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String127;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String128;
+  public Map<SimpleEnum, String> MapOfSimpleEnum_String129;
 
   public static final String [] fieldSpecs = { 
   "public Map MapOfObject_String0",
@@ -237,7 +240,7 @@ public class MapStringValueCollections {
   {
     return fieldSpecs.length;
   }
-  public Map get(int index)
+  public Map<?, ?> get(int index)
   {
     switch (index)
     {
@@ -453,7 +456,9 @@ public class MapStringValueCollections {
         throw new IndexOutOfBoundsException("Bad index " + index);
     }
   }
-  public boolean set(int index,Map value)
+
+  @SuppressWarnings("unchecked")
+  public boolean set(int index, @SuppressWarnings("rawtypes") Map value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -778,6 +783,9 @@ public class MapStringValueCollections {
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -787,7 +795,7 @@ public class MapStringValueCollections {
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

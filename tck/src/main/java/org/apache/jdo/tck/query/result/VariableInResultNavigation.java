@@ -20,8 +20,9 @@ package org.apache.jdo.tck.query.result;
 import java.util.Arrays;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QProject;
@@ -67,16 +68,16 @@ public class VariableInResultNavigation extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object emp1 = getTransientCompanyModelInstance("emp1");
-    private Object emp2 = getTransientCompanyModelInstance("emp2");
-    private Object emp3 = getTransientCompanyModelInstance("emp3");
-    private Object emp4 = getTransientCompanyModelInstance("emp4");
-    private Object emp5 = getTransientCompanyModelInstance("emp5");
-    private Object proj1 = getTransientCompanyModelInstance("proj1");
-    private Object proj2 = getTransientCompanyModelInstance("proj2");
-    private Object proj3 = getTransientCompanyModelInstance("proj3");
-    private Object dept1 = getTransientCompanyModelInstance("dept1");
-    private Object dept2 = getTransientCompanyModelInstance("dept2");
+    private final Object emp1 = getTransientCompanyModelInstance(Employee.class, "emp1");
+    private final Object emp2 = getTransientCompanyModelInstance(Employee.class, "emp2");
+    private final Object emp3 = getTransientCompanyModelInstance(Employee.class, "emp3");
+    private final Object emp4 = getTransientCompanyModelInstance(Employee.class, "emp4");
+    private final Object emp5 = getTransientCompanyModelInstance(Employee.class, "emp5");
+    private final Object proj1 = getTransientCompanyModelInstance(Project.class, "proj1");
+    private final Object proj2 = getTransientCompanyModelInstance(Project.class, "proj2");
+    private final Object proj3 = getTransientCompanyModelInstance(Project.class, "proj3");
+    private final Object dept1 = getTransientCompanyModelInstance(Department.class, "dept1");
+    private final Object dept2 = getTransientCompanyModelInstance(Department.class, "dept2");
 
     /**
      * The <code>main</code> is called when the class
@@ -88,6 +89,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithConstraint() {
         Object expected = Arrays.asList(
                 new Object[] {emp1, proj1},
@@ -101,7 +103,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.employees.contains(e).and(e.projects.contains(p)).and(p.name.eq("orange")));
         query.result(false, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e, p",
                 /*INTO*/        null,
@@ -124,6 +126,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithoutConstraint() {
         Object expected = Arrays.asList(
                 new Object[] {emp1, proj1},
@@ -141,7 +144,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.employees.contains(e).and(e.projects.contains(p)));
         query.result(false, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e, p",
                 /*INTO*/        null,
@@ -164,6 +167,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithThis() {
         Object expected = Arrays.asList(
                 new Object[] {dept1, emp1, proj1},
@@ -181,7 +185,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.employees.contains(e).and(e.projects.contains(p)));
         query.result(false, cand, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this, e, p",
                 /*INTO*/        null,
@@ -204,6 +208,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithThisConstraint() {
         Object expected = Arrays.asList(
                 new Object[] {emp1, proj1},
@@ -219,7 +224,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.deptid.eq(1l).and(cand.employees.contains(e)).and(e.projects.contains(p)));
         query.result(false, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e, p",
                 /*INTO*/        null,
@@ -242,6 +247,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithCompanyConstraint() {
         Object expected = Arrays.asList(
                 new Object[] {emp1, proj1},
@@ -259,7 +265,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.company.name.eq("Sun Microsystems, Inc.").and(cand.employees.contains(e)).and(e.projects.contains(p)));
         query.result(false, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e, p",
                 /*INTO*/        null,

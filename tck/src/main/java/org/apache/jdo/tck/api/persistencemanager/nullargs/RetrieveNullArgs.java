@@ -20,11 +20,8 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -49,19 +46,22 @@ public class RetrieveNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(RetrieveNullArgs.class);
     }
 
-    static MethodUnderTest retrieve = 
+    static final MethodUnderTest retrieve =
             new MethodUnderTestRetrieve();
     static class MethodUnderTestRetrieve extends MethodUnderTest {
+        @Override
         public void pmApi(PersistenceManager pm, Object pc) {
             pm.retrieve(pc);
         }
-        public void pmApi(PersistenceManager pm, Collection pcs) {
+        @Override
+        public <T> void pmApi(PersistenceManager pm, Collection<T> pcs) {
             pm.retrieveAll(pcs);
         }
+        @Override
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.retrieveAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that retrieve() with null valued argument does nothing.

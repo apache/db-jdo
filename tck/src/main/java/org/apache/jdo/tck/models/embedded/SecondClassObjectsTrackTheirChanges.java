@@ -25,6 +25,7 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -97,7 +98,7 @@ public class SecondClassObjectsTrackTheirChanges extends JDO_Test {
         pm.currentTransaction().begin();
         makePersistentCleanInstance(comp);
 
-        Set depts = comp.getDepartments();
+        Set<IDepartment> depts = comp.getDepartments();
         // comp or depts should transition to persistent-dirty
         comp.addDepartment(new Department(0, "HR", comp));
         int currComp = currentState(comp);

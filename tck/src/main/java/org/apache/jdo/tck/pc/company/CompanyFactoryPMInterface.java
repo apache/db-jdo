@@ -29,7 +29,7 @@ public class CompanyFactoryPMInterface
         extends CompanyFactoryAbstractImpl {
     
     /** */
-    public static final Class[] tearDownClasses = new Class[] {
+    public static final Class<?>[] tearDownClasses = new Class<?>[] {
         PIDentalInsurance.class, PIMedicalInsurance.class,
         PIPartTimeEmployee.class, PIFullTimeEmployee.class,  
         PIProject.class, PIDepartment.class, PICompany.class
@@ -79,7 +79,7 @@ public class CompanyFactoryPMInterface
         return pm.newInstance(PIProject.class);
     }
 
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return tearDownClasses;
     }
 }

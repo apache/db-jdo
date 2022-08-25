@@ -93,16 +93,11 @@ public class ResultSummary implements Serializable {
      */
     static void appendTCKResultMessage(String directory, String message) {
         String fileName = directory + RESULT_FILE_NAME;
-        PrintStream resultStream = null;
-        try {
-            resultStream = new PrintStream(
-                    new FileOutputStream(fileName, true));
+        try (PrintStream resultStream = new PrintStream(
+                new FileOutputStream(fileName, true))) {
             resultStream.println(message);
         } catch (FileNotFoundException e) {
-            throw new JDOFatalException("Cannot create file "+fileName, e);
-        } finally {
-            if (resultStream != null)
-                resultStream.close();
+            throw new JDOFatalException("Cannot create file " + fileName, e);
         }
     }
 
@@ -129,23 +124,13 @@ public class ResultSummary implements Serializable {
     private static ResultSummary load(String directory) {
         ResultSummary result;
         String fileName = directory + FILE_NAME_OF_RESULT_SUMMARY;
-        ObjectInputStream ois = null;
         try {
-            try {
-                ois = new ObjectInputStream(new FileInputStream(fileName));
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
                 result = (ResultSummary) ois.readObject();
-            } finally {
-                if (ois != null) {
-                    ois.close();
-                }
             }
         } catch (FileNotFoundException e) {
             result = null;
-        } catch (IOException e) {
-            throw new JDOFatalException(
-                    "Cannot deserialize result summary in file "
-                    +fileName, e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new JDOFatalException(
                     "Cannot deserialize result summary in file "
                     +fileName, e);
@@ -173,15 +158,9 @@ public class ResultSummary implements Serializable {
      */
     private void save(String directory) {
         String fileName = directory + FILE_NAME_OF_RESULT_SUMMARY;
-        ObjectOutputStream oos = null;
         try {
-            try {
-                oos = new ObjectOutputStream(new FileOutputStream(fileName));
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
                 oos.writeObject(this);
-            } finally {
-                if (oos != null) {
-                    oos.close();
-                }
             }
         } catch (FileNotFoundException e) {
             throw new JDOFatalException(
@@ -198,7 +177,7 @@ public class ResultSummary implements Serializable {
      */
     public String toString() {
         String newLine = System.getProperty("line.separator");
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         result.append("Total tests run: ").append(totalTestCount).append(".");
         if (this.nrOfFailedConfigurations==0) {
             result.append(newLine);

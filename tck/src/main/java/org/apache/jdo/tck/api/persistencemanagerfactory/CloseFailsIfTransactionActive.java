@@ -102,7 +102,7 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
                     if (pm2.equals(failed)) {
                         if (debug)
                             logger.debug("Found expected failed object " +
-                                         failed.toString());
+                                    failed);
                     } 
                     else {
                         setAborted();
@@ -121,13 +121,13 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
             catch (Exception uex) {
                 setAborted();
                 fail(ASSERTION_FAILED,
-                     "Caught 1 unexpected exception " + uex.toString());
+                     "Caught 1 unexpected exception " + uex);
             }
         } 
         catch (Exception ex) {
             setAborted();
             fail(ASSERTION_FAILED,
-                 "Caught 2 unexpected exception " + ex.toString());
+                 "Caught 2 unexpected exception " + ex);
         }
         
         if (!isAborted()) {
@@ -145,7 +145,7 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
             } 
             catch (Exception ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught 3 unexpected exception " + ex.toString());
+                     "Caught 3 unexpected exception " + ex);
             }
         }
     }
@@ -160,22 +160,19 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
         } catch (JDOException ex) {
             PersistenceManager[] pms = getFailedPersistenceManagers(ex);
             int numberOfPersistenceManagers = pms.length;
-            for (int i = 0; i < numberOfPersistenceManagers; ++i) {
-                PersistenceManager pm = pms[i];
+            for (PersistenceManager pm : pms) {
                 if (pm == null) {
                     fail(ASSERTION_FAILED,
-                         "Found unexpected null PersistenceManager");
-                } 
-                else {
+                            "Found unexpected null PersistenceManager");
+                } else {
                     Transaction tx = pm.currentTransaction();
                     if (tx.isActive()) {
                         if (debug)
                             logger.debug("Found active transaction; rolling back.");
                         tx.rollback();
-                    } 
-                    else {
+                    } else {
                         fail(ASSERTION_FAILED,
-                             "Unexpectedly, this transaction is not active: " + tx);
+                                "Unexpectedly, this transaction is not active: " + tx);
                     }
                 }
             }

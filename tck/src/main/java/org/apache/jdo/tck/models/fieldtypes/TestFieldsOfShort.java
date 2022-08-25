@@ -126,7 +126,7 @@ public class TestFieldsOfShort extends JDO_Test {
                 fail(ASSERTION_FAILED,
                         "Incorrect value for " + FieldsOfShort.fieldSpecs[i] +
                         ", expected value " + startValue.toString() +
-                        ", value is " + val.toString());
+                        ", value is " + val);
             }
         }
     }

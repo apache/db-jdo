@@ -29,10 +29,10 @@ public interface IDepartment {
     long getDeptid();
     String getName();
     ICompany getCompany();
-    Map getRoles();
+    Map<String, IEmployee> getRoles();
     
     void setDeptid(long deptid);
     void setName(String name);
     void setCompany(ICompany company);
-    void setRoles(Map roles);
+    void setRoles(Map<String, IEmployee> roles);
 }

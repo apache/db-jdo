@@ -18,13 +18,11 @@
 package org.apache.jdo.tck.api.persistencemanager.extent;
 
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
@@ -96,23 +94,22 @@ public class GetExtentWithSubclasses extends PersistenceManagerTest {
     private void runTest(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         tx.begin();
-        Extent e = pm.getExtent(Person.class, true);
+        Extent<Person> e = pm.getExtent(Person.class, true);
 
         boolean foundCraig = false;
         boolean foundMichael = false;
         boolean foundMichelle = false;
         boolean foundVictor = false;
 
-        for (Iterator i = e.iterator(); i.hasNext();) {
-            Person p = (Person) i.next();
+        for (Person p : e) {
             if ((p.getFirstname().equals("Craig")) && (p.getLastname().equals("Russell")))
-                foundCraig=true;
+                foundCraig = true;
             else if ((p.getFirstname().equals("Michael")) && (p.getLastname().equals("Bouschen")))
-                foundMichael=true;
+                foundMichael = true;
             else if ((p.getFirstname().equals("Michelle")) && (p.getLastname().equals("Caisse")))
-                foundMichelle=true;
+                foundMichelle = true;
             else if ((p.getFirstname().equals("Victor")) && (p.getLastname().equals("Kirkebo")))
-                foundVictor=true;
+                foundVictor = true;
         }
 
         if (!foundCraig) {

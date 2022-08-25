@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -29,7 +30,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -82,7 +82,7 @@ public class QueryIsSerializable extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<?> query = pm.newQuery();
             if (query instanceof Serializable) { 
                 if (debug) {
                     logger.debug("Query extends serializable interface.");
@@ -103,15 +103,14 @@ public class QueryIsSerializable extends QueryTest {
     }
 
     /** */
-    void runTestQueryIsSerializable02(PersistenceManager pm) throws Exception {
+    void runTestQueryIsSerializable02(PersistenceManager pm) throws IOException {
         if (debug) logger.debug("\nExecuting test QueryIsSerializable02() ...");
 
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == 3");
             query.compile();
@@ -126,8 +125,8 @@ public class QueryIsSerializable extends QueryTest {
             } 
             finally {
                 if (oos != null) {
-                    try { oos.flush();} catch(Exception ex) {}
-                    try { oos.close();} catch(Exception ex) {}
+                    try { oos.flush();} catch(Exception ignored) {}
+                    try { oos.close();} catch(Exception ignored) {}
                 }
             }
 
@@ -141,7 +140,8 @@ public class QueryIsSerializable extends QueryTest {
     }
 
     /** */
-    void runTestQueryIsSerializable03(PersistenceManager pm) throws Exception {
+    @SuppressWarnings("unchecked")
+    void runTestQueryIsSerializable03(PersistenceManager pm) throws IOException, ClassNotFoundException {
         if (debug) logger.debug("\nExecuting test QueryIsSerializable03() ...");
         Object restoredQuery = null;
         ObjectInputStream ois = null;
@@ -153,7 +153,7 @@ public class QueryIsSerializable extends QueryTest {
             if (debug) logger.debug("Query object restored.");
         } finally {
             if (ois != null) {
-                try { ois.close();} catch(Exception ex) {}
+                try { ois.close();} catch(Exception ignored) {}
             }
         }
 
@@ -161,14 +161,14 @@ public class QueryIsSerializable extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery(restoredQuery);
+            Query<PCPoint> query = pm.newQuery(restoredQuery);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.compile();
-            Object results = query.execute();
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            Object p4 = new PCPoint(3, 3);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p4 = new PCPoint(3, 3);
             expected.add(p4);
             expected = getFromInserted(expected);
             printOutput(results, expected);

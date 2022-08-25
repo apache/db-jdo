@@ -57,12 +57,12 @@ public class CloseAll extends ExtentTest {
     public void test() {
         try {
             beginTransaction();
-            Extent ex = getPM().getExtent (Employee.class, true);
-            Iterator it1 = ex.iterator();
-            deleteEmployee((Employee)it1.next());
-            Iterator it2 = ex.iterator();
+            Extent<Employee> ex = getPM().getExtent (Employee.class, true);
+            Iterator<Employee> it1 = ex.iterator();
+            deleteEmployee(it1.next());
+            Iterator<Employee> it2 = ex.iterator();
             addEmployee();
-            Iterator it3 = ex.iterator();
+            Iterator<Employee> it3 = ex.iterator();
             ex.closeAll();
             if (it1.hasNext()) {
                 fail(ASSERTION_FAILED,

@@ -18,8 +18,8 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.List;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
@@ -64,7 +64,7 @@ public class NullResults extends QueryTest {
         query.filter(cand.lastname.eq("emp2Last"));
         query.result(false, cand.manager);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "manager",
                 /*INTO*/        null,
@@ -95,7 +95,7 @@ public class NullResults extends QueryTest {
         query.filter(cand.lastname.eq("emp2Last"));
         query.result(false, cand.manager);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "manager",
                 /*INTO*/        null,
@@ -119,13 +119,13 @@ public class NullResults extends QueryTest {
 
     /** */
     public void testDistinctNavigation() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", null});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", null);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.result(true, cand.manager);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "DISTINCT manager",
                 /*INTO*/        null,

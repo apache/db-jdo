@@ -64,7 +64,7 @@ public interface PIDSPerson extends IPerson {
     @Join(column="EMPID")
     @Key(types=java.lang.String.class, column="TYPE")
     @Value(types=java.lang.String.class, column="PHONENO")
-    Map getPhoneNumbers();
+    Map<String, String> getPhoneNumbers();
     
     void setPersonid(long personid);
     void setLastname(String lastname);
@@ -72,6 +72,6 @@ public interface PIDSPerson extends IPerson {
     void setMiddlename(String middlename);
     void setAddress(IAddress address);
     void setBirthdate(Date birthdate);
-    void setPhoneNumbers(Map phoneNumbers);
+    void setPhoneNumbers(Map<String, String> phoneNumbers);
 
 }

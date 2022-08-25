@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.PartTimeEmployee;
@@ -27,6 +26,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Instanceof operator.
@@ -54,14 +54,14 @@ public class Instanceof extends QueryTest {
     }
 
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -84,14 +84,14 @@ public class Instanceof extends QueryTest {
     }
 
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

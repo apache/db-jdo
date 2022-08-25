@@ -51,13 +51,13 @@ public class AbstractFetchPlanTest extends JDO_Test {
 
     /** The String arrays used for setting fetch groups.
      */
-    protected String[] defaultGroup = new String[]
+    protected final String[] defaultGroup = new String[]
         {"default"};
-    protected String[] upperLeftGroup = new String[]
+    protected final String[] upperLeftGroup = new String[]
         {"default", "PCRect.upperLeft"};
-    protected String[] lowerRightGroup = new String[]
+    protected final String[] lowerRightGroup = new String[]
         {"default", "PCRect.lowerRight"};
-    protected String[] bothGroup = new String[]{
+    protected final String[] bothGroup = new String[]{
         "default", "PCRect.upperLeft", "PCRect.lowerRight"};
     /**
      * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -147,12 +147,13 @@ public class AbstractFetchPlanTest extends JDO_Test {
      * @param fetchPlan fetch plan
      * @param groups groups
      */
+    @SuppressWarnings("unchecked")
     protected void checkGroups(String location,
             FetchPlan fetchPlan, String[] groups) {
-        Collection expected = new HashSet();
-        Collection actual = fetchPlan.getGroups();
-        for (int i = 0; i < groups.length; ++i) {
-            expected.add(groups[i]);
+        Collection<String> expected = new HashSet<>();
+        Collection<String> actual = fetchPlan.getGroups();
+        for (String group : groups) {
+            expected.add(group);
         }
         if (!expected.equals(actual)) {
             appendMessage(location + NL + "Fetch groups differ." + NL +

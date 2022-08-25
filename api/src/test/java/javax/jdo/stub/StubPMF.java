@@ -36,7 +36,7 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
 	private static final long serialVersionUID = 488698916248368422L;
 
 	public static PersistenceManagerFactory getPersistenceManagerFactory(
-        Map props) {
+        Map<?, ?> props) {
 
         StubPMF pmf = new StubPMF();
 
@@ -57,7 +57,7 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
     }
 
     public static PersistenceManagerFactory getPersistenceManagerFactory(
-        Map overrides, Map props) {
+        Map<?, ?> overrides, Map<?, ?> props) {
 
         StubPMF pmf = new StubPMF();
 
@@ -97,7 +97,7 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
     Integer optionDatastoreReadTimeoutMillis;
     Integer optionDatastoreWriteTimeoutMillis;
 
-    Properties properties = new Properties();
+    final Properties properties = new Properties();
 
     public String getConnectionUserName() {
         return optionConnectionUserName;
@@ -345,40 +345,40 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
         public void evictAll(Object... oids) {
         }
 
-        public void evictAll(Collection oids) {
+        public void evictAll(Collection<?> oids) {
         }
 
-        public void evictAll(boolean subclasses, Class pcClass) {
+        public void evictAll(boolean subclasses, Class<?> pcClass) {
         }
 
         public void pin(Object oid) {
         }
 
-        public void pinAll(Collection oids) {
+        public void pinAll(Collection<?> oids) {
         }
 
         public void pinAll(Object... oids) {
         }
 
-        public void pinAll(boolean subclasses, Class pcClass) {
+        public void pinAll(boolean subclasses, Class<?> pcClass) {
         }
 
         public void unpin(Object oid) {
         }
 
-        public void unpinAll(Collection oids) {
+        public void unpinAll(Collection<?> oids) {
         }
 
         public void unpinAll(Object... oids) {
         }
 
-        public void unpinAll(boolean subclasses, Class pcClass) {
+        public void unpinAll(boolean subclasses, Class<?> pcClass) {
         }
     };
     }
 
     public void addInstanceLifecycleListener(
-        InstanceLifecycleListener listener, Class[] classes) {
+        InstanceLifecycleListener listener, Class<?>[] classes) {
         throw new UnsupportedOperationException("not implemented");
     }
 
@@ -405,7 +405,7 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
     }
 
     @SuppressWarnings("rawtypes")
-    public Set getFetchGroups() {
+    public Set<FetchGroup> getFetchGroups() {
         throw new UnsupportedOperationException("not implemented");
     }
 
@@ -549,7 +549,7 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
             + name);
     }
 
-    void setProperties(Map properties) {
+    void setProperties(Map<?, ?> properties) {
         for (Object key : properties.keySet()) {
             String k = key.toString();
             Object v = properties.get(key);

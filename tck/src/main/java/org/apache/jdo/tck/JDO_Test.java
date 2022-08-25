@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-
 package org.apache.jdo.tck;
 
 import java.io.File;
@@ -35,6 +34,7 @@ import java.security.PrivilegedAction;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -42,7 +42,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
@@ -67,7 +66,7 @@ public abstract class JDO_Test extends TestCase {
     public static final int NUM_STATES = 13;
     public static final int ILLEGAL_STATE = 13;
 
-    public static final String[] states = {
+    protected static final String[] states = {
         "transient",
         "persistent-new",
         "persistent-clean",
@@ -96,7 +95,7 @@ public abstract class JDO_Test extends TestCase {
      * methods for each state. This is used to determine the current lifecycle
      * state of an object.
      */
-    private static final boolean state_statuses[][] = {
+    private static final boolean[][] state_statuses = {
         // IS_PERSISTENT IS_TRANSACTIONAL    IS_DIRTY      IS_NEW      IS_DELETED  IS_DETACHED
         // transient
         {   false,          false,              false,      false,      false,        false},
@@ -161,7 +160,7 @@ public abstract class JDO_Test extends TestCase {
     public static final String DATASTORE_IDENTITY = "datastoreidentity";
 
     /** Map of transaction isolation String values to Integer */
-    protected final static Map levelValues = new HashMap();
+    protected static final Map<String, Integer> levelValues = new HashMap<>();
     static {
         levelValues.put(Constants.TX_READ_UNCOMMITTED, 0);
         levelValues.put(Constants.TX_READ_COMMITTED, 1);
@@ -208,7 +207,7 @@ public abstract class JDO_Test extends TestCase {
     protected static PersistenceManagerFactory pmf;
     
     /** The collection of supported options of the pmf. */
-    protected static Collection supportedOptions;
+    protected static Collection<String> supportedOptions;
 
     /** The name of the pmf supported options summary file. */
     private static final String PMF_SUPPORTED_OPTIONS_FILE_NAME = "pmf_supported_options.txt";
@@ -220,11 +219,11 @@ public abstract class JDO_Test extends TestCase {
     protected boolean testSucceeded;
 
     /** Logger */
-    protected Log logger = 
+    protected final Log logger =
         LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
     /** true if debug logging in enabled. */
-    protected boolean debug = logger.isDebugEnabled();
+    protected final boolean debug = logger.isDebugEnabled();
     
     /** 
      * Indicates an exception thrown in method <code>tearDown</code>.
@@ -236,13 +235,13 @@ public abstract class JDO_Test extends TestCase {
      * A list of registered oid instances. 
      * Corresponding pc instances are deleted in <code>localTearDown</code>.
      */
-    private Collection tearDownInstances = new LinkedList();
+    private final Collection<Object> tearDownInstances = new LinkedList<>();
     
     /** 
      * A list of registered pc classes. 
      * The extents of these classes are deleted in <code>localTearDown</code>.
      */
-    private Collection tearDownClasses = new LinkedList();
+    private final Collection<Class<?>> tearDownClasses = new LinkedList<>();
     
     /**
      * Intended for subclasses so that they may skip this class's normal set up procedure.
@@ -252,7 +251,8 @@ public abstract class JDO_Test extends TestCase {
         return true;
     }
 
-    protected final void setUp() throws Exception {
+    @Override
+    protected final void setUp() {
         if (!preSetUp()) {
             return;
         }
@@ -271,24 +271,18 @@ public abstract class JDO_Test extends TestCase {
      * Runs the bare test sequence.
      * @exception Throwable if any exception is thrown
      */
+    @Override
     public final void runBare() throws Throwable {
         try {
             testSucceeded = false;
             setUp();
             runTest();
             testSucceeded = true;
-        }
-        catch (AssertionFailedError e) {
+        } catch (Throwable e) {
             if (logger.isInfoEnabled())
                 logger.info("Exception during setUp or runtest: ", e);
             throw e;
-        }
-        catch (Throwable t) {
-            if (logger.isInfoEnabled())
-                logger.info("Exception during setUp or runtest: ", t);
-            throw t;
-        }
-        finally {
+        } finally {
             tearDown();
             if (debug) {
                 logger.debug("Free memory: " + Runtime.getRuntime().freeMemory());
@@ -337,6 +331,7 @@ public abstract class JDO_Test extends TestCase {
      *  This is done at the end of each configuration, unless the property
      *  jdo.tck.closePMFAfterEachTest is set to true.
      */
+    @Override
     protected final void tearDown() {
         if (!preTearDown()) {
             return;
@@ -407,14 +402,14 @@ public abstract class JDO_Test extends TestCase {
         addTearDownObjectId(oid);
     }
     
-    protected void addTearDownClass(Class pcClass) {
+    protected void addTearDownClass(Class<?> pcClass) {
         this.tearDownClasses.add(pcClass);
     }
     
-    protected void addTearDownClass(Class[] pcClasses) {
+    protected void addTearDownClass(Class<?>[] pcClasses) {
         if (pcClasses == null) return;
-        for (int i = 0; i < pcClasses.length; ++i) {
-            addTearDownClass(pcClasses[i]);
+        for (Class<?> pcClass : pcClasses) {
+            addTearDownClass(pcClass);
         }
     }
     
@@ -431,7 +426,7 @@ public abstract class JDO_Test extends TestCase {
             getPM();
             try {
                 this.pm.currentTransaction().begin();
-                for (Iterator i = this.tearDownInstances.iterator(); i.hasNext(); ) {
+                for (Iterator<Object> i = this.tearDownInstances.iterator(); i.hasNext(); ) {
                     Object pc;
                     try {
                         pc = this.pm.getObjectById(i.next(), true);
@@ -468,8 +463,8 @@ public abstract class JDO_Test extends TestCase {
             getPM();
             try {
                 this.pm.currentTransaction().begin();
-                for (Iterator i = this.tearDownClasses.iterator(); i.hasNext(); ) {
-                    this.pm.deletePersistentAll(getAllObjects(this.pm, (Class)i.next()));
+                for (Class<?> tearDownClass : this.tearDownClasses) {
+                    this.pm.deletePersistentAll(getAllObjects(this.pm, tearDownClass));
                 }
                 this.pm.currentTransaction().commit();
             }
@@ -486,21 +481,18 @@ public abstract class JDO_Test extends TestCase {
      * @param pcClass the class object of the PersistenceCapabale class
      * @return a Collection of persistence objects
      */
-    protected Collection getAllObjects(PersistenceManager pm, Class pcClass) {
-        Collection col = new Vector() ;
-        Query query = pm.newQuery();
-        query.setClass(pcClass);
-        Extent candidates = null;
+    protected <T> Collection<T> getAllObjects(PersistenceManager pm, Class<T> pcClass) {
+        Query<T> query = pm.newQuery(pcClass);
+        Extent<T> candidates = null;
         try {
             candidates = pm.getExtent(pcClass, false);
         } catch (JDOException ex) {
             if (debug) logger.debug("Exception thrown for getExtent of class " +
                     pcClass.getName());
-            return col;
+            return Collections.emptyList();
         }
         query.setCandidates(candidates);
-        Object result = query.execute();
-        return (Collection)result;
+        return query.executeList();
     }
 
     /**
@@ -520,7 +512,7 @@ public abstract class JDO_Test extends TestCase {
         return pmf;
     }
 
-    protected Class getPMFClass() {
+    protected Class<?> getPMFClass() {
         if (pmf != null) {
             return pmf.getClass();
         }
@@ -548,12 +540,18 @@ public abstract class JDO_Test extends TestCase {
         if (pmf == null) {
             String name = null;
             try {
-                Class pmfClass = getPMFClass();
+                Class<?> pmfClass = getPMFClass();
                 name = pmfClass.getName();
-                pmf = (PersistenceManagerFactory) pmfClass.newInstance();
+                pmf = (PersistenceManagerFactory) pmfClass.getDeclaredConstructor().newInstance();
                 if (supportedOptions == null) {
                     supportedOptions = pmf.supportedOptions();
                 }
+            } catch (NoSuchMethodException ex) {
+                throw new JDOException("No no-args constructor of PMF class '" +
+                        name + "'.", ex);
+            } catch (InvocationTargetException ex) {
+                throw new JDOException("Exception thrown by constructor of PMF class '" +
+                        name + "'.", ex);
             } catch (InstantiationException ex) {
                 throw new JDOException("Cannot instantiate PMF class '" + 
                                        name + "'.", ex);
@@ -620,8 +618,8 @@ public abstract class JDO_Test extends TestCase {
                     failure = ex;
                 PersistenceManager[] pms = getFailedPersistenceManagers(
                     "closePMF", ex);
-                for (int i = 0; i < pms.length; i++) {
-                    cleanupPM(pms[i]);
+                for (PersistenceManager persistenceManager : pms) {
+                    cleanupPM(persistenceManager);
                 }
             }
             catch (RuntimeException ex) {
@@ -645,12 +643,10 @@ public abstract class JDO_Test extends TestCase {
         if (PMF != null) {
             if (!PMF.isClosed()) {
                 doPrivileged(
-                    new PrivilegedAction () {
-                        public Object run () {
+                        () -> {
                             PMF.close();
                             return null;
                         }
-                    }
                 );
             }
         }
@@ -749,18 +745,13 @@ public abstract class JDO_Test extends TestCase {
         if (file.exists())
             // PMF supported options have been dumped before => return
             return;
-        PrintStream resultStream = null;
-        try {
-            resultStream = new PrintStream(new FileOutputStream(file));
-            for (Iterator it = supportedOptions.iterator(); it.hasNext();) {
-                resultStream.println((String)it.next());
+        try (PrintStream resultStream = new PrintStream(new FileOutputStream(file))) {
+            for (String supportedOption : supportedOptions) {
+                resultStream.println(supportedOption);
             }
         } catch (FileNotFoundException e) {
             throw new JDOFatalException(
-                "dumpSupportedOptions: cannot create file " + file.getName(), e);
-        } finally {
-            if (resultStream != null)
-                resultStream.close();
+                    "dumpSupportedOptions: cannot create file " + file.getName(), e);
         }
     }
      
@@ -1065,7 +1056,7 @@ public abstract class JDO_Test extends TestCase {
      */
     public static String getStateOfInstance(Object o) {
         boolean existingEntries = false;
-        StringBuffer buff = new StringBuffer("{");
+        StringBuilder buff = new StringBuilder("{");
         if( JDOHelper.isPersistent(o) ){
             buff.append("persistent");
             existingEntries = true;
@@ -1110,7 +1101,8 @@ public abstract class JDO_Test extends TestCase {
         status[IS_NEW]              = JDOHelper.isNew(o);
         status[IS_DELETED]          = JDOHelper.isDeleted(o);
         status[IS_DETACHED]         = JDOHelper.isDetached(o);
-        int i, j;
+        int i;
+        int j;
     outerloop:
         for( i = 0; i < NUM_STATES; ++i ){
             for( j = 0; j < NUM_STATUSES; ++j ){
@@ -1124,16 +1116,16 @@ public abstract class JDO_Test extends TestCase {
 
     /**
      * Tests if a found state matches an expected state.
-     * @param found_state the  found state
-     * @param expected_state the expected state
+     * @param foundState the  found state
+     * @param expectedState the expected state
      * @return true if the found state matches the expected state
      */
-    public static boolean compareStates(int found_state, int expected_state) {
+    public static boolean compareStates(int foundState, int expectedState) {
         // status interrogation gives same values for PERSISTENT_NONTRANSACTIONAL and HOLLOW
-        return (expected_state < 0
-                || found_state == expected_state
-                || (found_state == HOLLOW && expected_state == PERSISTENT_NONTRANSACTIONAL)
-                || (found_state == PERSISTENT_NONTRANSACTIONAL && expected_state == HOLLOW));
+        return (expectedState < 0
+                || foundState == expectedState
+                || (foundState == HOLLOW && expectedState == PERSISTENT_NONTRANSACTIONAL)
+                || (foundState == PERSISTENT_NONTRANSACTIONAL && expectedState == HOLLOW));
     }
 
     /** This method mangles an object by changing all its non-static, 
@@ -1144,35 +1136,33 @@ public abstract class JDO_Test extends TestCase {
      * @return a mangled object
      * @throws Exception exception
      */
-    protected boolean mangleObject (Object oid) 
-        throws Exception {
+    protected boolean mangleObject (Object oid) throws IllegalAccessException {
         Field[] fields = getModifiableFields(oid);
         if (fields.length == 0) return false;
-        for (int i = 0; i < fields.length; ++i) {
-            Field field = fields[i];
-            Class fieldType = field.getType();
+        for (Field field : fields) {
+            Class<?> fieldType = field.getType();
             if (fieldType == long.class) {
                 field.setLong(oid, 10000L + field.getLong(oid));
             } else if (fieldType == int.class) {
                 field.setInt(oid, 10000 + field.getInt(oid));
             } else if (fieldType == short.class) {
-                field.setShort(oid, (short)(10000 + field.getShort(oid)));
+                field.setShort(oid, (short) (10000 + field.getShort(oid)));
             } else if (fieldType == byte.class) {
-                field.setByte(oid, (byte)(100 + field.getByte(oid)));
+                field.setByte(oid, (byte) (100 + field.getByte(oid)));
             } else if (fieldType == char.class) {
-                field.setChar(oid, (char)(10 + field.getChar(oid)));
+                field.setChar(oid, (char) (10 + field.getChar(oid)));
             } else if (fieldType == String.class) {
-                field.set(oid, "This is certainly a challenge" + (String)field.get(oid));
+                field.set(oid, "This is certainly a challenge" + field.get(oid));
             } else if (fieldType == Integer.class) {
-                field.set(oid, Integer.valueOf(10000 + ((Integer)field.get(oid)).intValue()));
+                field.set(oid, Integer.valueOf(10000 + ((Integer) field.get(oid)).intValue()));
             } else if (fieldType == Long.class) {
-                field.set(oid, Long.valueOf(10000L + ((Long)field.get(oid)).longValue()));
+                field.set(oid, Long.valueOf(10000L + ((Long) field.get(oid)).longValue()));
             } else if (fieldType == Short.class) {
-                field.set(oid, Short.valueOf((short)(10000 + ((Short)field.get(oid)).shortValue())));
+                field.set(oid, Short.valueOf((short) (10000 + ((Short) field.get(oid)).shortValue())));
             } else if (fieldType == Byte.class) {
-                field.set(oid, Byte.valueOf((byte)(100 + ((Byte)field.get(oid)).byteValue())));
+                field.set(oid, Byte.valueOf((byte) (100 + ((Byte) field.get(oid)).byteValue())));
             } else if (fieldType == Character.class) {
-                field.set(oid, Character.valueOf((char)(10 + ((Character)(field.get(oid))).charValue())));
+                field.set(oid, Character.valueOf((char) (10 + ((Character) (field.get(oid))).charValue())));
             }
         }
         return true;
@@ -1191,14 +1181,12 @@ public abstract class JDO_Test extends TestCase {
      * @return an array of fields
      */
     protected Field[] getModifiableFields(final Object obj) {
-        return (Field[])doPrivileged(
-            new PrivilegedAction () {
-                public Object run () {
-                    Class cls = obj.getClass();
-                    List result = new ArrayList();
+        return doPrivileged(
+                () -> {
+                    Class<?> cls = obj.getClass();
+                    List<Field> result = new ArrayList<>();
                     Field[] fields = cls.getFields();
-                    for (int i = 0; i < fields.length; ++i) {
-                        Field field = fields[i];
+                    for (Field field : fields) {
                         int modifiers = field.getModifiers();
                         if (Modifier.isFinal(modifiers) ||
                                 Modifier.isStatic(modifiers))
@@ -1208,7 +1196,6 @@ public abstract class JDO_Test extends TestCase {
                     }
                     return result.toArray(new Field[result.size()]);
                 }
-            }
         );
     }
 
@@ -1380,8 +1367,8 @@ public abstract class JDO_Test extends TestCase {
      * @return true if the actual level is greater or equal the requsted level
      */
     protected boolean validLevelSubstitution(String requested, String actual) {
-        int requestedLevel = ((Integer)levelValues.get(requested)).intValue();
-        int actualLevel = ((Integer)levelValues.get(actual)).intValue();
+        int requestedLevel = (levelValues.get(requested)).intValue();
+        int actualLevel = (levelValues.get(actual)).intValue();
         return actualLevel >= requestedLevel;
     }
 

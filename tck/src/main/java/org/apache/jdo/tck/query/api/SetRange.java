@@ -19,8 +19,8 @@ package org.apache.jdo.tck.query.api;
 
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -46,9 +46,8 @@ public class SetRange extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(
-                new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
+    private final Object[] expectedResult = {
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3", "emp4", "emp5")
     };
             
     /**
@@ -63,7 +62,7 @@ public class SetRange extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(Person.class);
+        Query<Person> query = getPM().newQuery(Person.class);
         query.setRange(0, 5);
         String singleStringQuery = 
             "SELECT FROM Person RANGE 0, 5";

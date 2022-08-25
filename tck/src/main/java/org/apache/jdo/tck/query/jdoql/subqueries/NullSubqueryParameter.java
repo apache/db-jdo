@@ -21,12 +21,10 @@ import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.query.QueryTest;
+import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -56,11 +54,12 @@ public class NullSubqueryParameter extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
         PersistenceManager pm = getPM();
 
-        List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp1", "emp2", "emp4", "emp6", "emp7", "emp10"});
+        List<IEmployee> expectedResult = getTransientCompanyModelInstancesAsList(IEmployee.class,
+            "emp1", "emp2", "emp4", "emp6", "emp7", "emp10");
 
         String singleStringJDOQL = 
             "SELECT FROM " + Employee.class.getName() +
@@ -68,7 +67,7 @@ public class NullSubqueryParameter extends SubqueriesTest {
             "emp.firstname == 'emp1First' VARIABLES Employee emp";
 
         // API query
-        Query apiQuery = pm.newQuery(Employee.class);
+        Query<Employee> apiQuery = pm.newQuery(Employee.class);
         apiQuery.setFilter("this.weeklyhours == emp.weeklyhours && emp.firstname == 'emp1First'");
         // null subquery parameter
         apiQuery.addSubquery(null, Employee.class.getName() + " emp", null); 
@@ -76,7 +75,7 @@ public class NullSubqueryParameter extends SubqueriesTest {
                         false, null, expectedResult, true);
 
         // single String JDOQL
-        Query singleStringQuery = pm.newQuery(singleStringJDOQL);
+        Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
         executeJDOQuery(ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
     }

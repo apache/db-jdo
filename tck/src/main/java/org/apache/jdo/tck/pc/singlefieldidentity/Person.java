@@ -18,9 +18,9 @@
 
 package org.apache.jdo.tck.pc.singlefieldidentity;
 
-import java.io.Serializable;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 
 import java.util.Date;
 
@@ -30,14 +30,13 @@ import java.util.Date;
 public class Person 
     implements Serializable  {
 
+    private static final long serialVersionUID = 1L;
+
     private long    id;
     private String  firstname;
     private String  lastname;
     private String  middlename;
     private Date    birthdate;
-
-    protected static SimpleDateFormat formatter =
-        new SimpleDateFormat("d/MMM/yyyy");
 
     /** This is the JDO-required no-args constructor. */
     protected Person() {}
@@ -155,12 +154,11 @@ public class Person
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(id);
         rc.append(", ").append(lastname);
         rc.append(", ").append(firstname);
-        rc.append(", born ").append(
-            birthdate==null ? "null" : formatter.format(birthdate));
+        rc.append(", born ").append(JDOCustomDateEditor.getDateRepr(birthdate));
         return rc.toString();
     }
 

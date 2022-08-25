@@ -24,6 +24,7 @@ import javax.jdo.Query;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -51,11 +52,11 @@ public class AggregateOnSize extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testMaxAndSizeInSubquery() {
         PersistenceManager pm = getPM();
 
-        List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"dept1"});
+        List<IDepartment> expectedResult = getTransientCompanyModelInstancesAsList(IDepartment.class, "dept1");
 
         // Select departments with the maximum number of employees
         String singleStringJDOQL = 
@@ -63,22 +64,22 @@ public class AggregateOnSize extends SubqueriesTest {
             "(SELECT MAX(d.employees.size()) FROM " + Department.class.getName() + " d)";
 
         // API query
-        Query sub = pm.newQuery(Department.class);
+        Query<Department> sub = pm.newQuery(Department.class);
         sub.setResult("MAX(this.employees.size())");
-        Query apiQuery = pm.newQuery(Department.class);
+        Query<Department> apiQuery = pm.newQuery(Department.class);
         apiQuery.setFilter("this.employees.size() == number");
         apiQuery.addSubquery(sub, "long number", null); 
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
 
         // API query against memory model
-        List allDepartments = getAllPersistentInstances(pm, Department.class);
+        List<Department> allDepartments = getAllPersistentInstances(pm, Department.class);
         apiQuery.setCandidates(allDepartments);
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
 
         // single String JDOQL
-        Query singleStringQuery = pm.newQuery(singleStringJDOQL);
+        Query<Department> singleStringQuery = pm.newQuery(singleStringJDOQL);
         executeJDOQuery(ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
     }

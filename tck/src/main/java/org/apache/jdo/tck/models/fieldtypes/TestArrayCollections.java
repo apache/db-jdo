@@ -22,7 +22,6 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Vector;
 
 import javax.jdo.PersistenceManager;
@@ -130,8 +129,8 @@ public class TestArrayCollections extends JDO_Test {
     /** */
     private void setValues(ArrayCollections collect, int order)
     {
-        Vector value;
-        Class vectorClass = null;
+        Vector<?> value;
+        Class<?> vectorClass = null;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
@@ -140,7 +139,7 @@ public class TestArrayCollections extends JDO_Test {
             try {
                 // get the right class to instantiate
                 vectorClass = value.get(0).getClass();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
 
             Object[] valueArray = (Object[])Array.newInstance(vectorClass,
@@ -150,19 +149,19 @@ public class TestArrayCollections extends JDO_Test {
             collect.set(i, valueArray);
             if (debug)
                 logger.debug("Set " + i + "th value to: "
-                        + valueArray.toString());
+                        + Arrays.toString(valueArray));
         }
     }
 
     /** */
     private void checkValues(Object oid, ArrayCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         ArrayCollections pi = (ArrayCollections) pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
             Object obj = new Object();
-            Class objClass = obj.getClass();
+            Class<?> objClass = obj.getClass();
             Object[] expected = (Object[])Array.newInstance(objClass, 5);
             Object[] actual = (Object[])Array.newInstance(objClass, 5);
             expected = expectedValue.get(i);
@@ -193,13 +192,13 @@ public class TestArrayCollections extends JDO_Test {
                 }
                 else {
                     sbuf.append("\nFor element " + i + ", expected = " +
-                        expected + ", actual = " + actual + " . ");
+                        Arrays.toString(expected) + ", actual = " + Arrays.toString(actual) + " . ");
                 }
             }
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

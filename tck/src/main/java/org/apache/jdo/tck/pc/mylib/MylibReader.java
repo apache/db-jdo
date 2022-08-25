@@ -31,12 +31,15 @@ import org.springframework.core.io.ClassPathResource;
  */
 public class MylibReader extends DefaultListableBeanFactory {
 
+    private static final long serialVersionUID = 1L;
+
     /** The name of the root list bean. */
     public static final String ROOT_LIST_NAME = "root";
 
     /** Teardown classes 
      */
-    private static final Class[] tearDownClasses = new Class[] {
+    @SuppressWarnings("rawtypes")
+    private static final Class<?>[] tearDownClasses = new Class[] {
         PrimitiveTypes.class, PCClass.class
     };
 
@@ -69,8 +72,9 @@ public class MylibReader extends DefaultListableBeanFactory {
      * called "root" of type list in the xml and returns it.
      * @return a list of root instances
      */
-    public List getRootList() {
-        return (List)getBean(ROOT_LIST_NAME);
+    @SuppressWarnings("unchecked")
+    public List<Object> getRootList() {
+        return (List<Object>)getBean(ROOT_LIST_NAME);
     }
     
     /** 
@@ -93,13 +97,13 @@ public class MylibReader extends DefaultListableBeanFactory {
      * Address bean.
      */
     public PrimitiveTypes getPrimitiveTypes(String name) {
-        return (PrimitiveTypes)getBean(name, PrimitiveTypes.class);
+        return getBean(name, PrimitiveTypes.class);
     }
 
     /**
      * @return Returns the tearDownClasses.
      */
-    public static Class[] getTearDownClasses() {
+    public static Class<?>[] getTearDownClasses() {
         return tearDownClasses;
     }
 }

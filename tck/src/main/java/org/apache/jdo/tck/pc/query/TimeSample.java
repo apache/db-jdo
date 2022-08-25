@@ -21,6 +21,9 @@ import java.io.Serializable;
 import java.sql.Time;
 
 public class TimeSample implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	long id;
 
 	Time time;

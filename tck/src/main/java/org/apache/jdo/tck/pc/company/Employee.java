@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 import javax.jdo.annotations.PersistenceCapable;
 
@@ -34,6 +35,8 @@ import javax.jdo.annotations.PersistenceCapable;
  */
 @PersistenceCapable
 public abstract class Employee extends Person implements IEmployee {
+
+    private static final long serialVersionUID = 1L;
 
     private Date             hiredate;
     private double           weeklyhours;
@@ -45,10 +48,10 @@ public abstract class Employee extends Person implements IEmployee {
     private Employee         mentor;
     private Employee         protege;
     private Employee         hradvisor;
-    private transient Set reviewedProjects = new HashSet(); // element-type is Project
-    private transient Set projects = new HashSet();         // element-type is Project
-    private transient Set team = new HashSet();             // element-type is Employee
-    private transient Set hradvisees = new HashSet();       // element-type is Employee
+    private transient Set<IProject> reviewedProjects = new HashSet<>(); // element-type is Project
+    private transient Set<IProject> projects = new HashSet<>();         // element-type is Project
+    private transient Set<IEmployee> team = new HashSet<>();             // element-type is Employee
+    private transient Set<IEmployee> hradvisees = new HashSet<>();       // element-type is Employee
 
     /** This is the JDO-required no-args constructor */
     protected Employee() {}
@@ -123,7 +126,7 @@ public abstract class Employee extends Person implements IEmployee {
      * Get the reviewed projects.
      * @return The reviewed projects as an unmodifiable set.
      */
-    public Set getReviewedProjects() {
+    public Set<IProject> getReviewedProjects() {
         return Collections.unmodifiableSet(reviewedProjects);
     }
 
@@ -131,7 +134,7 @@ public abstract class Employee extends Person implements IEmployee {
      * Add a reviewed project.
      * @param project A reviewed project.
      */
-    public void addReviewedProjects(Project project) {
+    public void addReviewedProjects(IProject project) {
         reviewedProjects.add(project);
     }
 
@@ -139,7 +142,7 @@ public abstract class Employee extends Person implements IEmployee {
      * Remove a reviewed project.
      * @param project A reviewed project.
      */
-    public void removeReviewedProject(Project project) {
+    public void removeReviewedProject(IProject project) {
         reviewedProjects.remove(project);
     }
 
@@ -147,11 +150,11 @@ public abstract class Employee extends Person implements IEmployee {
      * Set the reviewed projects for the employee.
      * @param reviewedProjects The set of reviewed projects.
      */
-    public void setReviewedProjects(Set reviewedProjects) {
+    public void setReviewedProjects(Set<IProject> reviewedProjects) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
         this.reviewedProjects = 
-            (reviewedProjects != null) ? new HashSet(reviewedProjects) : null;
+            (reviewedProjects != null) ? new HashSet<>(reviewedProjects) : null;
     }
 
     /**
@@ -159,7 +162,7 @@ public abstract class Employee extends Person implements IEmployee {
      * @return The employee's projects are returned as an unmodifiable
      * set. 
      */
-    public Set getProjects() {
+    public Set<IProject> getProjects() {
         return Collections.unmodifiableSet(projects);
     }
 
@@ -167,7 +170,7 @@ public abstract class Employee extends Person implements IEmployee {
      * Add a project for the employee.
      * @param project The project.
      */
-    public void addProject(Project project) {
+    public void addProject(IProject project) {
         projects.add(project);
     }
 
@@ -175,7 +178,7 @@ public abstract class Employee extends Person implements IEmployee {
      * Remove a project from an employee's set of projects.
      * @param project The project.
      */
-    public void removeProject(Project project) {
+    public void removeProject(IProject project) {
         projects.remove(project);
     }
 
@@ -183,10 +186,10 @@ public abstract class Employee extends Person implements IEmployee {
      * Set the projects for the employee.
      * @param projects The set of projects of the employee.
      */
-    public void setProjects(Set projects) {
+    public void setProjects(Set<IProject> projects) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.projects = (projects != null) ? new HashSet(projects) : null;
+        this.projects = (projects != null) ? new HashSet<>(projects) : null;
     }
     
     /**
@@ -275,7 +278,7 @@ public abstract class Employee extends Person implements IEmployee {
      * @return The set of <code>Employee</code>s on this employee's team,
      * returned as an unmodifiable set. 
      */
-    public Set getTeam() {
+    public Set<IEmployee> getTeam() {
         return Collections.unmodifiableSet(team);
     }
 
@@ -305,10 +308,10 @@ public abstract class Employee extends Person implements IEmployee {
      * Set the employee's team.
      * @param team The set of <code>Employee</code>s.
      */
-    public void setTeam(Set team) {
+    public void setTeam(Set<IEmployee> team) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.team = (team != null) ? new HashSet(team) : null;
+        this.team = (team != null) ? new HashSet<>(team) : null;
     }
 
     /**
@@ -364,7 +367,7 @@ public abstract class Employee extends Person implements IEmployee {
      * @return An unmodifiable <code>Set</code> containing the
      * <code>Employee</code>s that are HR advisees of this employee.
      */
-    public Set getHradvisees() {
+    public Set<IEmployee> getHradvisees() {
         return Collections.unmodifiableSet(hradvisees);
     }
 
@@ -396,10 +399,10 @@ public abstract class Employee extends Person implements IEmployee {
      * @param hradvisees The <code>Employee</code>s that are HR advisees of
      * this employee. 
      */
-    public void setHradvisees(Set hradvisees) {
+    public void setHradvisees(Set<IEmployee> hradvisees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.hradvisees = (hradvisees != null) ? new HashSet(hradvisees) : null;
+        this.hradvisees = (hradvisees != null) ? new HashSet<>(hradvisees) : null;
     }
 
     /**
@@ -411,16 +414,17 @@ public abstract class Employee extends Person implements IEmployee {
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        reviewedProjects = new HashSet();
-        projects = new HashSet();
-        team = new HashSet();
-        hradvisees = new HashSet();
+        reviewedProjects = new HashSet<>();
+        projects = new HashSet<>();
+        team = new HashSet<>();
+        hradvisees = new HashSet<>();
     }
 
     /**
      * Return a String representation of a <code>Employee</code> object.
      * @return a String representation of a <code>Employee</code> object.
      */
+    @Override
     public String toString() {
         return "Employee(" + getFieldRepr() + ")";
     }
@@ -429,11 +433,11 @@ public abstract class Employee extends Person implements IEmployee {
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
-        rc.append(", hired ").append(
-            hiredate==null ? "null" : formatter.format(hiredate));
+        rc.append(", hired ").append(JDOCustomDateEditor.getDateRepr(hiredate));
         rc.append(", weeklyhours ").append(weeklyhours);
         return rc.toString();
     }
@@ -449,7 +453,8 @@ public abstract class Employee extends Person implements IEmployee {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         IEmployee otherEmp = (IEmployee)other;
         String where = "Employee<" + getPersonid() + ">";

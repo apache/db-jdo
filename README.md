@@ -150,4 +150,15 @@ While running the TCK, maven uses the following configuration files in src/conf:
     * jdo.tck.mapping : The file designator that maven.xml uses to build a javax.jdo.option.Mapping value and corresponding schema name (required)
 * exclude.list  : A list of test classes NOT to execute during a TCK test run
 
+### Warnings
 
+There is a profile called `warnings` that configures the maven-compiler-plugin to show compiler warnings and passes 
+`-Xlint:all,-try,-rawtypes` as argument to javac. Activate the warnings profile to enable compiler warnings. 
+Please note, the tck enables the profile `jdori` per default and this default is disabled when specifying the profile 
+`warnings`. So if you want to run the tck with the jdori with warnings enabled please use the following:
+
+    mvn -Pwarnings,jdori clean install
+
+You can pass different compiler arguments using the -D option:
+
+    mvn -Pwarnings,jdori -DcompilerArgument=-Xlint:all clean install

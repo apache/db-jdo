@@ -29,9 +29,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.apache.jdo.tck.pc.company.ICompany;
-
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
+import org.apache.jdo.tck.pc.company.IMeetingRoom;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
@@ -44,7 +44,9 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING,
         name="DISCRIMINATOR")
 public class JPAAppDepartment
-    implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
+    implements IDepartment, Serializable, Comparable<IDepartment>, Comparator<IDepartment>, DeepEquality {
+
+    private static final long serialVersionUID = 1L;
 
     public static final int RECOMMENDED_NO_OF_EMPS = 2;
 
@@ -59,10 +61,10 @@ public class JPAAppDepartment
     private JPAAppEmployee employeeOfTheMonth;
     @OneToMany(mappedBy="department",
         targetEntity=org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppEmployee.class)
-    private Set employees = new HashSet();
+    private Set<IEmployee> employees = new HashSet<>();
     @OneToMany(mappedBy="fundingDept",
         targetEntity=org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppEmployee.class)
-    private Set fundedEmps = new HashSet();
+    private Set<IEmployee> fundedEmps = new HashSet<>();
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -179,7 +181,7 @@ public class JPAAppDepartment
      * @return The set of employees in the department, as an unmodifiable
      * set. 
      */
-    public Set getEmployees() {
+    public Set<IEmployee> getEmployees() {
         return Collections.unmodifiableSet(employees);
     }
 
@@ -203,10 +205,10 @@ public class JPAAppDepartment
      * Set the employees to be in this department.
      * @param employees The set of employees for this department.
      */
-    public void setEmployees(Set employees) {
+    public void setEmployees(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.employees = (employees != null) ? new HashSet(employees) : null;
+        this.employees = (employees != null) ? new HashSet<>(employees) : null;
     }
 
     /**
@@ -214,7 +216,7 @@ public class JPAAppDepartment
      * @return The set of funded employees in the department, as an
      * unmodifiable set. 
      */
-    public Set getFundedEmps() {
+    public Set<IEmployee> getFundedEmps() {
         return Collections.unmodifiableSet(fundedEmps);
     }
 
@@ -240,20 +242,20 @@ public class JPAAppDepartment
      * Set the funded employees to be in this department.
      * @param employees The set of funded employees for this department. 
      */
-    public void setFundedEmps(Set employees) {
+    public void setFundedEmps(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.fundedEmps = (fundedEmps != null) ? new HashSet(employees) : null;
+        this.fundedEmps = (fundedEmps != null) ? new HashSet<>(employees) : null;
     }
 
     @Override
-	public List getMeetingRooms() {
+	public List<IMeetingRoom> getMeetingRooms() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setMeetingRooms(List rooms) {
+	public void setMeetingRooms(List<IMeetingRoom> rooms) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -267,8 +269,8 @@ public class JPAAppDepartment
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        employees = new HashSet();
-        fundedEmps = new HashSet();
+        employees = new HashSet<>();
+        fundedEmps = new HashSet<>();
     }
 
     /**
@@ -313,31 +315,10 @@ public class JPAAppDepartment
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(deptid);
         rc.append(", name ").append(name);
         return rc.toString();
-    }
-
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((JPAAppDepartment)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((JPAAppDepartment)o1, (JPAAppDepartment)o2);
     }
 
     /** 
@@ -350,7 +331,7 @@ public class JPAAppDepartment
      * object is less than, equal to, or greater than the specified
      * Department object. 
      */
-    public int compareTo(JPAAppDepartment other) {
+    public int compareTo(IDepartment other) {
         return compare(this, other);
     }
 
@@ -363,7 +344,7 @@ public class JPAAppDepartment
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(JPAAppDepartment o1, JPAAppDepartment o2) {
+    public int compare(IDepartment o1, IDepartment o2) {
         return EqualityHelper.compare(o1.getDeptid(), o2.getDeptid());
     }
     
@@ -392,7 +373,9 @@ public class JPAAppDepartment
      * The application identity class associated with the
      * <code>Department</code> class. 
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the application identifier field 
@@ -439,12 +422,8 @@ public class JPAAppDepartment
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( deptid < other.deptid ) return -1;
-            if( deptid > other.deptid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(deptid, obj.deptid);
         }
 
     }

@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import javax.jdo.PersistenceManagerFactory;
 
@@ -66,10 +65,8 @@ public class SupportedOptions extends JDO_Test {
     public void test() {
         PersistenceManagerFactory pmf = getPMF();
         if (debug) logger.debug("Options supported by this implementation:");
-        Collection c = pmf.supportedOptions();
-        Iterator iter = c.iterator();
-        while( iter.hasNext() ){
-            String option = (String) iter.next();
+        Collection<String> c = pmf.supportedOptions();
+        for (String option : c) {
             if (debug) logger.debug(option);
         }
     }  

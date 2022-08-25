@@ -19,7 +19,7 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Set;
 
 import javax.jdo.Transaction;
 
@@ -60,8 +60,8 @@ public class ObjectIdUniqueAmongInstances extends PersistenceManagerTest {
     public void test() {
         final int count = 1000;
     
-        HashSet instances = new HashSet(count);
-        HashSet oids = new HashSet(count);
+        Set<PCPoint> instances = new HashSet<>(count);
+        Set<Object> oids = new HashSet<>(count);
 
         pm = getPM();
         Transaction tx = pm.currentTransaction();
@@ -79,8 +79,8 @@ public class ObjectIdUniqueAmongInstances extends PersistenceManagerTest {
             // For all new persistent instances, get the object ids and
             // save them in another hashset.  There should be the same
             // number if the ids  are all unique.
-            for (Iterator it = instances.iterator(); it.hasNext();) {
-                oids.add(pm.getObjectId(it.next()));
+            for (PCPoint instance : instances) {
+                oids.add(pm.getObjectId(instance));
             }
     
             tx.commit();

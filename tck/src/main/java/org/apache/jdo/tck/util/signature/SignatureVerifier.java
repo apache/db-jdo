@@ -17,14 +17,12 @@
 
 package org.apache.jdo.tck.util.signature;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Constructor;
 
-import java.util.Iterator;
 import java.util.Set;
 import java.util.List;
 import java.util.Arrays;
@@ -40,7 +38,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.LineNumberReader;
 
-
 /**
  * Tests classes for correct signatures.
  *
@@ -48,13 +45,13 @@ import java.io.LineNumberReader;
  */
 public class SignatureVerifier {
     /** The new-line character on this system. */
-    static protected final String NL = System.getProperty("line.separator");
+    protected static final String NL = System.getProperty("line.separator");
 
     /** All modifiers defined in java.lang.reflect.Modifier.
      * This field is used to filter out vm-specific modifiers 
      * such as found in Sun's vm to identify Enum and Annotation.
      */
-    static protected final int ALL_MODIFIERS = 
+    protected static final int ALL_MODIFIERS =
             Modifier.ABSTRACT |
             Modifier.FINAL |
             Modifier.INTERFACE |
@@ -69,19 +66,19 @@ public class SignatureVerifier {
             Modifier.VOLATILE;
 
     /** Pseudo modifier for annotation */
-    static protected final int ANNOTATION = 0x2000;
+    protected static final int ANNOTATION = 0x2000;
 
     /** Pseudo modifier for enum */
-    static protected final int ENUM = 0x4000;
+    protected static final int ENUM = 0x4000;
 
     /** A writer for standard output. */
     protected final PrintWriter log;
 
     /** Flag to print error output only. */
-    private boolean quiet;
+    private final boolean quiet;
 
     /** Flag to also print verbose output. */
-    private boolean verbose;
+    private final boolean verbose;
 
     /** The parse to be used for parsing signature descriptor files. */
     protected final Parser parser = new Parser();
@@ -90,16 +87,16 @@ public class SignatureVerifier {
     protected final ClassLoader classLoader;
 
     /** The currently tested Class. */
-    protected Class cls;
+    protected Class<?> cls;
     
     /** All untested, declared members of the current class. */
-    protected final Set members = new HashSet();
+    protected final Set<Member> members = new HashSet<>();
 
     /** Collects names of loadable classes. */
-    private final Set loading = new TreeSet();
+    private final Set<String> loading = new TreeSet<>();
 
     /** Collects names of unloadable classes. */
-    private final Set notLoading = new TreeSet();
+    private final Set<String> notLoading = new TreeSet<>();
 
     /** Counts tested features (class, constructor, fields, methods). */
     private int tested;
@@ -189,7 +186,7 @@ public class SignatureVerifier {
      * @throws IOException error reading file
      * @throws ParseException error during parsing
      */
-    public int test(List descrFileNames)
+    public int test(List<String> descrFileNames)
         throws IOException, ParseException {
         // check argument
         if (descrFileNames == null || descrFileNames.isEmpty()) {
@@ -325,8 +322,9 @@ public class SignatureVerifier {
      * @param userTypeName user type names
      * @return class objects
      */
-    protected Class[] getClasses(String[] userTypeName) {
-        final Class[] cls = new Class[userTypeName.length];
+    protected Class<?>[] getClasses(String[] userTypeName) {
+        @SuppressWarnings("rawtypes")
+        final Class<?>[] cls = new Class[userTypeName.length];
         for (int i = userTypeName.length - 1; i >= 0; i--) {
             cls[i] = getClass(userTypeName[i]);
         }
@@ -338,9 +336,9 @@ public class SignatureVerifier {
      * @param userTypeName user type name
      * @return class object
      */
-    protected Class getClass(String userTypeName) {
+    protected Class<?> getClass(String userTypeName) {
         // use helper for retrieving class objects for primitive types
-        Class cls = TypeHelper.primitiveClass(userTypeName);
+        Class<?> cls = TypeHelper.primitiveClass(userTypeName);
         if (cls != null) {
             return cls;
         }
@@ -350,10 +348,8 @@ public class SignatureVerifier {
             final String r = TypeHelper.reflectionTypeName(userTypeName);
             cls = Class.forName(r, false, classLoader);
             loading.add(userTypeName);
-        } catch (LinkageError err) {
+        } catch (LinkageError | ClassNotFoundException err) {
             handleNotLoading(err);
-        } catch (ClassNotFoundException ex) {
-            handleNotLoading(ex);
         }
         return cls;
     }
@@ -381,127 +377,132 @@ public class SignatureVerifier {
         }
         // first check primitive type
         final Object exp;
-        Class expClass;
+        Class<?> expClass;
         final boolean ok;
-        if (type.equals("byte")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(byte.class);
-            } else {
-                ok = Byte.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("boolean")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(boolean.class);
-            } else {
-                ok = Boolean.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("short")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(short.class);
-            } else {
-                ok = Short.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("int")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(int.class);
-            } else {
-                ok = Integer.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("long")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(long.class);
-            } else {
-                ok = Long.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("float")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(float.class);
-            } else {
-                ok = Float.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("double")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(double.class);
-            } else {
-                ok = Double.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("char")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(char.class);
-            } else {
-                ok = Character.valueOf(value.charAt(1)).equals(actual);
-            }
-        // next check Class
-        } else if (type.equals("java.lang.Class")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(Class.class);
-            } else {
-                // strip ".class" from type name
-                int offset = value.indexOf(".class");
-                value = value.substring(0, offset);
-                ok = getClass(value).equals(actual);
-            }
-        // next check String
-        } else if (type.equals("java.lang.String")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(String.class);
-            } else {
-                // cut off '\"' chars at begin and end
-                final String s;
-                if (value.length() > 1) {
-                    s = value.substring(1, value.length() - 1);
+        switch (type) {
+            case "byte":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(byte.class);
                 } else {
-                    s = "";
+                    ok = Byte.valueOf(value).equals(actual);
                 }
-                ok = (String.valueOf(s)).equals(actual);
-            }
-        // now check non-java.lang annotations and enums
-        } else {
-            expClass = getClass(type);
-            if (isArray) {
-                // check if the actual component type is the right class
-                // don't check the actual values because only empty arrays
-                // are supported.
-                ok = actual.getClass().getComponentType().equals(expClass);
-            } else if (expClass == null) {
-                System.out.println("WARNING : checkValue value=" + value + " type=" + type + " comes up with null class");
-                ok = false;
-            } else if (expClass.isAnnotation()) {
-                // check whether the type isAssignableFrom the class of the actual value, 
-                // if type is an annotation. The actual value is a dynamic proxy, 
-                // so an equals comparison does not work. 
-                ok = expClass.isAssignableFrom(actual.getClass());
-            } else {
-                // get the actual value which must be a static class.field
-                Object expectedValue = null;
-                try {
-                    // now get actual value
-                    // separate value name into class and field name
-                    int lastDot = value.lastIndexOf(".");
-                    String expectedClassName = value.substring(0, lastDot);
-                    String expectedFieldName = 
-                            value.substring(lastDot + 1, value.length());
-                    // get Class object from class name
-                    Class expectedClass = getClass(expectedClassName);
-                    if (expectedClass == null) 
-                        throw new ClassNotFoundException();
-                    // get Field object from Class and field name
-                    Field expectedField = 
-                            expectedClass.getField(expectedFieldName);
-                    expectedValue = expectedField.get(null);
-                } catch (NoSuchFieldException ex) {
-                    handleNotLoading(ex);
-                } catch (SecurityException ex) {
-                    handleNotLoading(ex);
-                } catch (IllegalArgumentException ex) {
-                    handleNotLoading(ex);
-                } catch (IllegalAccessException ex) {
-                    handleNotLoading(ex);
-                } catch (ClassNotFoundException ex) {
-                    handleNotLoading(ex);
+                break;
+            case "boolean":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(boolean.class);
+                } else {
+                    ok = Boolean.valueOf(value).equals(actual);
                 }
-                ok = expectedValue.equals(actual);
-            }
+                break;
+            case "short":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(short.class);
+                } else {
+                    ok = Short.valueOf(value).equals(actual);
+                }
+                break;
+            case "int":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(int.class);
+                } else {
+                    ok = Integer.valueOf(value).equals(actual);
+                }
+                break;
+            case "long":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(long.class);
+                } else {
+                    ok = Long.valueOf(value).equals(actual);
+                }
+                break;
+            case "float":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(float.class);
+                } else {
+                    ok = Float.valueOf(value).equals(actual);
+                }
+                break;
+            case "double":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(double.class);
+                } else {
+                    ok = Double.valueOf(value).equals(actual);
+                }
+                break;
+            case "char":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(char.class);
+                } else {
+                    ok = Character.valueOf(value.charAt(1)).equals(actual);
+                }
+                // next check Class
+                break;
+            case "java.lang.Class":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(Class.class);
+                } else {
+                    // strip ".class" from type name
+                    int offset = value.indexOf(".class");
+                    value = value.substring(0, offset);
+                    ok = getClass(value).equals(actual);
+                }
+                // next check String
+                break;
+            case "java.lang.String":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(String.class);
+                } else {
+                    // cut off '\"' chars at begin and end
+                    final String s;
+                    if (value.length() > 1) {
+                        s = value.substring(1, value.length() - 1);
+                    } else {
+                        s = "";
+                    }
+                    ok = s.equals(actual);
+                }
+                // now check non-java.lang annotations and enums
+                break;
+            default:
+                expClass = getClass(type);
+                if (isArray) {
+                    // check if the actual component type is the right class
+                    // don't check the actual values because only empty arrays
+                    // are supported.
+                    ok = actual.getClass().getComponentType().equals(expClass);
+                } else if (expClass == null) {
+                    System.out.println("WARNING : checkValue value=" + value + " type=" + type + " comes up with null" +
+                            " class");
+                    ok = false;
+                } else if (expClass.isAnnotation()) {
+                    // check whether the type isAssignableFrom the class of the actual value,
+                    // if type is an annotation. The actual value is a dynamic proxy,
+                    // so an equals comparison does not work.
+                    ok = expClass.isAssignableFrom(actual.getClass());
+                } else {
+                    // get the actual value which must be a static class.field
+                    Object expectedValue = null;
+                    try {
+                        // now get actual value
+                        // separate value name into class and field name
+                        int lastDot = value.lastIndexOf(".");
+                        String expectedClassName = value.substring(0, lastDot);
+                        String expectedFieldName =
+                                value.substring(lastDot + 1);
+                        // get Class object from class name
+                        Class<?> expectedClass = getClass(expectedClassName);
+                        if (expectedClass == null)
+                            throw new ClassNotFoundException();
+                        // get Field object from Class and field name
+                        Field expectedField =
+                                expectedClass.getField(expectedFieldName);
+                        expectedValue = expectedField.get(null);
+                    } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException | IllegalArgumentException | SecurityException ex) {
+                        handleNotLoading(ex);
+                    }
+                    ok = expectedValue.equals(actual);
+                }
+                break;
         }
         // return message if not ok
         if (ok) return null;
@@ -602,13 +603,13 @@ public class SignatureVerifier {
         excepts = TypeHelper.qualifiedUserTypeNames(excepts);
 
         // get parameter classes
-        final Class[] prms = getClasses(params);
+        final Class<?>[] prms = getClasses(params);
         if (prms == null) {
             return;
         }
 
         // get constructor
-        final Constructor ctor;
+        final Constructor<?> ctor;
         try {
             ctor = cls.getDeclaredConstructor(prms);
         } catch (NoSuchMethodException ex) {
@@ -663,7 +664,7 @@ public class SignatureVerifier {
         result = TypeHelper.qualifiedUserTypeName(result);
 
         // get parameter classes
-        final Class[] prms = getClasses(params);
+        final Class<?>[] prms = getClasses(params);
         if (prms == null) {
             return;
         }
@@ -687,7 +688,7 @@ public class SignatureVerifier {
             // methods in interfaces are implicitly public
             mods |= Modifier.PUBLIC;
         }
-        Class resultType = getClass(result);
+        Class<?> resultType = getClass(result);
         if (resultType == null) {
         	System.out.println("WARNING : checkMethod " + name + " result=" + result + " comes up with null resultType!");
         } else if (resultType.isAnnotation()) {
@@ -787,8 +788,8 @@ public class SignatureVerifier {
         }
 
         // check superclass and extended/implemented interfaces
-        final Class superclass = cls.getSuperclass();
-        final Class[] interfaces = cls.getInterfaces();	
+        final Class<?> superclass = cls.getSuperclass();
+        final Class<?>[] interfaces = cls.getInterfaces();
         if (isInterface) {
             //assert (impl.length == 0);
             if (!TypeHelper.isNameMatch(ext, interfaces)) {
@@ -824,11 +825,10 @@ public class SignatureVerifier {
         }
 
         // check for public non-standard members
-        for (Iterator i = members.iterator(); i.hasNext();) {
-            final Member m = (Member)i.next();
+        for (final Member m : members) {
             if ((m.getModifiers() & Modifier.PUBLIC) != 0) {
                 handleNonStandard("non-standard, public member;",
-                                  Formatter.toString(m));
+                        Formatter.toString(m));
             }
         }
     }
@@ -838,7 +838,7 @@ public class SignatureVerifier {
      * @param cls the class
      * @return modifiers of the class with extra flags for enum and annotation
      */
-    protected int convertModifiers(Class cls) {
+    protected int convertModifiers(Class<?> cls) {
         int result = cls.getModifiers();
         // first remove extraneous stuff
         result &= ALL_MODIFIERS;
@@ -1045,7 +1045,7 @@ public class SignatureVerifier {
             }
         
             // parse remaining chars
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             do {
                 sb.append(c); 
                 int i;
@@ -1091,7 +1091,7 @@ public class SignatureVerifier {
             }
         
             // parse remaining chars
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             do {
                 sb.append(c); 
                 int i;
@@ -1134,7 +1134,7 @@ public class SignatureVerifier {
             }
                     
             // parse remaining two chars
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             for (int j = 0; j < 2; j++) {
                 sb.append(c);
                 int i;
@@ -1181,7 +1181,7 @@ public class SignatureVerifier {
             }
         
             // parse remaining chars
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             do {
                 sb.append(c);
                 int i;
@@ -1418,28 +1418,61 @@ public class SignatureVerifier {
         protected int parseModifiers()
             throws IOException, ParseException {
             int m = 0;
+            label:
             while (true) {
                 // parse known modifiers
                 final String t = parseToken();
-                if      (t.equals("abstract")) m |= Modifier.ABSTRACT;
-                else if (t.equals("annotation")) m |= 
-                        (ANNOTATION + Modifier.ABSTRACT + Modifier.INTERFACE);
-                else if (t.equals("enum")) m |= ENUM;
-                else if (t.equals("final")) m |= Modifier.FINAL;
-                else if (t.equals("interface")) m |= Modifier.INTERFACE;
-                else if (t.equals("native")) m |= Modifier.NATIVE;
-                else if (t.equals("private")) m |= Modifier.PRIVATE;
-                else if (t.equals("protected")) m |= Modifier.PROTECTED;
-                else if (t.equals("public")) m |= Modifier.PUBLIC;
-                else if (t.equals("static")) m |= Modifier.STATIC;
-                else if (t.equals("strictfp")) m |= Modifier.STRICT;
-                else if (t.equals("synchronized")) m |= Modifier.SYNCHRONIZED;
-                else if (t.equals("transient")) m |= Modifier.TRANSIENT;
-                else if (t.equals("varargs")) m |= Modifier.TRANSIENT;
-                else if (t.equals("volatile")) m |= Modifier.VOLATILE;
-                else {
-                    setLookAhead(t); // not a modifier
-                    break;
+                switch (t) {
+                    case "abstract":
+                        m |= Modifier.ABSTRACT;
+                        break;
+                    case "annotation":
+                        m |=
+                                (ANNOTATION + Modifier.ABSTRACT + Modifier.INTERFACE);
+                        break;
+                    case "enum":
+                        m |= ENUM;
+                        break;
+                    case "final":
+                        m |= Modifier.FINAL;
+                        break;
+                    case "interface":
+                        m |= Modifier.INTERFACE;
+                        break;
+                    case "native":
+                        m |= Modifier.NATIVE;
+                        break;
+                    case "private":
+                        m |= Modifier.PRIVATE;
+                        break;
+                    case "protected":
+                        m |= Modifier.PROTECTED;
+                        break;
+                    case "public":
+                        m |= Modifier.PUBLIC;
+                        break;
+                    case "static":
+                        m |= Modifier.STATIC;
+                        break;
+                    case "strictfp":
+                        m |= Modifier.STRICT;
+                        break;
+                    case "synchronized":
+                        m |= Modifier.SYNCHRONIZED;
+                        break;
+                    case "transient":
+                        m |= Modifier.TRANSIENT;
+                        break;
+                    case "varargs":
+                        m |= Modifier.TRANSIENT;
+                        break;
+                    case "volatile":
+                        m |= Modifier.VOLATILE;
+                        break;
+                    default:
+                        setLookAhead(t); // not a modifier
+
+                        break label;
                 }
             }
             //log.println("parseModifiers() : '" + Modifier.toString(m) + "'");
@@ -1457,7 +1490,7 @@ public class SignatureVerifier {
             String t = scanIdentifier();
             if (t != null) {
                 // parse dot-connected identifiers
-                final StringBuffer id = new StringBuffer(t);
+                final StringBuilder id = new StringBuilder(t);
                 String tt = parseToken();
                 while (tt.equals(".")) {
                     id.append(".");
@@ -1498,14 +1531,14 @@ public class SignatureVerifier {
          */
         protected String[] demandIdentifierList()
             throws IOException, ParseException {
-            final ArrayList ids = new ArrayList();
+            final List<String> ids = new ArrayList<>();
             ids.add(demandIdentifier());
             String t;
             while ((t = parseToken()).equals(",")) {
                 ids.add(demandIdentifier());
             }
             setLookAhead(t); // not an identifier
-            return (String[])ids.toArray(new String[ids.size()]);
+            return ids.toArray(new String[ids.size()]);
         }
     
         /**
@@ -1519,7 +1552,7 @@ public class SignatureVerifier {
             String t = parseIdentifier();
             if (t != null) {
                 // parse array dimensions
-                final StringBuffer type = new StringBuffer(t);
+                final StringBuilder type = new StringBuilder(t);
                 while ((t = parseToken()).equals("[")) {
                     demandToken("]");
                     type.append("[]");
@@ -1554,7 +1587,7 @@ public class SignatureVerifier {
          */
         protected String[] parseParameterList()
             throws IOException, ParseException {
-            final ArrayList types = new ArrayList();
+            final List<String> types = new ArrayList<>();
             String t = parseType();
             if (t != null) {
                 types.add(t);
@@ -1565,7 +1598,7 @@ public class SignatureVerifier {
                 }
                 setLookAhead(t); // not a comma token
             }
-            return (String[])types.toArray(new String[types.size()]);
+            return types.toArray(new String[types.size()]);
         }
     
         /**
@@ -1594,37 +1627,45 @@ public class SignatureVerifier {
             final String[] excepts;
             {
                 final String tvp = parseToken();
-                if (tvp.equals(";")) {
-                    value = null;
-                    params = null;
-                    excepts = null;
-                } else if (tvp.equals("=")) {
-                    // parse field value
-                    value = demandLiteral();
-                    demandToken(";");
-                    params = null;
-                    excepts = null;
-                } else if (tvp.equals("(")) {
-                    // parse optional parameter and exception list
-                    params = parseParameterList();
-                    demandToken(")");
-                    final String tt = parseToken();
-                    if (tt.equals("throws")) {
-                        excepts = demandIdentifierList();
-                        demandToken(";");
+                switch (tvp) {
+                    case ";":
                         value = null;
-                    } else if (tt.equals(";")) {
-                        excepts = new String[]{};
-                        value = null;
-                    } else if (tt.equals("default")) {
-                        value = demandElementValue();
+                        params = null;
+                        excepts = null;
+                        break;
+                    case "=":
+                        // parse field value
+                        value = demandLiteral();
                         demandToken(";");
-                        excepts = new String[]{};
-                    } else {
-                        throw new ParseException(msgUnexpectedToken(tt), 0);
-                    }
-                } else {
-                    throw new ParseException(msgUnexpectedToken(tvp), 0);
+                        params = null;
+                        excepts = null;
+                        break;
+                    case "(":
+                        // parse optional parameter and exception list
+                        params = parseParameterList();
+                        demandToken(")");
+                        final String tt = parseToken();
+                        switch (tt) {
+                            case "throws":
+                                excepts = demandIdentifierList();
+                                demandToken(";");
+                                value = null;
+                                break;
+                            case ";":
+                                excepts = new String[]{};
+                                value = null;
+                                break;
+                            case "default":
+                                value = demandElementValue();
+                                demandToken(";");
+                                excepts = new String[]{};
+                                break;
+                            default:
+                                throw new ParseException(msgUnexpectedToken(tt), 0);
+                        }
+                        break;
+                    default:
+                        throw new ParseException(msgUnexpectedToken(tvp), 0);
                 }
             }
         
@@ -1711,10 +1752,9 @@ public class SignatureVerifier {
          * @throws ParseException parsing error
          */
         @SuppressWarnings("empty-statement")
-        public void parse(List descrFileNames)
-            throws IOException, ParseException {        
-            for (Iterator i = descrFileNames.iterator(); i.hasNext();) {
-                final String fileName = (String)i.next();
+        public void parse(List<String> descrFileNames)
+            throws IOException, ParseException {
+            for (final String fileName : descrFileNames) {
                 logInfo("");
                 logInfo("parsing descriptor file: " + fileName);
                 try {
@@ -1723,7 +1763,7 @@ public class SignatureVerifier {
                     ir.setLineNumber(1);
                     setLookAhead(null);
                     // empty-statement intentional
-                    while (parseClass() != null);
+                    while (parseClass() != null) ;
                 } finally {
                     descriptorFile = null;
                     if (ir != null) {
@@ -1740,19 +1780,19 @@ public class SignatureVerifier {
     // ----------------------------------------------------------------------
 
     /** A writer for standard output. */
-    static protected PrintWriter out = new PrintWriter(System.out, true);
+    protected static final PrintWriter out = new PrintWriter(System.out, true);
 
     /** Command line arguments */
-    static public final List descrFileNames = new ArrayList();
+    public static final List<String> descrFileNames = new ArrayList<>();
 
     /** Command line option 'quiet'.*/
-    static private boolean optionQuiet;
+    private static boolean optionQuiet;
 
     /** Command line option 'verbose'.*/
-    static private boolean optionVerbose;
+    private static boolean optionVerbose;
 
     /** Prints the CLI usage. */
-    static public void printUsage() {
+    public static  void printUsage() {
         out.println();
         out.println("usage: SignatureVerifier [options] arguments");
         out.println("options:");
@@ -1769,41 +1809,41 @@ public class SignatureVerifier {
      * @param args arguments
      * @return status code
      */
-    static public int parseArgs(String args[]) {
+    public static int parseArgs(String[] args) {
         out.println("parse main() arguments");
 
         // parse this class' options and arguments
-        for (int i = 0; i < args.length; i++) {
-            if (args[i] == null) {
+        for (String arg : args) {
+            if (arg == null) {
                 continue;
             }
-            if (args[i].equalsIgnoreCase("-h")
-                || args[i].equalsIgnoreCase("--help")) {
+            if (arg.equalsIgnoreCase("-h")
+                    || arg.equalsIgnoreCase("--help")) {
                 return -1;
             }
-            if (args[i].equalsIgnoreCase("-v")
-                || args[i].equalsIgnoreCase("--verbose")) {
+            if (arg.equalsIgnoreCase("-v")
+                    || arg.equalsIgnoreCase("--verbose")) {
                 optionVerbose = true;
                 continue;
             }
-            if (args[i].equalsIgnoreCase("-q")
-                || args[i].equalsIgnoreCase("--quiet")) {
+            if (arg.equalsIgnoreCase("-q")
+                    || arg.equalsIgnoreCase("--quiet")) {
                 optionQuiet = true;
                 continue;
             }
-            if (args[i].startsWith("-")) {
-                out.println("Usage Error: unknown option " + args[i]);
+            if (arg.startsWith("-")) {
+                out.println("Usage Error: unknown option " + arg);
                 return -1;
             }
             // collect argument
-            descrFileNames.add(args[i]);
+            descrFileNames.add(arg);
         }
 
         // print args
         if (false) {
             out.println("descrFileNames = {");
-            for (Iterator i = descrFileNames.iterator(); i.hasNext();) {
-                out.println("                     " + i.next());
+            for (String descrFileName : descrFileNames) {
+                out.println("                     " + descrFileName);
             }
             out.println("                 }");
             out.println("optionQuiet    = " + optionQuiet);
@@ -1823,7 +1863,7 @@ public class SignatureVerifier {
      * Runs the signature test and exits with a status code.
      * @param args command line arguments
      */
-    static public void main(String[] args) {
+    public static void main(String[] args) {
         out.println("run SignatureVerifier ...");
         if (parseArgs(args) != 0) {
             printUsage();

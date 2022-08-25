@@ -30,6 +30,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class PCDSMedicalInsurance extends PCDSInsurance
         implements IMedicalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private String _planType; // possible values: "PPO", "EPO", "NPO" 
 
@@ -95,6 +97,7 @@ public class PCDSMedicalInsurance extends PCDSInsurance
      * @return a String representation of a <code>PCDSMedicalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "FCMedicalInsurance(" + getFieldRepr() + ")";
     }
@@ -103,8 +106,9 @@ public class PCDSMedicalInsurance extends PCDSInsurance
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", planType ").append(_planType);
         return rc.toString();
@@ -121,7 +125,8 @@ public class PCDSMedicalInsurance extends PCDSInsurance
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         PCDSMedicalInsurance otherIns = (PCDSMedicalInsurance)other;
         String where = "FCMedicalInsurance<" + getInsid() + ">";

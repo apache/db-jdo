@@ -67,8 +67,7 @@ public class BoundParameterCheck extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters( "int a" );
             query.setFilter( "x == 0" );

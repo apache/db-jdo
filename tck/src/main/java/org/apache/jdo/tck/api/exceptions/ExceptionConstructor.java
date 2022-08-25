@@ -31,21 +31,22 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion Description: </B>
  */
 
+@SuppressWarnings("rawtypes")
 public class ExceptionConstructor extends JDO_Test {
 
-    protected static final Class[] classArrayEmpty = 
+    protected static final Class<?>[] classArrayEmpty =
             new Class[] {};
-    protected static final Class[] classArrayString = 
+    protected static final Class<?>[] classArrayString =
             new Class[] {String.class};
-    protected static final Class[] classArrayStringObject = 
+    protected static final Class<?>[] classArrayStringObject =
             new Class[] {String.class, Object.class};
-    protected static final Class[] classArrayStringThrowable =
+    protected static final Class<?>[] classArrayStringThrowable =
             new Class[] {String.class, Throwable.class};
-    protected static final Class[] classArrayStringThrowableArray =
+    protected static final Class<?>[] classArrayStringThrowableArray =
             new Class[] {String.class, Throwable[].class};
-    protected static final Class[] classArrayStringThrowableObject =
+    protected static final Class<?>[] classArrayStringThrowableObject =
             new Class[] {String.class, Throwable.class, Object.class};
-    protected static final Class[] classArrayStringThrowableArrayObject =
+    protected static final Class<?>[] classArrayStringThrowableArrayObject =
             new Class[] {String.class, Throwable[].class, Object.class};
     protected static final String message = "Message";
     protected static final Object object = "Failed Object";
@@ -212,44 +213,44 @@ public class ExceptionConstructor extends JDO_Test {
         constructStringThrowableObject(javax.jdo.JDOUserCallbackException.class);
     }
 
-    protected void constructEmpty(Class clazz) {
+    protected void constructEmpty(Class<?> clazz) {
         construct(clazz, classArrayEmpty, objectArrayEmpty, 
                 null, null, null);
     }
 
-    protected void constructString(Class clazz) {
+    protected void constructString(Class<?> clazz) {
         construct(clazz, classArrayString, objectArrayString, 
                 message, null, null);
     }
 
-    protected void constructStringObject(Class clazz) {
+    protected void constructStringObject(Class<?> clazz) {
         construct(clazz, classArrayStringObject, objectArrayStringObject, 
                 message, object, null);
     }
 
-    protected void constructStringThrowableArray(Class clazz) {
+    protected void constructStringThrowableArray(Class<?> clazz) {
         construct(clazz, classArrayStringThrowableArray, objectArrayStringThrowableArray, 
                 message, null, throwable);
     }
 
-    protected void constructStringThrowable(Class clazz) {
+    protected void constructStringThrowable(Class<?> clazz) {
         construct(clazz, classArrayStringThrowable, objectArrayStringThrowable, 
                 message, null, throwable);
     }
 
-    protected void constructStringThrowableArrayObject(Class clazz) {
+    protected void constructStringThrowableArrayObject(Class<?> clazz) {
         construct(clazz, classArrayStringThrowableArrayObject, objectArrayStringThrowableArrayObject, 
                 message, object, throwable);
     }
 
-    protected void constructStringThrowableObject(Class clazz) {
+    protected void constructStringThrowableObject(Class<?> clazz) {
         construct(clazz, classArrayStringThrowableObject, objectArrayStringThrowableObject, 
                 message, object, throwable);
     }
 
-    protected void construct(Class clazz, Class[] formal, Object[] params,
+    protected void construct(Class<?> clazz, Class<?>[] formal, Object[] params,
             String expectedMessage, Object expectedObject, Throwable expectedCause) {
-        Constructor ctor = null;
+        Constructor<?> ctor = null;
         try {
             ctor = clazz.getConstructor(formal);
         } catch (Throwable ex) {

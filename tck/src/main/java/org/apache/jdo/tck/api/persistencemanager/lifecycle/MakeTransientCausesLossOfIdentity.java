@@ -19,6 +19,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -126,7 +127,7 @@ public class MakeTransientCausesLossOfIdentity extends PersistenceManagerTest {
             tx = pm.currentTransaction();
             tx.begin();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
 
@@ -157,7 +158,7 @@ public class MakeTransientCausesLossOfIdentity extends PersistenceManagerTest {
             tx = pm.currentTransaction();
             tx.begin();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p4);
             col1.add(p5);
 

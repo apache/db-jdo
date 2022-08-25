@@ -33,6 +33,8 @@ import java.io.Serializable;
 //        name="DISCRIMINATOR")
 public class JPAAppPhoneNumber implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @ManyToOne
     @Column(name="EMPID")
@@ -125,7 +127,7 @@ public class JPAAppPhoneNumber implements Serializable {
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(person.getPersonid());
         rc.append(", ").append(type);
         rc.append(", phone ").append(phoneNumber);
@@ -136,7 +138,9 @@ public class JPAAppPhoneNumber implements Serializable {
      * This class is used to represent the application identifier
      * for the <code>Person</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the <code>Person</code>
@@ -183,7 +187,7 @@ public class JPAAppPhoneNumber implements Serializable {
 
         /** */
         public int hashCode() {
-            return( (int) person.hashCode() + type.hashCode() );
+            return( person.hashCode() + type.hashCode() );
         }
         
         protected static String justTheOid(String str) {
@@ -195,14 +199,12 @@ public class JPAAppPhoneNumber implements Serializable {
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            int comparison = person.compareTo(other.person);
+        public int compareTo(Oid obj) {
+            int comparison = person.compareTo(obj.person);
             if( comparison != 0 ) {
                 return comparison;
             } else { 
-                return type.compareTo(other.type);
+                return type.compareTo(obj.type);
             }
         }
 

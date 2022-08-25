@@ -20,7 +20,6 @@ package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import javax.jdo.Transaction;
 import javax.jdo.PersistenceManager;
@@ -119,22 +118,21 @@ public class MakePersistentAssignsObjectId extends PersistenceManagerTest {
         try {
             tx.begin();
             
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
             
             pm.makePersistentAll(col1);
 
-            for (Iterator i = col1.iterator(); i.hasNext();) {
-                PCPoint p = (PCPoint)i.next();
+            for (PCPoint p : col1) {
                 if (!testState(p, PERSISTENT_NEW, "persistent_new")) {
                     fail(ASSERTION_FAILED,
-                         "expected P-NEW instance, instance is " + getStateOfInstance(p) + ".");
+                            "expected P-NEW instance, instance is " + getStateOfInstance(p) + ".");
                 }
-                
+
                 if (pm.getObjectId(p) == null) {
                     fail(ASSERTION_FAILED,
-                         "pm.makePersistentAll should assign non-null oid.");
+                            "pm.makePersistentAll should assign non-null oid.");
                 }
             }
             
@@ -154,7 +152,7 @@ public class MakePersistentAssignsObjectId extends PersistenceManagerTest {
             int NUM_OBJS = 2;
             tx.begin();
 
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p4);
             col1.add(p5);
             

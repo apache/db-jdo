@@ -118,6 +118,7 @@ public class TCKFileHandler extends Handler {
     /**
      * @see Handler#getEncoding()
      */
+    @Override
     public String getEncoding() {
         return this.encoding;
     }
@@ -125,6 +126,7 @@ public class TCKFileHandler extends Handler {
     /**
      * @see Handler#getErrorManager()
      */
+    @Override
     public ErrorManager getErrorManager() {
         return this.delegate.getErrorManager();
     }
@@ -132,6 +134,7 @@ public class TCKFileHandler extends Handler {
     /**
      * @see Handler#getFilter()
      */
+    @Override
     public Filter getFilter() {
         return this.filter;
     }
@@ -139,6 +142,7 @@ public class TCKFileHandler extends Handler {
     /**
      * @see Handler#getFormatter()
      */
+    @Override
     public Formatter getFormatter() {
         return this.formatter;
     }
@@ -146,6 +150,7 @@ public class TCKFileHandler extends Handler {
     /**
      * @see Handler#getLevel()
      */
+    @Override
     public Level getLevel() {
         return this.level;
     }
@@ -153,6 +158,7 @@ public class TCKFileHandler extends Handler {
     /**
      * @see Handler#reportError(java.lang.String, java.lang.Exception, int)
      */
+    @Override
     protected void reportError(String msg, Exception ex, int code) {
         this.delegate.reportError(msg, ex, code);
     }
@@ -160,6 +166,7 @@ public class TCKFileHandler extends Handler {
     /**
      * @see Handler#setErrorManager(java.util.logging.ErrorManager)
      */
+    @Override
     public void setErrorManager(ErrorManager em) {
         this.delegate.setErrorManager(em);
     }
@@ -167,6 +174,7 @@ public class TCKFileHandler extends Handler {
     /**
      * @see StreamHandler#isLoggable(java.util.logging.LogRecord)
      */
+    @Override
     public boolean isLoggable(LogRecord record) {
         return this.delegate.isLoggable(record);
     }
@@ -191,6 +199,7 @@ public class TCKFileHandler extends Handler {
      * Sets the level property.
      * @param level The level to set.
      */
+    @Override
     public void setLevel(Level level) {
         this.level = level;
         if (this.delegate != null) {
@@ -202,6 +211,7 @@ public class TCKFileHandler extends Handler {
      * Sets the filter property.
      * @param filter The filter to set.
      */
+    @Override
     public void setFilter(Filter filter) {
         this.filter = filter;
         if (this.delegate != null) {
@@ -213,6 +223,7 @@ public class TCKFileHandler extends Handler {
      * Sets the formatter property.
      * @param formatter The formatter to set.
      */
+    @Override
     public void setFormatter(Formatter formatter) {
         this.formatter = formatter;
         if (this.delegate != null) {
@@ -226,7 +237,8 @@ public class TCKFileHandler extends Handler {
      * @throws UnsupportedEncodingException encoding not supported
      * @throws SecurityException security exception
      */
-    public void setEncoding(String encoding) 
+    @Override
+    public void setEncoding(String encoding)
         throws SecurityException, UnsupportedEncodingException {
         this.encoding = encoding;
         if (this.delegate != null) {
@@ -257,7 +269,7 @@ public class TCKFileHandler extends Handler {
         } catch (Exception e) {
             try {
                 setEncoding(defaultEncoding);
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
     }
@@ -269,7 +281,7 @@ public class TCKFileHandler extends Handler {
         if ( value != null) {
             try {
                 result = Boolean.valueOf(value.trim()).booleanValue();
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }    
         }
         return result;
@@ -292,7 +304,7 @@ public class TCKFileHandler extends Handler {
         if (value != null) {
             try {
                 result = Level.parse(value.trim());
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
         return result;
@@ -314,10 +326,10 @@ public class TCKFileHandler extends Handler {
         String value = manager.getProperty(property);
         if (value != null) {
             try {
-                Class clazz = 
+                Class<?> clazz =
                     ClassLoader.getSystemClassLoader().loadClass(value);
-                result = clazz.newInstance();
-            } catch (Exception ex) {
+                result = clazz.getDeclaredConstructor().newInstance();
+            } catch (Exception ignored) {
             }
         }
         return result;
@@ -330,6 +342,7 @@ public class TCKFileHandler extends Handler {
      */
     private static class FileHandlerDelegate extends StreamHandler {
 
+        @Override
         protected void setOutputStream(OutputStream out) {
             super.setOutputStream(out);
         }
@@ -337,6 +350,7 @@ public class TCKFileHandler extends Handler {
         /**
          * @see Handler#reportError(java.lang.String, java.lang.Exception, int)
          */
+        @Override
         protected void reportError(String msg, Exception ex, int code) {
             super.reportError(msg, ex, code);
         }

@@ -120,7 +120,7 @@ public class TestFieldsOfObject extends JDO_Test {
         int i;
         FieldsOfObject pi = (FieldsOfObject) pm.getObjectById(oid, true);
         int n = pi.getLength();
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         for( i = 0; i < n; ++i){
             if( !FieldsOfObject.isPersistent[i] ) continue;
             Object val = pi.get(i);
@@ -138,7 +138,7 @@ public class TestFieldsOfObject extends JDO_Test {
                 buffer.append(" has wrong value: expected ");
                 buffer.append(startValue.toString());
                 buffer.append(" actual ");
-                buffer.append(val.toString());
+                buffer.append(val);
                 buffer.append(".\n");
             }
         }

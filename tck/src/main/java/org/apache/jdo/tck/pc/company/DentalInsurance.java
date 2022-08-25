@@ -19,7 +19,6 @@ package org.apache.jdo.tck.pc.company;
 
 import java.math.BigDecimal;
 
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 import javax.jdo.annotations.PersistenceCapable;
@@ -30,6 +29,8 @@ import javax.jdo.annotations.PersistenceCapable;
  */
 @PersistenceCapable
 public class DentalInsurance extends Insurance implements IDentalInsurance {
+
+    private static final long serialVersionUID = 1L;
 
     private BigDecimal lifetimeOrthoBenefit;
 
@@ -85,6 +86,7 @@ public class DentalInsurance extends Insurance implements IDentalInsurance {
      * @return a String representation of a <code>DentalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "DentalInsurance(" + getFieldRepr()+ ")";
     }
@@ -93,8 +95,9 @@ public class DentalInsurance extends Insurance implements IDentalInsurance {
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", lifetimeOrthoBenefit ").append(lifetimeOrthoBenefit);
         return rc.toString();
@@ -111,7 +114,8 @@ public class DentalInsurance extends Insurance implements IDentalInsurance {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         IDentalInsurance otherIns = (IDentalInsurance)other;
         String where = "DentalInsurance<" + getInsid() + ">";

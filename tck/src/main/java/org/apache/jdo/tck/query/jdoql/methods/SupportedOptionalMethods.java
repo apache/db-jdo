@@ -28,7 +28,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.query.OptionalSample;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -145,7 +144,7 @@ public class SupportedOptionalMethods extends QueryTest {
     }
 
     private void checkQuery(String filter, Object ... resultOids) {
-        QueryElementHolder qeh = new QueryElementHolder(
+        QueryElementHolder<OptionalSample> qeh = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
                 /*INTO*/        null, 
@@ -166,8 +165,8 @@ public class SupportedOptionalMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            for (int i = 0; i < resultOids.length; i++) {
-                expectedResults.add(pm.getObjectById(resultOids[i]));
+            for (Object resultOid : resultOids) {
+                expectedResults.add(pm.getObjectById(resultOid));
             }
         } finally {
             if (tx.isActive()) {
@@ -360,8 +359,8 @@ public class SupportedOptionalMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            for (int i = 0; i < resultOids.length; i++) {
-                expectedResults.add(pm.getObjectById(resultOids[i]));
+            for (Object resultOid : resultOids) {
+                expectedResults.add(pm.getObjectById(resultOid));
             }
         } finally {
             if (tx.isActive())
@@ -373,8 +372,8 @@ public class SupportedOptionalMethods extends QueryTest {
                             false, null, expectedResults, true);
     }
 
-    private void checkQuery(String filter, String paramDecl, Map<String, ?> paramValues, Object[] result) {
-        QueryElementHolder qeh = new QueryElementHolder(
+    private void checkQuery(String filter, String paramDecl, Map<String, Object> paramValues, Object[] result) {
+        QueryElementHolder<OptionalSample> qeh = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
                 /*INTO*/        null, 
@@ -396,12 +395,11 @@ public class SupportedOptionalMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            for (int i = 0; i < result.length; i++) {
-                Object o = result[i];
+            for (Object o : result) {
                 if (o instanceof String || o instanceof Date || o instanceof Integer) {
                     expectedResults.add(o);
                 } else {
-                    expectedResults.add(pm.getObjectById(result[i]));
+                    expectedResults.add(pm.getObjectById(o));
                 }
             }
         } finally {
@@ -421,7 +419,8 @@ public class SupportedOptionalMethods extends QueryTest {
     public static class ResultInfo {
         public long id;
         public String optionalString;
-        public ResultInfo() {};
+        public ResultInfo() {}
+
         public ResultInfo(long id, String optionalString) {
             this.id = id;
             this.optionalString = optionalString;

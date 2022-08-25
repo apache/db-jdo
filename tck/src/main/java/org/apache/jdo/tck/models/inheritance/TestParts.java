@@ -42,9 +42,9 @@ public abstract class TestParts extends JDO_Test {
 	static final Object[] thirdObj_V =  { null, null, null, null, null, null, null, null, null, null, null, null};
 	static final Object[] fourthObj_V = { null, null, null, null, null, null, null, null, null, null, null, null};
     
-    static String persistentAfterCommit = "Read object back after committed to Database.  ";
-    static String persistentAfterRollback = "Read object back after rollback.  ";
-    static String transientAfterRollback = "Object reverted to transient after rollback.  ";
+    static final String PERSISTENT_AFTER_COMMIT = "Read object back after committed to Database.  ";
+    static final String PERSISTENT_AFTER_ROLLBACK = "Read object back after rollback.  ";
+    static final String TRANSIENT_AFTER_ROLLBACK = "Object reverted to transient after rollback.  ";
     
     /** */
     void checkPersistentAreCorrect(String assertion, String title, int index, 

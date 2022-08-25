@@ -61,6 +61,7 @@ public class GetPersistenceManagerForUser extends JDO_Test {
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         Properties props = loadProperties(PMFProperties);
         username = (String)props.remove(CONNECTION_USERNAME_PROP);

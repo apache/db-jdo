@@ -25,7 +25,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -63,8 +62,7 @@ public class CompileQuery extends QueryTest {
         try {
             tx.begin();
             String params = "Integer param";
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters(params);
             query.setFilter("x == param");
@@ -73,8 +71,8 @@ public class CompileQuery extends QueryTest {
             Object results = query.execute(Integer.valueOf(4));
 
             // check query result
-            List expected = new ArrayList();
-            Object p5 = new PCPoint(4, 4);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p5 = new PCPoint(4, 4);
             expected.add(p5);
             expected = getFromInserted(expected);
             printOutput(results, expected);

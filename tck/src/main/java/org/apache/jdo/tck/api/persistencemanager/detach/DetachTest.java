@@ -28,8 +28,6 @@ import org.apache.jdo.tck.pc.shoppingcart.Cart;
 import org.apache.jdo.tck.pc.shoppingcart.Product;
 import org.apache.jdo.tck.pc.shoppingcart.Undetachable;
 
-import javax.jdo.PersistenceManager;
-
 /**
  *
  */
@@ -159,11 +157,11 @@ public abstract class DetachTest extends JDO_Test {
             reportDifference(location + 
                 " differences in cart.customerId", 
                 goldenCart.getCustomerId(), cart.getCustomerId());
-        Iterator goldenCartEntries = goldenCart.getEntries();
-        Iterator cartEntries = cart.getEntries();
+        Iterator<CartEntry> goldenCartEntries = goldenCart.getEntries();
+        Iterator<CartEntry> cartEntries = cart.getEntries();
         while (cartEntries.hasNext()) {
-            CartEntry goldenCartEntry = (CartEntry)goldenCartEntries.next();
-            CartEntry cartEntry = (CartEntry)cartEntries.next();
+            CartEntry goldenCartEntry = goldenCartEntries.next();
+            CartEntry cartEntry = cartEntries.next();
             checkState(location + "CartEntry instance", cartEntry,
                     persistent);
             Cart cartEntryCart = cartEntry.getCart();

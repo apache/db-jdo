@@ -18,9 +18,10 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.List;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -58,11 +59,11 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testNoResult() {
         // result: null
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -87,13 +88,13 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testThisAsC() {
         // result: this AS C
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.result(false, cand);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this AS Person",
                 /*INTO*/        null,
@@ -118,13 +119,13 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testNoResultUnique() {
         // result: null, unique: true
-        Object expected = getTransientCompanyModelInstance("emp1");
+        Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.personid.eq(1l));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -149,14 +150,14 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testThisAsCUnique() {
         // result: this AS C, unique: true
-        Object expected = getTransientCompanyModelInstance("emp1");
+        Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.personid.eq(1l));
         query.result(false, cand);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "this AS Person",
                 /*INTO*/        null,
@@ -187,7 +188,7 @@ public class ShapeOfResult extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.result(false, cand.firstname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "firstname",
                 /*INTO*/        null,
@@ -219,7 +220,7 @@ public class ShapeOfResult extends QueryTest {
         query.filter(cand.personid.eq(1l));
         query.result(false, cand.firstname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "firstname",
                 /*INTO*/        null,
@@ -255,7 +256,7 @@ public class ShapeOfResult extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.result(false, cand.firstname, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "firstname, lastname",
                 /*INTO*/        null,
@@ -287,7 +288,7 @@ public class ShapeOfResult extends QueryTest {
         query.filter(cand.personid.eq(1l));
         query.result(false, cand.firstname, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "firstname, lastname",
                 /*INTO*/        null,
@@ -324,7 +325,7 @@ public class ShapeOfResult extends QueryTest {
         // JDOQLTypedQuery API
         query.result(false, cand.firstname, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "firstname, lastname",
                 /*INTO*/        FullName.class,
@@ -357,7 +358,7 @@ public class ShapeOfResult extends QueryTest {
         // JDOQLTypedQuery API
         query.result(false, cand.firstname, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "firstname, lastname",
                 /*INTO*/        FullName.class,

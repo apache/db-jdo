@@ -55,14 +55,14 @@ public interface DataStoreCache {
      * @param oids the object ids of the instance to evict.
      * @since 2.0
      */
-    void evictAll (Collection oids);
+    void evictAll (Collection<?> oids);
 
     /** Evict the parameter instances from the second-level cache.
      * @param pcClass the class of instances to evict
      * @param subclasses if true, evict instances of subclasses also
      * @since 2.1
      */
-    void evictAll (boolean subclasses, Class pcClass);
+    void evictAll (boolean subclasses, Class<?> pcClass);
 
     /** Pin the parameter instance in the second-level cache.
      * @param oid the object id of the instance to pin.
@@ -74,7 +74,7 @@ public interface DataStoreCache {
      * @param oids the object ids of the instances to pin.
      * @since 2.0
      */
-    void pinAll (Collection oids);
+    void pinAll (Collection<?> oids);
 
     /** Pin the parameter instances in the second-level cache.
      * @param oids the object ids of the instances to pin.
@@ -87,7 +87,7 @@ public interface DataStoreCache {
      * @param subclasses if true, pin instances of subclasses also
      * @since 2.1
      */
-    void pinAll (boolean subclasses, Class pcClass);
+    void pinAll (boolean subclasses, Class<?> pcClass);
 
     /** Unpin the parameter instance from the second-level cache.
      * @param oid the object id of the instance to unpin.
@@ -99,7 +99,7 @@ public interface DataStoreCache {
      * @param oids the object ids of the instance to evict.
      * @since 2.0
      */
-    void unpinAll(Collection oids);
+    void unpinAll(Collection<?> oids);
 
     /** Unpin the parameter instance from the second-level cache.
      * @param oids the object id of the instance to evict.
@@ -112,7 +112,7 @@ public interface DataStoreCache {
      * @param subclasses if true, unpin instances of subclasses also
      * @since 2.1
      */
-    void unpinAll(boolean subclasses, Class pcClass);
+    void unpinAll(boolean subclasses, Class<?> pcClass);
     
     /** 
      * This class is an empty implementation of the DataStoreCache 
@@ -134,10 +134,10 @@ public interface DataStoreCache {
         public void evictAll(Object... oids) {
         }
 
-        public void evictAll(Collection oids) {
+        public void evictAll(Collection<?> oids) {
         }
 
-        public void evictAll(boolean subclasses, Class pcClass) {
+        public void evictAll(boolean subclasses, Class<?> pcClass) {
         }
 
         public void pin(Object oid) {
@@ -146,10 +146,10 @@ public interface DataStoreCache {
         public void pinAll(Object... oids) {
         }
 
-        public void pinAll(Collection oids) {
+        public void pinAll(Collection<?> oids) {
         }
 
-        public void pinAll(boolean subclasses, Class pcClass) {
+        public void pinAll(boolean subclasses, Class<?> pcClass) {
         }
 
         public void unpin(Object oid) {
@@ -158,10 +158,10 @@ public interface DataStoreCache {
         public void unpinAll(Object... oids) {
         }
 
-        public void unpinAll(Collection oids) {
+        public void unpinAll(Collection<?> oids) {
         }
 
-        public void unpinAll(boolean subclasses, Class pcClass) {
+        public void unpinAll(boolean subclasses, Class<?> pcClass) {
         }
     }
 }

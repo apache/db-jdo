@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.HashSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -64,8 +64,8 @@ public class MakeNontransactionalPersistentCleanInstance
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection col1 = new java.util.HashSet();
-    private Collection col2 = new java.util.HashSet();
+    private final Collection<PCPoint> col1 = new HashSet<>();
+    private final Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInstance() {
@@ -168,17 +168,14 @@ public class MakeNontransactionalPersistentCleanInstance
                  makePersistentCleanInstance(p4)) {
                 
                 pm.makeNontransactionalAll(col1);
-                Iterator iter = col1.iterator();
-                while (iter.hasNext() ) {
-                    PCPoint p = (PCPoint) iter.next();
+                for (PCPoint p : col1) {
                     curr = currentState(p);
                     if (curr == HOLLOW ||
-                        curr == PERSISTENT_NONTRANSACTIONAL) {
-                    }
-                    else {
+                            curr == PERSISTENT_NONTRANSACTIONAL) {
+                    } else {
                         fail(ASSERTION_FAILED,
-                             "Expected persistent-nontransactional or hollow; got " + 
-                             getStateOfInstance(p));
+                                "Expected persistent-nontransactional or hollow; got " +
+                                        getStateOfInstance(p));
                     }
                 }
             }
@@ -211,16 +208,15 @@ public class MakeNontransactionalPersistentCleanInstance
                 
                 pm.makeNontransactionalAll(objArray);
 
-                for (int i=0; i < objArray.length; i++) {
-                    PCPoint p = (PCPoint) objArray[i];
+                for (Object o : objArray) {
+                    PCPoint p = (PCPoint) o;
                     curr = currentState(p);
                     if (curr == HOLLOW ||
-                        curr == PERSISTENT_NONTRANSACTIONAL) {
-                    }
-                    else {
+                            curr == PERSISTENT_NONTRANSACTIONAL) {
+                    } else {
                         fail(ASSERTION_FAILED,
-                             "Expected persistent-nontransactional or hollow; got " + 
-                             getStateOfInstance(p));
+                                "Expected persistent-nontransactional or hollow; got " +
+                                        getStateOfInstance(p));
                     }
                 }
             }

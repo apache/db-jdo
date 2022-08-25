@@ -38,7 +38,9 @@ import javax.jdo.annotations.PersistenceCapable;
  */
 @PersistenceCapable
 public class Department
-    implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
+    implements IDepartment, Serializable, Comparable<IDepartment>, Comparator<IDepartment>, DeepEquality {
+
+    private static final long serialVersionUID = 1L;
 
     public static final int RECOMMENDED_NO_OF_EMPS = 2;
     
@@ -46,9 +48,9 @@ public class Department
     private String  name;
     private Company company;
     private Employee employeeOfTheMonth;
-    private transient Set employees = new HashSet(); // element type is Employee
-    private transient Set fundedEmps = new HashSet(); // element type is Employee
-    private transient List meetingRooms = new ArrayList(); // element type is MeetingRoom
+    private transient Set<IEmployee> employees = new HashSet<>(); // element type is Employee
+    private transient Set<IEmployee> fundedEmps = new HashSet<>(); // element type is Employee
+    private transient List<IMeetingRoom> meetingRooms = new ArrayList<>(); // element type is MeetingRoom
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -165,7 +167,7 @@ public class Department
      * @return The set of employees in the department, as an unmodifiable
      * set. 
      */
-    public Set getEmployees() {
+    public Set<IEmployee> getEmployees() {
         return Collections.unmodifiableSet(employees);
     }
 
@@ -189,10 +191,10 @@ public class Department
      * Set the employees to be in this department.
      * @param employees The set of employees for this department.
      */
-    public void setEmployees(Set employees) {
+    public void setEmployees(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.employees = (employees != null) ? new HashSet(employees) : null;
+        this.employees = (employees != null) ? new HashSet<>(employees) : null;
     }
 
     /**
@@ -200,7 +202,7 @@ public class Department
      * @return The set of funded employees in the department, as an
      * unmodifiable set. 
      */
-    public Set getFundedEmps() {
+    public Set<IEmployee> getFundedEmps() {
         return Collections.unmodifiableSet(fundedEmps);
     }
 
@@ -226,17 +228,17 @@ public class Department
      * Set the funded employees to be in this department.
      * @param employees The set of funded employees for this department. 
      */
-    public void setFundedEmps(Set employees) {
+    public void setFundedEmps(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.fundedEmps = (fundedEmps != null) ? new HashSet(employees) : null;
+        this.fundedEmps = (fundedEmps != null) ? new HashSet<>(employees) : null;
     }
 
     /**
      * Get the meeting rooms in the department as an unmodifiable list.
      * @return List of meeting rooms in the department, as an unmodifiable list.
      */
-    public List getMeetingRooms() {
+    public List<IMeetingRoom> getMeetingRooms() {
         return Collections.unmodifiableList(meetingRooms);
     }
 
@@ -260,8 +262,8 @@ public class Department
      * Set the rooms for this department.
      * @param rooms The rooms for this department.
      */
-    public void setMeetingRooms(List rooms) {
-        this.meetingRooms = (rooms != null) ? new ArrayList(rooms) : null;
+    public void setMeetingRooms(List<IMeetingRoom> rooms) {
+        this.meetingRooms = (rooms != null) ? new ArrayList<>(rooms) : null;
     }
 
     /**
@@ -273,9 +275,9 @@ public class Department
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        employees = new HashSet();
-        fundedEmps = new HashSet();
-        meetingRooms = new ArrayList();
+        employees = new HashSet<>();
+        fundedEmps = new HashSet<>();
+        meetingRooms = new ArrayList<>();
     }
 
     /** 
@@ -316,31 +318,10 @@ public class Department
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(deptid);
         rc.append(", name ").append(name);
         return rc.toString();
-    }
-
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((IDepartment)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((IDepartment)o1, (IDepartment)o2);
     }
 
     /** 
@@ -366,7 +347,7 @@ public class Department
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IDepartment o1, IDepartment o2) {
+    public int compare(IDepartment o1, IDepartment o2) {
         return EqualityHelper.compare(o1.getDeptid(), o2.getDeptid());
     }
     
@@ -395,7 +376,9 @@ public class Department
      * The application identity class associated with the
      * <code>Department</code> class. 
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the application identifier field 
@@ -442,12 +425,8 @@ public class Department
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( deptid < other.deptid ) return -1;
-            if( deptid > other.deptid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(deptid, obj.deptid);
         }
 
     }

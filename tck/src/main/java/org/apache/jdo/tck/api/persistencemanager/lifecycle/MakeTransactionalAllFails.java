@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
@@ -63,7 +64,7 @@ public class MakeTransactionalAllFails extends PersistenceManagerTest {
  
     private PCPoint p1 = null;
     private Point p2 = null;
-    private Collection col1 = new java.util.HashSet();
+    private Collection<Object> col1 = new HashSet<>();
 
     /** */
     public void testTransactionalInst() {
@@ -81,7 +82,7 @@ public class MakeTransactionalAllFails extends PersistenceManagerTest {
     private void createObjects() {
         p1 = new PCPoint(1,3);
         p2 = new Point(2,4);
-        col1 = new java.util.HashSet();
+        col1 = new HashSet<>();
         col1.add(p1);
         col1.add(p2);
     }

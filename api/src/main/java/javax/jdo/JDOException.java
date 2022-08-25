@@ -47,7 +47,7 @@ public class JDOException extends java.lang.RuntimeException {
     /**
      * The Internationalization message helper.
      */
-    private static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
+    private static final I18NHelper MSG = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
 
     /** 
      * Flag indicating whether printStackTrace is being executed.
@@ -164,7 +164,7 @@ public class JDOException extends java.lang.RuntimeException {
      * @return never.
      */
     public Throwable initCause(Throwable cause) {
-        throw new JDOFatalInternalException(msg.msg("ERR_CannotInitCause"));
+        throw new JDOFatalInternalException(MSG.msg("ERR_CannotInitCause"));
     }
   
     /** The <code>String</code> representation includes the name of the class,
@@ -180,7 +180,7 @@ public class JDOException extends java.lang.RuntimeException {
         sb.append (super.toString());
         // include failed object information
         if (failed != null) {
-            sb.append ("\n").append (msg.msg ("MSG_FailedObject"));
+            sb.append ("\n").append (MSG.msg ("MSG_FailedObject"));
             String failedToString = null;
             try {
                 failedToString = failed.toString();
@@ -188,7 +188,7 @@ public class JDOException extends java.lang.RuntimeException {
                 // include the information from the exception thrown by failed.toString
                 Object objectId = JDOHelper.getObjectId(failed);
                 if (objectId == null) {
-                    failedToString = msg.msg("MSG_ExceptionGettingFailedToString", //NOI18N
+                    failedToString = MSG.msg("MSG_ExceptionGettingFailedToString", //NOI18N
                                        exceptionToString(ex));
                 }
                 else {
@@ -200,7 +200,7 @@ public class JDOException extends java.lang.RuntimeException {
                     catch (Exception ex2) {
                         objectIdToString = exceptionToString(ex2);
                     }
-                    failedToString = msg.msg("MSG_ExceptionGettingFailedToStringObjectId", //NOI18N
+                    failedToString = MSG.msg("MSG_ExceptionGettingFailedToStringObjectId", //NOI18N
                                        exceptionToString(ex), objectIdToString);
                 }
             }
@@ -209,7 +209,7 @@ public class JDOException extends java.lang.RuntimeException {
         // include nested Throwable information, but only if not called by
         // printStackTrace; the stacktrace will include the cause anyway.
         if (len > 0 && !inPrintStackTrace) {
-            sb.append ("\n").append (msg.msg ("MSG_NestedThrowables")).append ("\n");
+            sb.append ("\n").append (MSG.msg ("MSG_NestedThrowables")).append ("\n");
             Throwable exception = nested[0];
             sb.append (exception==null?"null":exception.toString()); //NOI18N
             for (int i=1; i<len; ++i) {
@@ -242,7 +242,7 @@ public class JDOException extends java.lang.RuntimeException {
             inPrintStackTrace = true;
             super.printStackTrace(s);
             if (len > 0) {
-                s.println (msg.msg ("MSG_NestedThrowablesStackTrace"));
+                s.println (MSG.msg ("MSG_NestedThrowablesStackTrace"));
                 for (int i=0; i<len; ++i) {
                     Throwable exception = nested[i];
                     if (exception != null) {
@@ -266,7 +266,7 @@ public class JDOException extends java.lang.RuntimeException {
             inPrintStackTrace = true;
             super.printStackTrace(s);
             if (len > 0) {
-                s.println (msg.msg ("MSG_NestedThrowablesStackTrace"));
+                s.println (MSG.msg ("MSG_NestedThrowablesStackTrace"));
                 for (int i=0; i<len; ++i) {
                     Throwable exception = nested[i];
                     if (exception != null) {

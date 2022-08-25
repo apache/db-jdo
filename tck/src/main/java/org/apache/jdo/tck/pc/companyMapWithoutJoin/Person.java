@@ -20,31 +20,26 @@ package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
 import java.io.Serializable;
 
-import java.text.SimpleDateFormat;
-
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**
  * This class represents a person.
  */
 public class Person 
-    implements IPerson, Serializable, Comparable, Comparator, DeepEquality  {
+    implements IPerson, Serializable, Comparable<IPerson>, Comparator<IPerson>, DeepEquality  {
+
+    private static final long serialVersionUID = 1L;
 
     private long    personid;
     private String  firstname;
     private String  lastname;
     private String  middlename;
     private Date    birthdate;
-
-    protected static SimpleDateFormat formatter =
-        new SimpleDateFormat("d/MMM/yyyy");
 
     /** This is the JDO-required no-args constructor. */
     protected Person() {}
@@ -169,12 +164,11 @@ public class Person
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(personid);
         rc.append(", ").append(lastname);
         rc.append(", ").append(firstname);
-        rc.append(", born ").append(
-            birthdate==null ? "null" : formatter.format(birthdate));
+        rc.append(", born ").append(JDOCustomDateEditor.getDateRepr(birthdate));
         return rc.toString();
     }
 
@@ -202,27 +196,6 @@ public class Person
     }
 
     /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((IPerson)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((IPerson)o1, (IPerson)o2);
-    }
-
-    /** 
      * Compares this object with the specified Person object for
      * order. Returns a negative integer, zero, or a positive integer as
      * this object is less than, equal to, or greater than the specified
@@ -245,7 +218,7 @@ public class Person
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IPerson o1, IPerson o2) {
+    public int compare(IPerson o1, IPerson o2) {
         return EqualityHelper.compare(o1.getPersonid(), o2.getPersonid());
     }
     
@@ -273,7 +246,9 @@ public class Person
      * This class is used to represent the application identifier
      * for the <code>Person</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the <code>Person</code>
@@ -318,12 +293,8 @@ public class Person
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( personid < other.personid ) return -1;
-            if( personid > other.personid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(personid, obj.personid);
         }
 
     }

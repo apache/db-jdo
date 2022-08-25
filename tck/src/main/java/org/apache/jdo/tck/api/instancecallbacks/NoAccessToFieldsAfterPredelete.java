@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.api.instancecallbacks;
 
 import java.util.Date;
-import java.util.HashSet;
+import java.util.Set;
 
 import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOUserException;
@@ -89,14 +89,11 @@ public class NoAccessToFieldsAfterPredelete extends JDO_Test {
         // relocte object.
         try {
             a = (InstanceCallbackClass)pm.getObjectById(aId, true);
-        } catch (JDOUserException e) {
-            fail(ASSERTION_FAILED, "NoAccessToFieldsAfterPredelete:  Could not locate persistent object created in previous transaction, got " + e);
-            return;
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             fail(ASSERTION_FAILED, "NoAccessToFieldsAfterPredelete:  Could not locate persistent object created in previous transaction, got " + e);
             return;
         }
-        
+
         pm.deletePersistent(a);
         performAccessFieldTests("Object in state persistent-deleted:  ", a);
         
@@ -153,7 +150,7 @@ public class NoAccessToFieldsAfterPredelete extends JDO_Test {
         }
         
         try {
-            HashSet x6 = o.children;
+            Set<InstanceCallbackClass> x6 = o.children;
             // http://issues.apache.org/jira/browse/JDO-413
             // fail(ASSERTION_FAILED, title + "Accessed persistent HashSet field Children--should have gotten JDOUserException");
         } catch (JDOUserException e) {

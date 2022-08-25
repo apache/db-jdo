@@ -18,8 +18,8 @@
 
 package org.apache.jdo.tck.api.persistencemanager;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jdo.Query;
 import javax.jdo.Transaction;
@@ -105,7 +105,7 @@ public class OneInstanceOfObjectPerPersistenceManager extends
         tx = null;
 
         // Use a StringBuffer to collect results.
-        StringBuffer results = new StringBuffer();
+        StringBuilder results = new StringBuilder();
 
         // Compare the original object with the object obtained by getObjectById.
         if (p1 != p1a) {
@@ -121,7 +121,7 @@ public class OneInstanceOfObjectPerPersistenceManager extends
             results.append("query results differ. ");
         }
         if (results.length() != 0) {
-            fail(ASSERTION_FAILED + results.toString());
+            fail(ASSERTION_FAILED + results);
         }
 
         // The standard way to end each test method is to simply return. Exceptions are caught by JUnit.
@@ -130,13 +130,13 @@ public class OneInstanceOfObjectPerPersistenceManager extends
 
     /** */
     private PCPoint findPoint (int x, int y) {
-        Query q = getPM().newQuery (PCPoint.class);
+        Query<PCPoint> q = getPM().newQuery (PCPoint.class);
         q.declareParameters ("int px, int py");
         q.setFilter ("x == px & y == py");
-        Collection results = (Collection)q.execute (Integer.valueOf(x),
-		        Integer.valueOf(y));
-        Iterator it = results.iterator();
-        PCPoint ret = (PCPoint)it.next();
+        q.setParameters(Integer.valueOf(x), Integer.valueOf(y));
+        List<PCPoint> results = q.executeList();
+        Iterator<PCPoint> it = results.iterator();
+        PCPoint ret = it.next();
         return ret;
     }
     

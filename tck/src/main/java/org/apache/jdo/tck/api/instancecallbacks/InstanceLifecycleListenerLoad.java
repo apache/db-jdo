@@ -21,13 +21,7 @@ import java.util.Date;
 
 import javax.jdo.listener.LoadCallback;
 
-import javax.jdo.JDOHelper;
-
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.ClearLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -52,7 +46,7 @@ public class InstanceLifecycleListenerLoad
     /**
      * The InstanceLifecycleListener used for this test
      */
-    InstanceLifecycleListenerImpl listener = 
+    private final InstanceLifecycleListenerImpl listener =
             new InstanceLifecycleListenerLoadImpl();
 
     /** Return the listener.
@@ -64,11 +58,12 @@ public class InstanceLifecycleListenerLoad
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PC.class};
+    @SuppressWarnings("rawtypes")
+    private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 
@@ -104,8 +99,8 @@ public class InstanceLifecycleListenerLoad
 
         // now check the callback and listener were called
         listener.verifyCallbacks(ASSERTION2_FAILED, new int[] {
-                listener.POST_LOAD_CALLBACK,
-                listener.POST_LOAD_LISTENER});
+                InstanceLifecycleListenerImpl.POST_LOAD_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_LOAD_LISTENER});
     }
     
     /** 
@@ -115,6 +110,7 @@ public class InstanceLifecycleListenerLoad
     private static class InstanceLifecycleListenerLoadImpl 
             extends InstanceLifecycleListenerImpl {
 
+        @Override
         public void postLoad(InstanceLifecycleEvent event) {
             notifyEvent(POST_LOAD_LISTENER);
             checkEventType(ASSERTION2_FAILED,
@@ -147,7 +143,7 @@ public class InstanceLifecycleListenerLoad
 
         public void jdoPostLoad() {
             if (listener != null) {
-                listener.notifyEvent(listener.POST_LOAD_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.POST_LOAD_CALLBACK);
             }
         }
     }

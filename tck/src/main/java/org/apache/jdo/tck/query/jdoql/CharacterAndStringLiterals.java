@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.pc.mylib.QPrimitiveTypes;
@@ -52,35 +51,35 @@ public class CharacterAndStringLiterals extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        PrimitiveTypes.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "charNotNull == 'O.'",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        PrimitiveTypes.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "charNotNull == \"O.\"",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        PrimitiveTypes.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "charNotNull == 'O.'",
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        PrimitiveTypes.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "charNotNull == \"O.\"",
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /**
@@ -96,14 +95,13 @@ public class CharacterAndStringLiterals extends QueryTest {
      *
      */
     public void testPositive1() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                        "primitiveTypesCharacterStringLiterals"});
+        Object expected = getTransientMylibInstancesAsList("primitiveTypesCharacterStringLiterals");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.stringNull.startsWith("Even").or(cand.charNotNull.eq('0')));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -129,14 +127,13 @@ public class CharacterAndStringLiterals extends QueryTest {
      * 
      */
     public void testPositive2() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesCharacterStringLiterals"});
+        Object expected = getTransientMylibInstancesAsList("primitiveTypesCharacterStringLiterals");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.stringNull.startsWith("Even").or(cand.charNotNull.eq('0')));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -160,9 +157,9 @@ public class CharacterAndStringLiterals extends QueryTest {
 
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
-            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
+            compileSingleStringQuery(ASSERTION_FAILED, invalidQuery,
                     false);
         }
     }

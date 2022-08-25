@@ -24,7 +24,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -66,6 +65,7 @@ public class NewQueryFromExistingQueryBoundToPMFromSameVendor extends QueryTest 
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestNewQueryFromExistingQueryBoundToPMFromSameVendor01(
         PersistenceManager pm) {
         if (debug)
@@ -75,19 +75,18 @@ public class NewQueryFromExistingQueryBoundToPMFromSameVendor extends QueryTest 
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
-        
-            Query query1 = pm.newQuery(query);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
+
+            Query<PCPoint> query1 = pm.newQuery(query);
             query1.compile();
 
             Object results = query1.execute();
-            List expected = new ArrayList();
-            Object p1 = new PCPoint(0, 0);
-            Object p2 = new PCPoint(1, 1);
-            Object p3 = new PCPoint(2, 2);
-            Object p4 = new PCPoint(3, 3);
-            Object p5 = new PCPoint(4, 4);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p1 = new PCPoint(0, 0);
+            PCPoint p2 = new PCPoint(1, 1);
+            PCPoint p3 = new PCPoint(2, 2);
+            PCPoint p4 = new PCPoint(3, 3);
+            PCPoint p5 = new PCPoint(4, 4);
             expected.add(p1);
             expected.add(p2);
             expected.add(p3);
@@ -108,6 +107,7 @@ public class NewQueryFromExistingQueryBoundToPMFromSameVendor extends QueryTest 
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestNewQueryFromExistingQueryBoundToPMFromSameVendor02(
         PersistenceManager pm) {
         if (debug) 
@@ -117,23 +117,22 @@ public class NewQueryFromExistingQueryBoundToPMFromSameVendor extends QueryTest 
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
 
-            Query query1 = pm.newQuery(query);
+            Query<PCPoint> query1 = pm.newQuery(query);
             query1.setCandidates(pm.getExtent(PCPoint.class, true));
             query1.compile();
 
             Object results = query1.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p1 = new PCPoint(0, 0);
-            Object p2 = new PCPoint(1, 1);
-            Object p3 = new PCPoint(2, 2);
-            Object p4 = new PCPoint(3, 3);
-            Object p5 = new PCPoint(4, 4);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p1 = new PCPoint(0, 0);
+            PCPoint p2 = new PCPoint(1, 1);
+            PCPoint p3 = new PCPoint(2, 2);
+            PCPoint p4 = new PCPoint(3, 3);
+            PCPoint p5 = new PCPoint(4, 4);
             expected.add(p1);
             expected.add(p2);
             expected.add(p3);

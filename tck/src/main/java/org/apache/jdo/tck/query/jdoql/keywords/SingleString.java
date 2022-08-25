@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -65,7 +64,7 @@ public class SingleString extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("limit", new BigDecimal("2000"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.FALSE,
                 /*RESULT*/      "firstname AS firstName, lastname AS lastName",
                 /*INTO*/        FullName.class,

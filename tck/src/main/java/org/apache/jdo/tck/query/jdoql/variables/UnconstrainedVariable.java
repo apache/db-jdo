@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql.variables;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
@@ -28,6 +27,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.NumericExpression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,7 +60,7 @@ public class UnconstrainedVariable extends QueryTest {
     /** */
     public void testPositive() {
         if (isUnconstrainedVariablesSupported()) {
-            Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3", "emp4"});
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3", "emp4");
 
             JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
             QEmployee cand = QEmployee.candidate();
@@ -71,7 +71,7 @@ public class UnconstrainedVariable extends QueryTest {
             Map<String, Object> paramValues = new HashMap<>();
             paramValues.put("id", Integer.valueOf(1));
 
-            QueryElementHolder holder = new QueryElementHolder(
+            QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                     /*UNIQUE*/      null,
                     /*RESULT*/      null,
                     /*INTO*/        null,

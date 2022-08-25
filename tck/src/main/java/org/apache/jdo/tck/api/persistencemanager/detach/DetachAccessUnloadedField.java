@@ -59,7 +59,7 @@ public class DetachAccessUnloadedField extends DetachTest {
         // sets fetch group cart, entries, product
         setCartFetchGroups();
         // DETACH_LOAD_FIELDS true by default
-        CartEntry cartEntryDetached = (CartEntry)pm.detachCopy(cartEntry1);
+        CartEntry cartEntryDetached = pm.detachCopy(cartEntry1);
         try {
             Product prod = cartEntryDetached.getProduct();
         } catch (JDODetachedFieldAccessException jdoex) {
@@ -82,7 +82,7 @@ public class DetachAccessUnloadedField extends DetachTest {
         int quantity =  cartEntry1.getQuantity();
 
         pm.getFetchPlan().setDetachmentOptions(0);
-        CartEntry cartEntryDetached = (CartEntry)pm.detachCopy(cartEntry1);
+        CartEntry cartEntryDetached = pm.detachCopy(cartEntry1);
         try {
             Product prodDetached =  cartEntryDetached.getProduct();
         } catch (JDODetachedFieldAccessException jdoex) {
@@ -104,7 +104,7 @@ public class DetachAccessUnloadedField extends DetachTest {
         Product prod =  cartEntry1.getProduct();
         pm.getFetchPlan().removeGroup(CARTENTRY_PRODUCT);
         pm.getFetchPlan().setDetachmentOptions(FetchPlan.DETACH_UNLOAD_FIELDS);
-        CartEntry cartEntryDetached = (CartEntry)pm.detachCopy(cartEntry1);
+        CartEntry cartEntryDetached = pm.detachCopy(cartEntry1);
         try {
             Product prodDetached =  cartEntryDetached.getProduct();
             fail("Expected exception on access of unloaded field, " +
@@ -128,7 +128,7 @@ public class DetachAccessUnloadedField extends DetachTest {
         fp.addGroup(CART_ENTRIES);
         fp.addGroup(CARTENTRY_CART);
 
-        CartEntry cartEntryDetached = (CartEntry)pm.detachCopy(cartEntry1);
+        CartEntry cartEntryDetached = pm.detachCopy(cartEntry1);
         try {
             Product prod = cartEntryDetached.getProduct();
             fail("Expected exception on access of field not in fetch plan" +

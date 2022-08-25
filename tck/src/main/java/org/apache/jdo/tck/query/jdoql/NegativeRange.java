@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.util.Arrays;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -62,7 +61,7 @@ public class NegativeRange extends QueryTest {
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -89,7 +88,7 @@ public class NegativeRange extends QueryTest {
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -116,7 +115,7 @@ public class NegativeRange extends QueryTest {
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -143,7 +142,7 @@ public class NegativeRange extends QueryTest {
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,

@@ -67,7 +67,7 @@ public abstract class EnhancerTest extends JDO_Test {
      * @param packageName package name
      * @param fullyQualifiedClassNameList list of class names
      */
-    protected abstract void runTestOnePackage (String packageName, List fullyQualifiedClassNameList);
+    protected abstract void runTestOnePackage (String packageName, List<String> fullyQualifiedClassNameList);
     
     /**
      *
@@ -84,7 +84,7 @@ public abstract class EnhancerTest extends JDO_Test {
         // First, get classes to test from properties file.
         Properties classesToTest = getProperties("enhancement-test.properties"); //NOI18N
         
-        Enumeration enumeration = classesToTest.propertyNames();
+        Enumeration<?> enumeration = classesToTest.propertyNames();
         int numberOfPackages = 0;
         
         // Each key is a package name; the value is a list of class names to test.
@@ -95,7 +95,7 @@ public abstract class EnhancerTest extends JDO_Test {
             String classNames = (String) classesToTest.get(packageName);
             if (debug) logger.debug("EnhancerTest Classes: " + classNames);
             StringTokenizer st = new StringTokenizer(classNames, " ,");
-            ArrayList classNameList = new ArrayList();
+            List<String> classNameList = new ArrayList<>();
             // Each entry is a list of class names separated by comma or space
             while (st.hasMoreTokens()) {
                 String className = st.nextToken();

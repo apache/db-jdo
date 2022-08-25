@@ -35,6 +35,8 @@ import org.springframework.core.io.ClassPathResource;
  */
 public class CompanyModelReader extends DefaultListableBeanFactory {
 
+    private static final long serialVersionUID = 1L;
+
     /** The name of the root list bean. */
     public static final String ROOT_LIST_NAME = "root";
 
@@ -74,8 +76,9 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * called "root" of type list in the xml and returns it.
      * @return a list of root instances
      */
-    public List getRootList() {
-        return (List)getBean(ROOT_LIST_NAME);
+    @SuppressWarnings("unchecked")
+    public List<Object> getRootList() {
+        return (List<Object>)getBean(ROOT_LIST_NAME);
     }
     
     /** 
@@ -92,14 +95,14 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
         /**
      * @return Returns the tearDownClasses.
      */
-    public Class[] getTearDownClassesFromFactory() {
+    public Class<?>[] getTearDownClassesFromFactory() {
         return companyFactory.getTearDownClasses();
     }
     
     /**
      * @return Returns the tearDownClasses.
      */
-    public static Class[] getTearDownClasses() {
+    public static Class<?>[] getTearDownClasses() {
         return CompanyFactoryConcreteClass.tearDownClasses;
     }
 
@@ -118,7 +121,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Address bean.
      */
     public IAddress getAddress(String name) {
-        return (IAddress)getBean(name, Address.class);
+        return getBean(name, Address.class);
     }
 
     /** 
@@ -130,7 +133,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * MeetingRoom bean.
      */
     public IMeetingRoom getMeetingRoom(String name) {
-        return (IMeetingRoom)getBean(name, MeetingRoom.class);
+        return getBean(name, MeetingRoom.class);
     }
 
     /** 
@@ -142,7 +145,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Company bean.
      */
     public ICompany getCompany(String name) {
-        return (ICompany)getBean(name, Company.class);
+        return getBean(name, Company.class);
     }
 
     /** 
@@ -154,7 +157,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * DentalInsurance bean.
      */
     public IDentalInsurance getDentalInsurance(String name) {
-        return (IDentalInsurance)getBean(name, DentalInsurance.class);
+        return getBean(name, DentalInsurance.class);
     }
 
     /** 
@@ -166,7 +169,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Department bean.
      */
     public IDepartment getDepartment(String name) {
-        return (IDepartment)getBean(name, Department.class);
+        return getBean(name, Department.class);
     }
 
     /** 
@@ -178,7 +181,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Employee bean.
      */
     public IEmployee getEmployee(String name) {
-        return (IEmployee)getBean(name, Employee.class);
+        return getBean(name, Employee.class);
     }
 
     /** 
@@ -190,7 +193,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * FullTimeEmployee bean.
      */
     public IFullTimeEmployee getFullTimeEmployee(String name) {
-        return (IFullTimeEmployee)getBean(name, FullTimeEmployee.class);
+        return getBean(name, FullTimeEmployee.class);
     }
 
     /** 
@@ -202,7 +205,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Insurance bean.
      */
     public IInsurance getInsurance(String name) {
-        return (IInsurance)getBean(name, Insurance.class);
+        return getBean(name, Insurance.class);
     }
 
     /** 
@@ -214,7 +217,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * MedicalInsurance bean.
      */
     public IMedicalInsurance getMedicalInsurance(String name) {
-        return (IMedicalInsurance)getBean(name, MedicalInsurance.class);
+        return getBean(name, MedicalInsurance.class);
     }
 
     /** 
@@ -226,7 +229,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * PartTimeEmployee bean.
      */
     public IPartTimeEmployee getPartTimeEmployee(String name) {
-        return (IPartTimeEmployee)getBean(name, PartTimeEmployee.class);
+        return getBean(name, PartTimeEmployee.class);
     }
 
     /** 
@@ -238,7 +241,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Person bean.
      */
     public IPerson getPerson(String name) {
-        return (IPerson)getBean(name, Person.class);
+        return getBean(name, Person.class);
     }
 
     /** 
@@ -250,7 +253,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Project bean.
      */
     public IProject getProject(String name) {
-        return (IProject)getBean(name, Project.class);
+        return getBean(name, Project.class);
     }
     
 }

@@ -18,13 +18,10 @@
 
 package org.apache.jdo.tck.models.inheritance;
 
-import java.util.Iterator;
-
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.inheritance.AllPersist4;
 import org.apache.jdo.tck.pc.inheritance.Constants;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -110,7 +107,7 @@ public class TransactionalFieldsAreTransactionalInSubclasses extends TestParts {
             t = null;
 
             // verify objects revert back to transient after rollback
-            checkTransactionalAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.floatE, c.secondObj);
+            checkTransactionalAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.floatE, c.secondObj);
         }
         finally {
             if ((t != null) && t.isActive())
@@ -122,10 +119,9 @@ public class TransactionalFieldsAreTransactionalInSubclasses extends TestParts {
     {
         AllPersist4 a = new AllPersist4(0, 0.0, 0, '0', false, 0.0f, (short)0, (short)0, 0);
         pm.makePersistent(a); // guarantee the class is registered; this will be removed
-        Extent e = pm.getExtent(AllPersist4.class, true);
-        Iterator i = e.iterator();
-        while( i.hasNext() ){
-            pm.deletePersistent(i.next());
+        Extent<AllPersist4> e = pm.getExtent(AllPersist4.class, true);
+        for (AllPersist4 allPersist4 : e) {
+            pm.deletePersistent(allPersist4);
         }        
     }
 }

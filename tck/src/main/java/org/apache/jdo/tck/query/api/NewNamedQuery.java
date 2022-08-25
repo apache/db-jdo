@@ -21,7 +21,6 @@ import java.util.Arrays;
 
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
@@ -48,7 +47,7 @@ public class NewNamedQuery extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         Arrays.asList(new Object[] {
                 new FullName("emp1First", "emp1Last"), 
                 new FullName("emp2First", "emp2Last"),
@@ -83,9 +82,9 @@ public class NewNamedQuery extends QueryTest {
         executeNamedQuery(Person.class, "invalidUnique", null, false);
     }
 
-    private void executeNamedQuery(Class candidateClass, String namedQuery,
+    private void executeNamedQuery(Class<?> candidateClass, String namedQuery,
             Object expectedResult, boolean positive) {
-        Query query = getPM().newNamedQuery(candidateClass, namedQuery); 
+        Query<?> query = getPM().newNamedQuery(candidateClass, namedQuery);
         executeJDOQuery(ASSERTION_FAILED, query, "Named query " + namedQuery,
                 false, null, expectedResult, positive);
     }

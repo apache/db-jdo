@@ -19,8 +19,8 @@ package org.apache.jdo.tck.query.api;
 
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCClass;
@@ -50,17 +50,12 @@ public class MetadataSearchOrder extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp2", "emp3", "emp4", "emp5"}),
-        getTransientMylibInstancesAsList(new String[]{
-                "pcClass1", "pcClass2"}),
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp3", "emp4", "emp5"}),
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp4", "emp5"})
+    private final Object[] expectedResult = {
+        getTransientCompanyModelInstancesAsList(Employee.class,"emp1", "emp2", "emp3", "emp4", "emp5"),
+        getTransientCompanyModelInstancesAsList(Employee.class,"emp2", "emp3", "emp4", "emp5"),
+        getTransientMylibInstancesAsList( "pcClass1", "pcClass2"),
+        getTransientCompanyModelInstancesAsList(Employee.class,"emp3", "emp4", "emp5"),
+        getTransientCompanyModelInstancesAsList(Employee.class,"emp4", "emp5")
     };
             
     /**
@@ -107,9 +102,9 @@ public class MetadataSearchOrder extends QueryTest {
                 expectedResult[index]);
     }
 
-    private void executeNamedQuery(Class candidateClass, String namedQuery,
+    private void executeNamedQuery(Class<?> candidateClass, String namedQuery,
             Object expectedResult) {
-        Query query = getPM().newNamedQuery(candidateClass, namedQuery); 
+        Query<?> query = getPM().newNamedQuery(candidateClass, namedQuery);
         executeJDOQuery(ASSERTION_FAILED, query, "Named query " + namedQuery,
                 false, null, expectedResult, true);
     }

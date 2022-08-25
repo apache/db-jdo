@@ -34,7 +34,9 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
 public class FCAppMeetingRoom 
-    implements IMeetingRoom, Serializable, Comparable, Comparator, DeepEquality {
+    implements IMeetingRoom, Serializable, Comparable<IMeetingRoom>, Comparator<IMeetingRoom>, DeepEquality {
+
+    private static final long serialVersionUID = 1L;
 
     @Persistent(primaryKey="true")
     @Column(name="ID")
@@ -105,7 +107,7 @@ public class FCAppMeetingRoom
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(roomid);
         rc.append(", name ").append(name);
         return rc.toString();
@@ -129,27 +131,6 @@ public class FCAppMeetingRoom
         return
             helper.equals(roomid, otherMeetingRoom.getRoomid(), where + ".roomid") &
             helper.equals(name, otherMeetingRoom.getName(), where + ".name");
-    }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((IMeetingRoom)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((IMeetingRoom)o1, (IMeetingRoom)o2);
     }
 
     /** 
@@ -175,7 +156,7 @@ public class FCAppMeetingRoom
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IMeetingRoom o1, IMeetingRoom o2) {
+    public int compare(IMeetingRoom o1, IMeetingRoom o2) {
         return EqualityHelper.compare(o1.getRoomid(), o2.getRoomid());
     }
 
@@ -204,7 +185,9 @@ public class FCAppMeetingRoom
      * This class is used to represent the application identifier 
      * for the <code>FCAppMeetingRoom</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This is the identifier field for <code>FCAppMeetingRoom</code> and must
@@ -251,12 +234,8 @@ public class FCAppMeetingRoom
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( roomid < other.roomid ) return -1;
-            if( roomid > other.roomid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(roomid, obj.roomid);
         }
     }
 }

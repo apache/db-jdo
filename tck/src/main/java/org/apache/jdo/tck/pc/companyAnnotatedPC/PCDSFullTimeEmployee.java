@@ -33,6 +33,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class PCDSFullTimeEmployee extends PCDSEmployee
         implements IFullTimeEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private double _salary;
 
@@ -100,6 +102,7 @@ public class PCDSFullTimeEmployee extends PCDSEmployee
      * 
      * @return a String representation of a <code>PCDSFullTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FCFullTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -108,8 +111,9 @@ public class PCDSFullTimeEmployee extends PCDSEmployee
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $").append(_salary);
         return rc.toString();
@@ -130,7 +134,8 @@ public class PCDSFullTimeEmployee extends PCDSEmployee
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         PCDSFullTimeEmployee otherEmp = (PCDSFullTimeEmployee)other;
         String where = "FCFullTimeEmployee<" + getPersonid() + ">";

@@ -22,7 +22,9 @@ package org.apache.jdo.tck.pc.fieldtypes;
 import java.util.Date;
 import java.io.Serializable;
 
-public class SimpleClass implements Serializable, SimpleInterface, Comparable {
+public class SimpleClass implements Serializable, SimpleInterface, Comparable<SimpleClass> {
+
+    private static final long serialVersionUID = 1L;
 
     private static long counter = new Date().getTime();
     private static long newId() {
@@ -32,9 +34,10 @@ public class SimpleClass implements Serializable, SimpleInterface, Comparable {
     }
     private long id = newId();
   private int intField=0;
-  private String stringField = new String("Test");
-  public SimpleClass(){};
-  public SimpleClass(int intField, String stringField)
+  private String stringField = "Test";
+  public SimpleClass(){}
+
+    public SimpleClass(int intField, String stringField)
   {
     this.intField = intField;
     this.stringField = stringField;
@@ -77,15 +80,17 @@ public class SimpleClass implements Serializable, SimpleInterface, Comparable {
     return intField ^ stringField.hashCode();
   }
 
-  public int compareTo(Object p)
+  public int compareTo(SimpleClass p)
   {
-      SimpleClass sc = (SimpleClass) p;
-      if( intField < sc.intField ) return -1;
-      if( intField > sc.intField ) return 1;
-      return stringField.compareTo(sc.stringField);
+      if( intField < p.intField ) return -1;
+      if( intField > p.intField ) return 1;
+      return stringField.compareTo(p.stringField);
   }
   
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
+
         public long id;
 
         public Oid() {
@@ -109,12 +114,8 @@ public class SimpleClass implements Serializable, SimpleInterface, Comparable {
             return str.substring(str.indexOf(':') + 1);
         }
 
-        public int compareTo(Object p){
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) p;
-            if( id < other.id ) return -1;
-            if( id > other.id ) return 1;
-            return 0;
+        public int compareTo(Oid p){
+            return Long.compare(id, p.id);
         }
           
     }   

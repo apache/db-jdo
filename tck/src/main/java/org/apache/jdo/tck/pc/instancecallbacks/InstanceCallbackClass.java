@@ -21,7 +21,7 @@ package org.apache.jdo.tck.pc.instancecallbacks;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Set;
 
 import javax.jdo.Extent;
 import javax.jdo.InstanceCallbacks;
@@ -41,25 +41,25 @@ public class InstanceCallbackClass implements InstanceCallbacks {
     public static int objectState;
        
     // The rest of these variables used in FieldsInPredelete tests, except to set a variable to make object dirty.
-    public static int arraySize = 5;
-    public static String[] capturedName = new String[arraySize];
-    public static Date[] capturedTimeStamp = new Date[arraySize];
-    public static double[] capturedDoubleValue = new double[arraySize];
-    public static short[] capturedChildToDelete = new short[arraySize];
-    public static char[] capturedCharValue = new char[arraySize];
-    public static String[] capturedNextObjName = new String[arraySize];
-    public static int[] numberOfChildren = new int[arraySize];
-    public static int[] sumOfChildrenIntValue = new int[arraySize];
-    public static boolean[] processedIndex = new boolean[arraySize];
+    public static final int arraySize = 5;
+    public static final String[] capturedName = new String[arraySize];
+    public static final Date[] capturedTimeStamp = new Date[arraySize];
+    public static final double[] capturedDoubleValue = new double[arraySize];
+    public static final short[] capturedChildToDelete = new short[arraySize];
+    public static final char[] capturedCharValue = new char[arraySize];
+    public static final String[] capturedNextObjName = new String[arraySize];
+    public static final int[] numberOfChildren = new int[arraySize];
+    public static final int[] sumOfChildrenIntValue = new int[arraySize];
+    public static final boolean[] processedIndex = new boolean[arraySize];
     
-    public static boolean[] transactionActive = new boolean[arraySize];
+    public static final boolean[] transactionActive = new boolean[arraySize];
     
     private static int nextKeyValue = 1;
     private int keyValue;  // persistent--used as key field in application identity
     public String           name;
     public Date            timeStamp;
     public InstanceCallbackClass  nextObj;
-    public HashSet         children;
+    public Set<InstanceCallbackClass> children;
     public int             intValue;
     public double          doubleValue;
     public short           childToDelete;
@@ -79,10 +79,9 @@ public class InstanceCallbackClass implements InstanceCallbacks {
 
     public static void removeAllInstances(PersistenceManager pm)
     {
-        Extent e = pm.getExtent(InstanceCallbackClass.class, true);
-        Iterator i = e.iterator();
-        while( i.hasNext() ){
-            pm.deletePersistent(i.next());
+        Extent<InstanceCallbackClass> e = pm.getExtent(InstanceCallbackClass.class, true);
+        for (InstanceCallbackClass instanceCallbackClass : e) {
+            pm.deletePersistent(instanceCallbackClass);
         }        
     }
     
@@ -94,7 +93,7 @@ public class InstanceCallbackClass implements InstanceCallbacks {
         name = label;
         timeStamp = createTime;
         nextObj = obj;
-        children = new HashSet();
+        children = new HashSet<>();
         this.intValue = intValue;
         this.doubleValue = doubleValue;
         this.childToDelete = childToDelete;
@@ -129,12 +128,11 @@ public class InstanceCallbackClass implements InstanceCallbacks {
                 pm.deletePersistent(nextObj);  // delete referenced object
 
                 // delete designated child
-                for(Iterator i = children.iterator(); i.hasNext();) {
-                     InstanceCallbackClass obj =  (InstanceCallbackClass)i.next();
-                     if( obj.intValue == childToDelete) {
+                for (InstanceCallbackClass obj : children) {
+                    if (obj.intValue == childToDelete) {
                         pm.deletePersistent(obj);
                         break;
-                     }
+                    }
                 }
             }
         }
@@ -157,9 +155,8 @@ public class InstanceCallbackClass implements InstanceCallbacks {
             capturedDoubleValue[intValue] = doubleValue;
             numberOfChildren[intValue] = children.size();
             sumOfChildrenIntValue[intValue] = 0;
-            for(Iterator i = children.iterator(); i.hasNext();) {
-                InstanceCallbackClass o = (InstanceCallbackClass)i.next();
-                sumOfChildrenIntValue[intValue] += o.intValue;   
+            for (InstanceCallbackClass o : children) {
+                sumOfChildrenIntValue[intValue] += o.intValue;
             }
             capturedChildToDelete[intValue] = childToDelete;
             capturedCharValue[intValue] = charValue;
@@ -182,9 +179,8 @@ public class InstanceCallbackClass implements InstanceCallbacks {
             capturedDoubleValue[intValue] = doubleValue;
             numberOfChildren[intValue] = children.size();
             sumOfChildrenIntValue[intValue] = 0;
-            for(Iterator i = children.iterator(); i.hasNext();) {
-                InstanceCallbackClass o = (InstanceCallbackClass)i.next();
-                sumOfChildrenIntValue[intValue] += o.intValue;   
+            for (InstanceCallbackClass o : children) {
+                sumOfChildrenIntValue[intValue] += o.intValue;
             }
             capturedChildToDelete[intValue] = childToDelete;
             capturedCharValue[intValue] = charValue;
@@ -205,7 +201,10 @@ public class InstanceCallbackClass implements InstanceCallbacks {
         }
     }
     
-public static class KeyClass implements Serializable, Comparable {
+public static class KeyClass implements Serializable, Comparable<KeyClass> {
+
+    private static final long serialVersionUID = 1L;
+
     public int keyValue;
 
     public KeyClass() {
@@ -230,9 +229,9 @@ public static class KeyClass implements Serializable, Comparable {
         return Integer.toString(keyValue);
     } 
     
-    public int compareTo(Object obj) {
+    public int compareTo(KeyClass obj) {
         // may throw ClassCastException to be handled by user.
-        return keyValue - ((KeyClass)obj).keyValue;
+        return keyValue - obj.keyValue;
     }
     
 }

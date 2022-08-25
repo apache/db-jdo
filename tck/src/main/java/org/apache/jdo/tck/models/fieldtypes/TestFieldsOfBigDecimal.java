@@ -127,7 +127,7 @@ public class TestFieldsOfBigDecimal extends JDO_Test {
                 fail(ASSERTION_FAILED,
                      "Incorrect value for " + FieldsOfBigDecimal.fieldSpecs[i] +
                      ", expected value " + value.toString() +
-                     ", value is " + val.toString());
+                     ", value is " + val);
             }
         }
     }

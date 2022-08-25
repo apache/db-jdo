@@ -17,13 +17,6 @@
  
 package org.apache.jdo.tck.lifecycle;
 
-import javax.jdo.JDOUnsupportedOptionException;
-import javax.jdo.PersistenceManager;
-
-import org.apache.jdo.tck.JDO_Test;
-
-import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -83,7 +76,7 @@ public class NontransactionalWriteOptimisticCommit
         createAndModifyVersionedPCPoint();
         beginAndCommitTransaction(true);
         checkXValue(ASSERTION_FAILED + "after optimistic commit",
-                newXValue);
+                NEW_XVALUE);
         failOnError();
     }
 

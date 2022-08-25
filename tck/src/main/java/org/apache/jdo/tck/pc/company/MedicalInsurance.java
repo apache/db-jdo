@@ -17,9 +17,6 @@
  
 package org.apache.jdo.tck.pc.company;
 
-import java.io.Serializable;
-
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 import javax.jdo.annotations.PersistenceCapable;
@@ -31,7 +28,9 @@ import javax.jdo.annotations.PersistenceCapable;
 @PersistenceCapable
 public class MedicalInsurance extends Insurance implements IMedicalInsurance {
 
-    private String planType; // possible values: "PPO", "EPO", "NPO" 
+    private static final long serialVersionUID = 1L;
+
+    private String planType; // possible values: "PPO", "EPO", "NPO"
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -87,6 +86,7 @@ public class MedicalInsurance extends Insurance implements IMedicalInsurance {
      * @return a String representation of a <code>MedicalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "MedicalInsurance(" + getFieldRepr() + ")";
     }
@@ -95,8 +95,9 @@ public class MedicalInsurance extends Insurance implements IMedicalInsurance {
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", planType ").append(planType);
         return rc.toString();
@@ -113,7 +114,8 @@ public class MedicalInsurance extends Insurance implements IMedicalInsurance {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         IMedicalInsurance otherIns = (IMedicalInsurance)other;
         String where = "MedicalInsurance<" + getInsid() + ">";

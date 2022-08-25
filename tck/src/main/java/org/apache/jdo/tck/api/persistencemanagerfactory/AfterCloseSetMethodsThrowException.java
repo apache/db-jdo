@@ -19,7 +19,8 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
+
+import java.lang.reflect.Method;
 
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOUserException;
@@ -63,11 +64,12 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings({"rawtypes","unchecked"})
     public void test() {
-        Class[] stringParameters = new Class[]{String.class};
-        Class[] booleanParameters = new Class[]{boolean.class};
-        Class[] objectParameters = new Class[]{Object.class};
-        Class[] integerParameters = new Class[]{Integer.class};
+        Class<String>[] stringParameters = new Class[]{String.class};
+        Class<Boolean>[] booleanParameters = new Class[]{boolean.class};
+        Class<Object>[] objectParameters = new Class[]{Object.class};
+        Class<Integer>[] integerParameters = new Class[]{Integer.class};
         Object[] stringParameter = new Object[]{"Nobody knows the trouble"};
         Object[] booleanParameter = new Object[]{Boolean.FALSE};
         Object[] objectParameter = new Object[]{null};
@@ -132,47 +134,45 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
         pmf = getPMF();
         closePMF(pmf); // don't use closePMF() because that sets pmf to null
         // each set method should throw an exception
-        Collection setCollection = Arrays.asList(setMethods);
-        for (Iterator it = setCollection.iterator(); it.hasNext();) {
-            SetProperty sp = (SetProperty)it.next();
+        Collection<SetProperty> setCollection = Arrays.asList(setMethods);
+        for (SetProperty sp : setCollection) {
             String where = sp.getMethodName();
             try {
                 sp.execute(pmf);
                 fail(ASSERTION_FAILED,
-                    "pmf method " + where + " should throw JDOUserException when called for closed pmf");
+                        "pmf method " + where + " should throw JDOUserException when called for closed pmf");
             } catch (JDOUserException ex) {
                 if (debug)
-                    logger.debug("Caught expected exception " + ex.toString() +
-                                 " from " + where);
+                    logger.debug("Caught expected exception " + ex +
+                            " from " + where);
             } catch (Exception ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught unexpected exception " + ex.toString() + " from " + where);
+                        "Caught unexpected exception " + ex + " from " + where);
             }
         }
         // each get method should succeed
-        Collection getCollection = Arrays.asList(getMethods);
-        for (Iterator it = getCollection.iterator(); it.hasNext();) {
-            GetProperty gp = (GetProperty)it.next();
+        Collection<GetProperty> getCollection = Arrays.asList(getMethods);
+        for (GetProperty gp : getCollection) {
             String where = gp.getMethodName();
             try {
                 gp.execute(pmf);
             } catch (Exception ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught unexpected exception " + ex.toString() + " from " +
-                     where);
+                        "Caught unexpected exception " + ex + " from " +
+                                where);
             }
         }
     }
    
     /** */
-    class SetProperty {
+    static class SetProperty {
         
-        java.lang.reflect.Method method;
-        String methodName;
-        Class[] parameters;
-        Object[] parameter;
+        private final Method method;
+        private final String methodName;
+        private final Class<?>[] parameters;
+        private final Object[] parameter;
        
-        SetProperty(String methodName, Class[] parameters, Object[] parameter) {
+        SetProperty(String methodName, Class<?>[] parameters, Object[] parameter) {
             this.methodName = methodName;
             this.parameters = parameters;
             this.parameter = parameter;
@@ -198,16 +198,16 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
     }
    
     /** */
-    class GetProperty {
+    static class GetProperty {
        
-        java.lang.reflect.Method method;
-        String methodName;
+        private final Method method;
+        private final String methodName;
        
         GetProperty(String methodName) {
             this.methodName = methodName;
             try {
                 method = PersistenceManagerFactory.class.getMethod(methodName,
-                        (Class[])null);
+                        (Class<?>[])null);
             } catch (NoSuchMethodException ex) {
                 throw new JDOFatalInternalException("Method not defined: " + methodName);
             }

@@ -23,6 +23,8 @@ import java.io.Serializable;
  */
 public class Kitchen implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     protected static long nextId = System.currentTimeMillis();
 
     public synchronized static long nextId() {
@@ -87,6 +89,9 @@ public class Kitchen implements Serializable {
     }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public long id;
 
         public Oid() {

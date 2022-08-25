@@ -17,13 +17,6 @@
 
 package org.apache.jdo.tck.util.signature;
 
-import java.lang.reflect.Member;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Constructor;
-
-import java.util.Iterator;
 import java.util.Set;
 import java.util.Map;
 import java.util.Arrays;
@@ -36,26 +29,26 @@ import java.util.HashMap;
  */
 public class TypeHelper {
     /** Error message for format errors with a user type name. */
-    static private final String MSG_ILLEGAL_USR_TYPE
+    private static final String MSG_ILLEGAL_USR_TYPE
         = "illegal user type name: ";
     
     /** Error message for format errors with a reflection type name. */
-    static private final String MSG_ILLEGAL_RFL_TYPE
+    private static final String MSG_ILLEGAL_RFL_TYPE
         = "illegal reflection type name: ";
     
     /** Throws an IllegalArgumentException if a given condition is violated. */
-    static private void check(boolean cond, String msg) {
+    private static void check(boolean cond, String msg) {
         if (!cond) throw new IllegalArgumentException(msg);
     }
 
     /** Maps primitive reflection type names to (Java) user names. */
-    static private final Map userTypeNames = new HashMap();
+    private static final Map<String, String> userTypeNames = new HashMap<>();
 
     /** Maps primitive (Java) user type names to reflection names. */
-    static private final Map reflectionTypeNames = new HashMap();
+    private static final Map<String, String> reflectionTypeNames = new HashMap<>();
 
     /** Maps primitive type names to class objects. */
-    static private final Map primitiveClasses = new HashMap();
+    private static final Map<String, Class<?>> primitiveClasses = new HashMap<>();
 
     // initializes the type maps
     static {
@@ -69,9 +62,7 @@ public class TypeHelper {
         userTypeNames.put("Z", "boolean");
         userTypeNames.put("V", "void");
 
-        for (Iterator i = userTypeNames.entrySet().iterator();
-             i.hasNext();) {
-            final Map.Entry e = (Map.Entry)i.next();
+        for (final Map.Entry<String, String> e : userTypeNames.entrySet()) {
             reflectionTypeNames.put(e.getValue(), e.getKey());
         }
 
@@ -91,14 +82,14 @@ public class TypeHelper {
      * @param name typed name
      * @return user name for a reflection type name
      */
-    static public String userTypeName(String name) {
+    public static String userTypeName(String name) {
         check(name != null, MSG_ILLEGAL_RFL_TYPE + name);
 
         // count array dimensions from start
         final int n = name.length();
         check(n > 0, MSG_ILLEGAL_RFL_TYPE + name);
         int i = 0;
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         while (name.charAt(i) == '[') {
             sb.append("[]");
             i++;
@@ -116,10 +107,10 @@ public class TypeHelper {
             check(name.endsWith(";"), MSG_ILLEGAL_RFL_TYPE + name);
             s = name.substring(i + 1, n - 1);
         } else {
-            s = (String)userTypeNames.get(name.substring(i));
+            s = userTypeNames.get(name.substring(i));
             check(s != null, MSG_ILLEGAL_RFL_TYPE + name);
         }
-        return (s + sb.toString());
+        return (s + sb);
     }
     
     /**
@@ -127,7 +118,7 @@ public class TypeHelper {
      * @param names type names
      * @return the (Java) user names for reflection type names.
      */
-    static public String[] userTypeNames(String[] names) {
+    public static String[] userTypeNames(String[] names) {
         final String[] u = new String[names.length];
         for (int i = names.length - 1; i >= 0; i--) {
             u[i] = userTypeName(names[i]);
@@ -140,14 +131,14 @@ public class TypeHelper {
      * @param name type name
      * @return reflection name for a (Java) user type name
      */
-    static public String reflectionTypeName(String name) {
+    public static String reflectionTypeName(String name) {
         check(name != null, MSG_ILLEGAL_USR_TYPE + name);
 
         // count array dimensions from end
         final int n = name.length();
         check(n > 0, MSG_ILLEGAL_USR_TYPE + name);
         int i = n - 1;
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         while (name.charAt(i) == ']') {
             i--;
             check(name.charAt(i) == '[', MSG_ILLEGAL_USR_TYPE + name);
@@ -163,7 +154,7 @@ public class TypeHelper {
 
         // translate and recompose name
         final String s = name.substring(0, i);
-        final String p = (String)reflectionTypeNames.get(s);
+        final String p = reflectionTypeNames.get(s);
         return sb.append(p != null ? p : "L" + s + ";").toString();
     }
 
@@ -172,7 +163,7 @@ public class TypeHelper {
      * @param names type names
      * @return the (Java) user names for reflection type names.
      */
-    static public String[] reflectionTypeNames(String[] names) {
+    public static String[] reflectionTypeNames(String[] names) {
         final String[] r = new String[names.length];
         for (int i = names.length - 1; i >= 0; i--) {
             r[i] = reflectionTypeName(names[i]);
@@ -187,8 +178,8 @@ public class TypeHelper {
      * @param name type name
      * @return class object
      */
-    static public Class primitiveClass(String name) {
-        return (Class)primitiveClasses.get(name);
+    public static Class<?> primitiveClass(String name) {
+        return primitiveClasses.get(name);
     }
 
     /**
@@ -196,7 +187,7 @@ public class TypeHelper {
      * @param name type name
      * @return true if a name denotes a primitive type.
      */
-    static public boolean isPrimitive(String name) {
+    public static boolean isPrimitive(String name) {
         return primitiveClasses.containsKey(name);
     }
 
@@ -205,7 +196,7 @@ public class TypeHelper {
      * @param name type name
      * @return component type name of a (Java) user type name
      */
-    static public String componentUserTypeName(String name) {
+    public static String componentUserTypeName(String name) {
         check(name != null, MSG_ILLEGAL_USR_TYPE + name);
         final int n = name.length();
         check(n > 0, MSG_ILLEGAL_USR_TYPE + name);
@@ -223,7 +214,7 @@ public class TypeHelper {
      * @param name type name
      * @return qualified name
      */
-    static public String qualifiedUserTypeName(String name) {
+    public static String qualifiedUserTypeName(String name) {
         final String c = componentUserTypeName(name);
         return ((isPrimitive(c) || c.indexOf('.') >= 0)
                 ? name : "java.lang." + name);
@@ -235,7 +226,7 @@ public class TypeHelper {
      * @param names type names
      * @return qualified name
      */
-    static public String[] qualifiedUserTypeNames(String[] names) {
+    public static String[] qualifiedUserTypeNames(String[] names) {
         final String[] q = new String[names.length];
         for (int i = names.length - 1; i >= 0; i--) {
             q[i] = qualifiedUserTypeName(names[i]);
@@ -249,7 +240,7 @@ public class TypeHelper {
      * @param cls class object
      * @return true if name matches
      */
-    static public boolean isNameMatch(String userTypeName, Class cls) {
+    public static boolean isNameMatch(String userTypeName, Class<?> cls) {
         final String c = (cls == null ? null : userTypeName(cls.getName()));
         return (userTypeName == null ? (c == null) : userTypeName.equals(c));
     }
@@ -261,8 +252,8 @@ public class TypeHelper {
      * @param cls class objects
      * @return true if names matches
      */
-    static public boolean isNameMatch(String[] userTypeName, Class[] cls) {
-        final Set s = new HashSet(Arrays.asList(userTypeName));
+    public static boolean isNameMatch(String[] userTypeName, Class<?>[] cls) {
+        final Set<String> s = new HashSet<>(Arrays.asList(userTypeName));
         for (int i = cls.length - 1; i >= 0; i--) {
             if (!s.remove(userTypeName(cls[i].getName()))) {
                 return false;

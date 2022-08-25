@@ -19,10 +19,6 @@ package org.apache.jdo.tck.pc.companyListWithoutJoin;
 
 import java.lang.reflect.Constructor;
 
-import java.math.BigDecimal;
-
-import java.util.Date;
-
 import javax.jdo.PersistenceManager;
 
 /*
@@ -44,18 +40,18 @@ public class CompanyFactoryRegistry {
 
     /** The system property for factory name
      */
-    final static String FACTORY_PROPERTY_NAME = 
+    static final String FACTORY_PROPERTY_NAME =
         "jdo.tck.mapping.companyfactory";
 
     /** The factory name if the system property is not set.
      */
-    final static String DEFAULT_FACTORY_CLASS_NAME =
+    static final String DEFAULT_FACTORY_CLASS_NAME =
         "org.apache.jdo.tck.pc.company.CompanyFactoryConcreteClass";
 
     /**
      * The default factory class name
      */
-    final static String FACTORY_CLASS_NAME;
+    static final String FACTORY_CLASS_NAME;
 
     static {
         String prop = System.getProperty(FACTORY_PROPERTY_NAME);
@@ -117,9 +113,8 @@ public class CompanyFactoryRegistry {
         CompanyFactory factory = null;
         try {
             if (factoryClassName != null) {
-                Class factoryClass = Class.forName(factoryClassName);
-                Constructor ctor = factoryClass.getConstructor(new Class[]
-                    {PersistenceManager.class});
+                Class<?> factoryClass = Class.forName(factoryClassName);
+                Constructor<?> ctor = factoryClass.getConstructor(PersistenceManager.class);
                 factory = (CompanyFactory)
                     ctor.newInstance(new Object[]{pm});
             }

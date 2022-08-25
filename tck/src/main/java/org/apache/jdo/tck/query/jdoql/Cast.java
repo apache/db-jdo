@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -30,7 +29,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
-import javax.jdo.query.Expression;
+import java.util.List;
 
 /**
  *<B>Title:</B> Cast Query Operator
@@ -61,7 +60,7 @@ public class Cast extends QueryTest {
     
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp5"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp5");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -70,7 +69,7 @@ public class Cast extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)cand.cast(FullTimeEmployee.class);
         query.filter(cast.salary.gt(15000.0));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -93,8 +92,9 @@ public class Cast extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1", "dept2"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -104,7 +104,7 @@ public class Cast extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)e.cast(FullTimeEmployee.class);
         query.filter(cand.employees.contains(e).and(cast.salary.gt(15000.0)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

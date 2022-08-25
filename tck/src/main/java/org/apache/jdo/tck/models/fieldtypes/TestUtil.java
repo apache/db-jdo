@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.
  */
- 
-
 
 package org.apache.jdo.tck.models.fieldtypes;
 
@@ -57,7 +55,7 @@ public class TestUtil {
 
 
     //gets the key type and value type for fields of a Map class
-  public static Vector getFieldSpecsForMap(String field) {
+  public static Vector<String> getFieldSpecsForMap(String field) {
       //sample field =public HashMap HashMapOfObject_Object0
       //fieldType -- look for the last space and get the value between Of and _
       //valueType -- look for last _ and get the String before the  numbers
@@ -84,14 +82,14 @@ public class TestUtil {
       }
       valueType =  valueTypeWithNumber.substring(0, lastIndexOfValueType+1);
 
-      Vector fieldSpecs = new Vector();
+      Vector<String> fieldSpecs = new Vector<>();
       fieldSpecs.add(fieldType);
       fieldSpecs.add(valueType);
 
       return fieldSpecs;
   }
 
-  public static String [] elementTypes = new String[]
+  public static final String [] elementTypes = new String[]
             {"Object", "SimpleClass", "SimpleInterface",
             "String", "Date", "Locale", "BigDecimal",
             "BigInteger", "Byte", "Double", "Float",
@@ -105,9 +103,10 @@ public class TestUtil {
       return 9999;
   }
 
+  @SuppressWarnings("rawtypes")
   public static Vector makeNewVectorInstance(String type, int order) {
 
-      Vector vec = new Vector();
+      Vector<Object> vec = new Vector<>();
 
       switch (order) {
           case(1):
@@ -128,11 +127,11 @@ public class TestUtil {
                       vec.add(4, new SimpleClass(5, "World"));
                       break;
                   case(3):
-                      vec.add(0, new String("Hello"));
-                      vec.add(1, new String("Welcome"));
-                      vec.add(2, new String("To The"));
-                      vec.add(3, new String("Beautiful"));
-                      vec.add(4, new String("World"));
+                      vec.add(0, "Hello");
+                      vec.add(1, "Welcome");
+                      vec.add(2, "To The");
+                      vec.add(3, "Beautiful");
+                      vec.add(4, "World");
                       break;
                   case(4):
                       vec.add(0, new Date(2007908));
@@ -163,8 +162,8 @@ public class TestUtil {
                       vec.add(4, new BigInteger("456445645"));
                       break;
                   case(8):
-                      vec.add(0, Byte.valueOf((byte)Byte.MIN_VALUE));
-                      vec.add(1, Byte.valueOf((byte)Byte.MAX_VALUE));
+                      vec.add(0, Byte.valueOf(Byte.MIN_VALUE));
+                      vec.add(1, Byte.valueOf(Byte.MAX_VALUE));
                       vec.add(2, Byte.valueOf((byte)(Byte.MAX_VALUE- 20)));
                       vec.add(3, Byte.valueOf((byte)(Byte.MAX_VALUE - 50)));
                       vec.add(4, Byte.valueOf((byte)(Byte.MAX_VALUE - 75)));
@@ -179,9 +178,9 @@ public class TestUtil {
                                   - 2323235.76764677));
                       break;
                   case(10):
-                      vec.add(0, Float.valueOf((float)AllTypes.FLOAT_SMALLEST));
-                      vec.add(1, Float.valueOf((float)AllTypes.FLOAT_LARGEST));
-                      vec.add(2, Float.valueOf((float)AllTypes.FLOAT_LARGEST - 20000));
+                      vec.add(0, Float.valueOf(AllTypes.FLOAT_SMALLEST));
+                      vec.add(1, Float.valueOf(AllTypes.FLOAT_LARGEST));
+                      vec.add(2, Float.valueOf(AllTypes.FLOAT_LARGEST - 20000));
                       vec.add(3, Float.valueOf((float)(AllTypes.FLOAT_LARGEST
                                   - 454545.434)));
                       vec.add(4, Float.valueOf((float)(AllTypes.FLOAT_LARGEST
@@ -209,11 +208,11 @@ public class TestUtil {
                       vec.add(4, Short.valueOf((short)(Short.MAX_VALUE - 5656)));
                       break;
                   case(14):
-                      vec.add(0, (SimpleEnum)SimpleEnum.AK);
-                      vec.add(1, (SimpleEnum)SimpleEnum.FM);
-                      vec.add(2, (SimpleEnum)SimpleEnum.KS);
-                      vec.add(3, (SimpleEnum)SimpleEnum.NJ);
-                      vec.add(4, (SimpleEnum)SimpleEnum.WI);
+                      vec.add(0, SimpleEnum.AK);
+                      vec.add(1, SimpleEnum.FM);
+                      vec.add(2, SimpleEnum.KS);
+                      vec.add(3, SimpleEnum.NJ);
+                      vec.add(4, SimpleEnum.WI);
                       break;
                  default:
                       throw new IndexOutOfBoundsException();
@@ -229,12 +228,6 @@ public class TestUtil {
                     vec.add(4, new SimpleClass(3, "Hi There"));
                     break;
                   case(1):
-                    vec.add(0, new SimpleClass(1, "Peaches"));
-                    vec.add(1, new SimpleClass(2, "Oranges"));
-                    vec.add(2, new SimpleClass(3, "Blue Berries"));
-                    vec.add(3, new SimpleClass(4, "Apples"));
-                    vec.add(4, new SimpleClass(5, "Strawberries"));
-                    break;
                   case(2):
                     vec.add(0, new SimpleClass(1, "Peaches"));
                     vec.add(1, new SimpleClass(2, "Oranges"));
@@ -243,11 +236,11 @@ public class TestUtil {
                     vec.add(4, new SimpleClass(5, "Strawberries"));
                     break;
                   case(3):
-                    vec.add(0, new String("Peaches"));
-                    vec.add(1, new String("Oranges"));
-                    vec.add(2, new String("Blue Berries"));
-                    vec.add(3, new String("Apples"));
-                    vec.add(4, new String("Strawberries"));
+                    vec.add(0, "Peaches");
+                    vec.add(1, "Oranges");
+                    vec.add(2, "Blue Berries");
+                    vec.add(3, "Apples");
+                    vec.add(4, "Strawberries");
                     break;
                   case(4):
                     vec.add(0, new Date(54545));
@@ -279,9 +272,9 @@ public class TestUtil {
                     break;
                   case(8):
                     vec.add(0, Byte.valueOf((byte)(Byte.MAX_VALUE-34)));
-                    vec.add(1, Byte.valueOf((byte)Byte.MIN_VALUE));
+                    vec.add(1, Byte.valueOf(Byte.MIN_VALUE));
                     vec.add(2, Byte.valueOf((byte)(Byte.MAX_VALUE- 76)));
-                    vec.add(3, Byte.valueOf((byte)Byte.MAX_VALUE));
+                    vec.add(3, Byte.valueOf(Byte.MAX_VALUE));
                     vec.add(4, Byte.valueOf((byte)(Byte.MAX_VALUE - 12)));
                     break;
                   case(9):
@@ -294,10 +287,10 @@ public class TestUtil {
                                 - 7235.236764677));
                     break;
                   case(10):
-                    vec.add(0, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 5452)));
-                    vec.add(1, Float.valueOf((float)AllTypes.FLOAT_SMALLEST));
+                    vec.add(0, Float.valueOf(AllTypes.FLOAT_LARGEST - 5452));
+                    vec.add(1, Float.valueOf(AllTypes.FLOAT_SMALLEST));
                     vec.add(2, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 6564560.54)));
-                    vec.add(3, Float.valueOf((float)AllTypes.FLOAT_LARGEST));
+                    vec.add(3, Float.valueOf(AllTypes.FLOAT_LARGEST));
                     vec.add(4, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 9756.634)));
                     break;
                   case(11):
@@ -317,16 +310,16 @@ public class TestUtil {
                   case(13):
                     vec.add(0, Short.valueOf((short)(Short.MAX_VALUE - 3434)));
                     vec.add(1, Short.valueOf(Short.MIN_VALUE));
-                    vec.add(2, Short.valueOf((short)(Short.MAX_VALUE)));
+                    vec.add(2, Short.valueOf(Short.MAX_VALUE));
                     vec.add(3, Short.valueOf((short)(Short.MAX_VALUE - 23344)));
                     vec.add(4, Short.valueOf((short)(Short.MAX_VALUE - 723)));
                     break;
                   case(14):
-                      vec.add(0, (SimpleEnum)SimpleEnum.AZ);
-                      vec.add(1, (SimpleEnum)SimpleEnum.SD);
-                      vec.add(2, (SimpleEnum)SimpleEnum.NV);
-                      vec.add(3, (SimpleEnum)SimpleEnum.WV);
-                      vec.add(4, (SimpleEnum)SimpleEnum.PA);
+                      vec.add(0, SimpleEnum.AZ);
+                      vec.add(1, SimpleEnum.SD);
+                      vec.add(2, SimpleEnum.NV);
+                      vec.add(3, SimpleEnum.WV);
+                      vec.add(4, SimpleEnum.PA);
                       break;
                  default:
                     throw new IndexOutOfBoundsException();
@@ -338,11 +331,9 @@ public class TestUtil {
     }
 
     protected static boolean containsBigDecimalKey(BigDecimal keyValue,
-                                                Set bigDecimalKeySet)
+                                                Set<BigDecimal> bigDecimalKeySet)
     {
-        Iterator iter = bigDecimalKeySet.iterator();
-        while (iter.hasNext()) {
-            BigDecimal nextVal = (BigDecimal) iter.next();
+        for (BigDecimal nextVal : bigDecimalKeySet) {
             if (keyValue.compareTo(nextVal) == 0) {
                 return true;
             }
@@ -351,11 +342,9 @@ public class TestUtil {
     }
 
     protected static BigDecimal getBigDecimalKey(BigDecimal keyValue,
-                                                Set bigDecimalKeySet)
+                                                Set<BigDecimal> bigDecimalKeySet)
     {
-        Iterator iter = bigDecimalKeySet.iterator();
-        while (iter.hasNext()) {
-            BigDecimal nextVal = (BigDecimal) iter.next();
+        for (BigDecimal nextVal : bigDecimalKeySet) {
             if (keyValue.compareTo(nextVal) == 0) {
                 return nextVal;
             }

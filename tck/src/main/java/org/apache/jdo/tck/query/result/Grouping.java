@@ -19,8 +19,8 @@ package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -54,21 +54,21 @@ public class Grouping extends QueryTest {
      * The array of invalid queries which may be executed as
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "department, salary",
-        /*INTO*/        null,
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    "department",
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "department, salary",
+                    /*INTO*/        null,
+                    /*FROM*/        FullTimeEmployee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    "department",
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
         
     /**
@@ -83,15 +83,15 @@ public class Grouping extends QueryTest {
     /** */
     public void testPositive() {
         Object expected = Arrays.asList(new Object[] {
-                new Object[] {getTransientCompanyModelInstance("dept1"), Double.valueOf(30000.0)},
-                new Object[] {getTransientCompanyModelInstance("dept2"), Double.valueOf(45000.0)}});
+                new Object[] {getTransientCompanyModelInstance(Department.class, "dept1"), Double.valueOf(30000.0)},
+                new Object[] {getTransientCompanyModelInstance(Department.class, "dept2"), Double.valueOf(45000.0)}});
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.department, cand.salary.sum());
         query.groupBy(cand.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department, SUM(salary)",
                 /*INTO*/        null,
@@ -115,9 +115,9 @@ public class Grouping extends QueryTest {
 
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
-            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
+            compileSingleStringQuery(ASSERTION_FAILED, invalidQuery,
                     false);
         }
     }

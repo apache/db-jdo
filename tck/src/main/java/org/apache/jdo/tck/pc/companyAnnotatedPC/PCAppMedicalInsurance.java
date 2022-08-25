@@ -30,6 +30,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class PCAppMedicalInsurance extends PCAppInsurance implements IMedicalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent
     private String _planType; // possible values: "PPO", "EPO", "NPO" 
 
@@ -65,7 +67,7 @@ public class PCAppMedicalInsurance extends PCAppInsurance implements IMedicalIns
     public PCAppMedicalInsurance(long insid, String carrier, 
                             IEmployee employee, String planType)
     {
-        super(insid, carrier, (PCAppEmployee)employee);
+        super(insid, carrier, employee);
         this._planType = planType;
     }
 
@@ -95,6 +97,7 @@ public class PCAppMedicalInsurance extends PCAppInsurance implements IMedicalIns
      * @return a String representation of a <code>PCAppMedicalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "FCMedicalInsurance(" + getFieldRepr() + ")";
     }
@@ -103,8 +106,9 @@ public class PCAppMedicalInsurance extends PCAppInsurance implements IMedicalIns
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", planType ").append(_planType);
         return rc.toString();
@@ -121,7 +125,8 @@ public class PCAppMedicalInsurance extends PCAppInsurance implements IMedicalIns
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         PCAppMedicalInsurance otherIns = (PCAppMedicalInsurance)other;
         String where = "FCMedicalInsurance<" + getInsid() + ">";

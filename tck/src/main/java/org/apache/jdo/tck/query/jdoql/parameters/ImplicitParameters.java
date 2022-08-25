@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
@@ -63,12 +62,12 @@ public class ImplicitParameters extends QueryTest {
     /** */
     public void testResult() {
         Object expected = getExpectedResultOfFirstQuery(
-                getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp2", "emp3", "emp4", "emp5"}));
+                getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp2", "emp3", "emp4", "emp5"));
 
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", PARAMETER);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this, :param",
                 /*INTO*/        null,
@@ -92,12 +91,12 @@ public class ImplicitParameters extends QueryTest {
     
     /** */
     public void testFilter() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", "emp1First");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -128,7 +127,7 @@ public class ImplicitParameters extends QueryTest {
         paramValues.put("minValue", Long.valueOf(3));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department.name",
                 /*INTO*/        null,
@@ -152,15 +151,15 @@ public class ImplicitParameters extends QueryTest {
     
     /** */
     public void testRange() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[] {
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
+                "emp1", "emp2", "emp3", "emp4", "emp5");
 
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("zero", Long.valueOf(0));
         paramValues.put("five", Long.valueOf(5));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -191,7 +190,7 @@ public class ImplicitParameters extends QueryTest {
         loadAndPersistCompanyModel(getPM());
     }
     
-    private List getExpectedResultOfFirstQuery(List instances) {
+    private List<?> getExpectedResultOfFirstQuery(List<?> instances) {
         Object[] expectedResult = new Object[instances.size()];
         for (int i = 0; i < expectedResult.length; i++) {
             expectedResult[i] = new Object[] {instances.get(i), PARAMETER};

@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Project;
@@ -29,6 +28,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,8 +62,9 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
     /**
      *
      */
+    @SuppressWarnings("unchecked")
     public void testContains1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -71,10 +72,10 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
         query.filter(cand.personid.eq(1L).and(cand.projects.contains(empParam)));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("p", getPersistentCompanyModelInstance("proj1"));
+        paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
 
         // contains
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -99,8 +100,9 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
     /**
      *
      */
+    @SuppressWarnings("unchecked")
     public void testContains2() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -108,10 +110,10 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
         query.filter(cand.projects.contains(empParam));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("p", getPersistentCompanyModelInstance("proj1"));
+        paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
 
         // contains
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -141,7 +143,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());
         getPM().currentTransaction().begin();
-        Employee emp1 = (Employee) getPersistentCompanyModelInstance("emp1");
+        Employee emp1 = getPersistentCompanyModelInstance(Employee.class, "emp1");
         emp1.setProjects(null);
         getPM().currentTransaction().commit();
     }

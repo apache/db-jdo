@@ -56,7 +56,7 @@ import org.xml.sax.SAXParseException;
 public class XMLTestUtil {
 
     /** */
-    protected static String BASEDIR = System.getProperty("basedir", ".");
+    protected static final String BASEDIR = System.getProperty("basedir", ".");
 
     /** "http://www.w3.org/2001/XMLSchema" */
     protected static final String XSD_TYPE = 
@@ -102,11 +102,11 @@ public class XMLTestUtil {
 
     /** Name of the metadata property, a comma separated list of JDO metadata
      * file or directories containing such files. */
-    protected static String METADATA_PROP = "javax.jdo.metadata";
+    protected static final String METADATA_PROP = "javax.jdo.metadata";
 
     /** Name of the recursive property, allowing recursive search of metadata
      * files. */
-    protected static String RECURSIVE_PROP = "javax.jdo.recursive";
+    protected static final String RECURSIVE_PROP = "javax.jdo.recursive";
     
     /** Separator character for the metadata property. */
     protected static final String DELIM = ",;";
@@ -309,11 +309,11 @@ public class XMLTestUtil {
                 try {
                     BufferedReader bufferedReader =
                         new BufferedReader(new FileReader(fileUnderTest));
-                    ArrayList<String> tmp = new ArrayList<String>();
+                    ArrayList<String> tmp = new ArrayList<>();
                     while (bufferedReader.ready()) {
                         tmp.add(bufferedReader.readLine());
                     }
-                    lines = (String[])tmp.toArray(new String[tmp.size()]);
+                    lines = tmp.toArray(new String[tmp.size()]);
                 } catch (IOException ex) {
                     throw new JDOFatalException("getLines: caught IOException", ex);
                 }
@@ -389,8 +389,8 @@ public class XMLTestUtil {
         private static final String JDOQUERY_DTD_FILENAME = 
             "javax/jdo/jdoquery_3_2.dtd";
 
-        static Map<String,String> publicIds = new HashMap<String,String>();
-        static Map<String,String> systemIds = new HashMap<String,String>();
+        static final Map<String,String> publicIds = new HashMap<>();
+        static final Map<String,String> systemIds = new HashMap<>();
         static {
             publicIds.put(RECOGNIZED_JDO_PUBLIC_ID, JDO_DTD_FILENAME);
             publicIds.put(RECOGNIZED_ORM_PUBLIC_ID, ORM_DTD_FILENAME);
@@ -406,9 +406,9 @@ public class XMLTestUtil {
             throws SAXException, IOException 
         {
             // check for recognized ids
-            String filename = (String)publicIds.get(publicId);
+            String filename = publicIds.get(publicId);
             if (filename == null) {
-                filename = (String)systemIds.get(systemId);
+                filename = systemIds.get(systemId);
             }
             final String finalName = filename;
             if (finalName == null) {
@@ -442,7 +442,7 @@ public class XMLTestUtil {
     /** Helper class to find all test JDO metadata files. */
     public static class XMLFinder {
 
-        private List<File> metadataFiles = new ArrayList<File>();
+        private final List<File> metadataFiles = new ArrayList<>();
         private final boolean recursive;
         
         /** Constructor. */
@@ -456,21 +456,13 @@ public class XMLTestUtil {
         
         /** Returns array of files of matching file names. */
         private File[] getFiles(File dir, final String suffix) {
-            FilenameFilter filter = new FilenameFilter() {
-                    public boolean accept(File file, String name) {
-                        return name.endsWith(suffix);
-                    }
-                };
+            FilenameFilter filter = (file, name) -> name.endsWith(suffix);
             return dir.listFiles(filter);
         }
 
         /** */
         private File[] getDirectories(File dir) {
-            FileFilter filter = new FileFilter() {
-                    public boolean accept(File pathname) {
-                        return pathname.isDirectory();
-                    }
-                };
+            FileFilter filter = File::isDirectory;
             return dir.listFiles(filter);
         }
 
@@ -503,7 +495,7 @@ public class XMLTestUtil {
 
         /** Returns an array of test files with suffix .jdo, .orm or .jdoquery. */
         public File[] getMetadataFiles() {
-            return (File[])metadataFiles.toArray(new File[metadataFiles.size()]);
+            return metadataFiles.toArray(new File[metadataFiles.size()]);
         }
 
     }
@@ -513,12 +505,12 @@ public class XMLTestUtil {
         String[] ret = null;
         String metadata = System.getProperty(METADATA_PROP);
         if ((metadata != null) && (metadata.length() > 0)) {
-            List<String> entries = new ArrayList<String>();
+            List<String> entries = new ArrayList<>();
             StringTokenizer st = new StringTokenizer(metadata, DELIM);
             while (st.hasMoreTokens()) {
                 entries.add(st.nextToken());
             }
-            ret = (String[])entries.toArray(new String[entries.size()]);
+            ret = entries.toArray(new String[entries.size()]);
         }
         return ret;
     }

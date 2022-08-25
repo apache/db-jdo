@@ -21,7 +21,6 @@ import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 import javax.jdo.query.NumericExpression;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.MeetingRoom;
@@ -31,6 +30,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,9 +63,10 @@ public class SupportedListMethods extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testGetInFilter() {
         // get(PARAMETER) in filter
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -76,10 +77,10 @@ public class SupportedListMethods extends QueryTest {
         getPM().currentTransaction().begin();
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("pos", Integer.valueOf(1));
-        paramValues.put("room1", getPersistentCompanyModelInstance("room2"));
+        paramValues.put("room1", getPersistentCompanyModelInstance(MeetingRoom.class, "room2"));
         getPM().currentTransaction().commit();
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -104,14 +105,14 @@ public class SupportedListMethods extends QueryTest {
     /** */
     public void testGetInResult() {
         // get(LITERAL) in result
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"room2"});
+        List<MeetingRoom> expected = getTransientCompanyModelInstancesAsList(MeetingRoom.class,"room2");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         query.result(false, cand.meetingRooms.get(1));
         query.filter(cand.deptid.eq(1L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "meetingRooms.get(1)",
                 /*INTO*/        null,

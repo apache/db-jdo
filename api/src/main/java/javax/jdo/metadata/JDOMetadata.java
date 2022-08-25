@@ -83,7 +83,7 @@ public interface JDOMetadata extends Metadata {
      * @param cls Class to add
      * @return The ClassMetadata
      */
-    ClassMetadata newClassMetadata(Class cls);
+    ClassMetadata newClassMetadata(Class<?> cls);
 
     /**
      * Add a new interface to this JDO Metadata.
@@ -91,7 +91,7 @@ public interface JDOMetadata extends Metadata {
      * @param cls Class to add
      * @return The InterfaceMetadata
      */
-    InterfaceMetadata newInterfaceMetadata(Class cls);
+    InterfaceMetadata newInterfaceMetadata(Class<?> cls);
 
     /**
      * Accessor for any named queries defined on the JDO Metadata.

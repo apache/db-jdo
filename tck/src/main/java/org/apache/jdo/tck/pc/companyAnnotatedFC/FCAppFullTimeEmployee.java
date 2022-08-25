@@ -33,6 +33,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class FCAppFullTimeEmployee extends FCAppEmployee
         implements IFullTimeEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="SALARY")
     private double salary;
 
@@ -72,7 +74,7 @@ public class FCAppFullTimeEmployee extends FCAppEmployee
     public FCAppFullTimeEmployee(long personid, String first, String last,
                             String middle, Date born, IAddress addr, 
                             Date hired, double sal) {
-        super(personid, first, last, middle, born, (FCAppAddress)addr, hired);
+        super(personid, first, last, middle, born, addr, hired);
         salary = sal;
     }
 
@@ -97,6 +99,7 @@ public class FCAppFullTimeEmployee extends FCAppEmployee
      * 
      * @return a String representation of a <code>FCAppFullTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FCFullTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -105,8 +108,9 @@ public class FCAppFullTimeEmployee extends FCAppEmployee
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $").append(salary);
         return rc.toString();
@@ -126,7 +130,8 @@ public class FCAppFullTimeEmployee extends FCAppEmployee
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         FCAppFullTimeEmployee otherEmp = (FCAppFullTimeEmployee)other;
         String where = "FCFullTimeEmployee<" + getPersonid() + ">";

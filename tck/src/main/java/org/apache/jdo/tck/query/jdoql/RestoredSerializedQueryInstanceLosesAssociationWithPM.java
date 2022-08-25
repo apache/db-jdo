@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -27,6 +28,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -73,14 +75,13 @@ public class RestoredSerializedQueryInstanceLosesAssociationWithPM
     }
 
     /** */
-    void checkRestoredQueryInstance(PersistenceManager pm) throws Exception {
+    @SuppressWarnings("unchecked")
+    void checkRestoredQueryInstance(PersistenceManager pm) throws IOException, ClassNotFoundException {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query query = pm.newQuery();
-            Class clazz = org.apache.jdo.tck.pc.company.Project.class;
-            query.setClass(clazz);
-            query.setCandidates(pm.getExtent(clazz, false));
+            Query<Project> query = pm.newQuery(Project.class);
+            query.setCandidates(pm.getExtent(Project.class, false));
             query.declareVariables("org.apache.jdo.tck.pc.company.Person a; org.apache.jdo.tck.pc.company.Person b" );
             query.setFilter("reviewers.contains(a) && a.firstname==\"brazil\" || reviewers.contains(b) && b.firstname==\"brazil\"" );
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -89,7 +90,7 @@ public class RestoredSerializedQueryInstanceLosesAssociationWithPM
             ObjectInputStream ois = 
                 new ObjectInputStream(
                     new ByteArrayInputStream(baos.toByteArray()));
-            query = (Query) ois.readObject();
+            query = (Query<Project>) ois.readObject();
             
             try {
                 Object results = query.execute();

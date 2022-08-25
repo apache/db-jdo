@@ -17,8 +17,6 @@
 
 package org.apache.jdo.tck.util;
 
-import java.util.Comparator;
-
 /**
  * This <code>DeepEquality</code> interface defines a method indicating
  * whether some other object is "deep equal to" this object.
@@ -70,6 +68,6 @@ public interface DeepEquality {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, EqualityHelper helper);
+    boolean deepCompareFields(Object other, EqualityHelper helper);
     
 }

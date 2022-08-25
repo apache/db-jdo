@@ -29,14 +29,14 @@ import org.apache.jdo.tck.pc.company.*;
 public class CompanyFactoryAnnotatedPMFieldClassJPA
         extends org.apache.jdo.tck.pc.company.CompanyFactoryAbstractImpl {
     
-    Class addressClass = null;
-    Class dentalInsuranceClass = null;
-    Class medicalInsuranceClass = null;
-    Class partTimeEmployeeClass = null;
-    Class fullTimeEmployeeClass = null;
-    Class projectClass = null;
-    Class departmentClass = null;
-    Class companyClass = null;
+    Class<?> addressClass = null;
+    Class<?> dentalInsuranceClass = null;
+    Class<?> medicalInsuranceClass = null;
+    Class<?> partTimeEmployeeClass = null;
+    Class<?> fullTimeEmployeeClass = null;
+    Class<?> projectClass = null;
+    Class<?> departmentClass = null;
+    Class<?> companyClass = null;
 
     /**
      * Creates a new instance of CompanyFactoryAnnotatedPMFieldClassJPA
@@ -61,9 +61,11 @@ public class CompanyFactoryAnnotatedPMFieldClassJPA
             companyClass =
                     org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppCompany.class;
     }
-    
-    public Class[] getTearDownClasses() {
-        return new Class[] {
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Class<?>[] getTearDownClasses() {
+        return new Class<?>[] {
             dentalInsuranceClass,
             medicalInsuranceClass,
             partTimeEmployeeClass,
@@ -79,7 +81,7 @@ public class CompanyFactoryAnnotatedPMFieldClassJPA
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return null;
     }
     
     public ICompany newCompany() {

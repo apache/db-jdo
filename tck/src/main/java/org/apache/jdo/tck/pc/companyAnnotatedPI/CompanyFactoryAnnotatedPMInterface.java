@@ -27,17 +27,17 @@ import org.apache.jdo.tck.pc.company.*;
 public class CompanyFactoryAnnotatedPMInterface 
         extends CompanyFactoryAbstractImpl {
     
-    Class addressClass = null;
-    Class dentalInsuranceClass = null;
-    Class medicalInsuranceClass = null;
-    Class partTimeEmployeeClass = null;
-    Class fullTimeEmployeeClass = null;
-    Class projectClass = null;
-    Class departmentClass = null;
-    Class companyClass = null;
+    Class<?> addressClass = null;
+    Class<?> dentalInsuranceClass = null;
+    Class<?> medicalInsuranceClass = null;
+    Class<?> partTimeEmployeeClass = null;
+    Class<?> fullTimeEmployeeClass = null;
+    Class<?> projectClass = null;
+    Class<?> departmentClass = null;
+    Class<?> companyClass = null;
     
     /** */
-    public  final Class[] tearDownClasses = new Class[] {
+    public  final Class<?>[] tearDownClasses = new Class<?>[] {
         dentalInsuranceClass,
         medicalInsuranceClass,
         partTimeEmployeeClass,
@@ -96,7 +96,7 @@ public class CompanyFactoryAnnotatedPMInterface
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return null;
     }
     
     public ICompany newCompany() {
@@ -127,7 +127,7 @@ public class CompanyFactoryAnnotatedPMInterface
         return (IProject)pm.newInstance(projectClass);
     }
 
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return tearDownClasses;
     }
 }

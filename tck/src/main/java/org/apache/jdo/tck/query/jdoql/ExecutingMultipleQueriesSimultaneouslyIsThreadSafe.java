@@ -17,8 +17,7 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,7 +25,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
@@ -48,7 +46,7 @@ In either case, the execution must be thread safe.
 public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
     extends MultipleActiveQueryInstanceInSamePersistenceManager {
     
-    static int nrOfThreads = 20;
+    static final int NR_OF_THREADS = 20;
     
     /** */
     private static final String ASSERTION_FAILED = 
@@ -64,6 +62,7 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
     }
 
     /** */
+    @Override
     public void testPositive() {
         PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
@@ -71,11 +70,11 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
             tx.begin();
 
             if (debug) 
-                logger.debug(getThreadName() + ": Starting " + 
-                             nrOfThreads + " concurrent threads.");
+                logger.debug(getThreadName() + ": Starting " +
+                        NR_OF_THREADS + " concurrent threads.");
             ThreadExceptionHandler group = new ThreadExceptionHandler();
-            Thread[] threads = new Thread[nrOfThreads];
-            for (int i = 0; i < nrOfThreads; i++) {
+            Thread[] threads = new Thread[NR_OF_THREADS];
+            for (int i = 0; i < NR_OF_THREADS; i++) {
             	// Runnable r = new QueryExecuter(pm);
                 Runnable r = 
                     new ExecutingMultipleQueriesSimultaneouslyIsThreadSafe().
@@ -90,9 +89,9 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
             if (debug) 
                 logger.debug(getThreadName() +
                              ": Waiting for threads to join...");
-            for (int i = 0; i < nrOfThreads; i++) {
+            for (int i = 0; i < NR_OF_THREADS; i++) {
                 try { threads[i].join(); } 
-                catch (InterruptedException e) { }
+                catch (InterruptedException ignored) { }
             }
             if (debug) logger.debug(getThreadName() + ": All threads joined.");
 
@@ -100,19 +99,18 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
             tx = null;
             
             // check unhandled exceptions
-            Set uncaught = group.getAllUncaughtExceptions();
+            Set<Map.Entry<Thread, Throwable>> uncaught = group.getAllUncaughtExceptions();
             if ((uncaught != null) && !uncaught.isEmpty()) {
-                for (Iterator i = uncaught.iterator(); i.hasNext();) {
-                    Map.Entry next = (Map.Entry)i.next();
-                    Thread thread = (Thread)next.getKey();
-                    Throwable problem = (Throwable)next.getValue();
+                for (Map.Entry<Thread, Throwable> next : uncaught) {
+                    Thread thread = next.getKey();
+                    Throwable problem = next.getValue();
                     if (debug) {
                         logger.debug("uncaught exception in thread " + thread +
-                                     " stacktrace:");
+                                " stacktrace:");
                         problem.printStackTrace();
                     }
                     fail(ASSERTION_FAILED,
-                         "Thread " + thread + ": uncaught exception " + problem);
+                            "Thread " + thread + ": uncaught exception " + problem);
                 }
             }
         }
@@ -133,6 +131,7 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
     }
 
     /** Will be removed. */
+    @Override
     void executeQueries(PersistenceManager ignore) {
         pm = getPM();
         setInsertedObjects(pm);
@@ -146,12 +145,11 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
-            Object results = query.execute();
-            for (Iterator i=((Collection)results).iterator(); i.hasNext();) {
-                inserted.add(i.next());
+            List<PCPoint> results = query.executeList();
+            for (PCPoint result : results) {
+                inserted.add(result);
             }
             tx.commit();
             tx = null;

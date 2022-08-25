@@ -18,53 +18,57 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ListCollections { 
   public int identifier;
-  public List ListOfObject0;
-  public List ListOfObject1;
-  public List ListOfObject2;
-  public List ListOfSimpleClass3;
-  public List ListOfSimpleClass4;
-  public List ListOfSimpleClass5;
-  public List ListOfSimpleInterface6;
-  public List ListOfSimpleInterface7;
-  public List ListOfSimpleInterface8;
-  public List ListOfString9;
-  public List ListOfString10;
-  public List ListOfString11;
-  public List ListOfDate12;
-  public List ListOfDate13;
-  public List ListOfDate14;
-  public List ListOfLocale15;
-  public List ListOfLocale16;
-  public List ListOfLocale17;
-  public List ListOfBigDecimal18;
-  public List ListOfBigDecimal19;
-  public List ListOfBigDecimal20;
-  public List ListOfBigInteger21;
-  public List ListOfBigInteger22;
-  public List ListOfBigInteger23;
-  public List ListOfByte24;
-  public List ListOfByte25;
-  public List ListOfByte26;
-  public List ListOfDouble27;
-  public List ListOfDouble28;
-  public List ListOfDouble29;
-  public List ListOfFloat30;
-  public List ListOfFloat31;
-  public List ListOfFloat32;
-  public List ListOfInteger33;
-  public List ListOfInteger34;
-  public List ListOfInteger35;
-  public List ListOfLong36;
-  public List ListOfLong37;
-  public List ListOfLong38;
-  public List ListOfShort39;
-  public List ListOfShort40;
-  public List ListOfShort41;
-  public List ListOfSimpleClass42;
+  public List<Object> ListOfObject0;
+  public List<Object> ListOfObject1;
+  public List<Object> ListOfObject2;
+  public List<SimpleClass> ListOfSimpleClass3;
+  public List<SimpleClass> ListOfSimpleClass4;
+  public List<SimpleClass> ListOfSimpleClass5;
+  public List<SimpleInterface> ListOfSimpleInterface6;
+  public List<SimpleInterface> ListOfSimpleInterface7;
+  public List<SimpleInterface> ListOfSimpleInterface8;
+  public List<String> ListOfString9;
+  public List<String> ListOfString10;
+  public List<String> ListOfString11;
+  public List<Date> ListOfDate12;
+  public List<Date> ListOfDate13;
+  public List<Date> ListOfDate14;
+  public List<Locale> ListOfLocale15;
+  public List<Locale> ListOfLocale16;
+  public List<Locale> ListOfLocale17;
+  public List<BigDecimal> ListOfBigDecimal18;
+  public List<BigDecimal> ListOfBigDecimal19;
+  public List<BigDecimal> ListOfBigDecimal20;
+  public List<BigInteger> ListOfBigInteger21;
+  public List<BigInteger> ListOfBigInteger22;
+  public List<BigInteger> ListOfBigInteger23;
+  public List<Byte> ListOfByte24;
+  public List<Byte> ListOfByte25;
+  public List<Byte> ListOfByte26;
+  public List<Double> ListOfDouble27;
+  public List<Double> ListOfDouble28;
+  public List<Double> ListOfDouble29;
+  public List<Float> ListOfFloat30;
+  public List<Float> ListOfFloat31;
+  public List<Float> ListOfFloat32;
+  public List<Integer> ListOfInteger33;
+  public List<Integer> ListOfInteger34;
+  public List<Integer> ListOfInteger35;
+  public List<Long> ListOfLong36;
+  public List<Long> ListOfLong37;
+  public List<Long> ListOfLong38;
+  public List<Short> ListOfShort39;
+  public List<Short> ListOfShort40;
+  public List<Short> ListOfShort41;
+  public List<SimpleClass> ListOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public List ListOfObject0",
@@ -115,7 +119,7 @@ public class ListCollections {
   {
     return fieldSpecs.length;
   }
-  public List get(int index)
+  public List<?> get(int index)
   {
     switch (index)
     {
@@ -209,7 +213,9 @@ public class ListCollections {
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index, List value)
+
+  @SuppressWarnings("unchecked")
+  public boolean set(int index, @SuppressWarnings("rawtypes") List value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -351,6 +357,9 @@ public class ListCollections {
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -360,7 +369,7 @@ public class ListCollections {
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

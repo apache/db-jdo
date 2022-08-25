@@ -47,55 +47,54 @@ import org.apache.commons.logging.LogFactory;
 public class EqualityHelper {
     
     /** Logger */
-    protected Log logger = 
+    protected final Log logger =
         LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
     /** true if debug logging in enabled. */
     protected boolean debug = logger.isDebugEnabled();
     
     /** Used when comparing float values close enough. */
-    public static float FLOAT_EPSILON = (float)Math.pow(2.0, -20.0);
+    public static final float FLOAT_EPSILON = (float)Math.pow(2.0, -20.0);
 
     /** Used when comparing double values close enough. */
-    public static double DOUBLE_EPSILON = Math.pow(2.0, -52.0);
+    public static final double DOUBLE_EPSILON = Math.pow(2.0, -52.0);
 
     /** Message for null vs. not null */
-    static final String msgMeNull = "\nExpected null, actual not null";
+    static final String MSG_ME_NULL = "\nExpected null, actual not null";
     
     /** Message for not null vs. null */
-    static final String msgOtherNull = "\nExpected not null, actual null";
+    static final String MSG_OTHER_NULL = "\nExpected not null, actual null";
     
     /** Message for incompatible types */
-    static final String msgIncompatibleTypes = "\nIncompatible types for comparison";
+    static final String MSG_INCOMPATIBLE_TYPES = "\nIncompatible types for comparison";
     
     /** Message for wrong class for counting via iterator */
-    static final String msgParameterMustBeCollectionOrMap =
+    static final String MSG_PARAMETER_MUST_BE_COLLECTION_OR_MAP =
             "Parameter must be a Collection or Map.";
     
     /** Comparator used in method deepEquals comparing maps. This comparator
      * is used to order Maps whose keys are Comparable so the entries can be 
      * compared using deepCompareFields.
      */
-    private static Comparator entryKeyComparator = new Comparator() {
-            public int compare(Object o1, Object o2) {
-                Object key1 = ((Map.Entry)o1).getKey();
-                Object key2 = ((Map.Entry)o2).getKey();
-                return ((Comparable)key1).compareTo(key2);
-            }
-        };
+    @SuppressWarnings("unchecked")
+    private static final Comparator<Map.Entry<?, ?>> entryKeyComparator = (o1, o2) -> {
+        Object key1 = o1.getKey();
+        Object key2 = o2.getKey();
+        return ((Comparable<Object>)key1).compareTo(key2);
+    };
         
     /** 
      * Utility counter for maps and collections
      */
     static int countIterator(Object o) {
         int result = 0;
-        Iterator it;
+        Iterator<?> it;
         if (o instanceof Collection) {
-            it = ((Collection)o).iterator();
+            it = ((Collection<?>)o).iterator();
         } else if (o instanceof Map) {
-            it = ((Map)o).entrySet().iterator();
+            it = ((Map<?,?>)o).entrySet().iterator();
         } else {
-            throw new ClassCastException(msgParameterMustBeCollectionOrMap);
+            throw new ClassCastException(MSG_PARAMETER_MUST_BE_COLLECTION_OR_MAP);
         }
         while (it.hasNext()) {
             it.next();
@@ -106,15 +105,15 @@ public class EqualityHelper {
     /** Comparator used in method deepEquals comparing maps of
      * DeepEquality.
      */
-    private static class DeepEqualityEntryKeyComparator 
-            implements Comparator {
-        Comparator comparator;
-        DeepEqualityEntryKeyComparator(Comparator comp) {
-            this.comparator = comparator;
+    private static class DeepEqualityEntryKeyComparator<K,V>
+    implements Comparator<Map.Entry<K,V>> {
+        final Comparator<K> comparator;
+        DeepEqualityEntryKeyComparator(Comparator<K> comp) {
+            this.comparator = comp;
         }
-        public int compare(Object o1, Object o2) {
-            Object key1 = ((Map.Entry)o1).getKey();
-            Object key2 = ((Map.Entry)o2).getKey();
+        public int compare(Map.Entry<K,V>  o1, Map.Entry<K,V>  o2) {
+            K key1 = o1.getKey();
+            K key2 = o2.getKey();
             return comparator.compare(key1, key2);
         }
     }
@@ -122,16 +121,16 @@ public class EqualityHelper {
     /** Collection of instances that have been processed already in the
      * context of this EqualityHelper instance 
      */
-    private Collection processed = new HashSet();
+    private final Collection<Object> processed = new HashSet<>();
     
     /** StringBuffer of logged differences.
      */
-    StringBuffer unequalBuffer = new StringBuffer();
+    final StringBuffer unequalBuffer = new StringBuffer();
     
     /**
      * Context is a stack of navigational paths.
      */
-    Stack contextStack = new Stack();
+    final Stack<String> contextStack = new Stack<>();
 
     // Methods to support keeping track of instances that have been
     // processed already.
@@ -193,6 +192,7 @@ public class EqualityHelper {
      * @param other the other object to be tested for deep equality
      * @return <code>true</code> if the objects are deep equal.
      */
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public  boolean deepEquals(Object me, Object other) {
         if (me == other)
             return true;
@@ -200,9 +200,9 @@ public class EqualityHelper {
             return false;
         if ((me instanceof DeepEquality) && (other instanceof DeepEquality))
             return deepEquals((DeepEquality)me, (DeepEquality)other);
-        if ((me instanceof Collection) && (other instanceof Collection))
+        if ((me instanceof Collection<?>) && (other instanceof Collection<?>))
             return deepEquals((Collection)me, (Collection)other);
-        if ((me instanceof Map) && (other instanceof Map))
+        if ((me instanceof Map<?, ?>) && (other instanceof Map<?, ?>))
             return deepEquals((Map)me, (Map)other);
         return me.equals(other);
     }
@@ -219,7 +219,8 @@ public class EqualityHelper {
      * @throws ClassCastException if the collections contain elements that
      * are not mutually comparable.
      */
-    public boolean deepEquals(Collection mine, Collection other) {
+    @SuppressWarnings("unchecked")
+    public <T extends Comparable<T>> boolean deepEquals(Collection<T> mine, Collection<T> other) {
         if (mine == other)
             return true;
         if ((mine == null) || (other == null))
@@ -233,13 +234,13 @@ public class EqualityHelper {
             return true;
 
         // Now check the elements 
-        List myList = new ArrayList(mine);
+        List<T> myList = new ArrayList<>(mine);
         Collections.sort(myList);
-        List otherList = new ArrayList(other);
+        List<T> otherList = new ArrayList<>(other);
         /* Any collection of elements to be compared must implement Comparator
          * to avoid the other side having to implement Comparable. */
-        Comparator comparator = 
-                (Comparator)myList.get(0);
+        Comparator<T> comparator =
+                (Comparator<T>)myList.get(0);
         Collections.sort(otherList, comparator);
         for (int i = 0; i < myList.size(); i++) {
             if (!deepEquals(myList.get(i), otherList.get(i)))
@@ -259,7 +260,8 @@ public class EqualityHelper {
      * @throws ClassCastException if the maps contain keys or values that 
      * are not mutually comparable.
      */
-    public boolean deepEquals(Map mine, Map other) {
+    @SuppressWarnings("unchecked")
+    public <K,V> boolean deepEquals(Map<K,V> mine, Map<K,V> other) {
         if (mine == other)
             return true;
         if ((mine == null) || (other == null))
@@ -273,19 +275,19 @@ public class EqualityHelper {
             return true;
 
         // Now check the elements 
-        List myList = new ArrayList(mine.entrySet());
+        List<Map.Entry<K,V>> myList = new ArrayList<>(mine.entrySet());
         Collections.sort(myList, entryKeyComparator);
-        List otherList = new ArrayList(other.entrySet());
+        List<Map.Entry<K,V>> otherList = new ArrayList<>(other.entrySet());
         /* Any collection of elements to be compared must implement Comparator
          * to avoid the other side having to implement Comparable. */
-        Comparator comparator = 
-                (Comparator)((Map.Entry)myList.get(0)).getKey();
+        Comparator<K> comparator =
+                (Comparator<K>)((Map.Entry<V, K>)myList.get(0)).getKey();
         Collections.sort(otherList, 
-                new DeepEqualityEntryKeyComparator(comparator));
+                new DeepEqualityEntryKeyComparator<>(comparator));
 
         for (int i = 0; i < myList.size(); i++) {
-            Map.Entry entry1 = (Map.Entry)myList.get(i);
-            Map.Entry entry2 = (Map.Entry)otherList.get(i);
+            Map.Entry<K,V> entry1 = myList.get(i);
+            Map.Entry<K,V> entry2 = otherList.get(i);
             // compare the keys
             if (!deepEquals(entry1.getKey(), entry2.getKey()))
                 return false;
@@ -306,7 +308,8 @@ public class EqualityHelper {
      * @param other the other collection to be tested for shallow equality
      * @return <code>true</code> if the collections are deep equal.
      */
-    public boolean shallowEquals(Collection mine, Collection other) {
+    @SuppressWarnings("unchecked")
+    public <T extends Comparable<T>> boolean shallowEquals(Collection<T> mine, Collection<T> other) {
         if (mine == other)
             return true;
         if ((mine == null) || (other == null))
@@ -320,13 +323,13 @@ public class EqualityHelper {
             return true;
 
         // Now check the elements 
-        List myList = new ArrayList(mine);
+        List<T> myList = new ArrayList<>(mine);
         Collections.sort(myList);
-        List otherList = new ArrayList(other);
+        List<T> otherList = new ArrayList<>(other);
         /* Any collection of elements to be compared must implement Comparator
          * to avoid the other side having to implement Comparable. */
-        Comparator comparator = 
-                (Comparator)myList.get(0);
+        Comparator<T> comparator =
+                (Comparator<T>)myList.get(0);
         Collections.sort(otherList, comparator);
         return myList.equals(otherList);
     }
@@ -345,7 +348,7 @@ public class EqualityHelper {
     }
     
     String popContext() {
-        return (String)contextStack.pop();
+        return contextStack.pop();
     }
     
     /** Log differences between objects that don't compare equal.
@@ -355,19 +358,19 @@ public class EqualityHelper {
      */
     void logUnequal(Object o1, Object o2, String where) {
         unequalBuffer.append("Context: ");
-        Iterator it = contextStack.iterator();
-        StringBuffer offset = new StringBuffer("\n");
+        Iterator<String> it = contextStack.iterator();
+        StringBuilder offset = new StringBuilder("\n");
         while (it.hasNext()) {
             unequalBuffer.append(it.next());
             unequalBuffer.append("-> ");
             offset.append("    ");
         }
         unequalBuffer.append(where);
-        unequalBuffer.append(offset.toString());
+        unequalBuffer.append(offset);
         unequalBuffer.append("expected '");
         unequalBuffer.append(o1);
         unequalBuffer.append("'");
-        unequalBuffer.append(offset.toString());
+        unequalBuffer.append(offset);
         unequalBuffer.append("  actual '");
         unequalBuffer.append(o2);
         unequalBuffer.append("'\n");
@@ -385,11 +388,11 @@ public class EqualityHelper {
         if (me == other)
             return true;
         if (me == null) {
-            logUnequal(me, other, where + msgMeNull);
+            logUnequal(me, other, where + MSG_ME_NULL);
             return false;
         }
         if (other == null) {
-            logUnequal(me, other, where + msgOtherNull);
+            logUnequal(me, other, where + MSG_OTHER_NULL);
             return false;
         }
         if (isProcessed(me))
@@ -415,23 +418,24 @@ public class EqualityHelper {
      * @param where the location of the inequality (provided by the caller)
      * @return <code>true</code> if the objects are deep equal.
      */
-    public  boolean deepEquals(Object me, Object other, String where) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public boolean deepEquals(Object me, Object other, String where) {
         if (me == other)
             return true;
         if (me == null) {
-            logUnequal(me, other, where + msgMeNull);
+            logUnequal(me, other, where + MSG_ME_NULL);
             return false;
         }
         if (other == null) {
-            logUnequal(me, other, where + msgOtherNull);
+            logUnequal(me, other, where + MSG_OTHER_NULL);
             return false;
         }
         if (me instanceof DeepEquality) {
             return deepEquals((DeepEquality)me, other, where);
-        } else if ((me instanceof Collection) && (other instanceof Collection)) {
-            return deepEquals((Collection)me, (Collection)other, where);
-        } else if ((me instanceof Map) && (other instanceof Map)) {
-            return deepEquals((Map)me, (Map)other, where);
+        } else if ((me instanceof Collection<?>) && (other instanceof Collection<?>)) {
+            return deepEqualsCollection((Collection)me, (Collection)other, where);
+        } else if ((me instanceof Map<?, ?>) && (other instanceof Map<?, ?>)) {
+            return deepEqualsMap((Map)me, (Map)other, where);
         } else {
             return equals(me, other, where);
         }
@@ -450,16 +454,17 @@ public class EqualityHelper {
      * @throws ClassCastException if the collections contain elements that
      * are not mutually comparable.
      */
-    public boolean deepEquals(Collection me, Collection other, 
+    @SuppressWarnings("unchecked")
+    public <S extends Comparable<S>, T> boolean deepEqualsCollection(Collection<S> me, Collection<T> other,
             String where) {
         if (me == other)
             return true;
         if (me == null) {
-            logUnequal(me, other, where + msgMeNull);
+            logUnequal(me, other, where + MSG_ME_NULL);
             return false;
         }
         if (other == null) {
-            logUnequal(me, other, where + msgOtherNull);
+            logUnequal(me, other, where + MSG_OTHER_NULL);
             return false;
         }
         int mysize = me.size();
@@ -479,15 +484,15 @@ public class EqualityHelper {
             return true;
         
         // Now check each element for equality or deep equality
-        List myList = new ArrayList(me);
+        List<S> myList = new ArrayList<>(me);
         // Use the natural ordering of me; must implement Comparable
         Collections.sort(myList);
-        List otherList = new ArrayList(other);
+        List<T> otherList = new ArrayList<>(other);
         /* Any collection of elements to be compared must implement Comparator
          * to avoid the other side having to implement Comparable. */
-        Comparator comparator = 
-                (Comparator)myList.get(0);
-        Collections.sort(otherList, comparator);
+        Comparator<T> comparator =
+                (Comparator<T>)myList.get(0);
+        otherList.sort(comparator);
         boolean result = true;
         for (int i = 0; i < myList.size(); i++) {
             DeepEquality o1 = (DeepEquality)myList.get(i);
@@ -512,15 +517,16 @@ public class EqualityHelper {
      * @throws ClassCastException if the maps contain keys or values that 
      * are not mutually comparable.
      */
-    public boolean deepEquals(Map me, Map other, String where) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public <K,V> boolean deepEqualsMap(Map<K,V> me, Map<K,V> other, String where) {
         if (me == other)
             return true;
         if (me == null) {
-            logUnequal(me, other, where + msgMeNull);
+            logUnequal(me, other, where + MSG_ME_NULL);
             return false;
         }
         if (other == null) {
-            logUnequal(me, other, where + msgOtherNull);
+            logUnequal(me, other, where + MSG_OTHER_NULL);
             return false;
         }
 
@@ -541,13 +547,13 @@ public class EqualityHelper {
             return true;
         
         // Now check the elements 
-        List myList = new ArrayList(me.entrySet());
+        List<Map.Entry<K,V>> myList = new ArrayList<>(me.entrySet());
         // Use the natural ordering of me; must implement Comparable
         Collections.sort(myList, entryKeyComparator);
-        List otherList = new ArrayList(other.entrySet());
-        Comparator comparator = entryKeyComparator;
+        List<Map.Entry<K,V>> otherList = new ArrayList<>(other.entrySet());
+        Comparator<Map.Entry<?, ?>> comparator = entryKeyComparator;
         // Use the Comparator to avoid the other side implementing Comparable
-        Object key = ((Map.Entry)myList.get(0)).getKey();
+        Object key = myList.get(0).getKey();
         if (key instanceof Comparator) {
             comparator = new DeepEqualityEntryKeyComparator((Comparator)key);
         }
@@ -555,12 +561,12 @@ public class EqualityHelper {
 
         boolean result = true;
         for (int i = 0; i < myList.size(); i++) {
-            Map.Entry entry1 = (Map.Entry)myList.get(i);
+            Map.Entry<K,V> entry1 = myList.get(i);
             Object key1 = entry1.getKey();
             Object value1 = entry1.getValue();
-            Map.Entry entry2 = (Map.Entry)otherList.get(i);
-            Object key2 = entry2.getKey();
-            Object value2 = entry2.getValue();
+            Map.Entry<K,V> entry2 = otherList.get(i);
+            K key2 = entry2.getKey();
+            V value2 = entry2.getValue();
             // compare the keys
             if (!deepEquals(key1, key2, where + "[" + i + "].key")) {
                 result = false;
@@ -584,16 +590,17 @@ public class EqualityHelper {
      * @param where the location of the inequality (provided by the caller)
      * @return <code>true</code> if the collections are deep equal.
      */
-    public boolean shallowEquals(Collection me, Collection other, 
+    @SuppressWarnings("unchecked")
+    public <T extends Comparable<T>> boolean shallowEquals(Collection<T> me, Collection<T> other,
             String where) {
         if (me == other)
             return true;
         if (me == null) {
-            logUnequal(me, other, where + msgMeNull);
+            logUnequal(me, other, where + MSG_ME_NULL);
             return false;
         }
         if (other == null) {
-            logUnequal(me, other, where + msgOtherNull);
+            logUnequal(me, other, where + MSG_OTHER_NULL);
             return false;
         }
 
@@ -602,7 +609,7 @@ public class EqualityHelper {
         int othersize = other.size();
         if (mysize != othersize) {
             // debug size...
-            Iterator it = other.iterator();
+            Iterator<T> it = other.iterator();
             int count = 0; 
             while (it.hasNext()) { it.next(); ++count; }
                 logUnequal(me, other, 
@@ -617,13 +624,13 @@ public class EqualityHelper {
             return true;
 
         // Now check the elements 
-        List myList = new ArrayList(me);
+        List<T> myList = new ArrayList<>(me);
         Collections.sort(myList);
-        List otherList = new ArrayList(other);
+        List<T> otherList = new ArrayList<>(other);
         /* Any collection of elements to be compared must implement Comparator
          * to avoid the other side having to implement Comparable. */
-        Comparator comparator = 
-                (Comparator)myList.get(0);
+        Comparator<T> comparator =
+                (Comparator<T>)myList.get(0);
         Collections.sort(otherList, comparator);
         boolean result = myList.equals(otherList);
         if (!result) 
@@ -646,11 +653,11 @@ public class EqualityHelper {
         if (o1 == o2)
             return true;
         if (o1 == null) {
-            logUnequal(o1, o2, where + msgMeNull);
+            logUnequal(o1, o2, where + MSG_ME_NULL);
             return false;
         }
         if (o2 == null) {
-            logUnequal(o1, o2, where + msgOtherNull);
+            logUnequal(o1, o2, where + MSG_OTHER_NULL);
             return false;
         }
         if (!o1.equals(o2)) {
@@ -880,6 +887,6 @@ public class EqualityHelper {
      * argument is less than, equal to, or greater than the second. 
      */
     public static int compare (long l1, long l2) {
-        return (l1 < l2 ? -1 : (l1 == l2 ? 0 : 1));
+        return (Long.compare(l1, l2));
     }
 }

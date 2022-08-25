@@ -57,30 +57,26 @@ public class InstancesPersistedPriorToIterationReturned extends ExtentTest {
     /** */
     public void test() {
 
-        try {
-            beginTransaction();
-            getPM().setIgnoreCache(false);
-            Extent ex = getPM().getExtent (Employee.class, true);
-            addEmployee();
-            Iterator it = ex.iterator();
-            int count = countIterator(it);
-            rollbackTransaction();
+        beginTransaction();
+        getPM().setIgnoreCache(false);
+        Extent<Employee> ex = getPM().getExtent (Employee.class, true);
+        addEmployee();
+        Iterator<Employee> it = ex.iterator();
+        int count = countIterator(it);
+        rollbackTransaction();
 
-            beginTransaction();
-            Iterator it2 = ex.iterator();
-            int count2 = countIterator(it2);
-            commitTransaction();
-    
-            if (count != 3) {
-                fail(ASSERTION_FAILED,
-                     "Iterator: " + count + " should be 3");
-            }
-            if (count2 != 2) {
-                fail(ASSERTION_FAILED,
-                     "Iterator2: " + count2 + "should be 2");
-            }
-        } 
-        finally {
+        beginTransaction();
+        Iterator<Employee> it2 = ex.iterator();
+        int count2 = countIterator(it2);
+        commitTransaction();
+
+        if (count != 3) {
+            fail(ASSERTION_FAILED,
+                 "Iterator: " + count + " should be 3");
+        }
+        if (count2 != 2) {
+            fail(ASSERTION_FAILED,
+                 "Iterator2: " + count2 + "should be 2");
         }
     }
 }

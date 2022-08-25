@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
@@ -26,7 +25,6 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,7 +68,7 @@ public class ComparingCollectionFieldToNull extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.personid.eq(1L).and(cand.projects.eq(null)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -99,11 +97,11 @@ public class ComparingCollectionFieldToNull extends QueryTest {
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());
-        Employee employee = (Employee) getPersistentCompanyModelInstance("emp1");
+        Employee employee = getPersistentCompanyModelInstance(Employee.class,"emp1");
         expectedResult =
             // emp1 should be in the query result set,
             // if the JDO Implentation supports null values for Collections
-            getTransientCompanyModelInstancesAsList(
+            getTransientCompanyModelInstancesAsList(Employee.class,
                 isNullCollectionSupported() ? 
                     new String[]{"emp1"} : new String[]{});
         if (isNullCollectionSupported()) {

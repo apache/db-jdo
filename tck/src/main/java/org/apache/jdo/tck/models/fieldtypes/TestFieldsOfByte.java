@@ -76,8 +76,8 @@ public class TestFieldsOfByte extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Byte firstValue = Byte.valueOf((byte)Byte.MIN_VALUE);
-        Byte secondValue = Byte.valueOf((byte)Byte.MAX_VALUE);
+        Byte firstValue = Byte.valueOf(Byte.MIN_VALUE);
+        Byte secondValue = Byte.valueOf(Byte.MAX_VALUE);
         tx.begin();
         FieldsOfByte pi = new FieldsOfByte();
         pi.identifier = 1;
@@ -126,7 +126,7 @@ public class TestFieldsOfByte extends JDO_Test {
                 fail(ASSERTION_FAILED,
                      "Incorrect value for " + FieldsOfByte.fieldSpecs[i] +
                      ", expected value " + startValue.toString() +
-                     ", value is " + val.toString());
+                     ", value is " + val);
             }
         }
     }

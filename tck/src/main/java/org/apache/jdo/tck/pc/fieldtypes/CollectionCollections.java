@@ -18,53 +18,57 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Locale;
 
 public class CollectionCollections { 
   public int identifier;
-  public Collection CollectionOfObject0;
-  public Collection CollectionOfObject1;
-  public Collection CollectionOfObject2;
-  public Collection CollectionOfSimpleClass3;
-  public Collection CollectionOfSimpleClass4;
-  public Collection CollectionOfSimpleClass5;
-  public Collection CollectionOfSimpleInterface6;
-  public Collection CollectionOfSimpleInterface7;
-  public Collection CollectionOfSimpleInterface8;
-  public Collection CollectionOfString9;
-  public Collection CollectionOfString10;
-  public Collection CollectionOfString11;
-  public Collection CollectionOfDate12;
-  public Collection CollectionOfDate13;
-  public Collection CollectionOfDate14;
-  public Collection CollectionOfLocale15;
-  public Collection CollectionOfLocale16;
-  public Collection CollectionOfLocale17;
-  public Collection CollectionOfBigDecimal18;
-  public Collection CollectionOfBigDecimal19;
-  public Collection CollectionOfBigDecimal20;
-  public Collection CollectionOfBigInteger21;
-  public Collection CollectionOfBigInteger22;
-  public Collection CollectionOfBigInteger23;
-  public Collection CollectionOfByte24;
-  public Collection CollectionOfByte25;
-  public Collection CollectionOfByte26;
-  public Collection CollectionOfDouble27;
-  public Collection CollectionOfDouble28;
-  public Collection CollectionOfDouble29;
-  public Collection CollectionOfFloat30;
-  public Collection CollectionOfFloat31;
-  public Collection CollectionOfFloat32;
-  public Collection CollectionOfInteger33;
-  public Collection CollectionOfInteger34;
-  public Collection CollectionOfInteger35;
-  public Collection CollectionOfLong36;
-  public Collection CollectionOfLong37;
-  public Collection CollectionOfLong38;
-  public Collection CollectionOfShort39;
-  public Collection CollectionOfShort40;
-  public Collection CollectionOfShort41;
-  public Collection CollectionOfSimpleClass42;
+  public Collection<Object> CollectionOfObject0;
+  public Collection<Object> CollectionOfObject1;
+  public Collection<Object> CollectionOfObject2;
+  public Collection<SimpleClass> CollectionOfSimpleClass3;
+  public Collection<SimpleClass> CollectionOfSimpleClass4;
+  public Collection<SimpleClass> CollectionOfSimpleClass5;
+  public Collection<SimpleInterface> CollectionOfSimpleInterface6;
+  public Collection<SimpleInterface> CollectionOfSimpleInterface7;
+  public Collection<SimpleInterface> CollectionOfSimpleInterface8;
+  public Collection<String> CollectionOfString9;
+  public Collection<String> CollectionOfString10;
+  public Collection<String> CollectionOfString11;
+  public Collection<Date> CollectionOfDate12;
+  public Collection<Date> CollectionOfDate13;
+  public Collection<Date> CollectionOfDate14;
+  public Collection<Locale> CollectionOfLocale15;
+  public Collection<Locale> CollectionOfLocale16;
+  public Collection<Locale> CollectionOfLocale17;
+  public Collection<BigDecimal> CollectionOfBigDecimal18;
+  public Collection<BigDecimal> CollectionOfBigDecimal19;
+  public Collection<BigDecimal> CollectionOfBigDecimal20;
+  public Collection<BigInteger> CollectionOfBigInteger21;
+  public Collection<BigInteger> CollectionOfBigInteger22;
+  public Collection<BigInteger> CollectionOfBigInteger23;
+  public Collection<Byte> CollectionOfByte24;
+  public Collection<Byte> CollectionOfByte25;
+  public Collection<Byte> CollectionOfByte26;
+  public Collection<Double> CollectionOfDouble27;
+  public Collection<Double> CollectionOfDouble28;
+  public Collection<Double> CollectionOfDouble29;
+  public Collection<Float> CollectionOfFloat30;
+  public Collection<Float> CollectionOfFloat31;
+  public Collection<Float> CollectionOfFloat32;
+  public Collection<Integer> CollectionOfInteger33;
+  public Collection<Integer> CollectionOfInteger34;
+  public Collection<Integer> CollectionOfInteger35;
+  public Collection<Long> CollectionOfLong36;
+  public Collection<Long> CollectionOfLong37;
+  public Collection<Long> CollectionOfLong38;
+  public Collection<Short> CollectionOfShort39;
+  public Collection<Short> CollectionOfShort40;
+  public Collection<Short> CollectionOfShort41;
+  public Collection<SimpleClass> CollectionOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public Collection CollectionOfObject0",
@@ -115,7 +119,7 @@ public class CollectionCollections {
   {
     return fieldSpecs.length;
   }
-  public Collection get(int index)
+  public Collection<?> get(int index)
   {
     switch (index)
     {
@@ -209,7 +213,9 @@ public class CollectionCollections {
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index,Collection value)
+
+  @SuppressWarnings("unchecked")
+  public boolean set(int index, @SuppressWarnings("rawtypes") Collection value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -351,6 +357,9 @@ public class CollectionCollections {
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -360,7 +369,7 @@ public class CollectionCollections {
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

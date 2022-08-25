@@ -47,7 +47,7 @@ import java.text.ParseException;
  */
 public class SignatureTest extends JDO_Test {
 
-    private static String newLine = System.getProperty("line.separator");
+    private static final String NEWLINE = System.getProperty("line.separator");
 
     /** */
     private static final String ASSERTION_FAILED = 
@@ -91,15 +91,15 @@ public class SignatureTest extends JDO_Test {
             }
 
             // run the test
-            final List signatureFileNames = new ArrayList();
+            final List<String> signatureFileNames = new ArrayList<>();
             signatureFileNames.add(signatureFileName);
             int status = verifier.test(signatureFileNames);
             
             // print test's output in case of problems or debugging
             if (status != 0) {
                 fail(ASSERTION_FAILED,
-                     ("Found problems or signature descrepancies." + newLine
-                      + "Test Output: " + newLine + sw.toString()));
+                     ("Found problems or signature descrepancies." + NEWLINE
+                      + "Test Output: " + NEWLINE + sw));
                 logger.debug(sw.toString());
             }
             
@@ -107,14 +107,10 @@ public class SignatureTest extends JDO_Test {
             if (debug) {
                 logger.debug(sw.toString());
             }
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             fail(ASSERTION_FAILED,
-                 ("Exception caught: " + ex + newLine
-                  + "Test Output: " + newLine + sw.toString()));
-        } catch (ParseException ex) {
-            fail(ASSERTION_FAILED,
-                 ("Exception caught: " + ex + newLine
-                  + "Test Output: " + newLine + sw.toString()));
+                 ("Exception caught: " + ex + NEWLINE
+                  + "Test Output: " + NEWLINE + sw));
         }
     }
 }

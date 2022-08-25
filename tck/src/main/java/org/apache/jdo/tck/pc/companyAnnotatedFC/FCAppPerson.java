@@ -22,8 +22,6 @@ import javax.jdo.annotations.*;
 
 import java.io.Serializable;
 
-import java.text.SimpleDateFormat;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -36,6 +34,8 @@ import org.apache.jdo.tck.util.DeepEquality;
 
 import org.apache.jdo.tck.util.EqualityHelper;
 import org.apache.jdo.tck.pc.compositeAnnotation.ApplicationIdDiscriminatorClassName;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
+
 /**
  * This class represents a person.
  */
@@ -44,7 +44,9 @@ import org.apache.jdo.tck.pc.compositeAnnotation.ApplicationIdDiscriminatorClass
 @ApplicationIdDiscriminatorClassName
 
 public class FCAppPerson
-    implements IPerson, Serializable, Comparable, Comparator, DeepEquality  {
+    implements IPerson, Serializable, Comparable<IPerson>, Comparator<IPerson>, DeepEquality  {
+
+    private static final long serialVersionUID = 1L;
 
     @PrimaryKey
     @Column(name="PERSONID")
@@ -75,10 +77,7 @@ public class FCAppPerson
     @Join(column="EMPID")
     @Key(types=java.lang.String.class, column="TYPE")
     @Value(types=java.lang.String.class, column="PHONENO")
-    private Map phoneNumbers = new HashMap();
-    
-    protected static SimpleDateFormat formatter =
-        new SimpleDateFormat("d/MMM/yyyy");
+    private Map<String, String> phoneNumbers = new HashMap<>();
 
     /** This is the JDO-required no-args constructor. */
     protected FCAppPerson() {}
@@ -227,7 +226,7 @@ public class FCAppPerson
      * Get the map of phone numbers as an unmodifiable map.
      * @return The map of phone numbers, as an unmodifiable map.
      */
-    public Map getPhoneNumbers() {
+    public Map<String, String> getPhoneNumbers() {
         return Collections.unmodifiableMap(phoneNumbers);
     }
 
@@ -238,7 +237,7 @@ public class FCAppPerson
      * <code>null</code> if there was no phone number for the type. 
      */
     public String getPhoneNumber(String type) {
-        return (String)phoneNumbers.get(type);
+        return phoneNumbers.get(type);
     }
     
     /**
@@ -250,7 +249,7 @@ public class FCAppPerson
      * <code>null</code> if there was no phone number for the type. 
      */
     public String putPhoneNumber(String type, String phoneNumber) {
-        return (String)phoneNumbers.put(type, phoneNumber);
+        return phoneNumbers.put(type, phoneNumber);
     }
 
     /**
@@ -260,18 +259,18 @@ public class FCAppPerson
      * <code>null</code> if there was no phone number for the type. 
      */
     public String removePhoneNumber(String type) {
-        return (String)phoneNumbers.remove(type);
+        return phoneNumbers.remove(type);
     }
 
     /**
      * Set the phoneNumber map to be in this person.
      * @param phoneNumbers The map of phoneNumbers for this person.
      */
-    public void setPhoneNumbers(Map phoneNumbers) {
+    public void setPhoneNumbers(Map<String, String> phoneNumbers) {
         // workaround: create a new HashMap, because fostore does not
         // support LinkedHashMap
         this.phoneNumbers = 
-            (phoneNumbers != null) ? new HashMap(phoneNumbers) : null;
+            (phoneNumbers != null) ? new HashMap<>(phoneNumbers) : null;
     }
 
     /**
@@ -288,12 +287,11 @@ public class FCAppPerson
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(personid);
         rc.append(", ").append(lastname);
         rc.append(", ").append(firstname);
-        rc.append(", born ").append(
-            birthdate==null ? "null" : formatter.format(birthdate));
+        rc.append(", born ").append(JDOCustomDateEditor.getDateRepr(birthdate));
         rc.append(", phone ").append(phoneNumbers);
         return rc.toString();
     }
@@ -325,27 +323,6 @@ public class FCAppPerson
             helper.deepEquals(phoneNumbers, otherPerson.getPhoneNumbers(), where + ".phoneNumbers");
     }
 
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((FCAppPerson)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((FCAppPerson)o1, (FCAppPerson)o2);
-    }
-
     /**
      * 
      * Compares this object with the specified FCAppPerson object for
@@ -358,7 +335,7 @@ public class FCAppPerson
      * object is less than, equal to, or greater than the specified FFCAppPerson
      * object.
      */
-    public int compareTo(FCAppPerson other) {
+    public int compareTo(IPerson other) {
         return compare(this, other);
     }
 
@@ -371,7 +348,7 @@ public class FCAppPerson
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(FCAppPerson o1, FCAppPerson o2) {
+    public int compare(IPerson o1, IPerson o2) {
         return EqualityHelper.compare(o1.getPersonid(), o2.getPersonid());
     }
     
@@ -399,7 +376,9 @@ public class FCAppPerson
      * This class is used to represent the application identifier
      * for the <code>Person</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the <code>Person</code>
@@ -444,12 +423,8 @@ public class FCAppPerson
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( personid < other.personid ) return -1;
-            if( personid > other.personid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(personid, obj.personid);
         }
 
     }

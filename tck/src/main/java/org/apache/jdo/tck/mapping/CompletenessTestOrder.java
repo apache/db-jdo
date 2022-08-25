@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.mapping;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.jdo.tck.AbstractReaderTest;
@@ -65,11 +64,10 @@ public class CompletenessTestOrder extends AbstractReaderTest {
             addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
-            List rootList = getRootList(reader);
+            List<Object> rootList = getRootList(reader);
             pm.makePersistentAll(rootList);
-            rootOids = new ArrayList();
-            for (Iterator i = rootList.iterator(); i.hasNext(); ) {
-                Object pc = i.next();
+            rootOids = new ArrayList<>();
+            for (Object pc : rootList) {
                 rootOids.add(pm.getObjectId(pc));
             }
             pm.currentTransaction().commit();
@@ -84,13 +82,13 @@ public class CompletenessTestOrder extends AbstractReaderTest {
             OrderFactoryRegistry.registerFactory();
             // get new obj graph to compare persistent graph with
             OrderModelReader reader = new OrderModelReader(inputFilename);
-            List rootList = getRootList(reader);
+            List<Object> rootList = getRootList(reader);
             
             getPM();
             pm.currentTransaction().begin();
             // compare persisted and new
             int size = rootList.size();
-            StringBuffer msg = new StringBuffer();
+            StringBuilder msg = new StringBuilder();
             for (int i = 0; i < size; i++) {
                 DeepEquality expected = (DeepEquality) rootList.get(i);
                 Object oid = rootOids.get(i);

@@ -17,10 +17,6 @@
  
 package org.apache.jdo.tck.query.api;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
@@ -71,8 +67,7 @@ public class DeclareVariables extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(Department.class);
+            Query<Department> query = pm.newQuery(Department.class);
             query.setCandidates(pm.getExtent(Department.class, false));
             query.declareVariables("org.apache.jdo.tck.pc.company.Employee e" );
             query.setFilter("employees.contains(e) && e.firstname==\"Michael\"" );
@@ -95,8 +90,7 @@ public class DeclareVariables extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(Department.class);
+            Query<Department> query = pm.newQuery(Department.class);
             query.setCandidates(pm.getExtent(Department.class, false));
             query.declareVariables("org.apache.jdo.tck.pc.company.Employee e; org.apache.jdo.tck.pc.company.Project p;");
             query.setFilter("employees.contains(e) && (e.projects.contains(p) && p.projid == 1)");

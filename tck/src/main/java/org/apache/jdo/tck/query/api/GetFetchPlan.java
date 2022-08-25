@@ -44,8 +44,8 @@ public class GetFetchPlan extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-21 (FetchPan) failed: ";
 
-    private String FETCH_GROUP_1 = "fetchGroup1";
-    private String FETCH_GROUP_2 = "fetchGroup2";
+    private static final String FETCH_GROUP_1 = "fetchGroup1";
+    private static final String FETCH_GROUP_2 = "fetchGroup2";
 
     /**
      * The <code>main</code> is called when the class
@@ -57,8 +57,8 @@ public class GetFetchPlan extends QueryTest {
     }
 
     /** */
-    private Query createQuery() {
-        Query query = getPM().newQuery(PCClass.class, "true");
+    private Query<PCClass> createQuery() {
+        Query<PCClass> query = getPM().newQuery(PCClass.class, "true");
         query.getFetchPlan().setGroup(FETCH_GROUP_1);
         return query;
     }
@@ -66,7 +66,7 @@ public class GetFetchPlan extends QueryTest {
     /** */
     public void testFetchGroup1() {
         // localSetUp closes the PM
-        Query query = createQuery();
+        Query<PCClass> query = createQuery();
         checkSameFetchPlanInstances(query);
         checkFetchGroup1(query);
         cleanupPM();
@@ -74,12 +74,12 @@ public class GetFetchPlan extends QueryTest {
 
     public void testFetchGroup2() {
         // localSetUp closes the PM
-        Query query = createQuery();
+        Query<PCClass> query = createQuery();
         checkFetchGroup2(query);
         checkFetchGroup1(query);
     }
 
-    private void checkSameFetchPlanInstances(Query query) {
+    private void checkSameFetchPlanInstances(Query<PCClass> query) {
         FetchPlan fetchPlan1 = query.getFetchPlan();
         FetchPlan fetchPlan2 = query.getFetchPlan();
         if (fetchPlan1 != fetchPlan2) {
@@ -93,9 +93,10 @@ public class GetFetchPlan extends QueryTest {
      * assigned to fetchGroup1
      * @param query the query
      */
-    private void checkFetchGroup1(Query query) {
+    @SuppressWarnings("unchecked")
+    private void checkFetchGroup1(Query<PCClass> query) {
         FetchPlan fetchplan = query.getFetchPlan();
-        Collection fetchgroups = fetchplan.getGroups();
+        Collection<String> fetchgroups = fetchplan.getGroups();
         assertTrue("FetchPlan should include fetchGroup1 and not fetchGroup2",
                 fetchgroups.contains(FETCH_GROUP_1) && 
                 !fetchgroups.contains(FETCH_GROUP_2));
@@ -110,10 +111,11 @@ public class GetFetchPlan extends QueryTest {
      * Finally, that fetch group is removed from the fetch plan again.
      * @param query the query
      */
-    private void checkFetchGroup2(Query query) {
+    @SuppressWarnings("unchecked")
+    private void checkFetchGroup2(Query<PCClass> query) {
         FetchPlan fetchplan = query.getFetchPlan();
         fetchplan.addGroup(FETCH_GROUP_2);
-        Collection fetchgroups = fetchplan.getGroups();
+        Collection<String> fetchgroups = fetchplan.getGroups();
         try {
             assertTrue("FetchPlan should include fetchGroup1 and fetchGroup2",
                        fetchgroups.contains(FETCH_GROUP_1) && 

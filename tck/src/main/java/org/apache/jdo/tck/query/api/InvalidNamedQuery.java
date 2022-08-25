@@ -55,7 +55,7 @@ public class InvalidNamedQuery extends QueryTest {
             getPM().newNamedQuery(Person.class, "invalidQuery");
             fail(ASSERTION_FAILED + "Lookup of named query 'invalidQuery' " +
                     " succeeded, though the query is not compilable.");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
 }

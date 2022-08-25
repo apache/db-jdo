@@ -20,18 +20,10 @@ package org.apache.jdo.tck.api.instancecallbacks;
 import java.util.Date;
 
 import javax.jdo.listener.DeleteCallback;
-import javax.jdo.JDOHelper;
 
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.DeleteLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
-
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
-
 
 /**
  * <B>Title:</B> Test TestInstanceLifecycleListenerDelete
@@ -60,7 +52,7 @@ public class InstanceLifecycleListenerDelete
     /**
      * The InstanceLifecycleListener used for this test
      */
-    InstanceLifecycleListenerImpl listener = 
+    private final InstanceLifecycleListenerImpl listener =
             new InstanceLifecycleListenerDeleteImpl();
 
     /** Return the listener.
@@ -72,11 +64,12 @@ public class InstanceLifecycleListenerDelete
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PC.class};
+    @SuppressWarnings("rawtypes")
+    private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 
@@ -109,9 +102,9 @@ public class InstanceLifecycleListenerDelete
 
         // now check the callback and listeners were called
         listener.verifyCallbacks(ASSERTION7_FAILED, (new int[] {
-                listener.PRE_DELETE_LISTENER,
-                listener.PRE_DELETE_CALLBACK,
-                listener.POST_DELETE_LISTENER}));
+                InstanceLifecycleListenerImpl.PRE_DELETE_LISTENER,
+                InstanceLifecycleListenerImpl.PRE_DELETE_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_DELETE_LISTENER}));
     }
     
     /** 
@@ -121,6 +114,7 @@ public class InstanceLifecycleListenerDelete
     private static class InstanceLifecycleListenerDeleteImpl 
             extends InstanceLifecycleListenerImpl {
 
+        @Override
         public void preDelete(InstanceLifecycleEvent event) {
             notifyEvent(PRE_DELETE_LISTENER);
             checkEventType(ASSERTION7_FAILED,
@@ -132,6 +126,7 @@ public class InstanceLifecycleListenerDelete
                     expectedSource);
         }
 
+        @Override
         public void postDelete(InstanceLifecycleEvent event) {
             notifyEvent(POST_DELETE_LISTENER);
             checkEventType(ASSERTION8_FAILED,
@@ -159,7 +154,7 @@ public class InstanceLifecycleListenerDelete
 
         public void jdoPreDelete() {
             if (listener != null) {
-                listener.notifyEvent(listener.PRE_DELETE_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.PRE_DELETE_CALLBACK);
             }
         }
     }

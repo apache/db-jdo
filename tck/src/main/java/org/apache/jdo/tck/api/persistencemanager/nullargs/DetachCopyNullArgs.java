@@ -20,11 +20,8 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -49,18 +46,21 @@ public class DetachCopyNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(DetachCopyNullArgs.class);
     }
 
-    static MethodUnderTest detachCopy = new MethodUnderTestDetachCopy();
+    static final MethodUnderTest detachCopy = new MethodUnderTestDetachCopy();
     static class MethodUnderTestDetachCopy extends MethodUnderTest {
+        @Override
         public Object pmApiReturn(PersistenceManager pm, Object pc) {
             return pm.detachCopy(pc);
         }
-        public Collection pmApiReturn(PersistenceManager pm, Collection pcs) {
+        @Override
+        public <T> Collection<T> pmApiReturn(PersistenceManager pm, Collection<T> pcs) {
             return pm.detachCopyAll(pcs);
         }
+        @Override
         public Object[] pmApiReturn(PersistenceManager pm, Object[] pcs) {
             return pm.detachCopyAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that detachCopy() with null valued argument does nothing.

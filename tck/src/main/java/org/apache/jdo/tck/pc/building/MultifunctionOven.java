@@ -23,6 +23,8 @@ import java.io.Serializable;
  */
 public class MultifunctionOven extends Oven implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /** Whether this oven provides a microwave. */
     protected boolean microwave;
 
@@ -49,6 +51,7 @@ public class MultifunctionOven extends Oven implements Serializable {
     	return capabilities;
     }
 
+    @Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

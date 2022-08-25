@@ -21,12 +21,12 @@ package org.apache.jdo.tck.pc.fieldtypes;
 
 public interface SimpleInterface
 {
-  public void setIntValue(int intField);
+  void setIntValue(int intField);
 
-  public int getIntValue();
+  int getIntValue();
 
-  public void setStringValue(String stringField);
+  void setStringValue(String stringField);
 
-  public String getStringValue();
+  String getStringValue();
 
 }

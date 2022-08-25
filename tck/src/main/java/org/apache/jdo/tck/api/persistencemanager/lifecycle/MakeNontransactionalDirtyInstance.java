@@ -19,7 +19,6 @@ package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
@@ -71,10 +70,10 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
     private PCPoint c6 = null;
     private PCPoint c7 = null;
 
-    private Collection pcol1 = new HashSet();
-    private Collection pcol2 = new HashSet();
-    private Collection ccol1 = new HashSet();
-    private Collection ccol2 = new HashSet();
+    private final Collection<PCPoint> pcol1 = new HashSet<>();
+    private final Collection<PCPoint> pcol2 = new HashSet<>();
+    private final Collection<PCPoint> ccol1 = new HashSet<>();
+    private final Collection<PCPoint> ccol2 = new HashSet<>();
 
     /** */
     public void testMakeNontransactional() {
@@ -202,7 +201,8 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
     }
 
     /** */
-    private void runTestMakeNontransactionalDirtyInstanceAll1(PersistenceManager pm, Collection tcol, String state) {
+    private void runTestMakeNontransactionalDirtyInstanceAll1(
+            PersistenceManager pm, Collection<PCPoint> tcol, String state) {
         Transaction tx = pm.currentTransaction();
         boolean stopFlag = false;
         try {
@@ -211,10 +211,8 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
             int curr;
             tx.begin();
 
-            Iterator iter = tcol.iterator();
-            while (iter.hasNext()) {
-                PCPoint p = (PCPoint) iter.next();
-                if (makeAndTestDirtyInstance(p,state))
+            for (PCPoint p : tcol) {
+                if (makeAndTestDirtyInstance(p, state))
                     stopFlag = true;
             }
 
@@ -239,7 +237,7 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
 
     /** */
     private void runTestMakeNontransactionalDirtyInstanceAll2(PersistenceManager pm, 
-                                                              Collection tcol, 
+                                                              Collection<PCPoint> tcol,
                                                               String state) {
         Transaction tx = pm.currentTransaction();
         boolean stopFlag = false;
@@ -248,10 +246,8 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
                 logger.debug(" ** in testMakeNontransactionalDirtyInstanceAll2()");
             tx.begin();
 
-            Iterator iter = tcol.iterator();
-            while (iter.hasNext()) {
-                PCPoint p = (PCPoint) iter.next();
-                if (makeAndTestDirtyInstance(p,state))
+            for (PCPoint p : tcol) {
+                if (makeAndTestDirtyInstance(p, state))
                     stopFlag = true;
             }
 

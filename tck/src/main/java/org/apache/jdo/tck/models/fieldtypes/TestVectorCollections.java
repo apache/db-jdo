@@ -19,7 +19,6 @@ package org.apache.jdo.tck.models.fieldtypes;
 
 import java.math.BigDecimal;
 
-import java.util.Collection;
 import java.util.Vector;
 
 import javax.jdo.PersistenceManager;
@@ -129,7 +128,7 @@ public class TestVectorCollections extends JDO_Test {
     /** */
     private void setValues(VectorCollections collect, int order)
     {
-        Vector value;
+        Vector<?> value;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
@@ -144,13 +143,13 @@ public class TestVectorCollections extends JDO_Test {
     /** */
     private void checkValues(Object oid, VectorCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         VectorCollections pi = (VectorCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; i++) {
-            Vector expected = expectedValue.get(i);
-            Vector actual = pi.get(i);
+            Vector<?> expected = expectedValue.get(i);
+            Vector<?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -185,7 +184,7 @@ public class TestVectorCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

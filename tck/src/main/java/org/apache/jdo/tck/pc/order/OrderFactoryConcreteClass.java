@@ -28,7 +28,8 @@ import javax.jdo.PersistenceManager;
 public  class OrderFactoryConcreteClass implements OrderFactory {
 
     /** */
-    public static final Class[] tearDownClasses = new Class[] {
+    @SuppressWarnings("rawtypes")
+    public static final Class<?>[] tearDownClasses = new Class[] {
         Order.class, OrderItem.class
     };
 
@@ -46,7 +47,7 @@ public  class OrderFactoryConcreteClass implements OrderFactory {
         return new Order(orderId, customerId);
     }
 
-    public Order newOrder(long orderId, Set items, long customerId) { 
+    public Order newOrder(long orderId, Set<OrderItem> items, long customerId) {
         return new Order(orderId, items, customerId);
     }
 
@@ -55,7 +56,7 @@ public  class OrderFactoryConcreteClass implements OrderFactory {
         return new OrderItem(order, item, description, quantity);
     }
 
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return tearDownClasses;
     }
 }

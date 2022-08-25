@@ -20,7 +20,6 @@ package org.apache.jdo.tck.query.delete;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Insurance;
 import org.apache.jdo.tck.query.QueryTest;
@@ -89,6 +88,7 @@ public class DeletePersistentAll extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testNoParametersSingleString() {
         Transaction tx = pm.currentTransaction();
         Query<Insurance> query = null;
@@ -146,6 +146,7 @@ public class DeletePersistentAll extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testObjectArrayParametersSingleString() {
         Transaction tx = pm.currentTransaction();
         Query<Insurance> query = null;
@@ -185,7 +186,7 @@ public class DeletePersistentAll extends QueryTest {
                                        "WHERE carrier == param PARAMETERS String param";
             query = pm.newQuery(Insurance.class, "carrier == param");
             query.declareParameters("String param");
-            Map parameters = new HashMap();
+            Map<String, Object> parameters = new HashMap<>();
             parameters.put("param", "Carrier1");
             long expectedNrOfDeletedObjects = 2;
             long nr = query.deletePersistentAll(parameters);
@@ -206,6 +207,7 @@ public class DeletePersistentAll extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testMapParametersSingleString() {
         Transaction tx = pm.currentTransaction();
         Query<Insurance> query = null;
@@ -215,7 +217,7 @@ public class DeletePersistentAll extends QueryTest {
             String singleStringQuery = "SELECT FROM org.apache.jdo.tck.pc.company.Insurance " +
                                        "WHERE carrier == param PARAMETERS String param";
             query = pm.newQuery(singleStringQuery);
-            Map parameters = new HashMap();
+            Map<String, Object> parameters = new HashMap<>();
             parameters.put("param", "Carrier1");
             long expectedNrOfDeletedObjects = 2;
             long nr = query.deletePersistentAll(parameters);

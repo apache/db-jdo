@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.util;
 
 import java.util.Collection;
-import java.util.Iterator;
 import javax.jdo.PersistenceManagerFactory;
 
 public class GetSupportedOptions {
@@ -30,14 +29,12 @@ public class GetSupportedOptions {
             System.exit(-1);
         }
         String PMFclassname = args[0];
-        Class PMFclass = Class.forName(PMFclassname);
-        PersistenceManagerFactory pmf = (PersistenceManagerFactory) PMFclass.newInstance();
-        Collection options = pmf.supportedOptions();
+        Class<?> PMFclass = Class.forName(PMFclassname);
+        PersistenceManagerFactory pmf = (PersistenceManagerFactory) PMFclass.getDeclaredConstructor().newInstance();
+        Collection<String> options = pmf.supportedOptions();
         System.out.println("Supported options are:");
-        Iterator iter = options.iterator();
-        while( iter.hasNext() ){
-            String val = (String) iter.next();
-            System.out.println(val);        
+        for (String val : options) {
+            System.out.println(val);
         }
     }
 

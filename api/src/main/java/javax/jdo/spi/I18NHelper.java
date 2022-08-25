@@ -50,17 +50,15 @@ public class I18NHelper {
 
     /** Bundles that have already been loaded 
      */
-    private static Hashtable<String,ResourceBundle>
-            bundles = new Hashtable<String,ResourceBundle>();
+    private static final Hashtable<String,ResourceBundle> bundles = new Hashtable<>();
     
     /** Helper instances that have already been created 
      */
-    private static Hashtable<String,I18NHelper>
-            helpers = new Hashtable<String,I18NHelper>();
+    private static final Hashtable<String,I18NHelper> helpers = new Hashtable<>();
     
     /** The default locale for this VM.
      */
-    private static Locale       locale = Locale.getDefault();
+    private static final Locale locale = Locale.getDefault();
 
     /** The bundle used by this instance of the helper.
      */
@@ -71,7 +69,7 @@ public class I18NHelper {
     private Throwable           failure = null;
 
     /** The unqualified standard name of a bundle. */
-    private static final String bundleSuffix = ".Bundle";    // NOI18N
+    private static final String BUNDLE_SUFFIX = ".Bundle";    // NOI18N
 
     /** Constructor */
     private I18NHelper() {
@@ -107,15 +105,9 @@ public class I18NHelper {
      * @param cls the class object from which to load the resource bundle
      * @return the helper instance bound to the bundle
      */
-    public static I18NHelper getInstance (final Class cls) {
-        ClassLoader classLoader = doPrivileged (
-            new PrivilegedAction<ClassLoader> () {
-                public ClassLoader run () {
-                    return cls.getClassLoader();
-                }
-            }
-            );
-        String bundle = getPackageName (cls.getName()) + bundleSuffix;
+    public static I18NHelper getInstance (final Class<?> cls) {
+        ClassLoader classLoader = doPrivileged (cls::getClassLoader);
+        String bundle = getPackageName (cls.getName()) + BUNDLE_SUFFIX;
         return getInstance (bundle, classLoader);
     }
 
@@ -129,7 +121,7 @@ public class I18NHelper {
      */
     public static I18NHelper getInstance (String bundleName, 
                                           ClassLoader loader) {
-        I18NHelper helper = (I18NHelper) helpers.get (bundleName);
+        I18NHelper helper = helpers.get (bundleName);
         if (helper != null) {
             return helper;
         }
@@ -137,7 +129,7 @@ public class I18NHelper {
         helpers.put (bundleName, helper);
         // if two threads simultaneously create the same helper, return the first
         // one to be put into the Hashtable.  The other will be garbage collected.
-        return (I18NHelper) helpers.get (bundleName);
+        return helpers.get (bundleName);
     }
 
     /** Message formatter
@@ -229,9 +221,9 @@ public class I18NHelper {
      * @param loader the class loader from which to load the resource bundle
      * @return  the ResourceBundle
      */
-    final private static ResourceBundle loadBundle(
+    private static ResourceBundle loadBundle(
         String bundleName, ClassLoader loader) {
-        ResourceBundle messages = (ResourceBundle)bundles.get(bundleName);
+        ResourceBundle messages = bundles.get(bundleName);
 
         if (messages == null) //not found as loaded - add
         {
@@ -278,7 +270,7 @@ public class I18NHelper {
      * @param messageKey the message key
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, String messageKey) 
+    private static String getMessage(ResourceBundle messages, String messageKey)
     {
         return messages.getString(messageKey);
     }
@@ -290,7 +282,7 @@ public class I18NHelper {
      * @param msgArgs an array of arguments to substitute into the message
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, Object[] msgArgs) 
     {
         for (int i=0; i<msgArgs.length; i++) {
@@ -307,7 +299,7 @@ public class I18NHelper {
      * @param arg the argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, Object arg) 
     {
         Object []args = {arg};
@@ -322,7 +314,7 @@ public class I18NHelper {
      * @param arg2 the second argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, Object arg1, Object arg2) 
     {
         Object []args = {arg1, arg2};
@@ -338,7 +330,7 @@ public class I18NHelper {
      * @param arg3 the third argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, Object arg1, Object arg2, Object arg3) 
     {
         Object []args = {arg1, arg2, arg3};
@@ -352,7 +344,7 @@ public class I18NHelper {
      * @param arg the argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, int arg) 
     {
         Object []args = {Integer.valueOf(arg)};
@@ -366,7 +358,7 @@ public class I18NHelper {
      * @param arg the argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, boolean arg) 
     {
         Object []args = {String.valueOf(arg)};
@@ -379,7 +371,7 @@ public class I18NHelper {
      * package 
      * @return package portion of the specified class
      */   
-    final private static String getPackageName(final String className)
+    private static String getPackageName(final String className)
     { 
         final int index = className.lastIndexOf('.');
         return ((index != -1) ? className.substring(0, index) : ""); // NOI18N
@@ -390,13 +382,7 @@ public class I18NHelper {
      * block because of security.
      */
     private static ClassLoader getSystemClassLoaderPrivileged() {
-        return doPrivileged (
-            new PrivilegedAction<ClassLoader> () {
-                public ClassLoader run () {
-                    return ClassLoader.getSystemClassLoader();
-                }
-            }
-        );
+        return doPrivileged (ClassLoader::getSystemClassLoader);
     }
 
     @SuppressWarnings("unchecked")

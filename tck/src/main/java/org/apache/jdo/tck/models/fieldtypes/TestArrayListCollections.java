@@ -128,17 +128,17 @@ public class TestArrayListCollections extends JDO_Test {
     /** */
     private void setValues(ArrayListCollections collect, int order)
     {
-        Collection value;
+        Collection<?> value;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
                     ArrayListCollections.fieldSpecs[i]);
-            value = (Collection)TestUtil.makeNewVectorInstance(
+            value = (Collection<?>)TestUtil.makeNewVectorInstance(
                     valueType, order);
-            ArrayList arrayListValue = new ArrayList(value);
+            ArrayList<?> arrayListValue = new ArrayList<>(value);
             collect.set(i, arrayListValue);
             if (debug)
-                logger.debug("Set " + i + "th value to: " + value.toString());
+                logger.debug("Set " + i + "th value to: " + value);
         }
     }
 
@@ -146,13 +146,13 @@ public class TestArrayListCollections extends JDO_Test {
     private void checkValues(Object oid, ArrayListCollections expectedValue)
     {
         int i;
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         ArrayListCollections pi = (ArrayListCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            Collection expected = expectedValue.get(i);
-            Collection actual = pi.get(i);
+            Collection<?> expected = expectedValue.get(i);
+            Collection<?> actual = pi.get(i);
             if (actual == null) {
                 sbuf.append("\nFor element " + i 
                         + ", retrieved instance is null");
@@ -171,10 +171,10 @@ public class TestArrayListCollections extends JDO_Test {
                 	logger.debug("Field is " + i + " Class name is "
                           +  actual.getClass().getName()
 			  + "   isInstance of Vector is "
-			  + actual.getClass().isInstance((Object)new Vector()));
+			  + actual.getClass().isInstance(new Vector<>()));
 		    }
-                    List expectedL = (List)expected;
-                    List actualL = (List)actual;
+                    List<?> expectedL = (List<?>)expected;
+                    List<?> actualL = (List<?>)actual;
                     for (int j = 0; j < actualL.size(); ++j) {
                         BigDecimal bigDecCompareWith =
                             (BigDecimal)expectedL.get(j);
@@ -194,7 +194,7 @@ public class TestArrayListCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

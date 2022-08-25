@@ -20,7 +20,6 @@ package org.apache.jdo.tck.query.delete;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.jdo.JDOHelper;
@@ -31,10 +30,11 @@ import javax.jdo.listener.DeleteLifecycleListener;
 import javax.jdo.listener.InstanceLifecycleEvent;
 import javax.jdo.listener.StoreLifecycleListener;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.IEmployee;
+import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
@@ -78,47 +78,47 @@ public class DeleteCallback extends QueryTest {
      * The array of valid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        PrimitiveTypes.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+    private static final QueryElementHolder<?>[] VALID_QUERIES = {
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Person.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        PrimitiveTypes.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /** 
      * The expected results of valid queries.
      */
-    private List[] expectedResult = {
-            getTransientCompanyModelInstancesAsList(new String[]{
-                    "emp1", "emp2", "emp3", "emp4", "emp5"}),
-            getTransientMylibInstancesAsList(new String[]{
+    private final List<?>[] expectedResult = {
+            getTransientCompanyModelInstancesAsList(Employee.class,
+                    "emp1", "emp2", "emp3", "emp4", "emp5"),
+            getTransientMylibInstancesAsList(
                     "primitiveTypesPositive", 
                     "primitiveTypesNegative",
-                    "primitiveTypesCharacterStringLiterals"})
+                    "primitiveTypesCharacterStringLiterals")
     };
             
     /**
@@ -177,7 +177,7 @@ public class DeleteCallback extends QueryTest {
      * @param asSingleString determines if the query is executed as
      * single string query or as API query.
      */
-    private void queryUpdateDeleteVerify(int index, 
+    private void queryUpdateDeleteVerify(int index,
             boolean asSingleString, String fieldName) {
         PersistenceManager pm = getPM();
         Transaction transaction = pm.currentTransaction();
@@ -185,15 +185,14 @@ public class DeleteCallback extends QueryTest {
         try
         {
             LifecycleVerifier lifecycleVerifier;
-            Query query = asSingleString ? 
+            Query<?> query = asSingleString ?
                     VALID_QUERIES[index].getSingleStringQuery(pm) :
                         VALID_QUERIES[index].getAPIQuery(pm);
                     
-            Collection result = executeQuery(query, index, asSingleString);
+            Collection<?> result = executeQuery(query, index, asSingleString);
             try {
                 lifecycleVerifier = new LifecycleVerifier(result);
-                pm.addInstanceLifecycleListener(lifecycleVerifier, 
-                        new Class[]{VALID_QUERIES[index].getCandidateClass()});
+                pm.addInstanceLifecycleListener(lifecycleVerifier, VALID_QUERIES[index].getCandidateClass());
                 updateInstances(result, fieldName);
                 deleteInstances(query, index, asSingleString, result.size());
             } finally
@@ -219,7 +218,7 @@ public class DeleteCallback extends QueryTest {
      * using API methods or if it was created by a single string.
      * @return the query result.
      */
-    private Collection executeQuery(Query query, 
+    private Collection<?> executeQuery(Query<?> query,
             int index, boolean asSingleString) {
         if (logger.isDebugEnabled()) {
             if (asSingleString) {
@@ -231,7 +230,7 @@ public class DeleteCallback extends QueryTest {
             }
         }
         
-        Collection result = (Collection) query.execute();
+        Collection<?> result = (Collection<?>) query.execute();
         
         if (logger.isDebugEnabled()) {
             logger.debug("Query result: " + ConversionHelper.
@@ -249,10 +248,8 @@ public class DeleteCallback extends QueryTest {
      * @param fieldName the field name passed as argument to
      * {@link JDOHelper#makeDirty(java.lang.Object, java.lang.String)
      */
-    private void updateInstances(Collection instances, String fieldName) {
-        for (Iterator i = instances.iterator(); i.hasNext(); ) {
-            Object pc = i.next();
-            
+    private void updateInstances(Collection<?> instances, String fieldName) {
+        for (Object pc : instances) {
             // clear employee relationships
             if (pc instanceof Employee) {
                 Employee employee = (Employee) pc;
@@ -263,13 +260,13 @@ public class DeleteCallback extends QueryTest {
                     employee.getMedicalInsurance().setEmployee(null);
                 }
                 if (employee.getDepartment() != null) {
-                    ((Department)employee.getDepartment()).removeEmployee(employee);
+                    ((Department) employee.getDepartment()).removeEmployee(employee);
                 }
                 if (employee.getFundingDept() != null) {
-                    ((Department)employee.getFundingDept()).removeEmployee(employee);
+                    ((Department) employee.getFundingDept()).removeEmployee(employee);
                 }
                 if (employee.getManager() != null) {
-                    ((Employee)employee.getManager()).removeFromTeam(employee);
+                    ((Employee) employee.getManager()).removeFromTeam(employee);
                 }
                 if (employee.getMentor() != null) {
                     employee.getMentor().setProtege(null);
@@ -278,39 +275,37 @@ public class DeleteCallback extends QueryTest {
                     employee.getProtege().setMentor(null);
                 }
                 if (employee.getHradvisor() != null) {
-                    ((Employee)employee.getHradvisor()).removeAdvisee(employee);
+                    ((Employee) employee.getHradvisor()).removeAdvisee(employee);
                 }
                 if (employee.getReviewedProjects() != null) {
-                    for (Iterator it=employee.getReviewedProjects().iterator(); 
-                            it.hasNext(); ) {
-                        Project other = (Project) it.next();
+                    for (IProject iProject : employee.getReviewedProjects()) {
+                        Project other = (Project) iProject;
                         other.removeReviewer(employee);
                     }
                 }
                 if (employee.getProjects() != null) {
-                    for (Iterator it=employee.getProjects().iterator(); 
-                            it.hasNext(); ) {
-                        Project other = (Project) it.next();
+                    for (IProject iProject : employee.getProjects()) {
+                        Project other = (Project) iProject;
                         other.removeMember(employee);
                     }
                 }
                 if (employee.getTeam() != null) {
-                    for (Iterator it=employee.getTeam().iterator(); it.hasNext(); ) {
-                        Employee other = (Employee) it.next();
+                    for (IEmployee iEmployee : employee.getTeam()) {
+                        Employee other = (Employee) iEmployee;
                         other.setManager(null);
                     }
                 }
                 if (employee.getHradvisees() != null) {
-                    for (Iterator it=employee.getHradvisees().iterator(); it.hasNext(); ) {
-                        Employee other = (Employee) it.next();
+                    for (IEmployee iEmployee : employee.getHradvisees()) {
+                        Employee other = (Employee) iEmployee;
                         other.setHradvisor(employee);
                     }
                 }
             }
-            
+
             // make the instance dirty.
             if (logger.isDebugEnabled()) {
-                logger.debug("Calling JDOHelper.makeDirty(" + 
+                logger.debug("Calling JDOHelper.makeDirty(" +
                         pc + ", \"" + fieldName + "\")");
             }
             JDOHelper.makeDirty(pc, fieldName);
@@ -327,7 +322,7 @@ public class DeleteCallback extends QueryTest {
      * @param expectedNumberOfDeletedInstances the expected number 
      * of deleted instances.
      */
-    private void deleteInstances(Query query, int index, 
+    private void deleteInstances(Query<?> query, int index,
             boolean asSingleString, int expectedNumberOfDeletedInstances) {
         if (logger.isDebugEnabled()) {
             if (asSingleString) {
@@ -366,10 +361,10 @@ public class DeleteCallback extends QueryTest {
         implements DeleteLifecycleListener, StoreLifecycleListener {
         
         /** The oids of expected pc instances. */
-        private Collection expectedOids = new HashSet();
+        private final Collection<Object> expectedOids = new HashSet<>();
         
         /** The list of events. */
-        private List events = new ArrayList();
+        private final List<InstanceLifecycleEvent> events = new ArrayList<>();
         
         /**
          * Argument <code>expectedPCInstances</code> holds pc instances
@@ -377,9 +372,9 @@ public class DeleteCallback extends QueryTest {
          * @param expectedPCInstances the pc instances
          * which are expected to be sources of events.
          */
-        public LifecycleVerifier(Collection expectedPCInstances) {
-            for (Iterator i = expectedPCInstances.iterator(); i.hasNext(); ) {
-                this.expectedOids.add(JDOHelper.getObjectId(i.next()));
+        public LifecycleVerifier(Collection<?> expectedPCInstances) {
+            for (Object expectedPCInstance : expectedPCInstances) {
+                this.expectedOids.add(JDOHelper.getObjectId(expectedPCInstance));
             }
         }
         
@@ -403,38 +398,36 @@ public class DeleteCallback extends QueryTest {
             // implementations to eliminate duplicates. Duplicates may occur
             // if multiple updates or deletions are executed for the same
             // pc instances.
-            Collection oidsOfDeletedInstances = new HashSet();
-            Collection oidsOfUpdateInstances = new HashSet();
+            Collection<Object> oidsOfDeletedInstances = new HashSet<>();
+            Collection<Object> oidsOfUpdateInstances = new HashSet<>();
             
             boolean hasDeleteEventBeenPassed = false;
             int size = events.size();
-            for (int i = 0; i < size; i++) {
-                InstanceLifecycleEvent event = 
-                    (InstanceLifecycleEvent) this.events.get(i);
+            for (InstanceLifecycleEvent event : events) {
                 Object source = event.getSource();
                 int eventType = event.getEventType();
                 if (eventType == InstanceLifecycleEvent.DELETE) {
                     if (logger.isDebugEnabled()) {
-                        logger.debug("Verifying delete event on " + 
+                        logger.debug("Verifying delete event on " +
                                 JDOHelper.getObjectId(source));
                     }
                     hasDeleteEventBeenPassed = true;
                     if (!JDOHelper.isDeleted(source)) {
-                        fail(ASSERTION_FAILED, 
+                        fail(ASSERTION_FAILED,
                                 "PC instance must have persistent deleted " +
-                                "state: " + source);
+                                        "state: " + source);
                     }
                     oidsOfDeletedInstances.add(JDOHelper.getObjectId(source));
                 } else if (eventType == InstanceLifecycleEvent.STORE) {
                     if (logger.isDebugEnabled()) {
-                        logger.debug("Verifying store event on " + 
+                        logger.debug("Verifying store event on " +
                                 JDOHelper.getObjectId(source));
                     }
-                    
+
                     if (hasDeleteEventBeenPassed) {
-                        fail(ASSERTION_FAILED, 
+                        fail(ASSERTION_FAILED,
                                 "PC instances must not be flushed " +
-                                "after delete has been executed.");
+                                        "after delete has been executed.");
                     }
                     oidsOfUpdateInstances.add(JDOHelper.getObjectId(source));
                 }

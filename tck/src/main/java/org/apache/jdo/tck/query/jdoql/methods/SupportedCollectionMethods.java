@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -30,6 +29,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,16 +64,17 @@ public class SupportedCollectionMethods extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testContains() {
         // contains(VARIABLE)
-        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        List<Department> expectedResult = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         QEmployee eVariable = QEmployee.variable("e");
         query.filter(cand.employees.contains(eVariable).and(eVariable.personid.eq(1L)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -96,11 +97,11 @@ public class SupportedCollectionMethods extends QueryTest {
 
         // contains(PARAMETER)
 
-        expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        expectedResult = getTransientCompanyModelInstancesAsList(Department.class,"dept1");
 
         getPM().currentTransaction().begin();
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("e", getPersistentCompanyModelInstance("emp1"));
+        paramValues.put("e", getPersistentCompanyModelInstance(Employee.class, "emp1"));
         getPM().currentTransaction().commit();
 
         query = getPM().newJDOQLTypedQuery(Department.class);
@@ -108,7 +109,7 @@ public class SupportedCollectionMethods extends QueryTest {
         Expression<Employee> paramExpression = query.parameter("e", Employee.class);
         query.filter(cand.employees.contains(paramExpression));
 
-        holder = new QueryElementHolder(
+        holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -134,13 +135,13 @@ public class SupportedCollectionMethods extends QueryTest {
     public void testIsEmpty() {
 
         // !isEmpty
-        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"dept1", "dept2"});
+        List<Department> expectedResult = getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.isEmpty().not());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -162,14 +163,14 @@ public class SupportedCollectionMethods extends QueryTest {
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
 
         // isEmpty
-        expectedResult = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp3", "emp4", "emp5"});
+        List<Employee> expectedResult2 = getTransientCompanyModelInstancesAsList(Employee.class,
+                "emp1", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Employee> query2 = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee empCand = QEmployee.candidate();
         query2.filter(empCand.team.isEmpty());
 
-        holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder2 = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -186,21 +187,22 @@ public class SupportedCollectionMethods extends QueryTest {
                 /*JDOQLTyped*/  query2,
                 /*paramValues*/ null);
 
-        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeAPIQuery(ASSERTION_FAILED, holder2, expectedResult2);
+        executeSingleStringQuery(ASSERTION_FAILED, holder2, expectedResult2);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder2, expectedResult2);
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testSize() {
         // size
-        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        List<Department> expectedResult = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.size().eq(3));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

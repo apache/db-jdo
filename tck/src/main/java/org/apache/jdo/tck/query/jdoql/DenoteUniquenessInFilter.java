@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.QDepartment;
@@ -27,6 +26,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Element Returned in Query Result
@@ -64,10 +64,11 @@ public class DenoteUniquenessInFilter extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive0() {
         // Uniqueness not specified.
         // emp1 qualifies for both contains clause => result is dept1
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -76,7 +77,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         query.filter(cand.employees.contains(e1).and(e1.personid.eq(1l).and(
                 cand.employees.contains(e2).and(e2.weeklyhours.eq(40d)))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -100,11 +101,12 @@ public class DenoteUniquenessInFilter extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive1() {
         // Uniqueness specified.
         // Only emp3 qualifies for both contains clause.
         // Condition e1 != e2 violated => result is empty
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class);
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -113,7 +115,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         query.filter(cand.employees.contains(e1).and(e1.personid.eq(3l).and(
                 cand.employees.contains(e2).and(e2.weeklyhours.eq(19d).and(e1.ne(e2))))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -138,13 +140,14 @@ public class DenoteUniquenessInFilter extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive2() {
         // Uniqueness specified.
         // Only emp1 matches the first contains clause.
         // emp1 and emp2 match the second contains clause.
         // Thus, there are two different values for e1 and e2
         // satifying the entire filter => result is dept1
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -153,7 +156,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         query.filter(cand.employees.contains(e1).and(e1.personid.eq(1l).and(
                 cand.employees.contains(e2).and(e2.weeklyhours.eq(40d).and(e1.ne(e2))))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

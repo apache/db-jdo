@@ -18,12 +18,12 @@
 package org.apache.jdo.tck.query.jdoql;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -62,7 +62,7 @@ public class MultipleIdenticalImports extends QueryTest {
      *
      */
     public void testImportDepartmentTwice() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -70,10 +70,10 @@ public class MultipleIdenticalImports extends QueryTest {
         query.filter(cand.department.eq(empParam));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("d", getPersistentCompanyModelInstance("dept1"));
+        paramValues.put("d", getPersistentCompanyModelInstance(Department.class, "dept1"));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -100,7 +100,7 @@ public class MultipleIdenticalImports extends QueryTest {
      *
      */
     public void testImportDepartmentExplicitlyAndPerTypeImportOnDemand() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,"emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -108,10 +108,10 @@ public class MultipleIdenticalImports extends QueryTest {
         query.filter(cand.department.eq(empParam));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("d", getPersistentCompanyModelInstance("dept1"));
+        paramValues.put("d", getPersistentCompanyModelInstance(Department.class, "dept1"));
 
         // Import Department explictly and per type-import-on-demand
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -138,7 +138,7 @@ public class MultipleIdenticalImports extends QueryTest {
      * 
      */
     public void testTypeImportOnDemandTwice() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -146,10 +146,10 @@ public class MultipleIdenticalImports extends QueryTest {
         query.filter(cand.department.eq(empParam));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("d", getPersistentCompanyModelInstance("dept1"));
+        paramValues.put("d", getPersistentCompanyModelInstance(Department.class, "dept1"));
 
         // type-import-on-demand twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

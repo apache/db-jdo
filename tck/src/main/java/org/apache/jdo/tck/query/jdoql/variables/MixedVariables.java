@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql.variables;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -45,67 +44,67 @@ public class MixedVariables extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
-                        "(projects.contains(p) & p.name == 'orange')",
-        /*VARIABLES*/   "Employee e",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
+                    "(projects.contains(p) & p.name == 'orange')",
+                    /*VARIABLES*/   "Employee e",
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /** 
      * The array of valid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
-                        "(projects.contains(p) & p.name == 'orange')",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
-                        "(projects.contains(p) & p.name == 'orange')",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+    private static final QueryElementHolder<?>[] VALID_QUERIES = {
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
+                    "(projects.contains(p) & p.name == 'orange')",
+                    /*VARIABLES*/   "Employee e; Project p",
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
+                    "(projects.contains(p) & p.name == 'orange')",
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"})
+    private final Object[] expectedResult = {
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2"),
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2")
     };
             
     /**
@@ -128,9 +127,9 @@ public class MixedVariables extends QueryTest {
     }
 
     public void testNegative() {
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
-            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
+            compileSingleStringQuery(ASSERTION_FAILED, invalidQuery,
                     false);
         }
     }

@@ -17,8 +17,6 @@
 
 package org.apache.jdo.tck.api.persistencemanager.extent;
 
-import java.util.Iterator;
-
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -54,8 +52,8 @@ public class GetExtentWithNoSubclasses extends PersistenceManagerTest {
         BatchTestRunner.run(GetExtentWithNoSubclasses.class);
     }
 
-    private PCPoint p1 = null;
-    private PCPoint p2 = null;
+    private final PCPoint p1 = null;
+    private final PCPoint p2 = null;
 
     /** */
     public void testGetExtentWithNoSubclasses() {
@@ -88,19 +86,17 @@ public class GetExtentWithNoSubclasses extends PersistenceManagerTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Extent e = pm.getExtent(PCPoint.class, false);
+            Extent<PCPoint> e = pm.getExtent(PCPoint.class, false);
             
             int c = 0;
-            for (Iterator i = e.iterator(); i.hasNext();) {
-                PCPoint p = (PCPoint) i.next();
+            for (PCPoint p : e) {
                 if (debug) logger.debug("p.getX() = " + p.getX());
                 if ((p.getX() == 1) || (p.getX() == 3)) {
                     // OK
-                }
-                else {
-                    fail(ASSERTION_FAILED, 
-                         "Extent of class " + PCPoint.class.getName() + 
-                         " includes unexpected instance, p.getX():" + p.getX());
+                } else {
+                    fail(ASSERTION_FAILED,
+                            "Extent of class " + PCPoint.class.getName() +
+                                    " includes unexpected instance, p.getX():" + p.getX());
                 }
             }
             tx.commit();

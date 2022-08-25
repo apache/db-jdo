@@ -26,6 +26,8 @@ import java.util.Date;
 @PersistenceCapable
 public class PrimitiveTypes implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private static long counter = new Date().getTime();
     private static long newId() {
         synchronized (PrimitiveTypes.class) {
@@ -358,7 +360,9 @@ public class PrimitiveTypes implements Serializable {
         this.PrimitiveTypes = primitiveTypes;
     }
     
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         public long id;
 
@@ -383,12 +387,12 @@ public class PrimitiveTypes implements Serializable {
             return str.substring(str.indexOf(':') + 1);
         }
 
-        public int compareTo(Object o) {
+        public int compareTo(Oid o) {
             if (o == null)
                 throw new ClassCastException();
             if (o == this)
                 return 0;
-            long otherId = ((Oid)o).id;
+            long otherId = o.id;
             if (id == otherId)
                 return 0;
             else if (id < otherId)

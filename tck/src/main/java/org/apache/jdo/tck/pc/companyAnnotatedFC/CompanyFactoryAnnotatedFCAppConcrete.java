@@ -38,8 +38,10 @@ public class CompanyFactoryAnnotatedFCAppConcrete
     public CompanyFactoryAnnotatedFCAppConcrete(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
-    public Class[] getTearDownClasses() {
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             FCAppDentalInsurance.class,
             FCAppMedicalInsurance.class,
@@ -54,38 +56,38 @@ public class CompanyFactoryAnnotatedFCAppConcrete
     }
     
     public IAddress newAddress() {
-        return (IAddress) new FCAppAddress();
+        return new FCAppAddress();
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom) new FCAppMeetingRoom();
+        return new FCAppMeetingRoom();
     }
     
     public ICompany newCompany() {
-        return (ICompany) new FCAppCompany();
+        return new FCAppCompany();
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance) new FCAppDentalInsurance();
+        return new FCAppDentalInsurance();
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment) new FCAppDepartment();
+        return new FCAppDepartment();
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee) new FCAppFullTimeEmployee();
+        return new FCAppFullTimeEmployee();
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance) new FCAppMedicalInsurance();
+        return new FCAppMedicalInsurance();
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee) new FCAppPartTimeEmployee();
+        return new FCAppPartTimeEmployee();
     }
     
     public IProject newProject() {
-        return (IProject) new FCAppProject();
+        return new FCAppProject();
     }
 }

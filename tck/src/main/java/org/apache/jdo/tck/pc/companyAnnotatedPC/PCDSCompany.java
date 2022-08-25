@@ -23,9 +23,6 @@ import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 
-import java.text.SimpleDateFormat;
-
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
@@ -33,8 +30,10 @@ import java.util.Date;
 import org.apache.jdo.tck.pc.company.IAddress;
 import org.apache.jdo.tck.pc.company.ICompany;
 
+import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**
  * This class represents information about a company.
@@ -46,7 +45,9 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
         column="DATASTORE_IDENTITY")
 public class PCDSCompany 
-    implements ICompany, Serializable, Comparable, Comparator, DeepEquality {
+    implements ICompany, Serializable, Comparable<ICompany>, Comparator<ICompany>, DeepEquality {
+
+    private static final long serialVersionUID = 1L;
 
     @NotPersistent()
     private long        _companyid;
@@ -57,10 +58,7 @@ public class PCDSCompany
     @NotPersistent()
     private PCDSAddress     _address;
     @NotPersistent()
-    private transient Set _departments = new HashSet();
-
-    protected static SimpleDateFormat formatter =
-        new SimpleDateFormat("d/MMM/yyyy");
+    private transient Set<IDepartment> _departments = new HashSet<>();
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -186,7 +184,7 @@ public class PCDSCompany
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="company")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCDSDepartment.class)
-    public Set getDepartments() {
+    public Set<IDepartment> getDepartments() {
         return _departments;
     }
 
@@ -218,11 +216,11 @@ public class PCDSCompany
      * @param departments The set of <code>PCDSDepartment</code>s for the
      * company.
      */
-    public void setDepartments(Set departments) {
+    public void setDepartments(Set<IDepartment> departments) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
         this._departments = 
-            (departments != null) ? new HashSet(departments) : null;
+            (departments != null) ? new HashSet<>(departments) : null;
     }
 
     /**
@@ -234,7 +232,7 @@ public class PCDSCompany
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        _departments = new HashSet();
+        _departments = new HashSet<>();
     }
 
     /**
@@ -250,11 +248,10 @@ public class PCDSCompany
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(_companyid);
         rc.append(", name ").append(_name);
-        rc.append(", founded ").append(
-            _founded==null ? "null" : formatter.format(_founded));
+        rc.append(", founded ").append(JDOCustomDateEditor.getDateRepr(_founded));
         return rc.toString();
     }
 
@@ -280,27 +277,6 @@ public class PCDSCompany
             helper.deepEquals(_address, otherCompany.getAddress(), where + ".address") &
             helper.deepEquals(_departments, otherCompany.getDepartments(), where + ".departments");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((PCDSCompany)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((PCDSCompany)o1, (PCDSCompany)o2);
-    }
 
     /** 
      * Compares this object with the specified Company object for
@@ -312,7 +288,7 @@ public class PCDSCompany
      * object is less than, equal to, or greater than the specified Company
      * object. 
      */
-    public int compareTo(PCDSCompany other) {
+    public int compareTo(ICompany other) {
         return compare(this, other);
     }
 
@@ -325,7 +301,7 @@ public class PCDSCompany
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(PCDSCompany o1, PCDSCompany o2) {
+    public int compare(ICompany o1, ICompany o2) {
         return EqualityHelper.compare(o1.getCompanyid(), o2.getCompanyid());
     }
     
@@ -355,7 +331,9 @@ public class PCDSCompany
      * for the <code>Company</code> class. It consists of both the company 
      * name and the date that the company was founded.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field is part of the identifier and should match in name
@@ -399,12 +377,8 @@ public class PCDSCompany
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( companyid < other.companyid ) return -1;
-            if( companyid > other.companyid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(companyid, obj.companyid);
         }
         
     }

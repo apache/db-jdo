@@ -17,8 +17,6 @@
 
 package org.apache.jdo.tck.api.instancecallbacks;
 
-import java.util.Iterator;
-
 import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
@@ -92,16 +90,12 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
         t.begin();
         try {
             obj1 = (InstanceCallbackNonPersistFdsClass)pm.getObjectById(objPtr1, true);  // jdoPostLoad() called
-        } catch (JDOUserException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // could not locate persistent object created in previous transaction
             fail(ASSERTION_FAILED, "ModificationOfNontransactionalNonpersistentFields:  Could not locate persistent object obj1 created in previous transaction, got " + e);
             return;
-        } catch (JDODataStoreException e) {
-           // could not locate persistent object created in previous transaction
-            fail(ASSERTION_FAILED, "ModificationOfNontransactionalNonpersistentFields:  Could not locate persistent object obj1 created in previous transaction, got " + e);
-            return;
         }
-        
+
         // check fields set in jdoPostLoad()
         if(obj1.i != -10) {
             fail(ASSERTION_FAILED, "jdoPostLoad:  Value incorrect, obj1.i != -10; it is " + obj1.i);
@@ -143,8 +137,8 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
                 logger.debug("obj1.children contains " + obj1.children.size() + " members");
                 if(obj1.children.size() != 0) {
                     logger.debug("Those members are:");
-                    for(Iterator i = obj1.children.iterator(); i.hasNext();) {
-                        logger.debug((String)i.next());
+                    for (String s : obj1.children) {
+                        logger.debug(s);
                     }
                 }
             }

@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.MedicalInsurance;
@@ -28,6 +27,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Navigation Through a References uses Dot Operator
@@ -55,6 +55,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
      * Returns the name of the company test data resource.
      * @return name of the company test data resource. 
      */
+    @Override
     protected String getCompanyTestDataResource() {
         return NAVIGATION_TEST_COMPANY_TESTDATA;
     }
@@ -70,13 +71,13 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive0() {
         // navigation through one relationship
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,"emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.medicalInsurance.carrier.eq("Carrier1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -100,14 +101,14 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive1() {
         // navigation through multiple relationships
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns1", "medicalIns2", "medicalIns3", "medicalIns4",  "medicalIns5"});
+        List<MedicalInsurance> expected = getTransientCompanyModelInstancesAsList(MedicalInsurance.class,
+                "medicalIns1", "medicalIns2", "medicalIns3", "medicalIns4",  "medicalIns5");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();
         query.filter(cand.employee.department.name.eq("Development"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -131,14 +132,14 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive2() {
         // navigation through a self referencing relationship
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns2", "medicalIns3"});
+        List<MedicalInsurance> expected = getTransientCompanyModelInstancesAsList(MedicalInsurance.class,
+                "medicalIns2", "medicalIns3");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();
         query.filter(cand.employee.manager.firstname.eq("emp1First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -162,14 +163,14 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive3() {
         // navigation through a self referencing relationship multiple times
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns2", "medicalIns3"});
+        List<MedicalInsurance> expected = getTransientCompanyModelInstancesAsList(MedicalInsurance.class,
+                "medicalIns2", "medicalIns3");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();
         query.filter(cand.employee.manager.manager.firstname.eq("emp0First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

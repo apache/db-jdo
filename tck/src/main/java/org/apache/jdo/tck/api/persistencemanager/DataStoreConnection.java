@@ -70,6 +70,7 @@ public class DataStoreConnection extends PersistenceManagerTest {
     }
     
     /** */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
         PCPoint point = new PCPoint(50, 100);
@@ -110,10 +111,10 @@ public class DataStoreConnection extends PersistenceManagerTest {
             if (conn.getAutoCommit()) {
                 appendMessage(ASSERTION_FAILED + 
                         "Autocommit must not be true in JDO connection.");
-            };
+            }
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            Collection actuals = new HashSet();
+            Collection<PCPoint> actuals = new HashSet<>();
             while (rs.next()) {
                 PCPoint p = new PCPoint(rs.getInt(1), rs.getInt(2));
                 actuals.add(p);
@@ -122,7 +123,7 @@ public class DataStoreConnection extends PersistenceManagerTest {
                 appendMessage(ASSERTION_FAILED + "Wrong size of result of " +
                         sql + NL + "expected: 1, actual: " + actuals.size());
             } else {
-                PCPoint actual = (PCPoint)actuals.iterator().next();
+                PCPoint actual = actuals.iterator().next();
                 if (goldenPoint.getX() != actual.getX() ||
                         !goldenPoint.getY().equals(actual.getY())) {
                     appendMessage(ASSERTION_FAILED + 

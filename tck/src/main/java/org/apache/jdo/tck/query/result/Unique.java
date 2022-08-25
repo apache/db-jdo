@@ -20,8 +20,8 @@ package org.apache.jdo.tck.query.result;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -61,13 +61,13 @@ public class Unique extends QueryTest {
     
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstance("emp1");
+        Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.personid.eq(1l));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -97,7 +97,7 @@ public class Unique extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.personid.eq(0l));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -121,13 +121,13 @@ public class Unique extends QueryTest {
 
     /** */
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstance("emp1");
+        Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -149,10 +149,11 @@ public class Unique extends QueryTest {
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
+    @SuppressWarnings("unchecked")
     public void testNegative() {
         String singleString = "SELECT UNIQUE FROM " + Person.class.getName();
         
-        Query query = getPM().newQuery(Person.class);
+        Query<Person> query = getPM().newQuery(Person.class);
         query.setUnique(true);
         executeJDOQuery(ASSERTION_FAILED, query, singleString, 
                 false, null, null, false);

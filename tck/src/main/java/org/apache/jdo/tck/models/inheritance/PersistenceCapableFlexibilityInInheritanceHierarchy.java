@@ -18,14 +18,11 @@
 
 package org.apache.jdo.tck.models.inheritance;
 
-import java.util.Iterator;
-
 import javax.jdo.Extent;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.inheritance.Constants;
 import org.apache.jdo.tck.pc.inheritance.TopPersistH;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -105,7 +102,7 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
             TopPersistH b = null;
         
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (TopPersistH)pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -115,12 +112,12 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
             
             try {  // retrieve object created in previous transaction
                 a = (TopPersistH)pm.getObjectById(objPtrA, true);
-                checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterCommit, 1, a.doubleB, a.intB, a.shortF, a.thirdObj, a.intH);
+                checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_COMMIT, 1, a.doubleB, a.intB, a.shortF, a.thirdObj, a.intH);
         
                 // verify referenced persistent object contains correct values
                 b = a.thirdObj;
                 if(b != null) {  // if previous error caused b to be null, then these tests cannot be performed.
-                    checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterCommit, 3, b.doubleB, b.intB, b.shortF, b.thirdObj, b.intH);
+                    checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_COMMIT, 3, b.doubleB, b.intB, b.shortF, b.thirdObj, b.intH);
                 }
             }
             catch (JDOUserException e) {
@@ -183,15 +180,15 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
             t.rollback();
         
             // verify objects revert back to transient after rollback
-            checkPersistentAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.doubleB, c.intB, c.shortF, c.thirdObj, c.intH);
-            checkTransactionalAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.floatE, c.secondObj);
-            checkNonpersistentAreCorrect(ASSERTION_FAILED, transientAfterRollback, 10, c.intA, c.charC, c.booleanD, c.shortG, c.fourthObj);
+            checkPersistentAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.doubleB, c.intB, c.shortF, c.thirdObj, c.intH);
+            checkTransactionalAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.floatE, c.secondObj);
+            checkNonpersistentAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 10, c.intA, c.charC, c.booleanD, c.shortG, c.fourthObj);
         
             t.begin();
         
             // verify rollback lost all persistent changes.
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (TopPersistH)pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -201,10 +198,10 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
         
             try {  // retrieve object created in previous transaction
                 a = (TopPersistH)pm.getObjectById(objPtrA, true);
-                checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterRollback, 1, a.doubleB, a.intB, a.shortF, a.thirdObj, a.intH);
+                checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_ROLLBACK, 1, a.doubleB, a.intB, a.shortF, a.thirdObj, a.intH);
                 b = a.thirdObj;
                 if(b != null) {  // if previous error caused b to be null, then these tests cannot be performed.
-                    checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterRollback, 3, b.doubleB, b.intB, b.shortF, b.thirdObj, b.intH);
+                    checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_ROLLBACK, 3, b.doubleB, b.intB, b.shortF, b.thirdObj, b.intH);
                 }
             }
             catch (JDOUserException e) {
@@ -224,10 +221,9 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
 
     void removeAllInstances(PersistenceManager pm)
     {
-        Extent e = pm.getExtent(TopPersistH.class, true);
-        Iterator i = e.iterator();
-        while( i.hasNext() ){
-            pm.deletePersistent(i.next());
+        Extent<TopPersistH> e = pm.getExtent(TopPersistH.class, true);
+        for (TopPersistH topPersistH : e) {
+            pm.deletePersistent(topPersistH);
         }        
     }
 }

@@ -53,7 +53,7 @@ public class HasSubclassesTrue extends ExtentTest {
 
     /** */
     public void test() {
-        Extent ex = getPM().getExtent (Employee.class, true);
+        Extent<Employee> ex = getPM().getExtent (Employee.class, true);
         if (!ex.hasSubclasses()) {
             fail(ASSERTION_FAILED,
                  "ex.hasSubclasses() returned false, but extent was created with subclasses=true.");

@@ -22,7 +22,6 @@ import java.util.Arrays;
 import javax.jdo.JDOUserException;
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
@@ -48,13 +47,13 @@ public class UnmodifiableQuery extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-22 (UnmodifiableQuery) failed: ";
     
-    private static String singleStringQuery = 
+    private static final String SINGLE_STRING_QUERY =
         "SELECT firstname, lastname FROM org.apache.jdo.tck.pc.company.Person";
 
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         Arrays.asList(new Object[] {
                 new FullName("emp1First", "emp1Last"), 
                 new FullName("emp2First", "emp2Last"),
@@ -73,27 +72,29 @@ public class UnmodifiableQuery extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(singleStringQuery);
+        Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
         query.setUnmodifiable();
         query.setResultClass(FullName.class);
         query.setRange(0, 5);
         query.setIgnoreCache(true);
-        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+        executeJDOQuery(ASSERTION_FAILED, query, SINGLE_STRING_QUERY,
                 false, null, expectedResult[index], true);
 
         query = getPM().newNamedQuery(Person.class, "unmodifiable");
         query.setResultClass(FullName.class);
         query.setRange(0, 5);
         query.setIgnoreCache(true);
-        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+        executeJDOQuery(ASSERTION_FAILED, query, SINGLE_STRING_QUERY,
                 false, null, expectedResult[index], true);
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testNegative() {
-        Query query = getPM().newQuery(singleStringQuery);
+        Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
         query.setUnmodifiable();
         checkSetters(query);
 
@@ -101,7 +102,7 @@ public class UnmodifiableQuery extends QueryTest {
         checkSetters(query);
     }
     
-    private void checkSetters(Query query) {
+    private void checkSetters(Query<?> query) {
         checkSetResult(query);
         checkSetClass(query);
         checkSetFilter(query);
@@ -113,67 +114,68 @@ public class UnmodifiableQuery extends QueryTest {
         checkSetOrdering(query);
     }
         
-    private void checkSetResult(Query query) {
+    private void checkSetResult(Query<?> query) {
         try {
             query.setResult("firstname, lastname");
             methodFailed("setResult()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
-    
-    private void checkSetClass(Query query) {
+
+    @SuppressWarnings("unchecked")
+    private void checkSetClass(@SuppressWarnings("rawtypes") Query query) {
         try {
             query.setClass(Employee.class);
             methodFailed("setClass()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
-    private void checkSetFilter(Query query) {
+    private void checkSetFilter(Query<?> query) {
         try {
             query.setFilter("firstname == 'emp1First'");
             methodFailed("setFilter()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
-    private void checkDeclareVariables(Query query) {
+    private void checkDeclareVariables(Query<?> query) {
         try {
             query.declareVariables("Employee emp");
             methodFailed("declareVariables()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
-    private void checkDeclareParameters(Query query) {
+    private void checkDeclareParameters(Query<?> query) {
         try {
             query.declareParameters("Employee emp");
             methodFailed("declareParameters()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
-    private void checkDeclareImports(Query query) {
+    private void checkDeclareImports(Query<?> query) {
         try {
             query.declareImports("import org.apache.jdo.tck.pc.company.Employee");
             methodFailed("declareImports()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
-    private void checkSetGrouping(Query query) {
+    private void checkSetGrouping(Query<?> query) {
         try {
             query.setGrouping("firstname");
             methodFailed("setGrouping()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
-    private void checkSetOrdering(Query query) {
+    private void checkSetOrdering(Query<?> query) {
         try {
             query.setOrdering("firstname ASCENDING");
             methodFailed("setOrdering()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     

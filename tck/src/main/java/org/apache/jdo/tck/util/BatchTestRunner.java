@@ -18,12 +18,10 @@
 package org.apache.jdo.tck.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -43,7 +41,7 @@ import org.apache.jdo.tck.JDO_Test;
  * <ul>
  * <li><code>0</code>: success
  * <li><code>1</code>: failure, the test shows an unexpected behavior
- * <li><code>2</code>: exception, the test throws an unhandled excption 
+ * <li><code>2</code>: exception, the test throws an unhandled exception
  * </ul>
  * 
  * @author Michael Bouschen
@@ -92,7 +90,7 @@ public class BatchTestRunner
      * Runs all test methods from the specified class.
      * @param clazz class object
      */
-    public static void run(Class clazz) {
+    public static void run(Class<? extends TestCase> clazz) {
         run(new TestSuite(clazz));
     }
     
@@ -118,6 +116,7 @@ public class BatchTestRunner
      * @param test test or test suite
      * @return the test result
      */
+    @Override
     public TestResult doRun(Test test) {
         TestResult result = null;
         try {
@@ -135,7 +134,7 @@ public class BatchTestRunner
      * is executed.
      * @param args command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             TestResult r = new BatchTestRunner().start(args);
             if (!r.wasSuccessful()) 
@@ -152,6 +151,7 @@ public class BatchTestRunner
      * @param args arguments
      * @return the test result
      */
+    @Override
     public TestResult start(String[] args) {
         Test suite = null;
         if ((args == null) || args.length == 0) {
@@ -175,17 +175,16 @@ public class BatchTestRunner
      * @param classNames class names
      * @return the test suite
      */
+    @SuppressWarnings("unchecked")
     protected TestSuite getTestSuite(String[] classNames) {
         TestSuite testSuite = new TestSuite();
-        for (int i = 0; i < classNames.length; i++) {
-            String className = classNames[i];
+        for (String className : classNames) {
             try {
-                Class<? extends TestCase> clazz = (Class<? extends TestCase>)Class.forName(className);
+                Class<? extends TestCase> clazz = (Class<? extends TestCase>) Class.forName(className);
                 testSuite.addTestSuite(clazz);
-            }
-            catch (ClassNotFoundException ex) {
+            } catch (ClassNotFoundException ex) {
                 System.out.println(
-                    "Cannot find test class '" + className + "'.");
+                        "Cannot find test class '" + className + "'.");
             }
         }
         return testSuite;
@@ -193,7 +192,7 @@ public class BatchTestRunner
 
     /**
      * Returns a result printer instance. The system property
-     * ResultPrinterClass specifies the class of the returned instanec. The
+     * ResultPrinterClass specifies the class of the returned instance. The
      * class must extend junit.textui.ResultPrinter.
      * @return the result printer
      */
@@ -205,16 +204,15 @@ public class BatchTestRunner
                 String msg = null;
                 try {
                     // get class instance
-                    Class clazz = Class.forName(className);
+                    Class<?> clazz = Class.forName(className);
                     
-                    Constructor ctor = null;
+                    Constructor<?> ctor = null;
                     OutputStream stream = null;
 
                     // choose constructor taking ConsoleFileOutput arg
                     if (!Boolean.getBoolean("no.log.file")) {
                         try {
-                            ctor = clazz.getConstructor(
-                            new Class[] { ConsoleFileOutput.class } );
+                            ctor = clazz.getConstructor(ConsoleFileOutput.class);
                             stream = new ConsoleFileOutput();
                         }
                         catch (NoSuchMethodException ex) {
@@ -224,8 +222,7 @@ public class BatchTestRunner
                     
                     // choose constructor taking PrintStream arg
                     if (ctor == null) {
-                        ctor = clazz.getConstructor(
-                                new Class[] { PrintStream.class } );
+                        ctor = clazz.getConstructor(PrintStream.class);
                         stream = System.out;
                     }
                         
@@ -252,7 +249,7 @@ public class BatchTestRunner
                     msg = "Constructor call results in exception " + ex + ".";
                 }
 
-                // ResultPrinter class specified, but not avaiable
+                // ResultPrinter class specified, but not available
                 System.out.println(msg);
                 ResultPrinter printer = getDefaultResultPrinter();
                 System.out.println("Using default result printer of class " + 
@@ -344,11 +341,10 @@ public class BatchTestRunner
             String[] values) {
         str = fixPartialFileName(str);
         if (!str.equals("")) {
-            for (int i = 0; i < values.length; i++) {
-                String value = values[i];
-                if (value!=null &&
-                    !value.equals("") &&
-                    !value.startsWith(".")) {
+            for (String value : values) {
+                if (value != null &&
+                        !value.equals("") &&
+                        !value.startsWith(".")) {
                     str += c;
                     break;
                 }

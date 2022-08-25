@@ -41,7 +41,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 public class RelationshipNegative1ToManyTest extends AbstractRelationshipTest {
     
     String testMethod = null;
-    protected String ASSERTION_FAILED =
+    private static final String ASSERTION_FAILED =
         "Assertion A15-3.14 (RelationshipNegative1ToManyTest) failed: ";
     
     Object emp1Oid = null;

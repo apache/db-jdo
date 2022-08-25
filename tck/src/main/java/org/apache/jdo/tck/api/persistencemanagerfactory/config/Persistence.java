@@ -82,7 +82,7 @@ public class Persistence extends JDO_Test {
     /** */
     public void testGetPMFfromNamedPUWithEmptyOverrides() {
         String name = "PUNamed_" + IDENTITYTYPE + "0";
-        Map overrides = new HashMap();
+        Map<Object, Object> overrides = new HashMap<>();
         pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
         assertEquals("Incorrect value for RestoreValues",
                 false, pmf.getRestoreValues());

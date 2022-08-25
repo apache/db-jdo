@@ -160,7 +160,7 @@ public class GetObjectIds extends JDO_Test {
 
     /** */
     public void testGetObjectIdsArray() {
-        StringBuffer messages = new StringBuffer();
+        StringBuilder messages = new StringBuilder();
         Object[] expectedArray = oids;
         Object[] actualArray = JDOHelper.getObjectIds(objs);
         for (int i = 0; i < objs.length; ++i) {
@@ -176,19 +176,18 @@ public class GetObjectIds extends JDO_Test {
             }
         }
         if (messages.length() != 0) {
-            fail(ASSERTION_FAILED + "getObjectIds(Object[] pcs) " +
-                messages.toString());
+            fail(ASSERTION_FAILED + "getObjectIds(Object[] pcs) " + messages);
         }
     }
 
     /** */
     public void testGetObjectIdsCollection() {
-        StringBuffer messages = new StringBuffer();
-        List paramList = Arrays.asList(objs);
-        List expectedList = Arrays.asList(oids);
+        StringBuilder messages = new StringBuilder();
+        List<Object> paramList = Arrays.asList(objs);
+        List<Object> expectedList = Arrays.asList(oids);
         Collection<Object> actualCollection = JDOHelper.getObjectIds(paramList);
-        Iterator expectedIterator = expectedList.iterator();
-        Iterator actualIterator = actualCollection.iterator();
+        Iterator<Object> expectedIterator = expectedList.iterator();
+        Iterator<Object> actualIterator = actualCollection.iterator();
         for (int i = 0; i < objs.length; ++i) {
             Object expected = expectedIterator.next();
             Object actual = actualIterator.next();
@@ -202,15 +201,14 @@ public class GetObjectIds extends JDO_Test {
             }
         }
         if (messages.length() != 0) {
-            fail(ASSERTION_FAILED + "getObjectIds(Collection pcs) " +
-                messages.toString());
+            fail(ASSERTION_FAILED + "getObjectIds(Collection pcs) " + messages);
         }
     }
 
     /** */
     public void testTypedGetObjectIdsArray() {
         if (!runsWithApplicationIdentity()) return;
-        StringBuffer messages = new StringBuffer();
+        StringBuilder messages = new StringBuilder();
         Object[] expectedArray = singleFieldIdentityOids;
         Object[] actualArray = JDOHelper.getObjectIds(singleFieldIdentityObjs);
         for (int i = 0; i < singleFieldIdentityObjs.length; ++i) {
@@ -226,15 +224,14 @@ public class GetObjectIds extends JDO_Test {
             }
         }
         if (messages.length() != 0) {
-            fail(ASSERTION_FAILED + "getObjectIds(Object[] pcs) " +
-                messages.toString());
+            fail(ASSERTION_FAILED + "getObjectIds(Object[] pcs) " + messages);
         }
     }
 
     /** */
     public void testTypedGetObjectIdsCollection() {
         if (!runsWithApplicationIdentity()) return;
-        StringBuffer messages = new StringBuffer();
+        StringBuilder messages = new StringBuilder();
         List<PCPointSingleFieldInteger> paramList = Arrays.asList(singleFieldIdentityObjs);
         List<?> expectedList = Arrays.asList(singleFieldIdentityOids);
         Collection<?> actualCollection = JDOHelper.getObjectIds(paramList);
@@ -253,8 +250,7 @@ public class GetObjectIds extends JDO_Test {
             }
         }
         if (messages.length() != 0) {
-            fail(ASSERTION_FAILED + "getObjectIds(Collection<SingleFieldIdentyty> pcs) " +
-                messages.toString());
+            fail(ASSERTION_FAILED + "getObjectIds(Collection<SingleFieldIdentyty> pcs) " + messages);
         }
     }
 

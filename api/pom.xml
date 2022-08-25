@@ -21,13 +21,13 @@
     <parent>
         <groupId>org.apache.jdo</groupId>
         <artifactId>parent-pom</artifactId>
-        <version>3.2.2-SNAPSHOT</version>
+        <version>3.3-SNAPSHOT</version>
         <relativePath>../parent-pom</relativePath>
     </parent>
 
     <groupId>javax.jdo</groupId>
     <artifactId>jdo-api</artifactId>
-    <version>3.2.2-SNAPSHOT</version>
+    <version>3.3-SNAPSHOT</version>
     <!-- The name is used when generating a NOTICE file -->
     <name>JDO API</name>
 
@@ -56,15 +56,6 @@
                 <executions>
                     <execution />
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <showWarnings>true</showWarnings>
-                    <fork>true</fork>
-                    <compilerArgument>-Xlint:unchecked</compilerArgument>
-                </configuration>
             </plugin>
             <!-- The next two plugins are required until such time as https://issues.apache.org/jira/browse/FELIX-3352 is fixed. -->
             <plugin>

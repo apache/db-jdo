@@ -53,106 +53,106 @@ use the wrapped values as operands.
  */
 
 public class GreaterThanOrEqual extends ComparisonTests {
-    private static      String      boolean_filterL     = "value >= fld_boolean";
-    private static      String      boolean_filterR     = "fld_boolean >= value";
-    private static      String      boolean_filterT     = "fld_boolean >= true";
-    private static      String      boolean_filterF     = "false >= fld_boolean";
-    private static      String      boolean_filterObj   = "value.fld_boolean >= fld_boolean";
+    private static final String      boolean_filterL     = "value >= fld_boolean";
+    private static final String      boolean_filterR     = "fld_boolean >= value";
+    private static final String      boolean_filterT     = "fld_boolean >= true";
+    private static final String      boolean_filterF     = "false >= fld_boolean";
+    private static final String      boolean_filterObj   = "value.fld_boolean >= fld_boolean";
     
-    private static      String      byte_filterL        = "value >= fld_byte";
-    private static      String      byte_filterR        = "fld_byte >= value";
-    private static      String      byte_filterObj      = "value.fld_byte >= fld_byte";
-    private static      String      byte_filterVal      = "fld_byte >= 100";
+    private static final String      byte_filterL        = "value >= fld_byte";
+    private static final String      byte_filterR        = "fld_byte >= value";
+    private static final String      byte_filterObj      = "value.fld_byte >= fld_byte";
+    private static final String      byte_filterVal      = "fld_byte >= 100";
     
-    private static      String      char_filterL        = "value >= fld_char";
-    private static      String      char_filterR        = "fld_char >= value";
-    private static      String      char_filterObj      = "value.fld_char >= fld_char";
-    private static      String      char_filterVal      = "'M' >= fld_char";
+    private static final String      char_filterL        = "value >= fld_char";
+    private static final String      char_filterR        = "fld_char >= value";
+    private static final String      char_filterObj      = "value.fld_char >= fld_char";
+    private static final String      char_filterVal      = "'M' >= fld_char";
     
-    private static      String      double_filterL      = "value >= fld_double";
-    private static      String      double_filterR      = "fld_double >= value";
-    private static      String      double_filterObj    = "value.fld_double >= fld_double";
-    private static      String      double_filterVal    = "fld_double >= 100.0";
+    private static final String      double_filterL      = "value >= fld_double";
+    private static final String      double_filterR      = "fld_double >= value";
+    private static final String      double_filterObj    = "value.fld_double >= fld_double";
+    private static final String      double_filterVal    = "fld_double >= 100.0";
     
-    private static      String      float_filterL       = "value >= fld_float";
-    private static      String      float_filterR       = "fld_float >= value";
-    private static      String      float_filterObj     = "fld_float >= value.fld_float";
-    private static      String      float_filterVal     = "fld_float >= 100.0";
+    private static final String      float_filterL       = "value >= fld_float";
+    private static final String      float_filterR       = "fld_float >= value";
+    private static final String      float_filterObj     = "fld_float >= value.fld_float";
+    private static final String      float_filterVal     = "fld_float >= 100.0";
     
-    private static      String      int_filterL         = "value >= fld_int";
-    private static      String      int_filterR         = "fld_int >= value";
-    private static      String      int_filterObj       = "value.fld_int >= fld_int";
-    private static      String      int_filterVal       = "fld_int >= 1000";
+    private static final String      int_filterL         = "value >= fld_int";
+    private static final String      int_filterR         = "fld_int >= value";
+    private static final String      int_filterObj       = "value.fld_int >= fld_int";
+    private static final String      int_filterVal       = "fld_int >= 1000";
     
-    private static      String      long_filterL        = "value >= fld_long";
-    private static      String      long_filterR        = "fld_long >= value";
-    private static      String      long_filterObj      = "fld_long >= value.fld_long";
-    private static      String      long_filterVal      = "fld_long >= 1000000";
+    private static final String      long_filterL        = "value >= fld_long";
+    private static final String      long_filterR        = "fld_long >= value";
+    private static final String      long_filterObj      = "fld_long >= value.fld_long";
+    private static final String      long_filterVal      = "fld_long >= 1000000";
     
-    private static      String      short_filterL       = "value >= fld_short";
-    private static      String      short_filterR       = "fld_short >= value";
-    private static      String      short_filterObj     = "value.fld_short >= fld_short";
-    private static      String      short_filterVal     = "1000 >= fld_short";
+    private static final String      short_filterL       = "value >= fld_short";
+    private static final String      short_filterR       = "fld_short >= value";
+    private static final String      short_filterObj     = "value.fld_short >= fld_short";
+    private static final String      short_filterVal     = "1000 >= fld_short";
     
-    private static      String      Boolean_filterL     = "value >= fld_Boolean";
-    private static      String      Boolean_filterR     = "fld_Boolean >= value";
-    private static      String      Boolean_filterT     = "fld_Boolean >= true";
-    private static      String      Boolean_filterF     = "false >= fld_Boolean";
-    private static      String      Boolean_filterObj   = "value.fld_Boolean >= fld_Boolean";
-    private static      String      Boolean_filterVal   = "fld_Boolean >= false";
+    private static final String      Boolean_filterL     = "value >= fld_Boolean";
+    private static final String      Boolean_filterR     = "fld_Boolean >= value";
+    private static final String      Boolean_filterT     = "fld_Boolean >= true";
+    private static final String      Boolean_filterF     = "false >= fld_Boolean";
+    private static final String      Boolean_filterObj   = "value.fld_Boolean >= fld_Boolean";
+    private static final String      Boolean_filterVal   = "fld_Boolean >= false";
     
-    private static      String      Byte_filterL        = "value >= fld_Byte";
-    private static      String      Byte_filterR        = "fld_Byte >= value";
-    private static      String      Byte_filterObj      = "fld_Byte >= value.fld_Byte";
-    private static      String      Byte_filterVal      = "100 >= fld_Byte";
+    private static final String      Byte_filterL        = "value >= fld_Byte";
+    private static final String      Byte_filterR        = "fld_Byte >= value";
+    private static final String      Byte_filterObj      = "fld_Byte >= value.fld_Byte";
+    private static final String      Byte_filterVal      = "100 >= fld_Byte";
     
-    private static      String      Character_filterL   = "value >= fld_Character";
-    private static      String      Character_filterR   = "fld_Character >= value";
-    private static      String      Character_filterObj = "value.fld_Character >= fld_Character";
-    private static      String      Character_filterVal = "fld_Character >= 'z'";
+    private static final String      Character_filterL   = "value >= fld_Character";
+    private static final String      Character_filterR   = "fld_Character >= value";
+    private static final String      Character_filterObj = "value.fld_Character >= fld_Character";
+    private static final String      Character_filterVal = "fld_Character >= 'z'";
     
-    private static      String      Double_filterL      = "value >= fld_Double";
-    private static      String      Double_filterR      = "fld_Double >= value";
-    private static      String      Double_filterObj    = "value.fld_Double >= fld_Double";
-    private static      String      Double_filterVal    = "fld_Double >= 100.0";
+    private static final String      Double_filterL      = "value >= fld_Double";
+    private static final String      Double_filterR      = "fld_Double >= value";
+    private static final String      Double_filterObj    = "value.fld_Double >= fld_Double";
+    private static final String      Double_filterVal    = "fld_Double >= 100.0";
     
-    private static      String      Float_filterL       = "value >= fld_Float";
-    private static      String      Float_filterR       = "fld_Float >= value";
-    private static      String      Float_filterObj     = "fld_Float >= value.fld_Float";
-    private static      String      Float_filterVal     = "100.0f >= fld_Float";
+    private static final String      Float_filterL       = "value >= fld_Float";
+    private static final String      Float_filterR       = "fld_Float >= value";
+    private static final String      Float_filterObj     = "fld_Float >= value.fld_Float";
+    private static final String      Float_filterVal     = "100.0f >= fld_Float";
     
-    private static      String      Integer_filterL     = "value >= fld_Integer";
-    private static      String      Integer_filterR     = "fld_Integer >= value";
-    private static      String      Integer_filterObj   = "fld_Integer >= value.fld_Integer";
-    private static      String      Integer_filterVal   = "fld_Integer >= 100";
+    private static final String      Integer_filterL     = "value >= fld_Integer";
+    private static final String      Integer_filterR     = "fld_Integer >= value";
+    private static final String      Integer_filterObj   = "fld_Integer >= value.fld_Integer";
+    private static final String      Integer_filterVal   = "fld_Integer >= 100";
     
-    private static      String      Long_filterL        = "value >= fld_Long";
-    private static      String      Long_filterR        = "fld_Long >= value";
-    private static      String      Long_filterObj      = "value.fld_Long >= fld_Long";
-    private static      String      Long_filterVal      = "-1000 >= fld_Long";
+    private static final String      Long_filterL        = "value >= fld_Long";
+    private static final String      Long_filterR        = "fld_Long >= value";
+    private static final String      Long_filterObj      = "value.fld_Long >= fld_Long";
+    private static final String      Long_filterVal      = "-1000 >= fld_Long";
     
-    private static      String      Short_filterL       = "value >= fld_Short";
-    private static      String      Short_filterR       = "fld_Short >= value";
-    private static      String      Short_filterObj     = "fld_Short >= value.fld_Short";
-    private static      String      Short_filterVal     = "-1000 >= fld_Short";
+    private static final String      Short_filterL       = "value >= fld_Short";
+    private static final String      Short_filterR       = "fld_Short >= value";
+    private static final String      Short_filterObj     = "fld_Short >= value.fld_Short";
+    private static final String      Short_filterVal     = "-1000 >= fld_Short";
     
-    private static      String      String_filterL      = "value >= fld_String";
-    private static      String      String_filterR      = "fld_String >= value";
-    private static      String      String_filterObj    = "value.fld_String >= fld_String";
-    private static      String      String_filterVal1   = "fld_String >= \"Java\"";
-    private static      String      String_filterVal2   = "fld_String >= \"\"";
+    private static final String      String_filterL      = "value >= fld_String";
+    private static final String      String_filterR      = "fld_String >= value";
+    private static final String      String_filterObj    = "value.fld_String >= fld_String";
+    private static final String      String_filterVal1   = "fld_String >= \"Java\"";
+    private static final String      String_filterVal2   = "fld_String >= \"\"";
     
-    private static      String      Date_filterL        = "value >= fld_Date";
-    private static      String      Date_filterR        = "fld_Date >= value";
-    private static      String      Date_filterObj      = "fld_Date >= value.fld_Date";
+    private static final String      Date_filterL        = "value >= fld_Date";
+    private static final String      Date_filterR        = "fld_Date >= value";
+    private static final String      Date_filterObj      = "fld_Date >= value.fld_Date";
     
-    private static      String      BigDecimal_filterL  = "value >= fld_BigDecimal";
-    private static      String      BigDecimal_filterR  = "fld_BigDecimal >= value";
-    private static      String      BigDecimal_filterObj = "value.fld_BigDecimal >= fld_BigDecimal";
+    private static final String      BigDecimal_filterL  = "value >= fld_BigDecimal";
+    private static final String      BigDecimal_filterR  = "fld_BigDecimal >= value";
+    private static final String      BigDecimal_filterObj = "value.fld_BigDecimal >= fld_BigDecimal";
     
-    private static      String      BigInteger_filterL  = "value >= fld_BigInteger";
-    private static      String      BigInteger_filterR  = "fld_BigInteger >= value";
-    private static      String      BigInteger_filterObj = "fld_BigInteger >= value.fld_BigInteger";
+    private static final String      BigInteger_filterL  = "value >= fld_BigInteger";
+    private static final String      BigInteger_filterR  = "fld_BigInteger >= value";
+    private static final String      BigInteger_filterObj = "fld_BigInteger >= value.fld_BigInteger";
 
     /** */
     private static final String ASSERTION_FAILED = 
@@ -261,7 +261,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_charQuery(char_filterR, charParameter, Character.valueOf('z'), 'z', false, 3);
         run_charQuery(char_filterL, CharacterParameter, Character.valueOf(' '), ' ', true, 2);
         run_charQuery(char_filterR, CharacterParameter, Character.valueOf('f'), 'f', false, 3);
-        run_charQuery(char_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), (char)Character.MIN_VALUE, true, 1);
+        run_charQuery(char_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), Character.MIN_VALUE, true, 1);
         run_charQuery(char_filterR, ByteParameter, Byte.valueOf((byte)'a'), 'a', false, 3);
         run_charQuery(char_filterL, shortParameter, Short.valueOf((short)'M'), 'M', true, 7);
         run_charQuery(char_filterR, shortParameter, Short.valueOf((short)'M'), 'M', false, 5);
@@ -271,10 +271,10 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_charQuery(char_filterR, intParameter, Integer.valueOf('z'), 'z', false, 3);
         run_charQuery(char_filterL, IntegerParameter, Integer.valueOf('B'), 'B', true, 4);
         run_charQuery(char_filterR, IntegerParameter, Integer.valueOf('B'), 'B', false, 7);
-        run_charQuery(char_filterL, floatParameter, Float.valueOf((float)'f'), 'f', true, 7);
-        run_charQuery(char_filterR, floatParameter, Float.valueOf((float)' '), ' ', false, 9);
-        run_charQuery(char_filterL, FloatParameter, Float.valueOf((float)'z'), 'z', true, 9);
-        run_charQuery(char_filterR, FloatParameter, Float.valueOf((float)'z'), 'z', false, 3);
+        run_charQuery(char_filterL, floatParameter, Float.valueOf('f'), 'f', true, 7);
+        run_charQuery(char_filterR, floatParameter, Float.valueOf(' '), ' ', false, 9);
+        run_charQuery(char_filterL, FloatParameter, Float.valueOf('z'), 'z', true, 9);
+        run_charQuery(char_filterR, FloatParameter, Float.valueOf('z'), 'z', false, 3);
         run_charQuery(char_filterL, doubleParameter, Double.valueOf('B'), 'B', true, 4);
         run_charQuery(char_filterR, doubleParameter, Double.valueOf('B'), 'B', false, 7);
         run_charQuery(char_filterL, DoubleParameter, Double.valueOf('A'), 'A', true, 3);
@@ -289,8 +289,8 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_charQuery(char_filterObj, AllTypesParameter, alltypes, 'b', true, 7);
         run_charQuery(char_filterVal, null, null, 'M', true, 7);
     
-        run_intQuery(int_filterL, intParameter, Integer.valueOf(AllTypes.veryLargeNegativeInt), AllTypes.veryLargeNegativeInt, true, 1);
-        run_intQuery(int_filterR, intParameter, Integer.valueOf(AllTypes.veryLargePositiveInt), AllTypes.veryLargePositiveInt, false, 1);
+        run_intQuery(int_filterL, intParameter, Integer.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), AllTypes.VERY_LARGE_NEGATIVE_INT, true, 1);
+        run_intQuery(int_filterR, intParameter, Integer.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), AllTypes.VERY_LARGE_POSITIVE_INT, false, 1);
         run_intQuery(int_filterR, intParameter, Integer.valueOf(23), 23, false, 6);
         run_intQuery(int_filterL, IntegerParameter, Integer.valueOf(1000000), 1000000, true, 9);
         run_intQuery(int_filterR, IntegerParameter, Integer.valueOf(1000), 1000, false, 4);
@@ -306,16 +306,16 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_intQuery(int_filterR, charParameter, Character.valueOf((char)0), 0, false, 7);
         run_intQuery(int_filterL, CharacterParameter, Character.valueOf((char)100), 100, true, 6);
         run_intQuery(int_filterR, CharacterParameter, Character.valueOf((char)10000), 10000, false, 3);
-        run_intQuery(int_filterL, longParameter, Long.valueOf(AllTypes.veryLargePositiveInt), AllTypes.veryLargePositiveInt, true, 10);
-        run_intQuery(int_filterR, longParameter, Long.valueOf(AllTypes.veryLargeNegativeInt), AllTypes.veryLargeNegativeInt, false, 10);
+        run_intQuery(int_filterL, longParameter, Long.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), AllTypes.VERY_LARGE_POSITIVE_INT, true, 10);
+        run_intQuery(int_filterR, longParameter, Long.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), AllTypes.VERY_LARGE_NEGATIVE_INT, false, 10);
         run_intQuery(int_filterL, LongParameter, Long.valueOf(10000), 10000, true, 8);
         run_intQuery(int_filterR, LongParameter, Long.valueOf(43), 43, false, 6);
-        run_intQuery(int_filterL, floatParameter, Float.valueOf((float)AllTypes.veryLargePositiveInt), AllTypes.veryLargePositiveInt, true, 10);
-        run_intQuery(int_filterR, floatParameter, Float.valueOf((float)AllTypes.veryLargeNegativeInt), AllTypes.veryLargeNegativeInt, false, 10);
+        run_intQuery(int_filterL, floatParameter, Float.valueOf((float)AllTypes.VERY_LARGE_POSITIVE_INT), AllTypes.VERY_LARGE_POSITIVE_INT, true, 10);
+        run_intQuery(int_filterR, floatParameter, Float.valueOf((float)AllTypes.VERY_LARGE_NEGATIVE_INT), AllTypes.VERY_LARGE_NEGATIVE_INT, false, 10);
         run_intQuery(int_filterL, FloatParameter, Float.valueOf((float)10000), 10000, true, 8);
         run_intQuery(int_filterR, FloatParameter, Float.valueOf((float)43), 43, false, 6);
-        run_intQuery(int_filterL, doubleParameter, Double.valueOf(AllTypes.veryLargePositiveInt), AllTypes.veryLargePositiveInt, true, 10);
-        run_intQuery(int_filterR, doubleParameter, Double.valueOf(AllTypes.veryLargeNegativeInt), AllTypes.veryLargeNegativeInt, false, 10);
+        run_intQuery(int_filterL, doubleParameter, Double.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), AllTypes.VERY_LARGE_POSITIVE_INT, true, 10);
+        run_intQuery(int_filterR, doubleParameter, Double.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), AllTypes.VERY_LARGE_NEGATIVE_INT, false, 10);
         run_intQuery(int_filterL, DoubleParameter, Double.valueOf(10000), 10000, true, 8);
         run_intQuery(int_filterR, DoubleParameter, Double.valueOf(43), 43, false, 6);
         run_intQuery(int_filterL, BigIntegerParameter, new BigInteger("1000000"), 1000000, true, 9);
@@ -362,10 +362,10 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_longQuery(long_filterObj, AllTypesParameter, alltypes, 100, false, 5);
         run_longQuery(long_filterVal, null, null, 1000000, false, 2);
     
-        run_floatQuery(float_filterL, floatParameter, Float.valueOf((float)AllTypes.FLOAT_SMALLEST), AllTypes.FLOAT_SMALLEST, true, 1);
-        run_floatQuery(float_filterR, floatParameter, Float.valueOf((float)AllTypes.FLOAT_LARGEST), AllTypes.FLOAT_LARGEST, false, 1);
-        run_floatQuery(float_filterL, FloatParameter, Float.valueOf((float)4.0f), 4.0f, true, 4);
-        run_floatQuery(float_filterR, FloatParameter, Float.valueOf((float)400.0f), 400.0f, false, 3);
+        run_floatQuery(float_filterL, floatParameter, Float.valueOf(AllTypes.FLOAT_SMALLEST), AllTypes.FLOAT_SMALLEST, true, 1);
+        run_floatQuery(float_filterR, floatParameter, Float.valueOf(AllTypes.FLOAT_LARGEST), AllTypes.FLOAT_LARGEST, false, 1);
+        run_floatQuery(float_filterL, FloatParameter, Float.valueOf(4.0f), 4.0f, true, 4);
+        run_floatQuery(float_filterR, FloatParameter, Float.valueOf(400.0f), 400.0f, false, 3);
         run_floatQuery(float_filterL, byteParameter, Byte.valueOf((byte)4), 4.0f, true, 4);
         run_floatQuery(float_filterR, byteParameter, Byte.valueOf((byte)23), 23.0f, false, 6);
         run_floatQuery(float_filterL, ByteParameter, Byte.valueOf((byte)34), 34.0f, true, 4);
@@ -521,7 +521,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_CharacterQuery(Character_filterR, charParameter, Character.valueOf('z'), Character.valueOf('z'), false, 3);
         run_CharacterQuery(Character_filterL, CharacterParameter, Character.valueOf(' '), Character.valueOf(' '), true, 2);
         run_CharacterQuery(Character_filterR, CharacterParameter, Character.valueOf('f'), Character.valueOf('f'), false, 3);
-        run_CharacterQuery(Character_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), Character.valueOf((char)Character.MIN_VALUE), true, 1);
+        run_CharacterQuery(Character_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), Character.valueOf(Character.MIN_VALUE), true, 1);
         run_CharacterQuery(Character_filterR, ByteParameter, Byte.valueOf((byte)'a'), Character.valueOf('a'), false, 3);
         run_CharacterQuery(Character_filterL, shortParameter, Short.valueOf((short)'M'), Character.valueOf('M'), true, 7);
         run_CharacterQuery(Character_filterR, shortParameter, Short.valueOf((short)'F'), Character.valueOf('F'), false, 6);
@@ -535,10 +535,10 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_CharacterQuery(Character_filterR, longParameter, Long.valueOf('z'), Character.valueOf('z'), false, 3);
         run_CharacterQuery(Character_filterL, LongParameter, Long.valueOf('B'), Character.valueOf('B'), true, 4);
         run_CharacterQuery(Character_filterR, LongParameter, Long.valueOf('B'), Character.valueOf('B'), false, 7);
-        run_CharacterQuery(Character_filterL, floatParameter, Float.valueOf((float)'z'), Character.valueOf('z'), true, 9);
-        run_CharacterQuery(Character_filterR, floatParameter, Float.valueOf((float)'z'), Character.valueOf('z'), false, 3);
-        run_CharacterQuery(Character_filterL, FloatParameter, Float.valueOf((float)'M'), Character.valueOf('M'), true, 7);
-        run_CharacterQuery(Character_filterR, FloatParameter, Float.valueOf((float)'X'), Character.valueOf('X'), false, 3);
+        run_CharacterQuery(Character_filterL, floatParameter, Float.valueOf('z'), Character.valueOf('z'), true, 9);
+        run_CharacterQuery(Character_filterR, floatParameter, Float.valueOf('z'), Character.valueOf('z'), false, 3);
+        run_CharacterQuery(Character_filterL, FloatParameter, Float.valueOf('M'), Character.valueOf('M'), true, 7);
+        run_CharacterQuery(Character_filterR, FloatParameter, Float.valueOf('X'), Character.valueOf('X'), false, 3);
         run_CharacterQuery(Character_filterL, doubleParameter, Double.valueOf('B'), Character.valueOf('B'), true, 4);
         run_CharacterQuery(Character_filterR, doubleParameter, Double.valueOf('B'), Character.valueOf('B'), false, 7);
         run_CharacterQuery(Character_filterL, DoubleParameter, Double.valueOf('A'), Character.valueOf('A'), true, 3);
@@ -553,8 +553,8 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_CharacterQuery(Character_filterObj, AllTypesParameter, alltypes, Character.valueOf('b'), true, 7);
         run_CharacterQuery(Character_filterVal, null, null, Character.valueOf('z'), false, 3);
     
-        run_IntegerQuery(Integer_filterL, intParameter, Integer.valueOf(AllTypes.veryLargeNegativeInt), Integer.valueOf(AllTypes.veryLargeNegativeInt), true, 1);
-        run_IntegerQuery(Integer_filterR, intParameter, Integer.valueOf(AllTypes.veryLargePositiveInt), Integer.valueOf(AllTypes.veryLargePositiveInt), false, 1);
+        run_IntegerQuery(Integer_filterL, intParameter, Integer.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), Integer.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), true, 1);
+        run_IntegerQuery(Integer_filterR, intParameter, Integer.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), Integer.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), false, 1);
         run_IntegerQuery(Integer_filterR, intParameter, Integer.valueOf(23), Integer.valueOf(23), false, 6);
         run_IntegerQuery(Integer_filterL, IntegerParameter, Integer.valueOf(1000000), Integer.valueOf(1000000), true, 9);
         run_IntegerQuery(Integer_filterR, IntegerParameter, Integer.valueOf(1000), Integer.valueOf(1000), false, 4);
@@ -570,16 +570,16 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_IntegerQuery(Integer_filterR, charParameter, Character.valueOf((char)10000), Integer.valueOf(10000), false, 3);
         run_IntegerQuery(Integer_filterL, CharacterParameter, Character.valueOf((char)100), Integer.valueOf(100), true, 6);
         run_IntegerQuery(Integer_filterR, CharacterParameter, Character.valueOf((char)10000), Integer.valueOf(10000), false, 3);
-        run_IntegerQuery(Integer_filterL, longParameter, Long.valueOf(AllTypes.veryLargePositiveInt), Integer.valueOf(AllTypes.veryLargePositiveInt), true, 10);
-        run_IntegerQuery(Integer_filterR, longParameter, Long.valueOf(AllTypes.veryLargeNegativeInt), Integer.valueOf(AllTypes.veryLargeNegativeInt), false, 10);
+        run_IntegerQuery(Integer_filterL, longParameter, Long.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), Integer.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), true, 10);
+        run_IntegerQuery(Integer_filterR, longParameter, Long.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), Integer.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), false, 10);
         run_IntegerQuery(Integer_filterL, LongParameter, Long.valueOf(10000), Integer.valueOf(10000), true, 8);
         run_IntegerQuery(Integer_filterR, LongParameter, Long.valueOf(43), Integer.valueOf(43), false, 6);
-        run_IntegerQuery(Integer_filterL, floatParameter, Float.valueOf((float)AllTypes.veryLargePositiveInt), Integer.valueOf(AllTypes.veryLargePositiveInt), true, 10);
-        run_IntegerQuery(Integer_filterR, floatParameter, Float.valueOf((float)AllTypes.veryLargeNegativeInt), Integer.valueOf(AllTypes.veryLargeNegativeInt), false, 10);
+        run_IntegerQuery(Integer_filterL, floatParameter, Float.valueOf((float)AllTypes.VERY_LARGE_POSITIVE_INT), Integer.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), true, 10);
+        run_IntegerQuery(Integer_filterR, floatParameter, Float.valueOf((float)AllTypes.VERY_LARGE_NEGATIVE_INT), Integer.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), false, 10);
         run_IntegerQuery(Integer_filterL, FloatParameter, Float.valueOf((float)10000), Integer.valueOf(10000), true, 8);
         run_IntegerQuery(Integer_filterR, FloatParameter, Float.valueOf((float)43), Integer.valueOf(43), false, 6);
-        run_IntegerQuery(Integer_filterL, doubleParameter, Double.valueOf(AllTypes.veryLargePositiveInt), Integer.valueOf(AllTypes.veryLargePositiveInt), true, 10);
-        run_IntegerQuery(Integer_filterR, doubleParameter, Double.valueOf(AllTypes.veryLargeNegativeInt), Integer.valueOf(AllTypes.veryLargeNegativeInt), false, 10);
+        run_IntegerQuery(Integer_filterL, doubleParameter, Double.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), Integer.valueOf(AllTypes.VERY_LARGE_POSITIVE_INT), true, 10);
+        run_IntegerQuery(Integer_filterR, doubleParameter, Double.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), Integer.valueOf(AllTypes.VERY_LARGE_NEGATIVE_INT), false, 10);
         run_IntegerQuery(Integer_filterL, DoubleParameter, Double.valueOf(10000), Integer.valueOf(10000), true, 8);
         run_IntegerQuery(Integer_filterR, DoubleParameter, Double.valueOf(1000001.0), Integer.valueOf(1000001), false, 1);
         run_IntegerQuery(Integer_filterL, BigIntegerParameter, new BigInteger("1000000"), Integer.valueOf(1000000), true, 9);
@@ -698,12 +698,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
         run_DoubleQuery(Double_filterObj, AllTypesParameter, alltypes, Double.valueOf(-999999999999.0), true, 1);
         run_DoubleQuery(Double_filterVal, null, null, Double.valueOf(100.0), false, 6);
 
-        run_StringQuery(String_filterL, StringParameter, new String("JDO"), new String("JDO"), true, 2);
-        run_StringQuery(String_filterR, StringParameter, new String("JDBC"), new String("JDBC"), false, 9);
-        alltypes.setString(new String("abcde"));
-        run_StringQuery(String_filterObj, AllTypesParameter, alltypes, new String("abcde"), true, 8);
-        run_StringQuery(String_filterVal1, null, null, new String("Java"), false, 6);
-        run_StringQuery(String_filterVal2, null, null, new String(""), false, 10);
+        run_StringQuery(String_filterL, StringParameter, "JDO", "JDO", true, 2);
+        run_StringQuery(String_filterR, StringParameter, "JDBC", "JDBC", false, 9);
+        alltypes.setString("abcde");
+        run_StringQuery(String_filterObj, AllTypesParameter, alltypes, "abcde", true, 8);
+        run_StringQuery(String_filterVal1, null, null, "Java", false, 6);
+        run_StringQuery(String_filterVal2, null, null, "", false, 10);
 
         BigDecimal bd = new BigDecimal("100.0");
         run_BigDecimalQuery(BigDecimal_filterL, BigDecimalParameter, bd, bd, true, 6);
@@ -748,12 +748,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             byte val = obj.getbyte();
             boolean correct_value = valueOnLeft ? value >= val : val >= value;
             if( !correct_value ){
@@ -764,7 +764,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -773,12 +773,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             short val = obj.getshort();
             boolean correct_value = valueOnLeft ? value >= val : val >= value;
             if( !correct_value ){
@@ -789,7 +789,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -798,12 +798,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             char val = obj.getchar();
             boolean correct_value = valueOnLeft ? value >= val : val >= value;
             if( !correct_value ){
@@ -814,7 +814,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -823,12 +823,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             int val = obj.getint();
             boolean correct_value = valueOnLeft ? value >= val : val >= value;
             if( !correct_value ){
@@ -839,7 +839,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -848,12 +848,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             long val = obj.getlong();
             boolean correct_value = valueOnLeft ? value >= val : val >= value;
             if( !correct_value ){
@@ -864,7 +864,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -873,12 +873,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             float val = obj.getfloat();
             boolean correct_value = valueOnLeft ? value >= val : val >= value;
             if( !correct_value ){
@@ -889,7 +889,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -898,12 +898,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             double val = obj.getdouble();
             boolean correct_value = valueOnLeft ? value >= val : val >= value;
             if( !correct_value ){
@@ -914,7 +914,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -923,12 +923,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             Byte val = obj.getByte();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -939,7 +939,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -948,12 +948,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             Short val = obj.getShort();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -964,7 +964,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -973,12 +973,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             Character val = obj.getCharacter();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -989,7 +989,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -998,12 +998,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             Integer val = obj.getInteger();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -1014,7 +1014,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1023,12 +1023,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             Long val = obj.getLong();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -1039,7 +1039,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1048,12 +1048,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             Float val = obj.getFloat();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -1064,7 +1064,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1073,12 +1073,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             Double val = obj.getDouble();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -1089,7 +1089,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1098,12 +1098,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             String val = obj.getString();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -1114,7 +1114,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1123,12 +1123,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             BigDecimal val = obj.getBigDecimal();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -1139,7 +1139,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1148,12 +1148,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj =  iter.next();
             BigInteger val = obj.getBigInteger();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -1164,7 +1164,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1173,12 +1173,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Date val = obj.getDate();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) >= 0) : (val.compareTo(value) >= 0);
             if( !correct_value ){
@@ -1189,7 +1189,7 @@ public class GreaterThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL GreaterThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 

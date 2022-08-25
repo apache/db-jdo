@@ -75,7 +75,7 @@ public class PassingNullToRefreshAllThrowsException
         if (debug) logger.debug("**  in runTestRefreshAll1() ");
         try {
             tx.begin();
-            Collection col1 = null;
+            Collection<Object> col1 = null;
             try {
                 pm.refreshAll(col1);
                 fail(ASSERTION_FAILED,

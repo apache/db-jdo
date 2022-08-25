@@ -102,15 +102,15 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
 
         // Select address, modify, and commit
         pm.currentTransaction().begin();
-        Query query = pm.newQuery(Company.class,
+        Query<Company> query = pm.newQuery(Company.class,
                 "name.startsWith(\"MyCompany\")");
         query.setResult("address");
         query.setUnique(true);
         Address myCompanyAddress = (Address) query.execute();
         myCompanyAddress.setZipcode(testZip);
-        if (JDOHelper.isDirty((Object)comp)) {
+        if (JDOHelper.isDirty(comp)) {
             appendMessage("Expected Company instance not to be dirty; "
-                + "actual state is " + getStateOfInstance((Object)comp));
+                + "actual state is " + getStateOfInstance(comp));
         }
         pm.currentTransaction().commit();
 
@@ -138,16 +138,16 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
 
         // Select date, modify, and commit
         pm.currentTransaction().begin();
-        Query query = pm.newQuery(Company.class,
+        Query<Company> query = pm.newQuery(Company.class,
                 "name.startsWith(\"MyCompany\")");
         query.setResult("founded");
         query.setUnique(true);
         Date retrievedDate = (Date) query.execute();
         retrievedDate.setTime(123789L);
 
-        if (JDOHelper.isDirty((Object)comp)) {
+        if (JDOHelper.isDirty(comp)) {
             appendMessage("Expected Company instance not to be dirty; "
-                + "actual state is " + getStateOfInstance((Object)comp));
+                + "actual state is " + getStateOfInstance(comp));
         }
         pm.currentTransaction().commit();
 

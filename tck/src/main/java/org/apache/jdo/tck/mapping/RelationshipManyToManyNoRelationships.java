@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.Set;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
+import org.apache.jdo.tck.pc.company.IEmployee;
+import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -43,7 +45,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 public class RelationshipManyToManyNoRelationships extends AbstractRelationshipTest {
     
     String testMethod = null;
-    protected String ASSERTION_FAILED =
+    private static final String ASSERTION_FAILED =
         "Assertion A15-3.14 (RelationshipManyToManyNoRelationships) failed: ";
     
     Object emp1Oid = null;
@@ -93,7 +95,7 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
         if (isTestToBePerformed) {
             
             // Set relationship
-            Set emps = new HashSet();
+            Set<IEmployee> emps = new HashSet<>();
             emps.add(emp1);
             proj1.setMembers(emps);
             pm.flush();
@@ -127,7 +129,7 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
         if (isTestToBePerformed) {
             
             // Set relationship
-            Set projs = new HashSet();
+            Set<IProject> projs = new HashSet<>();
             projs.add(proj1);
             emp1.setProjects(projs);
             pm.flush();
@@ -161,7 +163,7 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
         if (isTestToBePerformed) {
             
             // Set relationship
-            Set members = new HashSet();
+            Set<IEmployee> members = new HashSet<>();
             Employee empNew = new FullTimeEmployee(100, "Jerry", "Valentine",
                 "Brown", new Date(500L), new Date(10000L), 125000);
             pm.makePersistent(empNew);
@@ -203,13 +205,13 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
         if (isTestToBePerformed) {
             
             // Set relationship
-            Set projects = new HashSet();
+            Set<IProject> projects = new HashSet<>();
             Project projNew = new Project(99L, "Skunkworks",
                 new BigDecimal(10000.35));
             pm.makePersistent(projNew);
             projects.add(projNew);
             emp1.setProjects(projects);
-            Object projNewOid = pm.getObjectId((Object)projNew);
+            Object projNewOid = pm.getObjectId(projNew);
             pm.flush();
             
             assertFalse(testMethod + ": Test aborted, precondition is false; " +

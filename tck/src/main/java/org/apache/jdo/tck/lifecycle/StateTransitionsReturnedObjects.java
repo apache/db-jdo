@@ -235,8 +235,8 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
         boolean ret;
         Transaction t = pm.currentTransaction();
         t.begin();
-        Extent e = pm.getExtent(StateTransitionObj.class, false);
-        Iterator iter = e.iterator();
+        Extent<StateTransitionObj> e = pm.getExtent(StateTransitionObj.class, false);
+        Iterator<StateTransitionObj> iter = e.iterator();
         ret = iter.hasNext();
         t.rollback();
         return ret;
@@ -392,10 +392,11 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("ThrowFromFinallyBlock")
     Object applyOperation(int operation, StateTransitionObj stobj)
     {
         Object result = null;
-        StateTransitionObj obj = (StateTransitionObj) stobj;
+        StateTransitionObj obj = stobj;
         switch( operation ){
             case MAKEPERSISTENTOPTIMISTIC:
             case MAKEPERSISTENTDATASTORE:
@@ -421,9 +422,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
                     ois = new ObjectInputStream(new ByteArrayInputStream(
                             byteArrayOutputStream.toByteArray()));
                     result = ois.readObject();
-                } catch (IOException e) {
-                    throw new JDOFatalException(e.getMessage(), e);
-                } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     throw new JDOFatalException(e.getMessage(), e);
                 } finally {
                     try {
@@ -534,7 +533,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        StateTransitionObj sto = (StateTransitionObj) obj;
+        StateTransitionObj sto = obj;
         sto.readField();
         int curr = currentState(sto);
         if( curr != PERSISTENT_CLEAN ) {
@@ -556,7 +555,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        StateTransitionObj pcobj = (StateTransitionObj) obj;
+        StateTransitionObj pcobj = obj;
         pcobj.writeField(23);
         int curr = currentState(obj);
         if( curr != PERSISTENT_DIRTY ) {
@@ -582,14 +581,14 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
             if (debug)
                 logger.debug("getHollowInstance: Transaction should be active, but it is not");
         
-        Extent extent = pm.getExtent(StateTransitionObj.class, false);
-        Iterator iter = extent.iterator();
+        Extent<StateTransitionObj> extent = pm.getExtent(StateTransitionObj.class, false);
+        Iterator<StateTransitionObj> iter = extent.iterator();
         if( !iter.hasNext() ){
             if (debug)
                 logger.debug("Extent for StateTransitionObj should not be empty");
             return null;
         }
-        StateTransitionObj obj = (StateTransitionObj) iter.next();
+        StateTransitionObj obj = iter.next();
         
         pm.makeTransactional(obj);
         transaction.setRetainValues(false);
@@ -637,7 +636,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     {
         StateTransitionObj obj = getTransientCleanInstance();
         if( obj == null ) return null;
-        StateTransitionObj pcobj = (StateTransitionObj) obj;
+        StateTransitionObj pcobj = obj;
         pcobj.writeField(23);
         int curr = currentState(obj);
         if( curr != TRANSIENT_DIRTY ) { 
@@ -748,7 +747,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        obj = (StateTransitionObj) pm.detachCopy(obj);
+        obj = pm.detachCopy(obj);
         int curr = currentState(obj);
         if( curr != DETACHED_CLEAN ) { 
             if (debug) {
@@ -769,7 +768,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        obj = (StateTransitionObj) pm.detachCopy(obj);
+        obj = pm.detachCopy(obj);
         obj.writeField(1000);
         int curr = currentState(obj);
         if( curr != DETACHED_DIRTY ) { 

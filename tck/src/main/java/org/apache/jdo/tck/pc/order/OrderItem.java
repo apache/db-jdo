@@ -23,7 +23,9 @@ import java.util.Comparator;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
-public class OrderItem implements Serializable, Comparable, Comparator, DeepEquality {
+public class OrderItem implements Serializable, Comparable<OrderItem>, Comparator<OrderItem>, DeepEquality {
+
+    private static final long serialVersionUID = 1L;
 
     Order order;
     long item;
@@ -91,27 +93,6 @@ public class OrderItem implements Serializable, Comparable, Comparator, DeepEqua
             helper.equals(order, otherOrderItem.getOrder(), where + ".order") &
             helper.equals(item, otherOrderItem.getItem(), where + ".item");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((OrderItem)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((OrderItem)o1, (OrderItem)o2);
-    }
 
     /** 
      * Compares this object with the specified Company object for
@@ -136,7 +117,7 @@ public class OrderItem implements Serializable, Comparable, Comparator, DeepEqua
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(OrderItem o1, OrderItem o2) {
+    public int compare(OrderItem o1, OrderItem o2) {
         int retval = o1.getOrder().compareTo(o2.getOrder());
         if (retval != 0) {
             return retval;
@@ -170,7 +151,10 @@ public class OrderItem implements Serializable, Comparable, Comparator, DeepEqua
      * for the <code>OrderItem</code> class. It consists of both the order 
      * and the item fields.
      */
-    public static class OrderItemOid implements Serializable, Comparable {
+    public static class OrderItemOid implements Serializable, Comparable<OrderItemOid> {
+
+        private static final long serialVersionUID = 1L;
+
         public Order.OrderOid order; //matches order field name and OrderId type
         public long item; // matches item field name and type
 
@@ -214,13 +198,11 @@ public class OrderItem implements Serializable, Comparable, Comparator, DeepEqua
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            OrderItemOid other = (OrderItemOid) obj;
-            if( order.orderId < other.order.orderId ) return -1;
-            if( order.orderId > other.order.orderId ) return 1;
-            if( item < other.item ) return -1;
-            if( item > other.item ) return 1;
+        public int compareTo(OrderItemOid obj) {
+            if( order.orderId < obj.order.orderId ) return -1;
+            if( order.orderId > obj.order.orderId ) return 1;
+            if( item < obj.item ) return -1;
+            if( item > obj.item ) return 1;
             return 0;
         }
     }

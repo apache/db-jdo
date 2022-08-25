@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.HashSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -60,8 +60,8 @@ public class MakeNontransactionalTransientCleanInstance extends PersistenceManag
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection col1 = new java.util.HashSet();
-    private Collection col2 = new java.util.HashSet();
+    private final Collection<PCPoint> col1 = new HashSet<>();
+    private final Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInst() {
@@ -158,16 +158,13 @@ public class MakeNontransactionalTransientCleanInstance extends PersistenceManag
                 testState(p4, TRANSIENT_CLEAN, "transient clean")) {
                 
                 pm.makeNontransactionalAll(col1);
-                Iterator iter = col1.iterator();
-                while (iter.hasNext() ) {
-                    PCPoint p = (PCPoint) iter.next();
+                for (PCPoint p : col1) {
                     if (testState(p, TRANSIENT, "transient")) {
                         // expected result
-                    }
-                    else {
-                    fail(ASSERTION_FAILED, 
-                         "expected transient instance after pm.makeNontransactionalAll, instance is " +
-                         getStateOfInstance(p));
+                    } else {
+                        fail(ASSERTION_FAILED,
+                                "expected transient instance after pm.makeNontransactionalAll, instance is " +
+                                        getStateOfInstance(p));
                     }
                 }
             }
@@ -196,16 +193,15 @@ public class MakeNontransactionalTransientCleanInstance extends PersistenceManag
                 testState(p7, TRANSIENT_CLEAN, "transient clean")) {
                 
                 pm.makeNontransactionalAll(objArray);
-                
-                for (int i=0; i < objArray.length; i++) {
-                    PCPoint p = (PCPoint) objArray[i];
+
+                for (Object o : objArray) {
+                    PCPoint p = (PCPoint) o;
                     if (testState(p, TRANSIENT, "transient")) {
                         // expected result
-                    }
-                    else {
-                        fail(ASSERTION_FAILED, 
-                             "expected transient instance after pm.makeNontransactionalAll, instance is " +
-                             getStateOfInstance(p));
+                    } else {
+                        fail(ASSERTION_FAILED,
+                                "expected transient instance after pm.makeNontransactionalAll, instance is " +
+                                        getStateOfInstance(p));
                     }
                 }
             }

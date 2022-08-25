@@ -18,53 +18,57 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Vector;
 
 public class VectorCollections { 
   public int identifier;
-  public Vector VectorOfObject0;
-  public Vector VectorOfObject1;
-  public Vector VectorOfObject2;
-  public Vector VectorOfSimpleClass3;
-  public Vector VectorOfSimpleClass4;
-  public Vector VectorOfSimpleClass5;
-  public Vector VectorOfSimpleInterface6;
-  public Vector VectorOfSimpleInterface7;
-  public Vector VectorOfSimpleInterface8;
-  public Vector VectorOfString9;
-  public Vector VectorOfString10;
-  public Vector VectorOfString11;
-  public Vector VectorOfDate12;
-  public Vector VectorOfDate13;
-  public Vector VectorOfDate14;
-  public Vector VectorOfLocale15;
-  public Vector VectorOfLocale16;
-  public Vector VectorOfLocale17;
-  public Vector VectorOfBigDecimal18;
-  public Vector VectorOfBigDecimal19;
-  public Vector VectorOfBigDecimal20;
-  public Vector VectorOfBigInteger21;
-  public Vector VectorOfBigInteger22;
-  public Vector VectorOfBigInteger23;
-  public Vector VectorOfByte24;
-  public Vector VectorOfByte25;
-  public Vector VectorOfByte26;
-  public Vector VectorOfDouble27;
-  public Vector VectorOfDouble28;
-  public Vector VectorOfDouble29;
-  public Vector VectorOfFloat30;
-  public Vector VectorOfFloat31;
-  public Vector VectorOfFloat32;
-  public Vector VectorOfInteger33;
-  public Vector VectorOfInteger34;
-  public Vector VectorOfInteger35;
-  public Vector VectorOfLong36;
-  public Vector VectorOfLong37;
-  public Vector VectorOfLong38;
-  public Vector VectorOfShort39;
-  public Vector VectorOfShort40;
-  public Vector VectorOfShort41;
-  public Vector VectorOfSimpleClass42;
+  public Vector<Object> VectorOfObject0;
+  public Vector<Object> VectorOfObject1;
+  public Vector<Object> VectorOfObject2;
+  public Vector<SimpleClass> VectorOfSimpleClass3;
+  public Vector<SimpleClass> VectorOfSimpleClass4;
+  public Vector<SimpleClass> VectorOfSimpleClass5;
+  public Vector<SimpleInterface> VectorOfSimpleInterface6;
+  public Vector<SimpleInterface> VectorOfSimpleInterface7;
+  public Vector<SimpleInterface> VectorOfSimpleInterface8;
+  public Vector<String> VectorOfString9;
+  public Vector<String> VectorOfString10;
+  public Vector<String> VectorOfString11;
+  public Vector<Date> VectorOfDate12;
+  public Vector<Date> VectorOfDate13;
+  public Vector<Date> VectorOfDate14;
+  public Vector<Locale> VectorOfLocale15;
+  public Vector<Locale> VectorOfLocale16;
+  public Vector<Locale> VectorOfLocale17;
+  public Vector<BigDecimal> VectorOfBigDecimal18;
+  public Vector<BigDecimal> VectorOfBigDecimal19;
+  public Vector<BigDecimal> VectorOfBigDecimal20;
+  public Vector<BigInteger> VectorOfBigInteger21;
+  public Vector<BigInteger> VectorOfBigInteger22;
+  public Vector<BigInteger> VectorOfBigInteger23;
+  public Vector<Byte> VectorOfByte24;
+  public Vector<Byte> VectorOfByte25;
+  public Vector<Byte> VectorOfByte26;
+  public Vector<Double> VectorOfDouble27;
+  public Vector<Double> VectorOfDouble28;
+  public Vector<Double> VectorOfDouble29;
+  public Vector<Float> VectorOfFloat30;
+  public Vector<Float> VectorOfFloat31;
+  public Vector<Float> VectorOfFloat32;
+  public Vector<Integer> VectorOfInteger33;
+  public Vector<Integer> VectorOfInteger34;
+  public Vector<Integer> VectorOfInteger35;
+  public Vector<Long> VectorOfLong36;
+  public Vector<Long> VectorOfLong37;
+  public Vector<Long> VectorOfLong38;
+  public Vector<Short> VectorOfShort39;
+  public Vector<Short> VectorOfShort40;
+  public Vector<Short> VectorOfShort41;
+  public Vector<SimpleClass> VectorOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public Vector VectorOfObject0",
@@ -115,7 +119,7 @@ public class VectorCollections {
   {
     return fieldSpecs.length;
   }
-  public Vector get(int index)
+  public Vector<?> get(int index)
   {
     switch (index)
     {
@@ -209,7 +213,9 @@ public class VectorCollections {
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index,Vector value)
+
+  @SuppressWarnings("unchecked")
+  public boolean set(int index, @SuppressWarnings("rawtypes") Vector value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -351,6 +357,9 @@ public class VectorCollections {
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -361,7 +370,7 @@ public class VectorCollections {
         public String toString() { return this.getClass().getName() +
                 ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

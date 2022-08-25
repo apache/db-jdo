@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.query.api;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,7 +26,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -72,19 +70,18 @@ public class Close extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
-            Object results = query.execute();
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            
-            Object p1 = new PCPoint(0, 0);
-            Object p2 = new PCPoint(1, 1);
-            Object p3 = new PCPoint(2, 2);
-            Object p4 = new PCPoint(3, 3);
-            Object p5 = new PCPoint(4, 4);
+            List<PCPoint> expected = new ArrayList<>();
+
+            PCPoint p1 = new PCPoint(0, 0);
+            PCPoint p2 = new PCPoint(1, 1);
+            PCPoint p3 = new PCPoint(2, 2);
+            PCPoint p4 = new PCPoint(3, 3);
+            PCPoint p5 = new PCPoint(4, 4);
             
             expected.add(p1);
             expected.add(p2);
@@ -100,7 +97,7 @@ public class Close extends QueryTest {
             if (debug) 
                 logger.debug("Test Close: Results are as expected and accessible before query is closed");
             
-            Iterator resIterator = ((Collection)results).iterator();
+            Iterator<PCPoint> resIterator = results.iterator();
             query.close(results);
 
             if(resIterator.hasNext()) {

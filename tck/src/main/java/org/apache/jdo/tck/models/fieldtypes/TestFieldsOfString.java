@@ -76,8 +76,8 @@ public class TestFieldsOfString extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        String firstValue = new String("Hello");
-        String secondValue = new String("Hello World");
+        String firstValue = "Hello";
+        String secondValue = "Hello World";
         tx.begin();
         FieldsOfString pi = new FieldsOfString();
         pi.identifier = 1;
@@ -126,7 +126,7 @@ public class TestFieldsOfString extends JDO_Test {
                 fail(ASSERTION_FAILED,
                         "Incorrect value for " + FieldsOfString.fieldSpecs[i] +
                         ", expected value " + value +
-                        ", value is " + val.toString());
+                        ", value is " + val);
             }
         }
     }

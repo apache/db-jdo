@@ -25,7 +25,9 @@ import javax.jdo.identity.SingleFieldIdentity;
  * @author Michael Watzek
  */
 public class PCPointSingleFieldCharacter extends AbstractPCPointSingleField {
-    
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * Returns a unique value, used for primary key field initialization.
      * @return a unique value
@@ -99,7 +101,8 @@ public class PCPointSingleFieldCharacter extends AbstractPCPointSingleField {
     public boolean equalsPKField(SingleFieldIdentity singleFieldIdentity) {
         return this.id.charValue()==((CharIdentity)singleFieldIdentity).getKey();
     }
-    
+
+    @Override
     public String toString() {
         return super.toString() + this.id;
     }

@@ -657,7 +657,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * @since 2.0
      */
     void addInstanceLifecycleListener (InstanceLifecycleListener listener,
-        Class[] classes);
+        Class<?>[] classes);
 
     /**
      * Remove the parameter listener instance from the list of
@@ -738,7 +738,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * class or interface
      * @since 2.2
      */
-    FetchGroup getFetchGroup(Class cls, String name);
+    FetchGroup getFetchGroup(Class<?> cls, String name);
 
     /**
      * Get a modifiable Set containing a mutable copy of all currently active
@@ -751,7 +751,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * {@link JDOPermission} ("getMetadata")
      * @since 2.2
      */
-    Set getFetchGroups();
+    Set<FetchGroup> getFetchGroups();
 
     /**
      * Method to register metadata with the persistence process managed by this

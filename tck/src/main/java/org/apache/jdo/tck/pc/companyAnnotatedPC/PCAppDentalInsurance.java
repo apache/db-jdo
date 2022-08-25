@@ -32,6 +32,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class PCAppDentalInsurance extends PCAppInsurance implements IDentalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private BigDecimal _lifetimeOrthoBenefit;
 
@@ -92,6 +94,7 @@ public class PCAppDentalInsurance extends PCAppInsurance implements IDentalInsur
      * @return a String representation of a <code>PCAppDentalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "FCDentalInsurance(" + getFieldRepr()+ ")";
     }
@@ -100,8 +103,9 @@ public class PCAppDentalInsurance extends PCAppInsurance implements IDentalInsur
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", lifetimeOrthoBenefit ").append(_lifetimeOrthoBenefit);
         return rc.toString();
@@ -118,7 +122,8 @@ public class PCAppDentalInsurance extends PCAppInsurance implements IDentalInsur
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         PCAppDentalInsurance otherIns = (PCAppDentalInsurance)other;
         String where = "FCDentalInsurance<" + getInsid() + ">";

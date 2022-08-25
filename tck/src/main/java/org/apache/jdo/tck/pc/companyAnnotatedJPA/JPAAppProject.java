@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.math.BigDecimal;
 
+import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
@@ -44,7 +45,9 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING,
         name="DISCRIMINATOR")
     public class JPAAppProject 
-    implements IProject, Serializable, Comparable, Comparator, DeepEquality  {
+    implements IProject, Serializable, Comparable<IProject>, Comparator<IProject>, DeepEquality  {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name="PROJID")
@@ -56,11 +59,11 @@ import org.apache.jdo.tck.util.EqualityHelper;
     @ManyToMany(targetEntity=org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppEmployee.class)
     @JoinTable(name="project_reviewer", joinColumns=@JoinColumn(name="PROJID"),
             inverseJoinColumns=@JoinColumn(name="REVIEWER"))
-    private Set reviewers = new HashSet();
+    private Set<IEmployee> reviewers = new HashSet<>();
     @ManyToMany(targetEntity=org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppEmployee.class)
     @JoinTable(name="project_member", joinColumns=@JoinColumn(name="PROJID"),
             inverseJoinColumns=@JoinColumn(name="MEMBER"))
-    private Set members = new HashSet();
+    private Set<IEmployee> members = new HashSet<>();
     
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -132,7 +135,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
     /**
      * Get the reviewers associated with this project.
      */
-    public Set getReviewers() {
+    public Set<IEmployee> getReviewers() {
         return Collections.unmodifiableSet(reviewers);
     }
 
@@ -156,10 +159,10 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * Set the reviewers associated with this project.
      * @param reviewers The set of reviewers to associate with this project.
      */
-    public void setReviewers(Set reviewers) {
+    public void setReviewers(Set<IEmployee> reviewers) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.reviewers = (reviewers != null) ? new HashSet(reviewers) : null;
+        this.reviewers = (reviewers != null) ? new HashSet<>(reviewers) : null;
     }
 
     /**
@@ -169,7 +172,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @return The members of the project is returned as an unmodifiable
      * set of <code>JPAAppEmployee</code>s.
      */
-    public Set getMembers() {
+    public Set<IEmployee> getMembers() {
         return Collections.unmodifiableSet(members);
     }
 
@@ -194,10 +197,10 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @param employees The set of employees to be the members of this
      * project. 
      */
-    public void setMembers(Set employees) {
+    public void setMembers(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.members = (employees != null) ? new HashSet(employees) : null;
+        this.members = (employees != null) ? new HashSet<>(employees) : null;
     }
 
     /**
@@ -209,8 +212,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        reviewers = new HashSet();
-        members = new HashSet();
+        reviewers = new HashSet<>();
+        members = new HashSet<>();
     }
 
     /**
@@ -228,7 +231,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(projid);
         rc.append(", name ").append(name);
         rc.append(", budget ").append(budget);
@@ -257,27 +260,6 @@ import org.apache.jdo.tck.util.EqualityHelper;
             helper.deepEquals(reviewers, otherProject.getReviewers(), where + ".reviewers") &
             helper.deepEquals(members, otherProject.getMembers(), where + ".members");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((JPAAppProject)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((JPAAppProject)o1, (JPAAppProject)o2);
-    }
 
     /**
      * 
@@ -291,7 +273,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @return a negative integer, zero, or a positive integer as this
      * object is less than, equal to, or greater than the specified JPAAppProject object.
      */
-    public int compareTo(JPAAppProject other) {
+    public int compareTo(IProject other) {
         return compare(this, other);
     }
 
@@ -304,7 +286,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(JPAAppProject o1, JPAAppProject o2) {
+    public int compare(IProject o1, IProject o2) {
         return EqualityHelper.compare(o1.getProjid(), o2.getProjid());
     }
 
@@ -333,7 +315,9 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * This class is used to represent the application identity
      * for the <code>JPAAppProject</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the
@@ -378,12 +362,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( projid < other.projid ) return -1;
-            if( projid > other.projid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(projid, obj.projid);
         }
 
     }

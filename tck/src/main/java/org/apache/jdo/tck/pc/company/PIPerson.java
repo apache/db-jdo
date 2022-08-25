@@ -33,7 +33,7 @@ public interface PIPerson extends IPerson {
     String getMiddlename();
     IAddress getAddress();
     Date getBirthdate();
-    Map getPhoneNumbers();
+    Map<String, String> getPhoneNumbers();
     
     void setPersonid(long personid);
     void setLastname(String lastname);
@@ -41,6 +41,6 @@ public interface PIPerson extends IPerson {
     void setMiddlename(String middlename);
     void setAddress(IAddress address);
     void setBirthdate(Date birthdate);
-    void setPhoneNumbers(Map phoneNumbers);
+    void setPhoneNumbers(Map<String, String> phoneNumbers);
 
 }

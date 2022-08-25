@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
@@ -28,6 +27,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,7 +60,7 @@ public class ComparingPersistentAndNonPersistentInstance
 
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -68,9 +68,9 @@ public class ComparingPersistentAndNonPersistentInstance
         query.filter(cand.eq(empParam));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("param", getTransientCompanyModelInstance("emp1"));
+        paramValues.put("param", getTransientCompanyModelInstance(Employee.class, "emp1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -94,7 +94,7 @@ public class ComparingPersistentAndNonPersistentInstance
 
     /** */
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -103,9 +103,9 @@ public class ComparingPersistentAndNonPersistentInstance
         query.filter(cand.personid.eq(empParam.personid));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("param", getTransientCompanyModelInstance("emp1"));
+        paramValues.put("param", getTransientCompanyModelInstance(Employee.class, "emp1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.HashSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -115,20 +115,18 @@ public class MakeTransactional extends PersistenceManagerTest{
         try {
             tx.begin();
             
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p1);
             col1.add(p2);
             col1.add(p3);
             col1.add(p4);
             
             pm.makeTransactionalAll(col1);
-            Iterator iter = col1.iterator();
-            while (iter.hasNext() ) {
-                PCPoint p = (PCPoint) iter.next();
+            for (PCPoint p : col1) {
                 if (currentState(p) != TRANSIENT_CLEAN) {
                     fail(ASSERTION_FAILED,
-                         "Expected T-CLEAN instance, instance " + p + " is " + 
-                         getStateOfInstance(p1) + ".");
+                            "Expected T-CLEAN instance, instance " + p + " is " +
+                                    getStateOfInstance(p1) + ".");
                 }
             }
             tx.commit();
@@ -148,13 +146,13 @@ public class MakeTransactional extends PersistenceManagerTest{
             
             Object[] objArray = {p1,p2,p3,p4};
             pm.makeTransactionalAll(objArray);
-            
-            for ( int i=0; i < objArray.length; i++) {
-                p = (PCPoint) objArray[i];
+
+            for (Object o : objArray) {
+                p = (PCPoint) o;
                 if (currentState(p) != TRANSIENT_CLEAN) {
                     fail(ASSERTION_FAILED,
-                         "Expected T-CLEAN instance, instance " + p + " is " + 
-                         getStateOfInstance(p1) + ".");
+                            "Expected T-CLEAN instance, instance " + p + " is " +
+                                    getStateOfInstance(p1) + ".");
                 }
             }
             tx.commit();

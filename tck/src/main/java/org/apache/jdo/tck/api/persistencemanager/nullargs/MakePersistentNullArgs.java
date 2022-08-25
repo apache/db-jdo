@@ -20,11 +20,8 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -49,18 +46,21 @@ public class MakePersistentNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(MakePersistentNullArgs.class);
     }
 
-    static MethodUnderTest makePersistent = new MethodUnderTestMakePersistent();
+    static final MethodUnderTest makePersistent = new MethodUnderTestMakePersistent();
     static class MethodUnderTestMakePersistent extends MethodUnderTest {
+        @Override
         public Object pmApiReturn(PersistenceManager pm, Object pc) {
             return pm.makePersistent(pc);
         }
-        public Collection pmApiReturn(PersistenceManager pm, Collection pcs) {
+        @Override
+        public <T> Collection<T> pmApiReturn(PersistenceManager pm, Collection<T> pcs) {
             return pm.makePersistentAll(pcs);
         }
+        @Override
         public Object[] pmApiReturn(PersistenceManager pm, Object[] pcs) {
             return pm.makePersistentAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that makePersistent() with null valued argument does nothing.

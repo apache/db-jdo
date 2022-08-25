@@ -18,8 +18,8 @@
 package org.apache.jdo.tck.query.jdoql.variables;
 
 import java.util.LinkedList;
+import java.util.List;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
@@ -66,15 +66,16 @@ public class VariablesAndFields extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         QEmployee e = QEmployee.variable("e");
         query.filter(cand.team.contains(e).and(e.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -97,15 +98,16 @@ public class VariablesAndFields extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         QEmployee e = QEmployee.variable("e");
         query.filter(cand.team.contains(e).and(e.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -129,13 +131,13 @@ public class VariablesAndFields extends QueryTest {
 
     /** */
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.eq("emp1First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -158,15 +160,16 @@ public class VariablesAndFields extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive3() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         QEmployee manager = QEmployee.variable("manager");
         query.filter(cand.team.contains(manager).and(manager.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -187,16 +190,18 @@ public class VariablesAndFields extends QueryTest {
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
+
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive4() {
-        Object expected = new LinkedList();
+        Object expected = new LinkedList<>();
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         QEmployee manager = QEmployee.variable("manager");
         query.filter(cand.team.contains(cand.manager).and(cand.manager.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -217,16 +222,18 @@ public class VariablesAndFields extends QueryTest {
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
+
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive5() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         QEmployee employee = QEmployee.variable("employee");
         query.filter(cand.team.contains(employee).and(employee.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /* Note: the variable name is the same as the class
                  * name except for capitalization. This is legal. */
                 /*UNIQUE*/      null,

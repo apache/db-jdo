@@ -26,7 +26,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -74,8 +73,7 @@ public class SetOrdering extends QueryTest {
             tx.begin();
 
             //ascending
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setOrdering("x ascending");
             Object results = query.execute();
@@ -97,23 +95,21 @@ public class SetOrdering extends QueryTest {
     /** */
     void runTestDescending(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
-        Class clazz = PCPoint.class;
         try {
             tx.begin();
 
             //descending
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setOrdering("x descending");
             Object results = query.execute();
             
             // check result
-            List expected = new ArrayList();
-            ListIterator li = inserted.listIterator(inserted.size());
+            List<PCPoint> expected = new ArrayList<>();
+            ListIterator<PCPoint> li = inserted.listIterator(inserted.size());
             // construct expected results by iterating inserted objects backwards
             while (li.hasPrevious()) {
-                Object obj = li.previous();
+                PCPoint obj = li.previous();
                 expected.add(obj);
             }
             expected = getFromInserted(expected);

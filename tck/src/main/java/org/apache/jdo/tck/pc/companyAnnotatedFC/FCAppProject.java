@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.math.BigDecimal;
 
+import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
@@ -42,7 +43,9 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
 public class FCAppProject 
-    implements IProject, Serializable, Comparable, Comparator, DeepEquality  {
+    implements IProject, Serializable, Comparable<IProject>, Comparator<IProject>, DeepEquality  {
+
+    private static final long serialVersionUID = 1L;
 
     @PrimaryKey
     @Column(name="PROJID")
@@ -55,12 +58,12 @@ public class FCAppProject
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
             column="REVIEWER")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
-    private transient Set reviewers = new HashSet();
+    private transient Set<IEmployee> reviewers = new HashSet<>();
     @Persistent(table="project_member")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
             column="MEMBER", foreignKey="PR_MEMB_FK")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
-    private transient Set members = new HashSet();
+    private transient Set<IEmployee> members = new HashSet<>();
     
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -132,7 +135,7 @@ public class FCAppProject
     /**
      * Get the reviewers associated with this project.
      */
-    public Set getReviewers() {
+    public Set<IEmployee> getReviewers() {
         return Collections.unmodifiableSet(reviewers);
     }
 
@@ -156,10 +159,10 @@ public class FCAppProject
      * Set the reviewers associated with this project.
      * @param reviewers The set of reviewers to associate with this project.
      */
-    public void setReviewers(Set reviewers) {
+    public void setReviewers(Set<IEmployee> reviewers) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.reviewers = (reviewers != null) ? new HashSet(reviewers) : null;
+        this.reviewers = (reviewers != null) ? new HashSet<>(reviewers) : null;
     }
 
     /**
@@ -168,7 +171,7 @@ public class FCAppProject
      * @return The members of the project is returned as an unmodifiable
      * set of <code>FCAppEmployee</code>s.
      */
-    public Set getMembers() {
+    public Set<IEmployee> getMembers() {
         return Collections.unmodifiableSet(members);
     }
 
@@ -193,10 +196,10 @@ public class FCAppProject
      * @param employees The set of employees to be the members of this
      * project. 
      */
-    public void setMembers(Set employees) {
+    public void setMembers(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.members = (employees != null) ? new HashSet(employees) : null;
+        this.members = (employees != null) ? new HashSet<>(employees) : null;
     }
 
     /**
@@ -208,8 +211,8 @@ public class FCAppProject
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        reviewers = new HashSet();
-        members = new HashSet();
+        reviewers = new HashSet<>();
+        members = new HashSet<>();
     }
 
     /**
@@ -226,7 +229,7 @@ public class FCAppProject
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(projid);
         rc.append(", name ").append(name);
         rc.append(", budget ").append(budget);
@@ -255,27 +258,6 @@ public class FCAppProject
             helper.deepEquals(reviewers, otherProject.getReviewers(), where + ".reviewers") &
             helper.deepEquals(members, otherProject.getMembers(), where + ".members");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((FCAppProject)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((FCAppProject)o1, (FCAppProject)o2);
-    }
 
     /**
      * 
@@ -288,7 +270,7 @@ public class FCAppProject
      * @return a negative integer, zero, or a positive integer as this
      * object is less than, equal to, or greater than the specified FFCAppProject object.
      */
-    public int compareTo(FCAppProject other) {
+    public int compareTo(IProject other) {
         return compare(this, other);
     }
 
@@ -301,7 +283,7 @@ public class FCAppProject
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(FCAppProject o1, FCAppProject o2) {
+    public int compare(IProject o1, IProject o2) {
         return EqualityHelper.compare(o1.getProjid(), o2.getProjid());
     }
 
@@ -330,7 +312,9 @@ public class FCAppProject
      * This class is used to represent the application identity
      * for the <code>FCAppProject</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the
@@ -375,12 +359,8 @@ public class FCAppProject
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( projid < other.projid ) return -1;
-            if( projid > other.projid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(projid, obj.projid);
         }
 
     }

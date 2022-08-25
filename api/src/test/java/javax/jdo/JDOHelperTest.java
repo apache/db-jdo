@@ -296,7 +296,7 @@ public class JDOHelperTest extends AbstractTest {
      */
     public void testGetPMFNullJNDI() {
         try {
-            JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext());
+            JDOHelper.getPersistenceManagerFactory(null, getInitialContext());
             fail("Null JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -309,7 +309,7 @@ public class JDOHelperTest extends AbstractTest {
      */
     public void testGetPMFNullJNDIGoodClassLoader() {
         try {
-            JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext(), this.getClass().getClassLoader());
+            JDOHelper.getPersistenceManagerFactory(null, getInitialContext(), this.getClass().getClassLoader());
             fail("Null JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -387,7 +387,7 @@ public class JDOHelperTest extends AbstractTest {
      */
     public void testGetPMFBothNullClassLoader() {
         try {
-            JDOHelper.getPersistenceManagerFactory("Whatever", (ClassLoader)null, (ClassLoader)null);
+            JDOHelper.getPersistenceManagerFactory("Whatever", (ClassLoader)null, null);
             fail("Null ClassLoader should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -450,7 +450,7 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad PMF class no method getPersistenceManagerFactory(Map).
      */
     public void testBadPMFNoGetPMFMapMethod() {
-        Map<String,String> props = new HashMap<String,String>();
+        Map<String,String> props = new HashMap<>();
         props.put("javax.jdo.PersistenceManagerFactoryClass", 
                 "javax.jdo.JDOHelperTest$BadPMFNoGetPMFMethod");
         try {
@@ -600,21 +600,21 @@ public class JDOHelperTest extends AbstractTest {
 
     public static class BadPMFNonStaticGetPMFMethod {
         public PersistenceManagerFactory
-                getPersistenceManagerFactory(Map props) {
+                getPersistenceManagerFactory(Map<?, ?> props) {
             return null;
         }
     }
         
     public static class BadPMFWrongReturnType {
         public static BadPMFWrongReturnType 
-                getPersistenceManagerFactory(Map props) {
+                getPersistenceManagerFactory(Map<?, ?> props) {
             return new BadPMFWrongReturnType();
         }
     }
     
     public static class BadPMFGetPMFMethodThrowsJDOException {
         public static PersistenceManagerFactory
-                getPersistenceManagerFactory(Map props) {
+                getPersistenceManagerFactory(Map<?, ?> props) {
             throw new JDOUnsupportedOptionException(
                     "GetPMF method throws JDOUnsupportedOptionException");
         }
@@ -622,7 +622,7 @@ public class JDOHelperTest extends AbstractTest {
 
     public static class BadPMFGetPMFMethodThrowsJDOFatalInternalException {
         public static PersistenceManagerFactory
-                getPersistenceManagerFactory(Map props) {
+                getPersistenceManagerFactory(Map<?, ?> props) {
             throw new JDOFatalInternalException(
                     "GetPMF method throws JDOFatalInternalException");
         }
@@ -630,7 +630,7 @@ public class JDOHelperTest extends AbstractTest {
 
     public static class BadPMFGetPMFMethodReturnsNull {
         public static PersistenceManagerFactory
-                getPersistenceManagerFactory(Map props) {
+                getPersistenceManagerFactory(Map<?, ?> props) {
             return null;
         }
     }

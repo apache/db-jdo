@@ -21,13 +21,8 @@ import java.util.Date;
 
 import javax.jdo.listener.StoreCallback;
 
-import javax.jdo.JDOHelper;
 
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.ClearLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -59,7 +54,7 @@ public class InstanceLifecycleListenerStore
     /**
      * The InstanceLifecycleListener used for this test
      */
-    InstanceLifecycleListenerImpl listener = 
+    private final InstanceLifecycleListenerImpl listener =
             new InstanceLifecycleListenerStoreImpl();
 
     /** Return the listener.
@@ -71,11 +66,12 @@ public class InstanceLifecycleListenerStore
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PC.class};
+    @SuppressWarnings("rawtypes")
+    private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 
@@ -106,9 +102,9 @@ public class InstanceLifecycleListenerStore
 
         // now check the callback and listener were called
         listener.verifyCallbacks(ASSERTION2_FAILED, new int[] {
-                listener.PRE_STORE_LISTENER,
-                listener.PRE_STORE_CALLBACK,
-                listener.POST_STORE_LISTENER});
+                InstanceLifecycleListenerImpl.PRE_STORE_LISTENER,
+                InstanceLifecycleListenerImpl.PRE_STORE_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_STORE_LISTENER});
     }
     
     /** 
@@ -153,7 +149,7 @@ public class InstanceLifecycleListenerStore
 
         public void jdoPreStore() {
             if (listener != null) {
-                listener.notifyEvent(listener.PRE_STORE_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.PRE_STORE_CALLBACK);
             }
         }
     }

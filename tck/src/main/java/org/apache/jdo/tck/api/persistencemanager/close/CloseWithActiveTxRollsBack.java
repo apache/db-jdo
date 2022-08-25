@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.api.persistencemanager.close;
 
 import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 

@@ -17,12 +17,11 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -71,8 +70,8 @@ public class UnaryPlus extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
         
-        Collection instance9 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 9").execute();
+        List<PrimitiveTypes> instance9 = pm.newQuery(
+            PrimitiveTypes.class, "id == 9").executeList();
                 
         runSimplePrimitiveTypesQuery("+id == 9", 
                                      pm, instance9, ASSERTION_FAILED);

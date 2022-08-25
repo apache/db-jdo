@@ -18,8 +18,8 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.List;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -59,14 +59,14 @@ public class DistinctQuery extends QueryTest {
     
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "dept1", "dept1", "dept1", "dept2", "dept2"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class,
+                "dept1", "dept1", "dept1", "dept2", "dept2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department",
                 /*INTO*/        null,
@@ -90,14 +90,13 @@ public class DistinctQuery extends QueryTest {
 
     /** */
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "dept1", "dept2"});
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.result(true, cand.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "DISTINCT department",
                 /*INTO*/        null,
@@ -132,7 +131,7 @@ public class DistinctQuery extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.department.deptid, cand.department.name);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department.deptid, department.name",
                 /*INTO*/        null,
@@ -164,7 +163,7 @@ public class DistinctQuery extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(true, cand.department.deptid, cand.department.name);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "DISTINCT department.deptid, department.name",
                 /*INTO*/        null,

@@ -22,7 +22,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -60,7 +59,7 @@ public class PrimitiveParameterPassedAsNull extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
 
-        Query q = pm.newQuery(PrimitiveTypes.class, "intNotNull == param");
+        Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "intNotNull == param");
         q.declareParameters("int param");
         try {
             q.execute(null);

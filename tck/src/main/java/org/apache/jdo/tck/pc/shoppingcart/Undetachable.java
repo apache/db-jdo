@@ -25,9 +25,11 @@ import java.io.Serializable;
  */
 public class Undetachable implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     protected static long nextId = System.currentTimeMillis();
 
-    public synchronized static long nextId() {
+    public static synchronized long nextId() {
         return nextId++;
     }
 
@@ -45,6 +47,9 @@ public class Undetachable implements Serializable {
     }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public long id;
 
         public Oid() {

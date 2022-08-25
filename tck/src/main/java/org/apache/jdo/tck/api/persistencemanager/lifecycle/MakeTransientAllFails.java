@@ -78,7 +78,7 @@ public class MakeTransientAllFails extends PersistenceManagerTest {
             PCPoint np2 = new PCPoint (4,4);
             Point np3 =  new Point (5,5);
 
-            Collection col1 = new HashSet();
+            Collection<Object> col1 = new HashSet<>();
             col1.add(np1);
             col1.add(np2);
             col1.add(np3);
@@ -110,7 +110,7 @@ public class MakeTransientAllFails extends PersistenceManagerTest {
             PCPoint np2 = new PCPoint (4,4);
             Point np3 =  new Point (5,5);
 
-            Collection col1 = new java.util.HashSet();
+            Collection<Object> col1 = new HashSet<>();
             col1.add(np1);
             col1.add(np2);
             col1.add(np3);

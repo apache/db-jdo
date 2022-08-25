@@ -171,7 +171,7 @@ public class Address
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(addrid);
         rc.append(", street ").append(street);
         rc.append(", city ").append(city);
@@ -278,7 +278,9 @@ public class Address
      * This class is used to represent the application identifier 
      * for the <code>Address</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This is the identifier field for <code>Address</code> and must
@@ -325,12 +327,8 @@ public class Address
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( addrid < other.addrid ) return -1;
-            if( addrid > other.addrid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(addrid, obj.addrid);
         }
 
     }

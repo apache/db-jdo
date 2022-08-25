@@ -17,16 +17,13 @@
  
 package org.apache.jdo.tck.query.jdoql;
 
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -57,7 +54,7 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
         BatchTestRunner.run(QueryResultPassedToAnotherQuery.class);
     }
 
-    Collection resultCln;
+    List<PCPoint> resultCln;
 
     /** */
     public void testPositive() {
@@ -78,14 +75,13 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
-            resultCln = (Collection)query.execute();
+            resultCln = query.executeList();
             // Create a new collection for the result collection.
             // This ensures that the result collection may be iterated
             // outside of the scope of the current transaction.
-            resultCln = new ArrayList(resultCln);
+            resultCln = new ArrayList<>(resultCln);
             
             tx.commit();
             tx = null;
@@ -105,15 +101,14 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(resultCln);
             query.setFilter("x == 1");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p2 = new PCPoint(1, 1);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p2 = new PCPoint(1, 1);
             expected.add(p2);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -140,13 +135,13 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery(PCPoint.class, resultCln);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class, resultCln);
             query.setFilter("x == 1");
-            Object results = query.execute();
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            Object p2 = new PCPoint(1, 1);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p2 = new PCPoint(1, 1);
             expected.add(p2);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -173,12 +168,12 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery(PCPoint.class, resultCln, "x == 1");
-            Object results = query.execute();
+            Query<PCPoint> query = pm.newQuery(PCPoint.class, resultCln, "x == 1");
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            Object p2 = new PCPoint(1, 1);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p2 = new PCPoint(1, 1);
             expected.add(p2);
             expected = getFromInserted(expected);
             printOutput(results, expected);

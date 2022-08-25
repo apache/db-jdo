@@ -29,8 +29,10 @@ import java.io.ObjectOutput;
 /** This class is for identity with a single String field.
  * @version 2.0
  */
-public class StringIdentity extends SingleFieldIdentity {
-    
+public class StringIdentity extends SingleFieldIdentity<StringIdentity> {
+
+    private static final long serialVersionUID = 1L;
+
     /** The key is stored in the superclass field keyAsObject.
      */
     
@@ -38,7 +40,7 @@ public class StringIdentity extends SingleFieldIdentity {
      * @param pcClass the class
      * @param key the key
      */
-    public StringIdentity (Class pcClass, String key) {
+    public StringIdentity (Class<?> pcClass, String key) {
         super (pcClass);
         setKeyAsObject(key);
         hashCode = hashClassName() ^ key.hashCode();
@@ -83,20 +85,12 @@ public class StringIdentity extends SingleFieldIdentity {
      * @return The relative ordering between the objects
      * @since 2.2
      */
-    public int compareTo(Object o) {
-        if (o instanceof StringIdentity) {
-            StringIdentity other = (StringIdentity)o;
-            int result = super.compare(other);
-            if (result == 0) {
-                return ((String)keyAsObject).compareTo((String)other.keyAsObject);
-            } else {
-                return result;
-            }
-        }
-        else if (o == null) {
+    public int compareTo(StringIdentity o) {
+        if (o == null) {
             throw new ClassCastException("object is null");
         }
-        throw new ClassCastException(this.getClass().getName() + " != " + o.getClass().getName());
+        int result = super.compare(o);
+        return (result == 0) ? ((String)keyAsObject).compareTo((String)o.keyAsObject) : result;
     }
 
     /** Write this object. Write the superclass first.
@@ -113,6 +107,6 @@ public class StringIdentity extends SingleFieldIdentity {
     public void readExternal(ObjectInput in)
 		throws IOException, ClassNotFoundException {
         super.readExternal (in);
-        keyAsObject = (String)in.readObject();
+        keyAsObject = in.readObject();
     }
 }

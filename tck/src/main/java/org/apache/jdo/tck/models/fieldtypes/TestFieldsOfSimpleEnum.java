@@ -123,7 +123,7 @@ public class TestFieldsOfSimpleEnum extends JDO_Test {
             if(!startValue.equals(val) ){
                 appendMessage(ASSERTION_FAILED +
                     "Incorrect value for " + FieldsOfSimpleEnum.fieldSpecs[i] +
-                    ", expected value " + startValue.toString() +
+                    ", expected value " + startValue +
                     ", value is " + val);
             }
         }

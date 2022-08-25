@@ -49,6 +49,7 @@ public class GetManagedClasses extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("rawtypes")
     public void test() {
     	try {
         	// Get PMF and a PM, and do an Extent on some classes
@@ -59,7 +60,7 @@ public class GetManagedClasses extends JDO_Test {
 
             	pm.getExtent(PCPoint.class);
 
-            	Query q = pm.newQuery(PCRect.class);
+            	Query<PCRect> q = pm.newQuery(PCRect.class);
             	q.execute();
 
             	pm.currentTransaction().rollback();

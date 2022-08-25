@@ -22,7 +22,6 @@ import javax.jdo.annotations.*;
 import java.util.Date;
 
 import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
@@ -32,6 +31,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
 public class FCAppPartTimeEmployee extends FCAppEmployee 
         implements IPartTimeEmployee {
+
+    private static final long serialVersionUID = 1L;
 
     @Column(name="WAGE")
     private double wage;
@@ -97,6 +98,7 @@ public class FCAppPartTimeEmployee extends FCAppEmployee
      * 
      * @return a String representation of a <code>FCAppPartTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FCPartTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -105,8 +107,9 @@ public class FCAppPartTimeEmployee extends FCAppEmployee
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $" + wage);
         return rc.toString();
@@ -126,7 +129,8 @@ public class FCAppPartTimeEmployee extends FCAppEmployee
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                         EqualityHelper helper) {
         FCAppPartTimeEmployee otherEmp = (FCAppPartTimeEmployee)other;
         String where = "FCPartTimeEmployee<" + getPersonid() + ">";

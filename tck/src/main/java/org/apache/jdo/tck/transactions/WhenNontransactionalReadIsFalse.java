@@ -17,8 +17,8 @@
  
 package org.apache.jdo.tck.transactions;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -135,9 +135,9 @@ public class WhenNontransactionalReadIsFalse extends JDO_Test {
             }
             try {
                 // run query
-                Query q = pm.newQuery(Department.class);
+                Query<Department> q = pm.newQuery(Department.class);
                 q.setFilter("name == \"MyDepartment\"");
-                Collection result = (Collection)q.execute();
+                List<Department> result = q.executeList();
                 fail(ASSERTION_FAILED,
                      "Query permitted outside an active transaction when NontransactionalRead is false.");
             } catch (JDOUserException juex) {

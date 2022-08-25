@@ -20,8 +20,8 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Properties;
+import java.lang.reflect.Method;
 
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
@@ -49,8 +49,8 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
     private String username;
     private String password;
 
-    private Class[] stringParameters = null;
-    private Class[] booleanParameters = null;
+    private Class<?>[] stringParameters = null;
+    private Class<?>[] booleanParameters = null;
     private Object[] stringParameter = null;
     private Object[] booleanParameter = null;
     private SetProperty[] setMethods = null;
@@ -76,6 +76,7 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("rawtypes")
     public void initVariables() {
         stringParameters = new Class[]{String.class};
         booleanParameters = new Class[]{boolean.class};
@@ -139,30 +140,28 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
             pm = getPMF().getPersistenceManager(username,password);
 
         // each set method should throw an exception
-        Collection setCollection = Arrays.asList(setMethods);
-        for (Iterator it = setCollection.iterator(); it.hasNext();) {
-            SetProperty sp = (SetProperty)it.next();
+        Collection<SetProperty> setCollection = Arrays.asList(setMethods);
+        for (SetProperty sp : setCollection) {
             String where = sp.getMethodName();
             try {
                 sp.execute(pmf);
                 fail(ASSERTION_FAILED,
-                     "pmf method " + where + 
-                     " should throw JDOUserException when called after getPersistenceManager");
+                        "pmf method " + where +
+                                " should throw JDOUserException when called after getPersistenceManager");
             } catch (JDOUserException ex) {
                 if (debug)
-                    logger.debug("Caught expected exception " + ex.toString() + " from " + where);
+                    logger.debug("Caught expected exception " + ex + " from " + where);
             }
         }
         // each get method should succeed
-        Collection getCollection = Arrays.asList(getMethods);
-        for (Iterator it = getCollection.iterator(); it.hasNext();) {
-            GetProperty gp = (GetProperty)it.next();
+        Collection<GetProperty> getCollection = Arrays.asList(getMethods);
+        for (GetProperty gp : getCollection) {
             String where = gp.getMethodName();
             try {
                 gp.execute(pmf);
             } catch (JDOUserException ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught unexpected exception " + ex.toString() + " from " + where);
+                        "Caught unexpected exception " + ex + " from " + where);
             }
         }
     }
@@ -170,12 +169,12 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
     /** */
     static class SetProperty {
         
-        java.lang.reflect.Method method;
-        String methodName;
-        Class[] parameters;
-        Object[] parameter;
+        Method method;
+        final String methodName;
+        final Class<?>[] parameters;
+        final Object[] parameter;
        
-        SetProperty(String methodName, Class[] parameters, Object[] parameter) {
+        SetProperty(String methodName, Class<?>[] parameters, Object[] parameter) {
             this.methodName = methodName;
             this.parameters = parameters;
             this.parameter = parameter;
@@ -203,14 +202,14 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
     /** */
     static class GetProperty {
        
-        java.lang.reflect.Method method;
-        String methodName;
+        Method method;
+        final String methodName;
        
         GetProperty(String methodName) {
             this.methodName = methodName;
             try {
                 method = PersistenceManagerFactory.class.getMethod(methodName,
-                        (Class[])null);
+                        (Class<?>[])null);
             } catch (NoSuchMethodException ex) {
                 throw new JDOFatalInternalException(
                     "Method not defined: " + methodName);

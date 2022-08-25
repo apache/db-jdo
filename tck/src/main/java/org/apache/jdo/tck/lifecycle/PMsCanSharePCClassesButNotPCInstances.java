@@ -17,9 +17,8 @@
  
 package org.apache.jdo.tck.lifecycle;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.jdo.Extent;
 import javax.jdo.JDOException;
@@ -62,7 +61,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
     private int attempts = 0;
 
     /** The number of inserters. Each inserter runs in its own thread. */
-    private int inserters = 5;
+    private final int inserters = 5;
 
     /** The number of objects inserted. */
     protected int insertedCount = 0;
@@ -140,14 +139,13 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
                 logger.debug("interrupted while waiting for threads to finish");
             }
         }
-        
-        Collection exceptions = threadGroup.getAllUncaughtExceptions();
-        for (Iterator i = exceptions.iterator(); i.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) i.next();
-            Thread thread = (Thread)entry.getKey();
-            Throwable throwable = (Throwable)entry.getValue();
+
+        Set<Map.Entry<Thread, Throwable>> exceptions = threadGroup.getAllUncaughtExceptions();
+        for (Map.Entry<Thread, Throwable> entry : exceptions) {
+            Thread thread = entry.getKey();
+            Throwable throwable = entry.getValue();
             String message = "Uncaught exception " + throwable + " in thread " + thread;
-            if( throwable instanceof AssertionFailedError )
+            if (throwable instanceof AssertionFailedError)
                 fail(ASSERTION_FAILED, message);
             else
                 throw new JDOFatalException(message, throwable);
@@ -170,7 +168,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
     class Inserter implements Runnable {
         private final PersistenceManager pm;
         private final Object pc;
-        private final Class instanceClass;
+        private final Class<?> instanceClass;
         private final boolean sharedPC;
 
         Inserter(PersistenceManagerFactory pmf, Object pc, boolean sharedPC) {
@@ -230,9 +228,8 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
                 if (debug)
                     logger.debug("getting Extent of " + instanceClass.getName());
                 tx.begin();
-                Extent e = pm.getExtent(instanceClass, false);
-                for (Iterator i = e.iterator(); i.hasNext();) {
-                    Object instance = (Object)i.next();
+                Extent<?> e = pm.getExtent(instanceClass, false);
+                for (Object instance : e) {
                     objCount++;
                 }
                 tx.commit();

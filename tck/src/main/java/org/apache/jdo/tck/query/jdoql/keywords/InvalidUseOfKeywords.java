@@ -53,35 +53,35 @@ public class InvalidUseOfKeywords extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        Person.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       null,
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  "int this",
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        Person.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       null,
-                /*VARIABLES*/   "long this",
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null)
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Person.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  "int this",
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Person.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   "long this",
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /**
@@ -95,14 +95,14 @@ public class InvalidUseOfKeywords extends QueryTest {
     
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_SINGLE_STRING_QUERIES.length; i++) {
-            compileSingleStringQuery(ASSERTION_FAILED, 
-                    INVALID_SINGLE_STRING_QUERIES[i], false);
+        for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
+            compileSingleStringQuery(ASSERTION_FAILED,
+                    invalidSingleStringQuery, false);
         }
-        
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
-            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
+            compileSingleStringQuery(ASSERTION_FAILED, invalidQuery,
                     false);
         }
     }

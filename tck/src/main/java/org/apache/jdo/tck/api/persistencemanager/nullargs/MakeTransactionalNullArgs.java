@@ -20,11 +20,8 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -49,19 +46,22 @@ public class MakeTransactionalNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(MakeTransactionalNullArgs.class);
     }
 
-    static MethodUnderTest makeTransactional = 
+    static final MethodUnderTest makeTransactional =
             new MethodUnderTestMakeTransactional();
     static class MethodUnderTestMakeTransactional extends MethodUnderTest {
+        @Override
         public void pmApi(PersistenceManager pm, Object pc) {
             pm.makeTransactional(pc);
         }
-        public void pmApi(PersistenceManager pm, Collection pcs) {
+        @Override
+        public <T> void pmApi(PersistenceManager pm, Collection<T> pcs) {
             pm.makeTransactionalAll(pcs);
         }
+        @Override
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.makeTransactionalAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that makeTransactional() with null valued argument does nothing.

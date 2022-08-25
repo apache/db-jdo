@@ -74,13 +74,13 @@ public class Enhancer {
         I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
 
     /** New Line */
-    private char NL = '\n'; //NOI18N
+    private static final char NL = '\n'; //NOI18N
     /** Jar file suffix */
-    private String JAR_FILE_SUFFIX = ".jar"; //NOI18N
+    private static final String JAR_FILE_SUFFIX = ".jar"; //NOI18N
     /** JDO Metadata file suffix */
-    private String JDO_FILE_SUFFIX = ".jdo"; //NOI18N
+    private static final String JDO_FILE_SUFFIX = ".jdo"; //NOI18N
     /** Class file suffix */
-    private String CLASS_FILE_SUFFIX = ".class"; //NOI18N
+    private static final String CLASS_FILE_SUFFIX = ".class"; //NOI18N
 
     /** Error indicator */
     private boolean error = false;
@@ -88,7 +88,7 @@ public class Enhancer {
     private boolean printAndExit = false;
 
     /** Persistence Units */
-    private List<String> persistenceUnitNames = new ArrayList<String>();
+    private final List<String> persistenceUnitNames = new ArrayList<>();
     /** Target Directory Parameter */
     private String directoryName = null;
     /** ClassLoader for JDOEnhancer */
@@ -102,17 +102,17 @@ public class Enhancer {
     /** Recurse flag */
     private boolean recurse = false;
     /** Error messages should be empty unless there is an error */
-    private StringBuilder errorBuffer = new StringBuilder();
+    private final StringBuilder errorBuffer = new StringBuilder();
     /** Verbose messages are always collected but only output if verbose flag is set */
-    private StringBuilder verboseBuffer = new StringBuilder();
+    private final StringBuilder verboseBuffer = new StringBuilder();
     /** File Names */
-    private List<String> fileNames = new ArrayList<String>();
+    private List<String> fileNames = new ArrayList<>();
     /** Class File Names */
-    private List<String> classFileNames = new ArrayList<String>();
+    private final List<String> classFileNames = new ArrayList<>();
     /** JDO File Names */
-    private List<String> jdoFileNames = new ArrayList<String>();
+    private final List<String> jdoFileNames = new ArrayList<>();
     /** Jar File Names */
-    private List<String> jarFileNames = new ArrayList<String>();
+    private final List<String> jarFileNames = new ArrayList<>();
     /** The number of classes validated by the JDOEnhancer */
     private int numberOfValidatedClasses = 0;
     /** The number of classes enhanced by the JDOEnhancer */
@@ -154,13 +154,11 @@ public class Enhancer {
             addVerboseMessage("MSG_EnhancerProperty", PROPERTY_ENHANCER_VERSION_NUMBER, //NOI18N
                     properties.getProperty(PROPERTY_ENHANCER_VERSION_NUMBER));
             Set<Entry<Object, Object>> props = properties.entrySet();
-            Iterator<Entry<Object, Object>> entries = props.iterator();
-            while (entries.hasNext()) {
-                Entry<Object, Object> entry = entries.next();
+            for (Entry<Object, Object> entry : props) {
                 if (!(PROPERTY_ENHANCER_VENDOR_NAME.equals(entry.getKey()) ||
                         PROPERTY_ENHANCER_VERSION_NUMBER.equals(entry.getKey()))) {
-                    addVerboseMessage("MSG_EnhancerProperty", (String)entry.getKey(), //NOI18N
-                            (String)entry.getValue());                    
+                    addVerboseMessage("MSG_EnhancerProperty", (String) entry.getKey(), //NOI18N
+                            (String) entry.getValue());
                 }
             }
             enhancer.setVerbose(verbose);
@@ -227,7 +225,7 @@ public class Enhancer {
      */
     private void parseArgs(String[] args) {
         boolean doneWithOptions = false;
-        fileNames = new ArrayList<String>();
+        fileNames = new ArrayList<>();
         for (int i = 0; i < args.length; ++i) {
             String arg = args[i];
             // if first argument is ? then simply print usage and return.
@@ -364,7 +362,7 @@ public class Enhancer {
         // separate classPath using system class path separator
         String separator = System.getProperty("path.separator");
         String[] paths = classPath.split(separator);
-        List<URL> urls = new ArrayList<URL>();
+        List<URL> urls = new ArrayList<>();
         for (String path: paths) {
             // for each path construct a URL from the File
             File file = new File(path);

@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -67,7 +66,7 @@ public class NPEInResultExpr extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.manager.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "manager.lastname",
                 /*INTO*/        null,
@@ -90,6 +89,7 @@ public class NPEInResultExpr extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive1() {
         Object expected = Arrays.asList("emp2Last", null, "emp2Last", "emp2Last", "emp2Last");
 
@@ -99,7 +99,7 @@ public class NPEInResultExpr extends QueryTest {
         query.filter(cand.employees.contains(e));
         query.result(false, e.manager.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e.manager.lastname",
                 /*INTO*/        null,

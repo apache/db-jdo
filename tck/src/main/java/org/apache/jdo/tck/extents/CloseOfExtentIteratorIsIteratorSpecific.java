@@ -24,6 +24,7 @@ import java.util.Iterator;
 import javax.jdo.Extent;
 import javax.jdo.Query;
 
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 
@@ -58,17 +59,17 @@ public class CloseOfExtentIteratorIsIteratorSpecific extends ExtentTest {
 
     /** */
     public void test() {
-        Extent ex = getExtent();
+        Extent<Employee> ex = getExtent();
         beginTransaction();
-        Iterator it1 = ex.iterator();
+        Iterator<Employee> it1 = ex.iterator();
         ex.close(it1);
         int count = countIterator(ex.iterator());
         if (count != 2) {
             fail(ASSERTION_FAILED,
                  "iterating Employees after close of first iterator; counted " + count + " instances; should be 2");
         }
-        Query q = getPM().newQuery(ex);
-        Collection c = (Collection)q.execute();
+        Query<?> q = getPM().newQuery(ex);
+        Collection<?> c = (Collection<?>)q.execute();
         int count2 = countIterator(c.iterator());
         commitTransaction();
         if (count2 != 2) {

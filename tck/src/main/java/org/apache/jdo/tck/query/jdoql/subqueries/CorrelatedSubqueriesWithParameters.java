@@ -67,9 +67,10 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
     /** 
      * Test subquery: 
      */
-    void runTestSubqueries01(PersistenceManager pm) {
-        List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp2", "emp6", "emp9"});
+    @SuppressWarnings("unchecked")
+   void runTestSubqueries01(PersistenceManager pm) {
+        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class,
+            "emp2", "emp6", "emp9");
         
         // Select employees who work more than the average of the employees 
         // in their department having the same manager
@@ -80,10 +81,10 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
             " WHERE e.manager == this.manager)";
 
         // API query
-        Query sub = pm.newQuery(Employee.class);
+        Query<Employee> sub = pm.newQuery(Employee.class);
         sub.setResult("avg(this.weeklyhours)");
         sub.setFilter("this.manager == :manager");
-        Query apiQuery = pm.newQuery(Employee.class);
+        Query<Employee> apiQuery = pm.newQuery(Employee.class);
         apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
         apiQuery.addSubquery(sub, "double averageWeeklyhours", 
                              "this.department.employees", "this.manager"); 
@@ -91,21 +92,21 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
                         false, null, expectedResult, true);
 
         // API query against memory model
-        List allEmployees = getAllEmployees(pm);
+        List<Employee> allEmployees = getAllEmployees(pm);
         apiQuery.setCandidates(allEmployees);
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
 
         // single String JDOQL
-        Query singleStringQuery = pm.newQuery(singleStringJDOQL);
+        Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
         executeJDOQuery(ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestSubqueries02(PersistenceManager pm) {
-        List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp2", "emp10"});
+        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp10");
 
         // Select employees hired after a particular date who work more 
         // than the average of all employees of the same manager
@@ -120,31 +121,32 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
         Date hired = cal.getTime();
 
         // API query
-        Query sub = pm.newQuery(Employee.class);
+        Query<Employee> sub = pm.newQuery(Employee.class);
         sub.setResult("avg(this.weeklyhours)");
         sub.setFilter("this.manager == :manager");
-        Query apiQuery = pm.newQuery(Employee.class);
+        Query<Employee> apiQuery = pm.newQuery(Employee.class);
         apiQuery.setFilter("this.hiredate > :hired && this.weeklyhours> averageWeeklyhours");
         apiQuery.addSubquery(sub, "double averageWeeklyhours", null, "this.manager"); 
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
                         false, new Object[] {hired}, expectedResult, true);
 
         // API query against memory model
-        List allEmployees = getAllEmployees(pm);
+        List<Employee> allEmployees = getAllEmployees(pm);
         apiQuery.setCandidates(allEmployees);
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
                         false, new Object[]{hired} , expectedResult, true);
 
         // single String JDOQL
-        Query singleStringQuery = pm.newQuery(singleStringJDOQL);
+        Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
         executeJDOQuery(ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, 
                         false, new Object[]{hired}, expectedResult, true);
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestSubqueries03(PersistenceManager pm) {
-        List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp2", "emp6", "emp9", "emp10"});
+        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class,
+            "emp2", "emp6", "emp9", "emp10");
 
         // Select employees who work more than the average of all 
         // employees of the same manager
@@ -154,23 +156,23 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
             " e WHERE e.manager == this.manager)";
 
         // API query
-        Query sub = pm.newQuery(Employee.class);
+        Query<Employee> sub = pm.newQuery(Employee.class);
         sub.setResult("avg(this.weeklyhours)");
         sub.setFilter("this.manager == :manager");
-        Query apiQuery = pm.newQuery(Employee.class);
+        Query<Employee> apiQuery = pm.newQuery(Employee.class);
         apiQuery.setFilter("this.weeklyhours > averageWeeklyhours");
         apiQuery.addSubquery(sub, "double averageWeeklyhours", null, "this.manager"); 
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
 
         // API query against memory model
-        List allEmployees = getAllEmployees(pm);
+        List<Employee> allEmployees = getAllEmployees(pm);
         apiQuery.setCandidates(allEmployees);
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
 
         // single String JDOQL
-        Query singleStringQuery = pm.newQuery(singleStringJDOQL);
+        Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
         executeJDOQuery(ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
     }

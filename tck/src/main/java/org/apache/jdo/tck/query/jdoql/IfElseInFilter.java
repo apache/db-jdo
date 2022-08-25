@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -31,7 +30,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.BooleanExpression;
 import javax.jdo.query.IfThenElseExpression;
-import javax.jdo.query.NumericExpression;
+import java.util.List;
 
 /**
  *<B>Title:</B> Use of If Else expression in filter
@@ -53,52 +52,52 @@ public class IfElseInFilter extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // Invalid type of condition expression 
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "(IF (this.firstname) 0 ELSE 1) == 0",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+           new QueryElementHolder<>(
+                   /*UNIQUE*/      null,
+                   /*RESULT*/      null,
+                   /*INTO*/        null,
+                   /*FROM*/        Employee.class,
+                   /*EXCLUDE*/     null,
+                   /*WHERE*/       "(IF (this.firstname) 0 ELSE 1) == 0",
+                   /*VARIABLES*/   null,
+                   /*PARAMETERS*/  null,
+                   /*IMPORTS*/     null,
+                   /*GROUP BY*/    null,
+                   /*ORDER BY*/    null,
+                   /*FROM*/        null,
+                   /*TO*/          null),
         // missing ELSE
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        DentalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "(IF (this.employee == null) 15000) == 15000",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
+           new QueryElementHolder<>(
+                   /*UNIQUE*/      null,
+                   /*RESULT*/      null,
+                   /*INTO*/        null,
+                   /*FROM*/        DentalInsurance.class,
+                   /*EXCLUDE*/     null,
+                   /*WHERE*/       "(IF (this.employee == null) 15000) == 15000",
+                   /*VARIABLES*/   null,
+                   /*PARAMETERS*/  null,
+                   /*IMPORTS*/     null,
+                   /*GROUP BY*/    null,
+                   /*ORDER BY*/    null,
+                   /*FROM*/        null,
+                   /*TO*/          null),
         // type of THEN expr must be the same as type of ELSE expr
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        DentalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "(IF (this.employee == null) 'Michael' ELSE this.employee) == 'Michael'",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+           new QueryElementHolder<>(
+                   /*UNIQUE*/      null,
+                   /*RESULT*/      null,
+                   /*INTO*/        null,
+                   /*FROM*/        DentalInsurance.class,
+                   /*EXCLUDE*/     null,
+                   /*WHERE*/       "(IF (this.employee == null) 'Michael' ELSE this.employee) == 'Michael'",
+                   /*VARIABLES*/   null,
+                   /*PARAMETERS*/  null,
+                   /*IMPORTS*/     null,
+                   /*GROUP BY*/    null,
+                   /*ORDER BY*/    null,
+                   /*FROM*/        null,
+                   /*TO*/          null)
     };
     
     /**
@@ -113,7 +112,7 @@ public class IfElseInFilter extends QueryTest {
     /** */
     public void testPositive0() {
         // simple If/Else using literals
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp5"});
+        List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -122,7 +121,7 @@ public class IfElseInFilter extends QueryTest {
         query.filter(cand.salary.gt(ifExpr));
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -146,7 +145,7 @@ public class IfElseInFilter extends QueryTest {
     /** */
     public void testPositive1() {
         // simple If/Else using relationships
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -155,7 +154,7 @@ public class IfElseInFilter extends QueryTest {
         query.filter(ifExpr.eq(cand.department.deptid));
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -179,7 +178,7 @@ public class IfElseInFilter extends QueryTest {
     /** */
     public void testPositive2() {
         // multiple If/Else with distinct conditions
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -191,7 +190,7 @@ public class IfElseInFilter extends QueryTest {
         query.filter(ifExpr.eq(2));
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -217,7 +216,7 @@ public class IfElseInFilter extends QueryTest {
     /** */
     public void testPositive3() {
         // multiple If/Else with overlapping conditions
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -228,7 +227,7 @@ public class IfElseInFilter extends QueryTest {
                 query.ifThen(cond1, 1).ifThen(cond2, 2).ifThen(cond3, 3).elseEnd(4);
         query.filter(ifExpr.eq(2));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -253,9 +252,9 @@ public class IfElseInFilter extends QueryTest {
 
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
-            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
+            compileSingleStringQuery(ASSERTION_FAILED, invalidQuery,
                     false);
         }
     }

@@ -26,8 +26,9 @@ import java.util.Date;
 * @author Marina Vatkina
 */
 public class PCPoint implements Serializable {
-    
-    
+
+    private static final long serialVersionUID = 1L;
+
     private static long counter = new Date().getTime();
     private static long newId() {
         synchronized (PCPoint.class) {
@@ -84,6 +85,9 @@ public class PCPoint implements Serializable {
     }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public long id;
 
         public Oid() {

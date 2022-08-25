@@ -18,15 +18,12 @@
 
 package org.apache.jdo.tck.models.inheritance;
 
-import java.util.Iterator;
-
 import javax.jdo.Extent;
 import javax.jdo.JDOException;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.inheritance.Constants;
 import org.apache.jdo.tck.pc.inheritance.FieldSameName4;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -113,7 +110,7 @@ public class FieldWithSameNameInSuperclass extends TestParts {
             FieldSameName4 b = null;
         
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (FieldSameName4) pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] =  pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous
@@ -124,12 +121,12 @@ public class FieldWithSameNameInSuperclass extends TestParts {
 
             try {  // retrieve object created in previous transaction
                 a = (FieldSameName4) pm.getObjectById(objPtrA, true);
-                checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterCommit, 1, a.getDoubleB(), a.getIntB(), a.getShortF(), a.getThirdObj(), a.getIntH());
+                checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_COMMIT, 1, a.getDoubleB(), a.getIntB(), a.getShortF(), a.getThirdObj(), a.getIntH());
         
                 // verify referenced persistent object contains correct values
                 b = a.getThirdObj();
                 if(b != null) {  // if previous error caused b to be null, then these tests cannot be performed.
-                    checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterCommit, 3, b.getDoubleB(), b.getIntB(), b.getShortF(), b.getThirdObj(), b.getIntH());
+                    checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_COMMIT, 3, b.getDoubleB(), b.getIntB(), b.getShortF(), b.getThirdObj(), b.getIntH());
                 }
             }
             catch (JDOUserException e) {
@@ -192,15 +189,15 @@ public class FieldWithSameNameInSuperclass extends TestParts {
             t.rollback();
         
             // verify objects revert back to transient after rollback
-            checkPersistentAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.getDoubleB(), c.getIntB(), c.getShortF(), c.getThirdObj(), c.getIntH());
-            checkTransactionalAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.getFloatE(), c.getSecondObj());
-            checkNonpersistentAreCorrect(ASSERTION_FAILED, transientAfterRollback, 10, c.getIntA(), c.getCharC(), c.getBooleanD(), c.getShortG(), c.getFourthObj());
+            checkPersistentAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.getDoubleB(), c.getIntB(), c.getShortF(), c.getThirdObj(), c.getIntH());
+            checkTransactionalAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.getFloatE(), c.getSecondObj());
+            checkNonpersistentAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 10, c.getIntA(), c.getCharC(), c.getBooleanD(), c.getShortG(), c.getFourthObj());
         
             t.begin();
         
             // verify rollback lost all persistent changes.
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (FieldSameName4) pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -210,10 +207,10 @@ public class FieldWithSameNameInSuperclass extends TestParts {
         
             try {  // retrieve object created in previous transaction
                 a = (FieldSameName4) pm.getObjectById(objPtrA, true);
-                checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterRollback, 1, a.getDoubleB(), a.getIntB(), a.getShortF(), a.getThirdObj(), a.getIntH());
+                checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_ROLLBACK, 1, a.getDoubleB(), a.getIntB(), a.getShortF(), a.getThirdObj(), a.getIntH());
                 b = a.getThirdObj();
                 if(b != null) {  // if previous error caused b to be null, then these tests cannot be performed.
-                    checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterRollback, 3, b.getDoubleB(), b.getIntB(), b.getShortF(), b.getThirdObj(), b.getIntH());
+                    checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_ROLLBACK, 3, b.getDoubleB(), b.getIntB(), b.getShortF(), b.getThirdObj(), b.getIntH());
                 }
             }
             catch (JDOUserException e) {
@@ -233,10 +230,9 @@ public class FieldWithSameNameInSuperclass extends TestParts {
 
     void removeAllInstances(PersistenceManager pm)
     {
-        Extent e = pm.getExtent(FieldSameName4.class, true);
-        Iterator i = e.iterator();
-        while( i.hasNext() ){
-            pm.deletePersistent(i.next());
+        Extent<FieldSameName4> e = pm.getExtent(FieldSameName4.class, true);
+        for (FieldSameName4 fieldSameName4 : e) {
+            pm.deletePersistent(fieldSameName4);
         }        
     }
 }

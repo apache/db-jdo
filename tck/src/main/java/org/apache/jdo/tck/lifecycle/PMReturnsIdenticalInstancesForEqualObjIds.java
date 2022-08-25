@@ -71,8 +71,8 @@ public class PMReturnsIdenticalInstancesForEqualObjIds extends JDO_Test {
 	public void test() {
         pm.currentTransaction().begin();
         try {
-        	Extent extent = pm.getExtent(StateTransitionObj.class, false);
-        	Iterator iter = extent.iterator();
+        	Extent<StateTransitionObj> extent = pm.getExtent(StateTransitionObj.class, false);
+        	Iterator<StateTransitionObj> iter = extent.iterator();
         	if( !iter.hasNext() ){
         		fail(ASSERTION_FAILED,
     				 "Extent for StateTransitionObj should not be empty");

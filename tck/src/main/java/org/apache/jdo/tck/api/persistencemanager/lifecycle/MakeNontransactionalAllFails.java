@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
@@ -116,7 +117,7 @@ public class MakeNontransactionalAllFails extends PersistenceManagerTest {
             pm.makePersistent(p3);
             pm.makePersistent(p4);
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
             col1.add(p4);
@@ -151,7 +152,7 @@ public class MakeNontransactionalAllFails extends PersistenceManagerTest {
             pm.makePersistent(p3);
             pm.makePersistent(p4);
             
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
             col1.add(p4);

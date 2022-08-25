@@ -23,7 +23,6 @@ import java.util.List;
 
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.Person;
@@ -58,7 +57,9 @@ public class ChangeQuery extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
+        @SuppressWarnings("rawtypes")
         Query query = getPM().newNamedQuery(Person.class, "changeQuery");
         
         // change query
@@ -86,7 +87,7 @@ public class ChangeQuery extends QueryTest {
         // query parameters
         Object[] parameters = {new BigDecimal("2000")};        
         // expected result
-        List expectedResult = Arrays.asList(new Object[] {
+        List<Object> expectedResult = Arrays.asList(new Object[] {
             new FullName("emp1First", "emp1Last"), 
             new FullName("emp2First", "emp2Last"),
             new FullName("emp5First", "emp5Last")});

@@ -20,6 +20,7 @@ package org.apache.jdo.tck.query.api;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -72,9 +73,8 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
     }
 
     /** */
-    void serializeQuery(PersistenceManager pm) throws Exception {
-        Query query = pm.newQuery();
-        query.setClass(PCPoint.class);
+    void serializeQuery(PersistenceManager pm) throws IOException {
+        Query<PCPoint> query = pm.newQuery(PCPoint.class);
         query.setCandidates(pm.getExtent(PCPoint.class, false));
         query.setFilter("x == 3");
         query.compile();
@@ -88,18 +88,19 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
         } 
         finally {
             if (oos != null) {
-                try { oos.close();} catch(Exception ex) {}
+                try { oos.close();} catch(Exception ignored) {}
             }
         }
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestGetPersistenceManagerFromRestoredSerializedQuery(
-        PersistenceManager pm) throws Exception {
+        PersistenceManager pm) throws IOException, ClassNotFoundException {
         if (debug) 
             logger.debug("\nExecuting test GetPersistenceManagerFromRestoredSerializedQuery() ...");
                     
-        Query restoredQuery = null;
+        Query<PCPoint> restoredQuery = null;
         ObjectInputStream ois = null;
         PersistenceManager pm1 = null;
 
@@ -108,7 +109,7 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
         try {
             if (debug) logger.debug("Attempting to de-serialize Query object.");
             ois = new ObjectInputStream(new FileInputStream(SERIALZED_QUERY));
-            restoredQuery = (Query)ois.readObject();
+            restoredQuery = (Query<PCPoint>)ois.readObject();
             if (restoredQuery == null) {
                 fail(ASSERTION_FAILED,
                      "Deserialzed query is null");
@@ -117,7 +118,7 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
         } 
         finally {
             if (ois != null) {
-                try { ois.close(); } catch(Exception ex) {}
+                try { ois.close(); } catch(Exception ignored) {}
             }
         }
 

@@ -24,7 +24,6 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -72,13 +71,11 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
     void executeQueries(PersistenceManager pm) {
         // query selecting all point instances
         pm.currentTransaction().begin();
-        Query query = pm.newQuery();
-        query.setClass(PCPoint.class);
+        Query<PCPoint> query = pm.newQuery(PCPoint.class);
         query.setCandidates(pm.getExtent(PCPoint.class, false));
         
         // query selecting point with x value 0
-        Query query2 = pm.newQuery();
-        query2.setClass(PCPoint.class);
+        Query<PCPoint> query2 = pm.newQuery(PCPoint.class);
         query2.setCandidates(pm.getExtent(PCPoint.class, false));
         query2.setFilter("x == 0");
         
@@ -86,7 +83,7 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
         Object results = query.execute();
         
         // check query result of first query
-        List expected = new ArrayList();
+        List<PCPoint> expected = new ArrayList<>();
         expected.add(new PCPoint(0, 0));
         expected.add(new PCPoint(1, 1));
         expected.add(new PCPoint(2, 2));
@@ -100,7 +97,7 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
         Object results2 = query2.execute();
         
         // check query result of second query
-        List expected2 = new ArrayList();
+        List<PCPoint> expected2 = new ArrayList<>();
         expected2.add(new PCPoint(0, 0));
         expected2 = getFromInserted(expected2);
         checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 0",

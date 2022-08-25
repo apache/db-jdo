@@ -18,8 +18,10 @@
 package org.apache.jdo.tck.query.sql;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
@@ -39,6 +41,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * The value in the Map corresponding to the key whose intValue is 1
  * is bound to the first ? in the SQL statement, and so forth. 
  */
+@SuppressWarnings("unchecked")
 public class ExecuteWithMap extends QueryTest {
 
     /** */
@@ -69,25 +72,26 @@ public class ExecuteWithMap extends QueryTest {
     /** 
      * The expected results of valid SQL queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         getTransientMylibInstancesAsList(new String[]{
                 "primitiveTypesPositive", 
                 "primitiveTypesCharacterStringLiterals"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"})
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2"),
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2"),
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2")
     };
 
     /** 
      * Maps of parameter values
      */
-    private static HashMap hm1 = new HashMap();
-    private static HashMap hm2 = new HashMap();
-    private static HashMap hm3 = new HashMap();
-    private static HashMap hm4 = new HashMap();
-    private static HashMap illegalMapMissingKeyTwo = new HashMap();
-    private static HashMap illegalMapStartsWithZero = new HashMap();
-    private static HashMap illegalMapStringKeys = new HashMap();
+    private static final HashMap<Object, Object> hm1 = new HashMap<>();
+    private static final HashMap<Object, Object> hm2 = new HashMap<>();
+    private static final HashMap<Object, Object> hm3;
+    private static final HashMap<Object, Object> hm4;
+    private static final HashMap<Object, Object> illegalMapMissingKeyTwo = new HashMap<>();
+    private static final HashMap<Object, Object> illegalMapStartsWithZero = new HashMap<>();
+    private static final HashMap<Object, Object> illegalMapStringKeys = new HashMap<>();
+
     static {
         // valid parameter values
         hm1.put(Integer.valueOf(1), Integer.valueOf(4));
@@ -98,11 +102,11 @@ public class ExecuteWithMap extends QueryTest {
         hm2.put(Integer.valueOf(3), "emp2Middle");
         hm2.put(Integer.valueOf(4), "New York");
 
-        hm3 = (HashMap) hm2.clone();
+        hm3 = (HashMap<Object, Object>) hm2.clone();
         // extra entry okay, should be ignored by impl
         hm3.put(Integer.valueOf(0), "emp2First");
 
-        hm4 = (HashMap) hm2.clone();
+        hm4 = (HashMap<Object, Object>)hm2.clone();
         // extra entry okay, should be ignored by impl
         hm4.put(Integer.valueOf(5), "New York");
 
@@ -117,12 +121,14 @@ public class ExecuteWithMap extends QueryTest {
         illegalMapStartsWithZero.put(Integer.valueOf(2), "emp2Middle");
         illegalMapStartsWithZero.put(Integer.valueOf(3), "New York");
 
-        illegalMapStringKeys.put(new String("1dog"), "emp2First");
-        illegalMapStringKeys.put(new String("2dog"), "emp2Last");
-        illegalMapStringKeys.put(new String("3dog"), "emp2Middle");
-        illegalMapStringKeys.put(new String("4dog"), "New York");
-    };
-    private static HashMap[] parameterMap = new HashMap[]{hm1, hm2, hm3, hm4};
+        illegalMapStringKeys.put("1dog", "emp2First");
+        illegalMapStringKeys.put("2dog", "emp2Last");
+        illegalMapStringKeys.put("3dog", "emp2Middle");
+        illegalMapStringKeys.put("4dog", "New York");
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static final Map<Object, Object>[] parameterMap = new Map[]{hm1, hm2, hm3, hm4};
             
     /** */
     public void testSetClass() {

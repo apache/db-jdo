@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
@@ -28,6 +27,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.StringExpression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,7 +60,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
     }
     
     public void testStringFieldEqualsStringParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -70,7 +70,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", "emp1First");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -93,8 +93,8 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
     }
 
     public void testStringFieldGEStringParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        List<Employee> expected =
+                getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -104,7 +104,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", "emp1First");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -127,8 +127,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
     }
 
     public void testStringParameterLTStringField() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp3", "emp4", "emp5"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -138,7 +137,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", "emp2First");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

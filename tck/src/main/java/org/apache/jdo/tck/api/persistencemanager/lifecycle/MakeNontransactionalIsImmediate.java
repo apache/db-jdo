@@ -19,7 +19,6 @@ package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -63,8 +62,8 @@ public class MakeNontransactionalIsImmediate extends PersistenceManagerTest {
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection col1 = new HashSet();
-    private Collection col2 = new HashSet();
+    private final Collection<PCPoint> col1 = new HashSet<>();
+    private final Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInst() {
@@ -219,12 +218,10 @@ public class MakeNontransactionalIsImmediate extends PersistenceManagerTest {
     }
     
     /** */
-    private boolean navigateAndTestTransientCol (Collection col) {
+    private boolean navigateAndTestTransientCol (Collection<PCPoint> col) {
         boolean noError = true;
-        Iterator iter = col1.iterator();
-        while (iter.hasNext() ) {
-            PCPoint p = (PCPoint) iter.next();
-            if (! testState(p, TRANSIENT, "transient")) {
+        for (PCPoint p : col1) {
+            if (!testState(p, TRANSIENT, "transient")) {
                 noError = false;
             }
         }
@@ -234,9 +231,9 @@ public class MakeNontransactionalIsImmediate extends PersistenceManagerTest {
     /** */
     private boolean navigateAndTestTransientArray (Object[] objArray) {
         boolean noError = true;
-        for (int i=0; i < objArray.length; i++) {
-            PCPoint p = (PCPoint) objArray[i];
-            if (! testState(p, TRANSIENT, "transient")) {
+        for (Object o : objArray) {
+            PCPoint p = (PCPoint) o;
+            if (!testState(p, TRANSIENT, "transient")) {
                 noError = false;
             }
         }

@@ -38,8 +38,10 @@ public class CompanyFactoryAnnotatedFCDSPM
     public CompanyFactoryAnnotatedFCDSPM(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
-    public Class[] getTearDownClasses() {
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             FCDSDentalInsurance.class,
             FCDSMedicalInsurance.class,
@@ -54,38 +56,38 @@ public class CompanyFactoryAnnotatedFCDSPM
     }
     
     public IAddress newAddress() {
-        return (IAddress)pm.newInstance(FCDSAddress.class);
+        return pm.newInstance(FCDSAddress.class);
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)pm.newInstance(FCDSMeetingRoom.class);
+        return pm.newInstance(FCDSMeetingRoom.class);
     }
     
     public ICompany newCompany() {
-        return (ICompany)pm.newInstance(FCDSCompany.class);
+        return pm.newInstance(FCDSCompany.class);
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(FCDSDentalInsurance.class);
+        return pm.newInstance(FCDSDentalInsurance.class);
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(FCDSDepartment.class);
+        return pm.newInstance(FCDSDepartment.class);
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(FCDSFullTimeEmployee.class);
+        return pm.newInstance(FCDSFullTimeEmployee.class);
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(FCDSMedicalInsurance.class);
+        return pm.newInstance(FCDSMedicalInsurance.class);
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(FCDSPartTimeEmployee.class);
+        return pm.newInstance(FCDSPartTimeEmployee.class);
     }
     
     public IProject newProject() {
-        return (IProject)pm.newInstance(FCDSProject.class);
+        return pm.newInstance(FCDSProject.class);
     }
 }

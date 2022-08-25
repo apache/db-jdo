@@ -18,101 +18,104 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.TreeMap;
 
 public class TreeMapStringValueCollections { 
   public int identifier;
-  public TreeMap TreeMapOfObject_String0;
-  public TreeMap TreeMapOfObject_String1;
-  public TreeMap TreeMapOfObject_String2;
-  public TreeMap TreeMapOfObject_String3;
-  public TreeMap TreeMapOfObject_String4;
-  public TreeMap TreeMapOfObject_String6;
-  public TreeMap TreeMapOfObject_String8;
-  public TreeMap TreeMapOfSimpleClass_String9;
-  public TreeMap TreeMapOfSimpleClass_String10;
-  public TreeMap TreeMapOfSimpleClass_String11;
-  public TreeMap TreeMapOfSimpleClass_String12;
-  public TreeMap TreeMapOfSimpleClass_String13;
-  public TreeMap TreeMapOfSimpleClass_String15;
-  public TreeMap TreeMapOfSimpleClass_String17;
-  public TreeMap TreeMapOfSimpleInterface_String18;
-  public TreeMap TreeMapOfSimpleInterface_String19;
-  public TreeMap TreeMapOfSimpleInterface_String20;
-  public TreeMap TreeMapOfSimpleInterface_String21;
-  public TreeMap TreeMapOfSimpleInterface_String22;
-  public TreeMap TreeMapOfSimpleInterface_String24;
-  public TreeMap TreeMapOfSimpleInterface_String26;
-  public TreeMap TreeMapOfString_String27;
-  public TreeMap TreeMapOfString_String28;
-  public TreeMap TreeMapOfString_String29;
-  public TreeMap TreeMapOfString_String30;
-  public TreeMap TreeMapOfString_String31;
-  public TreeMap TreeMapOfString_String33;
-  public TreeMap TreeMapOfString_String35;
-  public TreeMap TreeMapOfDate_String36;
-  public TreeMap TreeMapOfDate_String37;
-  public TreeMap TreeMapOfDate_String38;
-  public TreeMap TreeMapOfDate_String39;
-  public TreeMap TreeMapOfDate_String40;
-  public TreeMap TreeMapOfDate_String42;
-  public TreeMap TreeMapOfDate_String44;
-  public TreeMap TreeMapOfBigDecimal_String45;
-  public TreeMap TreeMapOfBigDecimal_String46;
-  public TreeMap TreeMapOfBigDecimal_String47;
-  public TreeMap TreeMapOfBigDecimal_String48;
-  public TreeMap TreeMapOfBigDecimal_String49;
-  public TreeMap TreeMapOfBigDecimal_String51;
-  public TreeMap TreeMapOfBigDecimal_String53;
-  public TreeMap TreeMapOfBigInteger_String54;
-  public TreeMap TreeMapOfBigInteger_String55;
-  public TreeMap TreeMapOfBigInteger_String56;
-  public TreeMap TreeMapOfBigInteger_String57;
-  public TreeMap TreeMapOfBigInteger_String58;
-  public TreeMap TreeMapOfBigInteger_String60;
-  public TreeMap TreeMapOfBigInteger_String62;
-  public TreeMap TreeMapOfByte_String63;
-  public TreeMap TreeMapOfByte_String64;
-  public TreeMap TreeMapOfByte_String65;
-  public TreeMap TreeMapOfByte_String66;
-  public TreeMap TreeMapOfByte_String67;
-  public TreeMap TreeMapOfByte_String69;
-  public TreeMap TreeMapOfByte_String71;
-  public TreeMap TreeMapOfDouble_String72;
-  public TreeMap TreeMapOfDouble_String73;
-  public TreeMap TreeMapOfDouble_String74;
-  public TreeMap TreeMapOfDouble_String75;
-  public TreeMap TreeMapOfDouble_String76;
-  public TreeMap TreeMapOfDouble_String78;
-  public TreeMap TreeMapOfDouble_String80;
-  public TreeMap TreeMapOfFloat_String81;
-  public TreeMap TreeMapOfFloat_String82;
-  public TreeMap TreeMapOfFloat_String83;
-  public TreeMap TreeMapOfFloat_String84;
-  public TreeMap TreeMapOfFloat_String85;
-  public TreeMap TreeMapOfFloat_String87;
-  public TreeMap TreeMapOfFloat_String89;
-  public TreeMap TreeMapOfInteger_String90;
-  public TreeMap TreeMapOfInteger_String91;
-  public TreeMap TreeMapOfInteger_String92;
-  public TreeMap TreeMapOfInteger_String93;
-  public TreeMap TreeMapOfInteger_String94;
-  public TreeMap TreeMapOfInteger_String96;
-  public TreeMap TreeMapOfInteger_String98;
-  public TreeMap TreeMapOfLong_String99;
-  public TreeMap TreeMapOfLong_String100;
-  public TreeMap TreeMapOfLong_String101;
-  public TreeMap TreeMapOfLong_String102;
-  public TreeMap TreeMapOfLong_String103;
-  public TreeMap TreeMapOfLong_String105;
-  public TreeMap TreeMapOfLong_String107;
-  public TreeMap TreeMapOfShort_String108;
-  public TreeMap TreeMapOfShort_String109;
-  public TreeMap TreeMapOfShort_String110;
-  public TreeMap TreeMapOfShort_String111;
-  public TreeMap TreeMapOfShort_String112;
-  public TreeMap TreeMapOfShort_String114;
-  public TreeMap TreeMapOfShort_String116;
+  public TreeMap<Object, String> TreeMapOfObject_String0;
+  public TreeMap<Object, String> TreeMapOfObject_String1;
+  public TreeMap<Object, String> TreeMapOfObject_String2;
+  public TreeMap<Object, String> TreeMapOfObject_String3;
+  public TreeMap<Object, String> TreeMapOfObject_String4;
+  public TreeMap<Object, String> TreeMapOfObject_String6;
+  public TreeMap<Object, String> TreeMapOfObject_String8;
+  public TreeMap<SimpleClass, String> TreeMapOfSimpleClass_String9;
+  public TreeMap<SimpleClass, String> TreeMapOfSimpleClass_String10;
+  public TreeMap<SimpleClass, String> TreeMapOfSimpleClass_String11;
+  public TreeMap<SimpleClass, String> TreeMapOfSimpleClass_String12;
+  public TreeMap<SimpleClass, String> TreeMapOfSimpleClass_String13;
+  public TreeMap<SimpleClass, String> TreeMapOfSimpleClass_String15;
+  public TreeMap<SimpleClass, String> TreeMapOfSimpleClass_String17;
+  public TreeMap<SimpleInterface, String> TreeMapOfSimpleInterface_String18;
+  public TreeMap<SimpleInterface, String> TreeMapOfSimpleInterface_String19;
+  public TreeMap<SimpleInterface, String> TreeMapOfSimpleInterface_String20;
+  public TreeMap<SimpleInterface, String> TreeMapOfSimpleInterface_String21;
+  public TreeMap<SimpleInterface, String> TreeMapOfSimpleInterface_String22;
+  public TreeMap<SimpleInterface, String> TreeMapOfSimpleInterface_String24;
+  public TreeMap<SimpleInterface, String> TreeMapOfSimpleInterface_String26;
+  public TreeMap<String, String> TreeMapOfString_String27;
+  public TreeMap<String, String> TreeMapOfString_String28;
+  public TreeMap<String, String> TreeMapOfString_String29;
+  public TreeMap<String, String> TreeMapOfString_String30;
+  public TreeMap<String, String> TreeMapOfString_String31;
+  public TreeMap<String, String> TreeMapOfString_String33;
+  public TreeMap<String, String> TreeMapOfString_String35;
+  public TreeMap<Date, String> TreeMapOfDate_String36;
+  public TreeMap<Date, String> TreeMapOfDate_String37;
+  public TreeMap<Date, String> TreeMapOfDate_String38;
+  public TreeMap<Date, String> TreeMapOfDate_String39;
+  public TreeMap<Date, String> TreeMapOfDate_String40;
+  public TreeMap<Date, String> TreeMapOfDate_String42;
+  public TreeMap<Date, String> TreeMapOfDate_String44;
+  public TreeMap<BigDecimal, String> TreeMapOfBigDecimal_String45;
+  public TreeMap<BigDecimal, String> TreeMapOfBigDecimal_String46;
+  public TreeMap<BigDecimal, String> TreeMapOfBigDecimal_String47;
+  public TreeMap<BigDecimal, String> TreeMapOfBigDecimal_String48;
+  public TreeMap<BigDecimal, String> TreeMapOfBigDecimal_String49;
+  public TreeMap<BigDecimal, String> TreeMapOfBigDecimal_String51;
+  public TreeMap<BigDecimal, String> TreeMapOfBigDecimal_String53;
+  public TreeMap<BigInteger, String> TreeMapOfBigInteger_String54;
+  public TreeMap<BigInteger, String> TreeMapOfBigInteger_String55;
+  public TreeMap<BigInteger, String> TreeMapOfBigInteger_String56;
+  public TreeMap<BigInteger, String> TreeMapOfBigInteger_String57;
+  public TreeMap<BigInteger, String> TreeMapOfBigInteger_String58;
+  public TreeMap<BigInteger, String> TreeMapOfBigInteger_String60;
+  public TreeMap<BigInteger, String> TreeMapOfBigInteger_String62;
+  public TreeMap<Byte, String> TreeMapOfByte_String63;
+  public TreeMap<Byte, String> TreeMapOfByte_String64;
+  public TreeMap<Byte, String> TreeMapOfByte_String65;
+  public TreeMap<Byte, String> TreeMapOfByte_String66;
+  public TreeMap<Byte, String> TreeMapOfByte_String67;
+  public TreeMap<Byte, String> TreeMapOfByte_String69;
+  public TreeMap<Byte, String> TreeMapOfByte_String71;
+  public TreeMap<Double, String> TreeMapOfDouble_String72;
+  public TreeMap<Double, String> TreeMapOfDouble_String73;
+  public TreeMap<Double, String> TreeMapOfDouble_String74;
+  public TreeMap<Double, String> TreeMapOfDouble_String75;
+  public TreeMap<Double, String> TreeMapOfDouble_String76;
+  public TreeMap<Double, String> TreeMapOfDouble_String78;
+  public TreeMap<Double, String> TreeMapOfDouble_String80;
+  public TreeMap<Float, String> TreeMapOfFloat_String81;
+  public TreeMap<Float, String> TreeMapOfFloat_String82;
+  public TreeMap<Float, String> TreeMapOfFloat_String83;
+  public TreeMap<Float, String> TreeMapOfFloat_String84;
+  public TreeMap<Float, String> TreeMapOfFloat_String85;
+  public TreeMap<Float, String> TreeMapOfFloat_String87;
+  public TreeMap<Float, String> TreeMapOfFloat_String89;
+  public TreeMap<Integer, String> TreeMapOfInteger_String90;
+  public TreeMap<Integer, String> TreeMapOfInteger_String91;
+  public TreeMap<Integer, String> TreeMapOfInteger_String92;
+  public TreeMap<Integer, String> TreeMapOfInteger_String93;
+  public TreeMap<Integer, String> TreeMapOfInteger_String94;
+  public TreeMap<Integer, String> TreeMapOfInteger_String96;
+  public TreeMap<Integer, String> TreeMapOfInteger_String98;
+  public TreeMap<Long, String> TreeMapOfLong_String99;
+  public TreeMap<Long, String> TreeMapOfLong_String100;
+  public TreeMap<Long, String> TreeMapOfLong_String101;
+  public TreeMap<Long, String> TreeMapOfLong_String102;
+  public TreeMap<Long, String> TreeMapOfLong_String103;
+  public TreeMap<Long, String> TreeMapOfLong_String105;
+  public TreeMap<Long, String> TreeMapOfLong_String107;
+  public TreeMap<Short, String> TreeMapOfShort_String108;
+  public TreeMap<Short, String> TreeMapOfShort_String109;
+  public TreeMap<Short, String> TreeMapOfShort_String110;
+  public TreeMap<Short, String> TreeMapOfShort_String111;
+  public TreeMap<Short, String> TreeMapOfShort_String112;
+  public TreeMap<Short, String> TreeMapOfShort_String114;
+  public TreeMap<Short, String> TreeMapOfShort_String116;
 
   public static final String [] fieldSpecs = { 
   "public TreeMap TreeMapOfObject_String0",
@@ -211,7 +214,7 @@ public class TreeMapStringValueCollections {
   {
     return fieldSpecs.length;
   }
-  public TreeMap get(int index)
+  public TreeMap<?, ?> get(int index)
   {
     switch (index)
     {
@@ -401,7 +404,9 @@ public class TreeMapStringValueCollections {
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index,TreeMap value)
+
+  @SuppressWarnings("unchecked")
+  public boolean set(int index, @SuppressWarnings("rawtypes") TreeMap value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -687,6 +692,9 @@ public class TreeMapStringValueCollections {
   }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int identifier;
 
         public Oid() {
@@ -696,7 +704,7 @@ public class TreeMapStringValueCollections {
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

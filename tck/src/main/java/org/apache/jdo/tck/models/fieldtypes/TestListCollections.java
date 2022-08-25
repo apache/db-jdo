@@ -19,7 +19,6 @@ package org.apache.jdo.tck.models.fieldtypes;
 
 import java.math.BigDecimal;
 
-import java.util.Collection;
 import java.util.Vector;
 import java.util.List;
 import java.util.ListIterator;
@@ -137,6 +136,7 @@ public class TestListCollections extends JDO_Test {
     /** */
     private void setValues(ListCollections collect, int order)
     {
+        @SuppressWarnings("rawtypes")
         Vector value;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
@@ -153,13 +153,13 @@ public class TestListCollections extends JDO_Test {
     private void checkValues(Object oid, ListCollections expectedValue)
     {
         int i;
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         ListCollections pi = (ListCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            List expected = expectedValue.get(i);
-            List actual = pi.get(i);
+            List<?> expected = expectedValue.get(i);
+            List<?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -168,8 +168,8 @@ public class TestListCollections extends JDO_Test {
             else if (! expected.equals(actual)) {
                 if (TestUtil.getFieldSpecs(ListCollections.fieldSpecs[i]
                             ).equals("BigDecimal")) {
-                    ListIterator expectedIt = expected.listIterator();
-                    ListIterator actualIt = actual.listIterator();
+                    ListIterator<?> expectedIt = expected.listIterator();
+                    ListIterator<?> actualIt = actual.listIterator();
                     int index = 0;
                     while (expectedIt.hasNext()) {
                         BigDecimal bigDecExpected =
@@ -192,7 +192,7 @@ public class TestListCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 

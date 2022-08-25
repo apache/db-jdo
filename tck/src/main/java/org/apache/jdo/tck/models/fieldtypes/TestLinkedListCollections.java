@@ -130,17 +130,17 @@ public class TestLinkedListCollections extends JDO_Test {
     /** */
     private void setValues(LinkedListCollections collect, int order)
     {
-        Collection value;
+        Collection<?> value;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
                     LinkedListCollections.fieldSpecs[i]);
-            value = (Collection)TestUtil.makeNewVectorInstance(
+            value = (Collection<?>)TestUtil.makeNewVectorInstance(
                     valueType, order);
-            LinkedList lvalue = new LinkedList(value);
+            LinkedList<?> lvalue = new LinkedList<>(value);
             collect.set(i, lvalue);
             if (debug)
-                logger.debug("Set " + i + "th value to: " + value.toString());
+                logger.debug("Set " + i + "th value to: " + value);
         }
     }
 
@@ -148,13 +148,13 @@ public class TestLinkedListCollections extends JDO_Test {
     private void checkValues(Object oid, LinkedListCollections expectedValue)
     {
         int i;
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         LinkedListCollections pi = (LinkedListCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            LinkedList expected = expectedValue.get(i);
-            LinkedList actual = pi.get(i);
+            LinkedList<?> expected = expectedValue.get(i);
+            LinkedList<?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -163,8 +163,8 @@ public class TestLinkedListCollections extends JDO_Test {
             else if (! expected.equals(actual)) {
                 if (TestUtil.getFieldSpecs(LinkedListCollections.fieldSpecs[i]
                             ).equals("BigDecimal")) {
-                    ListIterator expectedIT = expected.listIterator();
-                    ListIterator actualIt = actual.listIterator();
+                    ListIterator<?> expectedIT = expected.listIterator();
+                    ListIterator<?> actualIt = actual.listIterator();
                     int index = 0;
                     while (expectedIT.hasNext()) {
                         BigDecimal bigDecExpected =
@@ -186,7 +186,7 @@ public class TestLinkedListCollections extends JDO_Test {
             }        }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

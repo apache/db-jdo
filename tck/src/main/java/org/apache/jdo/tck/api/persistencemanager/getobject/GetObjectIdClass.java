@@ -77,7 +77,7 @@ public class GetObjectIdClass extends PersistenceManagerTest {
 
     /** */
     private void runTestGetObjectIdClassForNull(PersistenceManager pm) {
-        Class cl = pm.getObjectIdClass(null);
+        Class<?> cl = pm.getObjectIdClass(null);
         if (cl != null) {
             fail(ASSERTION_FAILED,
                  "pm.getObjectIdClass for null returned non-null class: " +
@@ -87,7 +87,7 @@ public class GetObjectIdClass extends PersistenceManagerTest {
 
     /** */
     private void runTestGetObjectIdClassForNonPCClass(PersistenceManager pm) {
-        Class cl = pm.getObjectIdClass(java.lang.Throwable.class);
+        Class<?> cl = pm.getObjectIdClass(java.lang.Throwable.class);
         if (cl != null) {
             fail(ASSERTION_FAILED,
                  "pm.getObjectIdClass for non-PC class returned non-null class: " +

@@ -24,6 +24,8 @@ import java.util.Date;
  */
 public class FullTimeEmployee extends Employee {
 
+    private static final long serialVersionUID = 1L;
+
     private double  salary;
 
     /** This is the JDO-required no-args constructor. The TCK relies on
@@ -79,7 +81,7 @@ public class FullTimeEmployee extends Employee {
      */
     @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $").append(salary);
         return rc.toString();

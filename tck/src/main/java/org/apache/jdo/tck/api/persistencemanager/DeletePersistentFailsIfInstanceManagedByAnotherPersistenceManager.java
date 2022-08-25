@@ -132,7 +132,7 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager e
         try {
             tx.begin();
 
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
 
@@ -158,7 +158,7 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager e
         try {
             tx.begin();
 
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p4);
             col1.add(p5);
             Object[] obj1= col1.toArray();

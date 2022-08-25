@@ -41,7 +41,7 @@ public @interface Element
      * implementation supports multiple types.
      * @return the types of elements
      */
-    Class[] types() default {};
+    Class<?>[] types() default {};
 
     /**
      * Whether the element is to be stored serialized (into a join table)

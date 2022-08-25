@@ -67,7 +67,7 @@ public class GetIgnoreCache extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query query = pm.newQuery();
+            Query<?> query = pm.newQuery();
 
             // the ignoreCache flag of PM must default to the PMF setting
             if (pm.getIgnoreCache() == pmf.getIgnoreCache()) {
@@ -107,7 +107,7 @@ public class GetIgnoreCache extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query query = pm.newQuery();
+            Query<?> query = pm.newQuery();
 
             // Query.ignoreCache must be equal to the new value in PM
             if (query.getIgnoreCache() == !ignoreCacheDefault) {

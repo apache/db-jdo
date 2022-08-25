@@ -18,13 +18,12 @@
 package org.apache.jdo.tck.query.jdoql.methods;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.FieldsOfSimpleEnum;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleEnum;
 import org.apache.jdo.tck.query.QueryTest;
@@ -69,13 +68,12 @@ public class EnumMethodToString extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Collection expectedResult = new ArrayList();
-            expectedResult.add(pm.getObjectById(oidOfExpectedResult));
+            List<FieldsOfSimpleEnum> expectedResult = new ArrayList<>();
+            expectedResult.add((FieldsOfSimpleEnum)pm.getObjectById(oidOfExpectedResult));
 
-            Query q =  pm.newQuery();
-            q.setClass(FieldsOfSimpleEnum.class);
+            Query<FieldsOfSimpleEnum> q =  pm.newQuery(FieldsOfSimpleEnum.class);
             q.setFilter(filter);
-            Collection results = (Collection)q.execute();
+            List<FieldsOfSimpleEnum> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
             tx = null;

@@ -22,7 +22,6 @@ import java.util.Date;
 
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -69,6 +68,7 @@ public class AccessOtherInstancesInPrestore extends TestParts {
     /**
      * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(InstanceCallbackClass.class);
     }

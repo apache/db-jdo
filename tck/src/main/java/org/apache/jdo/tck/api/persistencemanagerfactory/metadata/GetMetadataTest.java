@@ -123,7 +123,7 @@ public class GetMetadataTest extends JDO_Test {
                 buffer.append("ColumnMetadata for " + columnMetadata.getName());
             }
         }
-        System.out.println(buffer.toString());
+        System.out.println(buffer);
     }
 
 }

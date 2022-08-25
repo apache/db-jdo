@@ -21,7 +21,6 @@ import java.util.Arrays;
 
 import javax.jdo.JDOQLTypedQuery;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -67,7 +66,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.employees.size());
         query.orderBy(cand.name.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.employees.size()",
                 /*INTO*/        null,
@@ -99,7 +98,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.phoneNumbers.size());
         query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.phoneNumbers.size()",
                 /*INTO*/        null,
@@ -129,7 +128,7 @@ public class MethodsInResult extends QueryTest {
         QDepartment cand = QDepartment.candidate();
         query.result(false, cand.employees.size().max());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MAX(this.employees.size())",
                 /*INTO*/        null,
@@ -151,6 +150,7 @@ public class MethodsInResult extends QueryTest {
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
+    @SuppressWarnings("unchecked")
     public void testMapGetInResult() {
         // map.get()
         Object expected = Arrays.asList("1111", "2222", "3333", "3343", "3363");
@@ -160,7 +160,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.phoneNumbers.get("home"));
         query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.phoneNumbers.get('home')",
                 /*INTO*/        null,
@@ -191,7 +191,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.firstname.substring(1, 4));
         query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.firstname.substring(1,4)",
                 /*INTO*/        null,
@@ -223,7 +223,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.firstname.indexOf("First"));
         query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.firstname.indexOf('First')",
                 /*INTO*/        null,
