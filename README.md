@@ -162,3 +162,18 @@ Please note, the tck enables the profile `jdori` per default and this default is
 You can pass different compiler arguments using the -D option:
 
     mvn -Pwarnings,jdori -DcompilerArgument=-Xlint:all clean install
+
+### Formatting
+
+The JDO project uses the google-java-format for checking and reformatting the Java code to comply with 
+Google Java Style [Google Java Style](https://google.github.io/styleguide/javaguide.html). 
+
+There are two profiles to support code formatting using the maven fmt-maven-plugin.
+
+* `verify-format` checks the formatting of the project's Java files. It prints the list of the files that are not compliant.
+
+        mvn -Pverify-format clean compile
+
+* `format` reformats the project's Java files.
+
+        mvn -Pformat clean compile
