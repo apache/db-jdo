@@ -392,6 +392,7 @@
                         <artifactId>fmt-maven-plugin</artifactId>
                         <configuration>
                             <verbose>true</verbose>
+                            <skipSortingImports>false</skipSortingImports>
                         </configuration>
                         <executions>
                             <execution>
