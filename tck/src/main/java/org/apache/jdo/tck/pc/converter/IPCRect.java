@@ -18,13 +18,13 @@ package org.apache.jdo.tck.pc.converter;
 
 import org.apache.jdo.tck.pc.mylib.Point;
 
-/**
- * Interface for common methods of implementation classes PCRect and PCRectAnnotated.
- */
+/** Interface for common methods of implementation classes PCRect and PCRectAnnotated. */
 public interface IPCRect {
-    Point getUpperLeft();
-    void setUpperLeft(Point upperLeft);
+  Point getUpperLeft();
 
-    Point getLowerRight();
-    void setLowerRight(Point lowerRight);
+  void setUpperLeft(Point upperLeft);
+
+  Point getLowerRight();
+
+  void setLowerRight(Point lowerRight);
 }

@@ -26,20 +26,19 @@ import org.apache.jdo.tck.pc.company.CompanyFactoryAnnotatedAbstractDelegator;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public class CompanyFactoryAnnotatedPCPMDelegator
-        extends CompanyFactoryAnnotatedAbstractDelegator {
+public class CompanyFactoryAnnotatedPCPMDelegator extends CompanyFactoryAnnotatedAbstractDelegator {
 
-    /**
-     * Creates a new instance of CompanyFactoryAnnotatedPCPMDelegator
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAnnotatedPCPMDelegator(PersistenceManager pm) {
-        super(pm);
-        if (isAppIdentity){
-            delegate = new CompanyFactoryAnnotatedPCAppPM(pm);
-        } else { //datastoreidentity
-            delegate = new CompanyFactoryAnnotatedPCDSPM(pm);
-        }
+  /**
+   * Creates a new instance of CompanyFactoryAnnotatedPCPMDelegator
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAnnotatedPCPMDelegator(PersistenceManager pm) {
+    super(pm);
+    if (isAppIdentity) {
+      delegate = new CompanyFactoryAnnotatedPCAppPM(pm);
+    } else { // datastoreidentity
+      delegate = new CompanyFactoryAnnotatedPCDSPM(pm);
     }
-    
+  }
 }

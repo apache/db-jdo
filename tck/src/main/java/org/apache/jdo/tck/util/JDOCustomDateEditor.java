@@ -17,28 +17,28 @@
 
 package org.apache.jdo.tck.util;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 
 public class JDOCustomDateEditor extends CustomDateEditor {
 
-    /** The format of date values in the xml representation */
-    public static final String DATE_PATTERN = "d/MMM/yyyy";
+  /** The format of date values in the xml representation */
+  public static final String DATE_PATTERN = "d/MMM/yyyy";
 
-    public JDOCustomDateEditor() {
-        super(new SimpleDateFormat(DATE_PATTERN, Locale.US), true);
-    }
+  public JDOCustomDateEditor() {
+    super(new SimpleDateFormat(DATE_PATTERN, Locale.US), true);
+  }
 
-    /**
-     * Redturs a string representation of the specified date
-     * using DATE_PATTERN as date formatter pattern.
-     * @param date the date
-     * @return string representation of the specified date
-     */
-    public static String getDateRepr(Date date) {
-        return date == null ? "null" : new SimpleDateFormat(DATE_PATTERN).format(date);
-    }
+  /**
+   * Redturs a string representation of the specified date using DATE_PATTERN as date formatter
+   * pattern.
+   *
+   * @param date the date
+   * @return string representation of the specified date
+   */
+  public static String getDateRepr(Date date) {
+    return date == null ? "null" : new SimpleDateFormat(DATE_PATTERN).format(date);
+  }
 }

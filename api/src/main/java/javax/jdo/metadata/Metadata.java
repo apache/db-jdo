@@ -22,34 +22,34 @@ package javax.jdo.metadata;
  * @version 3.0
  */
 public interface Metadata {
-    /**
-     * Add a vendor extension to this metadata component.
-     * 
-     * @param vendor Identifier for the vendor
-     * @param key The extension key
-     * @param value Value for the extension
-     * @return The ExtensionMetadata
-     */
-    ExtensionMetadata newExtensionMetadata(String vendor, String key, String value);
+  /**
+   * Add a vendor extension to this metadata component.
+   *
+   * @param vendor Identifier for the vendor
+   * @param key The extension key
+   * @param value Value for the extension
+   * @return The ExtensionMetadata
+   */
+  ExtensionMetadata newExtensionMetadata(String vendor, String key, String value);
 
-    /**
-     * Number of extensions on this component.
-     * 
-     * @return Number of extensions
-     */
-    int getNumberOfExtensions();
+  /**
+   * Number of extensions on this component.
+   *
+   * @return Number of extensions
+   */
+  int getNumberOfExtensions();
 
-    /**
-     * Accessor for the defined extensions for this component
-     * 
-     * @return The extensions
-     */
-    ExtensionMetadata[] getExtensions();
+  /**
+   * Accessor for the defined extensions for this component
+   *
+   * @return The extensions
+   */
+  ExtensionMetadata[] getExtensions();
 
-    /**
-     * Accessor for the parent metadata component.
-     * 
-     * @return The parent
-     */
-    Metadata getParent();
+  /**
+   * Accessor for the parent metadata component.
+   *
+   * @return The parent
+   */
+  Metadata getParent();
 }

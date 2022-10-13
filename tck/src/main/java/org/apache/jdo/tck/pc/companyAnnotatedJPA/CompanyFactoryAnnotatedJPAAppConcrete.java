@@ -18,7 +18,16 @@
 package org.apache.jdo.tck.pc.companyAnnotatedJPA;
 
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.pc.company.*;
+import org.apache.jdo.tck.pc.company.CompanyFactoryAbstractImpl;
+import org.apache.jdo.tck.pc.company.IAddress;
+import org.apache.jdo.tck.pc.company.ICompany;
+import org.apache.jdo.tck.pc.company.IDentalInsurance;
+import org.apache.jdo.tck.pc.company.IDepartment;
+import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
+import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+import org.apache.jdo.tck.pc.company.IMeetingRoom;
+import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
+import org.apache.jdo.tck.pc.company.IProject;
 
 /*
  * CompanyFactoryAnnotatedPMFieldClass.java
@@ -26,68 +35,68 @@ import org.apache.jdo.tck.pc.company.*;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public class CompanyFactoryAnnotatedJPAAppConcrete
-        extends CompanyFactoryAbstractImpl {
-    
-    PersistenceManager pm = null;
+public class CompanyFactoryAnnotatedJPAAppConcrete extends CompanyFactoryAbstractImpl {
 
-    /**
-     * Creates a new instance of CompanyFactoryAnnotatedJPAAppConcrete
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAnnotatedJPAAppConcrete(PersistenceManager pm) {
-        super(pm);
-        this.pm = pm;        
-    }
+  PersistenceManager pm = null;
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public Class<?>[] getTearDownClasses() {
-        return new Class[] {
-            JPAAppDentalInsurance.class,
-            JPAAppMedicalInsurance.class,
-            JPAAppPartTimeEmployee.class,
-            JPAAppFullTimeEmployee.class,
-            JPAAppProject.class,
-            JPAAppDepartment.class,
-            JPAAppCompany.class,
-            JPAAppAddress.class
-        };
-    }
-    
-    public IAddress newAddress() {
-        return new JPAAppAddress();
-    }
+  /**
+   * Creates a new instance of CompanyFactoryAnnotatedJPAAppConcrete
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAnnotatedJPAAppConcrete(PersistenceManager pm) {
+    super(pm);
+    this.pm = pm;
+  }
 
-    public IMeetingRoom newMeetingRoom() {
-        return null;
-    }
-    
-    public ICompany newCompany() {
-        return new JPAAppCompany();
-    }
-    
-    public IDentalInsurance newDentalInsurance() {
-        return new JPAAppDentalInsurance();
-    }
-    
-    public IDepartment newDepartment() {
-        return new JPAAppDepartment();
-    }
-    
-    public IFullTimeEmployee newFullTimeEmployee() {
-        return new JPAAppFullTimeEmployee();
-    }
-    
-    public IMedicalInsurance newMedicalInsurance() {
-        return new JPAAppMedicalInsurance();
-    }
-    
-    public IPartTimeEmployee newPartTimeEmployee() {
-        return new JPAAppPartTimeEmployee();
-    }
-    
-    public IProject newProject() {
-        return new JPAAppProject();
-    }
+  @SuppressWarnings("rawtypes")
+  @Override
+  public Class<?>[] getTearDownClasses() {
+    return new Class[] {
+      JPAAppDentalInsurance.class,
+      JPAAppMedicalInsurance.class,
+      JPAAppPartTimeEmployee.class,
+      JPAAppFullTimeEmployee.class,
+      JPAAppProject.class,
+      JPAAppDepartment.class,
+      JPAAppCompany.class,
+      JPAAppAddress.class
+    };
+  }
+
+  public IAddress newAddress() {
+    return new JPAAppAddress();
+  }
+
+  public IMeetingRoom newMeetingRoom() {
+    return null;
+  }
+
+  public ICompany newCompany() {
+    return new JPAAppCompany();
+  }
+
+  public IDentalInsurance newDentalInsurance() {
+    return new JPAAppDentalInsurance();
+  }
+
+  public IDepartment newDepartment() {
+    return new JPAAppDepartment();
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee() {
+    return new JPAAppFullTimeEmployee();
+  }
+
+  public IMedicalInsurance newMedicalInsurance() {
+    return new JPAAppMedicalInsurance();
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee() {
+    return new JPAAppPartTimeEmployee();
+  }
+
+  public IProject newProject() {
+    return new JPAAppProject();
+  }
 }

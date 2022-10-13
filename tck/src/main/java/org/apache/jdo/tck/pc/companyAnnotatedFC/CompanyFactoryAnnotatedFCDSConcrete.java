@@ -18,7 +18,16 @@
 package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.pc.company.*;
+import org.apache.jdo.tck.pc.company.CompanyFactoryNewInstance;
+import org.apache.jdo.tck.pc.company.IAddress;
+import org.apache.jdo.tck.pc.company.ICompany;
+import org.apache.jdo.tck.pc.company.IDentalInsurance;
+import org.apache.jdo.tck.pc.company.IDepartment;
+import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
+import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+import org.apache.jdo.tck.pc.company.IMeetingRoom;
+import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
+import org.apache.jdo.tck.pc.company.IProject;
 
 /*
  * CompanyFactoryAnnotatedFCDSPM.java
@@ -26,68 +35,68 @@ import org.apache.jdo.tck.pc.company.*;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public class CompanyFactoryAnnotatedFCDSConcrete
-        implements CompanyFactoryNewInstance {
-    
-    PersistenceManager pm = null;
+public class CompanyFactoryAnnotatedFCDSConcrete implements CompanyFactoryNewInstance {
 
-    /**
-     * Creates a new instance of CompanyFactoryAnnotatedFCDSConcrete
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAnnotatedFCDSConcrete(PersistenceManager pm) {
-        this.pm = pm;        
-    }
+  PersistenceManager pm = null;
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public Class<?>[] getTearDownClasses() {
-        return new Class[] {
-            FCDSDentalInsurance.class,
-            FCDSMedicalInsurance.class,
-            FCDSPartTimeEmployee.class,
-            FCDSFullTimeEmployee.class,
-            FCDSProject.class,
-            FCDSDepartment.class,
-            FCDSMeetingRoom.class,
-            FCDSCompany.class,
-            FCDSAddress.class
-        };
-    }
-    
-    public IAddress newAddress() {
-        return new FCDSAddress();
-    }
+  /**
+   * Creates a new instance of CompanyFactoryAnnotatedFCDSConcrete
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAnnotatedFCDSConcrete(PersistenceManager pm) {
+    this.pm = pm;
+  }
 
-    public IMeetingRoom newMeetingRoom() {
-        return new FCDSMeetingRoom();
-    }
-    
-    public ICompany newCompany() {
-        return new FCDSCompany();
-    }
-    
-    public IDentalInsurance newDentalInsurance() {
-        return new FCDSDentalInsurance();
-    }
-    
-    public IDepartment newDepartment() {
-        return new FCDSDepartment();
-    }
-    
-    public IFullTimeEmployee newFullTimeEmployee() {
-        return new FCDSFullTimeEmployee();
-    }
-    
-    public IMedicalInsurance newMedicalInsurance() {
-        return new FCDSMedicalInsurance();
-    }
-    
-    public IPartTimeEmployee newPartTimeEmployee() {
-        return new FCDSPartTimeEmployee();
-    }
-    
-    public IProject newProject() {
-        return new FCDSProject();
-    }
+  @SuppressWarnings("rawtypes")
+  @Override
+  public Class<?>[] getTearDownClasses() {
+    return new Class[] {
+      FCDSDentalInsurance.class,
+      FCDSMedicalInsurance.class,
+      FCDSPartTimeEmployee.class,
+      FCDSFullTimeEmployee.class,
+      FCDSProject.class,
+      FCDSDepartment.class,
+      FCDSMeetingRoom.class,
+      FCDSCompany.class,
+      FCDSAddress.class
+    };
+  }
+
+  public IAddress newAddress() {
+    return new FCDSAddress();
+  }
+
+  public IMeetingRoom newMeetingRoom() {
+    return new FCDSMeetingRoom();
+  }
+
+  public ICompany newCompany() {
+    return new FCDSCompany();
+  }
+
+  public IDentalInsurance newDentalInsurance() {
+    return new FCDSDentalInsurance();
+  }
+
+  public IDepartment newDepartment() {
+    return new FCDSDepartment();
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee() {
+    return new FCDSFullTimeEmployee();
+  }
+
+  public IMedicalInsurance newMedicalInsurance() {
+    return new FCDSMedicalInsurance();
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee() {
+    return new FCDSPartTimeEmployee();
+  }
+
+  public IProject newProject() {
+    return new FCDSProject();
+  }
 }

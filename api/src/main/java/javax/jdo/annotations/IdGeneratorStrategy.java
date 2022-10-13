@@ -18,17 +18,16 @@ package javax.jdo.annotations;
 
 /**
  * Enumeration of the id generator strategy values.
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-public enum IdGeneratorStrategy
-{
-    UNSPECIFIED,
-    NATIVE,
-    SEQUENCE,
-    IDENTITY,
-    INCREMENT,
-    UUIDSTRING,
-    UUIDHEX
+public enum IdGeneratorStrategy {
+  UNSPECIFIED,
+  NATIVE,
+  SEQUENCE,
+  IDENTITY,
+  INCREMENT,
+  UUIDSTRING,
+  UUIDHEX
 }

@@ -18,16 +18,15 @@ package javax.jdo.annotations;
 
 /**
  * Enumeration of the foreign-key delete/update action values.
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-public enum ForeignKeyAction
-{
-    UNSPECIFIED,
-    RESTRICT,
-    CASCADE,
-    NULL,
-    DEFAULT,
-    NONE
+public enum ForeignKeyAction {
+  UNSPECIFIED,
+  RESTRICT,
+  CASCADE,
+  NULL,
+  DEFAULT,
+  NONE
 }

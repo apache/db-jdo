@@ -25,61 +25,66 @@ import javax.jdo.PersistenceManager;
  * Created on August 29, 2005, 9:56 PM
  *
  */
-public class CompanyFactoryPMInterface 
-        extends CompanyFactoryAbstractImpl {
-    
-    /** */
-    public static final Class<?>[] tearDownClasses = new Class<?>[] {
-        PIDentalInsurance.class, PIMedicalInsurance.class,
-        PIPartTimeEmployee.class, PIFullTimeEmployee.class,  
-        PIProject.class, PIDepartment.class, PICompany.class
-    };
+public class CompanyFactoryPMInterface extends CompanyFactoryAbstractImpl {
 
-    /**
-     * Creates a new instance of CompanyFactory
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryPMInterface(PersistenceManager pm) {
-        super(pm);
-    }
-    
-    public IAddress newAddress() {
-        return pm.newInstance(PIAddress.class);
-    }
-    
-    public IMeetingRoom newMeetingRoom() {
-        return pm.newInstance(PIMeetingRoom.class);
-    }
-    
-    public ICompany newCompany() {
-        return pm.newInstance(PICompany.class);
-    }
-    
-    public IDentalInsurance newDentalInsurance() {
-        return pm.newInstance(PIDentalInsurance.class);
-    }
-    
-    public IDepartment newDepartment() {
-        return pm.newInstance(PIDepartment.class);
-    }
-    
-    public IFullTimeEmployee  newFullTimeEmployee() {
-        return pm.newInstance(PIFullTimeEmployee.class);
-    }
-    
-    public IMedicalInsurance newMedicalInsurance() {
-        return pm.newInstance(PIMedicalInsurance.class);        
-    }
-    
-    public IPartTimeEmployee  newPartTimeEmployee() {
-        return pm.newInstance(PIPartTimeEmployee.class);
-    }
-    
-    public IProject newProject() {
-        return pm.newInstance(PIProject.class);
-    }
+  /** */
+  public static final Class<?>[] tearDownClasses =
+      new Class<?>[] {
+        PIDentalInsurance.class,
+        PIMedicalInsurance.class,
+        PIPartTimeEmployee.class,
+        PIFullTimeEmployee.class,
+        PIProject.class,
+        PIDepartment.class,
+        PICompany.class
+      };
 
-    public Class<?>[] getTearDownClasses() {
-        return tearDownClasses;
-    }
+  /**
+   * Creates a new instance of CompanyFactory
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryPMInterface(PersistenceManager pm) {
+    super(pm);
+  }
+
+  public IAddress newAddress() {
+    return pm.newInstance(PIAddress.class);
+  }
+
+  public IMeetingRoom newMeetingRoom() {
+    return pm.newInstance(PIMeetingRoom.class);
+  }
+
+  public ICompany newCompany() {
+    return pm.newInstance(PICompany.class);
+  }
+
+  public IDentalInsurance newDentalInsurance() {
+    return pm.newInstance(PIDentalInsurance.class);
+  }
+
+  public IDepartment newDepartment() {
+    return pm.newInstance(PIDepartment.class);
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee() {
+    return pm.newInstance(PIFullTimeEmployee.class);
+  }
+
+  public IMedicalInsurance newMedicalInsurance() {
+    return pm.newInstance(PIMedicalInsurance.class);
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee() {
+    return pm.newInstance(PIPartTimeEmployee.class);
+  }
+
+  public IProject newProject() {
+    return pm.newInstance(PIProject.class);
+  }
+
+  public Class<?>[] getTearDownClasses() {
+    return tearDownClasses;
+  }
 }

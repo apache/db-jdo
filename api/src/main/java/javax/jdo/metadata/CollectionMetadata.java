@@ -18,58 +18,67 @@ package javax.jdo.metadata;
 
 /**
  * Represents details of a collection in a field/property in a class.
+ *
  * @since 3.0
  */
 public interface CollectionMetadata extends Metadata {
-    /**
-     * Method to set the name of the element type.
-     * @param type Name of the element type
-     * @return This metadata object
-     */
-    CollectionMetadata setElementType(String type);
+  /**
+   * Method to set the name of the element type.
+   *
+   * @param type Name of the element type
+   * @return This metadata object
+   */
+  CollectionMetadata setElementType(String type);
 
-    /**
-     * Accessor for the element type.
-     * @return The element type
-     */
-    String getElementType();
+  /**
+   * Accessor for the element type.
+   *
+   * @return The element type
+   */
+  String getElementType();
 
-    /**
-     * Method to set whether the element is embedded.
-     * @param val Whether it is embedded
-     * @return This metadata object
-     */
-    CollectionMetadata setEmbeddedElement(boolean val);
+  /**
+   * Method to set whether the element is embedded.
+   *
+   * @param val Whether it is embedded
+   * @return This metadata object
+   */
+  CollectionMetadata setEmbeddedElement(boolean val);
 
-    /**
-     * Accessor for whether the element is embedded.
-     * @return whether the element is embedded
-     */
-    Boolean getEmbeddedElement();
+  /**
+   * Accessor for whether the element is embedded.
+   *
+   * @return whether the element is embedded
+   */
+  Boolean getEmbeddedElement();
 
-    /**
-     * Method to set whether the element is serialised.
-     * @param val Whether it is serialised
-     * @return This metadata object
-     */
-    CollectionMetadata setSerializedElement(boolean val);
+  /**
+   * Method to set whether the element is serialised.
+   *
+   * @param val Whether it is serialised
+   * @return This metadata object
+   */
+  CollectionMetadata setSerializedElement(boolean val);
 
-    /**
-     * Accessor for whether the element is serialised.
-     * @return whether the element is serialised
-     */
-    Boolean getSerializedElement();
+  /**
+   * Accessor for whether the element is serialised.
+   *
+   * @return whether the element is serialised
+   */
+  Boolean getSerializedElement();
 
-    /**
-     * Method to set whether the element is dependent.
-     * @param val Whether it is dependent
-     * @return This metadata object
-     */
-    CollectionMetadata setDependentElement(boolean val);
+  /**
+   * Method to set whether the element is dependent.
+   *
+   * @param val Whether it is dependent
+   * @return This metadata object
+   */
+  CollectionMetadata setDependentElement(boolean val);
 
-    /**
-     * Accessor for whether the element is dependent
-     * @return whether the element is dependent
-     */
-    Boolean getDependentElement();
+  /**
+   * Accessor for whether the element is dependent
+   *
+   * @return whether the element is dependent
+   */
+  Boolean getDependentElement();
 }

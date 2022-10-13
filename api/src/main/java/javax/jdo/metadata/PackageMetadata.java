@@ -20,110 +20,127 @@ import javax.jdo.annotations.SequenceStrategy;
 
 /**
  * Represents a package within a JDOMetadata.
+ *
  * @since 3.0
  */
 public interface PackageMetadata extends Metadata {
-    /**
-     * Accessor for the name of this package (set on construction).
-     * @return The name
-     */
-    String getName();
+  /**
+   * Accessor for the name of this package (set on construction).
+   *
+   * @return The name
+   */
+  String getName();
 
-    /**
-     * Method to set the catalog (ORM) to apply to all classes in this package.
-     * @param catalog Catalog name
-     * @return This metadata object
-     */
-    PackageMetadata setCatalog(String catalog);
+  /**
+   * Method to set the catalog (ORM) to apply to all classes in this package.
+   *
+   * @param catalog Catalog name
+   * @return This metadata object
+   */
+  PackageMetadata setCatalog(String catalog);
 
-    /**
-     * Accessor for the catalog (ORM) that all classes in this package default to.
-     * @return The catalog
-     */
-    String getCatalog();
+  /**
+   * Accessor for the catalog (ORM) that all classes in this package default to.
+   *
+   * @return The catalog
+   */
+  String getCatalog();
 
-    /**
-     * Method to set the schema (ORM) to apply to all classes in this package.
-     * @param schema Schema name
-     * @return This metadata object
-     */
-    PackageMetadata setSchema(String schema);
+  /**
+   * Method to set the schema (ORM) to apply to all classes in this package.
+   *
+   * @param schema Schema name
+   * @return This metadata object
+   */
+  PackageMetadata setSchema(String schema);
 
-    /**
-     * Accessor for the schema (ORM) that all classes in this package default to.
-     * @return The schema
-     */
-    String getSchema();
+  /**
+   * Accessor for the schema (ORM) that all classes in this package default to.
+   *
+   * @return The schema
+   */
+  String getSchema();
 
-    /**
-     * Accessor for all classes defined in this package.
-     * @return The classes
-     */
-    ClassMetadata[] getClasses();
+  /**
+   * Accessor for all classes defined in this package.
+   *
+   * @return The classes
+   */
+  ClassMetadata[] getClasses();
 
-    /**
-     * Add a new class to this package.
-     * @param name Name of the class
-     * @return The ClassMetadata
-     */
-    ClassMetadata newClassMetadata(String name);
+  /**
+   * Add a new class to this package.
+   *
+   * @param name Name of the class
+   * @return The ClassMetadata
+   */
+  ClassMetadata newClassMetadata(String name);
 
-    /**
-     * Add a new class to this package.
-     * @param cls The class
-     * @return The ClassMetadata
-     */
-    ClassMetadata newClassMetadata(Class<?> cls);
+  /**
+   * Add a new class to this package.
+   *
+   * @param cls The class
+   * @return The ClassMetadata
+   */
+  ClassMetadata newClassMetadata(Class<?> cls);
 
-    /**
-     * Accessor for the number of classes defined in this package.
-     * @return The number of classes.
-     */
-    int getNumberOfClasses();
+  /**
+   * Accessor for the number of classes defined in this package.
+   *
+   * @return The number of classes.
+   */
+  int getNumberOfClasses();
 
-    /**
-     * Accessor for all interfaces defined in this package.
-     * @return The interfaces
-     */
-    InterfaceMetadata[] getInterfaces();
+  /**
+   * Accessor for all interfaces defined in this package.
+   *
+   * @return The interfaces
+   */
+  InterfaceMetadata[] getInterfaces();
 
-    /**
-     * Add a new interface to this package.
-     * @param name The interface name
-     * @return The InterfaceMetadata
-     */
-    InterfaceMetadata newInterfaceMetadata(String name);
+  /**
+   * Add a new interface to this package.
+   *
+   * @param name The interface name
+   * @return The InterfaceMetadata
+   */
+  InterfaceMetadata newInterfaceMetadata(String name);
 
-    /**
-     * Add a new interface to this package.
-     * @param cls The class
-     * @return The ClassMetadata
-     */
-    InterfaceMetadata newInterfaceMetadata(Class<?> cls);
+  /**
+   * Add a new interface to this package.
+   *
+   * @param cls The class
+   * @return The ClassMetadata
+   */
+  InterfaceMetadata newInterfaceMetadata(Class<?> cls);
 
-    /**
-     * Accessor for the number of interfaces defined in this package.
-     * @return The number of interfaces.
-     */
-    int getNumberOfInterfaces();
+  /**
+   * Accessor for the number of interfaces defined in this package.
+   *
+   * @return The number of interfaces.
+   */
+  int getNumberOfInterfaces();
 
-    /**
-     * Accessor for any sequences defined on the package.
-     * @return The sequences
-     */
-    SequenceMetadata[] getSequences();
+  /**
+   * Accessor for any sequences defined on the package.
+   *
+   * @return The sequences
+   */
+  SequenceMetadata[] getSequences();
 
-    /**
-     * Add a new sequence to this package.
-     * @param name Name of the sequence
-     * @param strategy Strategy for the sequence
-     * @return The SequenceMetadata
-     */
-    SequenceMetadata newSequenceMetadata(String name, SequenceStrategy strategy);
+  /**
+   * Add a new sequence to this package.
+   *
+   * @param name Name of the sequence
+   * @param strategy Strategy for the sequence
+   * @return The SequenceMetadata
+   */
+  SequenceMetadata newSequenceMetadata(String name, SequenceStrategy strategy);
 
-    /**
-     * Accessor for the number of sequences defined for this package.
-     * @return The number of sequences.
-     */
-    int getNumberOfSequences();
+  /**
+   * Accessor for the number of sequences defined for this package.
+   *
+   * @return The number of sequences.
+   */
+  int getNumberOfSequences();
 }

@@ -23,17 +23,17 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a group of index constraints.
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) 
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Indices
-{
-    /**
-     * The indices
-     * @return The indices
-     */
-    Index[] value();
+public @interface Indices {
+  /**
+   * The indices
+   *
+   * @return The indices
+   */
+  Index[] value();
 }

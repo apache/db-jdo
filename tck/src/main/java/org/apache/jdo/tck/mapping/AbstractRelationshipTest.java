@@ -20,7 +20,6 @@ package org.apache.jdo.tck.mapping;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.company.CompanyFactoryRegistry;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -31,65 +30,62 @@ import org.apache.jdo.tck.pc.company.IProject;
  * Abstract class for managed relationship tests
  */
 public class AbstractRelationshipTest extends AbstractReaderTest {
-    
-    protected CompanyModelReader reader = null;
-    
-    /** */
-    protected final boolean isTestToBePerformed = isTestToBePerformed();
-    
-    /**
-     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
-     */
-    @Override
-    protected void localSetUp() {
-        if (isTestToBePerformed()) {
-            getPM();
-            CompanyFactoryRegistry.registerFactory(pm);
-            reader = new CompanyModelReader(inputFilename);
-            addTearDownClass(reader.getTearDownClassesFromFactory());
-            // persist test data
-            pm.currentTransaction().begin();
-            List<Object> rootList = getRootList(reader);
-            pm.makePersistentAll(rootList);
-            rootOids = new ArrayList<>();
-            for (Object pc : rootList) {
-                rootOids.add(pm.getObjectId(pc));
-            }
-            // DO THIS
-            // in xmlBeanFactory String[] getBeanDefinitionNames()
-            oidMap.put("emp1", pm.getObjectId(reader.getEmployee("emp1")));
-            oidMap.put("emp2", pm.getObjectId(reader.getEmployee("emp2")));
-            oidMap.put("emp4", pm.getObjectId(reader.getEmployee("emp4")));
-            oidMap.put("medicalIns1",
-                pm.getObjectId(reader.getMedicalInsurance("medicalIns1")));
-            oidMap.put("medicalIns2",
-                pm.getObjectId(reader.getMedicalInsurance("medicalIns2")));
-            oidMap.put("dept1", pm.getObjectId(reader.getDepartment("dept1")));
-            oidMap.put("dept2", pm.getObjectId(reader.getDepartment("dept2")));
-            oidMap.put("proj1", pm.getObjectId(reader.getProject("proj1")));
-            oidMap.put("proj2", pm.getObjectId(reader.getProject("proj2")));
-             
-            pm.currentTransaction().commit();
-            cleanupPM();
-        }
-    }
 
-    protected boolean containsEmployee(Collection<IEmployee> employees, long empid) {
-        for (IEmployee emp: employees) {
-            if (emp.getPersonid() == empid) {
-                return true;
-            }
-        }
-        return false;
-    }
+  protected CompanyModelReader reader = null;
 
-    protected boolean containsProject(Collection<IProject> projects, long projid) {
-        for (IProject project: projects) {
-            if (project.getProjid() == projid) {
-                return true;
-            }
-        }
-        return false;
-    }
+  /** */
+  protected final boolean isTestToBePerformed = isTestToBePerformed();
 
+  /**
+   * @see org.apache.jdo.tck.JDO_Test#localSetUp()
+   */
+  @Override
+  protected void localSetUp() {
+    if (isTestToBePerformed()) {
+      getPM();
+      CompanyFactoryRegistry.registerFactory(pm);
+      reader = new CompanyModelReader(inputFilename);
+      addTearDownClass(reader.getTearDownClassesFromFactory());
+      // persist test data
+      pm.currentTransaction().begin();
+      List<Object> rootList = getRootList(reader);
+      pm.makePersistentAll(rootList);
+      rootOids = new ArrayList<>();
+      for (Object pc : rootList) {
+        rootOids.add(pm.getObjectId(pc));
+      }
+      // DO THIS
+      // in xmlBeanFactory String[] getBeanDefinitionNames()
+      oidMap.put("emp1", pm.getObjectId(reader.getEmployee("emp1")));
+      oidMap.put("emp2", pm.getObjectId(reader.getEmployee("emp2")));
+      oidMap.put("emp4", pm.getObjectId(reader.getEmployee("emp4")));
+      oidMap.put("medicalIns1", pm.getObjectId(reader.getMedicalInsurance("medicalIns1")));
+      oidMap.put("medicalIns2", pm.getObjectId(reader.getMedicalInsurance("medicalIns2")));
+      oidMap.put("dept1", pm.getObjectId(reader.getDepartment("dept1")));
+      oidMap.put("dept2", pm.getObjectId(reader.getDepartment("dept2")));
+      oidMap.put("proj1", pm.getObjectId(reader.getProject("proj1")));
+      oidMap.put("proj2", pm.getObjectId(reader.getProject("proj2")));
+
+      pm.currentTransaction().commit();
+      cleanupPM();
+    }
+  }
+
+  protected boolean containsEmployee(Collection<IEmployee> employees, long empid) {
+    for (IEmployee emp : employees) {
+      if (emp.getPersonid() == empid) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  protected boolean containsProject(Collection<IProject> projects, long projid) {
+    for (IProject project : projects) {
+      if (project.getProjid() == projid) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

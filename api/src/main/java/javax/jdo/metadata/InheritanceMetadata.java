@@ -20,56 +20,65 @@ import javax.jdo.annotations.InheritanceStrategy;
 
 /**
  * Represents the inheritance of a class.
+ *
  * @since 3.0
  */
 public interface InheritanceMetadata extends Metadata {
-    /**
-     * Method to set the inheritance strategy.
-     * @param strategy The strategy
-     * @return This metadata object
-     */
-    InheritanceMetadata setStrategy(InheritanceStrategy strategy);
+  /**
+   * Method to set the inheritance strategy.
+   *
+   * @param strategy The strategy
+   * @return This metadata object
+   */
+  InheritanceMetadata setStrategy(InheritanceStrategy strategy);
 
-    /**
-     * Accessor for the inheritance strategy.
-     * @return The strategy
-     */
-    InheritanceStrategy getStrategy();
+  /**
+   * Accessor for the inheritance strategy.
+   *
+   * @return The strategy
+   */
+  InheritanceStrategy getStrategy();
 
-    /**
-     * Method to set the custom inheritance strategy.
-     * @param strategy The strategy
-     * @return This metadata object
-     */
-    InheritanceMetadata setCustomStrategy(String strategy);
+  /**
+   * Method to set the custom inheritance strategy.
+   *
+   * @param strategy The strategy
+   * @return This metadata object
+   */
+  InheritanceMetadata setCustomStrategy(String strategy);
 
-    /**
-     * Accessor for the custom inheritance (overriding "strategy").
-     * @return The strategy
-     */
-    String getCustomStrategy();
+  /**
+   * Accessor for the custom inheritance (overriding "strategy").
+   *
+   * @return The strategy
+   */
+  String getCustomStrategy();
 
-    /**
-     * Method to define the new discriminator metadata.
-     * @return The DiscriminatorMetadata
-     */
-    DiscriminatorMetadata newDiscriminatorMetadata();
+  /**
+   * Method to define the new discriminator metadata.
+   *
+   * @return The DiscriminatorMetadata
+   */
+  DiscriminatorMetadata newDiscriminatorMetadata();
 
-    /**
-     * Accessor for the discriminator (if any).
-     * @return Discriminator
-     */
-    DiscriminatorMetadata getDiscriminatorMetadata();
+  /**
+   * Accessor for the discriminator (if any).
+   *
+   * @return Discriminator
+   */
+  DiscriminatorMetadata getDiscriminatorMetadata();
 
-    /**
-     * Method to define the new join information.
-     * @return The JoinMetadata
-     */
-    JoinMetadata newJoinMetadata();
+  /**
+   * Method to define the new join information.
+   *
+   * @return The JoinMetadata
+   */
+  JoinMetadata newJoinMetadata();
 
-    /**
-     * Accessor for the join (if any).
-     * @return Join information
-     */
-    JoinMetadata getJoinMetadata();
+  /**
+   * Accessor for the join (if any).
+   *
+   * @return Join information
+   */
+  JoinMetadata getJoinMetadata();
 }

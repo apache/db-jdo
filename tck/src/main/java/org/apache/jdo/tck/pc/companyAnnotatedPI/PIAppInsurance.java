@@ -5,46 +5,60 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package org.apache.jdo.tck.pc.companyAnnotatedPI;
 
-import javax.jdo.annotations.*;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Discriminator;
+import javax.jdo.annotations.DiscriminatorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Index;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import org.apache.jdo.tck.pc.company.IEmployee;
-
 import org.apache.jdo.tck.pc.company.IInsurance;
 
 /**
- * This interface represents the persistent state of Insurance.
- * Javadoc was deliberately omitted because it would distract from
- * the purpose of the interface.
+ * This interface represents the persistent state of Insurance. Javadoc was deliberately omitted
+ * because it would distract from the purpose of the interface.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION,table="insuranceplans")
-@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
-@Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
-        column="DISCRIMINATOR", indexed="true")
-@Index(name="INS_DISCRIMINATOR_INDEX", unique="false",
-        columns=@Column(name="DISCRIMINATOR"))
-    public interface PIAppInsurance extends IInsurance {
+@PersistenceCapable(identityType = IdentityType.APPLICATION, table = "insuranceplans")
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@Discriminator(
+    strategy = DiscriminatorStrategy.CLASS_NAME,
+    column = "DISCRIMINATOR",
+    indexed = "true")
+@Index(
+    name = "INS_DISCRIMINATOR_INDEX",
+    unique = "false",
+    columns = @Column(name = "DISCRIMINATOR"))
+public interface PIAppInsurance extends IInsurance {
 
-    @Persistent(primaryKey="true")
-    @Column(name="INSID")
-    long getInsid();
-    @Column(name="CARRIER")
-    String getCarrier();
-    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
-    @Column(name="EMPLOYEE")
-    IEmployee getEmployee();
+  @Persistent(primaryKey = "true")
+  @Column(name = "INSID")
+  long getInsid();
 
-    void setInsid(long insid);
-    void setCarrier(String carrier);
-    void setEmployee(IEmployee employee);
+  @Column(name = "CARRIER")
+  String getCarrier();
+
+  @Persistent(types = org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+  @Column(name = "EMPLOYEE")
+  IEmployee getEmployee();
+
+  void setInsid(long insid);
+
+  void setCarrier(String carrier);
+
+  void setEmployee(IEmployee employee);
 }

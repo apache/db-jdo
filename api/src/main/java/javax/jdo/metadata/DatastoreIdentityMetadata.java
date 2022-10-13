@@ -20,76 +20,88 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 
 /**
  * Represents the datastore identity of a class.
+ *
  * @since 3.0
  */
 public interface DatastoreIdentityMetadata extends Metadata {
-    /**
-     * Method to set the datastore identity column name.
-     * @param column Name of the datastore identity column
-     * @return This metadata object
-     */
-    DatastoreIdentityMetadata setColumn(String column);
+  /**
+   * Method to set the datastore identity column name.
+   *
+   * @param column Name of the datastore identity column
+   * @return This metadata object
+   */
+  DatastoreIdentityMetadata setColumn(String column);
 
-    /**
-     * Accessor for the datastore identity column name.
-     * @return The column name
-     */
-    String getColumn();
+  /**
+   * Accessor for the datastore identity column name.
+   *
+   * @return The column name
+   */
+  String getColumn();
 
-    /**
-     * Method to set the identity generation strategy.
-     * @param strategy The strategy
-     * @return This metadata object
-     */
-    DatastoreIdentityMetadata setStrategy(IdGeneratorStrategy strategy);
+  /**
+   * Method to set the identity generation strategy.
+   *
+   * @param strategy The strategy
+   * @return This metadata object
+   */
+  DatastoreIdentityMetadata setStrategy(IdGeneratorStrategy strategy);
 
-    /**
-     * Accessor for the identity generation strategy.
-     * @return The strategy
-     */
-    IdGeneratorStrategy getStrategy();
+  /**
+   * Accessor for the identity generation strategy.
+   *
+   * @return The strategy
+   */
+  IdGeneratorStrategy getStrategy();
 
-    /**
-     * Method to set the custom identity generation strategy.
-     * @param strategy The strategy
-     * @return This metadata object
-     */
-    DatastoreIdentityMetadata setCustomStrategy(String strategy);
+  /**
+   * Method to set the custom identity generation strategy.
+   *
+   * @param strategy The strategy
+   * @return This metadata object
+   */
+  DatastoreIdentityMetadata setCustomStrategy(String strategy);
 
-    /**
-     * Accessor for the custom strategy (overriding "strategy").
-     * @return The strategy
-     */
-    String getCustomStrategy();
+  /**
+   * Accessor for the custom strategy (overriding "strategy").
+   *
+   * @return The strategy
+   */
+  String getCustomStrategy();
 
-    /**
-     * Method to set the sequence key (when using "sequence" strategy).
-     * @param seq Sequence key
-     * @return This metadata object
-     */
-    DatastoreIdentityMetadata setSequence(String seq);
+  /**
+   * Method to set the sequence key (when using "sequence" strategy).
+   *
+   * @param seq Sequence key
+   * @return This metadata object
+   */
+  DatastoreIdentityMetadata setSequence(String seq);
 
-    /**
-     * Accessor for the sequence key (when using "sequence" strategy)
-     * @return The sequence
-     */
-    String getSequence();
+  /**
+   * Accessor for the sequence key (when using "sequence" strategy)
+   *
+   * @return The sequence
+   */
+  String getSequence();
 
-    /**
-     * Accessor for all column(s) defined on the datastore identity.
-     * @return The column(s)
-     */
-    ColumnMetadata[] getColumns();
+  /**
+   * Accessor for all column(s) defined on the datastore identity.
+   *
+   * @return The column(s)
+   */
+  ColumnMetadata[] getColumns();
 
-    /**
-     * Add a new column for this datastore identity.
-     * @return The ColumnMetadata
-     */
-    ColumnMetadata newColumnMetadata();
+  /**
+   * Add a new column for this datastore identity.
+   *
+   * @return The ColumnMetadata
+   */
+  ColumnMetadata newColumnMetadata();
 
-    /**
-     * Accessor for the number of columns defined for this datastore identity.
-     * @return The number of columns
-     */
-    int getNumberOfColumns();
+  /**
+   * Accessor for the number of columns defined for this datastore identity.
+   *
+   * @return The number of columns
+   */
+  int getNumberOfColumns();
 }

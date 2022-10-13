@@ -23,48 +23,57 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a database unique constraint. Used for database schema
- * generation to create unique constraints. Also used to reorder database
- * operations when flushing changes to avoid unique constraint violations.
- * Corresponds to the xml element "unique".
+ * Annotation for a database unique constraint. Used for database schema generation to create unique
+ * constraints. Also used to reorder database operations when flushing changes to avoid unique
+ * constraint violations. Corresponds to the xml element "unique".
  *
  * @version 3.2
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(Uniques.class)
-public @interface Unique
-{
-    /** Name of the unique constraint.
-     * @return the name of the unique constraint
-     */
-    String name() default "";
+public @interface Unique {
+  /**
+   * Name of the unique constraint.
+   *
+   * @return the name of the unique constraint
+   */
+  String name() default "";
 
-    /** Table for the unique constraint. This is needed iff annotating a type 
-     * where this unique constraint is not for the primary table for 
-     * the persistent class or interface.
-     * @return the table on which the unique constraint is defined
-     */
-    String table() default "";
+  /**
+   * Table for the unique constraint. This is needed iff annotating a type where this unique
+   * constraint is not for the primary table for the persistent class or interface.
+   *
+   * @return the table on which the unique constraint is defined
+   */
+  String table() default "";
 
-    /** Whether this unique constraint is deferred until commit.
-     * @return whether this unique constraint is deferred until commit
-     */
-    String deferred() default "";
+  /**
+   * Whether this unique constraint is deferred until commit.
+   *
+   * @return whether this unique constraint is deferred until commit
+   */
+  String deferred() default "";
 
-    /** Member (field and property) names that compose this unique constraint.
-     * @return member names that compose this unique constraint
-     */
-    String[] members() default {};
+  /**
+   * Member (field and property) names that compose this unique constraint.
+   *
+   * @return member names that compose this unique constraint
+   */
+  String[] members() default {};
 
-    /** Columns that compose this unique constraint.
-     * @return columns that compose this unique constraint
-     */
-    Column[] columns() default {};
+  /**
+   * Columns that compose this unique constraint.
+   *
+   * @return columns that compose this unique constraint
+   */
+  Column[] columns() default {};
 
-    /** Vendor extensions.
-     * @return the vendor extensions
-     */
-    Extension[] extensions() default {};
+  /**
+   * Vendor extensions.
+   *
+   * @return the vendor extensions
+   */
+  Extension[] extensions() default {};
 }

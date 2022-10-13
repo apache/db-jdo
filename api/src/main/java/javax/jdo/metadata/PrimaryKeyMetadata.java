@@ -18,50 +18,58 @@ package javax.jdo.metadata;
 
 /**
  * Represents the primary key definition of a class.
+ *
  * @since 3.0
  */
 public interface PrimaryKeyMetadata extends Metadata {
-    /**
-     * Method to set the name of the PK constraint.
-     * @param name Name of the PK constraint
-     * @return The PK metadata
-     */
-    PrimaryKeyMetadata setName(String name);
+  /**
+   * Method to set the name of the PK constraint.
+   *
+   * @param name Name of the PK constraint
+   * @return The PK metadata
+   */
+  PrimaryKeyMetadata setName(String name);
 
-    /**
-     * Accessor for the name of the PK constraint.
-     * @return The PK constraint name
-     */
-    String getName();
+  /**
+   * Accessor for the name of the PK constraint.
+   *
+   * @return The PK constraint name
+   */
+  String getName();
 
-    /**
-     * Method to set the PK column name.
-     * @param column Name of the PK column
-     * @return The PK metadata
-     */
-    PrimaryKeyMetadata setColumn(String column);
+  /**
+   * Method to set the PK column name.
+   *
+   * @param column Name of the PK column
+   * @return The PK metadata
+   */
+  PrimaryKeyMetadata setColumn(String column);
 
-    /**
-     * Accessor for the PK column name.
-     * @return The column name
-     */
-    String getColumn();
+  /**
+   * Accessor for the PK column name.
+   *
+   * @return The column name
+   */
+  String getColumn();
 
-    /**
-     * Accessor for all column(s) defined on the PK.
-     * @return The column(s)
-     */
-    ColumnMetadata[] getColumns();
+  /**
+   * Accessor for all column(s) defined on the PK.
+   *
+   * @return The column(s)
+   */
+  ColumnMetadata[] getColumns();
 
-    /**
-     * Add a new column for this PK.
-     * @return The ColumnMetadata
-     */
-    ColumnMetadata newColumnMetadata();
+  /**
+   * Add a new column for this PK.
+   *
+   * @return The ColumnMetadata
+   */
+  ColumnMetadata newColumnMetadata();
 
-    /**
-     * Accessor for the number of columns defined for this PK.
-     * @return The number of columns
-     */
-    int getNumberOfColumns();
+  /**
+   * Accessor for the number of columns defined for this PK.
+   *
+   * @return The number of columns
+   */
+  int getNumberOfColumns();
 }
