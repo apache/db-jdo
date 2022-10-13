@@ -20,33 +20,38 @@ import java.lang.reflect.Field;
 
 /**
  * Represents a class.
+ *
  * @since 3.0
  */
 public interface ClassMetadata extends TypeMetadata {
-    /**
-     * Method to define the persistence modifier.
-     * @param mod persistence modifier
-     * @return This metadata object
-     */
-    ClassMetadata setPersistenceModifier(ClassPersistenceModifier mod);
+  /**
+   * Method to define the persistence modifier.
+   *
+   * @param mod persistence modifier
+   * @return This metadata object
+   */
+  ClassMetadata setPersistenceModifier(ClassPersistenceModifier mod);
 
-    /**
-     * Accessor for the persistence modifier.
-     * @return persistence modifier
-     */
-    ClassPersistenceModifier getPersistenceModifier();
+  /**
+   * Accessor for the persistence modifier.
+   *
+   * @return persistence modifier
+   */
+  ClassPersistenceModifier getPersistenceModifier();
 
-    /**
-     * Add a new field to this class.
-     * @param name Name of the field
-     * @return The FieldMetadata
-     */
-    FieldMetadata newFieldMetadata(String name);
+  /**
+   * Add a new field to this class.
+   *
+   * @param name Name of the field
+   * @return The FieldMetadata
+   */
+  FieldMetadata newFieldMetadata(String name);
 
-    /**
-     * Add a new field to this class.
-     * @param fld The field
-     * @return The FieldMetadata
-     */
-    FieldMetadata newFieldMetadata(Field fld);
+  /**
+   * Add a new field to this class.
+   *
+   * @param fld The field
+   * @return The FieldMetadata
+   */
+  FieldMetadata newFieldMetadata(Field fld);
 }

@@ -5,16 +5,16 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *     https://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package org.apache.jdo.tck.pc.singlefieldidentity;
 
 import javax.jdo.identity.IntIdentity;
@@ -22,77 +22,77 @@ import javax.jdo.identity.SingleFieldIdentity;
 
 /**
  * The PC class for testing <code>IntIdentity</code>.
+ *
  * @author Michael Watzek
  */
 public class PCPointSingleFieldPrimitiveint extends AbstractPCPointSingleField {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * Returns a unique value, used for primary key field initialization.
-     * @return a unique value
-     */
-    private static int newId() {
-        synchronized (PCPointSingleFieldPrimitiveint.class) {
-            return (int) ((counter++) % Integer.MAX_VALUE);
-        }
+  /**
+   * Returns a unique value, used for primary key field initialization.
+   *
+   * @return a unique value
+   */
+  private static int newId() {
+    synchronized (PCPointSingleFieldPrimitiveint.class) {
+      return (int) ((counter++) % Integer.MAX_VALUE);
     }
+  }
 
-    /**
-     * The primary key field.
-     */
-    private int id = newId();
+  /** The primary key field. */
+  private int id = newId();
 
-    public int x;
-    public Integer y;
+  public int x;
+  public Integer y;
 
-    /**
-     * This constructor is used by test cases checking assertion A7.12-39:<br>
-     * The instance returned is initialized with the value of the primary key 
-     * field of the instance on which the method is called.
-     * @param x the x coordinate
-     * @param y the y coordinate
-     */
-    public PCPointSingleFieldPrimitiveint(int x, int y) {
-        this.x = x;
-        this.y = Integer.valueOf(y);
-    }
+  /**
+   * This constructor is used by test cases checking assertion A7.12-39:<br>
+   * The instance returned is initialized with the value of the primary key field of the instance on
+   * which the method is called.
+   *
+   * @param x the x coordinate
+   * @param y the y coordinate
+   */
+  public PCPointSingleFieldPrimitiveint(int x, int y) {
+    this.x = x;
+    this.y = Integer.valueOf(y);
+  }
 
-    public void setX(int x) {
-        this.x = x;
-    }
+  public void setX(int x) {
+    this.x = x;
+  }
 
-    public int getX() {
-        return x;
-    }
+  public int getX() {
+    return x;
+  }
 
-    public void setY(Integer y) {
-        this.y = y;
-    }
+  public void setY(Integer y) {
+    this.y = y;
+  }
 
-    public Integer getY() {
-        return y;
-    }
-    
-    public String name() {
-        return " x: " + getX() + ", y: " + getY().intValue();
-    }
+  public Integer getY() {
+    return y;
+  }
 
-    /**
-     * Returns <code>true</code> if the given the key of the given 
-     * <code>SingleFieldIdentity</code> instance equals the key in the subclass
-     * of this class.
-     * @param singleFieldIdentity the single field identity to check.
-     * @return returns <code>true</code> if the given the key of the given 
-     * <code>SingleFieldIdentity</code> instance equals the key in the subclass
-     * of this class.
-     */
-    public boolean equalsPKField(SingleFieldIdentity singleFieldIdentity) {
-        return this.id==((IntIdentity)singleFieldIdentity).getKey();
-    }
+  public String name() {
+    return " x: " + getX() + ", y: " + getY().intValue();
+  }
 
-    @Override
-    public String toString() {
-        return super.toString() + this.id;
-    }
+  /**
+   * Returns <code>true</code> if the given the key of the given <code>SingleFieldIdentity</code>
+   * instance equals the key in the subclass of this class.
+   *
+   * @param singleFieldIdentity the single field identity to check.
+   * @return returns <code>true</code> if the given the key of the given <code>SingleFieldIdentity
+   *     </code> instance equals the key in the subclass of this class.
+   */
+  public boolean equalsPKField(SingleFieldIdentity singleFieldIdentity) {
+    return this.id == ((IntIdentity) singleFieldIdentity).getKey();
+  }
+
+  @Override
+  public String toString() {
+    return super.toString() + this.id;
+  }
 }

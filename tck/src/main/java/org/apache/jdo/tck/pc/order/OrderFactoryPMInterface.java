@@ -23,32 +23,30 @@ import javax.jdo.PersistenceManager;
  * OrderFactoryPMInterface.java
  *
  */
-public class OrderFactoryPMInterface 
-        extends OrderFactoryAbstractImpl {
-    
-    /** */
-    @SuppressWarnings("rawtypes")
-    public static final Class<?>[] tearDownClasses = new Class[] {
-        Order.class, OrderItem.class
-    };
+public class OrderFactoryPMInterface extends OrderFactoryAbstractImpl {
 
-    /**
-     * Creates a new instance of OrderFactoryPMInterface
-     * @param pm the PersistnceManager
-     */
-    public OrderFactoryPMInterface(PersistenceManager pm) {
-        super(pm);
-    }
-    
-    Order newOrder() {
-        return pm.newInstance(Order.class);
-    }
-    
-    OrderItem newOrderItem() {
-        return pm.newInstance(OrderItem.class);
-    }
-    
-    public Class<?>[] getTearDownClasses() {
-        return tearDownClasses;
-    }
+  /** */
+  @SuppressWarnings("rawtypes")
+  public static final Class<?>[] tearDownClasses = new Class[] {Order.class, OrderItem.class};
+
+  /**
+   * Creates a new instance of OrderFactoryPMInterface
+   *
+   * @param pm the PersistnceManager
+   */
+  public OrderFactoryPMInterface(PersistenceManager pm) {
+    super(pm);
+  }
+
+  Order newOrder() {
+    return pm.newInstance(Order.class);
+  }
+
+  OrderItem newOrderItem() {
+    return pm.newInstance(OrderItem.class);
+  }
+
+  public Class<?>[] getTearDownClasses() {
+    return tearDownClasses;
+  }
 }

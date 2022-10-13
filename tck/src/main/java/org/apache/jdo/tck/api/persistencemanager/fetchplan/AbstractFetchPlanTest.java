@@ -5,160 +5,161 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 
 import java.util.Collection;
 import java.util.HashSet;
-
 import javax.jdo.FetchPlan;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
 
 /**
- * This class is an abstract superclass for the fetch plan tests.
- * It contains methods useful for testing the behavior of the
- * fetch plan.
+ * This class is an abstract superclass for the fetch plan tests. It contains methods useful for
+ * testing the behavior of the fetch plan.
  */
 public class AbstractFetchPlanTest extends JDO_Test {
 
-    /*
-     * The <code>main</code> method is not defined in this abstract class.
-     */
+  /*
+   * The <code>main</code> method is not defined in this abstract class.
+   */
 
-    /** The persistent instances used in the test.
-     */
-    protected PCPoint upperLeft;
-    protected PCPoint lowerRight;
-    protected PCRect pcrect;
+  /** The persistent instances used in the test. */
+  protected PCPoint upperLeft;
 
-    /** The oids of the persistent instances used in the test.
-     */
-    protected Object upperLeftoid;
-    protected Object lowerRightoid;
-    protected Object pcrectoid;
+  protected PCPoint lowerRight;
+  protected PCRect pcrect;
 
-    /** The String arrays used for setting fetch groups.
-     */
-    protected final String[] defaultGroup = new String[]
-        {"default"};
-    protected final String[] upperLeftGroup = new String[]
-        {"default", "PCRect.upperLeft"};
-    protected final String[] lowerRightGroup = new String[]
-        {"default", "PCRect.lowerRight"};
-    protected final String[] bothGroup = new String[]{
-        "default", "PCRect.upperLeft", "PCRect.lowerRight"};
-    /**
-     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
-     */
-    @Override
-    protected void localSetUp() {
-        addTearDownClass(PCRect.class);
-        addTearDownClass(PCPoint.class);
-        upperLeft = new PCPoint(0,10);
-        lowerRight = new PCPoint(10,0);
-        pcrect = new PCRect(upperLeft, lowerRight);
-        getPM().currentTransaction().begin();
-        pm.makePersistent(pcrect); // makes all three persistent
-        upperLeftoid = pm.getObjectId(upperLeft);
-        lowerRightoid = pm.getObjectId(lowerRight);
-        pcrectoid = pm.getObjectId(pcrect);
-        pm.currentTransaction().commit();
+  /** The oids of the persistent instances used in the test. */
+  protected Object upperLeftoid;
+
+  protected Object lowerRightoid;
+  protected Object pcrectoid;
+
+  /** The String arrays used for setting fetch groups. */
+  protected final String[] defaultGroup = new String[] {"default"};
+
+  protected final String[] upperLeftGroup = new String[] {"default", "PCRect.upperLeft"};
+  protected final String[] lowerRightGroup = new String[] {"default", "PCRect.lowerRight"};
+  protected final String[] bothGroup =
+      new String[] {"default", "PCRect.upperLeft", "PCRect.lowerRight"};
+  /**
+   * @see org.apache.jdo.tck.JDO_Test#localSetUp()
+   */
+  @Override
+  protected void localSetUp() {
+    addTearDownClass(PCRect.class);
+    addTearDownClass(PCPoint.class);
+    upperLeft = new PCPoint(0, 10);
+    lowerRight = new PCPoint(10, 0);
+    pcrect = new PCRect(upperLeft, lowerRight);
+    getPM().currentTransaction().begin();
+    pm.makePersistent(pcrect); // makes all three persistent
+    upperLeftoid = pm.getObjectId(upperLeft);
+    lowerRightoid = pm.getObjectId(lowerRight);
+    pcrectoid = pm.getObjectId(pcrect);
+    pm.currentTransaction().commit();
+  }
+
+  /** Set the default plus upper left field as the fetch group. */
+  protected void setDefaultGroup() {
+    FetchPlan fp = getPM().getFetchPlan();
+    fp.setGroups(defaultGroup);
+  }
+
+  /** Set the default plus upper left field as the fetch group. */
+  protected void setUpperLeftGroup() {
+    FetchPlan fp = getPM().getFetchPlan();
+    fp.setGroups(upperLeftGroup);
+  }
+
+  /** Set the default plus lower right field as the fetch group. */
+  protected void setLowerRightGroup() {
+    FetchPlan fp = getPM().getFetchPlan();
+    fp.setGroups(upperLeftGroup);
+  }
+
+  /** Set the default plus both fields as the fetch group. */
+  protected void setBothGroup() {
+    FetchPlan fp = getPM().getFetchPlan();
+    fp.setGroups(bothGroup);
+  }
+
+  /**
+   * @param location location
+   * @param pcrect PCREct instance
+   */
+  protected void checkBothLoaded(String location, PCRect pcrect) {
+    checkUpperLeftLoaded(location, pcrect);
+    checkLowerRightLoaded(location, pcrect);
+  }
+
+  /**
+   * @param location location
+   * @param pcrect PCREct instance
+   */
+  protected void checkUpperLeftLoaded(String location, PCRect pcrect) {
+    if (pcrect.upperLeft == null) {
+      appendMessage(
+          location
+              + NL
+              + "Upper Left was null."
+              + NL
+              + "The fetch plan includes PCRect.upperLeft and this field"
+              + " should have been loaded.");
     }
+  }
 
-    /** Set the default plus upper left field as the fetch group.
-     */
-    protected void setDefaultGroup() {
-        FetchPlan fp = getPM().getFetchPlan();
-        fp.setGroups(defaultGroup);
+  /**
+   * @param location location
+   * @param pcrect pc instance
+   */
+  protected void checkLowerRightLoaded(String location, PCRect pcrect) {
+    if (pcrect.lowerRight == null) {
+      appendMessage(
+          location
+              + NL
+              + "Lower Right was null."
+              + NL
+              + "The fetch plan includes PCRect.lowerRight and this field"
+              + " should have been loaded.");
     }
+  }
 
-    /** Set the default plus upper left field as the fetch group.
-     */
-    protected void setUpperLeftGroup() {
-        FetchPlan fp = getPM().getFetchPlan();
-        fp.setGroups(upperLeftGroup);
+  /**
+   * @param location location
+   * @param fetchPlan fetch plan
+   * @param groups groups
+   */
+  @SuppressWarnings("unchecked")
+  protected void checkGroups(String location, FetchPlan fetchPlan, String[] groups) {
+    Collection<String> expected = new HashSet<>();
+    Collection<String> actual = fetchPlan.getGroups();
+    for (String group : groups) {
+      expected.add(group);
     }
-
-    /** Set the default plus lower right field as the fetch group.
-     */
-    protected void setLowerRightGroup() {
-        FetchPlan fp = getPM().getFetchPlan();
-        fp.setGroups(upperLeftGroup);
+    if (!expected.equals(actual)) {
+      appendMessage(
+          location
+              + NL
+              + "Fetch groups differ."
+              + NL
+              + "expected: "
+              + expected
+              + NL
+              + "actual: "
+              + actual
+              + NL);
     }
-
-    /** Set the default plus both fields as the fetch group.
-     */
-    protected void setBothGroup() {
-        FetchPlan fp = getPM().getFetchPlan();
-        fp.setGroups(bothGroup);
-    }
-
-    /**
-     *
-     * @param location location
-     * @param pcrect PCREct instance
-     */
-    protected void checkBothLoaded(String location, PCRect pcrect) {
-        checkUpperLeftLoaded(location, pcrect);
-        checkLowerRightLoaded(location, pcrect);
-    }
-
-    /**
-     *
-     * @param location location
-     * @param pcrect PCREct instance
-     */
-    protected void checkUpperLeftLoaded(String location, PCRect pcrect) {
-        if (pcrect.upperLeft == null) {
-            appendMessage(location + NL + "Upper Left was null." + NL +
-                "The fetch plan includes PCRect.upperLeft and this field" +
-                " should have been loaded.");
-        }
-    }
-
-    /**
-     *
-     * @param location location
-     * @param pcrect pc instance
-     */
-    protected void checkLowerRightLoaded(String location, PCRect pcrect) {
-        if (pcrect.lowerRight == null) {
-            appendMessage(location + NL + "Lower Right was null." + NL +
-                "The fetch plan includes PCRect.lowerRight and this field" +
-                " should have been loaded.");
-        }
-    }
-
-    /**
-     *
-     * @param location location
-     * @param fetchPlan fetch plan
-     * @param groups groups
-     */
-    @SuppressWarnings("unchecked")
-    protected void checkGroups(String location,
-            FetchPlan fetchPlan, String[] groups) {
-        Collection<String> expected = new HashSet<>();
-        Collection<String> actual = fetchPlan.getGroups();
-        for (String group : groups) {
-            expected.add(group);
-        }
-        if (!expected.equals(actual)) {
-            appendMessage(location + NL + "Fetch groups differ." + NL +
-                "expected: " + expected + NL +
-                "actual: " + actual + NL);
-        }
-    }
+  }
 }

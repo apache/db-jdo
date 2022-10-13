@@ -18,7 +18,16 @@
 package org.apache.jdo.tck.pc.companyAnnotatedPC;
 
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.pc.company.*;
+import org.apache.jdo.tck.pc.company.CompanyFactoryNewInstance;
+import org.apache.jdo.tck.pc.company.IAddress;
+import org.apache.jdo.tck.pc.company.ICompany;
+import org.apache.jdo.tck.pc.company.IDentalInsurance;
+import org.apache.jdo.tck.pc.company.IDepartment;
+import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
+import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+import org.apache.jdo.tck.pc.company.IMeetingRoom;
+import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
+import org.apache.jdo.tck.pc.company.IProject;
 
 /*
  * CompanyFactoryAnnotatedPMFieldClass.java
@@ -26,67 +35,67 @@ import org.apache.jdo.tck.pc.company.*;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public class CompanyFactoryAnnotatedPCAppPM
-        implements CompanyFactoryNewInstance {
-    
-    PersistenceManager pm = null;
+public class CompanyFactoryAnnotatedPCAppPM implements CompanyFactoryNewInstance {
 
-    /**
-     * Creates a new instance of CompanyFactoryAnnotatedPCAppPM
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAnnotatedPCAppPM(PersistenceManager pm) {
-        this.pm = pm;        
-    }
+  PersistenceManager pm = null;
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public Class<?>[] getTearDownClasses() {
-        return new Class[] {
-            PCAppDentalInsurance.class,
-            PCAppMedicalInsurance.class,
-            PCAppPartTimeEmployee.class,
-            PCAppFullTimeEmployee.class,
-            PCAppProject.class,
-            PCAppDepartment.class,
-            PCAppCompany.class,
-            PCAppAddress.class
-        };
-    }
-    
-    public IAddress newAddress() {
-        return pm.newInstance(PCAppAddress.class);
-    }
+  /**
+   * Creates a new instance of CompanyFactoryAnnotatedPCAppPM
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAnnotatedPCAppPM(PersistenceManager pm) {
+    this.pm = pm;
+  }
 
-    public IMeetingRoom newMeetingRoom() {
-        return null;
-    }
-    
-    public ICompany newCompany() {
-        return pm.newInstance(PCAppCompany.class);
-    }
-    
-    public IDentalInsurance newDentalInsurance() {
-        return pm.newInstance(PCAppDentalInsurance.class);
-    }
-    
-    public IDepartment newDepartment() {
-        return pm.newInstance(PCAppDepartment.class);
-    }
-    
-    public IFullTimeEmployee newFullTimeEmployee() {
-        return pm.newInstance(PCAppFullTimeEmployee.class);
-    }
-    
-    public IMedicalInsurance newMedicalInsurance() {
-        return pm.newInstance(PCAppMedicalInsurance.class);
-    }
-    
-    public IPartTimeEmployee newPartTimeEmployee() {
-        return pm.newInstance(PCAppPartTimeEmployee.class);
-    }
-    
-    public IProject newProject() {
-        return pm.newInstance(PCAppProject.class);
-    }
+  @SuppressWarnings("rawtypes")
+  @Override
+  public Class<?>[] getTearDownClasses() {
+    return new Class[] {
+      PCAppDentalInsurance.class,
+      PCAppMedicalInsurance.class,
+      PCAppPartTimeEmployee.class,
+      PCAppFullTimeEmployee.class,
+      PCAppProject.class,
+      PCAppDepartment.class,
+      PCAppCompany.class,
+      PCAppAddress.class
+    };
+  }
+
+  public IAddress newAddress() {
+    return pm.newInstance(PCAppAddress.class);
+  }
+
+  public IMeetingRoom newMeetingRoom() {
+    return null;
+  }
+
+  public ICompany newCompany() {
+    return pm.newInstance(PCAppCompany.class);
+  }
+
+  public IDentalInsurance newDentalInsurance() {
+    return pm.newInstance(PCAppDentalInsurance.class);
+  }
+
+  public IDepartment newDepartment() {
+    return pm.newInstance(PCAppDepartment.class);
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee() {
+    return pm.newInstance(PCAppFullTimeEmployee.class);
+  }
+
+  public IMedicalInsurance newMedicalInsurance() {
+    return pm.newInstance(PCAppMedicalInsurance.class);
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee() {
+    return pm.newInstance(PCAppPartTimeEmployee.class);
+  }
+
+  public IProject newProject() {
+    return pm.newInstance(PCAppProject.class);
+  }
 }

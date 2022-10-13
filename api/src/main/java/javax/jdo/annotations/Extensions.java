@@ -23,17 +23,17 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a group of extensions
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Extensions
-{
-    /**
-     * The extensions.
-     * @return the extensions
-     */
-    Extension[] value();
+public @interface Extensions {
+  /**
+   * The extensions.
+   *
+   * @return the extensions
+   */
+  Extension[] value();
 }

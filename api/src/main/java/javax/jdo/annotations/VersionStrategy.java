@@ -18,15 +18,14 @@ package javax.jdo.annotations;
 
 /**
  * Enumeration of the version strategy values.
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-public enum VersionStrategy
-{
-    UNSPECIFIED,
-    NONE,
-    STATE_IMAGE,
-    DATE_TIME,
-    VERSION_NUMBER
+public enum VersionStrategy {
+  UNSPECIFIED,
+  NONE,
+  STATE_IMAGE,
+  DATE_TIME,
+  VERSION_NUMBER
 }

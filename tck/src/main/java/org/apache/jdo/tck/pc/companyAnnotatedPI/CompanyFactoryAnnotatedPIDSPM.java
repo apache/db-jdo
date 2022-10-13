@@ -18,7 +18,16 @@
 package org.apache.jdo.tck.pc.companyAnnotatedPI;
 
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.pc.company.*;
+import org.apache.jdo.tck.pc.company.CompanyFactoryNewInstance;
+import org.apache.jdo.tck.pc.company.IAddress;
+import org.apache.jdo.tck.pc.company.ICompany;
+import org.apache.jdo.tck.pc.company.IDentalInsurance;
+import org.apache.jdo.tck.pc.company.IDepartment;
+import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
+import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+import org.apache.jdo.tck.pc.company.IMeetingRoom;
+import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
+import org.apache.jdo.tck.pc.company.IProject;
 
 /*
  * CompanyFactoryAnnotatedPIDSPM.java
@@ -26,67 +35,67 @@ import org.apache.jdo.tck.pc.company.*;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public class CompanyFactoryAnnotatedPIDSPM
-        implements CompanyFactoryNewInstance {
-    
-    PersistenceManager pm = null;
+public class CompanyFactoryAnnotatedPIDSPM implements CompanyFactoryNewInstance {
 
-    /**
-     * Creates a new instance of CompanyFactoryAnnotatedPIDSPM
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAnnotatedPIDSPM(PersistenceManager pm) {
-        this.pm = pm;        
-    }
+  PersistenceManager pm = null;
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public Class<?>[] getTearDownClasses() {
-        return new Class[] {
-            PIDSDentalInsurance.class,
-            PIDSMedicalInsurance.class,
-            PIDSPartTimeEmployee.class,
-            PIDSFullTimeEmployee.class,
-            PIDSProject.class,
-            PIDSDepartment.class,
-            PIDSCompany.class,
-            PIDSAddress.class
-        };
-    }
-    
-    public IAddress newAddress() {
-        return pm.newInstance(PIDSAddress.class);
-    }
+  /**
+   * Creates a new instance of CompanyFactoryAnnotatedPIDSPM
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAnnotatedPIDSPM(PersistenceManager pm) {
+    this.pm = pm;
+  }
 
-    public IMeetingRoom newMeetingRoom() {
-        return null;
-    }
-    
-    public ICompany newCompany() {
-        return pm.newInstance(PIDSCompany.class);
-    }
-    
-    public IDentalInsurance newDentalInsurance() {
-        return pm.newInstance(PIDSDentalInsurance.class);
-    }
-    
-    public IDepartment newDepartment() {
-        return pm.newInstance(PIDSDepartment.class);
-    }
-    
-    public IFullTimeEmployee newFullTimeEmployee() {
-        return pm.newInstance(PIDSFullTimeEmployee.class);
-    }
-    
-    public IMedicalInsurance newMedicalInsurance() {
-        return pm.newInstance(PIDSMedicalInsurance.class);
-    }
-    
-    public IPartTimeEmployee newPartTimeEmployee() {
-        return pm.newInstance(PIDSPartTimeEmployee.class);
-    }
-    
-    public IProject newProject() {
-        return pm.newInstance(PIDSProject.class);
-    }
+  @SuppressWarnings("rawtypes")
+  @Override
+  public Class<?>[] getTearDownClasses() {
+    return new Class[] {
+      PIDSDentalInsurance.class,
+      PIDSMedicalInsurance.class,
+      PIDSPartTimeEmployee.class,
+      PIDSFullTimeEmployee.class,
+      PIDSProject.class,
+      PIDSDepartment.class,
+      PIDSCompany.class,
+      PIDSAddress.class
+    };
+  }
+
+  public IAddress newAddress() {
+    return pm.newInstance(PIDSAddress.class);
+  }
+
+  public IMeetingRoom newMeetingRoom() {
+    return null;
+  }
+
+  public ICompany newCompany() {
+    return pm.newInstance(PIDSCompany.class);
+  }
+
+  public IDentalInsurance newDentalInsurance() {
+    return pm.newInstance(PIDSDentalInsurance.class);
+  }
+
+  public IDepartment newDepartment() {
+    return pm.newInstance(PIDSDepartment.class);
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee() {
+    return pm.newInstance(PIDSFullTimeEmployee.class);
+  }
+
+  public IMedicalInsurance newMedicalInsurance() {
+    return pm.newInstance(PIDSMedicalInsurance.class);
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee() {
+    return pm.newInstance(PIDSPartTimeEmployee.class);
+  }
+
+  public IProject newProject() {
+    return pm.newInstance(PIDSProject.class);
+  }
 }

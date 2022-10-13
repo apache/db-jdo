@@ -21,52 +21,46 @@ import java.time.LocalTime;
 
 public class LocalTimeSample implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private long id;
-    private LocalTime localTime;
+  private long id;
+  private LocalTime localTime;
 
-    public long getId() {
-        return id;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public LocalTime getLocalTime() {
-        return localTime;
-    }
+  public LocalTime getLocalTime() {
+    return localTime;
+  }
 
-    public void setLocalTime(LocalTime localTime) {
-        this.localTime = localTime;
-    }
+  public void setLocalTime(LocalTime localTime) {
+    this.localTime = localTime;
+  }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + ((localTime == null) ? 0 : localTime.hashCode());
-        return result;
-    }
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (int) (id ^ (id >>> 32));
+    result = prime * result + ((localTime == null) ? 0 : localTime.hashCode());
+    return result;
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        LocalTimeSample other = (LocalTimeSample) obj;
-        if (id != other.id)
-            return false;
-        if (localTime == null) {
-            if (other.localTime != null)
-                return false;
-        } else if (!localTime.equals(other.localTime))
-            return false;
-        return true;
-    }
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    LocalTimeSample other = (LocalTimeSample) obj;
+    if (id != other.id) return false;
+    if (localTime == null) {
+      if (other.localTime != null) return false;
+    } else if (!localTime.equals(other.localTime)) return false;
+    return true;
+  }
 }

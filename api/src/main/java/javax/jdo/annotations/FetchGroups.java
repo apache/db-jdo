@@ -23,17 +23,17 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a group of fetch-group objects
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) 
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FetchGroups
-{
-    /**
-     * The Fetch Groups
-     * @return The Fetch Groups
-     */
-    FetchGroup[] value();
+public @interface FetchGroups {
+  /**
+   * The Fetch Groups
+   *
+   * @return The Fetch Groups
+   */
+  FetchGroup[] value();
 }

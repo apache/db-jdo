@@ -24,28 +24,31 @@ package javax.jdo.annotations;
  * Add extensions element to @Index, @ForeignKey, @Unique, @PrimaryKey annotations.
  */
 public abstract class TestExtensions {
-    
-    /** Creates a new instance of TestExtensions */
-    public TestExtensions() {
-    }
 
-    @PrimaryKey(extensions= {
-            @Extension(vendorName = "vendor 1", key = "key 1", value = "value 1"),
-            @Extension(vendorName = "vendor 2", key = "key 2", value = "value 2")}
-    )
-    long pk;
+  /** Creates a new instance of TestExtensions */
+  public TestExtensions() {}
 
-    @Index(extensions= {
-            @Extension(vendorName = "vendor 1", key = "key 1", value = "value 1"),
-            @Extension(vendorName = "vendor 2", key = "key 2", value = "value 2")}
-    )
-    @Unique(extensions= {
-            @Extension(vendorName = "vendor 1", key = "key 1", value = "value 1"),
-            @Extension(vendorName = "vendor 2", key = "key 2", value = "value 2")}
-    )
-    @ForeignKey(extensions= {
-            @Extension(vendorName = "vendor 1", key = "key 1", value = "value 1"),
-            @Extension(vendorName = "vendor 2", key = "key 2", value = "value 2")}
-    )
-    long fk;
+  @PrimaryKey(
+      extensions = {
+        @Extension(vendorName = "vendor 1", key = "key 1", value = "value 1"),
+        @Extension(vendorName = "vendor 2", key = "key 2", value = "value 2")
+      })
+  long pk;
+
+  @Index(
+      extensions = {
+        @Extension(vendorName = "vendor 1", key = "key 1", value = "value 1"),
+        @Extension(vendorName = "vendor 2", key = "key 2", value = "value 2")
+      })
+  @Unique(
+      extensions = {
+        @Extension(vendorName = "vendor 1", key = "key 1", value = "value 1"),
+        @Extension(vendorName = "vendor 2", key = "key 2", value = "value 2")
+      })
+  @ForeignKey(
+      extensions = {
+        @Extension(vendorName = "vendor 1", key = "key 1", value = "value 1"),
+        @Extension(vendorName = "vendor 2", key = "key 2", value = "value 2")
+      })
+  long fk;
 }

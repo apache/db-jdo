@@ -5,272 +5,279 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *     https://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
-import javax.jdo.annotations.*;
-
 import java.io.Serializable;
-
 import java.util.Comparator;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Index;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IInsurance;
-
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
- * This class represents an insurance carrier selection for a particular
- * <code>FCDSEmployee</code>.
+ * This class represents an insurance carrier selection for a particular <code>FCDSEmployee</code>.
  */
 @DatastoreIdDiscriminatorClassNameInheritanceNew
-@PersistenceCapable(table="insuranceplans")
-@Index(name="INS_DISCRIMINATOR_INDEX", unique="false",
-        columns=@Column(name="DISCRIMINATOR"))
-public class FCDSInsurance 
-    implements IInsurance, Serializable, Comparable<IInsurance>, Comparator<IInsurance>, DeepEquality  {
+@PersistenceCapable(table = "insuranceplans")
+@Index(
+    name = "INS_DISCRIMINATOR_INDEX",
+    unique = "false",
+    columns = @Column(name = "DISCRIMINATOR"))
+public class FCDSInsurance
+    implements IInsurance,
+        Serializable,
+        Comparable<IInsurance>,
+        Comparator<IInsurance>,
+        DeepEquality {
+
+  private static final long serialVersionUID = 1L;
+
+  @Column(name = "INSID")
+  private long insid;
+
+  @Column(name = "CARRIER")
+  private String carrier;
+
+  @Column(name = "EMPLOYEE")
+  private FCDSEmployee employee;
+
+  /** This is the JDO-required no-args constructor. */
+  protected FCDSInsurance() {}
+
+  /**
+   * Construct an <code>FCDSInsurance</code> instance.
+   *
+   * @param insid The insurance instance identifier.
+   * @param carrier The insurance carrier.
+   */
+  protected FCDSInsurance(long insid, String carrier) {
+    this.insid = insid;
+    this.carrier = carrier;
+  }
+
+  /**
+   * Construct an <code>FCDSInsurance</code> instance.
+   *
+   * @param insid The insurance instance identifier.
+   * @param carrier The insurance carrier.
+   * @param employee The employee associated with this insurance.
+   */
+  protected FCDSInsurance(long insid, String carrier, FCDSEmployee employee) {
+    this.insid = insid;
+    this.carrier = carrier;
+    this.employee = employee;
+  }
+
+  /**
+   * Get the insurance ID.
+   *
+   * @return the insurance ID.
+   */
+  public long getInsid() {
+    return insid;
+  }
+
+  /**
+   * Set the insurance ID.
+   *
+   * @param id The insurance ID value.
+   */
+  public void setInsid(long id) {
+    if (this.insid != 0) throw new IllegalStateException("Id is already set.");
+    this.insid = id;
+  }
+
+  /**
+   * Get the insurance carrier.
+   *
+   * @return The insurance carrier.
+   */
+  public String getCarrier() {
+    return carrier;
+  }
+
+  /**
+   * Set the insurance carrier.
+   *
+   * @param carrier The insurance carrier.
+   */
+  public void setCarrier(String carrier) {
+    this.carrier = carrier;
+  }
+
+  /**
+   * Get the associated employee.
+   *
+   * @return The employee for this insurance.
+   */
+  public IEmployee getEmployee() {
+    return employee;
+  }
+
+  /**
+   * Set the associated employee.
+   *
+   * @param employee The associated employee.
+   */
+  public void setEmployee(IEmployee employee) {
+    this.employee = (FCDSEmployee) employee;
+  }
+
+  /**
+   * Returns a String representation of a <code>FCDSInsurance</code> object.
+   *
+   * @return a String representation of a <code>FCDSInsurance</code> object.
+   */
+  public String toString() {
+    return "FCInsurance(" + getFieldRepr() + ")";
+  }
+
+  /**
+   * Returns a String representation of the non-relationship fields.
+   *
+   * @return a String representation of the non-relationship fields.
+   */
+  protected String getFieldRepr() {
+    StringBuilder rc = new StringBuilder();
+    rc.append(insid);
+    rc.append(", carrier ").append(carrier);
+    return rc.toString();
+  }
+
+  /**
+   * Returns <code>true</code> if all the fields of this instance are deep equal to the coresponding
+   * fields of the other Object.
+   *
+   * @param other the object with which to compare.
+   * @param helper EqualityHelper to keep track of instances that have already been processed.
+   * @return <code>true</code> if all the fields are deep equal; <code>false</code> otherwise.
+   * @throws ClassCastException if the specified instances' type prevents it from being compared to
+   *     this instance.
+   */
+  public boolean deepCompareFields(Object other, EqualityHelper helper) {
+    FCDSInsurance otherIns = (FCDSInsurance) other;
+    String where = "FCInsurance<" + insid + ">";
+    return helper.equals(insid, otherIns.getInsid(), where + ".insid")
+        & helper.equals(carrier, otherIns.getCarrier(), where + ".carrier")
+        & helper.deepEquals(employee, otherIns.getEmployee(), where + ".employee");
+  }
+
+  /**
+   * Compares this object with the specified Insurance object for order. Returns a negative integer,
+   * zero, or a positive integer as this object is less than, equal to, or greater than the
+   * specified object.
+   *
+   * @param other The Insurance object to be compared.
+   * @return a negative integer, zero, or a positive integer as this object is less than, equal to,
+   *     or greater than the specified Insurance object.
+   */
+  public int compareTo(IInsurance other) {
+    return compare(this, other);
+  }
+
+  /**
+   * Compares its two IInsurance arguments for order. Returns a negative integer, zero, or a
+   * positive integer as the first argument is less than, equal to, or greater than the second.
+   *
+   * @param o1 the first IInsurance object to be compared.
+   * @param o2 the second IInsurance object to be compared.
+   * @return a negative integer, zero, or a positive integer as the first object is less than, equal
+   *     to, or greater than the second object.
+   */
+  public int compare(IInsurance o1, IInsurance o2) {
+    return EqualityHelper.compare(o1.getInsid(), o2.getInsid());
+  }
+
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   *
+   * @param obj the object with which to compare.
+   * @return <code>true</code> if this object is the same as the obj argument; <code>false</code>
+   *     otherwise.
+   */
+  public boolean equals(Object obj) {
+    if (obj instanceof FCDSInsurance) {
+      return compareTo((FCDSInsurance) obj) == 0;
+    }
+    return false;
+  }
+
+  /**
+   * Returns a hash code value for the object.
+   *
+   * @return a hash code value for this object.
+   */
+  public int hashCode() {
+    return (int) insid;
+  }
+
+  /**
+   * This class is used to represent the application identifier for the <code>Insurance</code>
+   * class.
+   */
+  public static class Oid implements Serializable, Comparable<Oid> {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name="INSID")
-    private long     insid;
-    @Column(name="CARRIER")
-    private String   carrier;
-    @Column(name="EMPLOYEE")
-    private FCDSEmployee employee;
+    /**
+     * This field represents the application identifier for the <code>Insurance</code> class. It
+     * must match the field in the <code>Insurance</code> class in both name and type.
+     */
+    public long insid;
 
-    /** This is the JDO-required no-args constructor. */
-    protected FCDSInsurance() {}
+    /** The required public no-args constructor. */
+    public Oid() {}
 
     /**
-     * Construct an <code>FCDSInsurance</code> instance.
-     * 
-     * @param insid The insurance instance identifier.
-     * @param carrier The insurance carrier.
+     * Initialize with an insurance identifier.
+     *
+     * @param insid the insurance ID.
      */
-    protected FCDSInsurance(long insid, String carrier) {
-        this.insid = insid;
-        this.carrier = carrier;
+    public Oid(long insid) {
+      this.insid = insid;
     }
 
-    /**
-     * Construct an <code>FCDSInsurance</code> instance.
-     * 
-     * @param insid The insurance instance identifier.
-     * @param carrier The insurance carrier.
-     * @param employee The employee associated with this insurance.
-     */
-    protected FCDSInsurance(long insid, String carrier, FCDSEmployee employee) {
-        this.insid = insid;
-        this.carrier = carrier;
-        this.employee = employee;
+    public Oid(String s) {
+      insid = Long.parseLong(justTheId(s));
     }
 
-    /**
-     * Get the insurance ID.
-     * @return the insurance ID.
-     */
-    public long getInsid() {
-        return insid;
-    }
-
-    /**
-     * Set the insurance ID.
-     * @param id The insurance ID value.
-     */
-    public void setInsid(long id) {
-        if (this.insid != 0) 
-            throw new IllegalStateException("Id is already set.");
-        this.insid = id;
-    }
-
-    /**
-     * Get the insurance carrier.
-     * @return The insurance carrier.
-     */
-    public String getCarrier() {
-        return carrier;
-    }
-
-    /**
-     * Set the insurance carrier.
-     * @param carrier The insurance carrier.
-     */
-    public void setCarrier(String carrier) {
-        this.carrier = carrier;
-    }
-    
-    /**
-     * Get the associated employee.
-     * @return The employee for this insurance.
-     */
-    public IEmployee getEmployee() {
-        return employee;
-    }
-
-    /**
-     * Set the associated employee.
-     * @param employee The associated employee.
-     */
-    public void setEmployee(IEmployee employee) {
-        this.employee = (FCDSEmployee)employee;
-    }
-
-    /**
-     * Returns a String representation of a <code>FCDSInsurance</code> object.
-     * 
-     * @return a String representation of a <code>FCDSInsurance</code> object.
-     */
     public String toString() {
-        return "FCInsurance(" + getFieldRepr() + ")";
+      return this.getClass().getName() + ": " + insid;
     }
 
-    /**
-     * Returns a String representation of the non-relationship fields.
-     * @return a String representation of the non-relationship fields.
-     */
-    protected String getFieldRepr() {
-        StringBuilder rc = new StringBuilder();
-        rc.append(insid);
-        rc.append(", carrier ").append(carrier);
-        return rc.toString();
+    /** */
+    public boolean equals(java.lang.Object obj) {
+      if (obj == null || !this.getClass().equals(obj.getClass())) return (false);
+      Oid o = (Oid) obj;
+      if (this.insid != o.insid) return (false);
+      return (true);
     }
 
-    /** 
-     * Returns <code>true</code> if all the fields of this instance are
-     * deep equal to the coresponding fields of the other Object.
-     * @param other the object with which to compare.
-     * @param helper EqualityHelper to keep track of instances that have
-     * already been processed. 
-     * @return <code>true</code> if all the fields are deep equal;
-     * <code>false</code> otherwise.  
-     * @throws ClassCastException if the specified instances' type prevents
-     * it from being compared to this instance. 
-     */
-    public boolean deepCompareFields(Object other, 
-                                     EqualityHelper helper) {
-        FCDSInsurance otherIns = (FCDSInsurance)other;
-        String where = "FCInsurance<" + insid + ">";
-        return
-            helper.equals(insid, otherIns.getInsid(), where + ".insid") &
-            helper.equals(carrier, otherIns.getCarrier(), where + ".carrier") &
-            helper.deepEquals(employee, otherIns.getEmployee(), where + ".employee");
-    }
-
-    /** 
-     * Compares this object with the specified Insurance object for
-     * order. Returns a negative integer, zero, or a positive integer as
-     * this object is less than, equal to, or greater than the specified
-     * object.  
-     * @param other The Insurance object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this
-     * object is less than, equal to, or greater than the specified
-     * Insurance object. 
-     */
-    public int compareTo(IInsurance other) {
-        return compare(this, other);
-    }
-
-    /**
-     * Compares its two IInsurance arguments for order. Returns a negative
-     * integer, zero, or a positive integer as the first argument is less
-     * than, equal to, or greater than the second. 
-     * @param o1 the first IInsurance object to be compared. 
-     * @param o2 the second IInsurance object to be compared. 
-     * @return a negative integer, zero, or a positive integer as the first
-     * object is less than, equal to, or greater than the second object. 
-     */
-    public int compare(IInsurance o1, IInsurance o2) {
-        return EqualityHelper.compare(o1.getInsid(), o2.getInsid());
-    }
-    
-    /** 
-     * Indicates whether some other object is "equal to" this one.
-     * @param obj the object with which to compare.
-     * @return <code>true</code> if this object is the same as the obj
-     * argument; <code>false</code> otherwise. 
-     */
-    public boolean equals(Object obj) {
-        if (obj instanceof FCDSInsurance) {
-            return compareTo((FCDSInsurance)obj) == 0;
-        }
-        return false;
-    }
-        
-    /**
-     * Returns a hash code value for the object. 
-     * @return a hash code value for this object.
-     */
+    /** */
     public int hashCode() {
-        return (int)insid;
+      return ((int) insid);
     }
 
-    /**
-     * This class is used to represent the application
-     * identifier for the <code>Insurance</code> class.
-     */
-    public static class Oid implements Serializable, Comparable<Oid> {
-
-        private static final long serialVersionUID = 1L;
-
-        /**
-         * This field represents the application identifier for the
-         * <code>Insurance</code> class. It must match the field in the
-         * <code>Insurance</code> class in both name and type. 
-         */
-        public long insid;
-        
-        /**
-         * The required public no-args constructor.
-         */
-        public Oid() { }
-
-        /**
-         * Initialize with an insurance identifier.
-         * @param insid the insurance ID.
-         */
-        public Oid(long insid) {
-            this.insid = insid;
-        }
-        
-        public Oid(String s) { insid = Long.parseLong(justTheId(s)); }
-
-        public String toString() { return this.getClass().getName() + ": "  + insid;}
-
-
-        /** */
-        public boolean equals(java.lang.Object obj) {
-            if( obj==null || !this.getClass().equals(obj.getClass()) )
-                return( false );
-            Oid o=(Oid) obj;
-            if( this.insid!=o.insid ) return( false );
-            return( true );
-        }
-
-        /** */
-        public int hashCode() {
-            return( (int) insid );
-        }
-        
-        protected static String justTheId(String str) {
-            return str.substring(str.indexOf(':') + 1);
-        }
-
-        /** */
-        public int compareTo(Oid obj) {
-            return Long.compare(insid, obj.insid);
-        }
-
+    protected static String justTheId(String str) {
+      return str.substring(str.indexOf(':') + 1);
     }
 
+    /** */
+    public int compareTo(Oid obj) {
+      return Long.compare(insid, obj.insid);
+    }
+  }
 }
-

@@ -18,83 +18,96 @@ package javax.jdo.metadata;
 
 /**
  * Represents embedding details of a field/property in a class.
+ *
  * @since 3.0
  */
 public interface EmbeddedMetadata extends Metadata {
-    /**
-     * Method to set the name of the owner field/property.
-     * @param member Name of the owner member
-     * @return This metadata object
-     */
-    EmbeddedMetadata setOwnerMember(String member);
+  /**
+   * Method to set the name of the owner field/property.
+   *
+   * @param member Name of the owner member
+   * @return This metadata object
+   */
+  EmbeddedMetadata setOwnerMember(String member);
 
-    /**
-     * Accessor for the owner field/property name.
-     * @return The owner member name
-     */
-    String getOwnerMember();
+  /**
+   * Accessor for the owner field/property name.
+   *
+   * @return The owner member name
+   */
+  String getOwnerMember();
 
-    /**
-     * Method to set any column that indicates a null embedded object.
-     * @param col Null indicator column
-     * @return This metadata object
-     */
-    EmbeddedMetadata setNullIndicatorColumn(String col);
+  /**
+   * Method to set any column that indicates a null embedded object.
+   *
+   * @param col Null indicator column
+   * @return This metadata object
+   */
+  EmbeddedMetadata setNullIndicatorColumn(String col);
 
-    /**
-     * Accessor for any column indicating a null embedded object.
-     * @return Whether to call post-load
-     */
-    String getNullIndicatorColumn();
+  /**
+   * Accessor for any column indicating a null embedded object.
+   *
+   * @return Whether to call post-load
+   */
+  String getNullIndicatorColumn();
 
-    /**
-     * Method to set the value of a null indicator column to signify null object.
-     * @param val Null indicator value
-     * @return This metadata object
-     */
-    EmbeddedMetadata setNullIndicatorValue(String val);
+  /**
+   * Method to set the value of a null indicator column to signify null object.
+   *
+   * @param val Null indicator value
+   * @return This metadata object
+   */
+  EmbeddedMetadata setNullIndicatorValue(String val);
 
-    /**
-     * Accessor for a null indicator value.
-     * @return Null indicator value
-     */
-    String getNullIndicatorValue();
+  /**
+   * Accessor for a null indicator value.
+   *
+   * @return Null indicator value
+   */
+  String getNullIndicatorValue();
 
-    /**
-     * Accessor for all fields/properties defined on the fetch group.
-     * @return The members
-     */
-    MemberMetadata[] getMembers();
+  /**
+   * Accessor for all fields/properties defined on the fetch group.
+   *
+   * @return The members
+   */
+  MemberMetadata[] getMembers();
 
-    /**
-     * Accessor for the number of fields/properties defined for embedding.
-     * @return The number of members
-     */
-    int getNumberOfMembers();
+  /**
+   * Accessor for the number of fields/properties defined for embedding.
+   *
+   * @return The number of members
+   */
+  int getNumberOfMembers();
 
-    /**
-     * Add a new field to be embedded.
-     * @param name Name of the field
-     * @return The FieldMetadata
-     */
-    FieldMetadata newFieldMetadata(String name);
+  /**
+   * Add a new field to be embedded.
+   *
+   * @param name Name of the field
+   * @return The FieldMetadata
+   */
+  FieldMetadata newFieldMetadata(String name);
 
-    /**
-     * Add a new property for embedding.
-     * @param name Name of the property
-     * @return The PropertyMetadata
-     */
-    PropertyMetadata newPropertyMetadata(String name);
+  /**
+   * Add a new property for embedding.
+   *
+   * @param name Name of the property
+   * @return The PropertyMetadata
+   */
+  PropertyMetadata newPropertyMetadata(String name);
 
-    /**
-     * Accessor for the discriminator metadata when handling inherited objects.
-     * @return Discriminator details
-     */
-    DiscriminatorMetadata getDiscriminatorMetadata();
+  /**
+   * Accessor for the discriminator metadata when handling inherited objects.
+   *
+   * @return Discriminator details
+   */
+  DiscriminatorMetadata getDiscriminatorMetadata();
 
-    /**
-     * Method to define the new discriminator metadata for handling inherited embedded objects.
-     * @return Discriminator metadata
-     */
-    DiscriminatorMetadata newDiscriminatorMetadata();
+  /**
+   * Method to define the new discriminator metadata for handling inherited embedded objects.
+   *
+   * @return Discriminator metadata
+   */
+  DiscriminatorMetadata newDiscriminatorMetadata();
 }

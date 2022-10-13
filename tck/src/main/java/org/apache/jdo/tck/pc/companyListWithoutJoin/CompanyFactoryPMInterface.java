@@ -25,40 +25,41 @@ import javax.jdo.PersistenceManager;
  * Created on August 29, 2005, 9:56 PM
  *
  */
-public class CompanyFactoryPMInterface 
-        extends CompanyFactoryAbstractImpl {
-    
-    /** */
-    public static final Class<?>[] tearDownClasses = new Class<?>[] {
-        IPartTimeEmployee.class, IFullTimeEmployee.class,  
-        IDepartment.class, ICompany.class
-    };
+public class CompanyFactoryPMInterface extends CompanyFactoryAbstractImpl {
 
-    /**
-     * Creates a new instance of CompanyFactoryPMInterface
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryPMInterface(PersistenceManager pm) {
-        super(pm);
-    }
-    
-    ICompany newCompany() {
-        return pm.newInstance(ICompany.class);
-    }
-    
-    IDepartment newDepartment() {
-        return pm.newInstance(IDepartment.class);
-    }
-    
-    IFullTimeEmployee  newFullTimeEmployee() {
-        return pm.newInstance(IFullTimeEmployee.class);
-    }
-    
-    IPartTimeEmployee  newPartTimeEmployee() {
-        return pm.newInstance(IPartTimeEmployee.class);
-    }
-    
-    public Class<?>[] getTearDownClasses() {
-        return tearDownClasses;
-    }
+  /** */
+  public static final Class<?>[] tearDownClasses =
+      new Class<?>[] {
+        IPartTimeEmployee.class, IFullTimeEmployee.class,
+        IDepartment.class, ICompany.class
+      };
+
+  /**
+   * Creates a new instance of CompanyFactoryPMInterface
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryPMInterface(PersistenceManager pm) {
+    super(pm);
+  }
+
+  ICompany newCompany() {
+    return pm.newInstance(ICompany.class);
+  }
+
+  IDepartment newDepartment() {
+    return pm.newInstance(IDepartment.class);
+  }
+
+  IFullTimeEmployee newFullTimeEmployee() {
+    return pm.newInstance(IFullTimeEmployee.class);
+  }
+
+  IPartTimeEmployee newPartTimeEmployee() {
+    return pm.newInstance(IPartTimeEmployee.class);
+  }
+
+  public Class<?>[] getTearDownClasses() {
+    return tearDownClasses;
+  }
 }
