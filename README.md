@@ -168,6 +168,12 @@ You can pass different compiler arguments using the -D option:
 The JDO project uses the google-java-format for checking and reformatting the Java code to comply with 
 Google Java Style [Google Java Style](https://google.github.io/styleguide/javaguide.html). 
 
+The code is formatted using the [Google Java Format](https://github.com/google/google-java-format) tool.
+The formatter can be run in the command line or can be integrated into IntelliJ or Eclipse as a plugin.
+More information on this is given in the [GJF README](https://github.com/google/google-java-format#using-the-formatter).
+
+#### Formatting using Maven
+
 There are two profiles to support code formatting using the maven fmt-maven-plugin.
 
 * `verify-format` checks the formatting of the project's Java files. It prints the list of the files that are not compliant.
