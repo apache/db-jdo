@@ -436,7 +436,7 @@
                         <configuration>
                             <displayLimit>1000</displayLimit>
                             <verbose>true</verbose>
-                            <failOnError>false</failOnError>
+                            <failOnError>true</failOnError>
                         </configuration>
                         <executions>
                             <execution>

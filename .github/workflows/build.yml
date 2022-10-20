@@ -27,8 +27,23 @@ on:
   pull_request:
 
 jobs:
+  format-check:
+    name: Check Code Formatting
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - name: Check Format
+      run: |
+        mvn -Pverify-format clean compile
+      shell: 'bash'
+
   build-jdo:
     name: Build JDO & Run TCK
+    needs: format-check
     runs-on: ubuntu-latest
     strategy:
       matrix:

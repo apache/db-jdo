@@ -183,3 +183,7 @@ There are two profiles to support code formatting using the maven fmt-maven-plug
 * `format` reformats the project's Java files.
 
         mvn -Pformat clean compile
+
+#### GitHub Action Integration
+
+The formatting of the code is checked automatically through the GitHub actions for every PR and/or push on master.
