@@ -37,7 +37,7 @@ import javax.jdo.AttributeConverter;
  * @since 3.2
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 public @interface Convert {
 
   /**
