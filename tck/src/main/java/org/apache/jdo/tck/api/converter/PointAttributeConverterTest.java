@@ -25,6 +25,7 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.converter.IPCRect;
 import org.apache.jdo.tck.pc.converter.PCRect;
 import org.apache.jdo.tck.pc.converter.PCRectAnnotated;
+import org.apache.jdo.tck.pc.converter.PCRectPointTypeAnnotated;
 import org.apache.jdo.tck.pc.mylib.Point;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.PointToStringConverter;
@@ -109,6 +110,31 @@ public class PointAttributeConverterTest extends JDO_Test {
   /** Test method running a PCRectStringAnnotated query with a query parameter of type Point. */
   public void testPCRectStringAnnotatedQueryWithStringParam() throws Exception {
     runQueryWithStringParameter(PCRectAnnotated.class);
+  }
+
+  /** Test method creating and storing a PCRectStringAnnotated instance. */
+  public void testStorePCRectPointTypeAnnotatedInstance() {
+    runStoreIPCRectInstance(PCRectPointTypeAnnotated.class);
+  }
+
+  /** Test method reading a PCRectStringAnnotated instance from the datastore. */
+  public void testReadPCRectPointTypeAnnotatedInstance() {
+    runReadIPCRectInstance(PCRectPointTypeAnnotated.class);
+  }
+
+  /** Test method modifying a PCRectStringAnnotated instance and storing in the datastore. */
+  public void testModifyPCRectPointTypeAnnotatedInstance() {
+    runModifyIPCRectInstance(PCRectPointTypeAnnotated.class);
+  }
+
+  /** Test method running a PCRectStringAnnotated query with a query parameter of type String. */
+  public void testPCRectPointTypeAnnotatedQueryWithPointParam() {
+    runQueryWithPointParameter(PCRectPointTypeAnnotated.class);
+  }
+
+  /** Test method running a PCRectStringAnnotated query with a query parameter of type Point. */
+  public void testPCRectPointTypeAnnotatedQueryWithStringParam() throws Exception {
+    runQueryWithStringParameter(PCRectPointTypeAnnotated.class);
   }
 
   // Helper methods

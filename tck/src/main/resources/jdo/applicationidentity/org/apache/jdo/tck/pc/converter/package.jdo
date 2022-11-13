@@ -33,6 +33,11 @@
       <field name="id" primary-key="true"/>
     </class>
 
+    <class name="PCRectPointTypeAnnotated"
+           identity-type="application" objectid-class="javax.jdo.identity.LongIdentity">
+      <field name="id" primary-key="true"/>
+    </class>
+
     <class name="PCPoint"
            identity-type="application" objectid-class="javax.jdo.identity.LongIdentity">
       <field name="id" primary-key="true"/>

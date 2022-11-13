@@ -32,6 +32,10 @@
       <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
     </class>
 
+    <class name="PCRectPointTypeAnnotated">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+    </class>
+
     <class name="PCPoint" table="PCPointConv">
       <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
       <field name="id" column="ID"/>
