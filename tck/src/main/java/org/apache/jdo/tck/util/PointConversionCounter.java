@@ -29,7 +29,7 @@ public class PointConversionCounter {
     nrOfConvertToAttributeCalls++;
   }
 
-   /**
+  /**
    * Method returning the current number of convertToDatastore method calls.
    *
    * @return number of convertToDatastore method calls

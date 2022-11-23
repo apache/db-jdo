@@ -245,7 +245,8 @@ public class PointAttributeConverterTest extends JDO_Test {
    *
    * @throws Exception
    */
-  private <T extends IPCRect> void runQueryWithPointParameter(Class<T> pcrectClass, boolean useConvertiblePoint) {
+  private <T extends IPCRect> void runQueryWithPointParameter(
+      Class<T> pcrectClass, boolean useConvertiblePoint) {
     int nrOfDbCalls;
     int nrOfAttrCalls;
 

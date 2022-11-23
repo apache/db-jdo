@@ -17,13 +17,10 @@
 
 package org.apache.jdo.tck.pc.mylib;
 
+import javax.jdo.annotations.Convert;
 import org.apache.jdo.tck.util.ConvertiblePointToStringConverter;
 
-import javax.jdo.annotations.Convert;
-
-/**
- * A simple point class with two fields. The whole class/type is declared convertible.
- */
+/** A simple point class with two fields. The whole class/type is declared convertible. */
 @Convert(value = ConvertiblePointToStringConverter.class)
 public class ConvertiblePoint {
   public int x;

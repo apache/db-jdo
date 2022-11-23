@@ -16,19 +16,16 @@
  */
 package org.apache.jdo.tck.pc.converter;
 
+import java.util.Date;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.pc.mylib.ConvertiblePoint;
 import org.apache.jdo.tck.pc.mylib.Point;
-import org.apache.jdo.tck.util.ConvertiblePointToStringConverter;
-
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.Convert;
-import javax.jdo.annotations.PersistenceCapable;
-import java.util.Date;
 
 /**
  * PersistenceCapable class to test JDO AttributeConverter interface. Its fields of type Point are
- * converted to strings in the datastore.
- * The conversion is declared directly on the type ConvertiblePoint.
+ * converted to strings in the datastore. The conversion is declared directly on the type
+ * ConvertiblePoint.
  */
 @PersistenceCapable(table = "PCRectConv")
 public class PCRectPointTypeAnnotated implements IPCRect {

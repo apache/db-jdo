@@ -22,7 +22,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.jdo.tck.pc.mylib.Point;
 
 /** AttributeConverter implementation mapping a Point instance to a string of the form x:y. */
-public class PointToStringConverter extends PointConversionCounter implements AttributeConverter<Point, String> {
+public class PointToStringConverter extends PointConversionCounter
+    implements AttributeConverter<Point, String> {
 
   // Character to separate x and y value of the Point instance.
   private static final String SEPARATOR = ":";

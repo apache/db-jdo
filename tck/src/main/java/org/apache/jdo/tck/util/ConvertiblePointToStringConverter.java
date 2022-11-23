@@ -16,14 +16,14 @@
  */
 package org.apache.jdo.tck.util;
 
+import javax.jdo.AttributeConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.jdo.tck.pc.mylib.ConvertiblePoint;
 
-import javax.jdo.AttributeConverter;
-
 /** AttributeConverter implementation mapping a Point instance to a string of the form x:y. */
-public class ConvertiblePointToStringConverter extends PointConversionCounter implements AttributeConverter<ConvertiblePoint, String> {
+public class ConvertiblePointToStringConverter extends PointConversionCounter
+    implements AttributeConverter<ConvertiblePoint, String> {
 
   // Character to separate x and y value of the Point instance.
   private static final String SEPARATOR = ":";
