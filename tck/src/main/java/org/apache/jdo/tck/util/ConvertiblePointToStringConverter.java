@@ -16,13 +16,14 @@
  */
 package org.apache.jdo.tck.util;
 
-import javax.jdo.AttributeConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.jdo.tck.pc.mylib.Point;
+import org.apache.jdo.tck.pc.mylib.ConvertiblePoint;
+
+import javax.jdo.AttributeConverter;
 
 /** AttributeConverter implementation mapping a Point instance to a string of the form x:y. */
-public class PointToStringConverter extends PointConversionCounter implements AttributeConverter<Point, String> {
+public class ConvertiblePointToStringConverter extends PointConversionCounter implements AttributeConverter<ConvertiblePoint, String> {
 
   // Character to separate x and y value of the Point instance.
   private static final String SEPARATOR = ":";
@@ -36,8 +37,8 @@ public class PointToStringConverter extends PointConversionCounter implements At
    * @return the string representation of the Point instance
    */
   @Override
-  public String convertToDatastore(Point attributeValue) {
-    incNrOfConvertToDatastoreCalls();
+  public String convertToDatastore(ConvertiblePoint attributeValue) {
+    PointConversionCounter.incNrOfConvertToDatastoreCalls();
     String datastoreValue = null;
     if (attributeValue != null) {
       datastoreValue =
@@ -47,7 +48,7 @@ public class PointToStringConverter extends PointConversionCounter implements At
     }
     if (logger.isDebugEnabled()) {
       logger.debug(
-          "PointToStringConverter.convertToDatastore "
+          "ConvertiblePointToStringConverter.convertToDatastore "
               + "attributeValue="
               + attributeValue
               + " datastoreValue="
@@ -64,20 +65,20 @@ public class PointToStringConverter extends PointConversionCounter implements At
    * @return the attribute value as Point instance
    */
   @Override
-  public Point convertToAttribute(String datastoreValue) {
-    incNrOfConvertToAttributeCalls();
-    Point attributeValue = null;
+  public ConvertiblePoint convertToAttribute(String datastoreValue) {
+    PointConversionCounter.incNrOfConvertToAttributeCalls();
+    ConvertiblePoint attributeValue = null;
     if (datastoreValue != null) {
       String[] parts = datastoreValue.split(SEPARATOR);
       if (parts.length == 2) {
         Integer x = Integer.valueOf(parts[0]);
         Integer y = Integer.valueOf(parts[1]);
-        attributeValue = new Point(x == null ? 0 : x.intValue(), y);
+        attributeValue = new ConvertiblePoint(x == null ? 0 : x.intValue(), y);
       }
     }
     if (logger.isDebugEnabled()) {
       logger.debug(
-          "PointToStringConverter.convertToAttribute "
+          "ConvertiblePointToStringConverter.convertToAttribute "
               + "datastoreValue="
               + datastoreValue
               + " attributeValue="

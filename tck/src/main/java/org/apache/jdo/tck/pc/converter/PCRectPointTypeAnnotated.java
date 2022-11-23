@@ -18,7 +18,7 @@ package org.apache.jdo.tck.pc.converter;
 
 import org.apache.jdo.tck.pc.mylib.ConvertiblePoint;
 import org.apache.jdo.tck.pc.mylib.Point;
-import org.apache.jdo.tck.util.PointToStringConverter;
+import org.apache.jdo.tck.util.ConvertiblePointToStringConverter;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Convert;
@@ -62,12 +62,7 @@ public class PCRectPointTypeAnnotated implements IPCRect {
   }
 
   public void setUpperLeft(Point upperLeft) {
-    if (this.upperLeft == null) {
-      this.upperLeft = new ConvertiblePoint(upperLeft.getX(), upperLeft.getY());
-    } else {
-      this.upperLeft.setX(upperLeft.getX());
-      this.upperLeft.setY(upperLeft.getY());
-    }
+    this.upperLeft = new ConvertiblePoint(upperLeft.getX(), upperLeft.getY());
   }
 
   public Point getLowerRight() {
@@ -75,12 +70,7 @@ public class PCRectPointTypeAnnotated implements IPCRect {
   }
 
   public void setLowerRight(Point lowerRight) {
-    if (this.lowerRight == null) {
-      this.lowerRight = new ConvertiblePoint(lowerRight.getX(), lowerRight.getY());
-    } else {
-      this.lowerRight.setX(lowerRight.getX());
-      this.lowerRight.setY(lowerRight.getY());
-    }
+    this.lowerRight = new ConvertiblePoint(lowerRight.getX(), lowerRight.getY());
   }
 
   public String toString() {

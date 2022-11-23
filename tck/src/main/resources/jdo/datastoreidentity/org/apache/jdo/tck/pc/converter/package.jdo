@@ -27,6 +27,7 @@
     </class>
 
     <class name="PCRectAnnotated" identity-type="datastore"/>
+
     <class name="PCRectPointTypeAnnotated" identity-type="datastore"/>
 
     <class name="PCPoint" identity-type="datastore">
@@ -35,7 +36,6 @@
     </class>
 
     <class name="PCPointAnnotated" identity-type="datastore"/>
-    <class name="PCRectPointTypeAnnotated" identity-type="datastore"/>
 
     <class name="PCPointProp" identity-type="datastore">
       <property name="x" converter="org.apache.jdo.tck.util.IntegerToStringConverter"/>

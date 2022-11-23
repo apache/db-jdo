@@ -17,14 +17,14 @@
 
 package org.apache.jdo.tck.pc.mylib;
 
-import org.apache.jdo.tck.util.PointToStringConverter;
+import org.apache.jdo.tck.util.ConvertiblePointToStringConverter;
 
 import javax.jdo.annotations.Convert;
 
 /**
  * A simple point class with two fields. The whole class/type is declared convertible.
  */
-@Convert(value = PointToStringConverter.class)
+@Convert(value = ConvertiblePointToStringConverter.class)
 public class ConvertiblePoint {
   public int x;
   public Integer y;
@@ -33,7 +33,7 @@ public class ConvertiblePoint {
 
   public ConvertiblePoint(int x, int y) {
     this.x = x;
-    this.y = y;
+    this.y = Integer.valueOf(y);
   }
 
   public ConvertiblePoint(int x, Integer y) {
@@ -44,32 +44,24 @@ public class ConvertiblePoint {
   public String toString() {
     String rc = null;
     try {
-      rc = "Point(" + name() + ")";
+      rc = "ConvertiblePoint(" + name() + ")";
     } catch (NullPointerException ex) {
-      rc = "NPE getting Point's values";
+      rc = "NPE getting ConvertiblePoint's values";
     }
     return rc;
   }
 
   public int getX() {
-    System.out.println("Hello from Point.getX");
+    System.out.println("Hello from ConvertiblePoint.getX");
     return x;
   }
 
   public Integer getY() {
-    System.out.println("Hello from Point.getY");
+    System.out.println("Hello from ConvertiblePoint.getY");
     return y;
   }
 
-  public void setX(int x) {
-    this.x = x;
-  }
-
-  public void setY(int y) {
-    this.y = y;
-  }
-
   public String name() {
-    return "x: " + getX() + ", y: " + getY();
+    return "x: " + getX() + ", y: " + getY().intValue();
   }
 }
