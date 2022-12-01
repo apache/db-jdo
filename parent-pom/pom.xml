@@ -38,8 +38,12 @@
     <url>http://db.apache.org/jdo</url>
     <inceptionYear>2005</inceptionYear>
     <organization>
+<<<<<<< Updated upstream
         <!-- The name is used when generating a NOTICE file -->
         <name>The Apache Software Foundation</name>
+=======
+        <name>Apache Software Foundation</name>
+>>>>>>> Stashed changes
         <url>https://www.apache.org</url>
     </organization>
 
