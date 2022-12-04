@@ -159,7 +159,7 @@ Please note, the tck enables the profile `jdori` per default and this default is
 
     mvn -Pwarnings,jdori clean install
 
-You can pass different compiler arguments using the -D option:
+You can pass different compiler arguments using the `-D` option:
 
     mvn -Pwarnings,jdori -DcompilerArgument=-Xlint:all clean install
 
