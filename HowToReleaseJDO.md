@@ -94,6 +94,9 @@ address the bugs found and proceeds from the beginning.
 Detailed process steps
 ----------------------
 
+0. Verify the copyright date in the top level LICENSE.txt file. The last
+   date should be this year's date, e.g. 2005-2023.
+
 1. Verify licensing of the sources by running 
     [Apache Rat](http://creadur.apache.org/rat) to
     check the sources for any licence issues.
