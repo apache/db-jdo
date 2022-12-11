@@ -158,9 +158,10 @@ public class JDOException extends java.lang.RuntimeException {
    * @return the first or only nested Throwable.
    * @since 1.0.1
    */
+  @Override
   public synchronized Throwable getCause() {
     // super.printStackTrace calls getCause to handle the cause.
-    // Returning null prevents the superclass from handling the cause;
+    // Returning null prevents the superclass from handling the cause,
     // instead the local implementation of printStackTrace should
     // handle the cause. Otherwise, the cause is printed twice.
     if (nested == null || nested.length == 0 || inPrintStackTrace) {
@@ -178,7 +179,8 @@ public class JDOException extends java.lang.RuntimeException {
    * @param cause ignored.
    * @return never.
    */
-  public Throwable initCause(Throwable cause) {
+  @Override
+  public synchronized Throwable initCause(Throwable cause) {
     throw new JDOFatalInternalException(MSG.msg("ERR_CannotInitCause"));
   }
 
@@ -189,6 +191,7 @@ public class JDOException extends java.lang.RuntimeException {
    *
    * @return the <code>String</code>.
    */
+  @Override
   public synchronized String toString() {
     int len = nested == null ? 0 : nested.length;
     // calculate approximate size of the String to return
@@ -244,6 +247,7 @@ public class JDOException extends java.lang.RuntimeException {
    * Prints this <code>JDOException</code> and its backtrace to the standard error output. Print
    * nested Throwables' stack trace as well.
    */
+  @Override
   public void printStackTrace() {
     printStackTrace(System.err);
   }
@@ -254,9 +258,10 @@ public class JDOException extends java.lang.RuntimeException {
    *
    * @param s <code>PrintStream</code> to use for output
    */
+  @Override
   public synchronized void printStackTrace(java.io.PrintStream s) {
     int len = nested == null ? 0 : nested.length;
-    synchronized (s) {
+    synchronized (s) { //NOSONAR
       inPrintStackTrace = true;
       super.printStackTrace(s);
       if (len > 0) {
@@ -278,9 +283,10 @@ public class JDOException extends java.lang.RuntimeException {
    *
    * @param s <code>PrintWriter</code> to use for output
    */
+  @Override
   public synchronized void printStackTrace(java.io.PrintWriter s) {
     int len = nested == null ? 0 : nested.length;
-    synchronized (s) {
+    synchronized (s) { //NOSONAR
       inPrintStackTrace = true;
       super.printStackTrace(s);
       if (len > 0) {
