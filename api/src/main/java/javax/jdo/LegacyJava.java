@@ -76,7 +76,6 @@ public class LegacyJava {
     try {
       sm = getSecurityManager.invoke(null);
     } catch (IllegalAccessException | InvocationTargetException e) {
-      e.printStackTrace();
       throw new JDOFatalInternalException(e.getMessage());
     }
     if (sm == null) {
@@ -107,7 +106,6 @@ public class LegacyJava {
       try {
         checkPermissionMethod.invoke(null, permission);
       } catch (IllegalAccessException | InvocationTargetException e) {
-        e.printStackTrace();
         throw new JDOFatalInternalException(e.getMessage());
       }
     }
