@@ -261,7 +261,7 @@ public class JDOException extends java.lang.RuntimeException {
   @Override
   public void printStackTrace(java.io.PrintStream s) {
     int len = nested == null ? 0 : nested.length;
-    synchronized (s) { // NOSONAR rule "Blocks should be synchronized on "private final" fields"
+    synchronized (s) {
       inPrintStackTrace = true;
       super.printStackTrace(s);
       if (len > 0) {
@@ -286,7 +286,7 @@ public class JDOException extends java.lang.RuntimeException {
   @Override
   public void printStackTrace(java.io.PrintWriter s) {
     int len = nested == null ? 0 : nested.length;
-    synchronized (s) { // NOSONAR rule "Blocks should be synchronized on "private final" fields"
+    synchronized (s) {
       inPrintStackTrace = true;
       super.printStackTrace(s);
       if (len > 0) {
