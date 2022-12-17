@@ -161,8 +161,8 @@ public class JDOException extends java.lang.RuntimeException {
   @Override
   public synchronized Throwable getCause() {
     // super.printStackTrace calls getCause to handle the cause.
-    // Returning null prevents the superclass from handling the cause,
-    // instead the local implementation of printStackTrace should
+    // Returning null prevents the superclass from handling the cause.
+    // Instead the local implementation of printStackTrace should
     // handle the cause. Otherwise, the cause is printed twice.
     if (nested == null || nested.length == 0 || inPrintStackTrace) {
       return null;
@@ -259,9 +259,9 @@ public class JDOException extends java.lang.RuntimeException {
    * @param s <code>PrintStream</code> to use for output
    */
   @Override
-  public synchronized void printStackTrace(java.io.PrintStream s) {
+  public void printStackTrace(java.io.PrintStream s) {
     int len = nested == null ? 0 : nested.length;
-    synchronized (s) { // NOSONAR
+    synchronized (s) { // NOSONAR rule "Blocks should be synchronized on "private final" fields"
       inPrintStackTrace = true;
       super.printStackTrace(s);
       if (len > 0) {
@@ -284,9 +284,9 @@ public class JDOException extends java.lang.RuntimeException {
    * @param s <code>PrintWriter</code> to use for output
    */
   @Override
-  public synchronized void printStackTrace(java.io.PrintWriter s) {
+  public void printStackTrace(java.io.PrintWriter s) {
     int len = nested == null ? 0 : nested.length;
-    synchronized (s) { // NOSONAR
+    synchronized (s) { // NOSONAR rule "Blocks should be synchronized on "private final" fields"
       inPrintStackTrace = true;
       super.printStackTrace(s);
       if (len > 0) {
