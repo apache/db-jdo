@@ -482,11 +482,11 @@ public class javax.jdo.JDOException extends RuntimeException {
     public Object getFailedObject();
     public Throwable[] getNestedExceptions();
     public synchronized Throwable getCause();
-    public Throwable initCause(Throwable cause);
+    public synchronized Throwable initCause(Throwable cause);
     public synchronized String toString();
     public void printStackTrace();
-    public synchronized void printStackTrace(java.io.PrintStream s);
-    public synchronized void printStackTrace(java.io.PrintWriter s);
+    public void printStackTrace(java.io.PrintStream s);
+    public void printStackTrace(java.io.PrintWriter s);
 }
 
 public class javax.jdo.JDOFatalDataStoreException extends javax.jdo.JDOFatalException {

@@ -83,7 +83,7 @@ public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<S
    * @param key The key to use
    * @since 2.0
    */
-  protected void setKeyAsObject(Object key) {
+  protected synchronized void setKeyAsObject(Object key) {
     assertKeyNotNull(key);
     keyAsObject = key;
   }

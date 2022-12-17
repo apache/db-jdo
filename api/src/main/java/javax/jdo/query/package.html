@@ -14,12 +14,19 @@
  See the License for the specific language governing permissions and 
  limitations under the License.
 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Query package</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
 <BODY>
     Package providing expressions for building a typed JDOQL query.
-    Fields/Params/Vars of a persistable type are represented as <i>Expression</i>. 
+    Fields/Params/Vars of a persistable type are represented as <em>Expression</em>.
     All generated "Q" classes extend "PersistableExpression", and provide the fields/properties 
     of the persistable class as Expression types.
-    Fields/Params/Vars of a container type are represented as <i>CollectionExpression</i>, <i>MapExpression</i>.
+    Fields/Params/Vars of a container type are represented as <em>CollectionExpression</em>, <em>MapExpression</em>.
     Fields/Params/Vars of other types, or literals are represented by
     <ul>
         <li>StringExpression</li>
