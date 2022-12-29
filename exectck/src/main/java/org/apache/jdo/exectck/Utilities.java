@@ -132,6 +132,8 @@ public class Utilities {
       result.setOutputString(outBuffer.toString());
       // wait until the Enhancer command finishes
     } catch (InterruptedException ex) {
+      // Restore interrupted state...
+      Thread.currentThread().interrupt();
       throw new RuntimeException("InterruptedException", ex);
     } catch (IOException ex) {
       throw new RuntimeException("IOException", ex);
