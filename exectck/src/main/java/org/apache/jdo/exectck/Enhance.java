@@ -86,15 +86,6 @@ public class Enhance extends AbstractTCKMojo {
       required = true)
   private String srcDirectory;
 
-  /** List of identity types to be tested. */
-  @Parameter(
-      property = "jdo.tck.identitytypes",
-      defaultValue = "applicationidentity datastoreidentity",
-      required = true)
-  private String identitytypes;
-
-  private Collection<String> idtypes;
-
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
 
