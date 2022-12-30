@@ -17,8 +17,8 @@
 
 package javax.jdo;
 
-import static javax.jdo.Constants.PROPERTY_ENHANCER_VENDOR_NAME;
-import static javax.jdo.Constants.PROPERTY_ENHANCER_VERSION_NUMBER;
+import static javax.jdo.JDOConstants.PROPERTY_ENHANCER_VENDOR_NAME;
+import static javax.jdo.JDOConstants.PROPERTY_ENHANCER_VERSION_NUMBER;
 
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;

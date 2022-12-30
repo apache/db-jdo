@@ -19,7 +19,7 @@ package javax.jdo.spi;
 
 import java.util.Collection;
 import java.util.Properties;
-import javax.jdo.Constants;
+import javax.jdo.JDOConstants;
 import javax.jdo.JDOUserException;
 import javax.jdo.pc.PCPoint;
 import javax.jdo.util.AbstractTest;
@@ -244,7 +244,7 @@ public class JDOImplHelperTest extends AbstractTest {
     Properties p = new Properties();
     p.put("unknown.property", "value");
     p.put(new Object(), "value");
-    p.put(Constants.PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER + "unknown.listener", "value");
+    p.put(JDOConstants.PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER + "unknown.listener", "value");
     JDOImplHelper.assertOnlyKnownStandardProperties(p);
   }
 

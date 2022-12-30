@@ -25,7 +25,7 @@ import javax.jdo.util.BatchTestRunner;
 import junit.framework.TestSuite;
 
 /** Tests class javax.jdo.JDOHelper for META-INF/jdoconfig.xml compliance. */
-public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
+public class JDOHelperConfigTest extends AbstractJDOConfigTest {
 
   public static void main(String args[]) {
     BatchTestRunner.run(JDOHelperConfigTest.class);
@@ -47,17 +47,17 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
    * @param testVariant the name of the test to include in the {@link java.util.Map Map} values.
    * @param listenerCount the number of life cycle listener class names to add to this map. The
    *     listener names will begin with the value stored in {@link
-   *     javax.jdo.Constants.PROPERTY_INSTANCE_LIFECYCLE_LISTENER
+   *     javax.jdo.JDOConstants#PROPERTY_INSTANCE_LIFECYCLE_LISTENER
    *     PROPERTY_INSTANCE_LIFECYCLE_LISTENER}.
    * @param vendorSpecificPropertyCount the number of properties named of the form
    *     <pre>
    * &quot;property.&quot; + testVariant + &quot;.name&quot;
    * </pre>
    *     that are added to the map.
-   * @param excludeName if true the property specified by {@link javax.jdo.Constants.PROPERTY_NAME
+   * @param excludeName if true the property specified by {@link javax.jdo.JDOConstants#PROPERTY_NAME
    *     PROPERTY_NAME} is not added to the map.
    * @param excludePUName if true the property specified by {@link
-   *     javax.jdo.Constants.PROPERTY_PERSISTENCE_UNIT_NAME PROPERTY_PERSISTENCE_UNIT_NAME} is not
+   *     javax.jdo.JDOConstants#PROPERTY_PERSISTENCE_UNIT_NAME PROPERTY_PERSISTENCE_UNIT_NAME} is not
    *     added to the map.
    * @return a new {@link java.util.Map Map} object populated with properties that can be used in
    *     this test suite.
@@ -71,47 +71,47 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     Map<String, String> expected = new HashMap<>();
 
     if (!excludeName) {
-      expected.put(PROPERTY_NAME, PMF_ATTRIBUTE_NAME + "." + testVariant);
+      expected.put(JDOConstants.PROPERTY_NAME, JDOConstants.PMF_ATTRIBUTE_NAME + "." + testVariant);
     }
     if (!excludePUName) {
       expected.put(
-          PROPERTY_PERSISTENCE_UNIT_NAME, PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME + "." + testVariant);
+              JDOConstants.PROPERTY_PERSISTENCE_UNIT_NAME, JDOConstants.PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME + "." + testVariant);
     }
 
     expected.put(
-        PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_ATTRIBUTE_CLASS + "." + testVariant);
+            JDOConstants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, JDOConstants.PMF_ATTRIBUTE_CLASS + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_DRIVER_NAME, PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME + "." + testVariant);
+            JDOConstants.PROPERTY_CONNECTION_DRIVER_NAME, JDOConstants.PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_FACTORY_NAME,
-        PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME + "." + testVariant);
+            JDOConstants.PROPERTY_CONNECTION_FACTORY_NAME,
+            JDOConstants.PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_FACTORY2_NAME,
-        PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME + "." + testVariant);
+            JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME,
+            JDOConstants.PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_PASSWORD, PMF_ATTRIBUTE_CONNECTION_PASSWORD + "." + testVariant);
-    expected.put(PROPERTY_CONNECTION_URL, PMF_ATTRIBUTE_CONNECTION_URL + "." + testVariant);
+            JDOConstants.PROPERTY_CONNECTION_PASSWORD, JDOConstants.PMF_ATTRIBUTE_CONNECTION_PASSWORD + "." + testVariant);
+    expected.put(JDOConstants.PROPERTY_CONNECTION_URL, JDOConstants.PMF_ATTRIBUTE_CONNECTION_URL + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_USER_NAME, PMF_ATTRIBUTE_CONNECTION_USER_NAME + "." + testVariant);
-    expected.put(PROPERTY_IGNORE_CACHE, PMF_ATTRIBUTE_IGNORE_CACHE + "." + testVariant);
-    expected.put(PROPERTY_MAPPING, PMF_ATTRIBUTE_MAPPING + "." + testVariant);
-    expected.put(PROPERTY_MULTITHREADED, PMF_ATTRIBUTE_MULTITHREADED + "." + testVariant);
+            JDOConstants.PROPERTY_CONNECTION_USER_NAME, JDOConstants.PMF_ATTRIBUTE_CONNECTION_USER_NAME + "." + testVariant);
+    expected.put(JDOConstants.PROPERTY_IGNORE_CACHE, JDOConstants.PMF_ATTRIBUTE_IGNORE_CACHE + "." + testVariant);
+    expected.put(JDOConstants.PROPERTY_MAPPING, JDOConstants.PMF_ATTRIBUTE_MAPPING + "." + testVariant);
+    expected.put(JDOConstants.PROPERTY_MULTITHREADED, JDOConstants.PMF_ATTRIBUTE_MULTITHREADED + "." + testVariant);
     expected.put(
-        PROPERTY_NONTRANSACTIONAL_READ, PMF_ATTRIBUTE_NONTRANSACTIONAL_READ + "." + testVariant);
+            JDOConstants.PROPERTY_NONTRANSACTIONAL_READ, JDOConstants.PMF_ATTRIBUTE_NONTRANSACTIONAL_READ + "." + testVariant);
     expected.put(
-        PROPERTY_NONTRANSACTIONAL_WRITE, PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE + "." + testVariant);
-    expected.put(PROPERTY_OPTIMISTIC, PMF_ATTRIBUTE_OPTIMISTIC + "." + testVariant);
-    expected.put(PROPERTY_RESTORE_VALUES, PMF_ATTRIBUTE_RESTORE_VALUES + "." + testVariant);
-    expected.put(PROPERTY_RETAIN_VALUES, PMF_ATTRIBUTE_RETAIN_VALUES + "." + testVariant);
+            JDOConstants.PROPERTY_NONTRANSACTIONAL_WRITE, JDOConstants.PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE + "." + testVariant);
+    expected.put(JDOConstants.PROPERTY_OPTIMISTIC, JDOConstants.PMF_ATTRIBUTE_OPTIMISTIC + "." + testVariant);
+    expected.put(JDOConstants.PROPERTY_RESTORE_VALUES, JDOConstants.PMF_ATTRIBUTE_RESTORE_VALUES + "." + testVariant);
+    expected.put(JDOConstants.PROPERTY_RETAIN_VALUES, JDOConstants.PMF_ATTRIBUTE_RETAIN_VALUES + "." + testVariant);
     expected.put(
-        PROPERTY_DETACH_ALL_ON_COMMIT, PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT + "." + testVariant);
+            JDOConstants.PROPERTY_DETACH_ALL_ON_COMMIT, JDOConstants.PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT + "." + testVariant);
     expected.put(
-        PROPERTY_SERVER_TIME_ZONE_ID, PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID + "." + testVariant);
+            JDOConstants.PROPERTY_SERVER_TIME_ZONE_ID, JDOConstants.PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID + "." + testVariant);
 
     // listeners
     for (int i = 0; i < listenerCount; i++) {
       expected.put(
-          PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER + "listener." + testVariant + ".listener" + i,
+              JDOConstants.PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER + "listener." + testVariant + ".listener" + i,
           "classes." + testVariant + ".classes" + i);
     }
 
@@ -127,8 +127,8 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
   /**
    * Performs a test specified by <tt>testVariantName</tt>, by building up a property map and
    * executing the test according to the property values. With this version of
-   * <tt>doPositiveTest</tt> the property name ( {@link javax.jdo.Constants.PROPERTY_NAME
-   * PROPERTY_NAME}) and the {@link javax.jdo.Constants.PERSISTENCE_UNIT_NAME
+   * <tt>doPositiveTest</tt> the property name ( {@link javax.jdo.JDOConstants#PROPERTY_NAME
+   * PROPERTY_NAME}) and the {@link javax.jdo.JDOConstants#PROPERTY_PERSISTENCE_UNIT_NAME
    * PERSISTENCE_UNIT_NAME}) are included in the property map that is used to run the test.
    *
    * @param classpaths class paths to add to the class loader that runs the test that specify where
@@ -162,8 +162,8 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
    * Performs a test specified by <tt>testVariantName</tt>, by building up a property map and
    * executing the test according to the property values. An assertion exeception is thrown if the
    * test being run has a negative (non-true) result. With this version of <tt>doPositiveTest</tt>
-   * the property name ({@link javax.jdo.Constants.PROPERTY_NAME PROPERTY_NAME}) and the {@link
-   * javax.jdo.Constants.PERSISTENCE_UNIT_NAME PERSISTENCE_UNIT_NAME}) are included in the property
+   * the property name ({@link javax.jdo.JDOConstants#PROPERTY_NAME PROPERTY_NAME}) and the {@link
+   * javax.jdo.JDOConstants#PROPERTY_PERSISTENCE_UNIT_NAME PROPERTY_PERSISTENCE_UNIT_NAME}) are included in the property
    * map that is used to run the test.
    *
    * @param classpaths class paths to add to the class loader that runs the test that specify where
@@ -172,10 +172,10 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
    * @param listenerCount number of listeners utilized in the test.
    * @param vendorSpecificPropertyCount number of vendor properties used in the test.
    * @param checkEqualProperties if true the test's properties are tested.
-   * @param excludeName if true the property specified by {@link javax.jdo.Constants.PROPERTY_NAME
+   * @param excludeName if true the property specified by {@link javax.jdo.JDOConstants#PROPERTY_NAME
    *     PROPERTY_NAME} is not added to the map.
    * @param excludePUName if true the property specified by {@link
-   *     javax.jdo.Constants.PROPERTY_PERSISTENCE_UNIT_NAME PROPERTY_PERSISTENCE_UNIT_NAME} is not
+   *     javax.jdo.JDOConstants#PROPERTY_PERSISTENCE_UNIT_NAME PROPERTY_PERSISTENCE_UNIT_NAME} is not
    *     added to the map.
    * @throws java.io.IOException if an {@java.io.IOException IOException} occurs during class
    *     loading or any part of the test.
@@ -198,7 +198,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
             vendorSpecificPropertyCount,
             excludeName,
             excludePUName);
-    String name = testVariantName == null ? null : expected.get(PROPERTY_NAME);
+    String name = testVariantName == null ? null : expected.get(JDOConstants.PROPERTY_NAME);
     Map<Object, Object> actual = JDOHelper.getPropertiesFromJdoconfig(name, loader);
 
     assertNotNull("No properties found", actual);
@@ -246,7 +246,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         };
     URLClassLoader loader = new JDOConfigTestClassLoader(getClass().getClassLoader(), classpaths);
     Map<Object, Object> actual =
-        JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+        JDOHelper.getPropertiesFromJdoconfig(JDOConstants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
   }
 
   public void testPositive02_GetAnonymousPMFWithNoProperties() throws IOException {
@@ -256,7 +256,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive02/");
 
     Map<Object, Object> properties =
-        JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+        JDOHelper.getPropertiesFromJdoconfig(JDOConstants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
     assertNotNull("Anonymous PMF with no properties returned null", properties);
     assertTrue("Anonymous PMF with no properties had properties", properties.size() == 0);
   }
@@ -307,7 +307,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
 
     Map<String, String> expected = prepareInitialExpectedMap("positive06.pmf0", 2, 0, true, true);
     Map<Object, Object> actual =
-        JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+        JDOHelper.getPropertiesFromJdoconfig(JDOConstants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
     assertNotNull("No properties found", actual);
     assertEqualProperties(expected, actual);
@@ -321,7 +321,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
 
     Map<String, String> expected = prepareInitialExpectedMap("positive07.pmf0", 2, 0, true, false);
     Map<Object, Object> actual =
-        JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+        JDOHelper.getPropertiesFromJdoconfig(JDOConstants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
     assertNotNull("No properties found", actual);
     assertEqualProperties(expected, actual);

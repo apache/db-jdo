@@ -19,7 +19,7 @@ package javax.jdo;
 import java.util.Map;
 
 /** */
-public class PMFService implements Constants {
+public class PMFService {
 
   public PMFService() {}
 
@@ -41,10 +41,10 @@ public class PMFService implements Constants {
   private static void setPMFProperties(
       PersistenceManagerFactory pmf, Map<?, ?> props, Map<?, ?> overrides) {
 
-    pmf.setConnectionDriverName((String) props.get(PROPERTY_CONNECTION_DRIVER_NAME));
+    pmf.setConnectionDriverName((String) props.get(JDOConstants.PROPERTY_CONNECTION_DRIVER_NAME));
 
     if (overrides != null) {
-      pmf.setConnectionDriverName((String) overrides.get(PROPERTY_CONNECTION_DRIVER_NAME));
+      pmf.setConnectionDriverName((String) overrides.get(JDOConstants.PROPERTY_CONNECTION_DRIVER_NAME));
     }
   }
 }

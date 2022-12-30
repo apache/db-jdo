@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanagerfactory.config;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import javax.jdo.Constants;
+import javax.jdo.JDOConstants;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -84,7 +84,7 @@ public class Persistence extends JDO_Test {
   public void testGetPMFfromNamedPUWithOverrides() {
     String name = "PUNamed_" + IDENTITYTYPE + "0";
     Properties overrides = new Properties();
-    overrides.setProperty(Constants.PROPERTY_RESTORE_VALUES, "true");
+    overrides.setProperty(JDOConstants.PROPERTY_RESTORE_VALUES, "true");
     pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
     assertEquals("Incorrect value for RestoreValues", true, pmf.getRestoreValues());
     runTest(name);

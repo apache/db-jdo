@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.transactions;
 
-import javax.jdo.Constants;
+import javax.jdo.JDOConstants;
 import javax.jdo.JDOUnsupportedOptionException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
@@ -30,7 +30,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion Description: </B> Transaction.getIsolationLevel() returns the value of the isolation
  * level. Transaction.setIsolationLevel(String) sets the value of the isolation level.
  */
-public class SetIsolationLevel extends JDO_Test implements Constants {
+public class SetIsolationLevel extends JDO_Test {
 
   /** */
   private static final String ASSERTION_29_FAILED =
@@ -42,7 +42,8 @@ public class SetIsolationLevel extends JDO_Test implements Constants {
   /** All specified isolation levels */
   private static final String[] isolationLevels =
       new String[] {
-        TX_READ_UNCOMMITTED, TX_READ_COMMITTED, TX_REPEATABLE_READ, TX_SNAPSHOT, TX_SERIALIZABLE
+              JDOConstants.TX_READ_UNCOMMITTED, JDOConstants.TX_READ_COMMITTED, JDOConstants.TX_REPEATABLE_READ,
+              JDOConstants.TX_SNAPSHOT, JDOConstants.TX_SERIALIZABLE
       };
 
   /**
@@ -123,7 +124,7 @@ public class SetIsolationLevel extends JDO_Test implements Constants {
   /** */
   private void setIsolationLevel(String level) {
     Transaction tx = pm.currentTransaction();
-    String property = PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
+    String property = JDOConstants.PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
     if (isSupported(property)) {
       tx.setIsolationLevel(level);
       String actual = tx.getIsolationLevel();

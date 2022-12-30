@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.util.Date;
 import java.util.Properties;
-import javax.jdo.Constants;
+import javax.jdo.JDOConstants;
 import javax.jdo.JDOHelper;
 import javax.jdo.JDOReadOnlyException;
 import javax.jdo.PersistenceManagerFactory;
@@ -63,7 +63,7 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
   protected void localSetUp() {
     addTearDownClass(Company.class);
     Properties properties = loadProperties(PMFProperties);
-    properties.put(Constants.PROPERTY_READONLY, "true");
+    properties.put(JDOConstants.PROPERTY_READONLY, "true");
     pmf2 = JDOHelper.getPersistenceManagerFactory(properties);
     // insert an instance to find
     getPM();

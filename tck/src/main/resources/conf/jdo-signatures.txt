@@ -15,244 +15,244 @@
  * limitations under the License.
  */
 
-public interface javax.jdo.Constants {
-    static String JAVAX_JDO = "javax.jdo";
-    static String JAVAX_JDO_PREFIX = "javax.jdo.";
-    static String SERVICE_LOOKUP_PMF_RESOURCE_NAME
+public class javax.jdo.JDOConstants {
+    public static final String JAVAX_JDO = "javax.jdo";
+    public static final String JAVAX_JDO_PREFIX = "javax.jdo.";
+    public static final String SERVICE_LOOKUP_PMF_RESOURCE_NAME
         = "META-INF/services/javax.jdo.PersistenceManagerFactory";
-    static String SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME
+    public static final String SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME
         = "META-INF/services/javax.jdo.JDOEnhancer";
-    static String JDOCONFIG_RESOURCE_NAME
+    public static final String JDOCONFIG_RESOURCE_NAME
         = "META-INF/jdoconfig.xml";
-    static String JDOCONFIG_XSD_NS
+    public static final String JDOCONFIG_XSD_NS
         = "https://db.apache.org/jdo/xmlns/jdoconfig";
-    static String JDO_XSD_NS
+    public static final String JDO_XSD_NS
         = "https://db.apache.org/jdo/xmlns/jdo";
-    static String ORM_XSD_NS
+    public static final String ORM_XSD_NS
         = "https://db.apache.org/jdo/xmlns/orm";
-    static String JDOQUERY_XSD_NS
+    public static final String JDOQUERY_XSD_NS
         = "https://db.apache.org/jdo/xmlns/jdoquery";
-    static String ELEMENT_PERSISTENCE_MANAGER_FACTORY
+    public static final String ELEMENT_PERSISTENCE_MANAGER_FACTORY
         = "persistence-manager-factory";
-    static String PMF_ATTRIBUTE_CLASS
+    public static final String PMF_ATTRIBUTE_CLASS
         = "class";
-    static String PMF_ATTRIBUTE_NAME
+    public static final String PMF_ATTRIBUTE_NAME
         = "name";
-    static String PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME
+    public static final String PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME
         = "persistence-unit-name";
-    static String PMF_ATTRIBUTE_OPTIMISTIC
+    public static final String PMF_ATTRIBUTE_OPTIMISTIC
         = "optimistic";
-    static String PMF_ATTRIBUTE_READONLY
+    public static final String PMF_ATTRIBUTE_READONLY
         = "readonly";
-    static String PMF_ATTRIBUTE_RETAIN_VALUES
+    public static final String PMF_ATTRIBUTE_RETAIN_VALUES
         = "retain-values";
-    static String PMF_ATTRIBUTE_RESTORE_VALUES
+    public static final String PMF_ATTRIBUTE_RESTORE_VALUES
         = "restore-values";
-    static String PMF_ATTRIBUTE_IGNORE_CACHE
+    public static final String PMF_ATTRIBUTE_IGNORE_CACHE
         = "ignore-cache";
-    static String PMF_ATTRIBUTE_NONTRANSACTIONAL_READ
+    public static final String PMF_ATTRIBUTE_NONTRANSACTIONAL_READ
         = "nontransactional-read";
-    static String PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE
+    public static final String PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE
         = "nontransactional-write";
-    static String PMF_ATTRIBUTE_MULTITHREADED
+    public static final String PMF_ATTRIBUTE_MULTITHREADED
         = "multithreaded";
-    static String PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME
+    public static final String PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME
         = "connection-driver-name";
-    static String PMF_ATTRIBUTE_CONNECTION_USER_NAME
+    public static final String PMF_ATTRIBUTE_CONNECTION_USER_NAME
         = "connection-user-name";
-    static String PMF_ATTRIBUTE_CONNECTION_PASSWORD
+    public static final String PMF_ATTRIBUTE_CONNECTION_PASSWORD
         = "connection-password";
-    static String PMF_ATTRIBUTE_CONNECTION_URL
+    public static final String PMF_ATTRIBUTE_CONNECTION_URL
         = "connection-url";
-    static String PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME
+    public static final String PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME
         = "connection-factory-name";
-    static String PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME
+    public static final String PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME
         = "connection-factory2-name";
-    static String PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT
+    public static final String PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT
         = "detach-all-on-commit";
-    static String PMF_ATTRIBUTE_COPY_ON_ATTACH
+    public static final String PMF_ATTRIBUTE_COPY_ON_ATTACH
         = "copy-on-attach";
-    static String PMF_ATTRIBUTE_MAPPING
+    public static final String PMF_ATTRIBUTE_MAPPING
         = "mapping";
-    static String PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID
+    public static final String PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID
         = "server-time-zone-id";
-    static String PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS
+    public static final String PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS
         = "datastore-read-timeout-millis";
-    static String PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS
+    public static final String PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS
         = "datastore-write-timeout-millis";
-    static String ELEMENT_PROPERTY
+    public static final String ELEMENT_PROPERTY
         = "property";
-    static String PROPERTY_ATTRIBUTE_NAME
+    public static final String PROPERTY_ATTRIBUTE_NAME
         = "name";
-    static String PROPERTY_ATTRIBUTE_VALUE
+    public static final String PROPERTY_ATTRIBUTE_VALUE
         = "value";
-    static String ELEMENT_INSTANCE_LIFECYCLE_LISTENER
+    public static final String ELEMENT_INSTANCE_LIFECYCLE_LISTENER
         = "instance-lifecycle-listener";
-    static String INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_LISTENER
+    public static final String INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_LISTENER
         = "listener";
-    static String INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_CLASSES
+    public static final String INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_CLASSES
         = "classes";
-    static String OPTION_TRANSACTIONAL_TRANSIENT
+    public static final String OPTION_TRANSACTIONAL_TRANSIENT
         = "javax.jdo.option.TransientTransactional";
-    static String OPTION_NONTRANSACTIONAL_READ
+    public static final String OPTION_NONTRANSACTIONAL_READ
         = "javax.jdo.option.NontransactionalRead";
-    static String OPTION_NONTRANSACTIONAL_WRITE
+    public static final String OPTION_NONTRANSACTIONAL_WRITE
         = "javax.jdo.option.NontransactionalWrite";
-    static String OPTION_RETAIN_VALUES
+    public static final String OPTION_RETAIN_VALUES
         = "javax.jdo.option.RetainValues";
-    static String OPTION_OPTIMISTIC
+    public static final String OPTION_OPTIMISTIC
         = "javax.jdo.option.Optimistic";
-    static String OPTION_APPLICATION_IDENTITY
+    public static final String OPTION_APPLICATION_IDENTITY
         = "javax.jdo.option.ApplicationIdentity";
-    static String OPTION_DATASTORE_IDENTITY
+    public static final String OPTION_DATASTORE_IDENTITY
         = "javax.jdo.option.DatastoreIdentity";
-    static String OPTION_NONDURABLE_IDENTITY
+    public static final String OPTION_NONDURABLE_IDENTITY
         = "javax.jdo.option.NonDurableIdentity";
-    static String OPTION_ARRAYLIST
+    public static final String OPTION_ARRAYLIST
         = "javax.jdo.option.ArrayList";
-    static String OPTION_LINKEDLIST
+    public static final String OPTION_LINKEDLIST
         = "javax.jdo.option.LinkedList";
-    static String OPTION_TREEMAP
+    public static final String OPTION_TREEMAP
         = "javax.jdo.option.TreeMap";
-    static String OPTION_TREESET
+    public static final String OPTION_TREESET
         = "javax.jdo.option.TreeSet";
-    static String OPTION_VECTOR
+    public static final String OPTION_VECTOR
         = "javax.jdo.option.Vector";
-    static String OPTION_ARRAY
+    public static final String OPTION_ARRAY
         = "javax.jdo.option.Array";
-    static String OPTION_NULL_COLLECTION
+    public static final String OPTION_NULL_COLLECTION
         = "javax.jdo.option.NullCollection";
-    static String OPTION_CHANGE_APPLICATION_IDENTITY
+    public static final String OPTION_CHANGE_APPLICATION_IDENTITY
         = "javax.jdo.option.ChangeApplicationIdentity";
-    static String OPTION_BINARY_COMPATIBILITY
+    public static final String OPTION_BINARY_COMPATIBILITY
         = "javax.jdo.option.BinaryCompatibility";
-    static String OPTION_GET_DATASTORE_CONNECTION
+    public static final String OPTION_GET_DATASTORE_CONNECTION
         = "javax.jdo.option.GetDataStoreConnection";
-    static String OPTION_GET_JDBC_CONNECTION
+    public static final String OPTION_GET_JDBC_CONNECTION
         = "javax.jdo.option.GetJDBCConnection";
-    static String OPTION_DATASTORE_TIMEOUT
+    public static final String OPTION_DATASTORE_TIMEOUT
         = "javax.jdo.option.DatastoreTimeout";
-    static String OPTION_QUERY_SQL
+    public static final String OPTION_QUERY_SQL
         = "javax.jdo.query.SQL";
-    static String OPTION_QUERY_CANCEL
+    public static final String OPTION_QUERY_CANCEL
         = "javax.jdo.option.QueryCancel";
-    static String OPTION_UNCONSTRAINED_QUERY_VARIABLES
+    public static final String OPTION_UNCONSTRAINED_QUERY_VARIABLES
         = "javax.jdo.query.JDOQL.UnconstrainedQueryVariables";
-    static String OPTION_QUERY_JDOQL_BITWISE_OPERATIONS
+    public static final String OPTION_QUERY_JDOQL_BITWISE_OPERATIONS
         = "javax.jdo.query.JDOQL.BitwiseOperations";
-    static String OPTION_VERSION_DATETIME
+    public static final String OPTION_VERSION_DATETIME
         = "javax.jdo.option.version.DateTime";
-    static String OPTION_VERSION_STATE_IMAGE
+    public static final String OPTION_VERSION_STATE_IMAGE
         = "javax.jdo.option.version.StateImage";
-    static String OPTION_PREDIRTY_EVENT
+    public static final String OPTION_PREDIRTY_EVENT
         = "javax.jdo.option.PreDirtyEvent";
-    static String OPTION_MAPPING_HETEROGENEOUS_OBJECT_TYPE
+    public static final String OPTION_MAPPING_HETEROGENEOUS_OBJECT_TYPE
         = "javax.jdo.option.mapping.HeterogeneousObjectType";
-    static String OPTION_MAPPING_HETEROGENEOUS_INTERFACE_TYPE
+    public static final String OPTION_MAPPING_HETEROGENEOUS_INTERFACE_TYPE
         = "javax.jdo.option.mapping.HeterogeneousInterfaceType";
-    static String OPTION_MAPPING_JOINED_TABLE_PER_CLASS
+    public static final String OPTION_MAPPING_JOINED_TABLE_PER_CLASS
         = "javax.jdo.option.mapping.JoinedTablePerClass";
-    static String OPTION_MAPPING_JOINED_TABLE_PER_CONCRETE_CLASS
+    public static final String OPTION_MAPPING_JOINED_TABLE_PER_CONCRETE_CLASS
         = "javax.jdo.option.mapping.JoinedTablePerConcreteClass";
-    static String OPTION_MAPPING_NON_JOINED_TABLE_PER_CONCRETE_CLASS
+    public static final String OPTION_MAPPING_NON_JOINED_TABLE_PER_CONCRETE_CLASS
         = "javax.jdo.option.mapping.NonJoinedTablePerConcreteClass";
-    static String OPTION_MAPPING_RELATION_SUBCLASS_TABLE
+    public static final String OPTION_MAPPING_RELATION_SUBCLASS_TABLE
         = "javax.jdo.option.mapping.RelationSubclassTable";
-    static String PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS
+    public static final String PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS
         = "javax.jdo.PersistenceManagerFactoryClass";
-    static String PROPERTY_OPTIMISTIC
+    public static final String PROPERTY_OPTIMISTIC
         = "javax.jdo.option.Optimistic";
-    static String PROPERTY_READONLY
+    public static final String PROPERTY_READONLY
         = "javax.jdo.option.ReadOnly";
-    static String PROPERTY_RETAIN_VALUES
+    public static final String PROPERTY_RETAIN_VALUES
         = "javax.jdo.option.RetainValues";
-    static String PROPERTY_RESTORE_VALUES
+    public static final String PROPERTY_RESTORE_VALUES
         = "javax.jdo.option.RestoreValues";
-    static String PROPERTY_IGNORE_CACHE
+    public static final String PROPERTY_IGNORE_CACHE
         = "javax.jdo.option.IgnoreCache";
-    static String PROPERTY_NONTRANSACTIONAL_READ
+    public static final String PROPERTY_NONTRANSACTIONAL_READ
         = "javax.jdo.option.NontransactionalRead";
-    static String PROPERTY_NONTRANSACTIONAL_WRITE
+    public static final String PROPERTY_NONTRANSACTIONAL_WRITE
         = "javax.jdo.option.NontransactionalWrite";
-    static String PROPERTY_MULTITHREADED
+    public static final String PROPERTY_MULTITHREADED
         = "javax.jdo.option.Multithreaded";
-    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL
+    public static final String PROPERTY_TRANSACTION_ISOLATION_LEVEL
         = "javax.jdo.option.TransactionIsolationLevel";
-    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_UNCOMMITTED
+    public static final String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_UNCOMMITTED
         = "javax.jdo.option.TransactionIsolationLevel.read-uncommitted";
-    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED
+    public static final String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED
         = "javax.jdo.option.TransactionIsolationLevel.read-committed";
-    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_REPEATABLE_READ
+    public static final String PROPERTY_TRANSACTION_ISOLATION_LEVEL_REPEATABLE_READ
         = "javax.jdo.option.TransactionIsolationLevel.repeatable-read";
-    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SNAPSHOT
+    public static final String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SNAPSHOT
         = "javax.jdo.option.TransactionIsolationLevel.snapshot";
-    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SERIALIZABLE
+    public static final String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SERIALIZABLE
         = "javax.jdo.option.TransactionIsolationLevel.serializable";
-    static String PROPERTY_DETACH_ALL_ON_COMMIT
+    public static final String PROPERTY_DETACH_ALL_ON_COMMIT
         = "javax.jdo.option.DetachAllOnCommit";
-    static String PROPERTY_COPY_ON_ATTACH
+    public static final String PROPERTY_COPY_ON_ATTACH
         = "javax.jdo.option.CopyOnAttach";
-    static String PROPERTY_CONNECTION_DRIVER_NAME
+    public static final String PROPERTY_CONNECTION_DRIVER_NAME
         = "javax.jdo.option.ConnectionDriverName";
-    static String PROPERTY_CONNECTION_USER_NAME
+    public static final String PROPERTY_CONNECTION_USER_NAME
         = "javax.jdo.option.ConnectionUserName";
-    static String PROPERTY_CONNECTION_PASSWORD
+    public static final String PROPERTY_CONNECTION_PASSWORD
         = "javax.jdo.option.ConnectionPassword";
-    static String PROPERTY_CONNECTION_URL
+    public static final String PROPERTY_CONNECTION_URL
         = "javax.jdo.option.ConnectionURL";
-    static String PROPERTY_CONNECTION_FACTORY_NAME
+    public static final String PROPERTY_CONNECTION_FACTORY_NAME
         = "javax.jdo.option.ConnectionFactoryName";
-    static String PROPERTY_CONNECTION_FACTORY2_NAME
+    public static final String PROPERTY_CONNECTION_FACTORY2_NAME
         = "javax.jdo.option.ConnectionFactory2Name";
-    static String PROPERTY_MAPPING
+    public static final String PROPERTY_MAPPING
         = "javax.jdo.option.Mapping";
-    static String PROPERTY_NAME
+    public static final String PROPERTY_NAME
         = "javax.jdo.option.Name";
-    static String PROPERTY_SPI_PROPERTIES_FILE_NAME
+    public static final String PROPERTY_SPI_PROPERTIES_FILE_NAME
         = "javax.jdo.spi.PropertiesFileName";
-    static String PROPERTY_SPI_RESOURCE_NAME
+    public static final String PROPERTY_SPI_RESOURCE_NAME
         = "javax.jdo.option.spi.ResourceName";
-    static String PROPERTY_PERSISTENCE_UNIT_NAME
+    public static final String PROPERTY_PERSISTENCE_UNIT_NAME
         = "javax.jdo.option.PersistenceUnitName";
-    static String PROPERTY_INSTANCE_LIFECYCLE_LISTENER
+    public static final String PROPERTY_INSTANCE_LIFECYCLE_LISTENER
         = "javax.jdo.listener.InstanceLifecycleListener";
-    static String PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER
+    public static final String PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER
         = "javax.jdo.listener.InstanceLifecycleListener.";
-    static String PROPERTY_MAPPING_CATALOG
+    public static final String PROPERTY_MAPPING_CATALOG
         = "javax.jdo.mapping.Catalog";
-    static String PROPERTY_MAPPING_SCHEMA
+    public static final String PROPERTY_MAPPING_SCHEMA
         = "javax.jdo.mapping.Schema";
-    static String PROPERTY_SERVER_TIME_ZONE_ID
+    public static final String PROPERTY_SERVER_TIME_ZONE_ID
         = "javax.jdo.option.ServerTimeZoneID";
-    static String PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS
+    public static final String PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS
         = "javax.jdo.option.DatastoreReadTimeoutMillis";
-    static String PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS
+    public static final String PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS
         = "javax.jdo.option.DatastoreWriteTimeoutMillis";
-    static String NONCONFIGURABLE_PROPERTY_VENDOR_NAME
+    public static final String NONCONFIGURABLE_PROPERTY_VENDOR_NAME
         = "VendorName";
-    static String NONCONFIGURABLE_PROPERTY_VERSION_NUMBER
+    public static final String NONCONFIGURABLE_PROPERTY_VERSION_NUMBER
         = "VersionNumber";
-    static String JTA
+    public static final String JTA
         = "JTA";
-    static String RESOURCE_LOCAL
+    public static final String RESOURCE_LOCAL
         = "RESOURCE_LOCAL";
-    static String JDOCONFIG_DTD_RESOURCE
+    public static final String JDOCONFIG_DTD_RESOURCE
         = "javax/jdo/jdoconfig_3_0.dtd";
-    static String JDOCONFIG_XSD_RESOURCE
+    public static final String JDOCONFIG_XSD_RESOURCE
         = "javax/jdo/jdoconfig_3_0.xsd";
-    static String JDO_DTD_RESOURCE
+    public static final String JDO_DTD_RESOURCE
         = "javax/jdo/jdo_3_0.dtd";
-    static String JDO_XSD_RESOURCE
+    public static final String JDO_XSD_RESOURCE
         = "javax/jdo/jdo_3_0.xsd";
-    static String ORM_DTD_RESOURCE
+    public static final String ORM_DTD_RESOURCE
         = "javax/jdo/orm_3_0.dtd";
-    static String ORM_XSD_RESOURCE
+    public static final String ORM_XSD_RESOURCE
         = "javax/jdo/orm_3_0.xsd";
-    static String JDOQUERY_DTD_RESOURCE
+    public static final String JDOQUERY_DTD_RESOURCE
         = "javax/jdo/jdoquery_3_0.dtd";
-    static String JDOQUERY_XSD_RESOURCE
+    public static final String JDOQUERY_XSD_RESOURCE
         = "javax/jdo/jdoquery_3_0.xsd";
-    static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
+    public static final String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
         = "";
     public static final String TX_READ_UNCOMMITTED = "read-uncommitted"; 
     public static final String TX_READ_COMMITTED = "read-committed"; 
@@ -529,7 +529,7 @@ public class javax.jdo.JDOFatalUserException extends javax.jdo.JDOFatalException
     public JDOFatalUserException(String msg, Throwable nested, Object failed);
 }
 
-public class javax.jdo.JDOHelper implements javax.jdo.Constants {
+public class javax.jdo.JDOHelper {
     public JDOHelper();
     public static javax.jdo.JDOHelper getInstance();
     public static javax.jdo.PersistenceManager getPersistenceManager(Object pc);

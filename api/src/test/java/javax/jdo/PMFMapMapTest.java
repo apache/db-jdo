@@ -141,8 +141,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    */
   public void testInputStream() throws IOException {
     Properties props = new Properties();
-    props.setProperty(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
-    props.setProperty(Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
+    props.setProperty(JDOConstants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
+    props.setProperty(JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
 
     ByteArrayOutputStream outstream = new ByteArrayOutputStream();
     try {
@@ -174,8 +174,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    */
   public void testInputStreamWithLoader() throws IOException {
     Properties props = new Properties();
-    props.setProperty(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
-    props.setProperty(Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
+    props.setProperty(JDOConstants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
+    props.setProperty(JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
 
     ByteArrayOutputStream outstream = new ByteArrayOutputStream();
     try {
@@ -204,8 +204,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    */
   public void testProperties() throws IOException {
     Properties props = new Properties();
-    props.setProperty(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
-    props.setProperty(Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
+    props.setProperty(JDOConstants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
+    props.setProperty(JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
     ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -227,8 +227,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    */
   public void testPropertiesAndLoader() throws IOException {
     Properties props = new Properties();
-    props.setProperty(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
-    props.setProperty(Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
+    props.setProperty(JDOConstants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
+    props.setProperty(JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
     try {
@@ -248,7 +248,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
   public void testNamedPMFWithOverrides() throws IOException {
     Properties overrides = new Properties();
     overrides.setProperty(
-        Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
+        JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
     ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -273,7 +273,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
   public void testNamedPMFWithOverridesAndLoader() throws IOException {
     Properties overrides = new Properties();
     overrides.setProperty(
-        Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
+        JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
 
@@ -299,7 +299,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
   public void testNamedPMFWithOverridesAndTwoLoaders() throws IOException {
     Properties overrides = new Properties();
     overrides.setProperty(
-        Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
+        JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
     ClassLoader pmfLoader = getClass().getClassLoader();

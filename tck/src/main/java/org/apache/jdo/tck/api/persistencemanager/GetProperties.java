@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import javax.jdo.Constants;
+import javax.jdo.JDOConstants;
 import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -33,7 +33,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion IDs:</B> <br>
  * <B>Assertion Description: </B>
  */
-public class GetProperties extends JDO_Test implements Constants {
+public class GetProperties extends JDO_Test {
 
   /** */
   private static final String ASSERTION_FAILED_12_19_1 =
@@ -212,7 +212,7 @@ public class GetProperties extends JDO_Test implements Constants {
   }
 
   private final TestProperty testCopyOnAttach =
-      new AbstractAPITestProperty(PROPERTY_COPY_ON_ATTACH, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_COPY_ON_ATTACH, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.getCopyOnAttach();
         }
@@ -223,7 +223,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testDatastoreReadTimeoutMillis =
-      new AbstractAPITestProperty(PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS, 20, 40) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS, 20, 40) {
         public Object get(PersistenceManager pm) {
           return pm.getDatastoreReadTimeoutMillis();
         }
@@ -234,7 +234,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testDatastoreWriteTimeoutMillis =
-      new AbstractAPITestProperty(PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS, 60, 80) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS, 60, 80) {
         public Object get(PersistenceManager pm) {
           return pm.getDatastoreWriteTimeoutMillis();
         }
@@ -245,7 +245,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testMultithreaded =
-      new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_MULTITHREADED, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.getMultithreaded();
         }
@@ -256,7 +256,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testLowerCaseMultithreaded =
-      new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_MULTITHREADED, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.getMultithreaded();
         }
@@ -267,7 +267,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testUpperCaseMultithreaded =
-      new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_MULTITHREADED, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.getMultithreaded();
         }
@@ -278,7 +278,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testDetachAllOnCommit =
-      new AbstractAPITestProperty(PROPERTY_DETACH_ALL_ON_COMMIT, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_DETACH_ALL_ON_COMMIT, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.getDetachAllOnCommit();
         }
@@ -289,7 +289,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testIgnoreCache =
-      new AbstractAPITestProperty(PROPERTY_IGNORE_CACHE, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_IGNORE_CACHE, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.getIgnoreCache();
         }
@@ -300,7 +300,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testOptimistic =
-      new AbstractAPITestProperty(PROPERTY_OPTIMISTIC, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_OPTIMISTIC, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.currentTransaction().getOptimistic();
         }
@@ -311,7 +311,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testRetainValues =
-      new AbstractAPITestProperty(PROPERTY_RETAIN_VALUES, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_RETAIN_VALUES, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.currentTransaction().getRetainValues();
         }
@@ -322,7 +322,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testRestoreValues =
-      new AbstractAPITestProperty(PROPERTY_RESTORE_VALUES, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_RESTORE_VALUES, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.currentTransaction().getRestoreValues();
         }
@@ -333,7 +333,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testNontransactionalRead =
-      new AbstractAPITestProperty(PROPERTY_NONTRANSACTIONAL_READ, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_NONTRANSACTIONAL_READ, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.currentTransaction().getNontransactionalRead();
         }
@@ -344,7 +344,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testNontransactionalWrite =
-      new AbstractAPITestProperty(PROPERTY_NONTRANSACTIONAL_WRITE, true, false) {
+      new AbstractAPITestProperty(JDOConstants.PROPERTY_NONTRANSACTIONAL_WRITE, true, false) {
         public Object get(PersistenceManager pm) {
           return pm.currentTransaction().getNontransactionalWrite();
         }
@@ -355,7 +355,7 @@ public class GetProperties extends JDO_Test implements Constants {
       };
 
   private final TestProperty testIllegalArgument =
-      new AbstractNonAPITestProperty(PROPERTY_IGNORE_CACHE, 1, false) {};
+      new AbstractNonAPITestProperty(JDOConstants.PROPERTY_IGNORE_CACHE, 1, false) {};
 
   private Set<TestProperty> setOf(TestProperty... testPropertys) {
     Set<TestProperty> result = new HashSet<>();
@@ -376,20 +376,20 @@ public class GetProperties extends JDO_Test implements Constants {
     testLowerCaseMultithreaded.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_3);
     testUpperCaseMultithreaded.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_3);
     testOptionalProperties.put(
-        PROPERTY_MULTITHREADED,
+            JDOConstants.PROPERTY_MULTITHREADED,
         setOf(testMultithreaded, testLowerCaseMultithreaded, testUpperCaseMultithreaded));
     testOptionalProperties.put(
-        OPTION_DATASTORE_TIMEOUT,
+            JDOConstants.OPTION_DATASTORE_TIMEOUT,
         setOf(testDatastoreReadTimeoutMillis, testDatastoreWriteTimeoutMillis));
 
     testOptimistic.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
-    testOptionalProperties.put(PROPERTY_OPTIMISTIC, setOf(testOptimistic));
+    testOptionalProperties.put(JDOConstants.PROPERTY_OPTIMISTIC, setOf(testOptimistic));
     testRetainValues.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
-    testOptionalProperties.put(PROPERTY_RETAIN_VALUES, setOf(testRetainValues));
+    testOptionalProperties.put(JDOConstants.PROPERTY_RETAIN_VALUES, setOf(testRetainValues));
     testNontransactionalRead.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
-    testOptionalProperties.put(PROPERTY_NONTRANSACTIONAL_READ, setOf(testNontransactionalRead));
+    testOptionalProperties.put(JDOConstants.PROPERTY_NONTRANSACTIONAL_READ, setOf(testNontransactionalRead));
     testNontransactionalWrite.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
-    testOptionalProperties.put(PROPERTY_NONTRANSACTIONAL_WRITE, setOf(testNontransactionalWrite));
+    testOptionalProperties.put(JDOConstants.PROPERTY_NONTRANSACTIONAL_WRITE, setOf(testNontransactionalWrite));
 
     supportedOptions = pmf.supportedOptions();
     for (String supportedOption : supportedOptions) {
@@ -442,9 +442,9 @@ public class GetProperties extends JDO_Test implements Constants {
 
     // changing a property of the returned set of property values must not change the underlying
     // property value
-    pm.setProperty(PROPERTY_COPY_ON_ATTACH, true);
+    pm.setProperty(JDOConstants.PROPERTY_COPY_ON_ATTACH, true);
     Map<String, Object> props = pm.getProperties();
-    props.put(PROPERTY_COPY_ON_ATTACH, false);
+    props.put(JDOConstants.PROPERTY_COPY_ON_ATTACH, false);
     errorIfNotEqual(ASSERTION_FAILED_12_19_6, true, pm.getCopyOnAttach());
 
     failOnError();

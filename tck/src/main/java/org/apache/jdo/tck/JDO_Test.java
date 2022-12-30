@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
-import javax.jdo.Constants;
+import javax.jdo.JDOConstants;
 import javax.jdo.Extent;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalException;
@@ -163,11 +163,11 @@ public abstract class JDO_Test extends TestCase {
   protected static final Map<String, Integer> levelValues = new HashMap<>();
 
   static {
-    levelValues.put(Constants.TX_READ_UNCOMMITTED, 0);
-    levelValues.put(Constants.TX_READ_COMMITTED, 1);
-    levelValues.put(Constants.TX_REPEATABLE_READ, 2);
-    levelValues.put(Constants.TX_SNAPSHOT, 3);
-    levelValues.put(Constants.TX_SERIALIZABLE, 4);
+    levelValues.put(JDOConstants.TX_READ_UNCOMMITTED, 0);
+    levelValues.put(JDOConstants.TX_READ_COMMITTED, 1);
+    levelValues.put(JDOConstants.TX_REPEATABLE_READ, 2);
+    levelValues.put(JDOConstants.TX_SNAPSHOT, 3);
+    levelValues.put(JDOConstants.TX_SERIALIZABLE, 4);
   }
 
   /**
@@ -982,7 +982,7 @@ public abstract class JDO_Test extends TestCase {
    * @return true if setting a Datastore timout is supported.
    */
   public boolean isDatastoreTimeoutSupported() {
-    return supportedOptions.contains(Constants.OPTION_DATASTORE_TIMEOUT);
+    return supportedOptions.contains(JDOConstants.OPTION_DATASTORE_TIMEOUT);
   }
 
   /**

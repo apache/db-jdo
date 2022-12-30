@@ -18,11 +18,10 @@
 package javax.jdo.util;
 
 import java.io.PrintStream;
-import javax.jdo.Constants;
 import junit.framework.TestCase;
 
 /** */
-public abstract class AbstractTest extends TestCase implements Constants {
+public abstract class AbstractTest extends TestCase {
 
   /** */
   protected static final PrintStream OUT = System.out;

@@ -16,11 +16,11 @@
  */
 package javax.jdo;
 
-import static javax.jdo.Constants.ENHANCER_EXCEPTION;
-import static javax.jdo.Constants.ENHANCER_NO_JDO_ENHANCER_FOUND;
-import static javax.jdo.Constants.ENHANCER_USAGE_ERROR;
-import static javax.jdo.Constants.PROPERTY_ENHANCER_VENDOR_NAME;
-import static javax.jdo.Constants.PROPERTY_ENHANCER_VERSION_NUMBER;
+import static javax.jdo.JDOConstants.ENHANCER_EXCEPTION;
+import static javax.jdo.JDOConstants.ENHANCER_NO_JDO_ENHANCER_FOUND;
+import static javax.jdo.JDOConstants.ENHANCER_USAGE_ERROR;
+import static javax.jdo.JDOConstants.PROPERTY_ENHANCER_VENDOR_NAME;
+import static javax.jdo.JDOConstants.PROPERTY_ENHANCER_VERSION_NUMBER;
 
 import java.io.File;
 import java.net.MalformedURLException;

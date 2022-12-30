@@ -191,7 +191,7 @@ public interface Transaction {
 
   /**
    * Set the value for transaction isolation level for this transaction. Transaction isolation
-   * levels are defined in javax.jdo.Constants. If the requested level is not available, but a
+   * levels are defined in javax.jdo.JDOConstants. If the requested level is not available, but a
    * higher level is available, the higher level is silently used. If the requested level is not
    * available, and no higher level is available, then JDOUnsupportedOptionException is thrown. Five
    * standard isolation levels are defined. Other isolation levels might be supported by an
@@ -209,11 +209,11 @@ public interface Transaction {
    *
    * @param level the transaction isolation level
    * @see #getIsolationLevel()
-   * @see Constants#TX_READ_UNCOMMITTED
-   * @see Constants#TX_READ_COMMITTED
-   * @see Constants#TX_REPEATABLE_READ
-   * @see Constants#TX_SNAPSHOT
-   * @see Constants#TX_SERIALIZABLE
+   * @see JDOConstants#TX_READ_UNCOMMITTED
+   * @see JDOConstants#TX_READ_COMMITTED
+   * @see JDOConstants#TX_REPEATABLE_READ
+   * @see JDOConstants#TX_SNAPSHOT
+   * @see JDOConstants#TX_SERIALIZABLE
    * @since 2.2
    */
   void setIsolationLevel(String level);
