@@ -146,7 +146,9 @@ public class JDOHelper implements Constants {
    *
    * @since 2.1
    */
-  public JDOHelper() {}
+  public JDOHelper() {
+    // This method is deliberately left empty, see javadoc for more info.
+  }
 
   /**
    * The stateless instance used for handling non-binary-compatible implementations of

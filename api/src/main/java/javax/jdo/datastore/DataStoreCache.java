@@ -147,32 +147,74 @@ public interface DataStoreCache {
    */
   public class EmptyDataStoreCache implements DataStoreCache {
 
-    public EmptyDataStoreCache() {}
+    public EmptyDataStoreCache() {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void evict(Object oid) {}
+    public void evict(Object oid) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void evictAll() {}
+    public void evictAll() {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void evictAll(Object... oids) {}
+    public void evictAll(Object... oids) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void evictAll(Collection<?> oids) {}
+    public void evictAll(Collection<?> oids) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void evictAll(boolean subclasses, Class<?> pcClass) {}
+    public void evictAll(boolean subclasses, Class<?> pcClass) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void pin(Object oid) {}
+    public void pin(Object oid) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void pinAll(Object... oids) {}
+    public void pinAll(Object... oids) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void pinAll(Collection<?> oids) {}
+    public void pinAll(Collection<?> oids) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void pinAll(boolean subclasses, Class<?> pcClass) {}
+    public void pinAll(boolean subclasses, Class<?> pcClass) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void unpin(Object oid) {}
+    public void unpin(Object oid) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void unpinAll(Object... oids) {}
+    public void unpinAll(Object... oids) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void unpinAll(Collection<?> oids) {}
+    public void unpinAll(Collection<?> oids) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
 
-    public void unpinAll(boolean subclasses, Class<?> pcClass) {}
+    public void unpinAll(boolean subclasses, Class<?> pcClass) {
+      // This method is deliberately left empty,
+      // to be used by an implementation that does not support a second-level cache.
+    }
   }
 }
