@@ -376,10 +376,10 @@ public class GetProperties extends JDO_Test {
     testLowerCaseMultithreaded.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_3);
     testUpperCaseMultithreaded.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_3);
     testOptionalProperties.put(
-            JDOConstants.PROPERTY_MULTITHREADED,
+        JDOConstants.PROPERTY_MULTITHREADED,
         setOf(testMultithreaded, testLowerCaseMultithreaded, testUpperCaseMultithreaded));
     testOptionalProperties.put(
-            JDOConstants.OPTION_DATASTORE_TIMEOUT,
+        JDOConstants.OPTION_DATASTORE_TIMEOUT,
         setOf(testDatastoreReadTimeoutMillis, testDatastoreWriteTimeoutMillis));
 
     testOptimistic.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
@@ -387,9 +387,11 @@ public class GetProperties extends JDO_Test {
     testRetainValues.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
     testOptionalProperties.put(JDOConstants.PROPERTY_RETAIN_VALUES, setOf(testRetainValues));
     testNontransactionalRead.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
-    testOptionalProperties.put(JDOConstants.PROPERTY_NONTRANSACTIONAL_READ, setOf(testNontransactionalRead));
+    testOptionalProperties.put(
+        JDOConstants.PROPERTY_NONTRANSACTIONAL_READ, setOf(testNontransactionalRead));
     testNontransactionalWrite.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
-    testOptionalProperties.put(JDOConstants.PROPERTY_NONTRANSACTIONAL_WRITE, setOf(testNontransactionalWrite));
+    testOptionalProperties.put(
+        JDOConstants.PROPERTY_NONTRANSACTIONAL_WRITE, setOf(testNontransactionalWrite));
 
     supportedOptions = pmf.supportedOptions();
     for (String supportedOption : supportedOptions) {

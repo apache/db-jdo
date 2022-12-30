@@ -118,7 +118,8 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
 
   protected String getPMFClassNameViaServiceLookup(ClassLoader loader) {
     try {
-      Enumeration<URL> urls = JDOHelper.getResources(loader, JDOConstants.SERVICE_LOOKUP_PMF_RESOURCE_NAME);
+      Enumeration<URL> urls =
+          JDOHelper.getResources(loader, JDOConstants.SERVICE_LOOKUP_PMF_RESOURCE_NAME);
       while (urls.hasMoreElements()) {
         // return the first one found
         return JDOHelper.getClassNameFromURL(urls.nextElement());

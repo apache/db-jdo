@@ -45,8 +45,11 @@ public class SetTransactionIsolationLevel extends JDO_Test {
   /** All specified transaction isolation levels */
   private static final String[] transactionIsolationLevels =
       new String[] {
-        JDOConstants.TX_READ_UNCOMMITTED, JDOConstants.TX_READ_COMMITTED, JDOConstants.TX_REPEATABLE_READ,
-              JDOConstants.TX_SNAPSHOT, JDOConstants.TX_SERIALIZABLE
+        JDOConstants.TX_READ_UNCOMMITTED,
+        JDOConstants.TX_READ_COMMITTED,
+        JDOConstants.TX_REPEATABLE_READ,
+        JDOConstants.TX_SNAPSHOT,
+        JDOConstants.TX_SERIALIZABLE
       };
 
   private PersistenceManagerFactory pmf2;

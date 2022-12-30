@@ -24,9 +24,7 @@ package javax.jdo;
  */
 public class JDOConstants {
 
-  /**
-   * This class should not be instantiated.
-   */
+  /** This class should not be instantiated. */
   private JDOConstants() {}
 
   /**
@@ -56,7 +54,8 @@ public class JDOConstants {
    *
    * @since 3.0
    */
-  public static final String SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME = "META-INF/services/javax.jdo.JDOEnhancer";
+  public static final String SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME =
+      "META-INF/services/javax.jdo.JDOEnhancer";
 
   /**
    * The name of the standard JDO configuration resource file(s). Constant value is <code>
@@ -238,14 +237,16 @@ public class JDOConstants {
    *
    * @since 3.0
    */
-  public static final String PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS = "datastore-read-timeout-millis";
+  public static final String PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS =
+      "datastore-read-timeout-millis";
   /**
    * The name of the persistence manager factory element's "datastore-write-timeout-millis"
    * attribute.
    *
    * @since 3.0
    */
-  public static final String PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS = "datastore-write-timeout-millis";
+  public static final String PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS =
+      "datastore-write-timeout-millis";
   /**
    * The name of the persistence manager factory property elements in the JDO configuration file.
    */
@@ -269,7 +270,8 @@ public class JDOConstants {
    * @see PersistenceManagerFactory#supportedOptions()
    * @since 2.1
    */
-  public static final String OPTION_TRANSACTIONAL_TRANSIENT = "javax.jdo.option.TransientTransactional";
+  public static final String OPTION_TRANSACTIONAL_TRANSIENT =
+      "javax.jdo.option.TransientTransactional";
   /**
    * "javax.jdo.option.NontransactionalRead"
    *
@@ -283,7 +285,8 @@ public class JDOConstants {
    * @see PersistenceManagerFactory#supportedOptions()
    * @since 2.1
    */
-  public static final String OPTION_NONTRANSACTIONAL_WRITE = "javax.jdo.option.NontransactionalWrite";
+  public static final String OPTION_NONTRANSACTIONAL_WRITE =
+      "javax.jdo.option.NontransactionalWrite";
   /**
    * "javax.jdo.option.RetainValues"
    *
@@ -374,7 +377,8 @@ public class JDOConstants {
    * @see PersistenceManagerFactory#supportedOptions()
    * @since 2.1
    */
-  public static final String OPTION_CHANGE_APPLICATION_IDENTITY = "javax.jdo.option.ChangeApplicationIdentity";
+  public static final String OPTION_CHANGE_APPLICATION_IDENTITY =
+      "javax.jdo.option.ChangeApplicationIdentity";
   /**
    * "javax.jdo.option.BinaryCompatibility"
    *
@@ -388,7 +392,8 @@ public class JDOConstants {
    * @see PersistenceManagerFactory#supportedOptions()
    * @since 2.1
    */
-  public static final String OPTION_GET_DATASTORE_CONNECTION = "javax.jdo.option.GetDataStoreConnection";
+  public static final String OPTION_GET_DATASTORE_CONNECTION =
+      "javax.jdo.option.GetDataStoreConnection";
   /**
    * "javax.jdo.option.GetJDBCConnection"
    *
@@ -418,7 +423,8 @@ public class JDOConstants {
    * @see PersistenceManagerFactory#supportedOptions()
    * @since 3.2
    */
-  public static final String OPTION_QUERY_JDOQL_BITWISE_OPERATIONS = "javax.jdo.query.JDOQL.BitwiseOperations";
+  public static final String OPTION_QUERY_JDOQL_BITWISE_OPERATIONS =
+      "javax.jdo.query.JDOQL.BitwiseOperations";
 
   /**
    * "javax.jdo.query.JDOQL.UnconstrainedQueryVariables"
@@ -593,14 +599,16 @@ public class JDOConstants {
    * @see PersistenceManagerFactory#getNontransactionalRead()
    * @since 2.1
    */
-  public static final String PROPERTY_NONTRANSACTIONAL_READ = "javax.jdo.option.NontransactionalRead";
+  public static final String PROPERTY_NONTRANSACTIONAL_READ =
+      "javax.jdo.option.NontransactionalRead";
   /**
    * "javax.jdo.option.NontransactionalWrite"
    *
    * @see PersistenceManagerFactory#getNontransactionalWrite()
    * @since 2.1
    */
-  public static final String PROPERTY_NONTRANSACTIONAL_WRITE = "javax.jdo.option.NontransactionalWrite";
+  public static final String PROPERTY_NONTRANSACTIONAL_WRITE =
+      "javax.jdo.option.NontransactionalWrite";
   /**
    * "javax.jdo.option.Multithreaded"
    *
@@ -613,7 +621,8 @@ public class JDOConstants {
    *
    * @since 2.2
    */
-  public static final String PROPERTY_TRANSACTION_ISOLATION_LEVEL = "javax.jdo.option.TransactionIsolationLevel";
+  public static final String PROPERTY_TRANSACTION_ISOLATION_LEVEL =
+      "javax.jdo.option.TransactionIsolationLevel";
   /**
    * "javax.jdo.option.TransactionIsolationLevel.read-uncommitted"
    *
@@ -675,7 +684,8 @@ public class JDOConstants {
    * @see PersistenceManagerFactory#getConnectionDriverName()
    * @since 2.1
    */
-  public static final String PROPERTY_CONNECTION_DRIVER_NAME = "javax.jdo.option.ConnectionDriverName";
+  public static final String PROPERTY_CONNECTION_DRIVER_NAME =
+      "javax.jdo.option.ConnectionDriverName";
   /**
    * "javax.jdo.option.ConnectionUserName"
    *
@@ -702,14 +712,16 @@ public class JDOConstants {
    * @see PersistenceManagerFactory#getConnectionFactoryName()
    * @since 2.1
    */
-  public static final String PROPERTY_CONNECTION_FACTORY_NAME = "javax.jdo.option.ConnectionFactoryName";
+  public static final String PROPERTY_CONNECTION_FACTORY_NAME =
+      "javax.jdo.option.ConnectionFactoryName";
   /**
    * "javax.jdo.option.ConnectionFactory2Name"
    *
    * @see PersistenceManagerFactory#getConnectionFactory2Name()
    * @since 2.1
    */
-  public static final String PROPERTY_CONNECTION_FACTORY2_NAME = "javax.jdo.option.ConnectionFactory2Name";
+  public static final String PROPERTY_CONNECTION_FACTORY2_NAME =
+      "javax.jdo.option.ConnectionFactory2Name";
   /**
    * "javax.jdo.option.Mapping"
    *
@@ -723,7 +735,8 @@ public class JDOConstants {
    * @see PersistenceManagerFactory#getPersistenceUnitName()
    * @since 2.1
    */
-  public static final String PROPERTY_PERSISTENCE_UNIT_NAME = "javax.jdo.option.PersistenceUnitName";
+  public static final String PROPERTY_PERSISTENCE_UNIT_NAME =
+      "javax.jdo.option.PersistenceUnitName";
   /**
    * "javax.jdo.option.Name"
    *

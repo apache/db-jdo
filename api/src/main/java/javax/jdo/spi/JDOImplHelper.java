@@ -1153,8 +1153,8 @@ public class JDOImplHelper extends java.lang.Object {
 
   /**
    * Examines the given map for keys beginning with the JDO standard prefix, {@link
-   * JDOConstants#JAVAX_JDO_PREFIX}. If any property keys are found with that prefix but are unknown to
-   * this version of the JDO standard, a JDOUserException is thrown with a message indicating the
+   * JDOConstants#JAVAX_JDO_PREFIX}. If any property keys are found with that prefix but are unknown
+   * to this version of the JDO standard, a JDOUserException is thrown with a message indicating the
    * unknown property. Keys that are not strings are ignored, as are string keys beginning with
    * {@link JDOConstants#PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER} or not beginning with {@link
    * JDOConstants#JAVAX_JDO_PREFIX}.

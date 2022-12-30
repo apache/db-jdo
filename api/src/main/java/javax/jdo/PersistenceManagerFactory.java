@@ -538,9 +538,9 @@ public interface PersistenceManagerFactory extends Serializable {
 
   /**
    * Set the value for transaction isolation level for this PMF. Transaction isolation levels are
-   * defined in javax.jdo.JDOConstants. If the requested level is not available, but a higher level is
-   * available, the higher level is silently used. If the requested level is not available, and no
-   * higher level is available, then JDOUnsupportedOptionException is thrown. Standard values in
+   * defined in javax.jdo.JDOConstants. If the requested level is not available, but a higher level
+   * is available, the higher level is silently used. If the requested level is not available, and
+   * no higher level is available, then JDOUnsupportedOptionException is thrown. Standard values in
    * order from low to high are:
    *
    * <ul>

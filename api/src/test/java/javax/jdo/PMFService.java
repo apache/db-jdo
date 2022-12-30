@@ -44,7 +44,8 @@ public class PMFService {
     pmf.setConnectionDriverName((String) props.get(JDOConstants.PROPERTY_CONNECTION_DRIVER_NAME));
 
     if (overrides != null) {
-      pmf.setConnectionDriverName((String) overrides.get(JDOConstants.PROPERTY_CONNECTION_DRIVER_NAME));
+      pmf.setConnectionDriverName(
+          (String) overrides.get(JDOConstants.PROPERTY_CONNECTION_DRIVER_NAME));
     }
   }
 }

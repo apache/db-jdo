@@ -19,9 +19,8 @@ package javax.jdo;
 
 /**
  * Constant values used in JDO.
- * @deprecated
- * This interface is replaced by the class {@link JDOConstants}.
  *
+ * @deprecated This interface is replaced by the class {@link JDOConstants}.
  * @since 2.1
  * @version 3.0
  */

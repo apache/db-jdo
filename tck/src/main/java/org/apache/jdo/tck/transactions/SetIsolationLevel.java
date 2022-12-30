@@ -42,8 +42,11 @@ public class SetIsolationLevel extends JDO_Test {
   /** All specified isolation levels */
   private static final String[] isolationLevels =
       new String[] {
-              JDOConstants.TX_READ_UNCOMMITTED, JDOConstants.TX_READ_COMMITTED, JDOConstants.TX_REPEATABLE_READ,
-              JDOConstants.TX_SNAPSHOT, JDOConstants.TX_SERIALIZABLE
+        JDOConstants.TX_READ_UNCOMMITTED,
+        JDOConstants.TX_READ_COMMITTED,
+        JDOConstants.TX_REPEATABLE_READ,
+        JDOConstants.TX_SNAPSHOT,
+        JDOConstants.TX_SERIALIZABLE
       };
 
   /**

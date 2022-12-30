@@ -95,27 +95,50 @@ public class JDOHelper {
   static Map<String, String> createAttributePropertyXref() {
     Map<String, String> xref = new HashMap<>();
 
-    xref.put(JDOConstants.PMF_ATTRIBUTE_CLASS, JDOConstants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME, JDOConstants.PROPERTY_CONNECTION_DRIVER_NAME);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME, JDOConstants.PROPERTY_CONNECTION_FACTORY_NAME);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME, JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_CONNECTION_PASSWORD, JDOConstants.PROPERTY_CONNECTION_PASSWORD);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_CLASS, JDOConstants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME,
+        JDOConstants.PROPERTY_CONNECTION_DRIVER_NAME);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME,
+        JDOConstants.PROPERTY_CONNECTION_FACTORY_NAME);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME,
+        JDOConstants.PROPERTY_CONNECTION_FACTORY2_NAME);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_CONNECTION_PASSWORD, JDOConstants.PROPERTY_CONNECTION_PASSWORD);
     xref.put(JDOConstants.PMF_ATTRIBUTE_CONNECTION_URL, JDOConstants.PROPERTY_CONNECTION_URL);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_CONNECTION_USER_NAME, JDOConstants.PROPERTY_CONNECTION_USER_NAME);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_CONNECTION_USER_NAME,
+        JDOConstants.PROPERTY_CONNECTION_USER_NAME);
     xref.put(JDOConstants.PMF_ATTRIBUTE_IGNORE_CACHE, JDOConstants.PROPERTY_IGNORE_CACHE);
     xref.put(JDOConstants.PMF_ATTRIBUTE_MAPPING, JDOConstants.PROPERTY_MAPPING);
     xref.put(JDOConstants.PMF_ATTRIBUTE_MULTITHREADED, JDOConstants.PROPERTY_MULTITHREADED);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_NONTRANSACTIONAL_READ, JDOConstants.PROPERTY_NONTRANSACTIONAL_READ);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE, JDOConstants.PROPERTY_NONTRANSACTIONAL_WRITE);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_NONTRANSACTIONAL_READ,
+        JDOConstants.PROPERTY_NONTRANSACTIONAL_READ);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE,
+        JDOConstants.PROPERTY_NONTRANSACTIONAL_WRITE);
     xref.put(JDOConstants.PMF_ATTRIBUTE_OPTIMISTIC, JDOConstants.PROPERTY_OPTIMISTIC);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME, JDOConstants.PROPERTY_PERSISTENCE_UNIT_NAME);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME,
+        JDOConstants.PROPERTY_PERSISTENCE_UNIT_NAME);
     xref.put(JDOConstants.PMF_ATTRIBUTE_NAME, JDOConstants.PROPERTY_NAME);
     xref.put(JDOConstants.PMF_ATTRIBUTE_RESTORE_VALUES, JDOConstants.PROPERTY_RESTORE_VALUES);
     xref.put(JDOConstants.PMF_ATTRIBUTE_RETAIN_VALUES, JDOConstants.PROPERTY_RETAIN_VALUES);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT, JDOConstants.PROPERTY_DETACH_ALL_ON_COMMIT);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID, JDOConstants.PROPERTY_SERVER_TIME_ZONE_ID);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS, JDOConstants.PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS);
-    xref.put(JDOConstants.PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS, JDOConstants.PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT,
+        JDOConstants.PROPERTY_DETACH_ALL_ON_COMMIT);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID, JDOConstants.PROPERTY_SERVER_TIME_ZONE_ID);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS,
+        JDOConstants.PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS);
+    xref.put(
+        JDOConstants.PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS,
+        JDOConstants.PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS);
 
     return Collections.unmodifiableMap(xref);
   }
@@ -570,7 +593,8 @@ public class JDOHelper {
    */
   public static PersistenceManagerFactory getPersistenceManagerFactory() {
     ClassLoader cl = getContextClassLoader();
-    return getPersistenceManagerFactory(null, JDOConstants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, cl, cl);
+    return getPersistenceManagerFactory(
+        null, JDOConstants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, cl, cl);
   }
 
   /**
@@ -584,7 +608,10 @@ public class JDOHelper {
    */
   public static PersistenceManagerFactory getPersistenceManagerFactory(ClassLoader pmfClassLoader) {
     return getPersistenceManagerFactory(
-        null, JDOConstants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, pmfClassLoader, pmfClassLoader);
+        null,
+        JDOConstants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME,
+        pmfClassLoader,
+        pmfClassLoader);
   }
 
   /**
@@ -695,7 +722,8 @@ public class JDOHelper {
     JDOImplHelper.assertOnlyKnownStandardProperties(props);
 
     // first try to get the class name from the properties object.
-    String pmfClassName = (String) props.get(JDOConstants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS);
+    String pmfClassName =
+        (String) props.get(JDOConstants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS);
 
     if (!isNullOrBlank(pmfClassName)) {
       // a valid name was returned from the properties.
@@ -1278,7 +1306,8 @@ public class JDOHelper {
         Properties pmfPropertiesFromElements = readPropertiesFromPMFSubelements(pmfElement, url);
 
         // for informative error handling, get name (or names) now
-        String pmfNameFromAtts = pmfPropertiesFromAttributes.getProperty(JDOConstants.PROPERTY_NAME);
+        String pmfNameFromAtts =
+            pmfPropertiesFromAttributes.getProperty(JDOConstants.PROPERTY_NAME);
         String pmfNameFromElem = pmfPropertiesFromElements.getProperty(JDOConstants.PROPERTY_NAME);
 
         String pmfName = null;
@@ -1434,7 +1463,8 @@ public class JDOHelper {
         // <instance-lifecycle-listener listener="..." classes="..."/>
 
         // get the "listener" attribute's value
-        Node listenerAtt = attributes.getNamedItem(JDOConstants.INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_LISTENER);
+        Node listenerAtt =
+            attributes.getNamedItem(JDOConstants.INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_LISTENER);
         if (listenerAtt == null) {
           throw new JDOFatalUserException(MSG.msg("EXC_MissingListenerAttribute", url));
         }
@@ -1448,7 +1478,8 @@ public class JDOHelper {
         listener = JDOConstants.PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER + listener;
 
         // get the "classes" attribute's value (optional)
-        Node classesAtt = attributes.getNamedItem(JDOConstants.INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_CLASSES);
+        Node classesAtt =
+            attributes.getNamedItem(JDOConstants.INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_CLASSES);
         String value = classesAtt == null ? "" : classesAtt.getNodeValue().trim();
 
         p.put(listener, value);
@@ -1631,7 +1662,8 @@ public class JDOHelper {
     ArrayList<Throwable> exceptions = new ArrayList<>();
     int numberOfJDOEnhancers = 0;
     try {
-      Enumeration<URL> urls = getResources(loader, JDOConstants.SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
+      Enumeration<URL> urls =
+          getResources(loader, JDOConstants.SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
       if (urls != null) {
         while (urls.hasMoreElements()) {
           numberOfJDOEnhancers++;
