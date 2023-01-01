@@ -1744,8 +1744,7 @@ public class JDOHelper {
         throw (IllegalAccessException) cause;
       } else if (cause instanceof InvocationTargetException) {
         throw (InvocationTargetException) cause;
-      }
-      else {
+      } else {
         throw new RuntimeException(cause);
       }
     }
