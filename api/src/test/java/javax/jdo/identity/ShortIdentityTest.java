@@ -22,6 +22,8 @@
 
 package javax.jdo.identity;
 
+import static org.junit.Assert.assertNotEquals;
+
 import javax.jdo.JDONullIdentityException;
 import javax.jdo.util.BatchTestRunner;
 
@@ -43,7 +45,7 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
     ShortIdentity c2 = new ShortIdentity(Object.class, (short) 1);
     ShortIdentity c3 = new ShortIdentity(Object.class, (short) 2);
     assertEquals("Equal ShortIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ShortIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ShortIdentity instances compare equal", c1, c3);
   }
 
   public void testShortConstructor() {
@@ -51,7 +53,7 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
     ShortIdentity c2 = new ShortIdentity(Object.class, Short.valueOf((short) 1));
     ShortIdentity c3 = new ShortIdentity(Object.class, Short.valueOf((short) 2));
     assertEquals("Equal ShortIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ShortIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ShortIdentity instances compare equal", c1, c3);
   }
 
   public void testToStringConstructor() {
@@ -65,7 +67,7 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
     ShortIdentity c2 = new ShortIdentity(Object.class, "1");
     ShortIdentity c3 = new ShortIdentity(Object.class, "2");
     assertEquals("Equal ShortIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ShortIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ShortIdentity instances compare equal", c1, c3);
   }
 
   public void testIllegalStringConstructor() {
@@ -89,10 +91,10 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
     assertEquals("Equal ShortIdentity instances compare not equal.", c2, sc2);
     assertEquals("Equal ShortIdentity instances compare not equal.", sc1, c2);
     assertEquals("Equal ShortIdentity instances compare not equal.", sc2, c1);
-    assertFalse("Not equal ShortIdentity instances compare equal.", c1.equals(sc3));
-    assertFalse("Not equal ShortIdentity instances compare equal.", sc1.equals(c3));
-    assertFalse("Not equal ShortIdentity instances compare equal.", sc1.equals(sc3));
-    assertFalse("Not equal ShortIdentity instances compare equal.", sc3.equals(sc1));
+    assertNotEquals("Not equal ShortIdentity instances compare equal.", c1, sc3);
+    assertNotEquals("Not equal ShortIdentity instances compare equal.", sc1, c3);
+    assertNotEquals("Not equal ShortIdentity instances compare equal.", sc1, sc3);
+    assertNotEquals("Not equal ShortIdentity instances compare equal.", sc3, sc1);
   }
 
   public void testGetKeyAsObjectPrimitive() {
