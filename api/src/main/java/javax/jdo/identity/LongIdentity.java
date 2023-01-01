@@ -105,6 +105,7 @@ public class LongIdentity extends SingleFieldIdentity<LongIdentity> {
    * @param obj the other object
    * @return true if both objects represent the same object id
    */
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
@@ -150,6 +151,7 @@ public class LongIdentity extends SingleFieldIdentity<LongIdentity> {
    * @return the key as an Object
    * @since 2.0
    */
+  @Override
   protected Object createKeyAsObject() {
     return Long.valueOf(key);
   }
@@ -159,6 +161,7 @@ public class LongIdentity extends SingleFieldIdentity<LongIdentity> {
    *
    * @param out the output
    */
+  @Override
   public void writeExternal(ObjectOutput out) throws IOException {
     super.writeExternal(out);
     out.writeLong(key);
@@ -169,6 +172,7 @@ public class LongIdentity extends SingleFieldIdentity<LongIdentity> {
    *
    * @param in the input
    */
+  @Override
   public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
     super.readExternal(in);
     key = in.readLong();

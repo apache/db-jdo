@@ -76,6 +76,7 @@ public class StringIdentity extends SingleFieldIdentity<StringIdentity> {
    * @param obj the other object
    * @return true if both objects represent the same object id
    */
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
@@ -107,6 +108,7 @@ public class StringIdentity extends SingleFieldIdentity<StringIdentity> {
    *
    * @param out the output
    */
+  @Override
   public void writeExternal(ObjectOutput out) throws IOException {
     super.writeExternal(out);
     out.writeObject(keyAsObject);
@@ -117,6 +119,7 @@ public class StringIdentity extends SingleFieldIdentity<StringIdentity> {
    *
    * @param in the input
    */
+  @Override
   public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
     super.readExternal(in);
     keyAsObject = in.readObject();
