@@ -141,10 +141,10 @@ public class InstanceLifecycleEvent extends java.util.EventObject {
         return target == null
             ? null // preAttach:  no persistent instance yet
             : getSource(); // postAttach:  source is persistent instance
+      default:
+        // for all other events, source is persistent instance
+        return getSource();
     }
-
-    // for all other events, source is persistent instance
-    return getSource();
   }
 
   /**
@@ -163,10 +163,10 @@ public class InstanceLifecycleEvent extends java.util.EventObject {
         return target == null
             ? getSource() // preAttach:  source is detached instance
             : getTarget(); // postAttach:  target is detached instance
+      default:
+        // for all other events, there is no detached instance
+        return null;
     }
-
-    // for all other events, there is no detached instance
-    return null;
   }
 
   /**
