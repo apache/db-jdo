@@ -87,6 +87,8 @@ public class JDOHelper {
   /** The Internationalization message helper. */
   private static final I18NHelper MSG = I18NHelper.getInstance("javax.jdo.Bundle"); // NOI18N
 
+  private static final String EXC_GET_PMF_IOEXCEPTION_RSRC = "EXC_GetPMFIOExceptionRsrc";
+
   /**
    * Creates a map from jdoconfig.xsd element attributes to PMF properties.
    *
@@ -1126,7 +1128,7 @@ public class JDOHelper {
         props.load(in);
       }
     } catch (IOException ioe) {
-      throw new JDOFatalUserException(MSG.msg("EXC_GetPMFIOExceptionRsrc", name), ioe); // NOI18N
+      throw new JDOFatalUserException(MSG.msg(EXC_GET_PMF_IOEXCEPTION_RSRC, name), ioe); // NOI18N
     } finally {
       if (in != null) {
         try {
@@ -1214,7 +1216,7 @@ public class JDOHelper {
     } catch (FactoryConfigurationError e) {
       throw new JDOFatalUserException(MSG.msg("ERR_NoDocumentBuilderFactory"), e);
     } catch (IOException ioe) {
-      throw new JDOFatalUserException(MSG.msg("EXC_GetPMFIOExceptionRsrc", name), ioe); // NOI18N
+      throw new JDOFatalUserException(MSG.msg(EXC_GET_PMF_IOEXCEPTION_RSRC, name), ioe); // NOI18N
     }
 
     // done with reading all config resources;
@@ -1366,7 +1368,7 @@ public class JDOHelper {
       return propertiesByName;
     } catch (IOException ioe) {
       throw new JDOFatalUserException(
-          MSG.msg("EXC_GetPMFIOExceptionRsrc", url.toString()), ioe); // NOI18N
+          MSG.msg(EXC_GET_PMF_IOEXCEPTION_RSRC, url.toString()), ioe); // NOI18N
     } catch (ParserConfigurationException e) {
       throw new JDOFatalInternalException(MSG.msg("EXC_ParserConfigException"), e);
     } catch (SAXParseException e) {
