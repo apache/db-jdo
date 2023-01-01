@@ -1740,9 +1740,14 @@ public class JDOHelper {
           (PrivilegedExceptionAction<Object>) () -> method.invoke(instance, parameters));
     } catch (PrivilegedActionException ex) {
       Exception cause = ex.getException();
-      if (cause instanceof IllegalAccessException) throw (IllegalAccessException) cause;
-      else // if (cause instanceof InvocationTargetException)
-      throw (InvocationTargetException) cause;
+      if (cause instanceof IllegalAccessException) {
+        throw (IllegalAccessException) cause;
+      } else if (cause instanceof InvocationTargetException) {
+        throw (InvocationTargetException) cause;
+      }
+      else {
+        throw new RuntimeException(cause);
+      }
     }
   }
 
