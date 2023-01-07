@@ -21,6 +21,8 @@
  */
 package javax.jdo.identity;
 
+import static org.junit.Assert.assertNotEquals;
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -71,7 +73,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     ObjectIdentity c2 = new ObjectIdentity(Object.class, new IdClass(1));
     ObjectIdentity c3 = new ObjectIdentity(Object.class, new IdClass(2));
     assertEquals("Equal ObjectIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ObjectIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal", c1, c3);
   }
 
   public void testIntegerConstructor() {
@@ -79,7 +81,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     ObjectIdentity c2 = new ObjectIdentity(Object.class, Integer.valueOf(1));
     ObjectIdentity c3 = new ObjectIdentity(Object.class, Integer.valueOf(2));
     assertEquals("Equal ObjectIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ObjectIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal", c1, c3);
   }
 
   public void testLongConstructor() {
@@ -87,7 +89,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     ObjectIdentity c2 = new ObjectIdentity(Object.class, Long.valueOf(1));
     ObjectIdentity c3 = new ObjectIdentity(Object.class, Long.valueOf(2));
     assertEquals("Equal ObjectIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ObjectIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal", c1, c3);
   }
 
   public void testDateConstructor() {
@@ -95,7 +97,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     ObjectIdentity c2 = new ObjectIdentity(Object.class, new Date(1));
     ObjectIdentity c3 = new ObjectIdentity(Object.class, new Date(2));
     assertEquals("Equal ObjectIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ObjectIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal", c1, c3);
   }
 
   public void testLocaleConstructor() {
@@ -103,7 +105,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     ObjectIdentity c2 = new ObjectIdentity(Object.class, Locale.US);
     ObjectIdentity c3 = new ObjectIdentity(Object.class, Locale.GERMANY);
     assertEquals("Equal ObjectIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ObjectIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal", c1, c3);
   }
 
   public void testCurrencyConstructor() {
@@ -112,7 +114,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     ObjectIdentity c2 = new ObjectIdentity(Object.class, Currency.getInstance(Locale.US));
     ObjectIdentity c3 = new ObjectIdentity(Object.class, Currency.getInstance(Locale.GERMANY));
     assertEquals("Equal ObjectIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ObjectIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal", c1, c3);
   }
 
   public void testStringConstructor() {
@@ -123,7 +125,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     ObjectIdentity c3 =
         new ObjectIdentity(Object.class, "javax.jdo.identity.ObjectIdentityTest$IdClass:2");
     assertEquals("Equal ObjectIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ObjectIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal", c1, c3);
   }
 
   public void testToStringConstructor() {
@@ -318,10 +320,10 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     assertEquals("Equal ObjectIdentity instances compare not equal.", c2, sc2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc1, c2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc2, c1);
-    assertFalse("Not equal ObjectIdentity instances compare equal.", c1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(c3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc3.equals(sc1));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", c1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, c3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc3, sc1);
   }
 
   public void testSerializedBigDecimal() {
@@ -336,10 +338,10 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     assertEquals("Equal ObjectIdentity instances compare not equal.", c2, sc2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc1, c2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc2, c1);
-    assertFalse("Not equal ObjectIdentity instances compare equal.", c1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(c3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc3.equals(sc1));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", c1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, c3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc3, sc1);
   }
 
   public void testSerializedCurrency() {
@@ -355,10 +357,10 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     assertEquals("Equal ObjectIdentity instances compare not equal.", c2, sc2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc1, c2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc2, c1);
-    assertFalse("Not equal ObjectIdentity instances compare equal.", c1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(c3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc3.equals(sc1));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", c1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, c3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc3, sc1);
   }
 
   public void testSerializedDate() {
@@ -373,10 +375,10 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     assertEquals("Equal ObjectIdentity instances compare not equal.", c2, sc2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc1, c2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc2, c1);
-    assertFalse("Not equal ObjectIdentity instances compare equal.", c1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(c3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc3.equals(sc1));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", c1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, c3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc3, sc1);
   }
 
   public void testSerializedLocale() {
@@ -391,10 +393,10 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     assertEquals("Equal ObjectIdentity instances compare not equal.", c2, sc2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc1, c2);
     assertEquals("Equal ObjectIdentity instances compare not equal.", sc2, c1);
-    assertFalse("Not equal ObjectIdentity instances compare equal.", c1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(c3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc1.equals(sc3));
-    assertFalse("Not equal ObjectIdentity instances compare equal.", sc3.equals(sc1));
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", c1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, c3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc1, sc3);
+    assertNotEquals("Not equal ObjectIdentity instances compare equal.", sc3, sc1);
   }
 
   public void testGetKeyAsObject() {

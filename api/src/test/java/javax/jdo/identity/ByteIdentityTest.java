@@ -22,6 +22,8 @@
 
 package javax.jdo.identity;
 
+import static org.junit.Assert.assertNotEquals;
+
 import javax.jdo.JDONullIdentityException;
 import javax.jdo.util.BatchTestRunner;
 
@@ -43,7 +45,7 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
     ByteIdentity c2 = new ByteIdentity(Object.class, (byte) 1);
     ByteIdentity c3 = new ByteIdentity(Object.class, (byte) 2);
     assertEquals("Equal ByteIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ByteIdentity instances compare equal", c1, c3);
   }
 
   public void testByteConstructor() {
@@ -51,7 +53,7 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
     ByteIdentity c2 = new ByteIdentity(Object.class, Byte.valueOf((byte) 1));
     ByteIdentity c3 = new ByteIdentity(Object.class, Byte.valueOf((byte) 2));
     assertEquals("Equal ByteIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ByteIdentity instances compare equal", c1, c3);
   }
 
   public void testToStringConstructor() {
@@ -65,7 +67,7 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
     ByteIdentity c2 = new ByteIdentity(Object.class, "1");
     ByteIdentity c3 = new ByteIdentity(Object.class, "2");
     assertEquals("Equal ByteIdentity instances compare not equal.", c1, c2);
-    assertFalse("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+    assertNotEquals("Not equal ByteIdentity instances compare equal", c1, c3);
   }
 
   public void testIllegalStringConstructor() {
@@ -89,10 +91,10 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
     assertEquals("Equal ByteIdentity instances compare not equal.", c2, sc2);
     assertEquals("Equal ByteIdentity instances compare not equal.", sc1, c2);
     assertEquals("Equal ByteIdentity instances compare not equal.", sc2, c1);
-    assertFalse("Not equal ByteIdentity instances compare equal.", c1.equals(sc3));
-    assertFalse("Not equal ByteIdentity instances compare equal.", sc1.equals(c3));
-    assertFalse("Not equal ByteIdentity instances compare equal.", sc1.equals(sc3));
-    assertFalse("Not equal ByteIdentity instances compare equal.", sc3.equals(sc1));
+    assertNotEquals("Not equal ByteIdentity instances compare equal.", c1, sc3);
+    assertNotEquals("Not equal ByteIdentity instances compare equal.", sc1, c3);
+    assertNotEquals("Not equal ByteIdentity instances compare equal.", sc1, sc3);
+    assertNotEquals("Not equal ByteIdentity instances compare equal.", sc3, sc1);
   }
 
   public void testGetKeyAsObjectPrimitive() {
