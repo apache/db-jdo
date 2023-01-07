@@ -748,10 +748,8 @@ public class JDOHelper implements Constants {
             pmfClassName = getClassNameFromURL(urls.nextElement());
 
             // return the implementation that is valid.
-            PersistenceManagerFactory pmf =
-                invokeGetPersistenceManagerFactoryOnImplementation(
-                    pmfClassName, overrides, props, pmfClassLoader);
-            return pmf;
+            return invokeGetPersistenceManagerFactoryOnImplementation(
+                pmfClassName, overrides, props, pmfClassLoader);
 
           } catch (Throwable ex) {
 
@@ -1657,8 +1655,7 @@ public class JDOHelper implements Constants {
           try {
             String enhancerClassName = getClassNameFromURL(urls.nextElement());
             Class<?> enhancerClass = forName(enhancerClassName, true, ctrLoader);
-            JDOEnhancer enhancer = (JDOEnhancer) enhancerClass.newInstance();
-            return enhancer;
+            return (JDOEnhancer) enhancerClass.newInstance();
           } catch (Throwable ex) {
             // remember exceptions from failed enhancer invocations
             exceptions.add(ex);
