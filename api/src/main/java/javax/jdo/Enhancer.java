@@ -85,6 +85,11 @@ public class Enhancer {
   /** Class file suffix */
   private static final String CLASS_FILE_SUFFIX = ".class"; // NOI18N
 
+  private static final String MSG_ENHANCER_CLASS_PATH = "MSG_EnhancerClassPath";
+  private static final String MSG_ENHANCER_PROCESSING = "MSG_EnhancerProcessing";
+  private static final String MSG_ENHANCER_PROPERTY = "MSG_EnhancerProperty";
+  private static final String MSG_ENHANCER_USAGE = "MSG_EnhancerUsage";
+
   /** Error indicator */
   private boolean error = false;
   /** If set, process parameters, print usage, and exit. */
@@ -155,11 +160,11 @@ public class Enhancer {
       properties = enhancer.getProperties();
       addVerboseMessage("MSG_EnhancerClass", enhancer.getClass().getName()); // NOI18N
       addVerboseMessage(
-          "MSG_EnhancerProperty",
+          MSG_ENHANCER_PROPERTY,
           PROPERTY_ENHANCER_VENDOR_NAME, // NOI18N
           properties.getProperty(PROPERTY_ENHANCER_VENDOR_NAME));
       addVerboseMessage(
-          "MSG_EnhancerProperty",
+          MSG_ENHANCER_PROPERTY,
           PROPERTY_ENHANCER_VERSION_NUMBER, // NOI18N
           properties.getProperty(PROPERTY_ENHANCER_VERSION_NUMBER));
       Set<Entry<Object, Object>> props = properties.entrySet();
@@ -167,7 +172,7 @@ public class Enhancer {
         if (!(PROPERTY_ENHANCER_VENDOR_NAME.equals(entry.getKey())
             || PROPERTY_ENHANCER_VERSION_NUMBER.equals(entry.getKey()))) {
           addVerboseMessage(
-              "MSG_EnhancerProperty",
+              MSG_ENHANCER_PROPERTY,
               (String) entry.getKey(), // NOI18N
               (String) entry.getValue());
         }
@@ -222,11 +227,11 @@ public class Enhancer {
     parseFiles(fileNames.toArray(new String[fileNames.size()]), true, recurse);
     loader = prepareClassLoader(classPath);
     if (error) {
-      addErrorMessage(msg.msg("MSG_EnhancerUsage")); // NOI18N
+      addErrorMessage(msg.msg(MSG_ENHANCER_USAGE)); // NOI18N
       exit(ENHANCER_USAGE_ERROR); // error exit
     }
     if (printAndExit) {
-      addVerboseMessage("MSG_EnhancerUsage"); // NOI18N
+      addVerboseMessage(MSG_ENHANCER_USAGE); // NOI18N
       exit(0); // good exit
     }
   }
@@ -250,19 +255,19 @@ public class Enhancer {
         if (arg.startsWith("-")) { // NOI18N
           String option = arg.substring(1);
           if ("help".equals(option)) { // NOI18N
-            addVerboseMessage("MSG_EnhancerProcessing", "-help"); // NOI18N
+            addVerboseMessage(MSG_ENHANCER_PROCESSING, "-help"); // NOI18N
             setPrintAndExit();
           } else if ("h".equals(option)) { // NOI18N
-            addVerboseMessage("MSG_EnhancerProcessing", "-h"); // NOI18N
+            addVerboseMessage(MSG_ENHANCER_PROCESSING, "-h"); // NOI18N
             setPrintAndExit();
           } else if ("v".equals(option)) { // NOI18N
-            addVerboseMessage("MSG_EnhancerProcessing", "-v"); // NOI18N
+            addVerboseMessage(MSG_ENHANCER_PROCESSING, "-v"); // NOI18N
             verbose = true;
           } else if ("verbose".equals(option)) { // NOI18N
-            addVerboseMessage("MSG_EnhancerProcessing", "-verbose"); // NOI18N
+            addVerboseMessage(MSG_ENHANCER_PROCESSING, "-verbose"); // NOI18N
             verbose = true;
           } else if ("pu".equals(option)) { // NOI18N
-            if (hasNextArgument("MSG_EnhancerProcessing", "-pu", i, args.length)) { // NOI18N
+            if (hasNextArgument(MSG_ENHANCER_PROCESSING, "-pu", i, args.length)) { // NOI18N
               String puName = args[++i];
               addVerboseMessage("MSG_EnhancerPersistenceUnitName", puName); // NOI18N
               persistenceUnitNames.add(puName);
@@ -270,24 +275,24 @@ public class Enhancer {
               setError();
             }
           } else if ("cp".equals(option)) { // NOI18N
-            if (hasNextArgument("MSG_EnhancerProcessing", "-cp", i, args.length)) { // NOI18N
+            if (hasNextArgument(MSG_ENHANCER_PROCESSING, "-cp", i, args.length)) { // NOI18N
               classPath = args[++i];
-              addVerboseMessage("MSG_EnhancerClassPath", classPath); // NOI18N
+              addVerboseMessage(MSG_ENHANCER_CLASS_PATH, classPath); // NOI18N
             } else {
               setError();
             }
           } else if ("d".equals(option)) { // NOI18N
-            if (hasNextArgument("MSG_EnhancerProcessing", "-d", i, args.length)) { // NOI18N
+            if (hasNextArgument(MSG_ENHANCER_PROCESSING, "-d", i, args.length)) { // NOI18N
               directoryName = args[++i];
               addVerboseMessage("MSG_EnhancerOutputDirectory", directoryName); // NOI18N
             } else {
               setError();
             }
           } else if ("checkonly".equals(option)) { // NOI18N
-            addVerboseMessage("MSG_EnhancerProcessing", "-checkonly"); // NOI18N
+            addVerboseMessage(MSG_ENHANCER_PROCESSING, "-checkonly"); // NOI18N
             checkOnly = true;
           } else if ("r".equals(option)) { // NOI18N
-            addVerboseMessage("MSG_EnhancerProcessing", "-r"); // NOI18N
+            addVerboseMessage(MSG_ENHANCER_PROCESSING, "-r"); // NOI18N
             recurse = true;
           } else {
             setError();
@@ -386,7 +391,7 @@ public class Enhancer {
       URI uri = file.toURI();
       try {
         URL url = uri.toURL();
-        addVerboseMessage("MSG_EnhancerClassPath", url.toString());
+        addVerboseMessage(MSG_ENHANCER_CLASS_PATH, url.toString());
         urls.add(url);
       } catch (MalformedURLException e) {
         setError();

@@ -32,6 +32,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "installSchema")
 public class InstallSchema extends AbstractTCKMojo {
 
+  private static final String DB_DIR_NAME = "database";
+
   /** Location of TCK generated output. */
   @Parameter(property = "jdo.tck.doInstallSchema", defaultValue = "true", required = true)
   private boolean doInstallSchema;
@@ -84,14 +86,14 @@ public class InstallSchema extends AbstractTCKMojo {
 
     for (String db : dbs) {
       // Create directory for db logs
-      String dbLogsDirName = logsDirectory + File.separator + "database";
+      String dbLogsDirName = logsDirectory + File.separator + DB_DIR_NAME;
       File dbLogsDir = new File(dbLogsDirName);
       if (!(dbLogsDir.exists()) && !(dbLogsDir.mkdirs())) {
         throw new MojoExecutionException("Failed to create directory " + dbLogsDir);
       }
 
       // Create database directory
-      String dbDirName = buildDirectory + File.separator + "database" + File.separator + db;
+      String dbDirName = buildDirectory + File.separator + DB_DIR_NAME + File.separator + db;
       File dbDir = new File(dbDirName);
       if (!(dbDir.exists()) && !(dbDir.mkdirs())) {
         throw new MojoExecutionException("Failed to create directory " + dbDir);
@@ -125,7 +127,7 @@ public class InstallSchema extends AbstractTCKMojo {
           String outFileName =
               logsDirectory
                   + File.separator
-                  + "database"
+                  + DB_DIR_NAME
                   + File.separator
                   + db
                   + "_"

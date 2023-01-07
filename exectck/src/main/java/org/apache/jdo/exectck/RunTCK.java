@@ -45,6 +45,8 @@ public class RunTCK extends AbstractTCKMojo {
   private static final String TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY = "failGoal";
   private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly";
 
+  private static final String CLASSES_DIR_NAME = "classes";
+
   private static final String TCK_LOG_FILE = "tck.txt";
 
   /** To skip running of TCK, set to false. */
@@ -208,14 +210,14 @@ public class RunTCK extends AbstractTCKMojo {
         "-DPMFProperties="
             + buildDirectory
             + File.separator
-            + "classes"
+            + CLASSES_DIR_NAME
             + File.separator
             + pmfProperties);
     propsString.add(
         "-DPMF2Properties="
             + buildDirectory
             + File.separator
-            + "classes"
+            + CLASSES_DIR_NAME
             + File.separator
             + pmfProperties);
     String excludeFile = confDirectory + File.separator + exclude;
@@ -246,7 +248,7 @@ public class RunTCK extends AbstractTCKMojo {
           new File(
               buildDirectory
                   + File.separator
-                  + "classes"
+                  + CLASSES_DIR_NAME
                   + File.separator
                   + "META-INF"
                   + File.separator
@@ -257,7 +259,7 @@ public class RunTCK extends AbstractTCKMojo {
           new File(
               buildDirectory
                   + File.separator
-                  + "classes"
+                  + CLASSES_DIR_NAME
                   + File.separator
                   + "META-INF"
                   + File.separator
@@ -316,7 +318,7 @@ public class RunTCK extends AbstractTCKMojo {
         try {
           URL url1 = enhancedDir.toURI().toURL();
           URL url2 =
-              new File(buildDirectory + File.separator + "classes" + File.separator)
+              new File(buildDirectory + File.separator + CLASSES_DIR_NAME + File.separator)
                   .toURI()
                   .toURL();
           if (runtckVerbose) {
@@ -390,7 +392,7 @@ public class RunTCK extends AbstractTCKMojo {
           propsFileData.append("\njavax.jdo.option.Mapping=standard" + mapping);
           propsFileData.append("\n");
           String pmfPropsWriteFileName =
-              buildDirectory + File.separator + "classes" + File.separator + pmfProperties;
+              buildDirectory + File.separator + CLASSES_DIR_NAME + File.separator + pmfProperties;
           try {
             BufferedWriter out = new BufferedWriter(new FileWriter(pmfPropsWriteFileName, false));
             out.write(defaultPropsContents + propsFileData.toString());

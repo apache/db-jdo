@@ -40,34 +40,40 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "enhance")
 public class Enhance extends AbstractTCKMojo {
 
+  private static final String APACHE_DIR_NAME = "apache";
+  private static final String JDO_DIR_NAME = "jdo";
+  private static final String ENHANCED_DIR_NAME = "enhanced";
+  private static final String ORG_DIR_NAME = "org";
+  private static final String TCK_DIR_NAME = "tck";
+
   private static final String[] PC_PKG_DIRS = {
-    "org"
+    ORG_DIR_NAME
         + File.separator
-        + "apache"
+        + APACHE_DIR_NAME
         + File.separator
-        + "jdo"
+        + JDO_DIR_NAME
         + File.separator
-        + "tck"
+        + TCK_DIR_NAME
         + File.separator
         + "api"
         + File.separator,
-    "org"
+    ORG_DIR_NAME
         + File.separator
-        + "apache"
+        + APACHE_DIR_NAME
         + File.separator
-        + "jdo"
+        + JDO_DIR_NAME
         + File.separator
-        + "tck"
+        + TCK_DIR_NAME
         + File.separator
         + "pc"
         + File.separator,
-    "org"
+    ORG_DIR_NAME
         + File.separator
-        + "apache"
+        + APACHE_DIR_NAME
         + File.separator
-        + "jdo"
+        + JDO_DIR_NAME
         + File.separator
-        + "tck"
+        + TCK_DIR_NAME
         + File.separator
         + "models"
         + File.separator
@@ -100,7 +106,7 @@ public class Enhance extends AbstractTCKMojo {
     resetFileContent(implLogFile);
 
     // Create directory for enhancer logs
-    String enhanceLogsDirName = logsDirectory + File.separator + "enhanced";
+    String enhanceLogsDirName = logsDirectory + File.separator + ENHANCED_DIR_NAME;
     File enhancerLogsDir = new File(enhanceLogsDirName);
     if (!(enhancerLogsDir.exists()) && !(enhancerLogsDir.mkdirs())) {
       throw new MojoExecutionException("Failed to create directory " + enhancerLogsDir);
@@ -114,7 +120,12 @@ public class Enhance extends AbstractTCKMojo {
 
     // Create directory for enhanced classes
     String enhancedDirName =
-        buildDirectory + File.separator + "enhanced" + File.separator + impl + File.separator;
+        buildDirectory
+            + File.separator
+            + ENHANCED_DIR_NAME
+            + File.separator
+            + impl
+            + File.separator;
     File enhancedDir = new File(enhancedDirName);
     if (!(enhancedDir.exists()) && !(enhancedDir.mkdirs())) {
       throw new MojoExecutionException("Failed to create directory " + enhancedDir);
@@ -261,7 +272,7 @@ public class Enhance extends AbstractTCKMojo {
       String testLogFilename =
           logsDirectory
               + File.separator
-              + "enhanced"
+              + ENHANCED_DIR_NAME
               + File.separator
               + idname
               + "-"

@@ -96,6 +96,8 @@ public class JDOImplHelper extends java.lang.Object {
   /** The Internationalization message helper. */
   private static final I18NHelper msg = I18NHelper.getInstance("javax.jdo.Bundle"); // NOI18N
 
+  private static final String ERR_NULL_CLASS = "ERR_NullClass";
+
   /** The DateFormat pattern. */
   private static String dateFormatPattern;
 
@@ -402,7 +404,7 @@ public class JDOImplHelper extends java.lang.Object {
       byte[] fieldFlags,
       Class<?> persistenceCapableSuperclass,
       PersistenceCapable pc) {
-    if (pcClass == null) throw new NullPointerException(msg.msg("ERR_NullClass")); // NOI18N
+    if (pcClass == null) throw new NullPointerException(msg.msg(ERR_NULL_CLASS)); // NOI18N
     Meta meta = new Meta(fieldNames, fieldTypes, fieldFlags, persistenceCapableSuperclass, pc);
     registeredClasses.put(pcClass, meta);
 
@@ -468,7 +470,7 @@ public class JDOImplHelper extends java.lang.Object {
    * @since 1.0.2
    */
   public void unregisterClass(Class<?> pcClass) {
-    if (pcClass == null) throw new NullPointerException(msg.msg("ERR_NullClass")); // NOI18N
+    if (pcClass == null) throw new NullPointerException(msg.msg(ERR_NULL_CLASS)); // NOI18N
     SecurityManager sec = LegacyJava.getSecurityManager();
     if (sec != null) {
       // throws exception if caller is not authorized
@@ -556,7 +558,7 @@ public class JDOImplHelper extends java.lang.Object {
    */
   public static void registerAuthorizedStateManagerClass(Class<?> smClass)
       throws SecurityException {
-    if (smClass == null) throw new NullPointerException(msg.msg("ERR_NullClass")); // NOI18N
+    if (smClass == null) throw new NullPointerException(msg.msg(ERR_NULL_CLASS)); // NOI18N
     SecurityManager sm = LegacyJava.getSecurityManager();
     if (sm != null) {
       sm.checkPermission(JDOPermission.SET_STATE_MANAGER);
