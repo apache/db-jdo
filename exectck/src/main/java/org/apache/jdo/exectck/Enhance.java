@@ -167,7 +167,7 @@ public class Enhance extends AbstractTCKMojo {
                   new File(enhancedDirName + File.separator + idtype + File.separator + pkgName);
               FileUtils.copyFile(fromFile, toFile);
             } else {
-              continue; // idtype not in pathname, do not copy
+              // idtype not in pathname, do not copy
             }
           } catch (IOException ex) {
             throw new MojoExecutionException(

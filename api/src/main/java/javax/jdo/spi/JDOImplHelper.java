@@ -1065,7 +1065,7 @@ public class JDOImplHelper extends java.lang.Object {
       try {
         if (si.makeDirty(pc, fieldName)) return;
       } catch (Throwable t) {
-        continue; // ignore exceptions from errant StateInterrogations
+        // ignore exceptions from errant StateInterrogations
       }
     }
   }
