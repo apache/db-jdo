@@ -74,13 +74,6 @@ public class RunTCK extends AbstractTCKMojo {
   @Parameter(property = "jdo.tck.skipJndi", defaultValue = "false", required = true)
   private boolean skipJndi;
 
-  /** Location of implementation log file. */
-  @Parameter(
-      property = "jdo.tck.impl.logfile",
-      defaultValue = "${user.dir}/datanucleus.txt",
-      required = true)
-  private String implLogFile;
-
   /** Name of file in src/conf containing pmf properties. */
   @Parameter(property = "jdo.tck.pmfproperties", defaultValue = "jdori-pmf.properties")
   private String pmfProperties;

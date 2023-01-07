@@ -24,7 +24,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -85,15 +84,6 @@ public class Enhance extends AbstractTCKMojo {
       defaultValue = "${basedir}/src/main/resources",
       required = true)
   private String srcDirectory;
-
-  /** List of identity types to be tested. */
-  @Parameter(
-      property = "jdo.tck.identitytypes",
-      defaultValue = "applicationidentity datastoreidentity",
-      required = true)
-  private String identitytypes;
-
-  private Collection<String> idtypes;
 
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
