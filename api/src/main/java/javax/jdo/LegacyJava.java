@@ -46,9 +46,9 @@ import javax.jdo.spi.JDOPermission;
  */
 public class LegacyJava {
 
-  private static final boolean isSecurityDeprecated = initIsSecurityDeprecated();
+  private static final boolean IS_SECURITY_DEPRECATED = initIsSecurityDeprecated();
   private static final Method getSecurityManager =
-      isSecurityDeprecated ? null : findMethod("java.lang.System", "getSecurityManager");
+      IS_SECURITY_DEPRECATED ? null : findMethod("java.lang.System", "getSecurityManager");
   private static final SecurityManager securityManager =
       getSecurityManager == null ? null : new SecurityManager();
   public static final Method doPrivilegedAction =
@@ -90,7 +90,7 @@ public class LegacyJava {
    * @return 'true' if the security manager is deprecated or does not exist.
    */
   public static boolean isSecurityManagerDeprecated() {
-    return isSecurityDeprecated;
+    return IS_SECURITY_DEPRECATED;
   }
 
   /**
@@ -137,7 +137,7 @@ public class LegacyJava {
   }
 
   private static Method findMethod(String cName, String mName, Class<?>... args) {
-    if (isSecurityDeprecated) {
+    if (IS_SECURITY_DEPRECATED) {
       return null;
     }
     try {
@@ -149,7 +149,7 @@ public class LegacyJava {
   }
 
   private static Method findMethod(String cName, String mName, String cNameAlt, Class<?>... args) {
-    if (isSecurityDeprecated) {
+    if (IS_SECURITY_DEPRECATED) {
       cName = cNameAlt;
     }
     try {
