@@ -190,7 +190,7 @@ public class Enhancer {
       if (numberOfFiles != 0) {
         enhancer.addFiles(jdoFileNames.toArray(new String[numberOfFiles]));
       }
-      if (0 < jarFileNames.size()) {
+      if (!jarFileNames.isEmpty()) {
         for (String jarFileName : jarFileNames) {
           enhancer.addJar(jarFileName);
         }
