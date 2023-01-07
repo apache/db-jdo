@@ -42,7 +42,11 @@ public class SetIsolationLevel extends JDO_Test implements Constants {
   /** All specified isolation levels */
   private static final String[] isolationLevels =
       new String[] {
-        TX_READ_UNCOMMITTED, TX_READ_COMMITTED, TX_REPEATABLE_READ, TX_SNAPSHOT, TX_SERIALIZABLE
+        Constants.TX_READ_UNCOMMITTED,
+        Constants.TX_READ_COMMITTED,
+        Constants.TX_REPEATABLE_READ,
+        Constants.TX_SNAPSHOT,
+        Constants.TX_SERIALIZABLE
       };
 
   /**
@@ -123,7 +127,7 @@ public class SetIsolationLevel extends JDO_Test implements Constants {
   /** */
   private void setIsolationLevel(String level) {
     Transaction tx = pm.currentTransaction();
-    String property = PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
+    String property = Constants.PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
     if (isSupported(property)) {
       tx.setIsolationLevel(level);
       String actual = tx.getIsolationLevel();

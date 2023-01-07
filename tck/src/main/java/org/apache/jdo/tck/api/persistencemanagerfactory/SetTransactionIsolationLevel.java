@@ -45,7 +45,11 @@ public class SetTransactionIsolationLevel extends JDO_Test implements Constants 
   /** All specified transaction isolation levels */
   private static final String[] transactionIsolationLevels =
       new String[] {
-        TX_READ_UNCOMMITTED, TX_READ_COMMITTED, TX_REPEATABLE_READ, TX_SNAPSHOT, TX_SERIALIZABLE
+        Constants.TX_READ_UNCOMMITTED,
+        Constants.TX_READ_COMMITTED,
+        Constants.TX_REPEATABLE_READ,
+        Constants.TX_SNAPSHOT,
+        Constants.TX_SERIALIZABLE
       };
 
   private PersistenceManagerFactory pmf2;
@@ -87,7 +91,7 @@ public class SetTransactionIsolationLevel extends JDO_Test implements Constants 
   /** Set TransactionIsolationLevel to all values. */
   public void testTransactionIsolationLevelReadCommittedSupported() {
     // this test depends on setUp initializing supportedOptions
-    String readCommitted = PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED;
+    String readCommitted = Constants.PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED;
     // make sure read committed is supported
     if (!isSupported(readCommitted)) {
       appendMessage(
@@ -103,9 +107,9 @@ public class SetTransactionIsolationLevel extends JDO_Test implements Constants 
     pmf.setConnectionURL(getPMFProperty(CONNECTION_URL_PROP));
     pmf.setConnectionUserName(getPMFProperty(CONNECTION_USERNAME_PROP));
     pmf.setConnectionPassword(getPMFProperty(CONNECTION_PASSWORD_PROP));
-    pmf.setConnectionDriverName(getPMFProperty(PROPERTY_CONNECTION_DRIVER_NAME));
+    pmf.setConnectionDriverName(getPMFProperty(Constants.PROPERTY_CONNECTION_DRIVER_NAME));
 
-    String property = PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
+    String property = Constants.PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
     try {
       pmf.setTransactionIsolationLevel(level);
 
@@ -142,9 +146,9 @@ public class SetTransactionIsolationLevel extends JDO_Test implements Constants 
   }
   /** */
   private void getPMFsetTransactionIsolationLevelFromProperties(String level) {
-    String property = PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
+    String property = Constants.PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
     Map<Object, Object> modifiedProps = new HashMap<>(PMFPropertiesObject);
-    modifiedProps.put(PROPERTY_TRANSACTION_ISOLATION_LEVEL, level);
+    modifiedProps.put(Constants.PROPERTY_TRANSACTION_ISOLATION_LEVEL, level);
     if (isSupported(property)) {
       pmf2 = JDOHelper.getPersistenceManagerFactory(modifiedProps);
       String actual = pmf2.getTransactionIsolationLevel();

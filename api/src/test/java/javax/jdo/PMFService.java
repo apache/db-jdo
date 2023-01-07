@@ -41,10 +41,11 @@ public class PMFService implements Constants {
   private static void setPMFProperties(
       PersistenceManagerFactory pmf, Map<?, ?> props, Map<?, ?> overrides) {
 
-    pmf.setConnectionDriverName((String) props.get(PROPERTY_CONNECTION_DRIVER_NAME));
+    pmf.setConnectionDriverName((String) props.get(Constants.PROPERTY_CONNECTION_DRIVER_NAME));
 
     if (overrides != null) {
-      pmf.setConnectionDriverName((String) overrides.get(PROPERTY_CONNECTION_DRIVER_NAME));
+      pmf.setConnectionDriverName(
+          (String) overrides.get(Constants.PROPERTY_CONNECTION_DRIVER_NAME));
     }
   }
 }

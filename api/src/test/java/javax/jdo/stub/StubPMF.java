@@ -421,107 +421,107 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
   void setProperty(String name, Object value) {
     String val = value.toString();
 
-    if (name.equals(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS)) {
+    if (name.equals(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS)) {
       setPersistenceManagerFactoryClass(val);
       return;
     }
-    if (name.equals(PROPERTY_CONNECTION_DRIVER_NAME)) {
+    if (name.equals(Constants.PROPERTY_CONNECTION_DRIVER_NAME)) {
       setConnectionDriverName(val);
       return;
     }
-    if (name.equals(PROPERTY_CONNECTION_FACTORY_NAME)) {
+    if (name.equals(Constants.PROPERTY_CONNECTION_FACTORY_NAME)) {
       setConnectionFactoryName(val);
       return;
     }
-    if (name.equals(PROPERTY_CONNECTION_FACTORY2_NAME)) {
+    if (name.equals(Constants.PROPERTY_CONNECTION_FACTORY2_NAME)) {
       setConnectionFactory2Name(val);
       return;
     }
-    if (name.equals(PROPERTY_CONNECTION_PASSWORD)) {
+    if (name.equals(Constants.PROPERTY_CONNECTION_PASSWORD)) {
       setConnectionPassword(val);
       return;
     }
-    if (name.equals(PROPERTY_CONNECTION_URL)) {
+    if (name.equals(Constants.PROPERTY_CONNECTION_URL)) {
       setConnectionURL(val);
       return;
     }
-    if (name.equals(PROPERTY_CONNECTION_USER_NAME)) {
+    if (name.equals(Constants.PROPERTY_CONNECTION_USER_NAME)) {
       setConnectionUserName(val);
       return;
     }
-    if (name.equals(PROPERTY_IGNORE_CACHE)) {
+    if (name.equals(Constants.PROPERTY_IGNORE_CACHE)) {
       setCopyOnAttach(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS)) {
+    if (name.equals(Constants.PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS)) {
       setDatastoreReadTimeoutMillis(Integer.parseInt(val));
       return;
     }
-    if (name.equals(PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS)) {
+    if (name.equals(Constants.PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS)) {
       setDatastoreWriteTimeoutMillis(Integer.parseInt(val));
       return;
     }
-    if (name.equals(PROPERTY_DETACH_ALL_ON_COMMIT)) {
+    if (name.equals(Constants.PROPERTY_DETACH_ALL_ON_COMMIT)) {
       setDetachAllOnCommit(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_IGNORE_CACHE)) {
+    if (name.equals(Constants.PROPERTY_IGNORE_CACHE)) {
       setIgnoreCache(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_MAPPING)) {
+    if (name.equals(Constants.PROPERTY_MAPPING)) {
       setMapping(val);
       return;
     }
-    if (name.equals(PROPERTY_MULTITHREADED)) {
+    if (name.equals(Constants.PROPERTY_MULTITHREADED)) {
       setMultithreaded(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_NAME)) {
+    if (name.equals(Constants.PROPERTY_NAME)) {
       setName(val);
       return;
     }
-    if (name.equals(PROPERTY_NONTRANSACTIONAL_READ)) {
+    if (name.equals(Constants.PROPERTY_NONTRANSACTIONAL_READ)) {
       setNontransactionalRead(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_NONTRANSACTIONAL_WRITE)) {
+    if (name.equals(Constants.PROPERTY_NONTRANSACTIONAL_WRITE)) {
       setNontransactionalWrite(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_OPTIMISTIC)) {
+    if (name.equals(Constants.PROPERTY_OPTIMISTIC)) {
       setOptimistic(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_PERSISTENCE_UNIT_NAME)) {
+    if (name.equals(Constants.PROPERTY_PERSISTENCE_UNIT_NAME)) {
       setPersistenceUnitName(val);
       return;
     }
-    if (name.equals(PROPERTY_READONLY)) {
+    if (name.equals(Constants.PROPERTY_READONLY)) {
       setReadOnly(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_RESTORE_VALUES)) {
+    if (name.equals(Constants.PROPERTY_RESTORE_VALUES)) {
       setRestoreValues(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_RETAIN_VALUES)) {
+    if (name.equals(Constants.PROPERTY_RETAIN_VALUES)) {
       setRetainValues(Boolean.parseBoolean(val));
       return;
     }
-    if (name.equals(PROPERTY_SERVER_TIME_ZONE_ID)) {
+    if (name.equals(Constants.PROPERTY_SERVER_TIME_ZONE_ID)) {
       setServerTimeZoneID(val);
       return;
     }
-    if (name.equals(PROPERTY_TRANSACTION_ISOLATION_LEVEL)) {
+    if (name.equals(Constants.PROPERTY_TRANSACTION_ISOLATION_LEVEL)) {
       setTransactionIsolationLevel(val);
       return;
     }
-    if (name.equals(PROPERTY_TRANSACTION_TYPE)) {
+    if (name.equals(Constants.PROPERTY_TRANSACTION_TYPE)) {
       setTransactionType(val);
       return;
     }
-    if (name.equals(PROPERTY_SPI_RESOURCE_NAME)) {
+    if (name.equals(Constants.PROPERTY_SPI_RESOURCE_NAME)) {
       setSpiResourceName(val);
       return;
     }
