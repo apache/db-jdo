@@ -355,8 +355,6 @@ public class RunTCK extends AbstractTCKMojo {
           cfgPropsString.add(
               "-Djdo.tck.mapping.companyfactory="
                   + getTrimmedPropertyValue(props, "jdo.tck.mapping.companyfactory"));
-          //                    innerPropsString.append("-Djdo.tck.description=\"" +
-          //                            props.getProperty("jdo.tck.description") + "\"");
           cfgPropsString.add(
               "-Djdo.tck.requiredOptions="
                   + getTrimmedPropertyValue(props, "jdo.tck.requiredOptions"));
