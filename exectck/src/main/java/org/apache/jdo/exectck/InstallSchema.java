@@ -79,7 +79,7 @@ public class InstallSchema extends AbstractTCKMojo {
             + "\n  databases: "
             + dbs.toString()
             + "\n  identity types: "
-            + identitytypes.toString());
+            + identitytypes);
 
     System.setProperty("java.security.manager", "default");
     System.setProperty("java.security.policy", confDirectory + File.separator + "security.policy");

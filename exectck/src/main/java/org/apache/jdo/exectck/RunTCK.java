@@ -198,7 +198,7 @@ public class RunTCK extends AbstractTCKMojo {
             + dbs.toString()
             + "\n"
             + " identitytypes: "
-            + identitytypes.toString());
+            + identitytypes);
 
     // Properties required for test execution
     System.out.println("cleanupaftertest is " + cleanupaftertest);
