@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.security.PrivilegedAction;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
@@ -227,14 +228,31 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
   public void testStringDateConstructor() {
     SimpleDateFormat usDateFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a", Locale.US);
     helper.registerDateFormat(usDateFormat);
-    new ObjectIdentity(Object.class, "java.util.Date:Jan 01, 1970 00:00:00 AM");
+
+    // construct date instance for 1.1.1970 00:00:00
+    Calendar cal = Calendar.getInstance(Locale.US);
+    cal.clear();
+    cal.set(1970, 0, 1, 0, 0, 0);
+    Date date = cal.getTime();
+
+    ObjectIdentity c1 = new ObjectIdentity(Object.class, "java.util.Date:Jan 01, 1970 00:00:00 AM");
+    ObjectIdentity c2 = new ObjectIdentity(Object.class, date);
+    assertEquals("Equal ObjectIdentity instances compare not equal.", 0, c1.compareTo(c2));
+
     helper.registerDateFormat(DateFormat.getDateTimeInstance());
   }
 
   public void testStringDefaultDateConstructor() {
     DateFormat dateFormat = DateFormat.getDateTimeInstance();
-    String rightNow = dateFormat.format(new Date());
-    new ObjectIdentity(Object.class, "java.util.Date:" + rightNow);
+    Calendar cal = Calendar.getInstance();
+    // nullify millisecond field since dateFormat does not take milliseconds into account
+    cal.clear(Calendar.MILLISECOND);
+    Date date = cal.getTime();
+    String dateAsString = dateFormat.format(date);
+
+    ObjectIdentity c1 = new ObjectIdentity(Object.class, "java.util.Date:" + dateAsString);
+    ObjectIdentity c2 = new ObjectIdentity(Object.class, date);
+    assertEquals("Equal ObjectIdentity instances compare not equal.", 0, c1.compareTo(c2));
   }
 
   public void testBadStringDateConstructor() {
@@ -273,7 +291,8 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
 
   public void testStringCurrencyConstructor() {
     if (!isClassLoadable("java.util.Currency")) return;
-    new ObjectIdentity(Object.class, "java.util.Currency:USD");
+    ObjectIdentity c1 = new ObjectIdentity(Object.class, "java.util.Currency:USD");
+    assertEquals("Expected USD currency", Currency.getInstance("USD"), c1.getKeyAsObject());
   }
 
   public void testBadStringCurrencyConstructor() {

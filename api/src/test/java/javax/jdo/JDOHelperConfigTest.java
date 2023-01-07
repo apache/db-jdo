@@ -247,6 +247,8 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     URLClassLoader loader = new JDOConfigTestClassLoader(getClass().getClassLoader(), classpaths);
     Map<Object, Object> actual =
         JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+    assertNotNull("Anonymous PMF with no properties returned null", actual);
+    assertEquals("Anonymous PMF with no properties had properties", 0, actual.size());
   }
 
   public void testPositive02_GetAnonymousPMFWithNoProperties() throws IOException {
@@ -258,7 +260,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     Map<Object, Object> properties =
         JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
     assertNotNull("Anonymous PMF with no properties returned null", properties);
-    assertTrue("Anonymous PMF with no properties had properties", properties.size() == 0);
+    assertEquals("Anonymous PMF with no properties had properties", 0, properties.size());
   }
 
   public void testPositive03_PMF0_PMFClassNameViaServicesLookup() throws IOException {
