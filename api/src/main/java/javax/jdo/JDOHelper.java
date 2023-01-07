@@ -1119,6 +1119,7 @@ public class JDOHelper implements Constants {
         try {
           in.close();
         } catch (IOException ioe) {
+          // this code block is deliberately left empty,
         }
       }
     }
@@ -1518,6 +1519,7 @@ public class JDOHelper implements Constants {
         try {
           in.close();
         } catch (IOException ioe) {
+          // this code block is deliberately left empty,
         }
     }
   }
