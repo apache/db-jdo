@@ -87,7 +87,7 @@ public class JDOHelper implements Constants {
   /** The Internationalization message helper. */
   private static final I18NHelper MSG = I18NHelper.getInstance("javax.jdo.Bundle"); // NOI18N
 
-  private static final String EXC_GET_PMF_IOEXCEPTION_RSRC = "EXC_GetPMFIOExceptionRsrc";
+  private static final String EXC_GET_PMF_IOEXCEPTION_RSRC = "EXC_GetPMFIOExceptionRsrc"; // NOI18N
 
   /**
    * Creates a map from jdoconfig.xsd element attributes to PMF properties.
@@ -1117,7 +1117,7 @@ public class JDOHelper implements Constants {
         try {
           in.close();
         } catch (IOException ioe) {
-          // this code block is deliberately left empty,
+          // this code block is deliberately left empty
         }
       }
     }

@@ -40,11 +40,11 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "enhance")
 public class Enhance extends AbstractTCKMojo {
 
-  private static final String APACHE_DIR_NAME = "apache";
-  private static final String JDO_DIR_NAME = "jdo";
-  private static final String ENHANCED_DIR_NAME = "enhanced";
-  private static final String ORG_DIR_NAME = "org";
-  private static final String TCK_DIR_NAME = "tck";
+  private static final String APACHE_DIR_NAME = "apache"; // NOI18N
+  private static final String JDO_DIR_NAME = "jdo"; // NOI18N
+  private static final String ENHANCED_DIR_NAME = "enhanced"; // NOI18N
+  private static final String ORG_DIR_NAME = "org"; // NOI18N
+  private static final String TCK_DIR_NAME = "tck"; // NOI18N
 
   private static final String[] PC_PKG_DIRS = {
     ORG_DIR_NAME

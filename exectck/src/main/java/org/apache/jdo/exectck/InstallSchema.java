@@ -32,7 +32,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "installSchema")
 public class InstallSchema extends AbstractTCKMojo {
 
-  private static final String DB_DIR_NAME = "database";
+  private static final String DB_DIR_NAME = "database"; // NOI18N
 
   /** Location of TCK generated output. */
   @Parameter(property = "jdo.tck.doInstallSchema", defaultValue = "true", required = true)

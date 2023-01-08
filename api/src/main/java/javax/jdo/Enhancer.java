@@ -85,10 +85,10 @@ public class Enhancer {
   /** Class file suffix */
   private static final String CLASS_FILE_SUFFIX = ".class"; // NOI18N
 
-  private static final String MSG_ENHANCER_CLASS_PATH = "MSG_EnhancerClassPath";
-  private static final String MSG_ENHANCER_PROCESSING = "MSG_EnhancerProcessing";
-  private static final String MSG_ENHANCER_PROPERTY = "MSG_EnhancerProperty";
-  private static final String MSG_ENHANCER_USAGE = "MSG_EnhancerUsage";
+  private static final String MSG_ENHANCER_CLASS_PATH = "MSG_EnhancerClassPath"; // NOI18N
+  private static final String MSG_ENHANCER_PROCESSING = "MSG_EnhancerProcessing"; // NOI18N
+  private static final String MSG_ENHANCER_PROPERTY = "MSG_EnhancerProperty"; // NOI18N
+  private static final String MSG_ENHANCER_USAGE = "MSG_EnhancerUsage"; // NOI18N
 
   /** Error indicator */
   private boolean error = false;
@@ -161,7 +161,7 @@ public class Enhancer {
       addVerboseMessage("MSG_EnhancerClass", enhancer.getClass().getName()); // NOI18N
       addVerboseMessage(
           MSG_ENHANCER_PROPERTY,
-          PROPERTY_ENHANCER_VENDOR_NAME, // NOI18N
+          PROPERTY_ENHANCER_VENDOR_NAME,
           properties.getProperty(PROPERTY_ENHANCER_VENDOR_NAME));
       addVerboseMessage(
           MSG_ENHANCER_PROPERTY,

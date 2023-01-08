@@ -96,7 +96,7 @@ public class JDOImplHelper extends java.lang.Object {
   /** The Internationalization message helper. */
   private static final I18NHelper msg = I18NHelper.getInstance("javax.jdo.Bundle"); // NOI18N
 
-  private static final String ERR_NULL_CLASS = "ERR_NullClass";
+  private static final String ERR_NULL_CLASS = "ERR_NullClass"; // NOI18N
 
   /** The DateFormat pattern. */
   private static String dateFormatPattern;

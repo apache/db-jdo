@@ -41,13 +41,13 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "runtck")
 public class RunTCK extends AbstractTCKMojo {
 
-  private static final String TCK_PARAM_ON_FAILURE_FAIL_FAST = "failFast";
-  private static final String TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY = "failGoal";
-  private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly";
+  private static final String TCK_PARAM_ON_FAILURE_FAIL_FAST = "failFast"; // NOI18N
+  private static final String TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY = "failGoal"; // NOI18N
+  private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly"; // NOI18N
 
-  private static final String CLASSES_DIR_NAME = "classes";
+  private static final String CLASSES_DIR_NAME = "classes"; // NOI18N
 
-  private static final String TCK_LOG_FILE = "tck.txt";
+  private static final String TCK_LOG_FILE = "tck.txt"; // NOI18N
 
   /** To skip running of TCK, set to false. */
   @Parameter(property = "jdo.tck.doRunTCK", defaultValue = "true", required = true)
