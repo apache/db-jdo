@@ -317,8 +317,8 @@
                 <configuration>
                     <source>8</source>
                     <doclint>none</doclint>
-                    <doctitle>${project.name} ${pom.currentVersion}</doctitle>
-                    <windowtitle>${project.name} ${pom.currentVersion}</windowtitle>
+                    <doctitle>${project.name} ${project.version}</doctitle>
+                    <windowtitle>${project.name} ${project.version}</windowtitle>
                 </configuration>
             </plugin>
             <plugin>

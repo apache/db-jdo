@@ -47,12 +47,10 @@ public class PropertyUtils {
    * @param list HashSet to contain String items
    */
   public static void string2List(String names, List<String> list) {
-    //        System.out.println("names are " + names);
     String[] items = names.split("[ \t\n]");
     for (String s : items) {
       list.add(s);
     }
-    //        System.out.println("List names are " + list.toString());
   }
 
   /**
@@ -72,12 +70,10 @@ public class PropertyUtils {
 
       Properties props = new Properties();
       FileInputStream fis = null;
-      //            System.out.println("confName is " + confName);
       try {
         fis = new FileInputStream(confName);
         props.load(fis);
         mapping = props.getProperty("jdo.tck.mapping");
-        //                System.out.println("Next mapping is " + mapping);
       } catch (IOException e) {
         e.printStackTrace();
         try {

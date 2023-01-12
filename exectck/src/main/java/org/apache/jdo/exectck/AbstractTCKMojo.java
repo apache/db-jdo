@@ -29,7 +29,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 public abstract class AbstractTCKMojo extends AbstractMojo {
 
   /** Filename of log4j2 configuration file. */
-  protected final String LOG4J2_CONFIGURATION = "log4j2.xml";
+  protected static final String LOG4J2_CONFIGURATION = "log4j2.xml";
 
   /** Location of TCK generated output. */
   @Parameter(

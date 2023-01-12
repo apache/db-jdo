@@ -90,7 +90,7 @@ public class EnhancerTest extends AbstractTest {
   public void testInvalidOption() {
     // invoke enhancer with an invalid option
     InvocationResult result = invokeEnhancer("-poo");
-    assertEquals("Wrong return value ", ENHANCER_USAGE_ERROR, result.getExitValue());
+    assertEquals("Wrong return value ", Constants.ENHANCER_USAGE_ERROR, result.getExitValue());
     String errorString = result.getErrorString();
     assertTrue(
         "Expected Usage message from err:\n" + errorString,
@@ -109,13 +109,13 @@ public class EnhancerTest extends AbstractTest {
             + outputString
             + " with err:\n"
             + errorString,
-        outputString.contains(PROPERTY_ENHANCER_VENDOR_NAME));
+        outputString.contains(Constants.PROPERTY_ENHANCER_VENDOR_NAME));
     assertTrue(
         "Expected MockEnhancer version message from out:\n"
             + outputString
             + " with err:\n"
             + errorString,
-        outputString.contains(PROPERTY_ENHANCER_VERSION_NUMBER));
+        outputString.contains(Constants.PROPERTY_ENHANCER_VERSION_NUMBER));
     assertTrue(
         "Expected MockEnhancer vendor message from out:\n"
             + outputString

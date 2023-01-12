@@ -118,13 +118,20 @@ public class JDOImplHelperTest extends AbstractTest {
 
   /** */
   public void testNewInstance() {
-    // TBD: test JDOImplHelper.newInstance(pcClass, sm) and
-    // JDOImplHelper.newInstance(pcClass, sm, oid)
+    JDOImplHelper implHelper = JDOImplHelper.getInstance();
+    PersistenceCapable pcpoint = implHelper.newInstance(PCPoint.class, null);
+    assertTrue("instance created by newInstance is not a PCPoint", pcpoint instanceof PCPoint);
+
+    pcpoint = implHelper.newInstance(PCPoint.class, null, null);
+    assertTrue("instance created by newInstance is not a PCPoint", pcpoint instanceof PCPoint);
   }
 
   /** */
   public void testNewObjectIdInstance() {
-    // TBD: test JDOImplHelper.newObjectIdInstance(pcClass)
+    JDOImplHelper implHelper = JDOImplHelper.getInstance();
+    Object oid = implHelper.newObjectIdInstance(PCPoint.class);
+    // The ObjrectId od javax.jdo.pc.PCPoint is always null
+    assertNull("Unexpected non-null ObjectId of PCPoint", oid);
   }
 
   /** */

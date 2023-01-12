@@ -106,6 +106,7 @@ public class ByteIdentity extends SingleFieldIdentity<ByteIdentity> {
    * @param obj the other object
    * @return true if both objects represent the same object id
    */
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
@@ -138,6 +139,7 @@ public class ByteIdentity extends SingleFieldIdentity<ByteIdentity> {
    * @return the key as an Object
    * @since 2.0
    */
+  @Override
   protected Object createKeyAsObject() {
     return Byte.valueOf(key);
   }
@@ -147,6 +149,7 @@ public class ByteIdentity extends SingleFieldIdentity<ByteIdentity> {
    *
    * @param out the output
    */
+  @Override
   public void writeExternal(ObjectOutput out) throws IOException {
     super.writeExternal(out);
     out.writeByte(key);
@@ -157,6 +160,7 @@ public class ByteIdentity extends SingleFieldIdentity<ByteIdentity> {
    *
    * @param in the input
    */
+  @Override
   public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
     super.readExternal(in);
     key = in.readByte();

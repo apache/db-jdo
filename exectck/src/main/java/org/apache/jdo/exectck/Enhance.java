@@ -24,7 +24,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -41,34 +40,40 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "enhance")
 public class Enhance extends AbstractTCKMojo {
 
+  private static final String APACHE_DIR_NAME = "apache"; // NOI18N
+  private static final String JDO_DIR_NAME = "jdo"; // NOI18N
+  private static final String ENHANCED_DIR_NAME = "enhanced"; // NOI18N
+  private static final String ORG_DIR_NAME = "org"; // NOI18N
+  private static final String TCK_DIR_NAME = "tck"; // NOI18N
+
   private static final String[] PC_PKG_DIRS = {
-    "org"
+    ORG_DIR_NAME
         + File.separator
-        + "apache"
+        + APACHE_DIR_NAME
         + File.separator
-        + "jdo"
+        + JDO_DIR_NAME
         + File.separator
-        + "tck"
+        + TCK_DIR_NAME
         + File.separator
         + "api"
         + File.separator,
-    "org"
+    ORG_DIR_NAME
         + File.separator
-        + "apache"
+        + APACHE_DIR_NAME
         + File.separator
-        + "jdo"
+        + JDO_DIR_NAME
         + File.separator
-        + "tck"
+        + TCK_DIR_NAME
         + File.separator
         + "pc"
         + File.separator,
-    "org"
+    ORG_DIR_NAME
         + File.separator
-        + "apache"
+        + APACHE_DIR_NAME
         + File.separator
-        + "jdo"
+        + JDO_DIR_NAME
         + File.separator
-        + "tck"
+        + TCK_DIR_NAME
         + File.separator
         + "models"
         + File.separator
@@ -86,15 +91,6 @@ public class Enhance extends AbstractTCKMojo {
       required = true)
   private String srcDirectory;
 
-  /** List of identity types to be tested. */
-  @Parameter(
-      property = "jdo.tck.identitytypes",
-      defaultValue = "applicationidentity datastoreidentity",
-      required = true)
-  private String identitytypes;
-
-  private Collection<String> idtypes;
-
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
 
@@ -110,7 +106,7 @@ public class Enhance extends AbstractTCKMojo {
     resetFileContent(implLogFile);
 
     // Create directory for enhancer logs
-    String enhanceLogsDirName = logsDirectory + File.separator + "enhanced";
+    String enhanceLogsDirName = logsDirectory + File.separator + ENHANCED_DIR_NAME;
     File enhancerLogsDir = new File(enhanceLogsDirName);
     if (!(enhancerLogsDir.exists()) && !(enhancerLogsDir.mkdirs())) {
       throw new MojoExecutionException("Failed to create directory " + enhancerLogsDir);
@@ -124,7 +120,12 @@ public class Enhance extends AbstractTCKMojo {
 
     // Create directory for enhanced classes
     String enhancedDirName =
-        buildDirectory + File.separator + "enhanced" + File.separator + impl + File.separator;
+        buildDirectory
+            + File.separator
+            + ENHANCED_DIR_NAME
+            + File.separator
+            + impl
+            + File.separator;
     File enhancedDir = new File(enhancedDirName);
     if (!(enhancedDir.exists()) && !(enhancedDir.mkdirs())) {
       throw new MojoExecutionException("Failed to create directory " + enhancedDir);
@@ -166,7 +167,7 @@ public class Enhance extends AbstractTCKMojo {
                   new File(enhancedDirName + File.separator + idtype + File.separator + pkgName);
               FileUtils.copyFile(fromFile, toFile);
             } else {
-              continue; // idtype not in pathname, do not copy
+              // idtype not in pathname, do not copy
             }
           } catch (IOException ex) {
             throw new MojoExecutionException(
@@ -271,7 +272,7 @@ public class Enhance extends AbstractTCKMojo {
       String testLogFilename =
           logsDirectory
               + File.separator
-              + "enhanced"
+              + ENHANCED_DIR_NAME
               + File.separator
               + idname
               + "-"

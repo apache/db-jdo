@@ -71,47 +71,70 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     Map<String, String> expected = new HashMap<>();
 
     if (!excludeName) {
-      expected.put(PROPERTY_NAME, PMF_ATTRIBUTE_NAME + "." + testVariant);
+      expected.put(Constants.PROPERTY_NAME, Constants.PMF_ATTRIBUTE_NAME + "." + testVariant);
     }
     if (!excludePUName) {
       expected.put(
-          PROPERTY_PERSISTENCE_UNIT_NAME, PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME + "." + testVariant);
+          Constants.PROPERTY_PERSISTENCE_UNIT_NAME,
+          Constants.PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME + "." + testVariant);
     }
 
     expected.put(
-        PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_ATTRIBUTE_CLASS + "." + testVariant);
+        Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
+        Constants.PMF_ATTRIBUTE_CLASS + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_DRIVER_NAME, PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME + "." + testVariant);
+        Constants.PROPERTY_CONNECTION_DRIVER_NAME,
+        Constants.PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_FACTORY_NAME,
-        PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME + "." + testVariant);
+        Constants.PROPERTY_CONNECTION_FACTORY_NAME,
+        Constants.PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_FACTORY2_NAME,
-        PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME + "." + testVariant);
+        Constants.PROPERTY_CONNECTION_FACTORY2_NAME,
+        Constants.PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_PASSWORD, PMF_ATTRIBUTE_CONNECTION_PASSWORD + "." + testVariant);
-    expected.put(PROPERTY_CONNECTION_URL, PMF_ATTRIBUTE_CONNECTION_URL + "." + testVariant);
+        Constants.PROPERTY_CONNECTION_PASSWORD,
+        Constants.PMF_ATTRIBUTE_CONNECTION_PASSWORD + "." + testVariant);
     expected.put(
-        PROPERTY_CONNECTION_USER_NAME, PMF_ATTRIBUTE_CONNECTION_USER_NAME + "." + testVariant);
-    expected.put(PROPERTY_IGNORE_CACHE, PMF_ATTRIBUTE_IGNORE_CACHE + "." + testVariant);
-    expected.put(PROPERTY_MAPPING, PMF_ATTRIBUTE_MAPPING + "." + testVariant);
-    expected.put(PROPERTY_MULTITHREADED, PMF_ATTRIBUTE_MULTITHREADED + "." + testVariant);
+        Constants.PROPERTY_CONNECTION_URL,
+        Constants.PMF_ATTRIBUTE_CONNECTION_URL + "." + testVariant);
     expected.put(
-        PROPERTY_NONTRANSACTIONAL_READ, PMF_ATTRIBUTE_NONTRANSACTIONAL_READ + "." + testVariant);
+        Constants.PROPERTY_CONNECTION_USER_NAME,
+        Constants.PMF_ATTRIBUTE_CONNECTION_USER_NAME + "." + testVariant);
     expected.put(
-        PROPERTY_NONTRANSACTIONAL_WRITE, PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE + "." + testVariant);
-    expected.put(PROPERTY_OPTIMISTIC, PMF_ATTRIBUTE_OPTIMISTIC + "." + testVariant);
-    expected.put(PROPERTY_RESTORE_VALUES, PMF_ATTRIBUTE_RESTORE_VALUES + "." + testVariant);
-    expected.put(PROPERTY_RETAIN_VALUES, PMF_ATTRIBUTE_RETAIN_VALUES + "." + testVariant);
+        Constants.PROPERTY_IGNORE_CACHE, Constants.PMF_ATTRIBUTE_IGNORE_CACHE + "." + testVariant);
+    expected.put(Constants.PROPERTY_MAPPING, Constants.PMF_ATTRIBUTE_MAPPING + "." + testVariant);
     expected.put(
-        PROPERTY_DETACH_ALL_ON_COMMIT, PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT + "." + testVariant);
+        Constants.PROPERTY_MULTITHREADED,
+        Constants.PMF_ATTRIBUTE_MULTITHREADED + "." + testVariant);
     expected.put(
-        PROPERTY_SERVER_TIME_ZONE_ID, PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID + "." + testVariant);
+        Constants.PROPERTY_NONTRANSACTIONAL_READ,
+        Constants.PMF_ATTRIBUTE_NONTRANSACTIONAL_READ + "." + testVariant);
+    expected.put(
+        Constants.PROPERTY_NONTRANSACTIONAL_WRITE,
+        Constants.PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE + "." + testVariant);
+    expected.put(
+        Constants.PROPERTY_OPTIMISTIC, Constants.PMF_ATTRIBUTE_OPTIMISTIC + "." + testVariant);
+    expected.put(
+        Constants.PROPERTY_RESTORE_VALUES,
+        Constants.PMF_ATTRIBUTE_RESTORE_VALUES + "." + testVariant);
+    expected.put(
+        Constants.PROPERTY_RETAIN_VALUES,
+        Constants.PMF_ATTRIBUTE_RETAIN_VALUES + "." + testVariant);
+    expected.put(
+        Constants.PROPERTY_DETACH_ALL_ON_COMMIT,
+        Constants.PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT + "." + testVariant);
+    expected.put(
+        Constants.PROPERTY_SERVER_TIME_ZONE_ID,
+        Constants.PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID + "." + testVariant);
 
     // listeners
     for (int i = 0; i < listenerCount; i++) {
       expected.put(
-          PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER + "listener." + testVariant + ".listener" + i,
+          Constants.PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER
+              + "listener."
+              + testVariant
+              + ".listener"
+              + i,
           "classes." + testVariant + ".classes" + i);
     }
 
@@ -198,7 +221,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
             vendorSpecificPropertyCount,
             excludeName,
             excludePUName);
-    String name = testVariantName == null ? null : expected.get(PROPERTY_NAME);
+    String name = testVariantName == null ? null : expected.get(Constants.PROPERTY_NAME);
     Map<Object, Object> actual = JDOHelper.getPropertiesFromJdoconfig(name, loader);
 
     assertNotNull("No properties found", actual);
@@ -246,7 +269,10 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         };
     URLClassLoader loader = new JDOConfigTestClassLoader(getClass().getClassLoader(), classpaths);
     Map<Object, Object> actual =
-        JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+        JDOHelper.getPropertiesFromJdoconfig(
+            Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+    assertNotNull("Anonymous PMF with no properties returned null", actual);
+    assertEquals("Anonymous PMF with no properties had properties", 0, actual.size());
   }
 
   public void testPositive02_GetAnonymousPMFWithNoProperties() throws IOException {
@@ -256,9 +282,10 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive02/");
 
     Map<Object, Object> properties =
-        JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+        JDOHelper.getPropertiesFromJdoconfig(
+            Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
     assertNotNull("Anonymous PMF with no properties returned null", properties);
-    assertTrue("Anonymous PMF with no properties had properties", properties.size() == 0);
+    assertEquals("Anonymous PMF with no properties had properties", 0, properties.size());
   }
 
   public void testPositive03_PMF0_PMFClassNameViaServicesLookup() throws IOException {
@@ -307,7 +334,8 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
 
     Map<String, String> expected = prepareInitialExpectedMap("positive06.pmf0", 2, 0, true, true);
     Map<Object, Object> actual =
-        JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+        JDOHelper.getPropertiesFromJdoconfig(
+            Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
     assertNotNull("No properties found", actual);
     assertEqualProperties(expected, actual);
@@ -321,7 +349,8 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
 
     Map<String, String> expected = prepareInitialExpectedMap("positive07.pmf0", 2, 0, true, false);
     Map<Object, Object> actual =
-        JDOHelper.getPropertiesFromJdoconfig(ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+        JDOHelper.getPropertiesFromJdoconfig(
+            Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
     assertNotNull("No properties found", actual);
     assertEqualProperties(expected, actual);

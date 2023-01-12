@@ -41,11 +41,13 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "runtck")
 public class RunTCK extends AbstractTCKMojo {
 
-  private static final String TCK_PARAM_ON_FAILURE_FAIL_FAST = "failFast";
-  private static final String TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY = "failGoal";
-  private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly";
+  private static final String TCK_PARAM_ON_FAILURE_FAIL_FAST = "failFast"; // NOI18N
+  private static final String TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY = "failGoal"; // NOI18N
+  private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly"; // NOI18N
 
-  private static final String TCK_LOG_FILE = "tck.txt";
+  private static final String CLASSES_DIR_NAME = "classes"; // NOI18N
+
+  private static final String TCK_LOG_FILE = "tck.txt"; // NOI18N
 
   /** To skip running of TCK, set to false. */
   @Parameter(property = "jdo.tck.doRunTCK", defaultValue = "true", required = true)
@@ -73,13 +75,6 @@ public class RunTCK extends AbstractTCKMojo {
   /** To skip jndi PMF Tests set to true. */
   @Parameter(property = "jdo.tck.skipJndi", defaultValue = "false", required = true)
   private boolean skipJndi;
-
-  /** Location of implementation log file. */
-  @Parameter(
-      property = "jdo.tck.impl.logfile",
-      defaultValue = "${user.dir}/datanucleus.txt",
-      required = true)
-  private String implLogFile;
 
   /** Name of file in src/conf containing pmf properties. */
   @Parameter(property = "jdo.tck.pmfproperties", defaultValue = "jdori-pmf.properties")
@@ -203,7 +198,7 @@ public class RunTCK extends AbstractTCKMojo {
             + dbs.toString()
             + "\n"
             + " identitytypes: "
-            + identitytypes.toString());
+            + identitytypes);
 
     // Properties required for test execution
     System.out.println("cleanupaftertest is " + cleanupaftertest);
@@ -215,14 +210,14 @@ public class RunTCK extends AbstractTCKMojo {
         "-DPMFProperties="
             + buildDirectory
             + File.separator
-            + "classes"
+            + CLASSES_DIR_NAME
             + File.separator
             + pmfProperties);
     propsString.add(
         "-DPMF2Properties="
             + buildDirectory
             + File.separator
-            + "classes"
+            + CLASSES_DIR_NAME
             + File.separator
             + pmfProperties);
     String excludeFile = confDirectory + File.separator + exclude;
@@ -253,7 +248,7 @@ public class RunTCK extends AbstractTCKMojo {
           new File(
               buildDirectory
                   + File.separator
-                  + "classes"
+                  + CLASSES_DIR_NAME
                   + File.separator
                   + "META-INF"
                   + File.separator
@@ -264,7 +259,7 @@ public class RunTCK extends AbstractTCKMojo {
           new File(
               buildDirectory
                   + File.separator
-                  + "classes"
+                  + CLASSES_DIR_NAME
                   + File.separator
                   + "META-INF"
                   + File.separator
@@ -323,7 +318,7 @@ public class RunTCK extends AbstractTCKMojo {
         try {
           URL url1 = enhancedDir.toURI().toURL();
           URL url2 =
-              new File(buildDirectory + File.separator + "classes" + File.separator)
+              new File(buildDirectory + File.separator + CLASSES_DIR_NAME + File.separator)
                   .toURI()
                   .toURL();
           if (runtckVerbose) {
@@ -360,8 +355,6 @@ public class RunTCK extends AbstractTCKMojo {
           cfgPropsString.add(
               "-Djdo.tck.mapping.companyfactory="
                   + getTrimmedPropertyValue(props, "jdo.tck.mapping.companyfactory"));
-          //                    innerPropsString.append("-Djdo.tck.description=\"" +
-          //                            props.getProperty("jdo.tck.description") + "\"");
           cfgPropsString.add(
               "-Djdo.tck.requiredOptions="
                   + getTrimmedPropertyValue(props, "jdo.tck.requiredOptions"));
@@ -397,7 +390,7 @@ public class RunTCK extends AbstractTCKMojo {
           propsFileData.append("\njavax.jdo.option.Mapping=standard" + mapping);
           propsFileData.append("\n");
           String pmfPropsWriteFileName =
-              buildDirectory + File.separator + "classes" + File.separator + pmfProperties;
+              buildDirectory + File.separator + CLASSES_DIR_NAME + File.separator + pmfProperties;
           try {
             BufferedWriter out = new BufferedWriter(new FileWriter(pmfPropsWriteFileName, false));
             out.write(defaultPropsContents + propsFileData.toString());
