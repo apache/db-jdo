@@ -107,6 +107,7 @@ public class InstanceLifecycleEvent extends java.util.EventObject {
    * @see #getDetachedInstance()
    * @see "Section 12.15, Java Data Objects 2.0 Specification"
    */
+  @Override
   public Object getSource() {
     return super.getSource();
   }
