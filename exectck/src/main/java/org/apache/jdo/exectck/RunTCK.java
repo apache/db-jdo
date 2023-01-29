@@ -383,7 +383,7 @@ public class RunTCK extends AbstractTCKMojo {
           runonce = (runonce == null) ? "false" : runonce;
 
           // Add Mapping and schemaname to properties file
-          StringBuffer propsFileData = new StringBuffer();
+          StringBuilder propsFileData = new StringBuilder();
           propsFileData.append("\n### Properties below added by maven 2 goal RunTCK.jdori");
           propsFileData.append("\njavax.jdo.mapping.Schema=" + idtype + mapping);
           mapping = (mapping.equals("0")) ? "" : mapping;

@@ -29,7 +29,7 @@ public class Help extends AbstractMojo {
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
 
-    StringBuffer msg = new StringBuffer();
+    StringBuilder msg = new StringBuilder();
 
     msg.append("\n\n*** jdo-exectck Maven plugin ***\n\n");
     msg.append("This plugin executes the JDO Technology Compatibility Kit (TCK)\n");

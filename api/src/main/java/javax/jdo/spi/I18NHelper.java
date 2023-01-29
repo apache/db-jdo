@@ -20,7 +20,8 @@ package javax.jdo.spi;
 import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
 import java.text.MessageFormat;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.jdo.JDOFatalInternalException;
@@ -50,10 +51,10 @@ import javax.jdo.LegacyJava;
 public class I18NHelper {
 
   /** Bundles that have already been loaded */
-  private static final Hashtable<String, ResourceBundle> bundles = new Hashtable<>();
+  private static final Map<String, ResourceBundle> bundles = new HashMap<>();
 
   /** Helper instances that have already been created */
-  private static final Hashtable<String, I18NHelper> helpers = new Hashtable<>();
+  private static final Map<String, I18NHelper> helpers = new HashMap<>();
 
   /** The default locale for this VM. */
   private static final Locale locale = Locale.getDefault();

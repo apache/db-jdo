@@ -195,7 +195,7 @@ public class JDOException extends java.lang.RuntimeException {
   public synchronized String toString() {
     int len = nested == null ? 0 : nested.length;
     // calculate approximate size of the String to return
-    StringBuffer sb = new StringBuffer(10 + 100 * len);
+    StringBuilder sb = new StringBuilder(10 + 100 * len);
     sb.append(super.toString());
     // include failed object information
     if (failed != null) {
