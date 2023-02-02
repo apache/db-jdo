@@ -95,7 +95,7 @@ public class Utilities {
   static String readFile(String fileName) throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader(fileName));
     String line = null;
-    StringBuffer stringBuf = new StringBuffer();
+    StringBuilder stringBuf = new StringBuilder();
     String ls = System.getProperty("line.separator");
     while ((line = reader.readLine()) != null) {
       stringBuf.append(line);

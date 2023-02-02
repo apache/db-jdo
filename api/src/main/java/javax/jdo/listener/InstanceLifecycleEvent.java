@@ -56,7 +56,7 @@ public class InstanceLifecycleEvent extends java.util.EventObject {
   private final int eventType;
 
   /** The "other" object associated with the event. */
-  private final Object target;
+  private final transient Object target;
 
   /**
    * Creates a new event object with the specified <code>source</code> and <code>type</code>.
@@ -107,6 +107,7 @@ public class InstanceLifecycleEvent extends java.util.EventObject {
    * @see #getDetachedInstance()
    * @see "Section 12.15, Java Data Objects 2.0 Specification"
    */
+  @Override
   public Object getSource() {
     return super.getSource();
   }
