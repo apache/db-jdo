@@ -48,7 +48,7 @@ public class JDOException extends java.lang.RuntimeException {
    *
    * @serial the failed <code>Object</code>
    */
-  Object failed;
+  transient Object failed;
 
   /** The Internationalization message helper. */
   private static final I18NHelper MSG = I18NHelper.getInstance("javax.jdo.Bundle"); // NOI18N

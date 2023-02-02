@@ -56,7 +56,7 @@ public class InstanceLifecycleEvent extends java.util.EventObject {
   private final int eventType;
 
   /** The "other" object associated with the event. */
-  private final Object target;
+  private final transient Object target;
 
   /**
    * Creates a new event object with the specified <code>source</code> and <code>type</code>.
