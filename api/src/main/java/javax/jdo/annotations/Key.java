@@ -160,7 +160,7 @@ public @interface Key {
    */
   @SuppressWarnings("rawtypes")
   Class<? extends AttributeConverter> converter() default
-      UseDefault.class; // TODO Current JDK doesn't allow "default null"
+      UseDefault.class; // Current JDK doesn't allow "default null"
 
   /**
    * Whether we should disable any converter that was specified as default for this type on the PMF.
@@ -170,7 +170,7 @@ public @interface Key {
    *
    * @return Whether PMF attribute conversion is to be disabled.
    */
-  boolean useDefaultConversion() default false; // TODO Current JDK doesn't allow "default null"
+  boolean useDefaultConversion() default false;
 
   /**
    * Vendor extensions.
