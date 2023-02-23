@@ -1727,7 +1727,7 @@ public class JDOHelper implements Constants {
       } else if (cause instanceof InvocationTargetException) {
         throw (InvocationTargetException) cause;
       } else {
-        throw new RuntimeException(cause);
+        throw new JDOFatalInternalException(MSG.msg("EXC_GetPMFUnexpectedException"), cause);
       }
     }
   }
