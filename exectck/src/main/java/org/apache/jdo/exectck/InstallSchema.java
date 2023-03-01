@@ -13,11 +13,6 @@
  */
 package org.apache.jdo.exectck;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,6 +23,10 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /** Goal that installs a database schema for testing a JDO implementation. */
 @Mojo(name = "installSchema")
@@ -252,12 +251,13 @@ public class InstallSchema extends AbstractTCKMojo {
       executeSQLStatements(url, user, passwd, stmts, outFileName);
     } catch (IOException ex) {
       throw new MojoExecutionException(
-              "*> Failed to load file " + sqlFileName + " " + ex.getLocalizedMessage());
+          "*> Failed to load file " + sqlFileName + " " + ex.getLocalizedMessage());
     }
   }
 
-  private void executeSQLStatements(String url, String user, String passwd, List<String> stmts, String outFileName)
-          throws MojoExecutionException {
+  private void executeSQLStatements(
+      String url, String user, String passwd, List<String> stmts, String outFileName)
+      throws MojoExecutionException {
     try (Connection conn = DriverManager.getConnection(url, user, passwd);
         Statement stmt = conn.createStatement();
         PrintWriter outfile = new PrintWriter(outFileName)) {
