@@ -13,6 +13,11 @@
  */
 package org.apache.jdo.exectck;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,23 +28,17 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 
 /** Goal that installs a database schema for testing a JDO implementation. */
 @Mojo(name = "installSchema")
 public class InstallSchema extends AbstractTCKMojo {
 
   private static final String DB_DIR_NAME = "database"; // NOI18N
-
+  /** List of mappings required by the current configuration */
+  protected Collection<String> mappings = new HashSet<String>();
   /** Location of TCK generated output. */
   @Parameter(property = "jdo.tck.doInstallSchema", defaultValue = "true", required = true)
   private boolean doInstallSchema;
-
-  /** List of mappings required by the current configuration */
-  protected Collection<String> mappings = new HashSet<String>();
 
   @Override
   public void execute() throws MojoExecutionException {
@@ -174,7 +173,7 @@ public class InstallSchema extends AbstractTCKMojo {
       finalizeDB(db, dbDirName);
 
       System.out.println("*> See diagnostic output in " + dbLogsDir + ".");
-      System.out.println("");
+      System.out.println();
     }
   }
 
@@ -250,38 +249,46 @@ public class InstallSchema extends AbstractTCKMojo {
             "*> connection passwd needs to be specified, see file " + sqlFileName);
       }
       List<String> stmts = loader.getStatements();
-
-      try (Connection conn = DriverManager.getConnection(url, user, passwd);
-          Statement stmt = conn.createStatement();
-          PrintWriter outfile = new PrintWriter(outFileName)) {
-        outfile.println("url=" + url + " user=" + user + " password=" + passwd);
-        for (String s : stmts) {
-          try {
-            outfile.print("loading: " + s);
-            stmt.execute(s);
-            outfile.println(" success");
-          } catch (SQLException ex) {
-            outfile.println(" failure " + ex);
-          }
-        }
-      } catch (SQLException ex) {
-        throw new MojoExecutionException(
-            "*> Failed to initialize JDBC connection, "
-                + "url="
-                + url
-                + " user="
-                + user
-                + " password="
-                + passwd
-                + ": "
-                + ex.getLocalizedMessage());
-      } catch (IOException ex) {
-        throw new MojoExecutionException(
-            "*> Failed to write to the outfile " + outFileName + ": " + ex.getLocalizedMessage());
-      }
+      executeSQLStatements(url, user, passwd, stmts, outFileName);
     } catch (IOException ex) {
       throw new MojoExecutionException(
-          "*> Failed to load file " + sqlFileName + " " + ex.getLocalizedMessage());
+              "*> Failed to load file " + sqlFileName + " " + ex.getLocalizedMessage());
+    }
+  }
+
+  private void executeSQLStatements(String url, String user, String passwd, List<String> stmts, String outFileName)
+          throws MojoExecutionException {
+    try (Connection conn = DriverManager.getConnection(url, user, passwd);
+        Statement stmt = conn.createStatement();
+        PrintWriter outfile = new PrintWriter(outFileName)) {
+      outfile.println("url=" + url + " user=" + user + " password=" + passwd);
+      for (String s : stmts) {
+        executeSQLStatement(outfile, stmt, s);
+      }
+    } catch (SQLException ex) {
+      throw new MojoExecutionException(
+          "*> Failed to initialize JDBC connection, "
+              + "url="
+              + url
+              + " user="
+              + user
+              + " password="
+              + passwd
+              + ": "
+              + ex.getLocalizedMessage());
+    } catch (IOException ex) {
+      throw new MojoExecutionException(
+          "*> Failed to write to the outfile " + outFileName + ": " + ex.getLocalizedMessage());
+    }
+  }
+
+  private void executeSQLStatement(PrintWriter outfile, Statement stmt, String s) {
+    try {
+      outfile.print("loading: " + s);
+      stmt.execute(s);
+      outfile.println(" success");
+    } catch (SQLException ex) {
+      outfile.println(" failure " + ex);
     }
   }
 }
