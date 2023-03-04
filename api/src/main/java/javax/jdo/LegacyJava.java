@@ -51,6 +51,11 @@ public class LegacyJava {
       IS_SECURITY_DEPRECATED ? null : findMethod("java.lang.System", "getSecurityManager");
   private static final SecurityManager securityManager =
       getSecurityManager == null ? null : new SecurityManager();
+
+  private LegacyJava() {
+    // This method is deliberately left empty.
+  }
+
   public static final Method doPrivilegedAction =
       findMethod(
           "java.security.AccessController",

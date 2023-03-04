@@ -25,6 +25,10 @@ import java.util.logging.Logger;
 /** Helper class that sets properties required for running the JDO TCK. */
 public class PropertyUtils {
 
+  private PropertyUtils() {
+    // This method is deliberately left empty.
+  }
+
   /**
    * Separates white space separated items from a String into Collection entries Used to collect
    * command line argument lists into a Collection
