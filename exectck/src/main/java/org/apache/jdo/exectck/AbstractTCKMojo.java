@@ -95,7 +95,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
   @Parameter(property = "jdo.tck.dependencyClasspath", defaultValue = "", required = true)
   protected String dependencyClasspath;
 
-  protected Collection<String> dbs = new HashSet<String>();
+  protected Collection<String> dbs = new HashSet<>();
 
   /** List of identity types to be tested. */
   @Parameter(
@@ -104,7 +104,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
       required = true)
   protected String identitytypes;
 
-  protected Collection<String> idtypes = new HashSet<String>();
+  protected Collection<String> idtypes = new HashSet<>();
 
   /**
    * Convenience method to set the cfgList from the file
@@ -113,12 +113,10 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
    * @throws MojoExecutionException If the file could not be found/opened
    */
   protected void setCfgListFromFile() throws MojoExecutionException {
-    try {
+    try (FileInputStream in =
+        new FileInputStream(confDirectory + File.separator + "configurations.list")) {
       Properties defaultProps = new Properties();
-      FileInputStream in =
-          new FileInputStream(confDirectory + File.separator + "configurations.list");
       defaultProps.load(in);
-      in.close();
       cfgList = defaultProps.getProperty("jdo.tck.cfglist");
     } catch (Exception e) {
       // Error finding configurations.list

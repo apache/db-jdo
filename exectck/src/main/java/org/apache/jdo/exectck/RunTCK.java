@@ -154,7 +154,7 @@ public class RunTCK extends AbstractTCKMojo {
     Properties props = null;
     boolean alreadyran = false;
     String runonce = "false";
-    List<String> propsString = new ArrayList<String>();
+    List<String> propsString = new ArrayList<>();
     List<String> command;
     String cpString = null;
     InvocationResult result;
@@ -271,7 +271,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     // Get ClassLoader URLs to build classpath below
     URL[] cpURLs = ((URLClassLoader) Thread.currentThread().getContextClassLoader()).getURLs();
-    ArrayList<URL> urlList = new ArrayList<URL>(Arrays.asList(cpURLs));
+    ArrayList<URL> urlList = new ArrayList<>(Arrays.asList(cpURLs));
 
     // Get contents of pmf properties file to build new file below
     String pmfPropsReadFileName = confDirectory + File.separator + pmfProperties;
@@ -292,7 +292,7 @@ public class RunTCK extends AbstractTCKMojo {
       alreadyran = false;
 
       for (String idtype : idtypes) {
-        List<String> idPropsString = new ArrayList<String>();
+        List<String> idPropsString = new ArrayList<>();
         idPropsString.addAll(propsString);
         idPropsString.add("-Djdo.tck.identitytype=" + idtype);
         String enhancedDirName =
@@ -313,7 +313,7 @@ public class RunTCK extends AbstractTCKMojo {
         }
 
         // Set classpath string: add new entries to URLS from loader
-        ArrayList<URL> cpList = new ArrayList<URL>();
+        ArrayList<URL> cpList = new ArrayList<>();
         cpList.addAll(urlList);
         try {
           URL url1 = enhancedDir.toURI().toURL();
@@ -344,7 +344,7 @@ public class RunTCK extends AbstractTCKMojo {
         }
 
         for (String cfg : cfgs) {
-          List<String> cfgPropsString = new ArrayList<String>();
+          List<String> cfgPropsString = new ArrayList<>();
           cfgPropsString.addAll(idPropsString);
           // Parse conf file and set properties String
           props = PropertyUtils.getProperties(confDirectory + File.separator + cfg);
@@ -400,7 +400,7 @@ public class RunTCK extends AbstractTCKMojo {
           }
 
           // build command line string
-          command = new ArrayList<String>();
+          command = new ArrayList<>();
           command.add("java");
           command.add("-cp");
           command.add(cpString);
@@ -506,7 +506,7 @@ public class RunTCK extends AbstractTCKMojo {
     }
 
     // Output results
-    command = new ArrayList<String>();
+    command = new ArrayList<>();
     command.add("java");
     command.add("-cp");
     command.add(cpString);

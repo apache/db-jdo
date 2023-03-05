@@ -183,7 +183,7 @@ public class Enhance extends AbstractTCKMojo {
         // Copy pc and pa classes from target/classes to enhanced
         String[] extensions = {"class"};
         enhancedIdDirName = enhancedDirName + idtype + File.separator;
-        classes = new ArrayList<String>();
+        classes = new ArrayList<>();
         for (String pcPkgName : PC_PKG_DIRS) {
           // iterator over list of abs name of class files in target/classes
           fi = FileUtils.iterateFiles(new File(classesDirName + pcPkgName), extensions, true);
@@ -220,7 +220,7 @@ public class Enhance extends AbstractTCKMojo {
 
       // Build ClassLoader for finding enhancer
       URL[] classPathURLs1 = new URL[2];
-      ArrayList<URL> cpList1 = new ArrayList<URL>();
+      ArrayList<URL> cpList1 = new ArrayList<>();
       ClassLoader enhancerLoader = null;
       try {
         // Must add enhancedIdDirName first!!
