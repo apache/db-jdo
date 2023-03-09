@@ -34,7 +34,7 @@ public class InstallSchema extends AbstractTCKMojo {
 
   private static final String DB_DIR_NAME = "database"; // NOI18N
   /** List of mappings required by the current configuration */
-  protected Collection<String> mappings = new HashSet<String>();
+  protected Collection<String> mappings = new HashSet<>();
   /** Location of TCK generated output. */
   @Parameter(property = "jdo.tck.doInstallSchema", defaultValue = "true", required = true)
   private boolean doInstallSchema;
