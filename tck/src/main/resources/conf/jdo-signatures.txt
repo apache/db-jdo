@@ -418,7 +418,7 @@ public class javax.jdo.identity.ShortIdentity extends javax.jdo.identity.SingleF
 }
 
 public abstract class javax.jdo.identity.SingleFieldIdentity implements java.io.Externalizable, java.lang.Comparable {
-    public SingleFieldIdentity();
+    protected SingleFieldIdentity();
     public Class getTargetClass();
     public String getTargetClassName();
     public synchronized Object getKeyAsObject();

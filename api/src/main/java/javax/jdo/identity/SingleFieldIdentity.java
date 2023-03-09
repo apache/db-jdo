@@ -75,7 +75,7 @@ public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<S
    *
    * @since 2.0
    */
-  public SingleFieldIdentity() {}
+  protected SingleFieldIdentity() {}
 
   /**
    * Set the given key as the key for this instance. Compute the hash code for the instance.
