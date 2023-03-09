@@ -737,7 +737,7 @@ public class JDOHelper implements Constants {
       Enumeration<URL> urls = null;
       try {
         urls = getResources(pmfClassLoader, Constants.SERVICE_LOOKUP_PMF_RESOURCE_NAME);
-      } catch (Throwable ex) {
+      } catch (Exception ex) {
         exceptions.add(ex);
       }
 
@@ -751,7 +751,7 @@ public class JDOHelper implements Constants {
             return invokeGetPersistenceManagerFactoryOnImplementation(
                 pmfClassName, overrides, props, pmfClassLoader);
 
-          } catch (Throwable ex) {
+          } catch (Exception ex) {
 
             // remember exceptions from failed pmf invocations
             exceptions.add(ex);
