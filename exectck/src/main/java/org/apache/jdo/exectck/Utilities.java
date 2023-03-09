@@ -93,15 +93,16 @@ public class Utilities {
   }
 
   static String readFile(String fileName) throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(fileName));
-    String line = null;
-    StringBuilder stringBuf = new StringBuilder();
-    String ls = System.getProperty("line.separator");
-    while ((line = reader.readLine()) != null) {
-      stringBuf.append(line);
-      stringBuf.append(ls);
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+      String line = null;
+      StringBuilder stringBuf = new StringBuilder();
+      String ls = System.getProperty("line.separator");
+      while ((line = reader.readLine()) != null) {
+        stringBuf.append(line);
+        stringBuf.append(ls);
+      }
+      return stringBuf.toString();
     }
-    return stringBuf.toString();
   }
 
   InvocationResult invokeTest(List<String> command) {
@@ -152,19 +153,17 @@ public class Utilities {
     final Reader reader = new InputStreamReader(input);
     Thread thread =
         new Thread(
-            new Runnable() {
-              public void run() {
-                int count = 0;
-                int outputBytesRead = 0;
-                try {
-                  while (-1 != (outputBytesRead = reader.read(output))) {
-                    count += outputBytesRead;
-                  }
-                } catch (IOException e) {
-                  e.printStackTrace();
-                } finally {
-                  output.flip();
+            () -> {
+              int count = 0;
+              int outputBytesRead = 0;
+              try {
+                while (-1 != (outputBytesRead = reader.read(output))) {
+                  count += outputBytesRead;
                 }
+              } catch (IOException e) {
+                e.printStackTrace();
+              } finally {
+                output.flip();
               }
             });
     thread.start();

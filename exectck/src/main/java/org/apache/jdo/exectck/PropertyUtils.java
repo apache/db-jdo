@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /** Helper class that sets properties required for running the JDO TCK. */
 public class PropertyUtils {
@@ -73,20 +71,11 @@ public class PropertyUtils {
       String confName = confDir + File.separator + cfg;
 
       Properties props = new Properties();
-      FileInputStream fis = null;
-      try {
-        fis = new FileInputStream(confName);
+      try (FileInputStream fis = new FileInputStream(confName)) {
         props.load(fis);
         mapping = props.getProperty("jdo.tck.mapping");
       } catch (IOException e) {
         e.printStackTrace();
-        try {
-          if (fis != null) {
-            fis.close();
-          }
-        } catch (IOException ex) {
-          Logger.getLogger(PropertyUtils.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return;
       }
 
@@ -99,34 +88,11 @@ public class PropertyUtils {
    */
   public static Properties getProperties(String fname) {
     Properties props = new Properties();
-    FileInputStream fis = null;
-    try {
-      fis = new FileInputStream(new File(fname));
+    try (FileInputStream fis = new FileInputStream(fname)) {
       props.load(fis);
     } catch (IOException e) {
       e.printStackTrace();
-      try {
-        if (fis != null) {
-          fis.close();
-        }
-      } catch (IOException ex) {
-        Logger.getLogger(PropertyUtils.class.getName()).log(Level.SEVERE, null, ex);
-      }
     }
     return props;
-  }
-
-  /*
-   * Set the value of key if found in properties.
-   */
-  public static void setSysProperty(Properties properties, String key, String newkey) {
-    String value = properties.getProperty("key");
-    if (value != null) {
-      System.setProperty(newkey, value);
-    }
-  }
-
-  public static void setSysProperty(Properties properties, String key) {
-    setSysProperty(properties, key, key);
   }
 }
