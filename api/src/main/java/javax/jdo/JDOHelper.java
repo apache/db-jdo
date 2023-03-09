@@ -1647,23 +1647,25 @@ public class JDOHelper implements Constants {
      */
     ArrayList<Throwable> exceptions = new ArrayList<>();
     int numberOfJDOEnhancers = 0;
+    Enumeration<URL> urls = null;
     try {
-      Enumeration<URL> urls = getResources(loader, Constants.SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
-      if (urls != null) {
-        while (urls.hasMoreElements()) {
-          numberOfJDOEnhancers++;
-          try {
-            String enhancerClassName = getClassNameFromURL(urls.nextElement());
-            Class<?> enhancerClass = forName(enhancerClassName, true, ctrLoader);
-            return (JDOEnhancer) enhancerClass.newInstance();
-          } catch (Throwable ex) {
-            // remember exceptions from failed enhancer invocations
-            exceptions.add(ex);
-          }
-        }
-      }
+      urls = getResources(loader, Constants.SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
     } catch (Throwable ex) {
       exceptions.add(ex);
+    }
+
+    if (urls != null) {
+      while (urls.hasMoreElements()) {
+        numberOfJDOEnhancers++;
+        try {
+          String enhancerClassName = getClassNameFromURL(urls.nextElement());
+          Class<?> enhancerClass = forName(enhancerClassName, true, ctrLoader);
+          return (JDOEnhancer) enhancerClass.newInstance();
+        } catch (Throwable ex) {
+          // remember exceptions from failed enhancer invocations
+          exceptions.add(ex);
+        }
+      }
     }
 
     throw new JDOFatalUserException(
