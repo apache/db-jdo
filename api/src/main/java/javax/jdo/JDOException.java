@@ -244,15 +244,6 @@ public class JDOException extends java.lang.RuntimeException {
   }
 
   /**
-   * Prints this <code>JDOException</code> and its backtrace to the standard error output. Print
-   * nested Throwables' stack trace as well.
-   */
-  @Override
-  public void printStackTrace() {
-    printStackTrace(System.err);
-  }
-
-  /**
    * Prints this <code>JDOException</code> and its backtrace to the specified print stream. Print
    * nested Throwables' stack trace as well.
    *
