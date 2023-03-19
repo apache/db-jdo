@@ -484,7 +484,6 @@ public class javax.jdo.JDOException extends RuntimeException {
     public synchronized Throwable getCause();
     public synchronized Throwable initCause(Throwable cause);
     public synchronized String toString();
-    public void printStackTrace();
     public void printStackTrace(java.io.PrintStream s);
     public void printStackTrace(java.io.PrintWriter s);
 }
