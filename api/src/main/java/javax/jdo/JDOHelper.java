@@ -89,7 +89,8 @@ public class JDOHelper implements Constants {
 
   private static final String EXC_GET_PMF_IOEXCEPTION_RSRC = "EXC_GetPMFIOExceptionRsrc"; // NOI18N
 
-  private static final String EXC_GET_PMF_UNEXPECTED_EXCEPTION = "EXC_GetPMFUnexpectedException"; // NOI18N
+  private static final String EXC_GET_PMF_UNEXPECTED_EXCEPTION =
+      "EXC_GetPMFUnexpectedException"; // NOI18N
 
   /**
    * Creates a map from jdoconfig.xsd element attributes to PMF properties.
@@ -1047,9 +1048,7 @@ public class JDOHelper implements Constants {
         Throwable nested = ite.getTargetException();
         if (nested instanceof JDOException) {
           throw (JDOException) nested;
-        } else
-          throw new JDOFatalInternalException(
-              MSG.msg(EXC_GET_PMF_UNEXPECTED_EXCEPTION), ite);
+        } else throw new JDOFatalInternalException(MSG.msg(EXC_GET_PMF_UNEXPECTED_EXCEPTION), ite);
       }
     } else {
       // overrides is null; use getPersistenceManagerFactory(Map props)
@@ -1085,9 +1084,7 @@ public class JDOHelper implements Constants {
         Throwable nested = ite.getTargetException();
         if (nested instanceof JDOException) {
           throw (JDOException) nested;
-        } else
-          throw new JDOFatalInternalException(
-              MSG.msg(EXC_GET_PMF_UNEXPECTED_EXCEPTION), ite);
+        } else throw new JDOFatalInternalException(MSG.msg(EXC_GET_PMF_UNEXPECTED_EXCEPTION), ite);
       }
     }
   }
