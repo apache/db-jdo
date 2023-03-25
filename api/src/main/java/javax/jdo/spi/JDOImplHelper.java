@@ -833,8 +833,8 @@ public class JDOImplHelper extends java.lang.Object {
       if (stringConstructor != null) {
         return stringConstructor.construct(keyString);
       } else {
-        Constructor<?> keyConstructor = keyClass.getConstructor(new Class[] {String.class});
-        return keyConstructor.newInstance(new Object[] {keyString});
+        Constructor<?> keyConstructor = keyClass.getConstructor(String.class);
+        return keyConstructor.newInstance(keyString);
       }
     } catch (JDOException ex) {
       throw ex;
