@@ -155,7 +155,8 @@ public class Utilities {
         new Thread(
             () -> {
               try {
-                while (-1 != reader.read(output));
+                while (-1 != reader.read(output))
+                  ;
               } catch (IOException e) {
                 e.printStackTrace();
               } finally {
