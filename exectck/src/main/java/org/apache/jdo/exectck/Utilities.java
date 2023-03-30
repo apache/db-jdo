@@ -154,12 +154,8 @@ public class Utilities {
     Thread thread =
         new Thread(
             () -> {
-              int count = 0;
-              int outputBytesRead = 0;
               try {
-                while (-1 != (outputBytesRead = reader.read(output))) {
-                  count += outputBytesRead;
-                }
+                while (-1 != reader.read(output));
               } catch (IOException e) {
                 e.printStackTrace();
               } finally {
@@ -170,7 +166,7 @@ public class Utilities {
     return thread;
   }
 
-  class InvocationResult {
+  static class InvocationResult {
     private int exitValue;
     private String errorString;
     private String outputString;
