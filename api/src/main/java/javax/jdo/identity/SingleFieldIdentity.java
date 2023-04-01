@@ -36,10 +36,11 @@ import javax.jdo.spi.I18NHelper;
  * this case, the application can use a standard JDO class instead of creating a new user-defined
  * class for the purpose.
  *
+ * @param <S> the type of the SingleFieldIdentity subclass
  * @version 2.0
  */
-public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<SUBCLASS>>
-    implements Externalizable, Comparable<SUBCLASS> {
+public abstract class SingleFieldIdentity<S extends SingleFieldIdentity<S>>
+    implements Externalizable, Comparable<S> {
 
   private static final long serialVersionUID = 1L;
 
