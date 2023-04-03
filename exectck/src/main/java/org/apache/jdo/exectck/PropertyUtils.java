@@ -29,8 +29,9 @@ public class PropertyUtils {
   }
 
   /**
-   * Separates white space separated items from a String into a Set
-   * Used to collect command line arguments
+   * Separates white space separated items from a String into a Set.
+   *
+   * Used to collect command line arguments.
    *
    * @param names String of white space separated items
    * @param set Set to contain String items
@@ -41,8 +42,9 @@ public class PropertyUtils {
   }
 
   /**
-   * Separates white space separated items from a String into a List
-   * Used to collect command line arguments
+   * Separates white space separated items from a String into a List.
+   *
+   * Used to collect command line arguments.
    *
    * @param names String of white space separated items
    * @param list List to contain String items
