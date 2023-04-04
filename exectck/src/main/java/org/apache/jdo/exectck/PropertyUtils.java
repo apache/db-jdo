@@ -16,6 +16,7 @@ package org.apache.jdo.exectck;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
@@ -28,31 +29,29 @@ public class PropertyUtils {
   }
 
   /**
-   * Separates white space separated items from a String into Collection entries Used to collect
-   * command line argument lists into a Collection
+   * Separates white space separated items from a String into a Set.
+   *
+   * <p>Used to collect command line arguments.
    *
    * @param names String of white space separated items
-   * @param list HashSet to contain String items
+   * @param set Set to contain String items
    */
-  public static void string2Set(String names, Collection<String> list) {
+  public static void string2Set(String names, Collection<String> set) {
     String[] items = names.split("[ \t\n]");
-    for (String s : items) {
-      list.add(s);
-    }
+    set.addAll(Arrays.asList(items));
   }
 
   /**
-   * Separates white space separated items from a String into HashSet entries Used to collect
-   * command line argument lists into a Collection
+   * Separates white space separated items from a String into a List.
+   *
+   * <p>Used to collect command line arguments.
    *
    * @param names String of white space separated items
-   * @param list HashSet to contain String items
+   * @param list List to contain String items
    */
   public static void string2List(String names, List<String> list) {
     String[] items = names.split("[ \t\n]");
-    for (String s : items) {
-      list.add(s);
-    }
+    list.addAll(Arrays.asList(items));
   }
 
   /**
