@@ -30,7 +30,7 @@ public class PropertyUtils {
 
   /**
    * Separates white space separated items from a String into a Set.
-   *
+   * <p>
    * Used to collect command line arguments.
    *
    * @param names String of white space separated items
@@ -43,7 +43,7 @@ public class PropertyUtils {
 
   /**
    * Separates white space separated items from a String into a List.
-   *
+   * <p>
    * Used to collect command line arguments.
    *
    * @param names String of white space separated items
