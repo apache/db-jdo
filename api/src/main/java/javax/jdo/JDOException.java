@@ -40,7 +40,7 @@ public class JDOException extends java.lang.RuntimeException {
    *
    * @serial the nested <code>Throwable</code> array
    */
-  Throwable[] nested;
+  final Throwable[] nested;
 
   /**
    * This exception may be the result of incorrect parameters supplied to an API. This is the object
@@ -48,16 +48,16 @@ public class JDOException extends java.lang.RuntimeException {
    *
    * @serial the failed <code>Object</code>
    */
-  transient Object failed;
+  final transient Object failed;
 
   /** The Internationalization message helper. */
   private static final I18NHelper MSG = I18NHelper.getInstance("javax.jdo.Bundle"); // NOI18N
 
-  /** Flag indicating whether printStackTrace is being executed. */
-  private boolean inPrintStackTrace = false;
-
   /** Constructs a new <code>JDOException</code> without a detail message. */
-  public JDOException() {}
+  public JDOException() {
+    this.nested = null;
+    this.failed = null;
+  }
 
   /**
    * Constructs a new <code>JDOException</code> with the specified detail message.
@@ -66,6 +66,8 @@ public class JDOException extends java.lang.RuntimeException {
    */
   public JDOException(String msg) {
     super(msg);
+    this.nested = null;
+    this.failed = null;
   }
 
   /**
@@ -78,6 +80,7 @@ public class JDOException extends java.lang.RuntimeException {
   public JDOException(String msg, Throwable[] nested) {
     super(msg);
     this.nested = nested;
+    this.failed = null;
   }
 
   /**
@@ -90,6 +93,7 @@ public class JDOException extends java.lang.RuntimeException {
   public JDOException(String msg, Throwable nested) {
     super(msg);
     this.nested = new Throwable[] {nested};
+    this.failed = null;
   }
 
   /**
@@ -100,6 +104,7 @@ public class JDOException extends java.lang.RuntimeException {
    */
   public JDOException(String msg, Object failed) {
     super(msg);
+    this.nested = null;
     this.failed = failed;
   }
 
@@ -160,11 +165,7 @@ public class JDOException extends java.lang.RuntimeException {
    */
   @Override
   public synchronized Throwable getCause() {
-    // super.printStackTrace calls getCause to handle the cause.
-    // Returning null prevents the superclass from handling the cause.
-    // Instead the local implementation of printStackTrace should
-    // handle the cause. Otherwise, the cause is printed twice.
-    if (nested == null || nested.length == 0 || inPrintStackTrace) {
+    if (nested == null || nested.length == 0) {
       return null;
     } else {
       return nested[0];
@@ -230,16 +231,7 @@ public class JDOException extends java.lang.RuntimeException {
     }
     // include nested Throwable information, but only if not called by
     // printStackTrace; the stacktrace will include the cause anyway.
-    if (len > 0 && !inPrintStackTrace) {
-      sb.append("\n").append(MSG.msg("MSG_NestedThrowables")).append("\n");
-      Throwable exception = nested[0];
-      sb.append(exception == null ? "null" : exception.toString()); // NOI18N
-      for (int i = 1; i < len; ++i) {
-        sb.append("\n"); // NOI18N
-        exception = nested[i];
-        sb.append(exception == null ? "null" : exception.toString()); // NOI18N
-      }
-    }
+
     return sb.toString();
   }
 
@@ -253,18 +245,19 @@ public class JDOException extends java.lang.RuntimeException {
   public void printStackTrace(java.io.PrintStream s) {
     int len = nested == null ? 0 : nested.length;
     synchronized (s) {
-      inPrintStackTrace = true;
       super.printStackTrace(s);
-      if (len > 0) {
+      if (len > 1) {
         s.println(MSG.msg("MSG_NestedThrowablesStackTrace"));
-        for (int i = 0; i < len; ++i) {
+        // super.printStackTrace calls getCause to handle the cause.
+        // The first entry of the nested exceptions always used as the cause.
+        // Starting at the second entry prevents cause from being printed twice.
+        for (int i = 1; i < len; ++i) {
           Throwable exception = nested[i];
           if (exception != null) {
             exception.printStackTrace(s);
           }
         }
       }
-      inPrintStackTrace = false;
     }
   }
 
@@ -278,18 +271,19 @@ public class JDOException extends java.lang.RuntimeException {
   public void printStackTrace(java.io.PrintWriter s) {
     int len = nested == null ? 0 : nested.length;
     synchronized (s) {
-      inPrintStackTrace = true;
       super.printStackTrace(s);
-      if (len > 0) {
+      if (len > 1) {
         s.println(MSG.msg("MSG_NestedThrowablesStackTrace"));
-        for (int i = 0; i < len; ++i) {
+        // super.printStackTrace calls getCause to handle the cause.
+        // The first entry of the nested exceptions always used as the cause.
+        // Starting at the second entry prevents cause from being printed twice.
+        for (int i = 1; i < len; ++i) {
           Throwable exception = nested[i];
           if (exception != null) {
             exception.printStackTrace(s);
           }
         }
       }
-      inPrintStackTrace = false;
     }
   }
 
