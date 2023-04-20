@@ -40,7 +40,7 @@ public class JDOException extends java.lang.RuntimeException {
    *
    * @serial the nested <code>Throwable</code> array
    */
-  Throwable[] nested;
+  final Throwable[] nested;
 
   /**
    * This exception may be the result of incorrect parameters supplied to an API. This is the object
@@ -48,16 +48,19 @@ public class JDOException extends java.lang.RuntimeException {
    *
    * @serial the failed <code>Object</code>
    */
-  transient Object failed;
+  final transient Object failed;
 
   /** The Internationalization message helper. */
   private static final I18NHelper MSG = I18NHelper.getInstance("javax.jdo.Bundle"); // NOI18N
 
   /** Flag indicating whether printStackTrace is being executed. */
-  private boolean inPrintStackTrace = false;
+  private transient boolean inPrintStackTrace = false;
 
   /** Constructs a new <code>JDOException</code> without a detail message. */
-  public JDOException() {}
+  public JDOException() {
+    this.nested = null;
+    this.failed = null;
+  }
 
   /**
    * Constructs a new <code>JDOException</code> with the specified detail message.
@@ -66,6 +69,8 @@ public class JDOException extends java.lang.RuntimeException {
    */
   public JDOException(String msg) {
     super(msg);
+    this.nested = null;
+    this.failed = null;
   }
 
   /**
@@ -78,6 +83,7 @@ public class JDOException extends java.lang.RuntimeException {
   public JDOException(String msg, Throwable[] nested) {
     super(msg);
     this.nested = nested;
+    this.failed = null;
   }
 
   /**
@@ -90,6 +96,7 @@ public class JDOException extends java.lang.RuntimeException {
   public JDOException(String msg, Throwable nested) {
     super(msg);
     this.nested = new Throwable[] {nested};
+    this.failed = null;
   }
 
   /**
@@ -100,6 +107,7 @@ public class JDOException extends java.lang.RuntimeException {
    */
   public JDOException(String msg, Object failed) {
     super(msg);
+    this.nested = null;
     this.failed = failed;
   }
 
