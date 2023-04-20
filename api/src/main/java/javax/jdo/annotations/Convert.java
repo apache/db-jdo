@@ -26,10 +26,6 @@ import javax.jdo.AttributeConverter;
  * Specifies that a given type should be converted before being stored to, and after being retrieved
  * from the datastore using the given {@link AttributeConverter}.
  *
- * <p>If this annotation is placed on a type, then the conversion applies to all fields or
- * properties whose types match the entity type of the given {@link AttributeConverter}. Any {@link
- * Convert} annotations placed on members overrides any type-level conversion specifications.
- *
  * <p>If this annotation is placed on a field or property, the annotated attribute's type must be
  * assignment-compatible with the {@link AttributeConverter}'s entity type argument.
  *
