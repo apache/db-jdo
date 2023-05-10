@@ -532,7 +532,6 @@ public class JDOHelper implements Constants {
     }
   }
 
-
   /**
    * Get the anonymous <code>PersistenceManagerFactory</code> configured via the standard
    * configuration file resource "META-INF/jdoconfig.xml", using the current thread's context class
@@ -1750,8 +1749,8 @@ public class JDOHelper implements Constants {
 
   private static ObjectState getPersistentNonTransactionalObjectState(Object pc) {
     return isDirty(pc)
-            ? ObjectState.PERSISTENT_NONTRANSACTIONAL_DIRTY
-            : ObjectState.HOLLOW_PERSISTENT_NONTRANSACTIONAL;
+        ? ObjectState.PERSISTENT_NONTRANSACTIONAL_DIRTY
+        : ObjectState.HOLLOW_PERSISTENT_NONTRANSACTIONAL;
   }
 
   private static ObjectState getTransientTransactionalObjectState(Object pc) {
