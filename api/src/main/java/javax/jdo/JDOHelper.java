@@ -518,60 +518,16 @@ public class JDOHelper implements Constants {
     }
 
     if (isDetached(pc)) {
-      if (isDirty(pc)) {
-        // Detached Dirty
-        return ObjectState.DETACHED_DIRTY;
-      } else {
-        // Detached Not Dirty
-        return ObjectState.DETACHED_CLEAN;
-      }
+      return isDirty(pc) ? ObjectState.DETACHED_DIRTY : ObjectState.DETACHED_CLEAN;
     } else {
       if (isPersistent(pc)) {
-        if (isTransactional(pc)) {
-          if (isDirty(pc)) {
-            if (isNew(pc)) {
-              if (isDeleted(pc)) {
-                // Persistent Transactional Dirty New Deleted
-                return ObjectState.PERSISTENT_NEW_DELETED;
-              } else {
-                // Persistent Transactional Dirty New Not Deleted
-                return ObjectState.PERSISTENT_NEW;
-              }
-            } else {
-              if (isDeleted(pc)) {
-                // Persistent Transactional Dirty Not New Deleted
-                return ObjectState.PERSISTENT_DELETED;
-              } else {
-                // Persistent Transactional Dirty Not New Not Deleted
-                return ObjectState.PERSISTENT_DIRTY;
-              }
-            }
-          } else {
-            // Persistent Transactional Not Dirty
-            return ObjectState.PERSISTENT_CLEAN;
-          }
-        } else {
-          if (isDirty(pc)) {
-            // Persistent Nontransactional Dirty
-            return ObjectState.PERSISTENT_NONTRANSACTIONAL_DIRTY;
-          } else {
-            // Persistent Nontransactional Not Dirty
-            return ObjectState.HOLLOW_PERSISTENT_NONTRANSACTIONAL;
-          }
-        }
+        return isTransactional(pc)
+            ? getPersistentTransactionalObjectState(pc)
+            : getPersistentNonTransactionalObjectState(pc);
       } else {
-        if (isTransactional(pc)) {
-          if (isDirty(pc)) {
-            // Not Persistent Transactional Dirty
-            return ObjectState.TRANSIENT_DIRTY;
-          } else {
-            // Not Persistent Transactional Not Dirty
-            return ObjectState.TRANSIENT_CLEAN;
-          }
-        } else {
-          // Not Persistent Not Transactional
-          return ObjectState.TRANSIENT;
-        }
+        return isTransactional(pc)
+            ? getTransientTransactionalObjectState(pc)
+            : ObjectState.TRANSIENT;
       }
     }
   }
@@ -1013,79 +969,48 @@ public class JDOHelper implements Constants {
    */
   protected static PersistenceManagerFactory invokeGetPersistenceManagerFactoryOnImplementation(
       String pmfClassName, Map<?, ?> overrides, Map<?, ?> properties, ClassLoader cl) {
-    if (overrides != null) {
-      // overrides is not null; use getPersistenceManagerFactory(Map overrides, Map props)
-      try {
-        Class<?> implClass = forName(pmfClassName, true, cl);
-        Method m =
-            getMethod(
-                implClass,
-                "getPersistenceManagerFactory", // NOI18N
-                new Class[] {Map.class, Map.class});
-        PersistenceManagerFactory pmf =
-            (PersistenceManagerFactory) invoke(m, null, new Object[] {overrides, properties});
-        if (pmf == null) {
-          throw new JDOFatalInternalException(MSG.msg("EXC_GetPMFNullPMF", pmfClassName)); // NOI18N
-        }
-        return pmf;
-
-      } catch (ClassNotFoundException e) {
-        throw new JDOFatalUserException(
-            MSG.msg("EXC_GetPMFClassNotFound", pmfClassName), e); // NOI18N
-      } catch (NoSuchMethodException e) {
-        throw new JDOFatalInternalException(
-            MSG.msg("EXC_GetPMFNoSuchMethod2", pmfClassName), e); // NOI18N
-      } catch (NullPointerException e) {
-        throw new JDOFatalInternalException(
-            MSG.msg("EXC_GetPMFNullPointerException", pmfClassName), e); // NOI18N
-      } catch (IllegalAccessException e) {
-        throw new JDOFatalUserException(
-            MSG.msg("EXC_GetPMFIllegalAccess", pmfClassName), e); // NOI18N
-      } catch (ClassCastException e) {
-        throw new JDOFatalInternalException(
-            MSG.msg("EXC_GetPMFClassCastException", pmfClassName), e); // NOI18N
-      } catch (InvocationTargetException ite) {
-        Throwable nested = ite.getTargetException();
-        if (nested instanceof JDOException) {
-          throw (JDOException) nested;
-        } else throw new JDOFatalInternalException(MSG.msg(EXC_GET_PMF_UNEXPECTED_EXCEPTION), ite);
+    try {
+      Class<?> implClass = forName(pmfClassName, true, cl);
+      Method m =
+          getMethod(
+              implClass,
+              "getPersistenceManagerFactory", // NOI18N
+              overrides != null ? new Class[] {Map.class, Map.class} : new Class[] {Map.class});
+      PersistenceManagerFactory pmf =
+          (PersistenceManagerFactory)
+              invoke(
+                  m,
+                  null,
+                  overrides != null
+                      ? new Object[] {overrides, properties}
+                      : new Object[] {properties});
+      if (pmf == null) {
+        throw new JDOFatalInternalException(MSG.msg("EXC_GetPMFNullPMF", pmfClassName)); // NOI18N
       }
-    } else {
-      // overrides is null; use getPersistenceManagerFactory(Map props)
-      try {
-        Class<?> implClass = forName(pmfClassName, true, cl);
-        Method m =
-            getMethod(
-                implClass,
-                "getPersistenceManagerFactory", // NOI18N
-                new Class[] {Map.class});
-        PersistenceManagerFactory pmf =
-            (PersistenceManagerFactory) invoke(m, null, new Object[] {properties});
-        if (pmf == null) {
-          throw new JDOFatalInternalException(MSG.msg("EXC_GetPMFNullPMF", pmfClassName)); // NOI18N
-        }
-        return pmf;
-      } catch (ClassNotFoundException e) {
-        throw new JDOFatalUserException(
-            MSG.msg("EXC_GetPMFClassNotFound", pmfClassName), e); // NOI18N
-      } catch (NoSuchMethodException e) {
-        throw new JDOFatalInternalException(
-            MSG.msg("EXC_GetPMFNoSuchMethod", pmfClassName), e); // NOI18N
-      } catch (NullPointerException e) {
-        throw new JDOFatalInternalException(
-            MSG.msg("EXC_GetPMFNullPointerException", pmfClassName), e); // NOI18N
-      } catch (IllegalAccessException e) {
-        throw new JDOFatalUserException(
-            MSG.msg("EXC_GetPMFIllegalAccess", pmfClassName), e); // NOI18N
-      } catch (ClassCastException e) {
-        throw new JDOFatalInternalException(
-            MSG.msg("EXC_GetPMFClassCastException", pmfClassName), e); // NOI18N
-      } catch (InvocationTargetException ite) {
-        Throwable nested = ite.getTargetException();
-        if (nested instanceof JDOException) {
-          throw (JDOException) nested;
-        } else throw new JDOFatalInternalException(MSG.msg(EXC_GET_PMF_UNEXPECTED_EXCEPTION), ite);
-      }
+      return pmf;
+    } catch (ClassNotFoundException e) {
+      throw new JDOFatalUserException(
+          MSG.msg("EXC_GetPMFClassNotFound", pmfClassName), e); // NOI18N
+    } catch (NoSuchMethodException e) {
+      throw new JDOFatalInternalException(
+          MSG.msg(
+              overrides != null ? "EXC_GetPMFNoSuchMethod2" : "EXC_GetPMFNoSuchMethod",
+              pmfClassName),
+          e); // NOI18N
+    } catch (NullPointerException e) {
+      throw new JDOFatalInternalException(
+          MSG.msg("EXC_GetPMFNullPointerException", pmfClassName), e); // NOI18N
+    } catch (IllegalAccessException e) {
+      throw new JDOFatalUserException(
+          MSG.msg("EXC_GetPMFIllegalAccess", pmfClassName), e); // NOI18N
+    } catch (ClassCastException e) {
+      throw new JDOFatalInternalException(
+          MSG.msg("EXC_GetPMFClassCastException", pmfClassName), e); // NOI18N
+    } catch (InvocationTargetException ite) {
+      Throwable nested = ite.getTargetException();
+      if (nested instanceof JDOException) {
+        throw (JDOException) nested;
+      } else throw new JDOFatalInternalException(MSG.msg(EXC_GET_PMF_UNEXPECTED_EXCEPTION), ite);
     }
   }
 
@@ -1807,5 +1732,28 @@ public class JDOHelper implements Constants {
       }
       throw new PrivilegedActionException(e);
     }
+  }
+
+  private static ObjectState getPersistentTransactionalObjectState(Object pc) {
+    if (isDirty(pc)) {
+      if (isNew(pc)) {
+        return isDeleted(pc) ? ObjectState.PERSISTENT_NEW_DELETED : ObjectState.PERSISTENT_NEW;
+      } else {
+        return isDeleted(pc) ? ObjectState.PERSISTENT_DELETED : ObjectState.PERSISTENT_DIRTY;
+      }
+    } else {
+      // Persistent Transactional Not Dirty
+      return ObjectState.PERSISTENT_CLEAN;
+    }
+  }
+
+  private static ObjectState getPersistentNonTransactionalObjectState(Object pc) {
+    return isDirty(pc)
+        ? ObjectState.PERSISTENT_NONTRANSACTIONAL_DIRTY
+        : ObjectState.HOLLOW_PERSISTENT_NONTRANSACTIONAL;
+  }
+
+  private static ObjectState getTransientTransactionalObjectState(Object pc) {
+    return isDirty(pc) ? ObjectState.TRANSIENT_DIRTY : ObjectState.TRANSIENT_CLEAN;
   }
 }
