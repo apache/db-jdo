@@ -22,64 +22,64 @@
 
 package javax.jdo.identity;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.jdo.JDONullIdentityException;
-import javax.jdo.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /** */
-public class IntIdentityTest extends SingleFieldIdentityTest {
+class IntIdentityTest extends SingleFieldIdentityTest {
 
   /** Creates a new instance of IntIdentityTest */
   public IntIdentityTest() {}
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(IntIdentityTest.class);
-  }
-
-  public void testConstructor() {
+  @Test
+  void testConstructor() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, 1);
     IntIdentity c3 = new IntIdentity(Object.class, 2);
-    assertEquals("Equal IntIdentity instances compare not equal.", c1, c2);
-    assertNotEquals("Not equal IntIdentity instances compare equal", c1, c3);
+    assertEquals(c1, c2, "Equal IntIdentity instances compare not equal.");
+    assertNotEquals(c1, c3, "Not equal IntIdentity instances compare equal");
   }
 
-  public void testIntegerConstructor() {
+  @Test
+  void testIntegerConstructor() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, Integer.valueOf(1));
     IntIdentity c3 = new IntIdentity(Object.class, Integer.valueOf(2));
-    assertEquals("Equal intIdentity instances compare not equal.", c1, c2);
-    assertNotEquals("Not equal IntIdentity instances compare equal", c1, c3);
+    assertEquals(c1, c2, "Equal intIdentity instances compare not equal.");
+    assertNotEquals(c1, c3, "Not equal IntIdentity instances compare equal");
   }
 
-  public void testToStringConstructor() {
+  @Test
+  void testToStringConstructor() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, c1.toString());
-    assertEquals("Equal IntIdentity instances compare not equal.", c1, c2);
+    assertEquals(c1, c2, "Equal IntIdentity instances compare not equal.");
   }
 
-  public void testStringConstructor() {
+  @Test
+  void testStringConstructor() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, "1");
     IntIdentity c3 = new IntIdentity(Object.class, "2");
-    assertEquals("Equal IntIdentity instances compare not equal.", c1, c2);
-    assertNotEquals("Not equal IntIdentity instances compare equal", c1, c3);
+    assertEquals(c1, c2, "Equal IntIdentity instances compare not equal.");
+    assertNotEquals(c1, c3, "Not equal IntIdentity instances compare equal");
   }
 
-  public void testIllegalStringConstructor() {
-    try {
-      new IntIdentity(Object.class, "b");
-    } catch (IllegalArgumentException iae) {
-      return; // good
-    }
-    fail("No exception caught for illegal String.");
+  @Test
+  void testIllegalStringConstructor() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new IntIdentity(Object.class, "b"),
+        "No exception caught for illegal String.");
   }
 
-  public void testSerialized() {
+  @Test
+  void testSerialized() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, "1");
     IntIdentity c3 = new IntIdentity(Object.class, "2");
@@ -87,52 +87,53 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
     Object sc1 = scis[0];
     Object sc2 = scis[1];
     Object sc3 = scis[2];
-    assertEquals("Equal IntIdentity instances compare not equal.", c1, sc1);
-    assertEquals("Equal IntIdentity instances compare not equal.", c2, sc2);
-    assertEquals("Equal IntIdentity instances compare not equal.", sc1, c2);
-    assertEquals("Equal IntIdentity instances compare not equal.", sc2, c1);
-    assertNotEquals("Not equal InrIdentity instances compare equal.", c1, sc3);
-    assertNotEquals("Not equal IntIdentity instances compare equal.", sc1, c3);
-    assertNotEquals("Not equal IntIdentity instances compare equal.", sc1, sc3);
-    assertNotEquals("Not equal IntIdentity instances compare equal.", sc3, sc1);
+    assertEquals(c1, sc1, "Equal IntIdentity instances compare not equal.");
+    assertEquals(c2, sc2, "Equal IntIdentity instances compare not equal.");
+    assertEquals(sc1, c2, "Equal IntIdentity instances compare not equal.");
+    assertEquals(sc2, c1, "Equal IntIdentity instances compare not equal.");
+    assertNotEquals(c1, sc3, "Not equal InrIdentity instances compare equal.");
+    assertNotEquals(sc1, c3, "Not equal IntIdentity instances compare equal.");
+    assertNotEquals(sc1, sc3, "Not equal IntIdentity instances compare equal.");
+    assertNotEquals(sc3, sc1, "Not equal IntIdentity instances compare equal.");
   }
 
-  public void testGetKeyAsObjectPrimitive() {
+  @Test
+  void testGetKeyAsObjectPrimitive() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
-    assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Integer.valueOf(1));
+    assertEquals(c1.getKeyAsObject(), Integer.valueOf(1), "keyAsObject doesn't match.");
   }
 
-  public void testGetKeyAsObject() {
+  @Test
+  void testGetKeyAsObject() {
     IntIdentity c1 = new IntIdentity(Object.class, Integer.valueOf(1));
-    assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Integer.valueOf(1));
+    assertEquals(c1.getKeyAsObject(), Integer.valueOf(1), "keyAsObject doesn't match.");
   }
 
-  public void testBadConstructorNullIntegerParam() {
-    try {
-      new IntIdentity(Object.class, (Integer) null);
-    } catch (JDONullIdentityException ex) {
-      return;
-    }
-    fail("Failed to catch expected exception.");
+  @Test
+  void testBadConstructorNullIntegerParam() {
+    assertThrows(
+        JDONullIdentityException.class,
+        () -> new IntIdentity(Object.class, (Integer) null),
+        "Failed to catch expected exception.");
   }
 
-  public void testBadConstructorNullStringParam() {
-    try {
-      new IntIdentity(Object.class, (String) null);
-    } catch (JDONullIdentityException ex) {
-      return;
-    }
-    fail("Failed to catch expected exception.");
+  @Test
+  void testBadConstructorNullStringParam() {
+    assertThrows(
+        JDONullIdentityException.class,
+        () -> new IntIdentity(Object.class, (String) null),
+        "Failed to catch expected exception.");
   }
 
-  public void testCompareTo() {
+  @Test
+  void testCompareTo() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, 1);
     IntIdentity c3 = new IntIdentity(Object.class, 2);
     IntIdentity c4 = new IntIdentity(Class.class, 1);
-    assertEquals("Equal IntIdentity instances compare not equal.", 0, c1.compareTo(c2));
-    assertTrue("Not equal IntIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
-    assertTrue("Not equal IntIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0);
-    assertTrue("Not equal IntIdentity instances have wrong compareTo result", c1.compareTo(c4) > 0);
+    assertEquals(0, c1.compareTo(c2), "Equal IntIdentity instances compare not equal.");
+    assertTrue(c1.compareTo(c3) < 0, "Not equal IntIdentity instances have wrong compareTo result");
+    assertTrue(c3.compareTo(c1) > 0, "Not equal IntIdentity instances have wrong compareTo result");
+    assertTrue(c1.compareTo(c4) > 0, "Not equal IntIdentity instances have wrong compareTo result");
   }
 }

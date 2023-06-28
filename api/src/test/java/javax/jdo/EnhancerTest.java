@@ -17,6 +17,10 @@
 
 package javax.jdo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,14 +31,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.jdo.util.AbstractTest;
-import javax.jdo.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests class javax.jdo.Enhancer (Enhancer main class).
  *
  * <p>
  */
-public class EnhancerTest extends AbstractTest {
+class EnhancerTest extends AbstractTest {
 
   /** The path delimiter for constructing classpaths. */
   private static final String PATH_DELIMITER = System.getProperty("path.separator");
@@ -42,236 +48,208 @@ public class EnhancerTest extends AbstractTest {
   /** The maven basedir identifying the directory of the execution environment. */
   private static final String BASEDIR = System.getProperty("basedir");
 
-  /**
-   * Main
-   *
-   * @param args command line arguments
-   */
-  public static void main(String args[]) {
-    BatchTestRunner.run(EnhancerTest.class);
-  }
-
-  public void testUsageOption() {
+  @ParameterizedTest
+  @ValueSource(strings = {"?", "-help", "-h"})
+  void testUsageOptions(String option) {
     // invoke enhancer with a usage option
-    InvocationResult result = invokeEnhancer("?");
+    InvocationResult result = invokeEnhancer(option);
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected Usage message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("javax.jdo.Enhancer"));
+        outputString.contains("javax.jdo.Enhancer"),
+        "Expected Usage message from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testHelpOption() {
-    // invoke enhancer with a usage option
-    InvocationResult result = invokeEnhancer("-help");
-    String outputString = result.getOutputString();
-    String errorString = result.getErrorString();
-    assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
-    assertTrue(
-        "Expected Usage message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("javax.jdo.Enhancer"));
-  }
-
-  public void testHOption() {
-    // invoke enhancer with a usage option
-    InvocationResult result = invokeEnhancer("-h");
-    String outputString = result.getOutputString();
-    String errorString = result.getErrorString();
-    assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
-    assertTrue(
-        "Expected Usage message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("javax.jdo.Enhancer"));
-  }
-
-  public void testInvalidOption() {
+  @Test
+  void testInvalidOption() {
     // invoke enhancer with an invalid option
     InvocationResult result = invokeEnhancer("-poo");
-    assertEquals("Wrong return value ", Constants.ENHANCER_USAGE_ERROR, result.getExitValue());
+    assertEquals(Constants.ENHANCER_USAGE_ERROR, result.getExitValue(), "Wrong return value ");
     String errorString = result.getErrorString();
     assertTrue(
-        "Expected Usage message from err:\n" + errorString,
-        errorString.contains("javax.jdo.Enhancer"));
+        errorString.contains("javax.jdo.Enhancer"),
+        "Expected Usage message from err:\n" + errorString);
   }
 
-  public void testProperties() {
+  @Test
+  void testProperties() {
     // invoke enhancer with verbose option
     InvocationResult result = invokeEnhancer("-v");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
+        outputString.contains(Constants.PROPERTY_ENHANCER_VENDOR_NAME),
         "Expected MockEnhancer vendor message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains(Constants.PROPERTY_ENHANCER_VENDOR_NAME));
+            + errorString);
     assertTrue(
+        outputString.contains(Constants.PROPERTY_ENHANCER_VERSION_NUMBER),
         "Expected MockEnhancer version message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains(Constants.PROPERTY_ENHANCER_VERSION_NUMBER));
+            + errorString);
     assertTrue(
+        outputString.contains("Mock Enhancer"),
         "Expected MockEnhancer vendor message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("Mock Enhancer"));
+            + errorString);
     assertTrue(
+        outputString.contains("2.3.0"),
         "Expected MockEnhancer vendor message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("2.3.0"));
+            + errorString);
     assertTrue(
+        outputString.contains("MockKey"),
         "Expected MockEnhancer properties message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("MockKey"));
+            + errorString);
   }
 
-  public void testVOption() {
+  @ParameterizedTest
+  @ValueSource(strings = {"-v", "-verbose"})
+  void testVerboseOptions(String option) {
     // invoke enhancer with verbose option
-    InvocationResult result = invokeEnhancer("-v");
+    InvocationResult result = invokeEnhancer(option);
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected Enhancer class message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("javax.jdo.MockEnhancer"));
+        outputString.contains("javax.jdo.MockEnhancer"),
+        "Expected Enhancer class message from out:\n"
+            + outputString
+            + " with err:\n"
+            + errorString);
   }
 
-  public void testVerboseOption() {
-    // invoke enhancer with verbose option
-    InvocationResult result = invokeEnhancer("-verbose");
-    String outputString = result.getOutputString();
-    String errorString = result.getErrorString();
-    assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
-    assertTrue(
-        "Expected Enhancer class message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("javax.jdo.MockEnhancer"));
-  }
-
-  public void testVerboseClasses() {
+  @Test
+  void testVerboseClasses() {
     // invoke enhancer with .class parameter
     InvocationResult result = invokeEnhancer("-v some.class");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected class message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some.class"));
+        outputString.contains("some.class"),
+        "Expected class message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected number of classes from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("1"));
+        outputString.contains("1"),
+        "Expected number of classes from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testVerboseJars() {
+  @Test
+  void testVerboseJars() {
     // invoke enhancer with a .jar parameter
     InvocationResult result = invokeEnhancer("-v some.jar");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected jar message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some.jar"));
+        outputString.contains("some.jar"),
+        "Expected jar message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected number of jars from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("1"));
+        outputString.contains("1"),
+        "Expected number of jars from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testVerboseJDOs() {
+  @Test
+  void testVerboseJDOs() {
     // invoke enhancer with a .jdo parameter
     InvocationResult result = invokeEnhancer("-v some.jdo");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected jdo message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some.jdo"));
+        outputString.contains("some.jdo"),
+        "Expected jdo message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected number of jdos from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("1"));
+        outputString.contains("1"),
+        "Expected number of jdos from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testVerboseAll() {
+  @Test
+  void testVerboseAll() {
     // invoke enhancer with multiple parameters
     InvocationResult result = invokeEnhancer("-v some.class some.jar some.jdo");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected jdo message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some.jdo"));
+        outputString.contains("some.jdo"),
+        "Expected jdo message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected jar message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some.jar"));
+        outputString.contains("some.jar"),
+        "Expected jar message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected class message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some.class"));
+        outputString.contains("some.class"),
+        "Expected class message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected number of elements from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("3"));
+        outputString.contains("3"),
+        "Expected number of elements from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testVerboseCheckonlyAll() {
+  @Test
+  void testVerboseCheckonlyAll() {
     // invoke enhancer with a checkonly option
     InvocationResult result = invokeEnhancer("-v -checkonly some.class some.jar some.jdo");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected jdo message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some.jdo"));
+        outputString.contains("some.jdo"),
+        "Expected jdo message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected jar message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some.jar"));
+        outputString.contains("some.jar"),
+        "Expected jar message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected class message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some.class"));
+        outputString.contains("some.class"),
+        "Expected class message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected number of elements from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("3"));
+        outputString.contains("3"),
+        "Expected number of elements from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testMissingPU() {
+  @Test
+  void testMissingPU() {
     // invoke enhancer with missing parameter
     InvocationResult result = invokeEnhancer("-v -pu");
-    assertEquals("Wrong return value ", 3, result.getExitValue());
+    assertEquals(3, result.getExitValue(), "Wrong return value ");
   }
 
-  public void testVerbosePU() {
+  @Test
+  void testVerbosePU() {
     // invoke enhancer with a pu parameter
     InvocationResult result = invokeEnhancer("-v -pu myPU -pu yourPU");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected pu message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("myPU"));
+        outputString.contains("myPU"),
+        "Expected pu message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected pu message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("yourPU"));
+        outputString.contains("yourPU"),
+        "Expected pu message from out:\n" + outputString + " with err:\n" + errorString);
     assertTrue(
-        "Expected number of elements from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("2"));
+        outputString.contains("2"),
+        "Expected number of elements from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testClasspath() {
+  @Test
+  void testClasspath() {
     // invoke enhancer with a classpath parameter
     // JDOHelper must be loadable from this path
     // the File.toURI should append "/" to the path, so only "target/classes" is needed
@@ -279,29 +257,31 @@ public class EnhancerTest extends AbstractTest {
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected classpath message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("target/classes"));
+        outputString.contains("target/classes"),
+        "Expected classpath message from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testBadClasspath() {
+  @Test
+  void testBadClasspath() {
     // invoke enhancer with a bad classpath parameter
     // JDOHelper is not loadable from this path
     InvocationResult result = invokeEnhancer("-v -cp target");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 1, result.getExitValue());
+        1, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
+        errorString.contains("JDOHelper"),
         "Expected classpath error message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        errorString.contains("JDOHelper"));
+            + errorString);
   }
 
-  public void testClasspathJar() throws IOException, InterruptedException {
+  @Test
+  void testClasspathJar() throws IOException, InterruptedException {
     // invoke enhancer with a classpath parameter
     // JDOHelper must be loadable from this path
     // create the jar file from the target/classes directory
@@ -314,144 +294,148 @@ public class EnhancerTest extends AbstractTest {
         Runtime.getRuntime()
             .exec("jar -cf " + enhancerJarPathname + " -C " + BASEDIR + "/target/classes .");
     int returnCode = create.waitFor();
-    assertEquals("jar command returned wrong return code.", 0, returnCode);
+    assertEquals(0, returnCode, "jar command returned wrong return code.");
     // find the jdo.jar in target
     InvocationResult result = invokeEnhancer("-v -cp " + enhancerJar);
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected classpath message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains(enhancerJar));
+        outputString.contains(enhancerJar),
+        "Expected classpath message from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testOutputDirectory() {
+  @Test
+  void testOutputDirectory() {
     // invoke enhancer with an output directory parameter
     InvocationResult result = invokeEnhancer("-v -d some/output/directory");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
-        "Expected directory message from out:\n" + outputString + " with err:\n" + errorString,
-        outputString.contains("some/output/directory"));
+        outputString.contains("some/output/directory"),
+        "Expected directory message from out:\n" + outputString + " with err:\n" + errorString);
   }
 
-  public void testMissingOutputDirectory() {
+  @Test
+  void testMissingOutputDirectory() {
     // invoke enhancer with missing parameter
     InvocationResult result = invokeEnhancer("-v -d");
-    assertEquals("Wrong return value ", 3, result.getExitValue());
+    assertEquals(3, result.getExitValue(), "Wrong return value ");
   }
 
-  public void testDir() {
+  @Test
+  void testDir() {
     // invoke enhancer with directory and not recurse
     InvocationResult result =
         invokeEnhancer("-v " + BASEDIR + "/target/test-classes/enhancer-test-dir");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
+        outputString.contains("enhancer-test-dir"),
         "Expected directory enhancer-test-dir in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("enhancer-test-dir"));
+            + errorString);
     assertTrue(
+        outputString.contains("file1.jdo"),
         "Expected file file1.jdo in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("file1.jdo"));
+            + errorString);
     assertTrue(
+        outputString.contains("file2.class"),
         "Expected file file2.class in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("file2.class"));
+            + errorString);
     assertTrue(
+        outputString.contains("file3.jar"),
         "Expected file file3.jar in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("file3.jar"));
+            + errorString);
     assertFalse(
+        outputString.contains("enhancer-test-subdir"),
         "Expected no directory enhancer-test-subdir in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("enhancer-test-subdir"));
+            + errorString);
     assertTrue(
+        outputString.contains("3"),
         "Expected 3 files to be enhanced in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("3"));
+            + errorString);
   }
 
-  public void testDirRecurse() {
+  @Test
+  void testDirRecurse() {
     // invoke enhancer with directory and recurse
     InvocationResult result =
         invokeEnhancer("-v -r " + BASEDIR + "/target/test-classes/enhancer-test-dir");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
     assertEquals(
-        "Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
     assertTrue(
+        outputString.contains("enhancer-test-dir"),
         "Expected directory enhancer-test-dir in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("enhancer-test-dir"));
+            + errorString);
     assertTrue(
+        outputString.contains("enhancer-test-subdir"),
         "Expected directory enhancer-test-subdir in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("enhancer-test-subdir"));
+            + errorString);
     assertTrue(
+        outputString.contains("file1.jdo"),
         "Expected file file1.jdo in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("file1.jdo"));
+            + errorString);
     assertTrue(
+        outputString.contains("file2.class"),
         "Expected file file2.class in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("file2.class"));
+            + errorString);
     assertTrue(
+        outputString.contains("file3.jar"),
         "Expected file file3.jar in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("file3.jar"));
+            + errorString);
     assertTrue(
+        outputString.contains("file4.jdo"),
         "Expected file file4.jdo in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("file4.jdo"));
+            + errorString);
     assertTrue(
+        outputString.contains("file5.class"),
         "Expected file file5.class in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("file5.class"));
+            + errorString);
     assertTrue(
+        outputString.contains("file6.jar"),
         "Expected file file6.jar in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("file6.jar"));
+            + errorString);
     assertTrue(
+        outputString.contains("6"),
         "Expected 6 files to be enhanced in message from out:\n"
             + outputString
             + " with err:\n"
-            + errorString,
-        outputString.contains("6"));
+            + errorString);
   }
 
   private InvocationResult invokeEnhancer(String string) {

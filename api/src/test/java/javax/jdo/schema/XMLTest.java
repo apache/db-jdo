@@ -20,15 +20,15 @@ package javax.jdo.schema;
 import java.io.File;
 import java.io.FilenameFilter;
 import javax.jdo.util.AbstractTest;
-import javax.jdo.util.BatchTestRunner;
 import javax.jdo.util.XMLTestUtil;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests schema files.
  *
  * <p>
  */
-public class XMLTest extends AbstractTest {
+class XMLTest extends AbstractTest {
 
   /** */
   protected static final String BASEDIR = System.getProperty("basedir", ".");
@@ -77,20 +77,17 @@ public class XMLTest extends AbstractTest {
     return dir.listFiles(filter);
   }
 
-  /** */
-  public static void main(String args[]) {
-    BatchTestRunner.run(XMLTest.class);
-  }
-
   /** Test XSD files jdo.xsd, orm.xsd, and jdoquery.xsd. */
-  public void testXSD() {
+  @Test
+  void testXSD() {
     XMLTestUtil util = new XMLTestUtil();
     appendMessage(util.checkXMLNonValidating(XSD_FILES));
     failOnError();
   }
 
   /** Test XSD based .jdo, .orm and .jdoquery files. */
-  public void testXSDBased() {
+  @Test
+  void testXSDBased() {
     XMLTestUtil util = new XMLTestUtil();
     appendMessage(util.checkXML(positiveXSDJDO, true));
     appendMessage(util.checkXML(negativeXSDJDO, false));
@@ -102,7 +99,8 @@ public class XMLTest extends AbstractTest {
   }
 
   /** Test DTD based .jdo, .orm and .jdoquery files. */
-  public void testDTDBased() {
+  @Test
+  void testDTDBased() {
     XMLTestUtil util = new XMLTestUtil();
     appendMessage(util.checkXML(positiveDTDJDO, true));
     appendMessage(util.checkXML(negativeDTDJDO, false));

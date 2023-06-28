@@ -17,12 +17,13 @@
 
 package javax.jdo.util;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.PrintStream;
 import javax.jdo.Constants;
-import junit.framework.TestCase;
 
 /** */
-public abstract class AbstractTest extends TestCase implements Constants {
+public abstract class AbstractTest implements Constants {
 
   /** */
   protected static final PrintStream OUT = System.out;
@@ -32,7 +33,6 @@ public abstract class AbstractTest extends TestCase implements Constants {
 
   /** Construct and initialize from properties. */
   protected AbstractTest() {
-    super(null);
     verbose = Boolean.getBoolean("verbose");
   }
 

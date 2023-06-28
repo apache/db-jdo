@@ -22,64 +22,66 @@
 
 package javax.jdo.identity;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.jdo.JDONullIdentityException;
-import javax.jdo.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /** */
-public class ByteIdentityTest extends SingleFieldIdentityTest {
+class ByteIdentityTest extends SingleFieldIdentityTest {
 
   /** Creates a new instance of ByteIdentityTest */
   public ByteIdentityTest() {}
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ByteIdentityTest.class);
-  }
-
-  public void testConstructor() {
+  @Test
+  void testConstructor() {
     ByteIdentity c1 = new ByteIdentity(Object.class, (byte) 1);
     ByteIdentity c2 = new ByteIdentity(Object.class, (byte) 1);
     ByteIdentity c3 = new ByteIdentity(Object.class, (byte) 2);
-    assertEquals("Equal ByteIdentity instances compare not equal.", c1, c2);
-    assertNotEquals("Not equal ByteIdentity instances compare equal", c1, c3);
+    assertEquals(c1, c2, "Equal ByteIdentity instances compare not equal.");
+    assertNotEquals(c1, c3, "Not equal ByteIdentity instances compare equal");
   }
 
-  public void testByteConstructor() {
+  @Test
+  void testByteConstructor() {
     ByteIdentity c1 = new ByteIdentity(Object.class, (byte) 1);
     ByteIdentity c2 = new ByteIdentity(Object.class, Byte.valueOf((byte) 1));
     ByteIdentity c3 = new ByteIdentity(Object.class, Byte.valueOf((byte) 2));
-    assertEquals("Equal ByteIdentity instances compare not equal.", c1, c2);
-    assertNotEquals("Not equal ByteIdentity instances compare equal", c1, c3);
+    assertEquals(c1, c2, "Equal ByteIdentity instances compare not equal.");
+    assertNotEquals(c1, c3, "Not equal ByteIdentity instances compare equal");
   }
 
-  public void testToStringConstructor() {
+  @Test
+  void testToStringConstructor() {
     ByteIdentity c1 = new ByteIdentity(Object.class, (byte) 1);
     ByteIdentity c2 = new ByteIdentity(Object.class, c1.toString());
-    assertEquals("Equal ByteIdentity instances compare not equal.", c1, c2);
+    assertEquals(c1, c2, "Equal ByteIdentity instances compare not equal.");
   }
 
-  public void testStringConstructor() {
+  @Test
+  void testStringConstructor() {
     ByteIdentity c1 = new ByteIdentity(Object.class, (byte) 1);
     ByteIdentity c2 = new ByteIdentity(Object.class, "1");
     ByteIdentity c3 = new ByteIdentity(Object.class, "2");
-    assertEquals("Equal ByteIdentity instances compare not equal.", c1, c2);
-    assertNotEquals("Not equal ByteIdentity instances compare equal", c1, c3);
+    assertEquals(c1, c2, "Equal ByteIdentity instances compare not equal.");
+    assertNotEquals(c1, c3, "Not equal ByteIdentity instances compare equal");
   }
 
-  public void testIllegalStringConstructor() {
-    try {
-      new ByteIdentity(Object.class, "b");
-    } catch (IllegalArgumentException iae) {
-      return; // good
-    }
-    fail("No exception caught for illegal String.");
+  @Test
+  void testIllegalStringConstructor() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          new ByteIdentity(Object.class, "b");
+        },
+        "No exception caught for illegal String.");
   }
 
-  public void testSerialized() {
+  @Test
+  void testSerialized() {
     ByteIdentity c1 = new ByteIdentity(Object.class, (byte) 1);
     ByteIdentity c2 = new ByteIdentity(Object.class, "1");
     ByteIdentity c3 = new ByteIdentity(Object.class, "2");
@@ -87,55 +89,56 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
     Object sc1 = scis[0];
     Object sc2 = scis[1];
     Object sc3 = scis[2];
-    assertEquals("Equal ByteIdentity instances compare not equal.", c1, sc1);
-    assertEquals("Equal ByteIdentity instances compare not equal.", c2, sc2);
-    assertEquals("Equal ByteIdentity instances compare not equal.", sc1, c2);
-    assertEquals("Equal ByteIdentity instances compare not equal.", sc2, c1);
-    assertNotEquals("Not equal ByteIdentity instances compare equal.", c1, sc3);
-    assertNotEquals("Not equal ByteIdentity instances compare equal.", sc1, c3);
-    assertNotEquals("Not equal ByteIdentity instances compare equal.", sc1, sc3);
-    assertNotEquals("Not equal ByteIdentity instances compare equal.", sc3, sc1);
+    assertEquals(c1, sc1, "Equal ByteIdentity instances compare not equal.");
+    assertEquals(c2, sc2, "Equal ByteIdentity instances compare not equal.");
+    assertEquals(sc1, c2, "Equal ByteIdentity instances compare not equal.");
+    assertEquals(sc2, c1, "Equal ByteIdentity instances compare not equal.");
+    assertNotEquals(c1, sc3, "Not equal ByteIdentity instances compare equal.");
+    assertNotEquals(sc1, c3, "Not equal ByteIdentity instances compare equal.");
+    assertNotEquals(sc1, sc3, "Not equal ByteIdentity instances compare equal.");
+    assertNotEquals(sc3, sc1, "Not equal ByteIdentity instances compare equal.");
   }
 
-  public void testGetKeyAsObjectPrimitive() {
+  @Test
+  void testGetKeyAsObjectPrimitive() {
     ByteIdentity c1 = new ByteIdentity(Object.class, (byte) 1);
-    assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Byte.valueOf((byte) 1));
+    assertEquals(c1.getKeyAsObject(), Byte.valueOf((byte) 1), "keyAsObject doesn't match.");
   }
 
-  public void testGetKeyAsObject() {
+  @Test
+  void testGetKeyAsObject() {
     ByteIdentity c1 = new ByteIdentity(Object.class, Byte.valueOf((byte) 1));
-    assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Byte.valueOf((byte) 1));
+    assertEquals(c1.getKeyAsObject(), Byte.valueOf((byte) 1), "keyAsObject doesn't match.");
   }
 
-  public void testBadConstructorNullByteParam() {
-    try {
-      new ByteIdentity(Object.class, (Byte) null);
-    } catch (JDONullIdentityException ex) {
-      return;
-    }
-    fail("Failed to catch expected exception.");
+  @Test
+  void testBadConstructorNullByteParam() {
+    assertThrows(
+        JDONullIdentityException.class,
+        () -> new ByteIdentity(Object.class, (Byte) null),
+        "Failed to catch expected exception.");
   }
 
-  public void testBadConstructorNullStringParam() {
-    try {
-      new ByteIdentity(Object.class, (String) null);
-    } catch (JDONullIdentityException ex) {
-      return;
-    }
-    fail("Failed to catch expected exception.");
+  @Test
+  void testBadConstructorNullStringParam() {
+    assertThrows(
+        JDONullIdentityException.class,
+        () -> new ByteIdentity(Object.class, (String) null),
+        "Failed to catch expected exception.");
   }
 
-  public void testCompareTo() {
+  @Test
+  void testCompareTo() {
     ByteIdentity c1 = new ByteIdentity(Object.class, (byte) 1);
     ByteIdentity c2 = new ByteIdentity(Object.class, (byte) 1);
     ByteIdentity c3 = new ByteIdentity(Object.class, (byte) 2);
     ByteIdentity c4 = new ByteIdentity(Class.class, (byte) 1);
-    assertEquals("Equal ByteIdentity instances compare not equal.", 0, c1.compareTo(c2));
+    assertEquals(0, c1.compareTo(c2), "Equal ByteIdentity instances compare not equal.");
     assertTrue(
-        "Not equal ByteIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
+        c1.compareTo(c3) < 0, "Not equal ByteIdentity instances have wrong compareTo result");
     assertTrue(
-        "Not equal ByteIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0);
+        c3.compareTo(c1) > 0, "Not equal ByteIdentity instances have wrong compareTo result");
     assertTrue(
-        "Not equal ByteIdentity instances have wrong compareTo result", c1.compareTo(c4) > 0);
+        c1.compareTo(c4) > 0, "Not equal ByteIdentity instances have wrong compareTo result");
   }
 }

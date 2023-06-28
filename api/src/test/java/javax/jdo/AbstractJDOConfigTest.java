@@ -17,6 +17,8 @@
 
 package javax.jdo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Map;
@@ -104,15 +106,15 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
       String actualValue = (String) actual.get(key);
 
       assertEquals(
+          expectedValue,
+          actualValue,
           "Actual property at key ["
               + key
               + "] with value ["
               + actualValue
               + "] not equal to expected value ["
               + expectedValue
-              + "]",
-          expectedValue,
-          actualValue);
+              + "]");
     }
   }
 
