@@ -452,7 +452,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
     for (Throwable exception : nestedExceptions) {
       if (!(exception instanceof JDOFatalException)) {
         appendMessage(
-                "Nested exception " + exception.getClass().getName() + " is not a JDOFatalException.");
+            "Nested exception " + exception.getClass().getName() + " is not a JDOFatalException.");
       }
     }
     failOnError();
