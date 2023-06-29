@@ -4,7 +4,7 @@ import javax.naming.*;
 import java.util.Hashtable;
 
 public class DummyContext implements Context {
-    private Hashtable<String, Object> map;
+    private final Hashtable<String, Object> map;
 
     public DummyContext(Hashtable<String, Object> environment) {
         map = environment;
@@ -70,7 +70,7 @@ public class DummyContext implements Context {
 
     @Override
     public void rename(String oldName, String newName) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + oldName.toString());
+        throw new UnsupportedOperationException("unbind(name):" + oldName);
 
     }
 
@@ -81,7 +81,7 @@ public class DummyContext implements Context {
 
     @Override
     public NamingEnumeration<NameClassPair> list(String name) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + name.toString());
+        throw new UnsupportedOperationException("unbind(name):" + name);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class DummyContext implements Context {
 
     @Override
     public NamingEnumeration<Binding> listBindings(String name) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + name.toString());
+        throw new UnsupportedOperationException("unbind(name):" + name);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class DummyContext implements Context {
 
     @Override
     public void destroySubcontext(String name) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + name.toString());
+        throw new UnsupportedOperationException("unbind(name):" + name);
 
     }
 
@@ -113,7 +113,7 @@ public class DummyContext implements Context {
 
     @Override
     public Context createSubcontext(String name) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + name.toString());
+        throw new UnsupportedOperationException("unbind(name):" + name);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class DummyContext implements Context {
 
     @Override
     public Object lookupLink(String name) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + name.toString());
+        throw new UnsupportedOperationException("unbind(name):" + name);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class DummyContext implements Context {
 
     @Override
     public NameParser getNameParser(String name) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + name.toString());
+        throw new UnsupportedOperationException("unbind(name):" + name);
     }
 
     @Override
@@ -143,17 +143,17 @@ public class DummyContext implements Context {
 
     @Override
     public String composeName(String name, String prefix) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + name.toString());
+        throw new UnsupportedOperationException("unbind(name):" + name);
     }
 
     @Override
     public Object addToEnvironment(String propName, Object propVal) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + propName.toString());
+        throw new UnsupportedOperationException("unbind(name):" + propName);
     }
 
     @Override
     public Object removeFromEnvironment(String propName) throws NamingException {
-        throw new UnsupportedOperationException("unbind(name):" + propName.toString());
+        throw new UnsupportedOperationException("unbind(name):" + propName);
     }
 
     @Override
