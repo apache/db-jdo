@@ -41,15 +41,6 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
   private static final String PMF_SERVICE_CLASS = "javax.jdo.stub.StubPMF";
   private static final String PROPERTIES_FILE = "propsfile.props";
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return {@inheritDoc}
-   */
-  /*public static TestSuite suite() {
-    return new TestSuite(PMFMapMapTest.class);
-  }*/
-
   /*
    * static PersistenceManagerFactory getPersistenceManagerFactory() Get the
    * anonymous PersistenceManagerFactory configured via the standard
