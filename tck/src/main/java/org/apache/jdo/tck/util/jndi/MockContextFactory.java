@@ -17,6 +17,7 @@
 
 package org.apache.jdo.tck.util.jndi;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.NamingException;
@@ -26,6 +27,8 @@ public class MockContextFactory implements InitialContextFactory {
 
   @Override
   public Context getInitialContext(Hashtable<?, ?> environment) throws NamingException {
-    return new MockContext((Hashtable<String, Object>) environment);
+    HashMap<String, Object> map = new HashMap<>();
+    environment.forEach((key, value) -> map.put((String) key, value));
+    return new MockContext(map);
   }
 }

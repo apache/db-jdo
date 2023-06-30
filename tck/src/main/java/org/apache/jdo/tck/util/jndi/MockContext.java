@@ -18,13 +18,14 @@
 package org.apache.jdo.tck.util.jndi;
 
 import java.util.Hashtable;
+import java.util.Map;
 import javax.naming.*;
 
 public class MockContext implements Context {
-  private final Hashtable<String, Object> map;
+  private final Map<String, Object> map;
   private boolean isActive = true;
 
-  public MockContext(Hashtable<String, Object> environment) {
+  public MockContext(Map<String, Object> environment) {
     map = environment;
   }
 
