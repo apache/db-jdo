@@ -17,13 +17,21 @@
 
 package javax.jdo.spi;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Collection;
 import java.util.Properties;
 import javax.jdo.Constants;
 import javax.jdo.JDOUserException;
 import javax.jdo.pc.PCPoint;
 import javax.jdo.util.AbstractTest;
-import javax.jdo.util.BatchTestRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests class javax.jdo.spi.JDOImplHelper.
@@ -31,60 +39,43 @@ import javax.jdo.util.BatchTestRunner;
  * <p>Missing: testNewInstance + testNewObjectIdInstance Missing: tests for JDOImplHelper methods:
  * copyKeyFieldsToObjectId and copyKeyFieldsFromObjectId.
  */
-public class JDOImplHelperTest extends AbstractTest {
+class JDOImplHelperTest extends AbstractTest {
 
   /** */
   private RegisterClassEvent event;
 
   /** */
-  public static void main(String args[]) {
-    BatchTestRunner.run(JDOImplHelperTest.class);
-  }
-
-  /** */
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     // make sure PCClass is loaded before any tests are run
     new PCPoint(1, Integer.valueOf(1));
   }
 
   /** */
-  public void testGetFieldNames() {
+  @Test
+  void testGetFieldNames() {
     JDOImplHelper implHelper = JDOImplHelper.getInstance();
     String[] fieldNames = implHelper.getFieldNames(PCPoint.class);
-    if (fieldNames == null) {
-      fail("array of field names is null");
-    }
-    if (fieldNames.length != 2) {
-      fail("Unexpected length of fieldNames; expected 2, got " + fieldNames.length);
-    }
-    if (!fieldNames[0].equals("x")) {
-      fail("Unexpected field; expected x, got " + fieldNames[0]);
-    }
-    if (!fieldNames[1].equals("y")) {
-      fail("Unexpected field; expected y, got " + fieldNames[1]);
-    }
+    assertNotNull(fieldNames, "array of field names is null");
+    assertEquals(2, fieldNames.length, "Unexpected length of fieldNames");
+    assertEquals("x", fieldNames[0], "Unexpected field");
+    assertEquals("y", fieldNames[1], "Unexpected field");
   }
 
   /** */
-  public void testGetFieldTypes() {
+  @Test
+  void testGetFieldTypes() {
     JDOImplHelper implHelper = JDOImplHelper.getInstance();
     Class<?>[] fieldTypes = implHelper.getFieldTypes(PCPoint.class);
-    if (fieldTypes == null) {
-      fail("array of field types is null");
-    }
-    if (fieldTypes.length != 2) {
-      fail("Unexpected length of fieldTypes; expected 2, got " + fieldTypes.length);
-    }
-    if (fieldTypes[0] != int.class) {
-      fail("Unexpected field type; expected int, got " + fieldTypes[0]);
-    }
-    if (fieldTypes[1] != Integer.class) {
-      fail("Unexpected field type; expected Integer, got " + fieldTypes[1]);
-    }
+    assertNotNull(fieldTypes, "array of field types is null");
+    assertEquals(2, fieldTypes.length, "Unexpected length of fieldTypes");
+    assertEquals(int.class, fieldTypes[0], "Unexpected field type");
+    assertEquals(Integer.class, fieldTypes[1], "Unexpected field type");
   }
 
   /** */
-  public void testGetFieldFlags() {
+  @Test
+  void testGetFieldFlags() {
     byte expected =
         (byte)
             (PersistenceCapable.CHECK_READ
@@ -93,56 +84,50 @@ public class JDOImplHelperTest extends AbstractTest {
 
     JDOImplHelper implHelper = JDOImplHelper.getInstance();
     byte[] fieldFlags = implHelper.getFieldFlags(PCPoint.class);
-    if (fieldFlags == null) {
-      fail("array of field flags is null");
-    }
-    if (fieldFlags.length != 2) {
-      fail("Unexpected length of fieldFlags; expected 2, got " + fieldFlags.length);
-    }
-    if (fieldFlags[0] != expected) {
-      fail("Unexpected field flag; expected " + expected + ", got " + fieldFlags[0]);
-    }
-    if (fieldFlags[1] != expected) {
-      fail("Unexpected field flag; expected " + expected + ", got " + fieldFlags[1]);
-    }
+    assertNotNull(fieldFlags, "array of field flags is null");
+    assertEquals(2, fieldFlags.length, "Unexpected length of fieldFlags");
+    assertEquals(expected, fieldFlags[0], "Unexpected field flag");
+    assertEquals(expected, fieldFlags[1], "Unexpected field flag");
   }
 
   /** */
-  public void testGetPCSuperclass() {
+  @Test
+  void testGetPCSuperclass() {
     JDOImplHelper implHelper = JDOImplHelper.getInstance();
     Class<?> pcSuper = implHelper.getPersistenceCapableSuperclass(PCPoint.class);
-    if (pcSuper != null) {
-      fail("Wrong pc superclass of PCPoint; expected null, got " + pcSuper);
-    }
+    assertNull(pcSuper, "Wrong pc superclass of PCPoint");
   }
 
   /** */
-  public void testNewInstance() {
+  @Test
+  void testNewInstance() {
     JDOImplHelper implHelper = JDOImplHelper.getInstance();
     PersistenceCapable pcpoint = implHelper.newInstance(PCPoint.class, null);
-    assertTrue("instance created by newInstance is not a PCPoint", pcpoint instanceof PCPoint);
+    assertTrue(pcpoint instanceof PCPoint, "instance created by newInstance is not a PCPoint");
 
     pcpoint = implHelper.newInstance(PCPoint.class, null, null);
-    assertTrue("instance created by newInstance is not a PCPoint", pcpoint instanceof PCPoint);
+    assertTrue(pcpoint instanceof PCPoint, "instance created by newInstance is not a PCPoint");
   }
 
   /** */
-  public void testNewObjectIdInstance() {
+  @Test
+  void testNewObjectIdInstance() {
     JDOImplHelper implHelper = JDOImplHelper.getInstance();
     Object oid = implHelper.newObjectIdInstance(PCPoint.class);
-    // The ObjrectId od javax.jdo.pc.PCPoint is always null
-    assertNull("Unexpected non-null ObjectId of PCPoint", oid);
+    // The ObjectId od javax.jdo.pc.PCPoint is always null
+    assertNull(oid, "Unexpected non-null ObjectId of PCPoint");
   }
 
   /** */
-  public void testClassRegistration() {
+  @Test
+  void testClassRegistration() {
     JDOImplHelper implHelper = JDOImplHelper.getInstance();
 
     Collection<Class<?>> registeredClasses = implHelper.getRegisteredClasses();
+
     // test whether PCPoint is registered
-    if (!registeredClasses.contains(PCPoint.class)) {
-      fail("Missing registration of pc class PCPoint");
-    }
+    assertTrue(
+        registeredClasses.contains(PCPoint.class), "Missing registration of pc class PCPoint");
 
     // Save registered meta data for restoring
     String[] fieldNames = implHelper.getFieldNames(PCPoint.class);
@@ -151,19 +136,15 @@ public class JDOImplHelperTest extends AbstractTest {
     Class<?> pcSuperclass = implHelper.getPersistenceCapableSuperclass(PCPoint.class);
 
     // test unregisterClass with null parameter
-    try {
-      implHelper.unregisterClass(null);
-      fail("Missing exception when calling unregisterClass(null)");
-    } catch (NullPointerException ex) {
-      // expected exception => OK
-    }
+    assertThrows(
+        NullPointerException.class,
+        () -> implHelper.unregisterClass(null),
+        "Missing exception when calling unregisterClass(null)");
 
     // test unregister PCPoint class
     implHelper.unregisterClass(PCPoint.class);
     registeredClasses = implHelper.getRegisteredClasses();
-    if (registeredClasses.contains(PCPoint.class)) {
-      fail("PCPoint still registered");
-    }
+    assertFalse(registeredClasses.contains(PCPoint.class), "PCPoint still registered");
 
     // register PCPoint again
     JDOImplHelper.registerClass(
@@ -171,7 +152,8 @@ public class JDOImplHelperTest extends AbstractTest {
   }
 
   /** */
-  public void testClassListenerRegistration() {
+  @Test
+  void testClassListenerRegistration() {
     JDOImplHelper implHelper = JDOImplHelper.getInstance();
 
     // add listener and check event
@@ -180,66 +162,52 @@ public class JDOImplHelperTest extends AbstractTest {
     implHelper.addRegisterClassListener(listener);
     JDOImplHelper.registerClass(
         JDOImplHelperTest.class, new String[0], new Class[0], new byte[0], null, null);
-    if (event == null) {
-      fail("Missing event ");
-    }
+    assertNotNull(event, "Missing event ");
 
     // remove listener and check event
     event = null;
     implHelper.removeRegisterClassListener(listener);
     JDOImplHelper.registerClass(
         JDOImplHelperTest.class, new String[0], new Class[0], new byte[0], null, null);
-    if (event != null) {
-      fail("Unexpected event " + event);
-    }
+    assertNull(event, "Unexpected event ");
   }
 
   /** Test that an unknown standard property causes JDOUserException. */
-  public void testUnknownStandardProperty() {
+  @Test
+  void testUnknownStandardProperty() {
     Properties p = new Properties();
     p.setProperty("javax.jdo.unknown.standard.property", "value");
 
-    JDOUserException x = null;
-
-    try {
-      JDOImplHelper.assertOnlyKnownStandardProperties(p);
-      fail(
-          "testUnknownStandardProperty should result in JDOUserException. "
-              + "No exception was thrown.");
-    } catch (JDOUserException thrown) {
-      if (verbose) println("Caught expected exception " + thrown);
-      x = thrown;
-    }
-    assertNull("should have had no nested exceptions", x.getNestedExceptions());
+    JDOUserException thrown =
+        assertThrows(
+            JDOUserException.class,
+            () -> JDOImplHelper.assertOnlyKnownStandardProperties(p),
+            "testUnknownStandardProperty should result in JDOUserException. No exception was thrown.");
+    assertNull(thrown.getNestedExceptions(), "should have had no nested exceptions");
   }
 
   /** Test that unknown standard properties cause JDOUserException w/nested exceptions. */
-  public void testUnknownStandardProperties() {
+  @Test
+  void testUnknownStandardProperties() {
     Properties p = new Properties();
     p.setProperty("javax.jdo.unknown.standard.property.1", "value");
     p.setProperty("javax.jdo.unknown.standard.property.2", "value");
 
-    JDOUserException x = null;
+    JDOUserException thrown =
+        assertThrows(
+            JDOUserException.class,
+            () -> JDOImplHelper.assertOnlyKnownStandardProperties(p),
+            "testUnknownStandardProperties should result in JDOUserException. No exception was thrown.");
 
-    try {
-      JDOImplHelper.assertOnlyKnownStandardProperties(p);
-      fail(
-          "testUnknownStandardProperties should result in JDOUserException. "
-              + "No exception was thrown.");
-    } catch (JDOUserException thrown) {
-      if (verbose) println("Caught expected exception " + thrown);
-      x = thrown;
-    }
-
-    Throwable[] nesteds = x.getNestedExceptions();
+    Throwable[] nesteds = thrown.getNestedExceptions();
 
     assertNotNull(nesteds);
-    assertEquals("should have been 2 nested exceptions", 2, nesteds.length);
+    assertEquals(2, nesteds.length, "should have been 2 nested exceptions");
     for (int i = 0; i < nesteds.length; i++) {
       Throwable t = nesteds[i];
       assertTrue(
-          "nested exception " + i + " should have been JDOUserException",
-          t instanceof JDOUserException);
+          t instanceof JDOUserException,
+          "nested exception " + i + " should have been JDOUserException");
     }
   }
 
@@ -247,7 +215,8 @@ public class JDOImplHelperTest extends AbstractTest {
    * Test that unknown non-standard properties & well-formed listener properties don't cause
    * JDOUserException.
    */
-  public void testUnknownNonStandardPropertiesAndListeners() {
+  @Test
+  void testUnknownNonStandardPropertiesAndListeners() {
     Properties p = new Properties();
     p.put("unknown.property", "value");
     p.put(new Object(), "value");
@@ -256,7 +225,8 @@ public class JDOImplHelperTest extends AbstractTest {
   }
 
   /** Test that all JDO standard properties don't cause JDOUserException. */
-  public void testOnlyStandardProperties() {
+  @Test
+  void testOnlyStandardProperties() {
     Properties props = new Properties();
     for (String p : JDOImplHelper.USER_CONFIGURABLE_STANDARD_PROPERTIES) {
       props.setProperty(p, p);
@@ -265,7 +235,8 @@ public class JDOImplHelperTest extends AbstractTest {
   }
 
   /** Test that an known standard property in mixed case succeeds. */
-  public void testKnownStandardPropertyThatDiffersInCaseOnly() {
+  @Test
+  void testKnownStandardPropertyThatDiffersInCaseOnly() {
     Properties p = new Properties();
     p.setProperty("JaVaX.jDo.oPtIoN.CoNNectionDRiVerNamE", "value");
     p.setProperty("jAvAx.JdO.lIsTeNeR.InstaNceLifeCycleLisTener.foo.Bar", "");

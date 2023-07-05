@@ -17,12 +17,19 @@
 
 package javax.jdo.spi;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.util.AbstractTest;
-import javax.jdo.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * This class tests the StateInterrogation interface. The test is in several parts:
@@ -38,230 +45,247 @@ import javax.jdo.util.BatchTestRunner;
  * to return the correct replies. We use a java.lang.reflect.Proxy for the getPersistenceManager
  * call because it's too much work to mock it.
  */
-public class StateInterrogationTest extends AbstractTest {
+class StateInterrogationTest extends AbstractTest {
 
   private final JDOImplHelper implHelper = JDOImplHelper.getInstance();
 
   /** Creates a new instance of StateInterrogationTest */
   public StateInterrogationTest() {}
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(StateInterrogationTest.class);
-  }
-
-  public void testGetObjectIdNull() {
+  @Test
+  void testGetObjectIdNull() {
     Object id2 = JDOHelper.getObjectId(nbcpc2);
-    assertNull("ObjectId should be null before addStateInterrogations", id2);
+    assertNull(id2, "ObjectId should be null before addStateInterrogations");
     addStateInterrogations();
     Object id = JDOHelper.getObjectId(Boolean.TRUE);
-    assertNull("ObjectId should be null for non-pc instances", id);
+    assertNull(id, "ObjectId should be null for non-pc instances");
   }
 
-  public void testGetObjectId() {
+  @Test
+  void testGetObjectId() {
     addStateInterrogations();
     Object id2 = JDOHelper.getObjectId(nbcpc2);
-    assertNotNull("ObjectId should not be null", id2);
-    assertEquals("ObjectId should be 2", 2, id2.hashCode());
+    assertNotNull(id2, "ObjectId should not be null");
+    assertEquals(2, id2.hashCode(), "ObjectId should be 2");
     Object id20 = JDOHelper.getObjectId(nbcpc2);
-    assertEquals("ObjectIds from same object should be equal", id2, id20);
+    assertEquals(id2, id20, "ObjectIds from same object should be equal");
   }
 
-  public void testRemoveStateInterrogation() {
+  @Test
+  void testRemoveStateInterrogation() {
     addStateInterrogations();
     Object id2 = JDOHelper.getObjectId(nbcpc2);
-    assertNotNull("ObjectId should not be null", id2);
-    assertEquals("ObjectId should be 2", 2, id2.hashCode());
+    assertNotNull(id2, "ObjectId should not be null");
+    assertEquals(2, id2.hashCode(), "ObjectId should be 2");
     implHelper.removeStateInterrogation(si2);
     implHelper.removeStateInterrogation(si0);
     Object id21 = JDOHelper.getObjectId(nbcpc2);
-    assertNull("ObjectId should be null after RemoveStateInterrogation", id21);
+    assertNull(id21, "ObjectId should be null after RemoveStateInterrogation");
     Object id1 = JDOHelper.getObjectId(nbcpc1);
-    assertNotNull("ObjectId should not be null", id1);
-    assertEquals("ObjectId should be 1", 1, id1.hashCode());
+    assertNotNull(id1, "ObjectId should not be null");
+    assertEquals(1, id1.hashCode(), "ObjectId should be 1");
   }
 
-  public void testGetTransactionalObjectIdNull() {
+  @Test
+  void testGetTransactionalObjectIdNull() {
     Object id2 = JDOHelper.getTransactionalObjectId(nbcpc2);
-    assertNull("TransactionalObjectId should be null before addStateInterrogations", id2);
+    assertNull(id2, "TransactionalObjectId should be null before addStateInterrogations");
     addStateInterrogations();
     Object id = JDOHelper.getTransactionalObjectId(Boolean.TRUE);
-    assertNull("TransactionalObjectId should be null for non-pc instances", id);
+    assertNull(id, "TransactionalObjectId should be null for non-pc instances");
   }
 
-  public void testGetTransactionalObjectId() {
+  @Test
+  void testGetTransactionalObjectId() {
     addStateInterrogations();
     Object id2 = JDOHelper.getTransactionalObjectId(nbcpc2);
-    assertNotNull("TransactionalObjectId should not be null", id2);
-    assertEquals("TransactionalObjectId should be 2", 2, id2.hashCode());
+    assertNotNull(id2, "TransactionalObjectId should not be null");
+    assertEquals(2, id2.hashCode(), "TransactionalObjectId should be 2");
     Object id20 = JDOHelper.getTransactionalObjectId(nbcpc2);
-    assertEquals("TransactionalObjectIds from same object should be equal", id2, id20);
+    assertEquals(id2, id20, "TransactionalObjectIds from same object should be equal");
   }
 
-  public void testGetPersistenceManagerNull() {
+  @Test
+  void testGetPersistenceManagerNull() {
     Object pm2 = JDOHelper.getPersistenceManager(nbcpc2);
-    assertNull("PersistenceManager should be null before addStateInterrogations", pm2);
+    assertNull(pm2, "PersistenceManager should be null before addStateInterrogations");
     addStateInterrogations();
     Object pm = JDOHelper.getPersistenceManager(Boolean.TRUE);
-    assertNull("PersistenceManager should be null for non-pc instances", pm);
+    assertNull(pm, "PersistenceManager should be null for non-pc instances");
   }
 
-  public void testGetPersistenceManager() {
+  @Test
+  void testGetPersistenceManager() {
     addStateInterrogations();
     Object pm2 = JDOHelper.getPersistenceManager(nbcpc2);
-    assertNotNull("PersistenceManager should not be null", pm2);
-    assertEquals("PersistenceManager should be 2", 2, pm2.hashCode());
+    assertNotNull(pm2, "PersistenceManager should not be null");
+    assertEquals(2, pm2.hashCode(), "PersistenceManager should be 2");
     Object pm20 = JDOHelper.getPersistenceManager(nbcpc2);
-    assertEquals("PersistenceManagers from same object should be equal", pm2, pm20);
+    assertEquals(pm2, pm20, "PersistenceManagers from same object should be equal");
   }
 
-  public void testGetVersionNull() {
+  @Test
+  void testGetVersionNull() {
     Object id2 = JDOHelper.getVersion(nbcpc2);
-    assertNull("Version should be null before addStateInterrogations", id2);
+    assertNull(id2, "Version should be null before addStateInterrogations");
     addStateInterrogations();
     Object id = JDOHelper.getVersion(Boolean.TRUE);
-    assertNull("Version should be null for non-pc instances", id);
+    assertNull(id, "Version should be null for non-pc instances");
   }
 
-  public void testGetVersion() {
+  @Test
+  void testGetVersion() {
     addStateInterrogations();
     Object id2 = JDOHelper.getVersion(nbcpc2);
-    assertNotNull("Version should not be null", id2);
-    assertEquals("Version should be 2", 2, id2.hashCode());
+    assertNotNull(id2, "Version should not be null");
+    assertEquals(2, id2.hashCode(), "Version should be 2");
     Object id20 = JDOHelper.getVersion(nbcpc2);
-    assertEquals("Versions from same object should be equal", id2, id20);
+    assertEquals(id2, id20, "Versions from same object should be equal");
   }
 
-  public void testIsDeletedFalse() {
+  @Test
+  void testIsDeletedFalse() {
     assertFalse(
-        "IsDeleted should be false before addStateInterrogations", JDOHelper.isDeleted(nbcpc2));
+        JDOHelper.isDeleted(nbcpc2), "IsDeleted should be false before addStateInterrogations");
     addStateInterrogations();
     assertFalse(
-        "IsDeleted should be false for non-pc instances", JDOHelper.isDeleted(Boolean.TRUE));
+        JDOHelper.isDeleted(Boolean.TRUE), "IsDeleted should be false for non-pc instances");
     implHelper.removeStateInterrogation(si2);
     assertFalse(
-        "IsDeleted should be false after removeStateInterrogations", JDOHelper.isDeleted(nbcpc2));
+        JDOHelper.isDeleted(nbcpc2), "IsDeleted should be false after removeStateInterrogations");
   }
 
-  public void testIsDeletedMine() {
+  @Test
+  void testIsDeletedMine() {
     addStateInterrogations();
-    assertTrue("IsDeleted should be true for nbcpc1", JDOHelper.isDeleted(nbcpc1));
-    assertFalse("IsDeleted should be false for nbcpc2", JDOHelper.isDeleted(nbcpc2));
+    assertTrue(JDOHelper.isDeleted(nbcpc1), "IsDeleted should be true for nbcpc1");
+    assertFalse(JDOHelper.isDeleted(nbcpc2), "IsDeleted should be false for nbcpc2");
   }
 
-  public void testIsDetachedFalse() {
+  @Test
+  void testIsDetachedFalse() {
     assertFalse(
-        "IsDetached should be false before addStateInterrogations", JDOHelper.isDetached(nbcpc2));
+        JDOHelper.isDetached(nbcpc2), "IsDetached should be false before addStateInterrogations");
     addStateInterrogations();
     assertFalse(
-        "IsDetached should be false for non-pc instances", JDOHelper.isDetached(Boolean.TRUE));
+        JDOHelper.isDetached(Boolean.TRUE), "IsDetached should be false for non-pc instances");
     implHelper.removeStateInterrogation(si2);
     assertFalse(
-        "IsDetached should be false after removeStateInterrogations", JDOHelper.isDetached(nbcpc2));
+        JDOHelper.isDetached(nbcpc2), "IsDetached should be false after removeStateInterrogations");
   }
 
-  public void testIsDetachedMine() {
+  @Test
+  void testIsDetachedMine() {
     addStateInterrogations();
-    assertTrue("IsDetached should be true for nbcpc1", JDOHelper.isDetached(nbcpc1));
-    assertFalse("IsDetached should be false for nbcpc2", JDOHelper.isDetached(nbcpc2));
+    assertTrue(JDOHelper.isDetached(nbcpc1), "IsDetached should be true for nbcpc1");
+    assertFalse(JDOHelper.isDetached(nbcpc2), "IsDetached should be false for nbcpc2");
   }
 
-  public void testIsDirtyFalse() {
-    assertFalse("IsDirty should be false before addStateInterrogations", JDOHelper.isDirty(nbcpc2));
+  @Test
+  void testIsDirtyFalse() {
+    assertFalse(JDOHelper.isDirty(nbcpc2), "IsDirty should be false before addStateInterrogations");
     addStateInterrogations();
-    assertFalse("IsDirty should be false for non-pc instances", JDOHelper.isDirty(Boolean.TRUE));
+    assertFalse(JDOHelper.isDirty(Boolean.TRUE), "IsDirty should be false for non-pc instances");
     implHelper.removeStateInterrogation(si2);
     nbcpc2.setDirty(true);
     assertFalse(
-        "IsDirty should be false after removeStateInterrogations", JDOHelper.isDirty(nbcpc2));
+        JDOHelper.isDirty(nbcpc2), "IsDirty should be false after removeStateInterrogations");
     nbcpc2.setDirty(false);
   }
 
-  public void testIsDirtyMine() {
+  @Test
+  void testIsDirtyMine() {
     addStateInterrogations();
     nbcpc1.setDirty(true);
-    assertTrue("IsDirty should be true for nbcpc1 after setDirty(true)", JDOHelper.isDirty(nbcpc1));
+    assertTrue(JDOHelper.isDirty(nbcpc1), "IsDirty should be true for nbcpc1 after setDirty(true)");
     nbcpc1.setDirty(false);
     assertFalse(
-        "IsDirty should be false for nbcpc1 after setDirty(false)", JDOHelper.isDirty(nbcpc1));
-    assertFalse("IsDirty should be false for nbcpc2", JDOHelper.isDirty(nbcpc2));
+        JDOHelper.isDirty(nbcpc1), "IsDirty should be false for nbcpc1 after setDirty(false)");
+    assertFalse(JDOHelper.isDirty(nbcpc2), "IsDirty should be false for nbcpc2");
   }
 
-  public void testIsNewFalse() {
-    assertFalse("IsNew should be false before addStateInterrogations", JDOHelper.isNew(nbcpc2));
+  @Test
+  void testIsNewFalse() {
+    assertFalse(JDOHelper.isNew(nbcpc2), "IsNew should be false before addStateInterrogations");
     addStateInterrogations();
-    assertFalse("IsNew should be false for non-pc instances", JDOHelper.isNew(Boolean.TRUE));
+    assertFalse(JDOHelper.isNew(Boolean.TRUE), "IsNew should be false for non-pc instances");
     implHelper.removeStateInterrogation(si2);
-    assertFalse("IsNew should be false after removeStateInterrogations", JDOHelper.isNew(nbcpc2));
+    assertFalse(JDOHelper.isNew(nbcpc2), "IsNew should be false after removeStateInterrogations");
   }
 
-  public void testIsNewMine() {
+  @Test
+  void testIsNewMine() {
     addStateInterrogations();
-    assertTrue("IsNew should be true for nbcpc1", JDOHelper.isNew(nbcpc1));
-    assertFalse("IsNew should be false for nbcpc2", JDOHelper.isNew(nbcpc2));
+    assertTrue(JDOHelper.isNew(nbcpc1), "IsNew should be true for nbcpc1");
+    assertFalse(JDOHelper.isNew(nbcpc2), "IsNew should be false for nbcpc2");
   }
 
-  public void testIsPersistentFalse() {
+  @Test
+  void testIsPersistentFalse() {
     assertFalse(
-        "IsPersistent should be false before addStateInterrogations",
-        JDOHelper.isPersistent(nbcpc2));
+        JDOHelper.isPersistent(nbcpc2),
+        "IsPersistent should be false before addStateInterrogations");
     addStateInterrogations();
     assertFalse(
-        "IsPersistent should be false for non-pc instances", JDOHelper.isPersistent(Boolean.TRUE));
-    implHelper.removeStateInterrogation(si2);
-    assertFalse(
-        "IsPersistent should be false after removeStateInterrogations",
-        JDOHelper.isPersistent(nbcpc2));
-  }
-
-  public void testIsPersistentMine() {
-    addStateInterrogations();
-    assertTrue("IsPersistent should be true for nbcpc1", JDOHelper.isPersistent(nbcpc1));
-    assertFalse("IsPersistent should be false for nbcpc2", JDOHelper.isPersistent(nbcpc2));
-  }
-
-  public void testIsTransactionalFalse() {
-    assertFalse(
-        "IsTransactional should be false before addStateInterrogations",
-        JDOHelper.isTransactional(nbcpc2));
-    addStateInterrogations();
-    assertFalse(
-        "IsTransactional should be false for non-pc instances",
-        JDOHelper.isTransactional(Boolean.TRUE));
+        JDOHelper.isPersistent(Boolean.TRUE), "IsPersistent should be false for non-pc instances");
     implHelper.removeStateInterrogation(si2);
     assertFalse(
-        "IsTransactional should be false after removeStateInterrogations",
-        JDOHelper.isTransactional(nbcpc2));
+        JDOHelper.isPersistent(nbcpc2),
+        "IsPersistent should be false after removeStateInterrogations");
   }
 
-  public void testIsTransactionalMine() {
+  @Test
+  void testIsPersistentMine() {
     addStateInterrogations();
-    assertTrue("IsTransactional should be true for nbcpc1", JDOHelper.isTransactional(nbcpc1));
-    assertFalse("IsTransactional should be false for nbcpc2", JDOHelper.isTransactional(nbcpc2));
+    assertTrue(JDOHelper.isPersistent(nbcpc1), "IsPersistent should be true for nbcpc1");
+    assertFalse(JDOHelper.isPersistent(nbcpc2), "IsPersistent should be false for nbcpc2");
   }
 
-  public void testMakeDirtyFalse() {
+  @Test
+  void testIsTransactionalFalse() {
+    assertFalse(
+        JDOHelper.isTransactional(nbcpc2),
+        "IsTransactional should be false before addStateInterrogations");
+    addStateInterrogations();
+    assertFalse(
+        JDOHelper.isTransactional(Boolean.TRUE),
+        "IsTransactional should be false for non-pc instances");
+    implHelper.removeStateInterrogation(si2);
+    assertFalse(
+        JDOHelper.isTransactional(nbcpc2),
+        "IsTransactional should be false after removeStateInterrogations");
+  }
+
+  @Test
+  void testIsTransactionalMine() {
+    addStateInterrogations();
+    assertTrue(JDOHelper.isTransactional(nbcpc1), "IsTransactional should be true for nbcpc1");
+    assertFalse(JDOHelper.isTransactional(nbcpc2), "IsTransactional should be false for nbcpc2");
+  }
+
+  @Test
+  void testMakeDirtyFalse() {
     JDOHelper.makeDirty(nbcpc2, "");
     nbcpc2.setDirty(true);
-    assertFalse("IsDirty should be false before addStateInterrogations", JDOHelper.isDirty(nbcpc2));
+    assertFalse(JDOHelper.isDirty(nbcpc2), "IsDirty should be false before addStateInterrogations");
     addStateInterrogations();
     implHelper.removeStateInterrogation(si2);
     nbcpc2.setDirty(false);
     JDOHelper.makeDirty(nbcpc2, "");
     assertFalse(
-        "IsDirty should be false after removeStateInterrogations", JDOHelper.isDirty(nbcpc2));
+        JDOHelper.isDirty(nbcpc2), "IsDirty should be false after removeStateInterrogations");
   }
 
-  public void testMakeDirtyMine() {
+  @Test
+  void testMakeDirtyMine() {
     addStateInterrogations();
     JDOHelper.makeDirty(nbcpc1, "");
-    assertTrue("IsDirty should be true for nbcpc1", JDOHelper.isDirty(nbcpc1));
+    assertTrue(JDOHelper.isDirty(nbcpc1), "IsDirty should be true for nbcpc1");
     nbcpc1.setDirty(false);
-    assertFalse("IsDirty should be false after setDirty(false)", JDOHelper.isDirty(nbcpc1));
+    assertFalse(JDOHelper.isDirty(nbcpc1), "IsDirty should be false after setDirty(false)");
   }
 
+  @AfterEach
   public void tearDown() {
     removeStateInterrogations();
   }
@@ -476,9 +500,9 @@ public class StateInterrogationTest extends AbstractTest {
     public Object invoke(Object obj, java.lang.reflect.Method method, Object[] params)
         throws Throwable {
       String name = method.getName();
-      if (name == "hashCode") {
+      if ("hashCode".equals(name)) {
         return Integer.valueOf(id);
-      } else if (name == "equals") {
+      } else if ("equals".equals(name)) {
         Object other = params[0];
         if (!(other instanceof PersistenceManager)) return Boolean.FALSE;
         int otherid = Proxy.getInvocationHandler(other).hashCode();

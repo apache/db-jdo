@@ -16,29 +16,23 @@
  */
 package javax.jdo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
-import javax.jdo.util.BatchTestRunner;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /** Tests class javax.jdo.JDOHelper for META-INF/jdoconfig.xml compliance. */
-public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
-
-  public static void main(String args[]) {
-    BatchTestRunner.run(JDOHelperConfigTest.class);
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @return {@inheritDoc}
-   */
-  public static TestSuite suite() {
-    return new TestSuite(JDOHelperConfigTest.class);
-  }
+class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
 
   /**
    * Builds up a {@link java.util.Map Map} object that contains key parameter values specific to a
@@ -224,44 +218,49 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     String name = testVariantName == null ? null : expected.get(Constants.PROPERTY_NAME);
     Map<Object, Object> actual = JDOHelper.getPropertiesFromJdoconfig(name, loader);
 
-    assertNotNull("No properties found", actual);
+    assertNotNull(actual, "No properties found");
     if (checkEqualProperties) {
       assertEqualProperties(expected, actual);
     }
   }
 
-  public void testPositive00_PMF0_BasicPMFConfigUsingOnlyStandardAttributesAndListeners()
+  @Test
+  void testPositive00_PMF0_BasicPMFConfigUsingOnlyStandardAttributesAndListeners()
       throws IOException {
     doPositiveTest(
         new String[] {JDOCONFIG_CLASSPATH_PREFIX + "/Positive00"}, "positive00.pmf0", 2, 0, true);
   }
 
-  public void
+  @Test
+  void
       testPositive00_PMF1_BasicPMFConfigUsingOnlyPropertyElementsWithStandardJavaxDotJDOProperties()
           throws IOException {
     doPositiveTest(
         new String[] {JDOCONFIG_CLASSPATH_PREFIX + "/Positive00"}, "positive00.pmf1", 2, 0, true);
   }
 
-  public void testPositive00_PMF2_NestedPropertyElementsWithOnlyStandardAttributeNames()
+  @Test
+  void testPositive00_PMF2_NestedPropertyElementsWithOnlyStandardAttributeNames()
       throws IOException {
     doPositiveTest(
         new String[] {JDOCONFIG_CLASSPATH_PREFIX + "/Positive00"}, "positive00.pmf2", 2, 0, true);
   }
 
-  public void testPositive00_PMF3_StandardAttributesPlusNonstandardPropertiesInPropertyElements()
+  @Test
+  void testPositive00_PMF3_StandardAttributesPlusNonstandardPropertiesInPropertyElements()
       throws IOException {
     doPositiveTest(
         new String[] {JDOCONFIG_CLASSPATH_PREFIX + "/Positive00"}, "positive00.pmf3", 2, 2, true);
   }
 
-  public void testPositive00_PMF4_StandardAttributesPlusNonstandardAttributes() throws IOException {
+  @Test
+  void testPositive00_PMF4_StandardAttributesPlusNonstandardAttributes() throws IOException {
     doPositiveTest(
         new String[] {JDOCONFIG_CLASSPATH_PREFIX + "/Positive00"}, "positive00.pmf4", 0, 2, true);
   }
 
-  public void testPositive01_DuplicatePUsInDifferentConfigFilesButNotRequested()
-      throws IOException {
+  @Test
+  void testPositive01_DuplicatePUsInDifferentConfigFilesButNotRequested() throws IOException {
     String[] classpaths =
         new String[] {
           JDOCONFIG_CLASSPATH_PREFIX + "/Positive01/1a",
@@ -271,11 +270,12 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     Map<Object, Object> actual =
         JDOHelper.getPropertiesFromJdoconfig(
             Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
-    assertNotNull("Anonymous PMF with no properties returned null", actual);
-    assertEquals("Anonymous PMF with no properties had properties", 0, actual.size());
+    assertNotNull(actual, "Anonymous PMF with no properties returned null");
+    assertEquals(0, actual.size(), "Anonymous PMF with no properties had properties");
   }
 
-  public void testPositive02_GetAnonymousPMFWithNoProperties() throws IOException {
+  @Test
+  void testPositive02_GetAnonymousPMFWithNoProperties() throws IOException {
 
     URLClassLoader loader =
         new JDOConfigTestClassLoader(
@@ -284,49 +284,29 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     Map<Object, Object> properties =
         JDOHelper.getPropertiesFromJdoconfig(
             Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
-    assertNotNull("Anonymous PMF with no properties returned null", properties);
-    assertEquals("Anonymous PMF with no properties had properties", 0, properties.size());
+    assertNotNull(properties, "Anonymous PMF with no properties returned null");
+    assertEquals(0, properties.size(), "Anonymous PMF with no properties had properties");
   }
 
-  public void testPositive03_PMF0_PMFClassNameViaServicesLookup() throws IOException {
+  @ParameterizedTest
+  @CsvSource({
+    "/Positive03/,class.positive03.pmf0",
+    "/Positive04/,class.positive04.pmf0",
+    "/Positive05/,class.positive05.pmf0"
+  })
+  void testPositive_PMF0_PMFClassNameViaServicesLookup(String path, String expected)
+      throws IOException {
     URLClassLoader loader =
         new JDOConfigTestClassLoader(
-            getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive03/");
-
-    String expected = "class.positive03.pmf0";
+            getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + path);
     String actual = getPMFClassNameViaServiceLookup(loader);
 
-    assertNotNull("No PMF name found via services lookup", actual);
+    assertNotNull(actual, "No PMF name found via services lookup");
     assertEquals(expected, actual);
   }
 
-  public void testPositive04_PMF0_PMFClassNameViaServicesLookup() throws IOException {
-
-    URLClassLoader loader =
-        new JDOConfigTestClassLoader(
-            getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive04/");
-
-    String expected = "class.positive04.pmf0";
-    String actual = getPMFClassNameViaServiceLookup(loader);
-
-    assertNotNull("No PMF name found via services lookup", actual);
-    assertEquals(expected, actual);
-  }
-
-  public void testPositive05_PMF0_PMFClassNameViaServicesLookup() throws IOException {
-
-    URLClassLoader loader =
-        new JDOConfigTestClassLoader(
-            getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive05/");
-
-    String expected = "class.positive05.pmf0";
-    String actual = getPMFClassNameViaServiceLookup(loader);
-
-    assertNotNull("No PMF name found via services lookup", actual);
-    assertEquals(expected, actual);
-  }
-
-  public void testPositive06_PMF0_GetAnonymousPMFProperties() throws IOException {
+  @Test
+  void testPositive06_PMF0_GetAnonymousPMFProperties() throws IOException {
 
     URLClassLoader loader =
         new JDOConfigTestClassLoader(
@@ -337,11 +317,12 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         JDOHelper.getPropertiesFromJdoconfig(
             Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
-    assertNotNull("No properties found", actual);
+    assertNotNull(actual, "No properties found");
     assertEqualProperties(expected, actual);
   }
 
-  public void testPositive07_PMF0_GetAnonymousPMFPropertiesWithPUName() throws IOException {
+  @Test
+  void testPositive07_PMF0_GetAnonymousPMFPropertiesWithPUName() throws IOException {
 
     URLClassLoader loader =
         new JDOConfigTestClassLoader(
@@ -352,97 +333,65 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         JDOHelper.getPropertiesFromJdoconfig(
             Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
-    assertNotNull("No properties found", actual);
+    assertNotNull(actual, "No properties found");
     assertEqualProperties(expected, actual);
   }
 
-  public void testNegative00_EmptyJDOConfigXML() throws IOException {
-    try {
-      URLClassLoader loader =
-          new JDOConfigTestClassLoader(
-              getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative0/");
-      JDOHelper.getPersistenceManagerFactory(loader);
-      fail("JDOHelper failed to throw JDOFatalUserException");
-    } catch (JDOFatalUserException x) {
-      // sunny day
-    }
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "/Negative0/", // EmptyJDOConfigXML
+        "/Negative01/", // NoPersistenceUnitsDefined
+        "/Negative02/", // DuplicateAnonymousPersistenceUnitsInSameConfig
+        "/Negative05/" // DuplicatePropertyInAttributeAndElement
+      })
+  void testNegative(String path) throws IOException {
+    URLClassLoader loader =
+        new JDOConfigTestClassLoader(
+            getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + path);
+    assertThrows(
+        JDOFatalUserException.class,
+        () -> JDOHelper.getPersistenceManagerFactory(loader),
+        "JDOHelper failed to throw JDOFatalUserException");
   }
 
-  public void testNegative01_NoPersistenceUnitsDefined() throws IOException {
-    try {
-      URLClassLoader loader =
-          new JDOConfigTestClassLoader(
-              getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative01/");
-      JDOHelper.getPersistenceManagerFactory(loader);
-      fail("JDOHelper failed to throw JDOFatalUserException");
-    } catch (JDOFatalUserException x) {
-      // joy, sweet joy
-    }
+  @Test
+  void testNegative03_DuplicateNamedPersistenceUnitsInSameConfig() throws IOException {
+    URLClassLoader loader =
+        new JDOConfigTestClassLoader(
+            getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative03/");
+    assertThrows(
+        JDOFatalUserException.class,
+        () -> JDOHelper.getPersistenceManagerFactory("name.negative03", loader),
+        "JDOHelper failed to throw JDOFatalUserException");
   }
 
-  public void testNegative02_DuplicateAnonymousPersistenceUnitsInSameConfig() throws IOException {
-    try {
-      URLClassLoader loader =
-          new JDOConfigTestClassLoader(
-              getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative02/");
-      JDOHelper.getPersistenceManagerFactory(loader);
-      fail("JDOHelper failed to throw JDOFatalUserException");
-    } catch (JDOFatalUserException x) {
-      // the cockles of my heart warmeth
-    }
+  @Test
+  void testNegative04_DuplicatePUNamePropertyInAttributeAndElement() throws IOException {
+    URLClassLoader loader =
+        new JDOConfigTestClassLoader(
+            getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative04/");
+    assertThrows(
+        JDOFatalUserException.class,
+        () -> JDOHelper.getPersistenceManagerFactory("name.negative04.value0", loader),
+        "JDOHelper failed to throw JDOFatalUserException");
   }
 
-  public void testNegative03_DuplicateNamedPersistenceUnitsInSameConfig() throws IOException {
-    try {
-      URLClassLoader loader =
-          new JDOConfigTestClassLoader(
-              getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative03/");
-      JDOHelper.getPersistenceManagerFactory("name.negative03", loader);
-      fail("JDOHelper failed to throw JDOFatalUserException");
-    } catch (JDOFatalUserException x) {
-      // warm fuzzies
-    }
+  @Test
+  void testNegative06_DuplicatePUInDifferentConfigFiles() throws IOException {
+    URLClassLoader loader =
+        new JDOConfigTestClassLoader(
+            getClass().getClassLoader(),
+            JDOCONFIG_CLASSPATH_PREFIX + "/Negative06/6a/",
+            JDOCONFIG_CLASSPATH_PREFIX + "/Negative06/6b/");
+    assertThrows(
+        JDOFatalUserException.class,
+        () -> JDOHelper.getPersistenceManagerFactory("name.negative06", loader),
+        "JDOHelper failed to throw JDOFatalUserException");
   }
 
-  public void testNegative04_DuplicatePUNamePropertyInAttributeAndElement() throws IOException {
-    try {
-      URLClassLoader loader =
-          new JDOConfigTestClassLoader(
-              getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative04/");
-      JDOHelper.getPersistenceManagerFactory("name.negative04.value0", loader);
-      fail("JDOHelper failed to throw JDOFatalUserException");
-    } catch (JDOFatalUserException x) {
-      // no cold pricklies
-    }
-  }
-
-  public void testNegative05_DuplicatePropertyInAttributeAndElement() throws IOException {
-    try {
-      URLClassLoader loader =
-          new JDOConfigTestClassLoader(
-              getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative05/");
-      JDOHelper.getPersistenceManagerFactory(loader);
-      fail("JDOHelper failed to throw JDOFatalUserException");
-    } catch (JDOFatalUserException x) {
-      // party!
-    }
-  }
-
-  public void testNegative06_DuplicatePUInDifferentConfigFiles() throws IOException {
-    try {
-      URLClassLoader loader =
-          new JDOConfigTestClassLoader(
-              getClass().getClassLoader(),
-              JDOCONFIG_CLASSPATH_PREFIX + "/Negative06/6a/",
-              JDOCONFIG_CLASSPATH_PREFIX + "/Negative06/6b/");
-      JDOHelper.getPersistenceManagerFactory("name.negative06", loader);
-      fail("JDOHelper failed to throw JDOFatalUserException");
-    } catch (JDOFatalUserException x) {
-      // clear blue sky
-    }
-  }
-
-  public void testNegative07_EmptyServicesFile() throws IOException {
+  @Test
+  void testNegative07_EmptyServicesFile() throws IOException {
     JDOConfigTestClassLoader testLoader =
         new JDOConfigTestClassLoader(
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative07/");
@@ -450,21 +399,21 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     assertNull(shouldBeNull);
   }
 
-  public void testNegative08_NoResourcesFound() {
+  @Test
+  void testNegative08_NoResourcesFound() {
     String resource = "" + RANDOM.nextLong();
     InputStream in = getClass().getClassLoader().getResourceAsStream(resource);
     assertNull(in);
 
     // resource pretty much guaranteed not to exist
-    try {
-      JDOHelper.getPersistenceManagerFactory(resource);
-      fail("JDOHelper failed to throw JDOFatalUserException");
-    } catch (JDOFatalUserException x) {
-      // happy path
-    }
+    assertThrows(
+        JDOFatalUserException.class,
+        () -> JDOHelper.getPersistenceManagerFactory(resource),
+        "JDOHelper failed to throw JDOFatalUserException");
   }
 
-  public void testNegative08_ServicesFileWithOnlyComments() throws IOException {
+  @Test
+  void testNegative08_ServicesFileWithOnlyComments() throws IOException {
     JDOConfigTestClassLoader testLoader =
         new JDOConfigTestClassLoader(
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative08/");
@@ -472,39 +421,38 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     assertNull(shouldBeNull);
   }
 
-  public void testNegative09_MultipleInvalidClassesInDifferentServicesFiles() throws IOException {
+  @Test
+  void testNegative09_MultipleInvalidClassesInDifferentServicesFiles() throws IOException {
 
     // no class name in Negative09/jdoconfig.xml
     // 9a and 9b include services/javax.jdo.PersistenceManagerFactory
     // with bad implementations
-    try {
-      URLClassLoader loader =
-          new JDOConfigTestClassLoader(
-              getClass().getClassLoader(),
-              JDOCONFIG_CLASSPATH_PREFIX + "/Negative09/9a/",
-              JDOCONFIG_CLASSPATH_PREFIX + "/Negative09/9b/",
-              TEST_CLASSPATH,
-              API_CLASSPATH);
-      JDOHelper.getPersistenceManagerFactory("name.negative09", loader);
-      fail("JDOHelper failed to throw JDOFatalUserException");
-    } catch (JDOFatalException x) {
-      Throwable[] nestedExceptions = x.getNestedExceptions();
-      if (nestedExceptions.length != 2) {
+    URLClassLoader loader =
+        new JDOConfigTestClassLoader(
+            getClass().getClassLoader(),
+            JDOCONFIG_CLASSPATH_PREFIX + "/Negative09/9a/",
+            JDOCONFIG_CLASSPATH_PREFIX + "/Negative09/9b/",
+            TEST_CLASSPATH,
+            API_CLASSPATH);
+    JDOFatalException x =
+        assertThrows(
+            JDOFatalException.class,
+            () -> JDOHelper.getPersistenceManagerFactory("name.negative09", loader),
+            "JDOHelper failed to throw JDOFatalUserException");
+
+    Throwable[] nestedExceptions = x.getNestedExceptions();
+    if (nestedExceptions.length != 2) {
+      appendMessage(
+          "JDOHelper.getPersistenceManagerFactory wrong number of "
+              + "nested exceptions. Expected 2, got "
+              + nestedExceptions.length
+              + "\n"
+              + x);
+    }
+    for (Throwable exception : nestedExceptions) {
+      if (!(exception instanceof JDOFatalException)) {
         appendMessage(
-            "JDOHelper.getPersistenceManagerFactory wrong number of "
-                + "nested exceptions. Expected 2, got "
-                + nestedExceptions.length
-                + "\n"
-                + x);
-      }
-      for (int i = 0; i < nestedExceptions.length; ++i) {
-        Throwable exception = nestedExceptions[i];
-        if (!(exception instanceof JDOFatalException)) {
-          appendMessage(
-              "Nested exception "
-                  + exception.getClass().getName()
-                  + " is not a JDOFatalException.");
-        }
+            "Nested exception " + exception.getClass().getName() + " is not a JDOFatalException.");
       }
     }
     failOnError();

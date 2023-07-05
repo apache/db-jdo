@@ -17,12 +17,14 @@
 
 package javax.jdo;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import javax.jdo.spi.PersistenceCapable;
 import javax.jdo.util.AbstractTest;
-import javax.jdo.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /*
  * ObjectStateTest.java
@@ -31,7 +33,7 @@ import javax.jdo.util.BatchTestRunner;
  *
  * @since 2.1
  */
-public class ObjectStateTest extends AbstractTest {
+class ObjectStateTest extends AbstractTest {
 
   static final int PERSISTENT = 1;
   static final int TRANSACTIONAL = 2;
@@ -54,73 +56,82 @@ public class ObjectStateTest extends AbstractTest {
       getDeclaredMethod(PersistenceCapable.class, "jdoIsDetached", null);
 
   /** */
-  public static void main(String args[]) {
-    BatchTestRunner.run(ObjectStateTest.class);
-  }
-
-  public void testNull() {
+  @Test
+  void testNull() {
     PersistenceCapable mock = null;
     assertObjectState("null", null, mock);
   }
 
-  public void testTransient() {
+  @Test
+  void testTransient() {
     PersistenceCapable mock = newMock(0);
     assertObjectState("transient", ObjectState.TRANSIENT, mock);
   }
 
-  public void testTransientClean() {
+  @Test
+  void testTransientClean() {
     PersistenceCapable mock = newMock(TRANSACTIONAL);
     assertObjectState("transient-clean", ObjectState.TRANSIENT_CLEAN, mock);
   }
 
-  public void testTransientDirty() {
+  @Test
+  void testTransientDirty() {
     PersistenceCapable mock = newMock(TRANSACTIONAL + DIRTY);
     assertObjectState("transient-dirty", ObjectState.TRANSIENT_DIRTY, mock);
   }
 
-  public void testPersistentNew() {
+  @Test
+  void testPersistentNew() {
     PersistenceCapable mock = newMock(PERSISTENT + TRANSACTIONAL + NEW + DIRTY);
     assertObjectState("persistent-new", ObjectState.PERSISTENT_NEW, mock);
   }
 
-  public void testPersistentNontransactional() {
+  @Test
+  void testPersistentNontransactional() {
     PersistenceCapable mock = newMock(PERSISTENT);
     assertObjectState(
         "persistent-nontransactional", ObjectState.HOLLOW_PERSISTENT_NONTRANSACTIONAL, mock);
   }
 
-  public void testPersistentNontransactionalDirty() {
+  @Test
+  void testPersistentNontransactionalDirty() {
     PersistenceCapable mock = newMock(PERSISTENT + DIRTY);
     assertObjectState(
         "persistent-nontransactional-dirty", ObjectState.PERSISTENT_NONTRANSACTIONAL_DIRTY, mock);
   }
 
-  public void testPersistentClean() {
+  @Test
+  void testPersistentClean() {
     PersistenceCapable mock = newMock(PERSISTENT + TRANSACTIONAL);
     assertObjectState("persistent-clean", ObjectState.PERSISTENT_CLEAN, mock);
   }
 
-  public void testPersistentDirty() {
+  @Test
+  void testPersistentDirty() {
     PersistenceCapable mock = newMock(PERSISTENT + TRANSACTIONAL + DIRTY);
     assertObjectState("persistent-dirty", ObjectState.PERSISTENT_DIRTY, mock);
   }
 
-  public void testPersistentDeleted() {
+  @Test
+  void testPersistentDeleted() {
     PersistenceCapable mock = newMock(PERSISTENT + TRANSACTIONAL + DIRTY + DELETED);
     assertObjectState("persistent-deleted", ObjectState.PERSISTENT_DELETED, mock);
   }
 
-  public void testPersistentNewDeleted() {
+  @Test
+  void testPersistentNewDeleted() {
     PersistenceCapable mock = newMock(PERSISTENT + TRANSACTIONAL + NEW + DIRTY + DELETED);
     assertObjectState("persistent-new-deleted", ObjectState.PERSISTENT_NEW_DELETED, mock);
   }
 
-  public void testDetachedClean() {
+  @Test
+  void testDetachedClean() {
     PersistenceCapable mock = newMock(DETACHED);
     assertObjectState("detached-clean", ObjectState.DETACHED_CLEAN, mock);
   }
 
-  public void testDetachedDirty() {
+  @Test
+  void testDetachedDirty() {
     PersistenceCapable mock = newMock(DETACHED + DIRTY);
     assertObjectState("detached-dirty", ObjectState.DETACHED_DIRTY, mock);
   }

@@ -16,20 +16,21 @@
  */
 package javax.jdo;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import javax.jdo.util.BatchTestRunner;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests class javax.jdo.JDOHelper for calls to the impl's static method
  * getPersistenceManagerFactory(Map overrides, Map props).
  */
-public class PMFMapMapTest extends AbstractJDOConfigTest {
+class PMFMapMapTest extends AbstractJDOConfigTest {
 
   private static final String EXPECTED_FACTORY2_NAME = "Jane Doe";
   private static final String EXPECTED_FACTORY2_NAME_4_NAMED_PMF = "Larry";
@@ -40,19 +41,6 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
   private static final String PMF_SERVICE_CLASS = "javax.jdo.stub.StubPMF";
   private static final String PROPERTIES_FILE = "propsfile.props";
 
-  public static void main(String args[]) {
-    BatchTestRunner.run(PMFMapMapTest.class);
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @return {@inheritDoc}
-   */
-  public static TestSuite suite() {
-    return new TestSuite(PMFMapMapTest.class);
-  }
-
   /*
    * static PersistenceManagerFactory getPersistenceManagerFactory() Get the
    * anonymous PersistenceManagerFactory configured via the standard
@@ -60,7 +48,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * thread's context class loader to locate the configuration file
    * resource(s).
    */
-  public void testJDOConfigXML() throws IOException {
+  @Test
+  void testJDOConfigXML() throws IOException {
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
     ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -82,7 +71,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * PersistenceManagerFactory configured via the standard configuration file
    * resource "META-INF/jdoconfig.xml", using the given class loader.
    */
-  public void testJDOConfigXMLWithLoader() throws IOException {
+  @Test
+  void testJDOConfigXMLWithLoader() throws IOException {
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
 
@@ -99,7 +89,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * java.io.File propsFile) Returns a PersistenceManagerFactory configured
    * based on the properties stored in the file at propsFile.
    */
-  public void testPropsFile() throws IOException {
+  @Test
+  void testPropsFile() throws IOException {
 
     ClassLoader resourceClassLoader = createResourceClassLoader(PROPS_DIR);
     ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -121,7 +112,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * PersistenceManagerFactory configured based on the properties stored in
    * the file at propsFile.
    */
-  public void testPropsFileAndLoader() throws IOException {
+  @Test
+  void testPropsFileAndLoader() throws IOException {
 
     ClassLoader resourceClassLoader = createResourceClassLoader(PROPS_DIR);
 
@@ -139,7 +131,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * java.io.InputStream stream) Returns a PersistenceManagerFactory
    * configured based on the Properties stored in the input stream at stream.
    */
-  public void testInputStream() throws IOException {
+  @Test
+  void testInputStream() throws IOException {
     Properties props = new Properties();
     props.setProperty(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
     props.setProperty(Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
@@ -172,7 +165,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * PersistenceManagerFactory configured based on the Properties stored in
    * the input stream at stream.
    */
-  public void testInputStreamWithLoader() throws IOException {
+  @Test
+  void testInputStreamWithLoader() throws IOException {
     Properties props = new Properties();
     props.setProperty(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
     props.setProperty(Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
@@ -202,7 +196,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * Properties instance, using the current thread's context class loader to
    * locate the PersistenceManagerFactory class.
    */
-  public void testProperties() throws IOException {
+  @Test
+  void testProperties() throws IOException {
     Properties props = new Properties();
     props.setProperty(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
     props.setProperty(Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
@@ -225,7 +220,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * java.util.Map<?,?> props, java.lang.ClassLoader pmfClassLoader) Get a
    * PersistenceManagerFactory based on a Map and a class loader.
    */
-  public void testPropertiesAndLoader() throws IOException {
+  @Test
+  void testPropertiesAndLoader() throws IOException {
     Properties props = new Properties();
     props.setProperty(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS, PMF_SERVICE_CLASS);
     props.setProperty(Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME);
@@ -245,7 +241,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * (java.util.Map<?,?> overrides, java.lang.String name) Returns a named
    * PersistenceManagerFactory or persistence unit.
    */
-  public void testNamedPMFWithOverrides() throws IOException {
+  @Test
+  void testNamedPMFWithOverrides() throws IOException {
     Properties overrides = new Properties();
     overrides.setProperty(
         Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
@@ -270,7 +267,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * java.lang.ClassLoader resourceLoader) Returns a named
    * PersistenceManagerFactory or persistence unit.
    */
-  public void testNamedPMFWithOverridesAndLoader() throws IOException {
+  @Test
+  void testNamedPMFWithOverridesAndLoader() throws IOException {
     Properties overrides = new Properties();
     overrides.setProperty(
         Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
@@ -296,7 +294,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * javax.persistence.EntityManagerFactory cast to a
    * PersistenceManagerFactory.
    */
-  public void testNamedPMFWithOverridesAndTwoLoaders() throws IOException {
+  @Test
+  void testNamedPMFWithOverridesAndTwoLoaders() throws IOException {
     Properties overrides = new Properties();
     overrides.setProperty(
         Constants.PROPERTY_CONNECTION_FACTORY2_NAME, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
@@ -319,7 +318,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * java.lang.String name) Returns a named PersistenceManagerFactory or
    * persistence unit.
    */
-  public void testNamedPMF() throws IOException {
+  @Test
+  void testNamedPMF() throws IOException {
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
     ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -340,7 +340,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * (java.lang.String name, java.lang.ClassLoader loader) Returns a named
    * PersistenceManagerFactory or persistence unit.
    */
-  public void testNamedPMFWithLoader() throws IOException {
+  @Test
+  void testNamedPMFWithLoader() throws IOException {
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
 
@@ -359,7 +360,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
    * java.lang.ClassLoader pmfLoader) Returns a named
    * PersistenceManagerFactory or persistence unit.
    */
-  public void testNamedPMFWithTwoLoaders() throws IOException {
+  @Test
+  void testNamedPMFWithTwoLoaders() throws IOException {
 
     ClassLoader resourceClassLoader = createResourceClassLoader(RESOURCE_DIR);
     ClassLoader pmfLoader = getClass().getClassLoader();

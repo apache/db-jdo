@@ -22,15 +22,19 @@
 
 package javax.jdo.identity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.jdo.util.AbstractTest;
-import javax.jdo.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /** */
-public class SingleFieldIdentityTest extends AbstractTest {
+class SingleFieldIdentityTest extends AbstractTest {
 
   ConcreteTestIdentity cti1;
   ConcreteTestIdentity cti2;
@@ -43,23 +47,18 @@ public class SingleFieldIdentityTest extends AbstractTest {
   /** Creates a new instance of SingleFieldIdentityTest */
   public SingleFieldIdentityTest() {}
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SingleFieldIdentityTest.class);
-  }
-
-  public void testConstructor() {
+  @Test
+  void testConstructor() {
     cti1 = new ConcreteTestIdentity(Object.class);
     cti2 = new ConcreteTestIdentity(Object.class);
     cti3 = new ConcreteTestIdentity(Class.class);
 
-    assertEquals("Equal identity instances compare not equal.", cti1, cti2);
-    if (cti1.equals(cti3)) fail("Not equal identity instances compare equal.");
+    assertEquals(cti1, cti2, "Equal identity instances compare not equal.");
+    assertFalse(cti1.equals(cti3), "Not equal identity instances compare equal.");
   }
 
-  public void testSerialized() {
+  @Test
+  void testSerialized() {
     cti1 = new ConcreteTestIdentity(Object.class);
     cti2 = new ConcreteTestIdentity(Object.class);
     cti3 = new ConcreteTestIdentity(Class.class);
@@ -67,13 +66,13 @@ public class SingleFieldIdentityTest extends AbstractTest {
     scti1 = sctis[0];
     scti2 = sctis[1];
     scti3 = sctis[2];
-    assertEquals("Deserialized instance compare not equal.", cti1, scti1);
-    assertEquals("Deserialized instance compare not equal.", cti2, scti2);
-    assertEquals("Deserialized instance compare not equal.", cti3, scti3);
-    assertEquals("Deserialized instance compare not equal.", scti1, cti1);
-    assertEquals("Deserialized instance compare not equal.", scti2, cti2);
-    assertEquals("Deserialized instance compare not equal.", scti3, cti3);
-    if (scti1.equals(scti3)) fail("Not equal identity instances compare equal.");
+    assertEquals(cti1, scti1, "Deserialized instance compare not equal.");
+    assertEquals(cti2, scti2, "Deserialized instance compare not equal.");
+    assertEquals(cti3, scti3, "Deserialized instance compare not equal.");
+    assertEquals(scti1, cti1, "Deserialized instance compare not equal.");
+    assertEquals(scti2, cti2, "Deserialized instance compare not equal.");
+    assertEquals(scti3, cti3, "Deserialized instance compare not equal.");
+    assertFalse(scti1.equals(scti3), "Not equal identity instances compare equal.");
   }
 
   protected Object[] writeReadSerialized(Object[] in) {

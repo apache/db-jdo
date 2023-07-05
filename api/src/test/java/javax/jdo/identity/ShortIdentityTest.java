@@ -22,64 +22,64 @@
 
 package javax.jdo.identity;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.jdo.JDONullIdentityException;
-import javax.jdo.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /** */
-public class ShortIdentityTest extends SingleFieldIdentityTest {
+class ShortIdentityTest extends SingleFieldIdentityTest {
 
   /** Creates a new instance of ShortIdentityTest */
   public ShortIdentityTest() {}
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ShortIdentityTest.class);
-  }
-
-  public void testConstructor() {
+  @Test
+  void testConstructor() {
     ShortIdentity c1 = new ShortIdentity(Object.class, (short) 1);
     ShortIdentity c2 = new ShortIdentity(Object.class, (short) 1);
     ShortIdentity c3 = new ShortIdentity(Object.class, (short) 2);
-    assertEquals("Equal ShortIdentity instances compare not equal.", c1, c2);
-    assertNotEquals("Not equal ShortIdentity instances compare equal", c1, c3);
+    assertEquals(c1, c2, "Equal ShortIdentity instances compare not equal.");
+    assertNotEquals(c1, c3, "Not equal ShortIdentity instances compare equal");
   }
 
-  public void testShortConstructor() {
+  @Test
+  void testShortConstructor() {
     ShortIdentity c1 = new ShortIdentity(Object.class, (short) 1);
     ShortIdentity c2 = new ShortIdentity(Object.class, Short.valueOf((short) 1));
     ShortIdentity c3 = new ShortIdentity(Object.class, Short.valueOf((short) 2));
-    assertEquals("Equal ShortIdentity instances compare not equal.", c1, c2);
-    assertNotEquals("Not equal ShortIdentity instances compare equal", c1, c3);
+    assertEquals(c1, c2, "Equal ShortIdentity instances compare not equal.");
+    assertNotEquals(c1, c3, "Not equal ShortIdentity instances compare equal");
   }
 
-  public void testToStringConstructor() {
+  @Test
+  void testToStringConstructor() {
     ShortIdentity c1 = new ShortIdentity(Object.class, Short.MAX_VALUE);
     ShortIdentity c2 = new ShortIdentity(Object.class, c1.toString());
-    assertEquals("Equal ShortIdentity instances compare not equal.", c1, c2);
+    assertEquals(c1, c2, "Equal ShortIdentity instances compare not equal.");
   }
 
-  public void testStringConstructor() {
+  @Test
+  void testStringConstructor() {
     ShortIdentity c1 = new ShortIdentity(Object.class, (short) 1);
     ShortIdentity c2 = new ShortIdentity(Object.class, "1");
     ShortIdentity c3 = new ShortIdentity(Object.class, "2");
-    assertEquals("Equal ShortIdentity instances compare not equal.", c1, c2);
-    assertNotEquals("Not equal ShortIdentity instances compare equal", c1, c3);
+    assertEquals(c1, c2, "Equal ShortIdentity instances compare not equal.");
+    assertNotEquals(c1, c3, "Not equal ShortIdentity instances compare equal");
   }
 
-  public void testIllegalStringConstructor() {
-    try {
-      new ShortIdentity(Object.class, "b");
-    } catch (IllegalArgumentException iae) {
-      return; // good
-    }
-    fail("No exception caught for illegal String.");
+  @Test
+  void testIllegalStringConstructor() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new ShortIdentity(Object.class, "b"),
+        "No exception caught for illegal String.");
   }
 
-  public void testSerialized() {
+  @Test
+  void testSerialized() {
     ShortIdentity c1 = new ShortIdentity(Object.class, (short) 1);
     ShortIdentity c2 = new ShortIdentity(Object.class, "1");
     ShortIdentity c3 = new ShortIdentity(Object.class, "2");
@@ -87,55 +87,56 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
     Object sc1 = scis[0];
     Object sc2 = scis[1];
     Object sc3 = scis[2];
-    assertEquals("Equal ShortIdentity instances compare not equal.", c1, sc1);
-    assertEquals("Equal ShortIdentity instances compare not equal.", c2, sc2);
-    assertEquals("Equal ShortIdentity instances compare not equal.", sc1, c2);
-    assertEquals("Equal ShortIdentity instances compare not equal.", sc2, c1);
-    assertNotEquals("Not equal ShortIdentity instances compare equal.", c1, sc3);
-    assertNotEquals("Not equal ShortIdentity instances compare equal.", sc1, c3);
-    assertNotEquals("Not equal ShortIdentity instances compare equal.", sc1, sc3);
-    assertNotEquals("Not equal ShortIdentity instances compare equal.", sc3, sc1);
+    assertEquals(c1, sc1, "Equal ShortIdentity instances compare not equal.");
+    assertEquals(c2, sc2, "Equal ShortIdentity instances compare not equal.");
+    assertEquals(sc1, c2, "Equal ShortIdentity instances compare not equal.");
+    assertEquals(sc2, c1, "Equal ShortIdentity instances compare not equal.");
+    assertNotEquals(c1, sc3, "Not equal ShortIdentity instances compare equal.");
+    assertNotEquals(sc1, c3, "Not equal ShortIdentity instances compare equal.");
+    assertNotEquals(sc1, sc3, "Not equal ShortIdentity instances compare equal.");
+    assertNotEquals(sc3, sc1, "Not equal ShortIdentity instances compare equal.");
   }
 
-  public void testGetKeyAsObjectPrimitive() {
+  @Test
+  void testGetKeyAsObjectPrimitive() {
     ShortIdentity c1 = new ShortIdentity(Object.class, (short) 1);
-    assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Short.valueOf((short) 1));
+    assertEquals(c1.getKeyAsObject(), Short.valueOf((short) 1), "keyAsObject doesn't match.");
   }
 
-  public void testGetKeyAsObject() {
+  @Test
+  void testGetKeyAsObject() {
     ShortIdentity c1 = new ShortIdentity(Object.class, Short.valueOf((short) 1));
-    assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Short.valueOf((short) 1));
+    assertEquals(c1.getKeyAsObject(), Short.valueOf((short) 1), "keyAsObject doesn't match.");
   }
 
-  public void testBadConstructorNullShortParam() {
-    try {
-      new ShortIdentity(Object.class, (Short) null);
-    } catch (JDONullIdentityException ex) {
-      return;
-    }
-    fail("Failed to catch expected exception.");
+  @Test
+  void testBadConstructorNullShortParam() {
+    assertThrows(
+        JDONullIdentityException.class,
+        () -> new ShortIdentity(Object.class, (Short) null),
+        "Failed to catch expected exception.");
   }
 
-  public void testBadConstructorNullStringParam() {
-    try {
-      new ShortIdentity(Object.class, (String) null);
-    } catch (JDONullIdentityException ex) {
-      return;
-    }
-    fail("Failed to catch expected exception.");
+  @Test
+  void testBadConstructorNullStringParam() {
+    assertThrows(
+        JDONullIdentityException.class,
+        () -> new ShortIdentity(Object.class, (String) null),
+        "Failed to catch expected exception.");
   }
 
-  public void testCompareTo() {
+  @Test
+  void testCompareTo() {
     ShortIdentity c1 = new ShortIdentity(Object.class, (short) 1);
     ShortIdentity c2 = new ShortIdentity(Object.class, (short) 1);
     ShortIdentity c3 = new ShortIdentity(Object.class, (short) 2);
     ShortIdentity c4 = new ShortIdentity(Class.class, (short) 1);
-    assertEquals("Equal ShortIdentity instances compare not equal.", 0, c1.compareTo(c2));
+    assertEquals(0, c1.compareTo(c2), "Equal ShortIdentity instances compare not equal.");
     assertTrue(
-        "Not equal ShortIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
+        c1.compareTo(c3) < 0, "Not equal ShortIdentity instances have wrong compareTo result");
     assertTrue(
-        "Not equal ShortIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0);
+        c3.compareTo(c1) > 0, "Not equal ShortIdentity instances have wrong compareTo result");
     assertTrue(
-        "Not equal ShortIdentity instances have wrong compareTo result", c1.compareTo(c4) > 0);
+        c1.compareTo(c4) > 0, "Not equal ShortIdentity instances have wrong compareTo result");
   }
 }

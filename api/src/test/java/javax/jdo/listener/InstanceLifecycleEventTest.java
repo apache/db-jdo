@@ -22,14 +22,18 @@
 
 package javax.jdo.listener;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import javax.jdo.util.AbstractTest;
-import javax.jdo.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests that instances of InstanceLifecycleEvent can be created and that the source, type, and
  * target instances are correct.
  */
-public class InstanceLifecycleEventTest extends AbstractTest {
+class InstanceLifecycleEventTest extends AbstractTest {
 
   final Object created = new Object();
   final Object loaded = new Object();
@@ -45,80 +49,81 @@ public class InstanceLifecycleEventTest extends AbstractTest {
   /** Creates a new instance of SingleFieldIdentityTest */
   public InstanceLifecycleEventTest() {}
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(InstanceLifecycleEventTest.class);
-  }
-
-  public void testConstructorCreateEvent() {
+  @Test
+  void testConstructorCreateEvent() {
     InstanceLifecycleEvent e = new InstanceLifecycleEvent(created, InstanceLifecycleEvent.CREATE);
-    assertSame("Create source differs.", created, e.getSource());
-    assertEquals("Create type differs.", InstanceLifecycleEvent.CREATE, e.getEventType());
+    assertSame(created, e.getSource(), "Create source differs.");
+    assertEquals(InstanceLifecycleEvent.CREATE, e.getEventType(), "Create type differs.");
   }
 
-  public void testConstructorLoadEvent() {
+  @Test
+  void testConstructorLoadEvent() {
     InstanceLifecycleEvent e = new InstanceLifecycleEvent(loaded, InstanceLifecycleEvent.LOAD);
-    assertSame("Load source differs.", loaded, e.getSource());
-    assertEquals("Load type differs.", InstanceLifecycleEvent.LOAD, e.getEventType());
+    assertSame(loaded, e.getSource(), "Load source differs.");
+    assertEquals(InstanceLifecycleEvent.LOAD, e.getEventType(), "Load type differs.");
   }
 
-  public void testConstructorStoreEvent() {
+  @Test
+  void testConstructorStoreEvent() {
     InstanceLifecycleEvent e = new InstanceLifecycleEvent(stored, InstanceLifecycleEvent.STORE);
-    assertSame("Store source differs.", stored, e.getSource());
-    assertEquals("Store type differs.", InstanceLifecycleEvent.STORE, e.getEventType());
+    assertSame(stored, e.getSource(), "Store source differs.");
+    assertEquals(InstanceLifecycleEvent.STORE, e.getEventType(), "Store type differs.");
   }
 
-  public void testConstructorClearEvent() {
+  @Test
+  void testConstructorClearEvent() {
     InstanceLifecycleEvent e = new InstanceLifecycleEvent(cleared, InstanceLifecycleEvent.CLEAR);
-    assertSame("Clear source differs.", cleared, e.getSource());
-    assertEquals("Clear type differs.", InstanceLifecycleEvent.CLEAR, e.getEventType());
+    assertSame(cleared, e.getSource(), "Clear source differs.");
+    assertEquals(InstanceLifecycleEvent.CLEAR, e.getEventType(), "Clear type differs.");
   }
 
-  public void testConstructorDeleteEvent() {
+  @Test
+  void testConstructorDeleteEvent() {
     InstanceLifecycleEvent e = new InstanceLifecycleEvent(deleted, InstanceLifecycleEvent.DELETE);
-    assertSame("Delete source differs.", deleted, e.getSource());
-    assertEquals("Delete type differs.", InstanceLifecycleEvent.DELETE, e.getEventType());
+    assertSame(deleted, e.getSource(), "Delete source differs.");
+    assertEquals(InstanceLifecycleEvent.DELETE, e.getEventType(), "Delete type differs.");
   }
 
-  public void testConstructorDirtyEvent() {
+  @Test
+  void testConstructorDirtyEvent() {
     InstanceLifecycleEvent e = new InstanceLifecycleEvent(dirtied, InstanceLifecycleEvent.DIRTY);
-    assertSame("Dirty source differs.", dirtied, e.getSource());
-    assertEquals("Dirty type differs.", InstanceLifecycleEvent.DIRTY, e.getEventType());
+    assertSame(dirtied, e.getSource(), "Dirty source differs.");
+    assertEquals(InstanceLifecycleEvent.DIRTY, e.getEventType(), "Dirty type differs.");
   }
 
-  public void testConstructorDetachEvent() {
+  @Test
+  void testConstructorDetachEvent() {
     InstanceLifecycleEvent e =
         new InstanceLifecycleEvent(detached, InstanceLifecycleEvent.DETACH, detachTarget);
-    assertSame("Detach source differs.", detached, e.getSource());
-    assertEquals("Detach type differs.", InstanceLifecycleEvent.DETACH, e.getEventType());
-    assertSame("Detach target differs.", detachTarget, e.getTarget());
+    assertSame(detached, e.getSource(), "Detach source differs.");
+    assertEquals(InstanceLifecycleEvent.DETACH, e.getEventType(), "Detach type differs.");
+    assertSame(detachTarget, e.getTarget(), "Detach target differs.");
   }
 
-  public void testConstructorAttachEvent() {
+  @Test
+  void testConstructorAttachEvent() {
     InstanceLifecycleEvent e =
         new InstanceLifecycleEvent(attached, InstanceLifecycleEvent.ATTACH, attachTarget);
-    assertSame("Attach source differs.", attached, e.getSource());
-    assertEquals("Attach type differs.", InstanceLifecycleEvent.ATTACH, e.getEventType());
-    assertSame("Attach target differs.", attachTarget, e.getTarget());
+    assertSame(attached, e.getSource(), "Attach source differs.");
+    assertEquals(InstanceLifecycleEvent.ATTACH, e.getEventType(), "Attach type differs.");
+    assertSame(attachTarget, e.getTarget(), "Attach target differs.");
   }
 
-  public void testIllegalConstructorTooSmall() {
-    try {
-      new InstanceLifecycleEvent(new Object(), -1);
-    } catch (IllegalArgumentException e) {
-      return; // good catch
-    }
-    fail("Invalid event did not throw IllegalArgumentException.");
+  @Test
+  void testIllegalConstructorTooSmall() {
+    Object o = new Object();
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new InstanceLifecycleEvent(o, -1),
+        "Invalid event did not throw IllegalArgumentException.");
   }
 
-  public void testIllegalConstructorTooBig() {
-    try {
-      new InstanceLifecycleEvent(new Object(), 8);
-    } catch (IllegalArgumentException e) {
-      return; // good catch
-    }
-    fail("Invalid event did not throw IllegalArgumentException.");
+  @Test
+  void testIllegalConstructorTooBig() {
+    Object o = new Object();
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new InstanceLifecycleEvent(o, 8),
+        "Invalid event did not throw IllegalArgumentException.");
   }
 }
