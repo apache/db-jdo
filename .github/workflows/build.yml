@@ -67,7 +67,6 @@ jobs:
           java-version: ${{ matrix.java }}
 
       # Builds JDO & Runs the TCK
-      # Skips JNDI-related tests as they require external libraries
       - name: Build JDO & Run TCK
         run: |
           mvn clean install
