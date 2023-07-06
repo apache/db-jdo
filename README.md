@@ -26,7 +26,7 @@ The Apache JDO project includes the following subprojects:
 
 Apache JDO releases may be downloaded from [the Apache JDO downloads page](http://db.apache.org/jdo/downloads.html).
 Minor updates of releases are only available as source from the GitHub repository.
-Follow the instructions [below](link:#building-the-jdo-api) to build the API from source.
+Follow the instructions [below](#building-the-jdo-api) to build the API from source.
 
 For complete rules for certifying a JDO implementation, see [RunRules.html](https://github.com/apache/db-jdo/blob/main/tck/RunRules.html) in the *tck* project directory.
 
@@ -61,8 +61,11 @@ Under Windows this system property is `C:\Documents and Settings\{user}` no matt
 
 ### JNDI Implementation (fscontext.jar and providerutil.jar)
 
-The JNDI test cases in *tck* need a JNDI implementation. The TCK is configured to use Sun's JNDI implementation. To use your own implementation, put the implementation jar files into `lib/ext` and update `jndi.properties` in the TCK directory `src/conf`.  
-To download Oracle's implementation, go [here](http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-plat-419418.html#7110-jndi-1.2.1-oth-JPR). Accept the license agreement and download *File System Service Provider, 1.2 Beta 3* and then unpack the downloaded zip into `lib/ext`. It includes the jars `fscontext.jar` and `providerutil.jar`.
+The JNDI test cases in *tck* need a JNDI implementation. The TCK is configured to use the TCK's own JNDI mock implementation. To use your own implementation, add the dependencies to the TCK's `.pom` or put the implementation jar files directly into `lib/ext`. Then update `jndi.properties` in the TCK directory `src/conf`.
+
+For example, to use Oracle's implementation, go [here](http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-plat-419418.html#7110-jndi-1.2.1-oth-JPR). Accept the license agreement and download *File System Service Provider, 1.2 Beta 3* and then unpack the downloaded zip into `lib/ext`. It includes the jars `fscontext.jar` and `providerutil.jar`. 
+Then update the factory class property in `tck/src/main/resources/conf/jndi.properties`: 
+`java.naming.factory.initial=com.sun.jndi.fscontext.RefFSContextFactory`.
 
 
 ## Building from Top Level Project
