@@ -133,122 +133,34 @@ public class Enhance extends AbstractTCKMojo {
 
     String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};
     String[] srcDirs = {"jdo", "orm", "testdata"};
-    File toFile = null;
-    File fromFile = null;
-    String fromFileName = null;
-    String pkgName = null;
-    int startIdx = -1;
-    Iterator<File> fi = null;
-    String[] classArray = new String[10];
-    String enhancedIdDirName = null;
     String classesDirName = buildDirectory + File.separator + "classes" + File.separator;
-    ArrayList<String> classes = null;
+//    ArrayList<String> classes = null;
 
     // Copy metadata from src to enhanced
     for (String idtype : idtypes) {
+      ArrayList<String> classes = null;
+      String enhancedIdDirName = enhancedDirName + idtype + File.separator;
       for (String srcDir : srcDirs) {
-        String srcDirName = srcDirectory + File.separator + srcDir;
-        // iterator over list of abs name of metadata files in src
-        fi = FileUtils.iterateFiles(new File(srcDirName), metadataExtensions, true);
-
-        while (fi.hasNext()) {
-          try {
-            fromFile = fi.next();
-            fromFileName = fromFile.toString();
-            if ((startIdx = fromFileName.indexOf(idtype + File.separator)) > -1) {
-              // fully specified name of file (idtype + package + filename)
-              pkgName = fromFileName.substring(startIdx);
-              toFile = new File(enhancedDirName + File.separator + pkgName);
-              FileUtils.copyFile(fromFile, toFile);
-            } else if (srcDir.equals("testdata")) {
-              startIdx = fromFileName.indexOf("org" + File.separator);
-              pkgName = fromFileName.substring(startIdx);
-              toFile =
-                  new File(enhancedDirName + File.separator + idtype + File.separator + pkgName);
-              FileUtils.copyFile(fromFile, toFile);
-            } else {
-              // idtype not in pathname, do not copy
-            }
-          } catch (IOException ex) {
-            throw new MojoExecutionException(
-                "Failed to copy files from "
-                    + fromFileName
-                    + " to "
-                    + toFile.toString()
-                    + ": "
-                    + ex.getLocalizedMessage());
-          }
-        }
+        copyMetadata(idtype, srcDir, metadataExtensions, enhancedDirName);
 
         // Copy pc and pa classes from target/classes to enhanced
-        String[] extensions = {"class"};
-        enhancedIdDirName = enhancedDirName + idtype + File.separator;
-        classes = new ArrayList<>();
-        for (String pcPkgName : PC_PKG_DIRS) {
-          // iterator over list of abs name of class files in target/classes
-          fi = FileUtils.iterateFiles(new File(classesDirName + pcPkgName), extensions, true);
-          while (fi.hasNext()) {
-            try {
-              fromFile = fi.next();
-              fromFileName = fromFile.toString();
-              // fully specified name of file (package + filename)
-              int index = fromFileName.indexOf(pcPkgName);
-              if (index == -1) {
-                throw new MojoExecutionException(
-                    "Cannot get index of package path "
-                        + pcPkgName
-                        + " in file name"
-                        + fromFileName);
-              }
-              toFile = new File(enhancedIdDirName + fromFileName.substring(index));
-              FileUtils.copyFile(fromFile, toFile);
-              classes.add(toFile.toString());
-            } catch (IOException ex) {
-              throw new MojoExecutionException(
-                  "Failed to copy files from "
-                      + fromFileName
-                      + " to "
-                      + toFile.toString()
-                      + ": "
-                      + ex.getLocalizedMessage());
-            }
-          }
-        }
+        // TODO The original code resets "classes" in every loop
+        //ArrayList<String> classes = copyPClasses(classesDirName, enhancedIdDirName);
+        classes = copyPClasses(classesDirName, enhancedIdDirName);
+        // ...
+        // classes = new ArrayList<>(); // TODO Was this a bug????
+        // ...
       }
 
       // Enhance classes
 
       // Build ClassLoader for finding enhancer
-      URL[] classPathURLs1 = new URL[2];
-      ArrayList<URL> cpList1 = new ArrayList<>();
-      ClassLoader enhancerLoader = null;
-      try {
-        // Must add enhancedIdDirName first!!
-        cpList1.add((new File(enhancedIdDirName)).toURI().toURL());
-        cpList1.add((new File(classesDirName)).toURI().toURL());
-        for (String dependency : this.dependencyClasspath.split(File.pathSeparator)) {
-          cpList1.add(new File(dependency).toURI().toURL());
-        }
-        enhancerLoader =
-            new URLClassLoader(cpList1.toArray(classPathURLs1), getClass().getClassLoader());
-        System.out.println("ClassLoader enhancerLoader:");
-        Utilities.printClasspath(enhancerLoader);
-      } catch (MalformedURLException ex) {
-        Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
-      }
+      ClassLoader enhancerLoader = buildClassLoader(classesDirName, enhancedIdDirName);
 
       // Context classloader for finding log4j2 configuration
       ClassLoader prevCl = Thread.currentThread().getContextClassLoader();
-      try {
-        URL enhancedClassesUrl = (new File(enhancedIdDirName)).toURI().toURL();
-        // Classes dir needed for org.apache.jdo.tck.util.TCKFileAppender
-        URL classesUrl = (new File(classesDirName)).toURI().toURL();
-        ClassLoader loggingPropsCl =
-            URLClassLoader.newInstance(new URL[] {enhancedClassesUrl, classesUrl}, prevCl);
-        Thread.currentThread().setContextClassLoader(loggingPropsCl);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      insertLog4jClassLoader(classesDirName, enhancedIdDirName);
+
       System.out.println("ClassLoader ContextClassLoader:");
       Utilities.printClasspath(Thread.currentThread().getContextClassLoader());
       System.out.println("Get enhancer");
@@ -257,7 +169,7 @@ public class Enhance extends AbstractTCKMojo {
       enhancer.setVerbose(true);
       System.out.println("enhancer.setClassLoader()");
       enhancer.setClassLoader(enhancerLoader);
-      String[] classArr = classes.toArray(classArray);
+      String[] classArr = classes.toArray(new String[0]);
       enhancer.addClasses(classArr);
       System.out.println("Enhancing classes for identity type " + idtype);
       // enhancer needs  org/apache/jdo/tck/util/DeepEquality
@@ -265,31 +177,156 @@ public class Enhance extends AbstractTCKMojo {
       Thread.currentThread().setContextClassLoader(prevCl);
 
       // Move log to per-test location
-      String idname = "dsid";
-      if (idtype.trim().equals("applicationidentity")) {
-        idname = "app";
-      }
-      String testLogFilename =
-          logsDirectory
-              + File.separator
-              + ENHANCED_DIR_NAME
-              + File.separator
-              + idname
-              + "-"
-              + impl
-              + ".txt";
-      System.out.println("testLogFilename is " + testLogFilename);
+      moveLogs(idtype);
+    }
+    System.out.println();
+  }
+  private void copyMetadata(String idType, String srcDir, String[] metadataExtensions,
+                            String enhancedDirName) throws MojoExecutionException, MojoFailureException {
+    // Copy metadata from src to enhanced
+    String srcDirName = srcDirectory + File.separator + srcDir;
+    // iterator over list of abs name of metadata files in src
+    Iterator<File> fi = FileUtils.iterateFiles(new File(srcDirName), metadataExtensions, true);
+
+    while (fi.hasNext()) {
+      String fromFileName = null;
+      String toFileName = null;
       try {
-        File logFile = new File(implLogFile);
-        File testLogFile = new File(testLogFilename);
-        FileUtils.copyFile(logFile, testLogFile);
-        // reset file content
-        FileUtils.write(logFile, "", Charset.defaultCharset());
-        FileUtils.forceDeleteOnExit(logFile);
-      } catch (Exception e) {
-        System.out.println(">> Error moving implementation log file: " + e.getMessage());
+        File fromFile = fi.next();
+        fromFileName = fromFile.toString();
+        int startIdx = -1;
+        if ((startIdx = fromFileName.indexOf(idType + File.separator)) > -1) {
+          // fully specified name of file (idtype + package + filename)
+          String pkgName = fromFileName.substring(startIdx);
+          File toFile = new File(enhancedDirName + File.separator + pkgName);
+          toFileName = toFile.toString();
+          FileUtils.copyFile(fromFile, toFile);
+        } else if (srcDir.equals("testdata")) {
+          startIdx = fromFileName.indexOf("org" + File.separator);
+          String pkgName = fromFileName.substring(startIdx);
+          File toFile =
+                  new File(enhancedDirName + File.separator + idType + File.separator + pkgName);
+          toFileName = toFile.toString();
+          FileUtils.copyFile(fromFile, toFile);
+        } else {
+          // idType not in pathname, do not copy
+        }
+      } catch (IOException ex) {
+        throw new MojoExecutionException(
+                "Failed to copy files from "
+                        + fromFileName
+                        + " to "
+                        + toFileName
+                        + ": "
+                        + ex.getLocalizedMessage());
       }
     }
-    System.out.println("");
+  }
+
+  private ArrayList<String> copyPClasses(String classesDirName, String enhancedIdDirName) throws MojoExecutionException, MojoFailureException {
+    // Copy pc and pa classes from target/classes to enhanced
+    String[] extensions = {"class"};
+    ArrayList<String> classes = new ArrayList<>();
+    for (String pcPkgName : PC_PKG_DIRS) {
+      // iterator over list of abs name of class files in target/classes
+      Iterator<File> fi = FileUtils.iterateFiles(new File(classesDirName + pcPkgName), extensions, true);
+      while (fi.hasNext()) {
+        String fromFileName = null;
+        String toFileName = null;
+        try {
+          File fromFile = fi.next();
+          fromFileName = fromFile.toString();
+          // fully specified name of file (package + filename)
+          int index = fromFileName.indexOf(pcPkgName);
+          if (index == -1) {
+            throw new MojoExecutionException(
+                    "Cannot get index of package path "
+                            + pcPkgName
+                            + " in file name"
+                            + fromFileName);
+          }
+          File toFile = new File(enhancedIdDirName + fromFileName.substring(index));
+          toFileName = toFile.toString();
+          FileUtils.copyFile(fromFile, toFile);
+          classes.add(toFile.toString());
+        } catch (IOException ex) {
+          throw new MojoExecutionException(
+                  "Failed to copy files from "
+                          + fromFileName
+                          + " to "
+                          + toFileName
+                          + ": "
+                          + ex.getLocalizedMessage());
+        }
+      }
+    }
+    return classes;
+  }
+
+  private ClassLoader buildClassLoader(String classesDirName, String enhancedIdDirName) {
+      // Enhance classes
+
+    // Build ClassLoader for finding enhancer
+    URL[] classPathURLs1 = new URL[2];
+    ArrayList<URL> cpList1 = new ArrayList<>();
+    ClassLoader enhancerLoader = null;
+    try {
+      // Must add enhancedIdDirName first!!
+      cpList1.add((new File(enhancedIdDirName)).toURI().toURL());
+      cpList1.add((new File(classesDirName)).toURI().toURL());
+      for (String dependency : this.dependencyClasspath.split(File.pathSeparator)) {
+        cpList1.add(new File(dependency).toURI().toURL());
+      }
+      enhancerLoader =
+              new URLClassLoader(cpList1.toArray(classPathURLs1), getClass().getClassLoader());
+      System.out.println("ClassLoader enhancerLoader:");
+      Utilities.printClasspath(enhancerLoader);
+    } catch (MalformedURLException ex) {
+      Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return enhancerLoader;
+  }
+
+  private void insertLog4jClassLoader(String classesDirName, String enhancedIdDirName) {
+    // Context classloader for finding log4j2 configuration
+    ClassLoader prevCl = Thread.currentThread().getContextClassLoader();
+    try {
+      URL enhancedClassesUrl = (new File(enhancedIdDirName)).toURI().toURL();
+      // Classes dir needed for org.apache.jdo.tck.util.TCKFileAppender
+      URL classesUrl = (new File(classesDirName)).toURI().toURL();
+      ClassLoader loggingPropsCl =
+              URLClassLoader.newInstance(new URL[] {enhancedClassesUrl, classesUrl}, prevCl);
+      Thread.currentThread().setContextClassLoader(loggingPropsCl);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void moveLogs(String idType) {
+    // Move log to per-test location
+    String idname = "dsid";
+    if (idType.trim().equals("applicationidentity")) {
+      idname = "app";
+    }
+    String testLogFilename =
+            logsDirectory
+                    + File.separator
+                    + ENHANCED_DIR_NAME
+                    + File.separator
+                    + idname
+                    + "-"
+                    + impl
+                    + ".txt";
+    System.out.println("testLogFilename is " + testLogFilename);
+    try {
+      File logFile = new File(implLogFile);
+      File testLogFile = new File(testLogFilename);
+      FileUtils.copyFile(logFile, testLogFile);
+      // reset file content
+      FileUtils.write(logFile, "", Charset.defaultCharset());
+      FileUtils.forceDeleteOnExit(logFile);
+    } catch (Exception e) {
+      System.out.println(">> Error moving implementation log file: " + e.getMessage());
+    }
   }
 }
