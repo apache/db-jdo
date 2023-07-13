@@ -193,10 +193,6 @@ public abstract class JDO_Test extends TestCase {
   protected static final boolean CLOSE_PMF_AFTER_EACH_TEST =
       System.getProperty("jdo.tck.closePMFAfterEachTest", "false").equalsIgnoreCase("true");
 
-  /** Flag indicating whether to skip JNDI related tests. */
-  protected static final boolean SKIP_JNDI =
-      System.getProperty("jdo.tck.skipJndi", "false").equalsIgnoreCase("true");
-
   /** The Properties object for the PersistenceManagerFactory. */
   protected static Properties PMFPropertiesObject;
 

@@ -72,10 +72,6 @@ public class RunTCK extends AbstractTCKMojo {
       required = true)
   private String extLibsDirectory;
 
-  /** To skip jndi PMF Tests set to true. */
-  @Parameter(property = "jdo.tck.skipJndi", defaultValue = "false", required = true)
-  private boolean skipJndi;
-
   /** Name of file in src/conf containing pmf properties. */
   @Parameter(property = "jdo.tck.pmfproperties", defaultValue = "jdori-pmf.properties")
   private String pmfProperties;
@@ -205,7 +201,6 @@ public class RunTCK extends AbstractTCKMojo {
     propsString.add("-DResultPrinterClass=" + resultPrinterClass);
     propsString.add("-Dverbose=" + verbose);
     propsString.add("-Djdo.tck.cleanupaftertest=" + cleanupaftertest);
-    propsString.add("-Djdo.tck.skipJndi=" + skipJndi);
     propsString.add(
         "-DPMFProperties="
             + buildDirectory

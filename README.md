@@ -59,7 +59,7 @@ You must have Maven (version 2+) to build the projects from source and to execut
 Note that Maven uses the `user.home` system property for the location of the Maven local repository: `${user.home}/.m2/repository`.
 Under Windows this system property is `C:\Documents and Settings\{user}` no matter what the `HOME` variable is set to. As a workaround you may set the system property by adding `-Duser.home=%HOME%` to the environment variable `MAVEN_OPTS`.
 
-### JNDI Implementation (fscontext.jar and providerutil.jar)
+### JNDI Implementation 
 
 The JNDI test cases in *tck* need a JNDI implementation. The TCK is configured to use the TCK's own JNDI mock implementation. To use your own implementation, add the dependencies to the TCK's `.pom` or put the implementation jar files directly into `lib/ext`. Then update `jndi.properties` in the TCK directory `src/conf`.
 

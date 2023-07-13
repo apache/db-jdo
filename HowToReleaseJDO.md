@@ -136,9 +136,8 @@ Detailed process steps
     Artifacts](https://infra.apache.org/publishing-maven-artifacts.html)
     to set up your development environment.
 
-8. Copy the JNDI implementation jars (`providerutil.jar` and
-    `fscontext.jar`) to the branch `lib/ext` directory. This is needed to
-    test the tck before distributing it.
+8. If you want to use a JNDI implementation other the TCK's own JNDI mock implementation, then copy the JNDI
+    implementation jars to the branch `lib/ext` directory. This is needed to test the tck before distributing it.
     **Do not check these in into the repository**
 
 9. Make sure the TCK passes
