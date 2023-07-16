@@ -149,24 +149,30 @@ public class Enhance extends AbstractTCKMojo {
       // Build ClassLoader for finding enhancer
       ClassLoader enhancerLoader = buildClassLoader(classesDirName, enhancedIdDirName);
 
-      // Context classloader for finding log4j2 configuration
       ClassLoader prevCl = Thread.currentThread().getContextClassLoader();
-      insertLog4jClassLoader(classesDirName, enhancedIdDirName);
-
-      System.out.println("ClassLoader ContextClassLoader:");
-      Utilities.printClasspath(Thread.currentThread().getContextClassLoader());
-      System.out.println("Get enhancer");
-      JDOEnhancer enhancer = JDOHelper.getEnhancer(enhancerLoader);
-      System.out.println("enhancer.setVerbose()");
-      enhancer.setVerbose(true);
-      System.out.println("enhancer.setClassLoader()");
-      enhancer.setClassLoader(enhancerLoader);
-      String[] classArr = classes.toArray(new String[0]);
-      enhancer.addClasses(classArr);
-      System.out.println("Enhancing classes for identity type " + idtype);
-      // enhancer needs  org/apache/jdo/tck/util/DeepEquality
-      enhancer.enhance();
-      Thread.currentThread().setContextClassLoader(prevCl);
+      try (URLClassLoader loggingPropsCl =
+          insertLog4jClassLoader(classesDirName, enhancedIdDirName)) {
+        // Context classloader for finding log4j2 configuration
+        if (loggingPropsCl != null) {
+          Thread.currentThread().setContextClassLoader(loggingPropsCl);
+        }
+        System.out.println("ClassLoader ContextClassLoader:");
+        Utilities.printClasspath(Thread.currentThread().getContextClassLoader());
+        System.out.println("Get enhancer");
+        JDOEnhancer enhancer = JDOHelper.getEnhancer(enhancerLoader);
+        System.out.println("enhancer.setVerbose()");
+        enhancer.setVerbose(true);
+        System.out.println("enhancer.setClassLoader()");
+        enhancer.setClassLoader(enhancerLoader);
+        String[] classArr = classes.toArray(new String[0]);
+        enhancer.addClasses(classArr);
+        System.out.println("Enhancing classes for identity type " + idtype);
+        // enhancer needs  org/apache/jdo/tck/util/DeepEquality
+        enhancer.enhance();
+        Thread.currentThread().setContextClassLoader(prevCl);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
 
       // Move log to per-test location
       moveLogs(idtype);
@@ -176,7 +182,7 @@ public class Enhance extends AbstractTCKMojo {
 
   private void copyMetadata(
       String idType, String srcDir, String[] metadataExtensions, String enhancedDirName)
-      throws MojoExecutionException, MojoFailureException {
+      throws MojoExecutionException {
     // Copy metadata from src to enhanced
     String srcDirName = srcDirectory + File.separator + srcDir;
     // iterator over list of abs name of metadata files in src
@@ -218,7 +224,7 @@ public class Enhance extends AbstractTCKMojo {
   }
 
   private ArrayList<String> copyPClasses(String classesDirName, String enhancedIdDirName)
-      throws MojoExecutionException, MojoFailureException {
+      throws MojoExecutionException {
     // Copy pc and pa classes from target/classes to enhanced
     String[] extensions = {"class"};
     ArrayList<String> classes = new ArrayList<>();
@@ -280,19 +286,18 @@ public class Enhance extends AbstractTCKMojo {
     return enhancerLoader;
   }
 
-  private void insertLog4jClassLoader(String classesDirName, String enhancedIdDirName) {
+  private URLClassLoader insertLog4jClassLoader(String classesDirName, String enhancedIdDirName) {
     // Context classloader for finding log4j2 configuration
     ClassLoader prevCl = Thread.currentThread().getContextClassLoader();
     try {
       URL enhancedClassesUrl = (new File(enhancedIdDirName)).toURI().toURL();
       // Classes dir needed for org.apache.jdo.tck.util.TCKFileAppender
       URL classesUrl = (new File(classesDirName)).toURI().toURL();
-      ClassLoader loggingPropsCl =
-          URLClassLoader.newInstance(new URL[] {enhancedClassesUrl, classesUrl}, prevCl);
-      Thread.currentThread().setContextClassLoader(loggingPropsCl);
+      return URLClassLoader.newInstance(new URL[] {enhancedClassesUrl, classesUrl}, prevCl);
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return null;
   }
 
   private void moveLogs(String idType) {
