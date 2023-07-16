@@ -134,23 +134,15 @@ public class Enhance extends AbstractTCKMojo {
     String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};
     String[] srcDirs = {"jdo", "orm", "testdata"};
     String classesDirName = buildDirectory + File.separator + "classes" + File.separator;
-    //    ArrayList<String> classes = null;
 
     // Copy metadata from src to enhanced
     for (String idtype : idtypes) {
-      ArrayList<String> classes = null;
       String enhancedIdDirName = enhancedDirName + idtype + File.separator;
       for (String srcDir : srcDirs) {
         copyMetadata(idtype, srcDir, metadataExtensions, enhancedDirName);
-
-        // Copy pc and pa classes from target/classes to enhanced
-        // TODO The original code resets "classes" in every loop
-        // ArrayList<String> classes = copyPClasses(classesDirName, enhancedIdDirName);
-        classes = copyPClasses(classesDirName, enhancedIdDirName);
-        // ...
-        // classes = new ArrayList<>(); // TODO Was this a bug????
-        // ...
       }
+      // Copy pc and pa classes from target/classes to enhanced
+      ArrayList<String> classes = copyPClasses(classesDirName, enhancedIdDirName);
 
       // Enhance classes
 
