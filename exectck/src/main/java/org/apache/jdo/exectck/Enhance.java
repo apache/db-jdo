@@ -171,8 +171,8 @@ public class Enhance extends AbstractTCKMojo {
         enhancer.enhance();
         Thread.currentThread().setContextClassLoader(prevCl);
       } catch (IOException e) {
-        System.out.println(e.getMessage());
-        Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, e);
+        Logger.getLogger(Enhance.class.getName())
+            .log(Level.SEVERE, "Failed to create log4j resource", e);
       }
 
       // Move log to per-test location
@@ -295,8 +295,9 @@ public class Enhance extends AbstractTCKMojo {
       // Classes dir needed for org.apache.jdo.tck.util.TCKFileAppender
       URL classesUrl = (new File(classesDirName)).toURI().toURL();
       return URLClassLoader.newInstance(new URL[] {enhancedClassesUrl, classesUrl}, prevCl);
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (MalformedURLException e) {
+      Logger.getLogger(Enhance.class.getName())
+          .log(Level.SEVERE, "Failed to create log4j classloader", e);
     }
     return null;
   }
