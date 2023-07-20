@@ -171,7 +171,8 @@ public class Enhance extends AbstractTCKMojo {
         enhancer.enhance();
         Thread.currentThread().setContextClassLoader(prevCl);
       } catch (IOException e) {
-        e.printStackTrace();
+        System.out.println(e.getMessage());
+        Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, e);
       }
 
       // Move log to per-test location
