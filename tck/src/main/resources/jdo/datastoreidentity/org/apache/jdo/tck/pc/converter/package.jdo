@@ -28,6 +28,8 @@
 
     <class name="PCRectAnnotated" identity-type="datastore"/>
 
+    <class name="PCRectPointTypeAnnotated" identity-type="datastore"/>
+
     <class name="PCPoint" identity-type="datastore">
       <field name="x" converter="org.apache.jdo.tck.util.IntegerToStringConverter"/>
       <field name="y" converter="org.apache.jdo.tck.util.IntegerToStringConverter"/>
