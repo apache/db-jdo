@@ -20,7 +20,7 @@ import javax.jdo.FetchPlan;
 import javax.jdo.JDODetachedFieldAccessException;
 import org.apache.jdo.tck.pc.shoppingcart.CartEntry;
 import org.apache.jdo.tck.pc.shoppingcart.Product;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test DetachCopy <br>
@@ -34,18 +34,10 @@ public class DetachAccessUnloadedField extends DetachTest {
   private static final String ASSERTION_FAILED = "Assertion A12.6.8-21 (DetachCopy) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DetachAccessUnloadedField.class);
-  }
-
-  /**
    * Positive test for field access of detached instance Field is in fetch group, loaded at
    * detachment with DETACH_LOAD_FIELDS true
    */
+  @Test
   public void testDetachCopyFieldAccessOk() {
     // datastore transaction, retainValues=false
     getPM().currentTransaction().begin();
@@ -65,6 +57,7 @@ public class DetachAccessUnloadedField extends DetachTest {
    * Positive test for access of loaded field of detached instance All fields are in the fetch plan
    * detachment options = 0, fields loaded by access of an instance
    */
+  @Test
   public void testDetachCopyAccessLoadedField() {
     // datastore transaction, retainValues=false
     getPM().currentTransaction().begin();
@@ -87,6 +80,7 @@ public class DetachAccessUnloadedField extends DetachTest {
   /**
    * Negative test for access of unloaded field of detached instance with DETACH_UNLOAD_FIELDS set
    */
+  @Test
   public void testDetachCopyAccessUnloadedField() {
     // datastore transaction, retainValues=false
     getPM().currentTransaction().begin();
@@ -107,6 +101,7 @@ public class DetachAccessUnloadedField extends DetachTest {
   }
 
   /** Negative test for access of field of detached instance where field was not loaded */
+  @Test
   public void testDetachCopyAccessFieldNotInFetchPlan() {
     // datastore transaction, retainValues=false
     getPM().currentTransaction().begin();

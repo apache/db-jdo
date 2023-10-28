@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Supported Map methods. <br>
@@ -47,17 +47,9 @@ public class SupportedMapMethods extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-46 (SupportedMapMethods) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedMapMethods.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testGet() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -90,6 +82,7 @@ public class SupportedMapMethods extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testContainsKey() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -124,6 +117,7 @@ public class SupportedMapMethods extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testContainsValue() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -155,6 +149,7 @@ public class SupportedMapMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testIsEmpty() {
     Object expected = Collections.emptyList();
 
@@ -187,6 +182,7 @@ public class SupportedMapMethods extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testSize() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(

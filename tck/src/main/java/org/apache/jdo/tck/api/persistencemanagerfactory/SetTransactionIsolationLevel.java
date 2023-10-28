@@ -25,7 +25,7 @@ import javax.jdo.JDOUnsupportedOptionException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Set transaction isolation level of persistencemanagerfactory <br>
@@ -54,15 +54,6 @@ public class SetTransactionIsolationLevel extends JDO_Test implements Constants 
 
   private PersistenceManagerFactory pmf2;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetTransactionIsolationLevel.class);
-  }
-
   /** */
   @Override
   protected void localSetUp() {
@@ -71,6 +62,7 @@ public class SetTransactionIsolationLevel extends JDO_Test implements Constants 
   }
 
   /** Set TransactionIsolationLevel to all values via API. */
+  @Test
   public void testSetTransactionIsolationLevelByAPI() {
     // iterate through all possible TransactionIsolationLevels
     for (String transactionIsolationLevel : transactionIsolationLevels) {
@@ -80,6 +72,7 @@ public class SetTransactionIsolationLevel extends JDO_Test implements Constants 
   }
 
   /** Set TransactionIsolationLevel to all values from properties. */
+  @Test
   public void testSetTransactionIsolationLevelFromProperties() {
     // iterate through all possible TransactionIsolationLevels
     for (String transactionIsolationLevel : transactionIsolationLevels) {
@@ -89,6 +82,7 @@ public class SetTransactionIsolationLevel extends JDO_Test implements Constants 
   }
 
   /** Set TransactionIsolationLevel to all values. */
+  @Test
   public void testTransactionIsolationLevelReadCommittedSupported() {
     // this test depends on setUp initializing supportedOptions
     String readCommitted = Constants.PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED;

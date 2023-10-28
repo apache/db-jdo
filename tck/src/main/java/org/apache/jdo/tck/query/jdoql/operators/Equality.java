@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.TimeZone;
 import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Equality Operator Support <br>
@@ -162,16 +162,8 @@ public class Equality extends ComparisonTests {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.2-14 (Equality) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Equality.class);
-  }
-
   /** */
+  @Test
   public void test() {
     pm = getPM();
     tx = pm.currentTransaction();

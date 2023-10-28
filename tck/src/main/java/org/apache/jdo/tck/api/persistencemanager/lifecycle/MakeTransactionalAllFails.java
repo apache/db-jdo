@@ -25,7 +25,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.Point;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> MakeTransactionalAllFails <br>
@@ -44,20 +44,12 @@ public class MakeTransactionalAllFails extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.7-4 (MakeTransactionalAllFails) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakeTransactionalAllFails.class);
-  }
-
   private PCPoint p1 = null;
   private Point p2 = null;
   private Collection<Object> col1 = new HashSet<>();
 
   /** */
+  @Test
   public void testTransactionalInst() {
     pm = getPM();
 

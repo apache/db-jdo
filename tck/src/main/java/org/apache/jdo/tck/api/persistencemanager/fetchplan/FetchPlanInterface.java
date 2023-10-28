@@ -25,7 +25,7 @@ import javax.jdo.FetchPlan;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test TITLE <br>
@@ -56,15 +56,6 @@ public class FetchPlanInterface extends JDO_Test {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion 12.7.1-1 (FetchPlanTest) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(FetchPlanInterface.class);
-  }
 
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -111,6 +102,7 @@ public class FetchPlanInterface extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGroups() {
     checkDefaultGroups();
     checkClearGroups();
@@ -124,6 +116,7 @@ public class FetchPlanInterface extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testDetachmentRoots() {
     checkGetDetachmentRoots();
     checkSetDetachmentRoots();
@@ -132,6 +125,7 @@ public class FetchPlanInterface extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testDetachmentOptions() {
     int expectedOptions = FetchPlan.DETACH_LOAD_FIELDS + FetchPlan.DETACH_UNLOAD_FIELDS;
     FetchPlan fp = getPM().getFetchPlan();
@@ -157,6 +151,7 @@ public class FetchPlanInterface extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testMaxFetchDepth() {
     int expectedMaxFetchDepth = 12;
     FetchPlan fp = getPM().getFetchPlan();
@@ -173,6 +168,7 @@ public class FetchPlanInterface extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testFetchSize() {
     int expectedFetchSize = 12;
     FetchPlan fp = getPM().getFetchPlan();

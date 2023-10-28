@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test using methods in the result expression <br>
@@ -40,15 +40,7 @@ public class MethodsInResult extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.9-5 (MethodsInResult) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MethodsInResult.class);
-  }
-
+  @Test
   public void testCollectionSizeInResult() {
     // collection.size()
     Object expected = Arrays.asList(Integer.valueOf(3), Integer.valueOf(2));
@@ -81,6 +73,7 @@ public class MethodsInResult extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
   }
 
+  @Test
   public void testMapSizeInResult() {
     // map.size()
     Object expected =
@@ -119,6 +112,7 @@ public class MethodsInResult extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
   }
 
+  @Test
   public void testMaxAndSizeInResult() {
     // MAX(collection.size())
     Object expected = Integer.valueOf(3);
@@ -151,6 +145,7 @@ public class MethodsInResult extends QueryTest {
   }
 
   @SuppressWarnings("unchecked")
+  @Test
   public void testMapGetInResult() {
     // map.get()
     Object expected = Arrays.asList("1111", "2222", "3333", "3343", "3363");
@@ -183,6 +178,7 @@ public class MethodsInResult extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
   }
 
+  @Test
   public void testSubstringInResult() {
     // String.substring()
     Object expected = Arrays.asList("mp1", "mp2", "mp3", "mp4", "mp5");
@@ -215,6 +211,7 @@ public class MethodsInResult extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
   }
 
+  @Test
   public void testIndexOfInResult() {
     // String.indexOf()
     Object expected =

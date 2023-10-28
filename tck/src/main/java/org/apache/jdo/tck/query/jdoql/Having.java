@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Having. <br>
@@ -75,16 +75,8 @@ public class Having extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Having.class);
-  }
-
   /** */
+  @Test
   public void testPositive0() {
     Object expected =
         Arrays.asList(
@@ -126,6 +118,7 @@ public class Having extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPositive1() {
     // HAVING clause uses field that isn't contained in the SELECT clause.
     Object expected =
@@ -168,6 +161,7 @@ public class Having extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);

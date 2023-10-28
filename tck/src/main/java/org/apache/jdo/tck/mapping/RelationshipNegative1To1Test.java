@@ -23,7 +23,7 @@ import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
 import org.apache.jdo.tck.pc.company.MedicalInsurance;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>RelationshipNegative1To1Test <br>
@@ -49,15 +49,6 @@ public class RelationshipNegative1To1Test extends AbstractRelationshipTest {
   IMedicalInsurance medIns2 = null;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RelationshipNegative1To1Test.class);
-  }
-
-  /**
    * @see AbstractRelationshipTest#localSetUp()
    */
   @Override
@@ -81,6 +72,7 @@ public class RelationshipNegative1To1Test extends AbstractRelationshipTest {
   /**
    * Test that JdoUserException is thrown if two sides of a relationship do not refer to each other.
    */
+  @Test
   public void testA2BbutNotB2AMapped() {
     testMethod = "testA2BbutNotB2AMapped";
     if (isTestToBePerformed) {
@@ -96,6 +88,7 @@ public class RelationshipNegative1To1Test extends AbstractRelationshipTest {
   /**
    * Test that JdoUserException is thrown if two sides of a relationship do not refer to each other.
    */
+  @Test
   public void testA2BbutNotB2AMappedBy() {
     testMethod = "testA2BbutNotB2AMappedBy";
     if (isTestToBePerformed) {
@@ -111,6 +104,7 @@ public class RelationshipNegative1To1Test extends AbstractRelationshipTest {
    * Test that JdoUserException is thrown setting mapped side of a one-to-one relationship and
    * setting the other side to null
    */
+  @Test
   public void testSetOtherSideToNullMapped() {
     testMethod = "testSetOtherSideToNullMapped";
     if (isTestToBePerformed) {
@@ -124,6 +118,7 @@ public class RelationshipNegative1To1Test extends AbstractRelationshipTest {
    * Test that JdoUserException is thrown setting mapped by side of a one-to-one relationship and
    * setting the other side to null
    */
+  @Test
   public void testSetOtherSideToNullMappedBy() {
     testMethod = "testSetOtherSideToNullMappedBy";
     if (isTestToBePerformed) {

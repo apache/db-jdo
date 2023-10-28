@@ -28,7 +28,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.MeetingRoom;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QMeetingRoom;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Correlated Subqueries Without Parameters <br>
@@ -56,16 +56,8 @@ public class CorrelatedSubqueries extends SubqueriesTest {
           + Employee.class.getName()
           + " WHERE (SELECT max(r.roomid) FROM this.department.meetingRooms r) == 3";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(CorrelatedSubqueries.class);
-  }
-
   /** */
+  @Test
   public void testCollectionApiQuery() {
     Transaction tx = pm.currentTransaction();
     try {
@@ -103,6 +95,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCollectionSingleStringQuery() {
     Transaction tx = pm.currentTransaction();
     try {
@@ -129,6 +122,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCollectionJDOQLTypedQuery() {
     Transaction tx = pm.currentTransaction();
     try {
@@ -157,6 +151,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
   }
 
   /** */
+  @Test
   public void testListApiQuery() {
     Transaction tx = pm.currentTransaction();
     try {
@@ -193,6 +188,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testListSingleStringQuery() {
     Transaction tx = pm.currentTransaction();
     try {
@@ -217,6 +213,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testListJDOQLTypedQuery() {
     Transaction tx = pm.currentTransaction();
     try {

@@ -34,7 +34,7 @@ import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Result Expressions. <br>
@@ -114,16 +114,8 @@ public class ResultExpressions extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ResultExpressions.class);
-  }
-
   /** */
+  @Test
   public void testThis() {
     List<Employee> expectedResult =
         getTransientCompanyModelInstancesAsList(
@@ -157,6 +149,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testField() {
     Object expectedResult =
         Arrays.asList(
@@ -191,6 +184,7 @@ public class ResultExpressions extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testVariableField() {
     Object expectedResult = Arrays.asList(Long.valueOf(1));
 
@@ -225,6 +219,7 @@ public class ResultExpressions extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testVariable() {
     List<Project> expectedResult = getTransientCompanyModelInstancesAsList(Project.class, "proj1");
 
@@ -258,6 +253,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testCountThis() {
     // COUNT(this)
     Object expectedResult = Long.valueOf(5);
@@ -291,6 +287,7 @@ public class ResultExpressions extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCountVariable() {
     // COUNT(variable)
     Object expectedResult = Long.valueOf(1);
@@ -325,6 +322,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSum() {
     // SUM
     Object expectedResult = Long.valueOf(1L + 2 + 3 + 4 + 5);
@@ -357,6 +355,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMin() {
     // MIN
     Object expectedResult = Long.valueOf(1);
@@ -389,6 +388,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMax() {
     // MAX
     Object expectedResult = Long.valueOf(5);
@@ -421,6 +421,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAvg() {
     // AVG
     Object expectedResult = Double.valueOf(3);
@@ -453,6 +454,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testFieldExpression() {
     // field expression
     Object expectedResult =
@@ -487,6 +489,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNavigationalExpressionThis() {
     // navigational expression this
     Object expectedResult =
@@ -522,6 +525,7 @@ public class ResultExpressions extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testNavigationalExpressionVariable() {
     // navigational expression variable
     Object expectedResult = Arrays.asList("Development", "Human Resources");
@@ -557,6 +561,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNavigationalExpressionParameter() {
     // navigational expression parameter
     Object expectedResult = Arrays.asList(Long.valueOf(1));
@@ -595,6 +600,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNavigationalExpressionField() {
     // navigational expression field
     Object expectedResult = Arrays.asList(Long.valueOf(1));
@@ -628,6 +634,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testParameter() {
     // parameter
     List<Project> expectedResult = getTransientCompanyModelInstancesAsList(Project.class, "proj1");
@@ -666,6 +673,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testCast() {
     // cast
     List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
@@ -699,6 +707,7 @@ public class ResultExpressions extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);

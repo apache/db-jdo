@@ -28,7 +28,7 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Variable in Result. <br>
@@ -49,17 +49,9 @@ public class VariableInResult extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.9-3 (VariableInResult) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(VariableInResult.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testDistinctNoNavigation() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(
@@ -96,6 +88,7 @@ public class VariableInResult extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testDistinctNavigation() {
     Object elem = new Object[] {Long.valueOf(1), "orange"};
     Object expected = Arrays.asList(elem);
@@ -131,6 +124,7 @@ public class VariableInResult extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testNavigation() {
     Object expected =
         Arrays.asList(
@@ -169,6 +163,7 @@ public class VariableInResult extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testNoNavigation() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(
@@ -205,6 +200,7 @@ public class VariableInResult extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testMultipleProjectionWithConstraints() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp4", "emp5");

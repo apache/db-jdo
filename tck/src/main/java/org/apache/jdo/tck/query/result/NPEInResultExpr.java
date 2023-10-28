@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> NullPointerException in Result Expression. <br>
@@ -41,16 +41,8 @@ public class NPEInResultExpr extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.9-4 (NPEInResultExpr) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NPEInResultExpr.class);
-  }
-
   /** */
+  @Test
   public void testPositive0() {
     Object expected = Arrays.asList("emp2Last", null, "emp2Last", "emp2Last", "emp2Last");
 
@@ -83,6 +75,7 @@ public class NPEInResultExpr extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive1() {
     Object expected = Arrays.asList("emp2Last", null, "emp2Last", "emp2Last", "emp2Last");
 

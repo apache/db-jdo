@@ -26,7 +26,8 @@ import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.pc.company.Project;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>RelationshipManyToManyAllRelationships <br>
@@ -48,15 +49,6 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   Project proj1 = null;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RelationshipManyToManyAllRelationships.class);
-  }
-
-  /**
    * @see AbstractRelationshipTest#localSetUp()
    */
   @Override
@@ -73,20 +65,21 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
       proj1 = (Project) pm.getObjectById(proj1Oid);
 
       // Preconditions
-      assertTrue(
+      Assertions.assertTrue(
+          emp1.getProjects().contains(proj1),
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected emp.getProjects()to be contain proj1",
-          emp1.getProjects().contains(proj1));
-      assertTrue(
+              + "expected emp.getProjects()to be contain proj1");
+      Assertions.assertTrue(
+          proj1.getMembers().contains(emp1),
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected proj.getMembers() to contain emp1",
-          proj1.getMembers().contains(emp1));
+              + "expected proj.getMembers() to contain emp1");
     }
   }
 
   /** */
+  @Test
   public void testSetToNullFromMappedSide() {
     testMethod = "testSetToNullFromMappedSide";
     if (isTestToBePerformed) {
@@ -119,6 +112,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   }
 
   /** */
+  @Test
   public void testSetToNullFromMappedbySide() {
     testMethod = "testSetToNullFromMappedbySide";
     if (isTestToBePerformed) {
@@ -150,6 +144,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   }
 
   /** */
+  @Test
   public void testReplaceFromMappedSide() {
     testMethod = "testReplaceFromMappedSide";
     if (isTestToBePerformed) {
@@ -190,6 +185,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   }
 
   /** */
+  @Test
   public void testReplaceFromMappedbySide() {
     testMethod = "testReplaceFromMappedbySide";
     if (isTestToBePerformed) {
@@ -227,6 +223,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   }
 
   /** */
+  @Test
   public void testAddNewFromMappedSide() {
     testMethod = "testAddNewFromMappedSide";
     if (isTestToBePerformed) {
@@ -265,6 +262,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   }
 
   /** */
+  @Test
   public void testAddNewFromMappedbySide() {
     testMethod = "testAddNewFromMappedbySide";
     if (isTestToBePerformed) {
@@ -299,6 +297,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
     }
   }
   /** */
+  @Test
   public void testAddExistingFromMappedSide() {
     testMethod = "testAddExistingFromMappedSide";
     if (isTestToBePerformed) {
@@ -334,6 +333,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   }
 
   /** */
+  @Test
   public void testAddExistingFromMappedbySide() {
     testMethod = "testAddExistingFromMappedbySide";
     if (isTestToBePerformed) {
@@ -368,6 +368,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   }
 
   /** */
+  @Test
   public void testRemoveFromMappedSide() {
     testMethod = "testRemoveFromMappedSide";
     if (isTestToBePerformed) {
@@ -400,6 +401,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   }
 
   /** */
+  @Test
   public void testRemoveFromMappedbySide() {
     testMethod = "testRemoveFromMappedbySide";
     if (isTestToBePerformed) {
@@ -431,6 +433,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
     }
   }
   /** */
+  @Test
   public void testDeleteFromMappedSide() {
     testMethod = "testDeleteFromMappedSide";
     if (isTestToBePerformed) {
@@ -463,6 +466,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
   }
 
   /** */
+  @Test
   public void testDeleteFromMappedbySide() {
     testMethod = "testDeleteFromMappedbySide";
     if (isTestToBePerformed) {

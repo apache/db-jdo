@@ -30,7 +30,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Equality and Comparisons Between Date Fields and Parameters <br>
@@ -66,16 +66,8 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters extends QueryT
     {FIRST_OF_JAN_1999}
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(EqualityAndComparisonsBetweenDateFieldsAndParameters.class);
-  }
-
   /** */
+  @Test
   public void testFieldEqualsParameter() {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
@@ -112,6 +104,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters extends QueryT
   }
 
   /** */
+  @Test
   public void testFieldGEParameter() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3", "emp4");
@@ -149,6 +142,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters extends QueryT
   }
 
   /** */
+  @Test
   public void testParameterLTField() {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
 

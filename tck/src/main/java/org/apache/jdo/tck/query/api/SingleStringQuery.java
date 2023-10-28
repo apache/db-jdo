@@ -24,7 +24,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Single String Query. <br>
@@ -67,17 +67,9 @@ public class SingleStringQuery extends QueryTest {
   /** Parameters of valid queries. */
   private final Object[][] parameters = {{new BigDecimal("2000")}};
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SingleStringQuery.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive() {
     int index = 0;
     Query<FullTimeEmployee> query = getPM().newQuery(SINGLE_STRING_QUERY);

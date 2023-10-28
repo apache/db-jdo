@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Element Returned in Query Result <br>
@@ -48,17 +48,9 @@ public class DenoteUniquenessInFilter extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-2 (DenoteUniquenessInFilter) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DenoteUniquenessInFilter.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive0() {
     // Uniqueness not specified.
     // emp1 qualifies for both contains clause => result is dept1
@@ -99,6 +91,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive1() {
     // Uniqueness specified.
     // Only emp3 qualifies for both contains clause.
@@ -144,6 +137,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive2() {
     // Uniqueness specified.
     // Only emp1 matches the first contains clause.

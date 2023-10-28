@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import javax.jdo.datastore.DataStoreCache;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> DataStoreCacheTest <br>
@@ -41,15 +41,6 @@ public class DataStoreCacheTest extends PersistenceManagerTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A11.8 (DataStoreCacheTest) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DataStoreCacheTest.class);
-  }
 
   /**
    * In setup, create a persistent instance and get its oid. The oid is a valid parameter to the
@@ -72,6 +63,7 @@ public class DataStoreCacheTest extends PersistenceManagerTest {
    * There is no mandated behavior of the DataStoreCache methods. This test makes sure that the
    * instance returned does not throw exceptions on any method.
    */
+  @Test
   public void testDataStoreCache() {
     DataStoreCache ds = getPMF().getDataStoreCache();
     ds.evict(pointoid);

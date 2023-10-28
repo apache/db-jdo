@@ -152,7 +152,7 @@ public class InstallSchema extends AbstractTCKMojo {
             System.out.println("FAILED!");
             ex.printStackTrace();
             System.out.println("*> Classpath is ");
-            new Utilities().printClasspath();
+            Utilities.printClasspath();
             System.out.println(
                 "*> jdo.tck.basedir is \n    " + System.getProperty("jdo.tck.basedir"));
             System.out.println(

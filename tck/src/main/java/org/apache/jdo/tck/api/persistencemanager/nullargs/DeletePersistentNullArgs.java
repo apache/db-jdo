@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> deletePersistent with Null Arguments <br>
@@ -32,15 +32,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * elements, and the null elements will be ignored.]
  */
 public class DeletePersistentNullArgs extends PersistenceManagerNullsTest {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DeletePersistentNullArgs.class);
-  }
 
   static final MethodUnderTest deletePersistent = new MethodUnderTestDeletePersistent();
 
@@ -62,6 +53,7 @@ public class DeletePersistentNullArgs extends PersistenceManagerNullsTest {
   }
 
   /** Test that deletePersistent() with null valued argument does nothing. */
+  @Test
   public void testDeletePersistentNullObject() {
     executeNullObjectParameter(deletePersistent, "deletePersistent(null)");
   }
@@ -70,6 +62,7 @@ public class DeletePersistentNullArgs extends PersistenceManagerNullsTest {
    * Test that deletePersistentAll() with null valued Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testDeletePersistentNullCollection() {
     executeNullCollectionParameter(deletePersistent, "deletePersistentAll((Collection)null)");
   }
@@ -77,6 +70,7 @@ public class DeletePersistentNullArgs extends PersistenceManagerNullsTest {
   /**
    * Test that deletePersistentAll() with null valued array argument throws NullPointerException.
    */
+  @Test
   public void testDeletePersistentNullArray() {
     executeNullArrayParameter(deletePersistent, "deletePersistentAll((Object[])null)");
   }
@@ -85,6 +79,7 @@ public class DeletePersistentNullArgs extends PersistenceManagerNullsTest {
    * Test that deletePersistentAll() with a null element of a Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testDeletePersistentCollectionNullElement() {
     executeCollectionNullElement(collNullElem, deletePersistent, "deletePersistentAll(Collection)");
   }
@@ -93,6 +88,7 @@ public class DeletePersistentNullArgs extends PersistenceManagerNullsTest {
    * Test that deletePersistentAll() with a null element of a array argument throws
    * NullPointerException.
    */
+  @Test
   public void testDeletePersistentArrayNullElement() {
     executeArrayNullElement(arrayNullElem, deletePersistent, "deletePersistentAll(Object[])");
   }

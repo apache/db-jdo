@@ -28,7 +28,7 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Cast Query Operator <br>
@@ -41,16 +41,8 @@ public class Cast extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.2-38 (Cast) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Cast.class);
-  }
-
   /** */
+  @Test
   public void testPositive0() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp5");
@@ -88,6 +80,7 @@ public class Cast extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive1() {
     List<Department> expected =
         getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2");

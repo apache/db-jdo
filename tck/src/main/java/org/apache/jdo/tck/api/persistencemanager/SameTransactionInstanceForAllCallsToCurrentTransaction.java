@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager;
 
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Same Transaction Instance For All Calls To Current Transaction <br>
@@ -35,16 +35,8 @@ public class SameTransactionInstanceForAllCallsToCurrentTransaction extends JDO_
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.2-2 (SameTransactionInstanceForAllCallsToCurrentTransaction) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SameTransactionInstanceForAllCallsToCurrentTransaction.class);
-  }
-
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

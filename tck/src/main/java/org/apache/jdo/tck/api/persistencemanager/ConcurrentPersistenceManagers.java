@@ -23,7 +23,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Concurrent Persistence Managers <br>
@@ -39,16 +39,8 @@ public class ConcurrentPersistenceManagers extends JDO_Test {
   private static final String ASSERTION_FAILED =
       "Assertion A5.2-1 (ConcurrentPersistenceManagers) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ConcurrentPersistenceManagers.class);
-  }
-
   /** */
+  @Test
   public void test() {
     Properties pmfProperties = loadPMF2Properties();
     PersistenceManagerFactory pmf2 = JDOHelper.getPersistenceManagerFactory(pmfProperties);

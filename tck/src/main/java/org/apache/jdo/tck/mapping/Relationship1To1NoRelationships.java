@@ -21,7 +21,8 @@ import java.util.Date;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.MedicalInsurance;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Relationship1To1NoRelationships <br>
@@ -47,15 +48,6 @@ public class Relationship1To1NoRelationships extends AbstractRelationshipTest {
   MedicalInsurance medIns2 = null;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Relationship1To1NoRelationships.class);
-  }
-
-  /**
    * @see AbstractRelationshipTest#localSetUp()
    */
   @Override
@@ -71,20 +63,21 @@ public class Relationship1To1NoRelationships extends AbstractRelationshipTest {
       medIns1 = (MedicalInsurance) pm.getObjectById(medIns1Oid);
 
       // Preconditions
-      assertTrue(
+      Assertions.assertTrue(
+          emp1.getMedicalInsurance() == null,
           ASSERTION_FAILED
               + ": Test aborted, precondition is false; "
-              + "expected emp.getMedicalInsurance()to be null",
-          emp1.getMedicalInsurance() == null);
-      assertTrue(
+              + "expected emp.getMedicalInsurance()to be null");
+      Assertions.assertTrue(
+          medIns1.getEmployee() == null,
           ASSERTION_FAILED
               + ": Test aborted, precondition is false; "
-              + "expected ins.getEmployee() to be null",
-          medIns1.getEmployee() == null);
+              + "expected ins.getEmployee() to be null");
     }
   }
 
   /** */
+  @Test
   public void testSetToExistingFromMappedSide() {
     testMethod = "testSetToExistingFromMappedSide";
     if (isTestToBePerformed) {
@@ -117,6 +110,7 @@ public class Relationship1To1NoRelationships extends AbstractRelationshipTest {
   }
 
   /** */
+  @Test
   public void testSetToExistingFromMappedBySide() {
     testMethod = "testSetToExistingFromMappedBySide";
     if (isTestToBePerformed) {
@@ -149,6 +143,7 @@ public class Relationship1To1NoRelationships extends AbstractRelationshipTest {
   }
 
   /** */
+  @Test
   public void testSetToNewFromMappedSide() {
     testMethod = "testSetToNewFromMappedSide";
     if (isTestToBePerformed) {
@@ -186,6 +181,7 @@ public class Relationship1To1NoRelationships extends AbstractRelationshipTest {
   }
 
   /** */
+  @Test
   public void testSetToNewFromMappedBySide() {
     testMethod = "testSetToNewFromMappedBySide";
     if (isTestToBePerformed) {

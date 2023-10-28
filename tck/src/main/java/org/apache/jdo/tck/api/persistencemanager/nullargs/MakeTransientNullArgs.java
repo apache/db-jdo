@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> makeTransient with Null Arguments <br>
@@ -32,15 +32,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * elements, and the null elements will be ignored.]
  */
 public class MakeTransientNullArgs extends PersistenceManagerNullsTest {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakeTransientNullArgs.class);
-  }
 
   static final MethodUnderTest makeTransient = new MethodUnderTestMakeTransient();
 
@@ -62,6 +53,7 @@ public class MakeTransientNullArgs extends PersistenceManagerNullsTest {
   }
 
   /** Test that makeTransient() with null valued argument does nothing. */
+  @Test
   public void testMakeTransientNullObject() {
     executeNullObjectParameter(makeTransient, "makeTransient(null)");
   }
@@ -69,11 +61,13 @@ public class MakeTransientNullArgs extends PersistenceManagerNullsTest {
   /**
    * Test that makeTransientAll() with null valued Collection argument throws NullPointerException.
    */
+  @Test
   public void testMakeTransientNullCollection() {
     executeNullCollectionParameter(makeTransient, "makeTransientAll((Collection)null)");
   }
 
   /** Test that makeTransientAll() with null valued array argument throws NullPointerException. */
+  @Test
   public void testMakeTransientNullArray() {
     executeNullArrayParameter(makeTransient, "makeTransientAll((Object[])null)");
   }
@@ -82,6 +76,7 @@ public class MakeTransientNullArgs extends PersistenceManagerNullsTest {
    * Test that makeTransientAll() with a null element of a Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testMakeTransientCollectionNullElement() {
     executeCollectionNullElement(collNullElem, makeTransient, "makeTransientAll(Collection)");
   }
@@ -90,6 +85,7 @@ public class MakeTransientNullArgs extends PersistenceManagerNullsTest {
    * Test that makeTransientAll() with a null element of a array argument throws
    * NullPointerException.
    */
+  @Test
   public void testMakeTransientArrayNullElement() {
     executeArrayNullElement(arrayNullElem, makeTransient, "makeTransientAll(Object[])");
   }

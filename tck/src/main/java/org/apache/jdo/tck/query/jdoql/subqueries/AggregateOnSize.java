@@ -23,7 +23,7 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.IDepartment;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test using an aggregate on a size expression <br>
@@ -36,17 +36,9 @@ public class AggregateOnSize extends SubqueriesTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion (AggregateOnSize) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AggregateOnSize.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testMaxAndSizeInSubquery() {
     PersistenceManager pm = getPM();
 

@@ -28,7 +28,7 @@ import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Null Collections and Contains Method <br>
@@ -44,17 +44,9 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-35 (NullCollectionsAndContainsMethod) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NullCollectionsAndContainsMethod.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testContains1() {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
 
@@ -92,6 +84,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testContains2() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");

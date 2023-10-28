@@ -21,7 +21,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Get IgnoreCache <br>
@@ -35,16 +35,8 @@ public class GetIgnoreCache extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6-13 (GetIgnoreCache) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetIgnoreCache.class);
-  }
-
   /** */
+  @Test
   public void test() {
     pmf = getPMF();
     pm = getPM();

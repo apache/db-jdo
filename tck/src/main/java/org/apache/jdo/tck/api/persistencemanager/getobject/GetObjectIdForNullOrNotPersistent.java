@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanager.getobject;
 import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.Point;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> GetObjectIdForNullOrNotPersistent <br>
@@ -35,16 +35,8 @@ public class GetObjectIdForNullOrNotPersistent extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.6-14 (GetObjectIdForNullOrNotPersistent) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetObjectIdForNullOrNotPersistent.class);
-  }
-
   /** */
+  @Test
   public void testGetObjectIdForNullOrNotPersistent() {
     pm = getPM();
     runTestNonPcClass(pm);

@@ -23,7 +23,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Only one instance of persistent object in cache per PersistenceManager <br>
@@ -40,20 +40,12 @@ public class OneInstanceOfObjectPerPersistenceManager extends PersistenceManager
       "Assertion A5.4-10 (OneInstanceOfObjectPerPersistenceManager) " + "failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(OneInstanceOfObjectPerPersistenceManager.class);
-  }
-
-  /**
    * This test creates objects in one transaction and commits. The important object is p1. Then, in
    * a second transaction, it gets an object p1a by id, gets another object p1b by navigation, and a
    * third object p1c by query. All of these represent the same datastore object and therefore must
    * be identical in the same PersistenceManager.
    */
+  @Test
   public void test() {
     // The getPM method is declared in a superclass.
     // This is the standard way to get a PersistenceManager.

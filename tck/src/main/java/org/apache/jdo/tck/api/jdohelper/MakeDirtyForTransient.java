@@ -21,7 +21,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Make Dirty For Transient <br>
@@ -43,18 +43,10 @@ public class MakeDirtyForTransient extends JDO_Test {
   private static final String ASSERTION_FAILED =
       "Assertion A8.2-2 (MakeDirtyForTransient) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakeDirtyForTransient.class);
-  }
-
   /* test JDOHelper.makeDirthy(Object pc)
    *
    */
+  @Test
   public void testMakeDirtyForTransient() {
     pm = getPM();
     Transaction tx = pm.currentTransaction();

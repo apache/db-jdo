@@ -30,7 +30,7 @@ import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Aggregate Result. <br>
@@ -66,16 +66,8 @@ public class AggregateResult extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AggregateResult.class);
-  }
-
   /** */
+  @Test
   public void testCount0() {
     // COUNT(this)
     Object expected = Long.valueOf(3);
@@ -108,6 +100,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testCount1() {
     // COUNT(this)
     Object expected = Long.valueOf(0);
@@ -141,6 +134,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testCount2() {
     // COUNT(manager)
     Object expected = Long.valueOf(2);
@@ -173,6 +167,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testCount3() {
     // COUNT(manager.personid)
     Object expected = Long.valueOf(2);
@@ -205,6 +200,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testCount4() {
     // COUNT(DISTINCT manager)
     Object expected = Long.valueOf(1);
@@ -237,6 +233,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSum0() {
     // SUM(long)
     Object expected = Long.valueOf(1L + 2 + 5);
@@ -269,6 +266,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSum1() {
     // SUM(double)
     Object expected = Double.valueOf(20000.0 + 10000.0 + 45000.0);
@@ -301,6 +299,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSum2() {
     // SUM(BigDecimal)
     Object expected =
@@ -334,6 +333,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSum3() {
     // SUM(budget)
     Object expected = null;
@@ -367,6 +367,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSum4() {
     // SUM(((FullTimeEmployee)manager).salary)
     Object expected = Double.valueOf(20000);
@@ -403,6 +404,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSum5() {
     // SUM(DISTINCT ((FullTimeEmployee)manager).salary)
     Object expected = Double.valueOf(10000);
@@ -439,6 +441,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMin0() {
     // MIN(long)
     Object expected = Long.valueOf(1);
@@ -471,6 +474,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMin1() {
     // MIN(double)
     Object expected = Double.valueOf(10000.0);
@@ -503,6 +507,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMin2() {
     // MIN(BigDecimal)
     Object expected = new BigDecimal("2000.99");
@@ -535,6 +540,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMin3() {
     // MIN(budget)
     Object expected = null;
@@ -568,6 +574,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMin4() {
     // MIN(((FullTimeEmployee)manager).salary)
     Object expected = Double.valueOf(10000);
@@ -602,6 +609,7 @@ public class AggregateResult extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
   }
   /** */
+  @Test
   public void testMax0() {
     // MAX(long)
     Object expected = Long.valueOf(5);
@@ -634,6 +642,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMax1() {
     // MAX(double)
     Object expected = Double.valueOf(45000.0);
@@ -666,6 +675,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMax2() {
     // MAX(BigDecimal)
     Object expected = new BigDecimal("2500000.99");
@@ -698,6 +708,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMax3() {
     // MAX(budget)
     Object expected = null;
@@ -731,6 +742,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMax4() {
     // MAX(((FullTimeEmployee)manager).salary)
     Object expected = Double.valueOf(10000);
@@ -767,6 +779,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAvg0() {
     // AVG(long)
     Object expected = Double.valueOf(3);
@@ -799,6 +812,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAvg1() {
     // AVG(double)
     Object expected = Double.valueOf(25000.0);
@@ -831,6 +845,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAvg2() {
     // AVG(BigDecimal)
     Object expected = Double.valueOf("99.997");
@@ -863,6 +878,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAvg3() {
     // AVG(lifetimeOrthoBenefit)
     Object expected = null;
@@ -896,6 +912,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAvg4() {
     // AVG(((FullTimeEmployee)manager).salary)
     Object expected = Double.valueOf(10000);
@@ -932,6 +949,7 @@ public class AggregateResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAvg5() {
     // AVG(DISTINCT ((FullTimeEmployee)manager).salary)
     Object expected = Double.valueOf(10000);
@@ -967,6 +985,7 @@ public class AggregateResult extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
   }
 
+  @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);

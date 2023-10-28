@@ -29,7 +29,7 @@ import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Allowed API Methods. <br>
@@ -43,15 +43,6 @@ public class AllowedAPIMethods extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.7-2 (AllowedAPIMethods) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AllowedAPIMethods.class);
-  }
 
   /** The array of valid SQL queries. */
   private static final String[] VALID_SQL_QUERIES = {
@@ -80,6 +71,7 @@ public class AllowedAPIMethods extends QueryTest {
   };
 
   /** */
+  @Test
   public void testSetClass() {
     if (isSQLSupported()) {
       int index = 0;
@@ -118,6 +110,7 @@ public class AllowedAPIMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSetUnique() {
     if (isSQLSupported()) {
       int index = 3;
@@ -134,6 +127,7 @@ public class AllowedAPIMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSetResultClass() {
     if (isSQLSupported()) {
       int index = 4;
@@ -150,6 +144,7 @@ public class AllowedAPIMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     if (isSQLSupported()) {
       String schema = getPMFProperty("javax.jdo.mapping.Schema");

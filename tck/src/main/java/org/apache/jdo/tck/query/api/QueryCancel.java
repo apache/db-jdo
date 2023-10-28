@@ -25,12 +25,12 @@ import javax.jdo.JDOUnsupportedOptionException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-import junit.framework.AssertionFailedError;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * <B>Title:</B> QueryCancel <br>
@@ -68,18 +68,10 @@ public class QueryCancel extends QueryTest {
           + "import org.apache.jdo.tck.pc.mylib.PCPoint2; ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(QueryCancel.class);
-  }
-
-  /**
    * @throws Exception exception
    */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCancel() throws InterruptedException {
     PersistenceManager pm = getPM();
     // Test query
@@ -129,6 +121,7 @@ public class QueryCancel extends QueryTest {
    * @throws Exception exception
    */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCancelAll() throws Exception {
     PersistenceManager pm = getPM();
     // Test query

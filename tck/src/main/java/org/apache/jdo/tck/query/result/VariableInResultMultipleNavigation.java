@@ -30,7 +30,7 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Variable in Result. <br>
@@ -69,17 +69,9 @@ public class VariableInResultMultipleNavigation extends QueryTest {
   private final Object dept1 = getTransientCompanyModelInstance(Department.class, "dept1");
   private final Object dept2 = getTransientCompanyModelInstance(Department.class, "dept2");
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(VariableInResult.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testNavigationWithCompanyAndDepartmentAndEmployeeAndProject() {
     Object expected =
         Arrays.asList(
@@ -130,6 +122,7 @@ public class VariableInResultMultipleNavigation extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testNavigationWithCompanyAndEmployeeAndProject() {
     Object expected =
         Arrays.asList(
@@ -180,6 +173,7 @@ public class VariableInResultMultipleNavigation extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testNavigationWithDepartmentAndEmployeeAndProject() {
     Object expected =
         Arrays.asList(

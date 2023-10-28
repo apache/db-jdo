@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> makeTransactional with Null Arguments <br>
@@ -32,15 +32,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * elements, and the null elements will be ignored.]
  */
 public class MakeTransactionalNullArgs extends PersistenceManagerNullsTest {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakeTransactionalNullArgs.class);
-  }
 
   static final MethodUnderTest makeTransactional = new MethodUnderTestMakeTransactional();
 
@@ -62,6 +53,7 @@ public class MakeTransactionalNullArgs extends PersistenceManagerNullsTest {
   }
 
   /** Test that makeTransactional() with null valued argument does nothing. */
+  @Test
   public void testMakeTransactionalNullObject() {
     executeNullObjectParameter(makeTransactional, "makeTransactional(null)");
   }
@@ -70,6 +62,7 @@ public class MakeTransactionalNullArgs extends PersistenceManagerNullsTest {
    * Test that makeTransactionalAll() with null valued Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testMakeTransactionalNullCollection() {
     executeNullCollectionParameter(makeTransactional, "makeTransactionalAll((Collection)null)");
   }
@@ -77,6 +70,7 @@ public class MakeTransactionalNullArgs extends PersistenceManagerNullsTest {
   /**
    * Test that makeTransactionalAll() with null valued array argument throws NullPointerException.
    */
+  @Test
   public void testMakeTransactionalNullArray() {
     executeNullArrayParameter(makeTransactional, "makeTransactionalAll((Object[])null)");
   }
@@ -85,6 +79,7 @@ public class MakeTransactionalNullArgs extends PersistenceManagerNullsTest {
    * Test that makeTransactionalAll() with a null element of a Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testMakeTransactionalCollectionNullElement() {
     executeCollectionNullElement(
         collNullElem, makeTransactional, "makeTransactionalAll(Collection)");
@@ -94,6 +89,7 @@ public class MakeTransactionalNullArgs extends PersistenceManagerNullsTest {
    * Test that makeTransactionalAll() with a null element of a array argument throws
    * NullPointerException.
    */
+  @Test
   public void testMakeTransactionalArrayNullElement() {
     executeArrayNullElement(arrayNullElem, makeTransactional, "makeTransactionalAll(Object[])");
   }

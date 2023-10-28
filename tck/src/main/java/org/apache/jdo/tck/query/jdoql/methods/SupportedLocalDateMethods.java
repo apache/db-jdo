@@ -25,7 +25,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.LocalDateSample;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Supported LocalDate methods. <br>
@@ -51,16 +51,8 @@ public class SupportedLocalDateMethods extends QueryTest {
   /** */
   private Object oidOfLocalDate2;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedLocalDateMethods.class);
-  }
-
   /** */
+  @Test
   public void testDayOfMonth() {
     final String filter = "localDate.getDayOfMonth() == 12";
     PersistenceManager pm = getPM();
@@ -80,6 +72,7 @@ public class SupportedLocalDateMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMonthValue() {
     final String filter = "localDate.getMonthValue() == 8";
     PersistenceManager pm = getPM();
@@ -99,6 +92,7 @@ public class SupportedLocalDateMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testYear() {
     final String filter = "localDate.getYear() == 2017";
     PersistenceManager pm = getPM();

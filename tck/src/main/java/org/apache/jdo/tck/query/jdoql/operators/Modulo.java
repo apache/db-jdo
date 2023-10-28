@@ -27,7 +27,7 @@ import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Modulo operator. <br>
@@ -40,15 +40,7 @@ public class Modulo extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.2-40 (Modulo) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Modulo.class);
-  }
-
+  @Test
   public void testPositive() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp2", "emp4");
 
@@ -83,6 +75,7 @@ public class Modulo extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPostiveUsingPrimitiveTypes() {
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();

@@ -21,7 +21,8 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.detach.DetachTest;
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
 import org.apache.jdo.tck.pc.shoppingcart.Undetachable;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test IsDetached <br>
@@ -35,29 +36,23 @@ public class IsDetached extends DetachTest {
   private static final String ASSERTION_FAILED =
       "Assertion A8.5.6-1 JDOHelper.isDetached(Object) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(IsDetached.class);
-  }
-
+  @Test
   public void testNullTransientAndUndetachableIsDetachedFalse() {
     pm = getPM();
     pm.currentTransaction().begin();
 
-    assertFalse(ASSERTION_FAILED + "null object is detached", JDOHelper.isDetached(null));
-    assertFalse(
-        ASSERTION_FAILED + "transient object is detached", JDOHelper.isDetached(new Cart("bob")));
-    assertFalse(
-        ASSERTION_FAILED + "object of class marked not detachabled is detached",
-        JDOHelper.isDetached(new Undetachable()));
+    Assertions.assertFalse(
+        JDOHelper.isDetached(null), ASSERTION_FAILED + "null object is detached");
+    Assertions.assertFalse(
+        JDOHelper.isDetached(new Cart("bob")), ASSERTION_FAILED + "transient object is detached");
+    Assertions.assertFalse(
+        JDOHelper.isDetached(new Undetachable()),
+        ASSERTION_FAILED + "object of class marked not detachabled is detached");
 
     pm.currentTransaction().commit();
   }
 
+  @Test
   public void testDetachableIsDetachedTrue() {
     pm = getPM();
     Transaction txn = pm.currentTransaction();
@@ -76,7 +71,7 @@ public class IsDetached extends DetachTest {
     {
       c = (Cart) pm.getObjectById(oid);
       detached = pm.detachCopy(c);
-      assertTrue(JDOHelper.isDetached(detached));
+      Assertions.assertTrue(JDOHelper.isDetached(detached));
     }
     txn.commit();
   }

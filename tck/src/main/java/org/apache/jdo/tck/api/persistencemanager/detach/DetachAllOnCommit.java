@@ -16,7 +16,7 @@
  */
 package org.apache.jdo.tck.api.persistencemanager.detach;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test DetachAllOnCommit <br>
@@ -34,16 +34,8 @@ public class DetachAllOnCommit extends DetachTest {
 
   private static final String ASSERTION_FAILED = "Assertion A12.6.8-3 (DetachAllOnCommit) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DetachAllOnCommit.class);
-  }
-
   /** */
+  @Test
   public void testDetachAllOnCommit() {
     getPM().currentTransaction().begin();
     setCartFetchGroups();

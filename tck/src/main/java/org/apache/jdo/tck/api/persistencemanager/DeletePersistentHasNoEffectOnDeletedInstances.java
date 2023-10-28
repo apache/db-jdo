@@ -22,7 +22,7 @@ import java.util.HashSet;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> DeletePersistent Has No Effect On Deleted Instances <br>
@@ -37,15 +37,6 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.7-10 (DeletePersistentHasNoEffectOnDeletedInstances) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DeletePersistentHasNoEffectOnDeletedInstances.class);
-  }
-
   private PCPoint p1 = null;
   private PCPoint p2 = null;
   private PCPoint p3 = null;
@@ -53,6 +44,7 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
   private PCPoint p5 = null;
 
   /** */
+  @Test
   public void testDeletePersistentHasNoEffectOnDeletedInstances() {
     pm = getPM();
     createObjects(pm);

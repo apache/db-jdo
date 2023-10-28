@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.instancecallbacks;
 import java.util.Date;
 import javax.jdo.listener.DeleteCallback;
 import javax.jdo.listener.InstanceLifecycleEvent;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test TestInstanceLifecycleListenerDelete <br>
@@ -53,18 +53,10 @@ public class InstanceLifecycleListenerDelete extends AbstractInstanceLifecycleLi
   }
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(InstanceLifecycleListenerDelete.class);
-  }
-
-  /**
    * This test creates a new persistent instance, and deletes it. The pre-delete listener,
    * pre-delete callback, and post-delete listener will be called.
    */
+  @Test
   public void testDelete() {
 
     // set up the persistent instance

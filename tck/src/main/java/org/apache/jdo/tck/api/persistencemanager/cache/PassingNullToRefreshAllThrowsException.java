@@ -21,7 +21,7 @@ import java.util.Collection;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Passing Null to RefreshAll Throws Exception <br>
@@ -36,16 +36,8 @@ public class PassingNullToRefreshAllThrowsException extends PersistenceManagerTe
   private static final String ASSERTION_FAILED =
       "Assertion A12.5-10 (PassingNullToRefreshAllThrowsException) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(PassingNullToRefreshAllThrowsException.class);
-  }
-
   /** */
+  @Test
   public void testPassingNullToRefreshAllThrowsException() {
     pm = getPM();
 

@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Implicit parameters. <br>
@@ -44,16 +44,8 @@ public class ImplicitParameters extends QueryTest {
 
   private static final String PARAMETER = "parameterInResult";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ImplicitParameters.class);
-  }
-
   /** */
+  @Test
   public void testResult() {
     Object expected =
         getExpectedResultOfFirstQuery(
@@ -87,6 +79,7 @@ public class ImplicitParameters extends QueryTest {
   }
 
   /** */
+  @Test
   public void testFilter() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -117,6 +110,7 @@ public class ImplicitParameters extends QueryTest {
   }
 
   /** */
+  @Test
   public void testGrouping() {
     Object expected = /* Note: "Development" is not a bean name! */ Arrays.asList("Development");
 
@@ -148,6 +142,7 @@ public class ImplicitParameters extends QueryTest {
   }
 
   /** */
+  @Test
   public void testRange() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(

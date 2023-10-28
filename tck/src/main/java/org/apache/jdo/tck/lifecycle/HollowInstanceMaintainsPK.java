@@ -20,7 +20,7 @@ package org.apache.jdo.tck.lifecycle;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test that Hollow Instances maintains PK <br>
@@ -36,15 +36,6 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
       "Assertion A5.5.4-3 (HollowInstanceMaintainsPK) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(HollowInstanceMaintainsPK.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -54,6 +45,7 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
   }
 
   /** */
+  @Test
   public void test() {
     if (!isApplicationIdentitySupported()) {
       printUnsupportedOptionalFeatureNotTested(

@@ -39,7 +39,7 @@ import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldPrimitivelong
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldPrimitiveshort;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldShort;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldString;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>CopyKeyFieldsFromObjectId of PersistenceCapable <br>
@@ -59,81 +59,84 @@ public class CopyKeyFieldsFromObjectId extends AbstractPersistenceCapableTest {
   private static final String ASSERTION_FAILED =
       "Assertion A7.12-25 (jdoCopyKeyFieldsFromObjectId) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(CopyKeyFieldsFromObjectId.class);
-  }
-
+  @Test
   public void testSingleFieldIdentitybyte() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldPrimitivebyte(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityByte() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldByte(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentitychar() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldPrimitivechar(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityCharacter() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldCharacter(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityint() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldPrimitiveint(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInteger() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldInteger(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentitylong() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldPrimitivelong(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityLong() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldLong(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityshort() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldPrimitiveshort(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityShort() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldShort(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityString() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldString(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityDate() {
     if (isTestToBePerformed()) {
       singleFieldIdentity(new PCPointSingleFieldDate(1, 2));

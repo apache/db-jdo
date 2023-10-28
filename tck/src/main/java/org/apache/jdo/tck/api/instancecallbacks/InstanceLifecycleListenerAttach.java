@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.instancecallbacks;
 import java.util.Date;
 import javax.jdo.listener.AttachCallback;
 import javax.jdo.listener.InstanceLifecycleEvent;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test TestInstanceLifecycleListenerAttach <br>
@@ -52,18 +52,10 @@ public class InstanceLifecycleListenerAttach extends AbstractInstanceLifecycleLi
   }
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(InstanceLifecycleListenerAttach.class);
-  }
-
-  /**
    * This test creates a new persistent instance and detaches it. The instance is attached in a new
    * transaction, which causes the attach callbacks and listeners to be called.
    */
+  @Test
   public void testAttach() {
 
     // set up the persistent instance

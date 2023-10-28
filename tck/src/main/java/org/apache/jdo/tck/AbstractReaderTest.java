@@ -29,7 +29,7 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 /*
  * Abstract class for managed relationship tests
  */
-public class AbstractReaderTest extends JDO_Test {
+public abstract class AbstractReaderTest extends JDO_Test {
 
   /** The list of all objects in the bean collection. */
   protected List<Object> rootOids;

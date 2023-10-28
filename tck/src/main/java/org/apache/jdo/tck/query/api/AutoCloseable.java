@@ -26,7 +26,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> AutoCloseable <br>
@@ -42,18 +42,10 @@ public class AutoCloseable extends QueryTest {
   private static final String ASSERTION_FAILED = "Assertion A14.6.7-3 (AutoCloseable) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AutoCloseable.class);
-  }
-
-  /**
    * This methods creates a query instance with try-with-resources and checks that an iterator for
    * the query result is not accessible after the block.
    */
+  @Test
   public void testTryWithResource() {
 
     PersistenceManager pm = getPM();
@@ -146,11 +138,11 @@ public class AutoCloseable extends QueryTest {
    * This methods creates a query instance with try-with-resources and checks that an iterator for
    * the query result is not accessible after the block, if the block is ended with an exception.
    */
+  @Test
   public void testTryWithResourceThrowingException() {
 
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();
-
     try {
       tx.begin();
 

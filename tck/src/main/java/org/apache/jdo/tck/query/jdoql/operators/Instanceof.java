@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.company.PartTimeEmployee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Instanceof operator. <br>
@@ -38,15 +38,7 @@ public class Instanceof extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.2-41 (Instanceof) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Instanceof.class);
-  }
-
+  @Test
   public void testPositive1() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");
@@ -79,6 +71,7 @@ public class Instanceof extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
 
+  @Test
   public void testPositive2() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");

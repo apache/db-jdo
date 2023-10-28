@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -28,7 +30,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
-import org.apache.jdo.exectck.Utilities.InvocationResult;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -48,6 +49,7 @@ public class RunTCK extends AbstractTCKMojo {
   private static final String CLASSES_DIR_NAME = "classes"; // NOI18N
 
   private static final String TCK_LOG_FILE = "tck.txt"; // NOI18N
+  private static final String JUNIT_LOG_FILE = "junit.txt"; // NOI18N
 
   /** To skip running of TCK, set to false. */
   @Parameter(property = "jdo.tck.doRunTCK", defaultValue = "true", required = true)
@@ -117,16 +119,9 @@ public class RunTCK extends AbstractTCKMojo {
   /** Class used to run a batch of tests. */
   @Parameter(
       property = "jdo.tck.testrunnerclass",
-      defaultValue = "org.apache.jdo.tck.util.BatchTestRunner",
+      defaultValue = "org.junit.platform.console.TCKConsoleLauncher",
       required = true)
   private String testRunnerClass;
-
-  /** Class used to output test result and configuration information. */
-  @Parameter(
-      property = "jdo.tck.resultprinterclass",
-      defaultValue = "org.apache.jdo.tck.util.BatchResultPrinter",
-      required = true)
-  private String resultPrinterClass;
 
   /**
    * Helper method returning the trimmed value of the specified property.
@@ -138,6 +133,15 @@ public class RunTCK extends AbstractTCKMojo {
   private String getTrimmedPropertyValue(Properties props, String key) {
     String value = props.getProperty(key);
     return value == null ? "" : value.trim();
+  }
+
+  private static String fileToString(String fileName) {
+    try {
+      byte[] encoded = Files.readAllBytes(Paths.get(fileName));
+      return new String(encoded);
+    } catch (IOException ex) {
+      return "Problems reading " + fileName + ": " + ex.getMessage();
+    }
   }
 
   @Override
@@ -153,7 +157,6 @@ public class RunTCK extends AbstractTCKMojo {
     List<String> propsString = new ArrayList<>();
     List<String> command;
     String cpString = null;
-    InvocationResult result;
     File fromFile = null;
     File toFile = null;
 
@@ -198,7 +201,6 @@ public class RunTCK extends AbstractTCKMojo {
 
     // Properties required for test execution
     System.out.println("cleanupaftertest is " + cleanupaftertest);
-    propsString.add("-DResultPrinterClass=" + resultPrinterClass);
     propsString.add("-Dverbose=" + verbose);
     propsString.add("-Djdo.tck.cleanupaftertest=" + cleanupaftertest);
     propsString.add(
@@ -222,8 +224,8 @@ public class RunTCK extends AbstractTCKMojo {
 
     // Create configuration log directory
     String timestamp = Utilities.now();
-    String thisLogDir = logsDirectory + File.separator + timestamp + File.separator;
-    String cfgDirName = thisLogDir + "configuration";
+    String thisLogDir = logsDirectory + File.separator + timestamp;
+    String cfgDirName = thisLogDir + File.separator + "configuration";
     File cfgDir = new File(cfgDirName);
     if (!(cfgDir.exists()) && !(cfgDir.mkdirs())) {
       throw new MojoExecutionException("Failed to create directory " + cfgDirName);
@@ -369,7 +371,7 @@ public class RunTCK extends AbstractTCKMojo {
             System.out.println("Skipping configuration " + cfg + ": classes excluded");
             continue;
           }
-          List<String> classesList = Arrays.asList(classes.split(" "));
+          List<String> classesList = Arrays.asList(classes.split("[ \t\n,;]+"));
 
           cfgPropsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
           cfgPropsString.add("-Djdo.tck.cfg=" + cfg);
@@ -394,6 +396,17 @@ public class RunTCK extends AbstractTCKMojo {
             Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
           }
 
+          String idname = "dsid";
+          if (idtype.trim().equals("applicationidentity")) {
+            idname = "app";
+          }
+          String configName = cfg;
+          if (cfg.indexOf('.') > 0) {
+            configName = configName.substring(0, cfg.indexOf('.'));
+          }
+          String junitLogFilename =
+              thisLogDir + File.separator + idname + "-" + configName + "-" + JUNIT_LOG_FILE;
+
           // build command line string
           command = new ArrayList<>();
           command.add("java");
@@ -406,7 +419,16 @@ public class RunTCK extends AbstractTCKMojo {
             command.add(debugDirectives);
           }
           command.add(testRunnerClass);
-          command.addAll(classesList);
+          command.add("--details=tree");
+          command.add("--details-theme=ascii");
+          // add Test classes
+          for (String testClass : classesList) {
+            // skip empty entries
+            if (testClass != null && testClass.trim().length() > 0) {
+              command.add("-c");
+              command.add(testClass);
+            }
+          }
 
           if (runonce.equals("true") && alreadyran) {
             continue;
@@ -428,9 +450,11 @@ public class RunTCK extends AbstractTCKMojo {
                   + " mapping="
                   + mapping
                   + " ... ");
+
           try {
-            result = (new Utilities()).invokeTest(command);
-            if (result.getExitValue() == 0) {
+            int resultValue =
+                Utilities.invokeCommand(command, new File(buildDirectory), junitLogFilename);
+            if (resultValue == 0) {
               System.out.println("success");
             } else {
               System.out.println("FAIL");
@@ -438,24 +462,16 @@ public class RunTCK extends AbstractTCKMojo {
             }
             if (runtckVerbose) {
               System.out.println("\nCommand line is: \n" + command.toString());
-              System.out.println("Test exit value is " + result.getExitValue());
-              System.out.println("Test result output:\n" + result.getOutputString());
-              System.out.println("Test result error:\n" + result.getErrorString());
+              System.out.println("Test exit value is " + resultValue);
+              System.out.println("Test result output:\n" + fileToString(junitLogFilename));
             }
           } catch (java.lang.RuntimeException re) {
             System.out.println("Exception on command " + command);
           }
 
           // Move log to per-test location
-          String idname = "dsid";
-          if (idtype.trim().equals("applicationidentity")) {
-            idname = "app";
-          }
-          String configName = cfg;
-          if (cfg.indexOf('.') > 0) {
-            configName = configName.substring(0, cfg.indexOf('.'));
-          }
-          String testLogFilename = thisLogDir + idname + "-" + configName + "-" + impl + ".txt";
+          String testLogFilename =
+              thisLogDir + File.separator + idname + "-" + configName + "-" + impl + ".txt";
           try {
             File logFile = new File(implLogFile);
             FileUtils.copyFile(logFile, new File(testLogFilename));
@@ -463,7 +479,8 @@ public class RunTCK extends AbstractTCKMojo {
           } catch (Exception e) {
             System.out.println(">> Error copying implementation log file: " + e.getMessage());
           }
-          String tckLogFilename = thisLogDir + idname + "-" + configName + "-" + TCK_LOG_FILE;
+          String tckLogFilename =
+              thisLogDir + File.separator + idname + "-" + configName + "-" + TCK_LOG_FILE;
           try {
             File logFile = new File(TCK_LOG_FILE);
             FileUtils.copyFile(logFile, new File(tckLogFilename));
@@ -501,19 +518,21 @@ public class RunTCK extends AbstractTCKMojo {
     }
 
     // Output results
+    String resultSummaryLogFile = thisLogDir + File.separator + "ResultSummary.txt";
     command = new ArrayList<>();
     command.add("java");
     command.add("-cp");
     command.add(cpString);
     command.add("org.apache.jdo.tck.util.ResultSummary");
     command.add(thisLogDir);
-    result = (new Utilities()).invokeTest(command, new File(buildDirectory));
+    Utilities.invokeCommand(command, new File(buildDirectory), resultSummaryLogFile);
+    System.out.println(fileToString(resultSummaryLogFile));
 
     // Create system configuration description file
     command.set(3, "org.apache.jdo.tck.util.SystemCfgSummary");
     command.set(4, cfgDirName);
     command.add("system_config.txt");
-    result = (new Utilities()).invokeTest(command, new File(buildDirectory));
+    Utilities.invokeCommand(command, new File(buildDirectory), null);
 
     // Copy metadata from enhanced to configuration logs directory
     for (String idtype : idtypes) {

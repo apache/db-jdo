@@ -27,7 +27,7 @@ import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Shape of Result. <br>
@@ -40,16 +40,8 @@ public class ShapeOfResult extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.12-2 (ShapeOfResult) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ShapeOfResult.class);
-  }
-
   /** */
+  @Test
   public void testNoResult() {
     // result: null
     List<Person> expected =
@@ -82,6 +74,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testThisAsC() {
     // result: this AS C
     List<Person> expected =
@@ -116,6 +109,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNoResultUnique() {
     // result: null, unique: true
     Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
@@ -148,6 +142,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testThisAsCUnique() {
     // result: this AS C, unique: true
     Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
@@ -181,6 +176,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSingleExpression() {
     // result: expression of type T
     Object expected =
@@ -214,6 +210,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSingleExpressionUnique() {
     // result: expression of type T, unique: true
     Object expected = "emp1First";
@@ -247,6 +244,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMultipleExpressions() {
     // result: multiple expressions of type T
     Object expected =
@@ -285,6 +283,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMultipleExpressionsUnique() {
     // result: multiple expressions of type T, unique: true
     Object expected = new Object[] {"emp1First", "emp1Last"};
@@ -318,6 +317,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMultipleExpressionsResultClass() {
     // result: multiple expressions of type T, result class
     Object expected =
@@ -357,6 +357,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMultipleExpressionResultClassUnique() {
     // result: multiple expressions of type T, result class, unique: true
     Object expected = new FullName("emp1First", "emp1Last");

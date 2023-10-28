@@ -28,7 +28,7 @@ import javax.jdo.identity.SingleFieldIdentity;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldInteger;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test GetObjectIds <br>
@@ -43,15 +43,6 @@ public class GetObjectIds extends JDO_Test {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A8.3-11 (GetObjectIds) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetObjectIds.class);
-  }
 
   /** The parameter objects */
   Object obj0;
@@ -152,6 +143,7 @@ public class GetObjectIds extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGetObjectIdsArray() {
     StringBuilder messages = new StringBuilder();
     Object[] expectedArray = oids;
@@ -175,6 +167,7 @@ public class GetObjectIds extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGetObjectIdsCollection() {
     StringBuilder messages = new StringBuilder();
     List<Object> paramList = Arrays.asList(objs);
@@ -201,6 +194,7 @@ public class GetObjectIds extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testTypedGetObjectIdsArray() {
     if (!runsWithApplicationIdentity()) return;
     StringBuilder messages = new StringBuilder();
@@ -225,6 +219,7 @@ public class GetObjectIds extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testTypedGetObjectIdsCollection() {
     if (!runsWithApplicationIdentity()) return;
     StringBuilder messages = new StringBuilder();

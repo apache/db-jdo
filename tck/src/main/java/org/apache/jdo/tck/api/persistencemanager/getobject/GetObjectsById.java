@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test GetObjectsById <br>
@@ -62,15 +62,6 @@ public class GetObjectsById extends JDO_Test {
   private final Object[] oidArray = new Object[NUMBER_OF_INSTANCES];
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetObjectsById.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -95,6 +86,7 @@ public class GetObjectsById extends JDO_Test {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCollection() {
     getPM().currentTransaction().begin();
     Collection<PCPoint> result = pm.getObjectsById(oidCollection);
@@ -105,6 +97,7 @@ public class GetObjectsById extends JDO_Test {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCollectionTrue() {
     getPM().currentTransaction().begin();
     Collection<PCPoint> result = pm.getObjectsById(oidCollection, true);
@@ -115,6 +108,7 @@ public class GetObjectsById extends JDO_Test {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCollectionFalse() {
     getPM().currentTransaction().begin();
     Collection<PCPoint> result = pm.getObjectsById(oidCollection, false);
@@ -124,6 +118,7 @@ public class GetObjectsById extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testArray() {
     getPM().currentTransaction().begin();
     Object[] result = pm.getObjectsById(oidArray);
@@ -133,6 +128,7 @@ public class GetObjectsById extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testArrayTrue() {
     getPM().currentTransaction().begin();
     Object[] result = pm.getObjectsById(true, oidArray);
@@ -142,6 +138,7 @@ public class GetObjectsById extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testArrayFalse() {
     getPM().currentTransaction().begin();
     Object[] result = pm.getObjectsById(false, oidArray);

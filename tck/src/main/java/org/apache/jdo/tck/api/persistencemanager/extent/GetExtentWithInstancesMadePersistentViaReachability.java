@@ -25,7 +25,7 @@ import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> GetExtentWithInstancesMadePersistentViaReachability <br>
@@ -40,16 +40,8 @@ public class GetExtentWithInstancesMadePersistentViaReachability extends Persist
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.4-3 (GetExtentWithInstancesMadePersistentViaReachability) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetExtentWithInstancesMadePersistentViaReachability.class);
-  }
-
   /** */
+  @Test
   public void test() {
     pm = getPM();
     createObjects(pm);

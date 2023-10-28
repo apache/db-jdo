@@ -22,7 +22,7 @@ import javax.jdo.JDOUserException;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>RelationshipNegative1ToManyTest <br>
@@ -44,15 +44,6 @@ public class RelationshipNegative1ToManyTest extends AbstractRelationshipTest {
   Employee emp1 = null;
   Department dept1 = null;
   Department dept2 = null;
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RelationshipNegative1ToManyTest.class);
-  }
 
   /**
    * @see AbstractRelationshipTest#localSetUp()
@@ -77,6 +68,7 @@ public class RelationshipNegative1ToManyTest extends AbstractRelationshipTest {
    * Test that JdoUserException is thrown setting one side of a one-to-many relationship and
    * deleting the other side
    */
+  @Test
   public void testDeleteOtherSide() {
     testMethod = "testDeleteOtherSide";
     if (isTestToBePerformed) {
@@ -90,6 +82,7 @@ public class RelationshipNegative1ToManyTest extends AbstractRelationshipTest {
    * adding a related instance (with a single-valued mapped-by relationship field) to more than one
    * one-to-many collection relationship
    */
+  @Test
   public void testAddToMoreThanOne() {
     testMethod = "testAddToMoreThanOne";
     if (isTestToBePerformed) {
@@ -105,6 +98,7 @@ public class RelationshipNegative1ToManyTest extends AbstractRelationshipTest {
   /**
    * adding a related instance to a collection and setting the other side to a different instance
    */
+  @Test
   public void testAInBbutNotB2A() {
     testMethod = "testAInBbutNotB2A";
     if (isTestToBePerformed) {

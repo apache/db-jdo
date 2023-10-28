@@ -33,8 +33,8 @@ import org.apache.jdo.tck.query.result.classes.MissingNoArgsConstructor;
 import org.apache.jdo.tck.query.result.classes.NoFieldsNoMethods;
 import org.apache.jdo.tck.query.result.classes.PublicLongField;
 import org.apache.jdo.tck.query.result.classes.PublicPutMethod;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ConversionHelper;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Result Class Requirements. <br>
@@ -173,16 +173,8 @@ public class ResultClassRequirements extends QueryTest {
     {"personid", Long.valueOf(5)}, {"lastname", "emp5Last"}
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ResultClassRequirements.class);
-  }
-
   /** */
+  @Test
   public void testLong() {
     Object expected = Arrays.asList(Long.valueOf(1), Long.valueOf(2), Long.valueOf(5));
 
@@ -214,6 +206,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testDouble() {
     Object expected =
         Arrays.asList(Double.valueOf(20000.0), Double.valueOf(10000.0), Double.valueOf(45000.0));
@@ -246,6 +239,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testBigDecimal() {
     Object expected =
         Arrays.asList(
@@ -279,6 +273,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testDate() {
     Object expected =
         Arrays.asList(
@@ -314,6 +309,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMap() {
     Object expected =
         Arrays.asList(
@@ -350,6 +346,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testUserDefinedResultClass() {
     Object expected =
         Arrays.asList(
@@ -386,6 +383,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testConstructor() {
     Object expected =
         Arrays.asList(
@@ -422,6 +420,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testConstructorWithoutConstructorCall() {
     Object expected =
         Arrays.asList(
@@ -458,6 +457,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testFields() {
     Object expected =
         Arrays.asList(new PublicLongField(1), new PublicLongField(2), new PublicLongField(5));
@@ -491,6 +491,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPut() {
     Object expected =
         Arrays.asList(
@@ -527,6 +528,7 @@ public class ResultClassRequirements extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);

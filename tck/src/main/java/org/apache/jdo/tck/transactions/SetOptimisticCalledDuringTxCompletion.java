@@ -22,7 +22,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import javax.transaction.Synchronization;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Set Optimistic Called During TX Completion <br>
@@ -49,15 +49,6 @@ public class SetOptimisticCalledDuringTxCompletion extends JDO_Test implements S
   /** */
   private static final String ASSERTION_FAILED =
       "Assertion A13.4.2-3 (SetOptimisticCalledDuringTxCompletion) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetOptimisticCalledDuringTxCompletion.class);
-  }
 
   /** */
   public void beforeCompletion() {
@@ -95,6 +86,7 @@ public class SetOptimisticCalledDuringTxCompletion extends JDO_Test implements S
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

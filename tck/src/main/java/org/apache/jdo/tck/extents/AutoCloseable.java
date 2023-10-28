@@ -23,7 +23,7 @@ import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.company.Department;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> AutoCloseable <br>
@@ -39,18 +39,10 @@ public class AutoCloseable extends ExtentTest {
   private static final String ASSERTION_FAILED = "Assertion A12.6-? (AutoCloseable) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AutoCloseable.class);
-  }
-
-  /**
    * This methods creates an extent instance with try-with-resources and checks that an iterator for
    * the query result is not accessible after the block.
    */
+  @Test
   public void testTryWithResource() {
 
     PersistenceManager pm = getPM();
@@ -101,6 +93,7 @@ public class AutoCloseable extends ExtentTest {
    * This methods creates an extent instance with try-with-resources and checks that an iterator for
    * the query result is not accessible after the block, if the block is ended with an exception.
    */
+  @Test
   public void testTryWithResourceThrowingException() {
 
     PersistenceManager pm = getPM();

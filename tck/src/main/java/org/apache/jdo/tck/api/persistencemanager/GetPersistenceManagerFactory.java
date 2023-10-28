@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Get PersistenceManagerFactory <br>
@@ -34,16 +34,8 @@ public class GetPersistenceManagerFactory extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.9-1 (GetPersistenceManagerFactory) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetPersistenceManagerFactory.class);
-  }
-
   /** */
+  @Test
   public void testGetPersistenceManagerFactory() {
     PersistenceManagerFactory pmf = getPMF();
     // Note, getPM uses the pmf returned by getPMF

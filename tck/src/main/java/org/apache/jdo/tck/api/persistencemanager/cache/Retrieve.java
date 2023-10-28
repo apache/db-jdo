@@ -25,7 +25,7 @@ import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Retrieve <br>
@@ -44,15 +44,6 @@ public class Retrieve extends PersistenceManagerTest {
   /** */
   private static final String ASSERTION_FAILED =
       "Assertions A12.6.1-2, A12.6.1-5 (Retrieve) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Retrieve.class);
-  }
 
   private PCPoint p1 = null;
   private String p1print = null;
@@ -74,6 +65,7 @@ public class Retrieve extends PersistenceManagerTest {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

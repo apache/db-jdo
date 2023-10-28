@@ -20,7 +20,7 @@ package org.apache.jdo.tck.query.jdoql.parameters;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Mixed parameters. <br>
@@ -102,16 +102,8 @@ public class MixedParameters extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MixedParameters.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     for (QueryElementHolder<?> validQuery : VALID_QUERIES) {
       compileAPIQuery(ASSERTION_FAILED, validQuery, true);
@@ -119,6 +111,7 @@ public class MixedParameters extends QueryTest {
     }
   }
 
+  @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);

@@ -23,7 +23,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Close of PersistenceManagerFactory <br>
@@ -40,15 +40,6 @@ public class GetPersistenceManagerFactoryByPropertiesInstance extends JDO_Test {
       "Assertions A11.1-32 (GetPersistenceManagerFactoryByPropertiesInstance) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetPersistenceManagerFactoryByPropertiesInstance.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -59,6 +50,7 @@ public class GetPersistenceManagerFactoryByPropertiesInstance extends JDO_Test {
   }
 
   /** */
+  @Test
   public void test() {
     // Try to get a PersistenceManager and begin and commit a transaction
     pm = getPM();

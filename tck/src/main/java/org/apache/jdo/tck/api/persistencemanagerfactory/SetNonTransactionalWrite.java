@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Set NonTransactionalWrite of persistencemanagerfactory <br>
@@ -34,15 +34,6 @@ public class SetNonTransactionalWrite extends JDO_Test {
   private static final String ASSERTION_FAILED =
       "Assertions A11.1-9,A11.1-10 (SetNonTransactionalWrite) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetNonTransactionalWrite.class);
-  }
-
   /** */
   @Override
   protected void localSetUp() {
@@ -53,6 +44,7 @@ public class SetNonTransactionalWrite extends JDO_Test {
   /**
    * Set NonTransactionalWrite to true or false and use getNonTransactionalWrite value to verify.
    */
+  @Test
   public void test() {
     if (!isNontransactionalWriteSupported()) {
       printUnsupportedOptionalFeatureNotTested(

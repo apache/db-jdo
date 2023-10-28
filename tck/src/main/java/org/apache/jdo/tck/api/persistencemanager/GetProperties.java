@@ -25,7 +25,7 @@ import java.util.Set;
 import javax.jdo.Constants;
 import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test GetProperties <br>
@@ -60,15 +60,6 @@ public class GetProperties extends JDO_Test implements Constants {
   private static final String ASSERTION_FAILED_12_19_7 =
       "Assertion 12.19-7 getSupportedProperties() Return the set of properties "
           + "supported by this PersistenceManager.\n";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetProperties.class);
-  }
 
   @Override
   public void localSetUp() {
@@ -366,6 +357,7 @@ public class GetProperties extends JDO_Test implements Constants {
   }
 
   /** For each option supported by the PMF, test that the corresponding pm property is supported. */
+  @Test
   public void testGetSupportedProperties() {
     testRequiredProperties.add(testCopyOnAttach);
     testRequiredProperties.add(testDetachAllOnCommit);

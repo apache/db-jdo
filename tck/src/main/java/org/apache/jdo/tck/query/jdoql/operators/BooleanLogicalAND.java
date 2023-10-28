@@ -23,7 +23,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Boolean Logical AND Query Operator <br>
@@ -43,16 +43,8 @@ public class BooleanLogicalAND extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-20 (BooleanLogicalAND) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(BooleanLogicalAND.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
     if (debug) logger.debug("\nExecuting positive test BooleanLogicalAND() ...");

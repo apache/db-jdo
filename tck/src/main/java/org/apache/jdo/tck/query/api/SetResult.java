@@ -23,7 +23,7 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Set Result. <br>
@@ -42,16 +42,8 @@ public class SetResult extends QueryTest {
     Arrays.asList("emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last")
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetResult.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     int index = 0;
     Query<Person> query = getPM().newQuery(Person.class);
@@ -62,6 +54,7 @@ public class SetResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     Query<Person> query = getPM().newQuery(Person.class);
     try {

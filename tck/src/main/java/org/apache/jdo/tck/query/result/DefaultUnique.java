@@ -29,7 +29,7 @@ import org.apache.jdo.tck.pc.company.QDentalInsurance;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Default Unique. <br>
@@ -43,16 +43,8 @@ public class DefaultUnique extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.11-2 (DefaultUnique) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DefaultUnique.class);
-  }
-
   /** */
+  @Test
   public void testThis() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(
@@ -84,6 +76,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateNoGrouping0() {
     Object expected = Long.valueOf(5);
 
@@ -110,6 +103,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateNoGrouping1() {
     Object expected = Double.valueOf("99.997");
 
@@ -136,6 +130,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateNoGrouping2() {
     Object expected = new BigDecimal("2000.99");
 
@@ -162,6 +157,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateNoGrouping3() {
     Object expected = new BigDecimal("2500000.99");
 
@@ -188,6 +184,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateNoGrouping4() {
     Object expected = new BigDecimal("2552001.98");
 
@@ -214,6 +211,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateGrouping0() {
     Object expected = Arrays.asList(Long.valueOf(3), Long.valueOf(2));
 
@@ -246,6 +244,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateGrouping1() {
     Object expected = Arrays.asList(Double.valueOf("99.996"), Double.valueOf("99.9985"));
 
@@ -279,6 +278,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateGrouping2() {
     Object expected = Arrays.asList(new BigDecimal("99.995"), new BigDecimal("99.998"));
 
@@ -312,6 +312,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateGrouping3() {
     Object expected = Arrays.asList(new BigDecimal("99.997"), new BigDecimal("99.999"));
 
@@ -345,6 +346,7 @@ public class DefaultUnique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAggregateGrouping4() {
     Object expected = Arrays.asList(new BigDecimal("299.988"), new BigDecimal("199.997"));
 

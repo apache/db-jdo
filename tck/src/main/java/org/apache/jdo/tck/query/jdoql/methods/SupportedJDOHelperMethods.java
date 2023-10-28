@@ -35,7 +35,7 @@ import org.apache.jdo.tck.pc.mylib.QVersionedPCPoint;
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Supported JDOHelper methods. <br>
@@ -54,16 +54,8 @@ public class SupportedJDOHelperMethods extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-49 (SupportedJDOHelperMethods) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedJDOHelperMethods.class);
-  }
-
   /** */
+  @Test
   public void testGetObjectById1() {
     Class<?> oidClass = getPM().getObjectIdClass(Person.class);
     List<Person> expectedResult = getExpectedResult(true, Person.class);
@@ -96,6 +88,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testGetObjectById2() {
     List<Person> expectedResult = getExpectedResult(false, Person.class, "personid == 1");
 
@@ -133,6 +126,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
   }
 
   /** Test for JDOHelper.getVersion() in queries. */
+  @Test
   public void testGetVersion() {
     // create some sample data
     pm.currentTransaction().begin();

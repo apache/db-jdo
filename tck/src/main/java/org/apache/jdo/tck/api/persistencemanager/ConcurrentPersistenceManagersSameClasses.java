@@ -27,7 +27,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Same Classes with Concurrent Persistence Managers <br>
@@ -42,16 +42,8 @@ public class ConcurrentPersistenceManagersSameClasses extends PersistenceManager
   private static final String ASSERTION_FAILED =
       "Assertion A5.2-2 (ConcurrentPersistenceManagersSameClasses) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ConcurrentPersistenceManagersSameClasses.class);
-  }
-
   /** */
+  @Test
   public void test() {
     if (!isBinaryCompatibilitySupported()) {
       printUnsupportedOptionalFeatureNotTested(

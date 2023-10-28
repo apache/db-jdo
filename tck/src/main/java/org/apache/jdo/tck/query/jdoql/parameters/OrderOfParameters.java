@@ -23,7 +23,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Order of Parameters. <br>
@@ -38,16 +38,8 @@ public class OrderOfParameters extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.13-3 (OrderOfParameters) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(OrderOfParameters.class);
-  }
-
   /** */
+  @Test
   public void testAPIQuery() {
     // Do not use QueryElementHolder, because QueryElementHolder always uses a Map for parameter
     // values
@@ -75,6 +67,7 @@ public class OrderOfParameters extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testSingleStringAPIQuery() {
     // Do not use QueryElementHolder, because QueryElementHolder always uses a Map for parameter
     // values

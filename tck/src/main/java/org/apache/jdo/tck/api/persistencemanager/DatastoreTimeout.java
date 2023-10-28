@@ -24,12 +24,12 @@ import javax.jdo.JDOUnsupportedOptionException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-import junit.framework.AssertionFailedError;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * <B>Title:</B> DatastoreTimeout <br>
@@ -71,19 +71,11 @@ public class DatastoreTimeout extends JDO_Test {
   private Object point2Oid;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DatastoreTimeout.class);
-  }
-
-  /**
    * Method testing DatastoreReadTimeout.
    *
    * @throws Exception exception
    */
+  @Test
   public void testDatastoreReadTimeout() throws Exception {
 
     if (debug) logger.debug("isDatastoreTimeoutSupported:" + isDatastoreTimeoutSupported());
@@ -116,6 +108,7 @@ public class DatastoreTimeout extends JDO_Test {
    *
    * @throws Exception exception
    */
+  @Test
   public void testDatastoreWriteTimeout() throws Exception {
 
     if (debug) logger.debug("isDatastoreTimeoutSupported:" + isDatastoreTimeoutSupported());
@@ -148,6 +141,7 @@ public class DatastoreTimeout extends JDO_Test {
    *
    * @throws Exception exception
    */
+  @Test
   public void testZeroDatastoreReadTimeout() throws Exception {
 
     // Parallel thread writing the instances and causing them to be locked
@@ -176,6 +170,7 @@ public class DatastoreTimeout extends JDO_Test {
    *
    * @throws Exception exception
    */
+  @Test
   public void testZeroDatastoreWriteTimeout() throws Exception {
 
     // Parallel thread reading the instances and causing them to be locked

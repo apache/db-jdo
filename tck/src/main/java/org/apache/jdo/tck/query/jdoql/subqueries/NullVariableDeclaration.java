@@ -21,7 +21,7 @@ import javax.jdo.JDOException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Null Variable Declaration in addSubquery <br>
@@ -36,16 +36,8 @@ public class NullVariableDeclaration extends SubqueriesTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-53 (NullVariableDeclaration) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NullVariableDeclaration.class);
-  }
-
   /** */
+  @Test
   public void testNegative() {
     PersistenceManager pm = getPM();
     runTestNullVariable(pm);

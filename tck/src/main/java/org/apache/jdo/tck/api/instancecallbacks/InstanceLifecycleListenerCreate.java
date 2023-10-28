@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.instancecallbacks;
 
 import javax.jdo.listener.InstanceLifecycleEvent;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test TestInstanceLifecycleListener <br>
@@ -48,16 +48,8 @@ public class InstanceLifecycleListenerCreate extends AbstractInstanceLifecycleLi
     return persistentClasses;
   }
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(InstanceLifecycleListenerCreate.class);
-  }
-
   /** */
+  @Test
   public void testCreate() {
 
     // set up the persistent instance

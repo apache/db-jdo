@@ -22,7 +22,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Changing query result fails. <br>
@@ -37,16 +37,8 @@ public class ImmutableQueryResult extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.1-7 (ImmutableQueryResult) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ImmutableQueryResult.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();

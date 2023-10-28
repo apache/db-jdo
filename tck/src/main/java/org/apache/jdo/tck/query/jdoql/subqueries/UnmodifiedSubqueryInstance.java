@@ -23,7 +23,7 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.IEmployee;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Unmodified Subquery Instance. <br>
@@ -42,16 +42,8 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-50 (UnmodifiedSubqueryInstance) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(UnmodifiedSubqueryInstance.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
     runTestUnmodifiedSubquery(pm);

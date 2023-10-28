@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 import java.io.File;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>GetPMFByFileAndClassLoader of PersistenceManagerFactory <br>
@@ -45,21 +45,14 @@ public class GetPMFByFileAndClassLoader extends AbstractGetPMF {
   private static final String propertiesFileDoesNotExist = "FileDoesNotExist.properties";
   private static final String propertiesFileExists = System.getProperty("PMFProperties");
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetPMFByFileAndClassLoader.class);
-  }
-
   /** */
+  @Test
   public void testInvalidGetPMF() {
     checkGetPMFWithInvalidProperties(ASSERTION_FAILED);
   }
 
   /** */
+  @Test
   public void testValidGetPMF() {
     checkGetPMFWithValidProperties();
   }

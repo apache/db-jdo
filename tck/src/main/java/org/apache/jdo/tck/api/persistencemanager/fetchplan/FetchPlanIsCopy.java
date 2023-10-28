@@ -21,7 +21,7 @@ import java.util.Arrays;
 import javax.jdo.Extent;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test TITLE <br>
@@ -38,16 +38,8 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
   Query<PCRect> query = null;
   Extent<PCRect> extent = null;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(FetchPlanIsCopy.class);
-  }
-
   /** */
+  @Test
   public void testRemoveGroup() {
     beginFPTest();
     query.getFetchPlan().removeGroup("PCRect.upperLeft");
@@ -57,6 +49,7 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
   }
 
   /** */
+  @Test
   public void testAddGroup() {
     beginFPTest();
     query.getFetchPlan().addGroup("PCRect.lowerRight");
@@ -66,6 +59,7 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
   }
 
   /** */
+  @Test
   public void testClearGroups() {
     beginFPTest();
     query.getFetchPlan().clearGroups();
@@ -75,6 +69,7 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
   }
 
   /** */
+  @Test
   public void testSetGroup() {
     beginFPTest();
     query.getFetchPlan().setGroup("default");
@@ -84,6 +79,7 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
   }
 
   /** */
+  @Test
   public void testSetGroupsCollection() {
     beginFPTest();
     query.getFetchPlan().setGroups(Arrays.asList(bothGroup));
@@ -93,6 +89,7 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
   }
 
   /** */
+  @Test
   public void testSetGroupsArray() {
     beginFPTest();
     query.getFetchPlan().setGroups(bothGroup);

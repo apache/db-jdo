@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> makeNontransactional with Null Arguments <br>
@@ -32,15 +32,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * elements, and the null elements will be ignored.]
  */
 public class MakeNontransactionalNullArgs extends PersistenceManagerNullsTest {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakeNontransactionalNullArgs.class);
-  }
 
   static final MethodUnderTest makeNontransactional = new MethodUnderTestMakeNontransactional();
 
@@ -62,6 +53,7 @@ public class MakeNontransactionalNullArgs extends PersistenceManagerNullsTest {
   }
 
   /** Test that makeNontransactional() with null valued argument does nothing. */
+  @Test
   public void testMakeNontransactionalNullObject() {
     executeNullObjectParameter(makeNontransactional, "makeNontransactional(null)");
   }
@@ -70,6 +62,7 @@ public class MakeNontransactionalNullArgs extends PersistenceManagerNullsTest {
    * Test that makeNontransactionalAll() with null valued Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testMakeNontransactionalNullCollection() {
     executeNullCollectionParameter(
         makeNontransactional, "makeNontransactionalAll((Collection)null)");
@@ -79,6 +72,7 @@ public class MakeNontransactionalNullArgs extends PersistenceManagerNullsTest {
    * Test that makeNontransactionalAll() with null valued array argument throws
    * NullPointerException.
    */
+  @Test
   public void testMakeNontransactionalNullArray() {
     executeNullArrayParameter(makeNontransactional, "makeNontransactionalAll((Object[])null)");
   }
@@ -87,6 +81,7 @@ public class MakeNontransactionalNullArgs extends PersistenceManagerNullsTest {
    * Test that makeNontransactionalAll() with a null element of a Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testMakeNontransactionalCollectionNullElement() {
     executeCollectionNullElement(
         collNullElem, makeNontransactional, "makeNontransactionalAll(Collection)");
@@ -96,6 +91,7 @@ public class MakeNontransactionalNullArgs extends PersistenceManagerNullsTest {
    * Test that makeNontransactionalAll() with a null element of a array argument throws
    * NullPointerException.
    */
+  @Test
   public void testMakeNontransactionalArrayNullElement() {
     executeArrayNullElement(
         arrayNullElem, makeNontransactional, "makeNontransactionalAll(Object[])");

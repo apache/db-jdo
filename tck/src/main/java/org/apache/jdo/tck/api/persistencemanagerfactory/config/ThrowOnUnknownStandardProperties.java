@@ -24,18 +24,10 @@ import java.util.Properties;
 import javax.jdo.JDOException;
 import javax.jdo.JDOUserException;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ThrowOnUnknownStandardProperties extends JDO_Test {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ThrowOnUnknownStandardProperties.class);
-  }
 
   @Override
   protected boolean preSetUp() {
@@ -75,6 +67,7 @@ public class ThrowOnUnknownStandardProperties extends JDO_Test {
     getPMF.invoke(null, args);
   }
 
+  @Test
   public void testUnknownStandardProperty() {
     Properties p = new Properties();
     p.setProperty("javax.jdo.unknown.standard.property", "value");
@@ -96,6 +89,7 @@ public class ThrowOnUnknownStandardProperties extends JDO_Test {
     }
   }
 
+  @Test
   public void testUnknownStandardProperties() {
     Properties p = new Properties();
     p.setProperty("javax.jdo.unknown.standard.property.1", "value");
@@ -122,13 +116,13 @@ public class ThrowOnUnknownStandardProperties extends JDO_Test {
 
     Throwable[] nesteds = x.getNestedExceptions();
 
-    assertNotNull(nesteds);
-    assertEquals("should have been 2 nested exceptions", 2, nesteds.length);
+    Assertions.assertNotNull(nesteds);
+    Assertions.assertEquals(2, nesteds.length, "should have been 2 nested exceptions");
     for (int i = 0; i < nesteds.length; i++) {
       Throwable t = nesteds[i];
-      assertTrue(
-          "nested exception " + i + " should have been JDOUserException",
-          t instanceof JDOUserException);
+      Assertions.assertTrue(
+          t instanceof JDOUserException,
+          "nested exception " + i + " should have been JDOUserException");
     }
   }
 }

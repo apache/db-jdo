@@ -22,7 +22,8 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.building.Kitchen;
 import org.apache.jdo.tck.pc.building.MultifunctionOven;
 import org.apache.jdo.tck.pc.building.Oven;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test EmbeddedInheritance <br>
@@ -38,18 +39,10 @@ public class EmbeddedInheritance extends JDO_Test {
   }
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(EmbeddedInheritance.class);
-  }
-
-  /**
    * Test for basic persistence of object with embedded object which has inheritance and persisting
    * the base type of the embedded object.
    */
+  @Test
   public void testPersistBase() {
     Object id = null;
     try {
@@ -70,12 +63,13 @@ public class EmbeddedInheritance extends JDO_Test {
 
     getPM().currentTransaction().begin();
     Kitchen kitchen = (Kitchen) getPM().getObjectById(id);
-    assertEquals("Id of object is incorrect", 1, kitchen.getId());
+    Assertions.assertEquals(1, kitchen.getId(), "Id of object is incorrect");
     Oven oven = kitchen.getOven();
-    assertNotNull("Oven of Kitchen is null!", oven);
-    assertEquals("Oven is of incorrect type", Oven.class.getName(), oven.getClass().getName());
-    assertEquals("Oven make is incorrect", "Westinghouse", oven.getMake());
-    assertEquals("Oven model is incorrect", "Economy", oven.getModel());
+    Assertions.assertNotNull(oven, "Oven of Kitchen is null!");
+    Assertions.assertEquals(
+        Oven.class.getName(), oven.getClass().getName(), "Oven is of incorrect type");
+    Assertions.assertEquals("Westinghouse", oven.getMake(), "Oven make is incorrect");
+    Assertions.assertEquals("Economy", oven.getModel(), "Oven model is incorrect");
     getPM().currentTransaction().commit();
   }
 
@@ -83,6 +77,7 @@ public class EmbeddedInheritance extends JDO_Test {
    * Test for basic persistence of object with embedded object which has inheritance and persisting
    * the subclass type of the embedded object.
    */
+  @Test
   public void testPersistSubclass() {
     Object id = null;
     try {
@@ -105,21 +100,23 @@ public class EmbeddedInheritance extends JDO_Test {
 
     getPM().currentTransaction().begin();
     Kitchen kitchen = (Kitchen) getPM().getObjectById(id);
-    assertEquals("Id of object is incorrect", 1, kitchen.getId());
+    Assertions.assertEquals(1, kitchen.getId(), "Id of object is incorrect");
     Oven oven = kitchen.getOven();
-    assertNotNull("Oven of Kitchen is null!", oven);
-    assertEquals(
-        "Oven is of incorrect type", MultifunctionOven.class.getName(), oven.getClass().getName());
+    Assertions.assertNotNull(oven, "Oven of Kitchen is null!");
+    Assertions.assertEquals(
+        MultifunctionOven.class.getName(), oven.getClass().getName(), "Oven is of incorrect type");
     MultifunctionOven multioven = (MultifunctionOven) oven;
-    assertEquals("Oven make is incorrect", "Westinghouse", multioven.getMake());
-    assertEquals("Oven model is incorrect", "Economy", multioven.getModel());
-    assertEquals("Oven microwave setting is incorrect", true, multioven.getMicrowave());
-    assertEquals("Oven capabilities is incorrect", "TIMER,CLOCK", multioven.getCapabilities());
+    Assertions.assertEquals("Westinghouse", multioven.getMake(), "Oven make is incorrect");
+    Assertions.assertEquals("Economy", multioven.getModel(), "Oven model is incorrect");
+    Assertions.assertEquals(true, multioven.getMicrowave(), "Oven microwave setting is incorrect");
+    Assertions.assertEquals(
+        "TIMER,CLOCK", multioven.getCapabilities(), "Oven capabilities is incorrect");
     getPM().currentTransaction().commit();
   }
 
   /** Test for querying of fields of base type of an embedded object. */
   @SuppressWarnings("unchecked")
+  @Test
   public void testQueryBase() {
     Object id = null;
     try {
@@ -149,16 +146,17 @@ public class EmbeddedInheritance extends JDO_Test {
                     + Kitchen.class.getName()
                     + " WHERE this.oven.make == 'Westinghouse'");
     List<Kitchen> kitchens = (List<Kitchen>) q.execute();
-    assertNotNull("No results from query!", kitchens);
-    assertEquals("Number of query results was incorrect", 1, kitchens.size());
+    Assertions.assertNotNull(kitchens, "No results from query!");
+    Assertions.assertEquals(1, kitchens.size(), "Number of query results was incorrect");
     Kitchen kit = kitchens.iterator().next();
-    assertEquals("Kitchen result is incorrect", id, getPM().getObjectId(kit));
+    Assertions.assertEquals(id, getPM().getObjectId(kit), "Kitchen result is incorrect");
 
     getPM().currentTransaction().commit();
   }
 
   /** Test for querying of fields of subclass type of an embedded object. */
   @SuppressWarnings("unchecked")
+  @Test
   public void testQuerySubclass() {
     Object id = null;
     try {
@@ -188,8 +186,8 @@ public class EmbeddedInheritance extends JDO_Test {
                     + Kitchen.class.getName()
                     + " WHERE this.oven instanceof org.apache.jdo.tck.pc.building.MultifunctionOven");
     List<Kitchen> kitchens1 = (List<Kitchen>) q1.execute();
-    assertNotNull("No results from query!", kitchens1);
-    assertEquals("Number of query results was incorrect", 1, kitchens1.size());
+    Assertions.assertNotNull(kitchens1, "No results from query!");
+    Assertions.assertEquals(1, kitchens1.size(), "Number of query results was incorrect");
 
     // Query using cast and a field of the subclass embedded class
     Query<Kitchen> q2 =
@@ -199,10 +197,10 @@ public class EmbeddedInheritance extends JDO_Test {
                     + Kitchen.class.getName()
                     + " WHERE ((org.apache.jdo.tck.pc.building.MultifunctionOven)this.oven).capabilities == 'TIMER,CLOCK'");
     List<Kitchen> kitchens2 = (List<Kitchen>) q2.execute();
-    assertNotNull("No results from query!", kitchens2);
-    assertEquals("Number of query results was incorrect", 1, kitchens2.size());
+    Assertions.assertNotNull(kitchens2, "No results from query!");
+    Assertions.assertEquals(1, kitchens2.size(), "Number of query results was incorrect");
     Kitchen kit = kitchens2.iterator().next();
-    assertEquals("Kitchen result is incorrect", id, getPM().getObjectId(kit));
+    Assertions.assertEquals(id, getPM().getObjectId(kit), "Kitchen result is incorrect");
 
     getPM().currentTransaction().commit();
   }

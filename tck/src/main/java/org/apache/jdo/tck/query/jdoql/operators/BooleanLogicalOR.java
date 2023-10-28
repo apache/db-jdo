@@ -25,7 +25,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Boolean Logical OR Query Operator <br>
@@ -44,15 +44,8 @@ public class BooleanLogicalOR extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.2-22 (BooleanLogicalOR) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(BooleanLogicalOR.class);
-  }
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
     if (debug) logger.debug("\nExecuting positive test BooleanLogicalOR() ...");
@@ -109,6 +102,7 @@ public class BooleanLogicalOR extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     PersistenceManager pm = getPM();
     if (debug) logger.debug("\nExecuting positive test BooleanLogicalAND() ...");
