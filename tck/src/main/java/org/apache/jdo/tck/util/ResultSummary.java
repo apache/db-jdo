@@ -170,15 +170,15 @@ public class ResultSummary implements Serializable {
     StringBuilder builder = new StringBuilder();
     builder.append(summary.getTestsFailedCount() == 0 ? "OK " : "** ");
     builder.append("Tests found: ").append(summary.getTestsFoundCount());
-    builder
-        .append(", time: ")
-        .append(((double) (summary.getTimeFinished() - summary.getTimeStarted()) / 1000.0))
-        .append(" seconds");
     builder.append(", started: ").append(summary.getTestsStartedCount());
     builder.append(", succeeded: ").append(summary.getTestsSucceededCount());
     builder.append(", failed: ").append(summary.getTestsFailedCount());
     builder.append(", skipped: ").append(summary.getTestsSkippedCount());
     builder.append(", aborted: ").append(summary.getTestsAbortedCount());
+    builder
+        .append(", time: ")
+        .append(((double) (summary.getTimeFinished() - summary.getTimeStarted()) / 1000.0))
+        .append(" seconds");
     return builder.toString();
   }
 
