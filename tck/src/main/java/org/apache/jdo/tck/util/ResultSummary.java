@@ -27,7 +27,6 @@ import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.util.Optional;
 import javax.jdo.JDOFatalException;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
@@ -104,7 +103,7 @@ public class ResultSummary implements Serializable {
    * @param result the result object
    */
   public static void save(
-      String directory, String idtype, String config, Optional<TestExecutionSummary> result) {
+      String directory, String idtype, String config, TestExecutionSummary result) {
     ResultSummary resultSummary = load(directory);
     if (resultSummary == null) {
       resultSummary = new ResultSummary();
@@ -140,29 +139,22 @@ public class ResultSummary implements Serializable {
    *
    * @param result the result object
    */
-  private void increment(Optional<TestExecutionSummary> result) {
+  private void increment(TestExecutionSummary result) {
     // total numbers
     this.nrOfTotalConfigurations++;
-    result.ifPresent(
-        r -> {
-          this.totalTestCount += r.getTestsFoundCount();
-          if (r.getTestsFailedCount() > 0) {
-            this.nrOfFailedConfigurations++;
-            this.totalFailureCount += r.getTestsFailedCount();
-          }
-        });
+    this.totalTestCount += result.getTestsFoundCount();
+    if (result.getTestsFailedCount() > 0) {
+      this.nrOfFailedConfigurations++;
+      this.totalFailureCount += result.getTestsFailedCount();
+    }
   }
 
   private void appendTestResult(
-      String directory, String idtype, String config, Optional<TestExecutionSummary> result) {
+      String directory, String idtype, String config, TestExecutionSummary result) {
     String resultFileName = directory + File.separator + RESULT_FILE_NAME;
     String header = "Running tests for " + config + " with " + idtype + ":" + NEWLINE + "  ";
     StringBuilder builder = new StringBuilder(header);
-    if (result.isPresent()) {
-      builder.append(getTestResult(result.get()));
-    } else {
-      builder.append("No tests were run.");
-    }
+    builder.append(getTestResult(result));
     appendTCKResultMessage(resultFileName, builder.toString());
   }
 

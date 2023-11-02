@@ -118,18 +118,15 @@ public class RunTCK extends AbstractTCKMojo {
   /** Class used to run a batch of tests. */
   @Parameter(
       property = "jdo.tck.testrunner.class",
-      defaultValue = "org.junit.platform.console.TCKConsoleLauncher",
+      defaultValue = "org.junit.platform.console.ConsoleLauncher",
       required = true)
   private String testRunnerClass;
 
-  /** output details mode for test run.
-   * Use one of: none, summary, flat, tree, verbose, testfeed.
-   * If 'none' is selected, then only the summary and test failures are shown. Default: tree.
+  /**
+   * output details mode for test run. Use one of: none, summary, flat, tree, verbose, testfeed. If
+   * 'none' is selected, then only the summary and test failures are shown. Default: tree.
    */
-  @Parameter(
-          property = "jdo.tck.testrunner.details",
-          defaultValue = "tree",
-          required = true)
+  @Parameter(property = "jdo.tck.testrunner.details", defaultValue = "tree", required = true)
   private String testRunnerDetails;
 
   /**
@@ -153,9 +150,7 @@ public class RunTCK extends AbstractTCKMojo {
     }
   }
 
-  /**
-   *
-   */
+  /** */
   @Override
   public void execute() throws MojoExecutionException {
     if (!doRunTCK) {
@@ -262,7 +257,16 @@ public class RunTCK extends AbstractTCKMojo {
 
           String thisLogFilePrefix = getLogFilePrefix(thisLogDir, idtype, cfg);
           List<String> cfgPropsString = getCfgProps(idPropsString, props, idtype, cfg, mapping);
-          int resultValue = executeTestClass(cpString, cfgPropsString, classesList, idtype, cfg, db, mapping, thisLogFilePrefix);
+          int resultValue =
+              executeTestClass(
+                  cpString,
+                  cfgPropsString,
+                  classesList,
+                  idtype,
+                  cfg,
+                  db,
+                  mapping,
+                  thisLogFilePrefix);
           if (resultValue != 0) {
             failureCount++;
           }
@@ -288,10 +292,9 @@ public class RunTCK extends AbstractTCKMojo {
   }
 
   /**
-   * Initializes the TCK run:
-   * get the list of configurations (.conf files);
-   * get the properties required for test execution.
-   * This method is called once per TCK run.
+   * Initializes the TCK run: get the list of configurations (.conf files); get the properties
+   * required for test execution. This method is called once per TCK run.
+   *
    * @return the properties required for test execution
    * @throws MojoExecutionException
    */
@@ -358,9 +361,7 @@ public class RunTCK extends AbstractTCKMojo {
     return propsString;
   }
 
-  /**
-   * Copy/create configuration files for logging, jdoconfig and JPA.
-   */
+  /** Copy/create configuration files for logging, jdoconfig and JPA. */
   private void copyConfigurationFiles() {
     try {
       copyLog4j2ConfigurationFile();
@@ -399,6 +400,7 @@ public class RunTCK extends AbstractTCKMojo {
 
   /**
    * Get classpath string: add new entries to URLS from loader
+   *
    * @param urlList ClassLoader URLs
    * @param enhancedDir
    * @return
@@ -439,6 +441,7 @@ public class RunTCK extends AbstractTCKMojo {
 
   /**
    * Create the jdo pmf properties file.
+   *
    * @param idtype identity type
    * @param mapping the mapping index
    * @param defaultPropsContents default pmf properties
@@ -461,6 +464,7 @@ public class RunTCK extends AbstractTCKMojo {
 
   /**
    * Returns the configuration properties as List
+   *
    * @param idPropsString
    * @param props the Properties object including the properties defined in the conf file
    * @param idtype identity type
@@ -487,8 +491,9 @@ public class RunTCK extends AbstractTCKMojo {
   }
 
   /**
-   * Returns a list of class names of TCK test classes.
-   * Classes mentioned in the excludeFile are not part of the result.
+   * Returns a list of class names of TCK test classes. Classes mentioned in the excludeFile are not
+   * part of the result.
+   *
    * @param props
    * @param cfg name of the configuration
    * @param excludeFile
@@ -510,8 +515,9 @@ public class RunTCK extends AbstractTCKMojo {
   }
 
   /**
-   * Returns the perfix of the log file name. It includes the path, followed by an indicator for the identitytype
-   * followed by the name of the configuration.
+   * Returns the perfix of the log file name. It includes the path, followed by an indicator for the
+   * identitytype followed by the name of the configuration.
+   *
    * @param thisLogDir
    * @param idtype identity type
    * @param cfg name of the configuration
@@ -525,6 +531,7 @@ public class RunTCK extends AbstractTCKMojo {
 
   /**
    * Creates the java command to run a TCK test class and executes the command.
+   *
    * @param cpString classpath
    * @param cfgPropsString configuration properties
    * @param classesList
@@ -537,8 +544,15 @@ public class RunTCK extends AbstractTCKMojo {
    * @param thisLogFilePrefix
    * @return
    */
-  private int executeTestClass(String cpString, List<String> cfgPropsString, List<String> classesList,
-                               String idtype, String cfg, String db, String mapping, String thisLogFilePrefix) {
+  private int executeTestClass(
+      String cpString,
+      List<String> cfgPropsString,
+      List<String> classesList,
+      String idtype,
+      String cfg,
+      String db,
+      String mapping,
+      String thisLogFilePrefix) {
     // build command line string
     List<String> command = new ArrayList<>();
     command.add("java");
@@ -551,6 +565,7 @@ public class RunTCK extends AbstractTCKMojo {
       command.add(debugDirectives);
     }
     command.add(testRunnerClass);
+    command.add("--disable-banner");
     command.add("--details=" + testRunnerDetails);
     // add Test classes
     for (String testClass : classesList) {
@@ -566,16 +581,17 @@ public class RunTCK extends AbstractTCKMojo {
     }
 
     // invoke class runner
-    System.out.print("*> Running tests for "
-                    + cfg
-                    + " with "
-                    + idtype
-                    + " on '"
-                    + db
-                    + "'"
-                    + " mapping="
-                    + mapping
-                    + " ... ");
+    System.out.print(
+        "*> Running tests for "
+            + cfg
+            + " with "
+            + idtype
+            + " on '"
+            + db
+            + "'"
+            + " mapping="
+            + mapping
+            + " ... ");
 
     String junitLogFilename = thisLogFilePrefix + JUNIT_LOG_FILE;
     int resultValue = 0;
@@ -599,6 +615,7 @@ public class RunTCK extends AbstractTCKMojo {
 
   /**
    * Copies the implementation log file and TCK log file to the current log directory
+   *
    * @param thisLogFilePrefix the prefix of the log file consisting of idtype and conf
    */
   private void handleLogFiles(String thisLogFilePrefix) {
@@ -622,12 +639,10 @@ public class RunTCK extends AbstractTCKMojo {
   }
 
   /**
-   * Finalizes the TCK run:
-   * delete log files
-   * create the result summray file TCK-results.txt
-   * create system configuration description file
-   * Copy metadata from enhanced to configuration logs directory
-   * This method is called once per TCK run.
+   * Finalizes the TCK run: delete log files create the result summray file TCK-results.txt create
+   * system configuration description file Copy metadata from enhanced to configuration logs
+   * directory This method is called once per TCK run.
+   *
    * @param thisLogDir the path of the log directory
    * @param cpString classpath
    * @param cfgDirName configuration directory
