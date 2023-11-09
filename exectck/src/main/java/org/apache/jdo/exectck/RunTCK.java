@@ -45,6 +45,8 @@ public class RunTCK extends AbstractTCKMojo {
   private static final String TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY = "failGoal"; // NOI18N
   private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly"; // NOI18N
 
+  private static final String FS = File.separator;
+
   private static final String CLASSES_DIR_NAME = "classes"; // NOI18N
 
   private static final String TCK_LOG_FILE = "tck.txt"; // NOI18N
@@ -123,8 +125,8 @@ public class RunTCK extends AbstractTCKMojo {
   private String testRunnerClass;
 
   /**
-   * output details mode for test run. Use one of: none, summary, flat, tree, verbose, testfeed. If
-   * 'none' is selected, then only the summary and test failures are shown. Default: tree.
+   * Output mode for test run. Use one of: none, summary, flat, tree, verbose, testfeed. If 'none'
+   * is selected, then only the summary and test failures are shown. Default: tree.
    */
   @Parameter(property = "jdo.tck.testrunner.details", defaultValue = "tree", required = true)
   private String testRunnerDetails;
@@ -158,24 +160,24 @@ public class RunTCK extends AbstractTCKMojo {
       return;
     }
 
-    boolean alreadyran = false;
-    boolean runonce = false;
+    boolean alreadyRan = false;
+    boolean runOnce = false;
     String cpString = null;
 
     List<String> propsString = initTCKRun();
-    String excludeFile = confDirectory + File.separator + exclude;
+    String excludeFile = confDirectory + FS + exclude;
     propsString.add(
         "-Djdo.tck.exclude="
             + getTrimmedPropertyValue(PropertyUtils.getProperties(excludeFile), "jdo.tck.exclude"));
 
     // Create configuration log directory
-    String thisLogDir = logsDirectory + File.separator + Utilities.now();
-    String cfgDirName = thisLogDir + File.separator + "configuration";
+    String logDir = logsDirectory + FS + Utilities.now();
+    String cfgDirName = logDir + FS + "configuration";
     File cfgDir = new File(cfgDirName);
-    if (!(cfgDir.exists()) && !(cfgDir.mkdirs())) {
+    if (!cfgDir.exists() && !cfgDir.mkdirs()) {
       throw new MojoExecutionException("Failed to create directory " + cfgDirName);
     }
-    propsString.add("-Djdo.tck.log.directory=" + thisLogDir);
+    propsString.add("-Djdo.tck.log.directory=" + logDir);
 
     copyConfigurationFiles();
 
@@ -186,7 +188,7 @@ public class RunTCK extends AbstractTCKMojo {
                 ((URLClassLoader) Thread.currentThread().getContextClassLoader()).getURLs()));
 
     // Get contents of pmf properties file to build new file below
-    String pmfPropsReadFileName = confDirectory + File.separator + pmfProperties;
+    String pmfPropsReadFileName = confDirectory + FS + pmfProperties;
     String defaultPropsContents = "";
     try {
       defaultPropsContents = Utilities.readFile(pmfPropsReadFileName);
@@ -201,23 +203,15 @@ public class RunTCK extends AbstractTCKMojo {
     int failureCount = 0;
     for (String db : dbs) {
       System.setProperty("jdo.tck.database", db);
-      alreadyran = false;
+      alreadyRan = false;
 
       for (String idtype : idtypes) {
         List<String> idPropsString = new ArrayList<>();
         idPropsString.addAll(propsString);
         idPropsString.add("-Djdo.tck.identitytype=" + idtype);
-        String enhancedDirName =
-            buildDirectory
-                + File.separator
-                + "enhanced"
-                + File.separator
-                + impl
-                + File.separator
-                + idtype
-                + File.separator;
+        String enhancedDirName = buildDirectory + FS + "enhanced" + FS + impl + FS + idtype + FS;
         File enhancedDir = new File(enhancedDirName);
-        if (!(enhancedDir.exists())) {
+        if (!enhancedDir.exists()) {
           throw new MojoExecutionException(
               "Could not find enhanced directory "
                   + enhancedDirName
@@ -229,51 +223,44 @@ public class RunTCK extends AbstractTCKMojo {
 
         for (String cfg : cfgs) {
           // Parse conf file and set properties String
-          String confFileName = confDirectory + File.separator + cfg;
+          String confFileName = confDirectory + FS + cfg;
           if (!new File(confFileName).exists()) {
             // Conf file nor found => continue
             System.out.println("ERROR: Configuration file " + confFileName + " not found.");
             continue;
           }
-          Properties props = PropertyUtils.getProperties(confDirectory + File.separator + cfg);
+          Properties props = PropertyUtils.getProperties(confDirectory + FS + cfg);
           String mapping = getTrimmedPropertyValue(props, "jdo.tck.mapping");
           if (mapping == null) {
             throw new MojoExecutionException("Could not find mapping value in conf file: " + cfg);
           }
-          List<String> classesList = getClassesList(props, cfg, excludeFile);
+          List<String> classesList = getTestClasses(props, cfg, excludeFile);
           if (classesList.isEmpty()) {
             System.out.println("Skipping configuration " + cfg + ": classes excluded");
             continue;
           }
 
           String runonceString = getTrimmedPropertyValue(props, "runOnce");
-          runonce = runonceString != null && "true".equalsIgnoreCase(runonceString);
-          if (runonce && alreadyran) {
+          runOnce = runonceString != null && "true".equalsIgnoreCase(runonceString);
+          if (runOnce && alreadyRan) {
             continue;
           }
 
           // Add Mapping and schemaname to properties file
           writePMFPropsFile(idtype, mapping, defaultPropsContents);
 
-          String thisLogFilePrefix = getLogFilePrefix(thisLogDir, idtype, cfg);
+          String logFilePrefix = getLogFilePrefix(logDir, idtype, cfg);
           List<String> cfgPropsString = getCfgProps(idPropsString, props, idtype, cfg, mapping);
           int resultValue =
               executeTestClass(
-                  cpString,
-                  cfgPropsString,
-                  classesList,
-                  idtype,
-                  cfg,
-                  db,
-                  mapping,
-                  thisLogFilePrefix);
+                  cpString, cfgPropsString, classesList, idtype, cfg, db, mapping, logFilePrefix);
           if (resultValue != 0) {
             failureCount++;
           }
-          handleLogFiles(thisLogFilePrefix);
+          copyLogFiles(logFilePrefix);
 
-          if (runonce) {
-            alreadyran = true;
+          if (runOnce) {
+            alreadyRan = true;
           }
 
           if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
@@ -288,7 +275,7 @@ public class RunTCK extends AbstractTCKMojo {
         break;
       }
     }
-    finitTCKRun(thisLogDir, cpString, cfgDirName, failureCount);
+    finalizeTCKRun(logDir, cpString, cfgDirName, failureCount);
   }
 
   /**
@@ -345,19 +332,9 @@ public class RunTCK extends AbstractTCKMojo {
     propsString.add("-Dverbose=" + verbose);
     propsString.add("-Djdo.tck.cleanupaftertest=" + cleanupaftertest);
     propsString.add(
-        "-DPMFProperties="
-            + buildDirectory
-            + File.separator
-            + CLASSES_DIR_NAME
-            + File.separator
-            + pmfProperties);
+        "-DPMFProperties=" + buildDirectory + FS + CLASSES_DIR_NAME + FS + pmfProperties);
     propsString.add(
-        "-DPMF2Properties="
-            + buildDirectory
-            + File.separator
-            + CLASSES_DIR_NAME
-            + File.separator
-            + pmfProperties);
+        "-DPMF2Properties=" + buildDirectory + FS + CLASSES_DIR_NAME + FS + pmfProperties);
     return propsString;
   }
 
@@ -371,27 +348,14 @@ public class RunTCK extends AbstractTCKMojo {
 
     // Copy JDO config files to classes dir
     try {
-      File fromFile = new File(confDirectory + File.separator + impl + "-jdoconfig.xml");
+      File fromFile = new File(confDirectory + FS + impl + "-jdoconfig.xml");
       File toFile =
-          new File(
-              buildDirectory
-                  + File.separator
-                  + CLASSES_DIR_NAME
-                  + File.separator
-                  + "META-INF"
-                  + File.separator
-                  + "jdoconfig.xml");
+          new File(buildDirectory + FS + CLASSES_DIR_NAME + FS + "META-INF" + FS + "jdoconfig.xml");
       FileUtils.copyFile(fromFile, toFile);
-      fromFile = new File(confDirectory + File.separator + impl + "-persistence.xml");
+      fromFile = new File(confDirectory + FS + impl + "-persistence.xml");
       toFile =
           new File(
-              buildDirectory
-                  + File.separator
-                  + CLASSES_DIR_NAME
-                  + File.separator
-                  + "META-INF"
-                  + File.separator
-                  + "persistence.xml");
+              buildDirectory + FS + CLASSES_DIR_NAME + FS + "META-INF" + FS + "persistence.xml");
       FileUtils.copyFile(fromFile, toFile);
     } catch (IOException ex) {
       Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
@@ -411,10 +375,7 @@ public class RunTCK extends AbstractTCKMojo {
     cpList.addAll(urlList);
     try {
       URL url1 = enhancedDir.toURI().toURL();
-      URL url2 =
-          new File(buildDirectory + File.separator + CLASSES_DIR_NAME + File.separator)
-              .toURI()
-              .toURL();
+      URL url2 = new File(buildDirectory + FS + CLASSES_DIR_NAME + FS).toURI().toURL();
       if (runtckVerbose) {
         System.out.println("url2 is " + url2.toString());
       }
@@ -453,8 +414,7 @@ public class RunTCK extends AbstractTCKMojo {
     mapping = (mapping.equals("0")) ? "" : mapping;
     propsFileData.append("\njavax.jdo.option.Mapping=standard" + mapping);
     propsFileData.append("\n");
-    String pmfPropsWriteFileName =
-        buildDirectory + File.separator + CLASSES_DIR_NAME + File.separator + pmfProperties;
+    String pmfPropsWriteFileName = buildDirectory + FS + CLASSES_DIR_NAME + FS + pmfProperties;
     try (BufferedWriter out = new BufferedWriter(new FileWriter(pmfPropsWriteFileName, false))) {
       out.write(defaultPropsContents + propsFileData.toString());
     } catch (IOException ex) {
@@ -500,7 +460,7 @@ public class RunTCK extends AbstractTCKMojo {
    * @return
    * @throws MojoExecutionException
    */
-  private List<String> getClassesList(Properties props, String cfg, String excludeFile)
+  private List<String> getTestClasses(Properties props, String cfg, String excludeFile)
       throws MojoExecutionException {
     String classes = getTrimmedPropertyValue(props, "jdo.tck.classes");
     if (classes == null) {
@@ -518,15 +478,15 @@ public class RunTCK extends AbstractTCKMojo {
    * Returns the perfix of the log file name. It includes the path, followed by an indicator for the
    * identitytype followed by the name of the configuration.
    *
-   * @param thisLogDir
+   * @param logDir
    * @param idtype identity type
    * @param cfg name of the configuration
    * @return
    */
-  private String getLogFilePrefix(String thisLogDir, String idtype, String cfg) {
+  private String getLogFilePrefix(String logDir, String idtype, String cfg) {
     String idname = idtype.trim().equals("applicationidentity") ? "app" : "dsid";
     String configName = cfg.indexOf('.') > 0 ? cfg.substring(0, cfg.indexOf('.')) : cfg;
-    return thisLogDir + File.separator + idname + "-" + configName + "-";
+    return logDir + FS + idname + "-" + configName + "-";
   }
 
   /**
@@ -539,9 +499,7 @@ public class RunTCK extends AbstractTCKMojo {
    * @param cfg name of the configuration
    * @param db the database
    * @param mapping the mapping index
-   * @param
-   * @param
-   * @param thisLogFilePrefix
+   * @param logFilePrefix
    * @return
    */
   private int executeTestClass(
@@ -552,7 +510,7 @@ public class RunTCK extends AbstractTCKMojo {
       String cfg,
       String db,
       String mapping,
-      String thisLogFilePrefix) {
+      String logFilePrefix) {
     // build command line string
     List<String> command = new ArrayList<>();
     command.add("java");
@@ -593,7 +551,7 @@ public class RunTCK extends AbstractTCKMojo {
             + mapping
             + " ... ");
 
-    String junitLogFilename = thisLogFilePrefix + JUNIT_LOG_FILE;
+    String junitLogFilename = logFilePrefix + JUNIT_LOG_FILE;
     int resultValue = 0;
     try {
       resultValue = Utilities.invokeCommand(command, new File(buildDirectory), junitLogFilename);
@@ -616,11 +574,11 @@ public class RunTCK extends AbstractTCKMojo {
   /**
    * Copies the implementation log file and TCK log file to the current log directory
    *
-   * @param thisLogFilePrefix the prefix of the log file consisting of idtype and conf
+   * @param logFilePrefix the prefix of the log file consisting of idtype and conf
    */
-  private void handleLogFiles(String thisLogFilePrefix) {
+  private void copyLogFiles(String logFilePrefix) {
     // Move log to per-test location
-    String testLogFilename = thisLogFilePrefix + impl + ".txt";
+    String testLogFilename = logFilePrefix + impl + ".txt";
     try {
       File logFile = new File(implLogFile);
       FileUtils.copyFile(logFile, new File(testLogFilename));
@@ -628,7 +586,7 @@ public class RunTCK extends AbstractTCKMojo {
     } catch (Exception e) {
       System.out.println(">> Error copying implementation log file: " + e.getMessage());
     }
-    String tckLogFilename = thisLogFilePrefix + TCK_LOG_FILE;
+    String tckLogFilename = logFilePrefix + TCK_LOG_FILE;
     try {
       File logFile = new File(TCK_LOG_FILE);
       FileUtils.copyFile(logFile, new File(tckLogFilename));
@@ -643,13 +601,13 @@ public class RunTCK extends AbstractTCKMojo {
    * system configuration description file Copy metadata from enhanced to configuration logs
    * directory This method is called once per TCK run.
    *
-   * @param thisLogDir the path of the log directory
+   * @param logDir the path of the log directory
    * @param cpString classpath
    * @param cfgDirName configuration directory
    * @param failureCount number of TCK test failures
    * @throws MojoExecutionException
    */
-  private void finitTCKRun(String thisLogDir, String cpString, String cfgDirName, int failureCount)
+  private void finalizeTCKRun(String logDir, String cpString, String cfgDirName, int failureCount)
       throws MojoExecutionException {
     // Remove log file
     try {
@@ -664,13 +622,13 @@ public class RunTCK extends AbstractTCKMojo {
     }
 
     // Output results
-    String resultSummaryLogFile = thisLogDir + File.separator + "ResultSummary.txt";
+    String resultSummaryLogFile = logDir + FS + "ResultSummary.txt";
     List<String> command = new ArrayList<>();
     command.add("java");
     command.add("-cp");
     command.add(cpString);
     command.add("org.apache.jdo.tck.util.ResultSummary");
-    command.add(thisLogDir);
+    command.add(logDir);
     Utilities.invokeCommand(command, new File(buildDirectory), resultSummaryLogFile);
     System.out.println(fileToString(resultSummaryLogFile));
 
@@ -682,40 +640,29 @@ public class RunTCK extends AbstractTCKMojo {
 
     // Copy metadata from enhanced to configuration logs directory
     for (String idtype : idtypes) {
-      String fromDirName =
-          buildDirectory
-              + File.separator
-              + "enhanced"
-              + File.separator
-              + impl
-              + File.separator
-              + idtype
-              + File.separator;
+      String fromDirName = buildDirectory + FS + "enhanced" + FS + impl + FS + idtype + FS;
       String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};
-      String fromFileName = null;
-      File toFile = null;
-      String pkgName = null;
-      int startIdx = -1;
       // iterator over list of abs name of metadata files in src
       Iterator<File> fi = FileUtils.iterateFiles(new File(fromDirName), metadataExtensions, true);
       while (fi.hasNext()) {
-        try {
-          File fromFile = fi.next();
-          fromFileName = fromFile.toString();
-          if ((startIdx = fromFileName.indexOf(idtype + File.separator)) > -1) {
-            // fully specified name of file (idtype + package + filename)
-            pkgName = fromFileName.substring(startIdx);
-            toFile = new File(cfgDirName + File.separator + pkgName);
+        File fromFile = fi.next();
+        String fromFileName = fromFile.toString();
+        int startIdx = -1;
+        if ((startIdx = fromFileName.indexOf(idtype + FS)) > -1) {
+          // fully specified name of file (idtype + package + filename)
+          String pkgName = fromFileName.substring(startIdx);
+          File toFile = new File(cfgDirName + FS + pkgName);
+          try {
             FileUtils.copyFile(fromFile, toFile);
+          } catch (IOException ex) {
+            throw new MojoExecutionException(
+                "Failed to copy files from "
+                    + fromFileName
+                    + " to "
+                    + toFile.toString()
+                    + ": "
+                    + ex.getLocalizedMessage());
           }
-        } catch (IOException ex) {
-          throw new MojoExecutionException(
-              "Failed to copy files from "
-                  + fromFileName
-                  + " to "
-                  + toFile.toString()
-                  + ": "
-                  + ex.getLocalizedMessage());
         }
       }
     }
