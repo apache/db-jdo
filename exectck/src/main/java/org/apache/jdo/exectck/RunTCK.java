@@ -463,8 +463,8 @@ public class RunTCK extends AbstractTCKMojo {
   private List<String> getTestClasses(Properties props, String cfg, String excludeFile)
       throws MojoExecutionException {
     String classes = getTrimmedPropertyValue(props, "jdo.tck.classes");
-    if (classes == null) {
-      throw new MojoExecutionException("Could not find classes value in conf file: " + cfg);
+    if (classes == null || classes.isEmpty()) {
+      throw new MojoExecutionException("Could not find jdo.tck.classes value in conf file: " + cfg);
     }
     String excludeList =
         getTrimmedPropertyValue(PropertyUtils.getProperties(excludeFile), "jdo.tck.exclude");

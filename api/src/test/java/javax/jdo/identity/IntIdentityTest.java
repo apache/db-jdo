@@ -22,12 +22,8 @@
 
 package javax.jdo.identity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import javax.jdo.JDONullIdentityException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /** */
@@ -41,8 +37,8 @@ class IntIdentityTest extends SingleFieldIdentityTest {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, 1);
     IntIdentity c3 = new IntIdentity(Object.class, 2);
-    assertEquals(c1, c2, "Equal IntIdentity instances compare not equal.");
-    assertNotEquals(c1, c3, "Not equal IntIdentity instances compare equal");
+    Assertions.assertEquals(c1, c2, "Equal IntIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, c3, "Not equal IntIdentity instances compare equal");
   }
 
   @Test
@@ -50,15 +46,15 @@ class IntIdentityTest extends SingleFieldIdentityTest {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, Integer.valueOf(1));
     IntIdentity c3 = new IntIdentity(Object.class, Integer.valueOf(2));
-    assertEquals(c1, c2, "Equal intIdentity instances compare not equal.");
-    assertNotEquals(c1, c3, "Not equal IntIdentity instances compare equal");
+    Assertions.assertEquals(c1, c2, "Equal intIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, c3, "Not equal IntIdentity instances compare equal");
   }
 
   @Test
   void testToStringConstructor() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, c1.toString());
-    assertEquals(c1, c2, "Equal IntIdentity instances compare not equal.");
+    Assertions.assertEquals(c1, c2, "Equal IntIdentity instances compare not equal.");
   }
 
   @Test
@@ -66,13 +62,13 @@ class IntIdentityTest extends SingleFieldIdentityTest {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
     IntIdentity c2 = new IntIdentity(Object.class, "1");
     IntIdentity c3 = new IntIdentity(Object.class, "2");
-    assertEquals(c1, c2, "Equal IntIdentity instances compare not equal.");
-    assertNotEquals(c1, c3, "Not equal IntIdentity instances compare equal");
+    Assertions.assertEquals(c1, c2, "Equal IntIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, c3, "Not equal IntIdentity instances compare equal");
   }
 
   @Test
   void testIllegalStringConstructor() {
-    assertThrows(
+    Assertions.assertThrows(
         IllegalArgumentException.class,
         () -> new IntIdentity(Object.class, "b"),
         "No exception caught for illegal String.");
@@ -87,31 +83,31 @@ class IntIdentityTest extends SingleFieldIdentityTest {
     Object sc1 = scis[0];
     Object sc2 = scis[1];
     Object sc3 = scis[2];
-    assertEquals(c1, sc1, "Equal IntIdentity instances compare not equal.");
-    assertEquals(c2, sc2, "Equal IntIdentity instances compare not equal.");
-    assertEquals(sc1, c2, "Equal IntIdentity instances compare not equal.");
-    assertEquals(sc2, c1, "Equal IntIdentity instances compare not equal.");
-    assertNotEquals(c1, sc3, "Not equal InrIdentity instances compare equal.");
-    assertNotEquals(sc1, c3, "Not equal IntIdentity instances compare equal.");
-    assertNotEquals(sc1, sc3, "Not equal IntIdentity instances compare equal.");
-    assertNotEquals(sc3, sc1, "Not equal IntIdentity instances compare equal.");
+    Assertions.assertEquals(c1, sc1, "Equal IntIdentity instances compare not equal.");
+    Assertions.assertEquals(c2, sc2, "Equal IntIdentity instances compare not equal.");
+    Assertions.assertEquals(sc1, c2, "Equal IntIdentity instances compare not equal.");
+    Assertions.assertEquals(sc2, c1, "Equal IntIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, sc3, "Not equal InrIdentity instances compare equal.");
+    Assertions.assertNotEquals(sc1, c3, "Not equal IntIdentity instances compare equal.");
+    Assertions.assertNotEquals(sc1, sc3, "Not equal IntIdentity instances compare equal.");
+    Assertions.assertNotEquals(sc3, sc1, "Not equal IntIdentity instances compare equal.");
   }
 
   @Test
   void testGetKeyAsObjectPrimitive() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
-    assertEquals(c1.getKeyAsObject(), Integer.valueOf(1), "keyAsObject doesn't match.");
+    Assertions.assertEquals(c1.getKeyAsObject(), Integer.valueOf(1), "keyAsObject doesn't match.");
   }
 
   @Test
   void testGetKeyAsObject() {
     IntIdentity c1 = new IntIdentity(Object.class, Integer.valueOf(1));
-    assertEquals(c1.getKeyAsObject(), Integer.valueOf(1), "keyAsObject doesn't match.");
+    Assertions.assertEquals(c1.getKeyAsObject(), Integer.valueOf(1), "keyAsObject doesn't match.");
   }
 
   @Test
   void testBadConstructorNullIntegerParam() {
-    assertThrows(
+    Assertions.assertThrows(
         JDONullIdentityException.class,
         () -> new IntIdentity(Object.class, (Integer) null),
         "Failed to catch expected exception.");
@@ -119,7 +115,7 @@ class IntIdentityTest extends SingleFieldIdentityTest {
 
   @Test
   void testBadConstructorNullStringParam() {
-    assertThrows(
+    Assertions.assertThrows(
         JDONullIdentityException.class,
         () -> new IntIdentity(Object.class, (String) null),
         "Failed to catch expected exception.");
@@ -131,9 +127,12 @@ class IntIdentityTest extends SingleFieldIdentityTest {
     IntIdentity c2 = new IntIdentity(Object.class, 1);
     IntIdentity c3 = new IntIdentity(Object.class, 2);
     IntIdentity c4 = new IntIdentity(Class.class, 1);
-    assertEquals(0, c1.compareTo(c2), "Equal IntIdentity instances compare not equal.");
-    assertTrue(c1.compareTo(c3) < 0, "Not equal IntIdentity instances have wrong compareTo result");
-    assertTrue(c3.compareTo(c1) > 0, "Not equal IntIdentity instances have wrong compareTo result");
-    assertTrue(c1.compareTo(c4) > 0, "Not equal IntIdentity instances have wrong compareTo result");
+    Assertions.assertEquals(0, c1.compareTo(c2), "Equal IntIdentity instances compare not equal.");
+    Assertions.assertTrue(
+        c1.compareTo(c3) < 0, "Not equal IntIdentity instances have wrong compareTo result");
+    Assertions.assertTrue(
+        c3.compareTo(c1) > 0, "Not equal IntIdentity instances have wrong compareTo result");
+    Assertions.assertTrue(
+        c1.compareTo(c4) > 0, "Not equal IntIdentity instances have wrong compareTo result");
   }
 }

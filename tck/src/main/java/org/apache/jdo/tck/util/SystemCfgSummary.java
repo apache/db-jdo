@@ -31,7 +31,7 @@ public class SystemCfgSummary {
   /** The name of the system configuration summary file. */
   private static final String SYSCFG_FILE_NAME = "system_config.txt";
 
-  private static String NL = System.getProperty("line.separator");
+  private static final String NL = System.getProperty("line.separator");
 
   private final String path;
 

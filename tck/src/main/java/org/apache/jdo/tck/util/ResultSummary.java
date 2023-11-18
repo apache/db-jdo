@@ -26,7 +26,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import javax.jdo.JDOFatalException;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
@@ -36,9 +35,6 @@ public class ResultSummary implements Serializable {
 
   /** The name of the file to store a serialized instance of this class. */
   private static final String FILE_NAME_OF_RESULT_SUMMARY = "ResultSummary.ser";
-
-  private static final DecimalFormat THREE_DIGITS_FORMATTER = new DecimalFormat("000");
-  private static final DecimalFormat SECONDS_FORMATTER = new DecimalFormat("000.0");
 
   /** The name of the TCK result file. */
   private static final String RESULT_FILE_NAME = "TCK-results.txt";
@@ -169,7 +165,7 @@ public class ResultSummary implements Serializable {
     builder.append(", aborted: ").append(summary.getTestsAbortedCount());
     builder
         .append(", time: ")
-        .append(((double) (summary.getTimeFinished() - summary.getTimeStarted()) / 1000.0))
+        .append(((summary.getTimeFinished() - summary.getTimeStarted()) / 1000.0))
         .append(" seconds");
     return builder.toString();
   }

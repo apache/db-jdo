@@ -22,12 +22,8 @@
 
 package javax.jdo.identity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import javax.jdo.JDONullIdentityException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /** */
@@ -42,9 +38,9 @@ class LongIdentityTest extends SingleFieldIdentityTest {
     LongIdentity c2 = new LongIdentity(Object.class, 1);
     LongIdentity c3 = new LongIdentity(Object.class, 2);
     LongIdentity c4 = new LongIdentity(Object.class, 0x100000001L);
-    assertEquals(c1, c2, "Equal LongIdentity instances compare not equal.");
-    assertNotEquals(c1, c3, "Not equal LongIdentity instances compare equal");
-    assertNotEquals(c4, c1, "Not equal LongIdentity instances compare equal");
+    Assertions.assertEquals(c1, c2, "Equal LongIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, c3, "Not equal LongIdentity instances compare equal");
+    Assertions.assertNotEquals(c4, c1, "Not equal LongIdentity instances compare equal");
   }
 
   @Test
@@ -52,15 +48,15 @@ class LongIdentityTest extends SingleFieldIdentityTest {
     LongIdentity c1 = new LongIdentity(Object.class, 1);
     LongIdentity c2 = new LongIdentity(Object.class, Long.valueOf(1));
     LongIdentity c3 = new LongIdentity(Object.class, Long.valueOf(2));
-    assertEquals(c1, c2, "Equal LongIdentity instances compare not equal.");
-    assertNotEquals(c1, c3, "Not equal LongIdentity instances compare equal");
+    Assertions.assertEquals(c1, c2, "Equal LongIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, c3, "Not equal LongIdentity instances compare equal");
   }
 
   @Test
   void testToStringConstructor() {
     LongIdentity c1 = new LongIdentity(Object.class, Long.MAX_VALUE);
     LongIdentity c2 = new LongIdentity(Object.class, c1.toString());
-    assertEquals(c1, c2, "Equal LongIdentity instances compare not equal.");
+    Assertions.assertEquals(c1, c2, "Equal LongIdentity instances compare not equal.");
   }
 
   @Test
@@ -68,13 +64,13 @@ class LongIdentityTest extends SingleFieldIdentityTest {
     LongIdentity c1 = new LongIdentity(Object.class, 1);
     LongIdentity c2 = new LongIdentity(Object.class, "1");
     LongIdentity c3 = new LongIdentity(Object.class, "2");
-    assertEquals(c1, c2, "Equal LongIdentity instances compare not equal.");
-    assertNotEquals(c1, c3, "Not equal LongIdentity instances compare equal");
+    Assertions.assertEquals(c1, c2, "Equal LongIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, c3, "Not equal LongIdentity instances compare equal");
   }
 
   @Test
   void testIllegalStringConstructor() {
-    assertThrows(
+    Assertions.assertThrows(
         IllegalArgumentException.class,
         () -> new LongIdentity(Object.class, "b"),
         "No exception caught for illegal String.");
@@ -89,31 +85,31 @@ class LongIdentityTest extends SingleFieldIdentityTest {
     Object sc1 = scis[0];
     Object sc2 = scis[1];
     Object sc3 = scis[2];
-    assertEquals(c1, sc1, "Equal LongIdentity instances compare not equal.");
-    assertEquals(c2, sc2, "Equal LongIdentity instances compare not equal.");
-    assertEquals(sc1, c2, "Equal LongIdentity instances compare not equal.");
-    assertEquals(sc2, c1, "Equal LongIdentity instances compare not equal.");
-    assertNotEquals(c1, sc3, "Not equal LongIdentity instances compare equal.");
-    assertNotEquals(sc1, c3, "Not equal LongIdentity instances compare equal.");
-    assertNotEquals(sc1, sc3, "Not equal LongIdentity instances compare equal.");
-    assertNotEquals(sc3, sc1, "Not equal LongIdentity instances compare equal.");
+    Assertions.assertEquals(c1, sc1, "Equal LongIdentity instances compare not equal.");
+    Assertions.assertEquals(c2, sc2, "Equal LongIdentity instances compare not equal.");
+    Assertions.assertEquals(sc1, c2, "Equal LongIdentity instances compare not equal.");
+    Assertions.assertEquals(sc2, c1, "Equal LongIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, sc3, "Not equal LongIdentity instances compare equal.");
+    Assertions.assertNotEquals(sc1, c3, "Not equal LongIdentity instances compare equal.");
+    Assertions.assertNotEquals(sc1, sc3, "Not equal LongIdentity instances compare equal.");
+    Assertions.assertNotEquals(sc3, sc1, "Not equal LongIdentity instances compare equal.");
   }
 
   @Test
   void testGetKeyAsObjectPrimitive() {
     LongIdentity c1 = new LongIdentity(Object.class, 1L);
-    assertEquals(c1.getKeyAsObject(), Long.valueOf(1L), "keyAsObject doesn't match.");
+    Assertions.assertEquals(c1.getKeyAsObject(), Long.valueOf(1L), "keyAsObject doesn't match.");
   }
 
   @Test
   void testGetKeyAsObject() {
     LongIdentity c1 = new LongIdentity(Object.class, Long.valueOf(1L));
-    assertEquals(c1.getKeyAsObject(), Long.valueOf(1L), "keyAsObject doesn't match.");
+    Assertions.assertEquals(c1.getKeyAsObject(), Long.valueOf(1L), "keyAsObject doesn't match.");
   }
 
   @Test
   void testBadConstructorNullShortParam() {
-    assertThrows(
+    Assertions.assertThrows(
         JDONullIdentityException.class,
         () -> new LongIdentity(Object.class, (Long) null),
         "Failed to catch expected exception.");
@@ -121,7 +117,7 @@ class LongIdentityTest extends SingleFieldIdentityTest {
 
   @Test
   void testBadConstructorNullStringParam() {
-    assertThrows(
+    Assertions.assertThrows(
         JDONullIdentityException.class,
         () -> new LongIdentity(Object.class, (String) null),
         "Failed to catch expected exception.");
@@ -134,14 +130,14 @@ class LongIdentityTest extends SingleFieldIdentityTest {
     LongIdentity c3 = new LongIdentity(Object.class, 2);
     LongIdentity c4 = new LongIdentity(Class.class, 1);
     LongIdentity c5 = new LongIdentity(Object.class, 0x100000001L);
-    assertEquals(0, c1.compareTo(c2), "Equal LongIdentity instances compare not equal.");
-    assertTrue(
+    Assertions.assertEquals(0, c1.compareTo(c2), "Equal LongIdentity instances compare not equal.");
+    Assertions.assertTrue(
         c1.compareTo(c3) < 0, "Not equal LongIdentity instances have wrong compareTo result");
-    assertTrue(
+    Assertions.assertTrue(
         c3.compareTo(c1) > 0, "Not equal LongIdentity instances have wrong compareTo result");
-    assertTrue(
+    Assertions.assertTrue(
         c1.compareTo(c4) > 0, "Not equal LongIdentity instances have wrong compareTo result");
-    assertTrue(
+    Assertions.assertTrue(
         c5.compareTo(c1) > 0, "Not equal LongIdentity instances have wrong compareTo result");
   }
 }
