@@ -50,6 +50,7 @@ public class RunTCK extends AbstractTCKMojo {
   private static final String CLASSES_DIR_NAME = "classes"; // NOI18N
 
   private static final String TCK_LOG_FILE = "tck.txt"; // NOI18N
+
   private static final String JUNIT_LOG_FILE = "junit.txt"; // NOI18N
 
   /** To skip running of TCK, set to false. */
@@ -123,6 +124,13 @@ public class RunTCK extends AbstractTCKMojo {
       defaultValue = "org.junit.platform.console.ConsoleLauncher",
       required = true)
   private String testRunnerClass;
+
+  /** Location of tck log file. */
+  @Parameter(
+          property = "jdo.tck.logfile",
+          defaultValue = "${project.build.directory}/" + TCK_LOG_FILE,
+          required = true)
+  protected String tckLogFile;
 
   /**
    * Output mode for test run. Use one of: none, summary, flat, tree, verbose, testfeed. If 'none'
@@ -198,7 +206,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     // Reset logfile content (may not be empty if previous run crashed)
     resetFileContent(implLogFile);
-    resetFileContent(TCK_LOG_FILE);
+    resetFileContent(tckLogFile);
 
     int failureCount = 0;
     for (String db : dbs) {
@@ -588,9 +596,9 @@ public class RunTCK extends AbstractTCKMojo {
     }
     String tckLogFilename = logFilePrefix + TCK_LOG_FILE;
     try {
-      File logFile = new File(TCK_LOG_FILE);
+      File logFile = new File(tckLogFile);
       FileUtils.copyFile(logFile, new File(tckLogFilename));
-      resetFileContent(TCK_LOG_FILE);
+      resetFileContent(tckLogFile);
     } catch (Exception e) {
       System.out.println(">> Error copying tck log file: " + e.getMessage());
     }
