@@ -38,7 +38,7 @@ jobs:
         fetch-depth: 1
     - name: Check Format
       run: |
-        mvn -Pverify-format clean compile
+        mvn -B --no-transfer-progress -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Pverify-format clean compile
       shell: 'bash'
 
   build-jdo:
@@ -49,6 +49,8 @@ jobs:
       matrix:
         # run different builds with the listed java versions
         java: [ 8, 11, 17, 21 ]
+      # continue to run other matrix builds if one of them fails
+      fail-fast: false
     defaults:
       run:
         shell: bash
@@ -69,4 +71,13 @@ jobs:
       # Builds JDO & Runs the TCK
       - name: Build JDO & Run TCK
         run: |
-          mvn clean install
+          mvn -B --no-transfer-progress -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install
+
+      # Exports the TCK logs in case the build fails
+      - name: Export TCK logs
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: tck-logs-jdk-${{ matrix.java }}
+          retention-days: 14
+          path: tck/target/logs/**/*
