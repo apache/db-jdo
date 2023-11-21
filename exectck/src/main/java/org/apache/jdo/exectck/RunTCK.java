@@ -127,9 +127,9 @@ public class RunTCK extends AbstractTCKMojo {
 
   /** Location of tck log file. */
   @Parameter(
-          property = "jdo.tck.logfile",
-          defaultValue = "${project.build.directory}/" + TCK_LOG_FILE,
-          required = true)
+      property = "jdo.tck.logfile",
+      defaultValue = "${project.build.directory}/" + TCK_LOG_FILE,
+      required = true)
   protected String tckLogFile;
 
   /**
