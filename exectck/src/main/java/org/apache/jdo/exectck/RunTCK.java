@@ -532,6 +532,7 @@ public class RunTCK extends AbstractTCKMojo {
     }
     command.add(testRunnerClass);
     command.add("--disable-banner");
+    command.add("--disable-ansi-colors");
     command.add("--details=" + testRunnerDetails);
     // add Test classes
     for (String testClass : classesList) {
