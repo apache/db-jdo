@@ -29,7 +29,7 @@ import org.apache.jdo.tck.pc.company.MeetingRoom;
 import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Supported list methods <br>
@@ -47,17 +47,9 @@ public class SupportedListMethods extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-58 (SupportedListMethods) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedListMethods.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testGetInFilter() {
     // get(PARAMETER) in filter
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
@@ -98,6 +90,7 @@ public class SupportedListMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testGetInResult() {
     // get(LITERAL) in result
     List<MeetingRoom> expected =

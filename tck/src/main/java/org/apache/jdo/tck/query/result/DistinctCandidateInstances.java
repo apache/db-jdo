@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Distinct Candidate Instances. <br>
@@ -43,16 +43,8 @@ public class DistinctCandidateInstances extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.9-2 (DistintCandidateInstances) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DistinctCandidateInstances.class);
-  }
-
   /** */
+  @Test
   public void testExtentQueries0() {
     if (isUnconstrainedVariablesSupported()) {
       List<Employee> expected =
@@ -86,6 +78,7 @@ public class DistinctCandidateInstances extends QueryTest {
   }
 
   /** */
+  @Test
   public void testExtentQueries1() {
     if (isUnconstrainedVariablesSupported()) {
       List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
@@ -120,6 +113,7 @@ public class DistinctCandidateInstances extends QueryTest {
   }
 
   /** */
+  @Test
   public void testCollectionQueries() {
     String singleStringQuery = "SELECT FROM " + Person.class.getName();
     String singleStringDistinctQuery = "SELECT DISTINCT FROM " + Person.class.getName();

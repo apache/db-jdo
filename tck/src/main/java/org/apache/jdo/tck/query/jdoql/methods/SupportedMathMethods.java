@@ -31,7 +31,7 @@ import org.apache.jdo.tck.pc.mylib.QPrimitiveTypes;
 import org.apache.jdo.tck.pc.query.MathSample;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Supported Math methods. <br>
@@ -65,16 +65,8 @@ public class SupportedMathMethods extends QueryTest {
   /** */
   private Object oidOfMath3;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedMathMethods.class);
-  }
-
   /** */
+  @Test
   public void testAbs0() {
     Object expected =
         getTransientMylibInstancesAsList("primitiveTypesPositive", "primitiveTypesNegative");
@@ -107,6 +99,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAbs1() {
     Object expected =
         getTransientMylibInstancesAsList("primitiveTypesPositive", "primitiveTypesNegative");
@@ -139,6 +132,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAbs2() {
     Object expected =
         getTransientMylibInstancesAsList("primitiveTypesPositive", "primitiveTypesNegative");
@@ -171,6 +165,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAbs3() {
     Object expected =
         getTransientMylibInstancesAsList("primitiveTypesPositive", "primitiveTypesNegative");
@@ -203,6 +198,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAbs4() {
     Object expected =
         getTransientMylibInstancesAsList("primitiveTypesPositive", "primitiveTypesNegative");
@@ -235,6 +231,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAbs5() {
     Object expected =
         getTransientMylibInstancesAsList("primitiveTypesPositive", "primitiveTypesNegative");
@@ -267,6 +264,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAbs6() {
     Object expected =
         getTransientMylibInstancesAsList("primitiveTypesPositive", "primitiveTypesNegative");
@@ -299,6 +297,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testAbs7() {
     Object expected =
         getTransientMylibInstancesAsList("primitiveTypesPositive", "primitiveTypesNegative");
@@ -331,6 +330,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSqrt0() {
     Object expected = getTransientMylibInstancesAsList("primitiveTypesPositive");
 
@@ -367,6 +367,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSqrt1() {
     Object expected = getTransientMylibInstancesAsList("primitiveTypesPositive");
 
@@ -403,6 +404,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSqrt2() {
     Object expected = getTransientMylibInstancesAsList("primitiveTypesPositive");
 
@@ -439,6 +441,7 @@ public class SupportedMathMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSqrt3() {
     Object expected = getTransientMylibInstancesAsList("primitiveTypesPositive");
 
@@ -474,6 +477,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.sin() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testSin() {
     insertMathSampleData(getPM());
 
@@ -515,6 +519,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.cos() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCos() {
     insertMathSampleData(getPM());
 
@@ -556,6 +561,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.tan() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testTan() {
     insertMathSampleData(getPM());
 
@@ -582,6 +588,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.asin() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testArcSin() {
     insertMathSampleData(getPM());
 
@@ -623,6 +630,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.acos() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testArcCos() {
     insertMathSampleData(getPM());
 
@@ -664,6 +672,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.atan() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testArcTan() {
     insertMathSampleData(getPM());
 
@@ -689,6 +698,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.ceil() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testCeil() {
     insertMathSampleData(getPM());
 
@@ -731,6 +741,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.floor() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testFloor() {
     insertMathSampleData(getPM());
 
@@ -773,6 +784,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.exp() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testExp() {
     insertMathSampleData(getPM());
 
@@ -799,6 +811,7 @@ public class SupportedMathMethods extends QueryTest {
 
   /** Tests for Math.log() */
   @SuppressWarnings("unchecked")
+  @Test
   public void testLog() {
     insertMathSampleData(getPM());
 

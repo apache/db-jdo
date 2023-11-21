@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Null Results. <br>
@@ -39,16 +39,8 @@ public class NullResults extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.9-7 (NullResults) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NullResults.class);
-  }
-
   /** */
+  @Test
   public void testUnique() {
     Object expected = null;
 
@@ -81,6 +73,7 @@ public class NullResults extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNavigation() {
     Object expected = Arrays.asList(new Object[] {null});
 
@@ -113,6 +106,7 @@ public class NullResults extends QueryTest {
   }
 
   /** */
+  @Test
   public void testDistinctNavigation() {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", null);
 

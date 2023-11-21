@@ -23,7 +23,7 @@ import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Setter replace previous values. <br>
@@ -99,16 +99,8 @@ public class SetterReplacePreviousValues extends QueryTest {
     getTransientCompanyModelInstancesAsList(Department.class, "dept1")
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetterReplacePreviousValues.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     // replace parameter declaration
     int index = 0;

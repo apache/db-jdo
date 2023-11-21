@@ -23,7 +23,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> LogicalComplement Query Operator <br>
@@ -42,16 +42,8 @@ public class LogicalComplement extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-32 (LogicalComplement) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(LogicalComplement.class);
-  }
-
   /** Tests logical complement operator ! used with constants or simple boolean fields */
+  @Test
   public void testPositiveSimpleComplement() {
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();
@@ -83,6 +75,7 @@ public class LogicalComplement extends QueryTest {
   }
 
   /** Tests logical complement operator ! negating the result of a relational. */
+  @Test
   public void testPositiveComplementOfRelationalOp() {
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();
@@ -118,6 +111,7 @@ public class LogicalComplement extends QueryTest {
   }
 
   /** Tests logical complement operator ! negating field comparison with a non null value. */
+  @Test
   public void testPositiveNullFieldComparison() {
     PersistenceManager pm = getPM();
     createAndStoreNullInstance(pm);
@@ -149,6 +143,7 @@ public class LogicalComplement extends QueryTest {
   }
 
   /** Tests logical complement operator ! negating a null check. */
+  @Test
   public void testPositiveNullCheck() {
     PersistenceManager pm = getPM();
     createAndStoreNullInstance(pm);

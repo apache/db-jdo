@@ -23,7 +23,7 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Methods and Object Construction not Supported <br>
@@ -38,16 +38,8 @@ public class MethodsAndObjectConstructionNotSupported extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-8 (MethodsAndObjectConstructionNotSupported) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MethodsAndObjectConstructionNotSupported.class);
-  }
-
   /** */
+  @Test
   public void testNegative() {
     PersistenceManager pm = getPM();
 

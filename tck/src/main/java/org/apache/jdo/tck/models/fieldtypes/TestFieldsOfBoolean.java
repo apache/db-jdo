@@ -21,7 +21,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.FieldsOfBoolean;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Support of field type Boolean. <br>
@@ -38,15 +38,6 @@ public class TestFieldsOfBoolean extends JDO_Test {
       "Assertion A6.4.3-9 (TestFieldsOfBoolean) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(TestFieldsOfBoolean.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -55,6 +46,7 @@ public class TestFieldsOfBoolean extends JDO_Test {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

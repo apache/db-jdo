@@ -24,7 +24,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Bitwise Binary Query Operators <br>
@@ -45,16 +45,8 @@ public class BitwiseBinaryOperators extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-20 and A14.6.2-22 (BitwiseBinaryOperators) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(BitwiseBinaryOperators.class);
-  }
-
   /** Testing bitwise AND */
+  @Test
   public void testBitwiseAndPositive() {
     if (isBitwiseOperationsSupported()) {
       PersistenceManager pm = getPM();
@@ -84,6 +76,7 @@ public class BitwiseBinaryOperators extends QueryTest {
   }
 
   /** Testing bitwise OR */
+  @Test
   public void testBitwiseOrPositive() {
     if (isBitwiseOperationsSupported()) {
       PersistenceManager pm = getPM();
@@ -113,6 +106,7 @@ public class BitwiseBinaryOperators extends QueryTest {
   }
 
   /** Testing bitwise XOR */
+  @Test
   public void testBitwiseXOrPositive() {
     if (isBitwiseOperationsSupported()) {
       PersistenceManager pm = getPM();
@@ -141,6 +135,7 @@ public class BitwiseBinaryOperators extends QueryTest {
   }
 
   /** Queries using bitwise AND that should result in a JDOException. */
+  @Test
   public void testBitwiseAndNegative() {
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();
@@ -179,6 +174,7 @@ public class BitwiseBinaryOperators extends QueryTest {
   }
 
   /** Queries using bitwise AND that should result in a JDOException. */
+  @Test
   public void testBitwiseOrNegative() {
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();
@@ -217,6 +213,7 @@ public class BitwiseBinaryOperators extends QueryTest {
   }
 
   /** Queries using bitwise AND that should result in a JDOException. */
+  @Test
   public void testBitwiseXOrNegative() {
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();

@@ -16,14 +16,13 @@
  */
 package javax.jdo;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -59,7 +58,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
       PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory();
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     } finally {
       Thread.currentThread().setContextClassLoader(saveContextClassLoader);
     }
@@ -80,7 +79,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
       PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(resourceClassLoader);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     }
   }
 
@@ -100,7 +99,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
       PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(PROPERTIES_FILE);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     } finally {
       Thread.currentThread().setContextClassLoader(saveContextClassLoader);
     }
@@ -122,7 +121,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
           JDOHelper.getPersistenceManagerFactory(PROPERTIES_FILE, resourceClassLoader);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     }
   }
 
@@ -141,7 +140,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
     try {
       props.store(outstream, "");
     } catch (IOException ex) {
-      fail(ex.getMessage());
+      Assertions.fail(ex.getMessage());
     }
     InputStream byteArrayInputStream = new ByteArrayInputStream(outstream.toByteArray());
 
@@ -153,7 +152,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
       PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(byteArrayInputStream);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     } finally {
       Thread.currentThread().setContextClassLoader(saveContextClassLoader);
     }
@@ -175,7 +174,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
     try {
       props.store(outstream, "");
     } catch (IOException ex) {
-      fail(ex.getMessage());
+      Assertions.fail(ex.getMessage());
     }
     InputStream byteArrayInputStream = new ByteArrayInputStream(outstream.toByteArray());
 
@@ -186,7 +185,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
           JDOHelper.getPersistenceManagerFactory(byteArrayInputStream, resourceClassLoader);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     }
   }
 
@@ -209,7 +208,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
       PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(props);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     } finally {
       Thread.currentThread().setContextClassLoader(saveContextClassLoader);
     }
@@ -232,7 +231,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
           JDOHelper.getPersistenceManagerFactory(props, resourceClassLoader);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     }
   }
 
@@ -255,7 +254,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
       PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(overrides, PMF_NAME);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     } finally {
       Thread.currentThread().setContextClassLoader(saveContextClassLoader);
     }
@@ -280,7 +279,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
           JDOHelper.getPersistenceManagerFactory(overrides, PMF_NAME, resourceClassLoader);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass." + ex.getMessage());
     }
   }
 
@@ -309,7 +308,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
               overrides, PMF_NAME, resourceClassLoader, pmfLoader);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME_WITH_OVERRIDE);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass. " + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass. " + ex.getMessage());
     }
   }
 
@@ -329,7 +328,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
       PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(PMF_NAME);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME_4_NAMED_PMF);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass. " + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass. " + ex.getMessage());
     } finally {
       Thread.currentThread().setContextClassLoader(saveContextClassLoader);
     }
@@ -350,7 +349,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
           JDOHelper.getPersistenceManagerFactory(PMF_NAME, resourceClassLoader);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME_4_NAMED_PMF);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass. " + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass. " + ex.getMessage());
     }
   }
 
@@ -371,7 +370,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
           JDOHelper.getPersistenceManagerFactory(PMF_NAME, resourceClassLoader, pmfLoader);
       checkConnectionFactory2Name(pmf, EXPECTED_FACTORY2_NAME_4_NAMED_PMF);
     } catch (JDOFatalUserException ex) {
-      fail("Failed to find PersistenceManagerFactoryClass. " + ex.getMessage());
+      Assertions.fail("Failed to find PersistenceManagerFactoryClass. " + ex.getMessage());
     }
   }
 
@@ -394,7 +393,7 @@ class PMFMapMapTest extends AbstractJDOConfigTest {
   private void checkConnectionFactory2Name(PersistenceManagerFactory pmf, String expectedName) {
     String factory2Name = pmf.getConnectionFactory2Name();
     if (!expectedName.equals(factory2Name)) {
-      fail(
+      Assertions.fail(
           "Bad ConnectionFactory2Name(): "
               + factory2Name
               + ".  Expected: \""

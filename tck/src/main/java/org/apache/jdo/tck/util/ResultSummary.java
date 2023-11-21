@@ -27,7 +27,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
 import javax.jdo.JDOFatalException;
-import junit.framework.TestResult;
+import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
 /** A serializable class used to store test results in a file. */
 public class ResultSummary implements Serializable {
@@ -38,6 +38,8 @@ public class ResultSummary implements Serializable {
 
   /** The name of the TCK result file. */
   private static final String RESULT_FILE_NAME = "TCK-results.txt";
+
+  private static final String NEWLINE = System.getProperty("line.separator");
 
   /* The number of all configurations. */
   private int nrOfTotalConfigurations = 0;
@@ -51,9 +53,6 @@ public class ResultSummary implements Serializable {
   /* The total number of failures. */
   private int totalFailureCount = 0;
 
-  /* The total number of errors. */
-  private int totalErrorCount = 0;
-
   /**
    * Deserializes an instance and prints that instance to {@link System#out} and the TCK result
    * file. Finally deletes the file of the serialized instance.
@@ -63,29 +62,28 @@ public class ResultSummary implements Serializable {
   public static void main(String[] args) {
     // print result summary
 
-    String directory = args[0] + File.separator;
+    String directory = args[0];
     ResultSummary resultSummary = ResultSummary.load(directory);
-    String newLine = System.getProperty("line.separator");
     String resultMessage = resultSummary != null ? resultSummary.toString() : "No tests were run.";
-    String message = "-------" + newLine + resultMessage;
-    appendTCKResultMessage(directory, message);
+    String message = "-------" + NEWLINE + resultMessage;
+    String resultFileName = directory + File.separator + RESULT_FILE_NAME;
+    appendTCKResultMessage(resultFileName, message);
     System.out.println(resultMessage);
-    System.out.println("See file '" + directory + RESULT_FILE_NAME + "' for details.");
+    System.out.println("See file '" + resultFileName + "' for details.");
 
     // delete file
-    String fileName = args[0] + File.separator + FILE_NAME_OF_RESULT_SUMMARY;
-    File file = new File(fileName);
+    String resultSummaryFileName = directory + File.separator + FILE_NAME_OF_RESULT_SUMMARY;
+    File file = new File(resultSummaryFileName);
     file.delete();
   }
 
   /**
    * Appends the given message to the TCK result file in the given directory.
    *
-   * @param directory the directory
+   * @param fileName the name of the result file
    * @param message the message
    */
-  static void appendTCKResultMessage(String directory, String message) {
-    String fileName = directory + RESULT_FILE_NAME;
+  private static void appendTCKResultMessage(String fileName, String message) {
     try (PrintStream resultStream = new PrintStream(new FileOutputStream(fileName, true))) {
       resultStream.println(message);
     } catch (FileNotFoundException e) {
@@ -100,11 +98,13 @@ public class ResultSummary implements Serializable {
    * @param directory the directory
    * @param result the result object
    */
-  static void save(String directory, TestResult result) {
+  public static void save(
+      String directory, String idtype, String config, TestExecutionSummary result) {
     ResultSummary resultSummary = load(directory);
     if (resultSummary == null) {
       resultSummary = new ResultSummary();
     }
+    resultSummary.appendTestResult(directory, idtype, config, result);
     resultSummary.increment(result);
     resultSummary.save(directory);
   }
@@ -117,7 +117,7 @@ public class ResultSummary implements Serializable {
    */
   private static ResultSummary load(String directory) {
     ResultSummary result;
-    String fileName = directory + FILE_NAME_OF_RESULT_SUMMARY;
+    String fileName = directory + File.separator + FILE_NAME_OF_RESULT_SUMMARY;
     try {
       try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
         result = (ResultSummary) ois.readObject();
@@ -135,14 +135,39 @@ public class ResultSummary implements Serializable {
    *
    * @param result the result object
    */
-  private void increment(TestResult result) {
+  private void increment(TestExecutionSummary result) {
+    // total numbers
     this.nrOfTotalConfigurations++;
-    this.totalTestCount += result.runCount();
-    if (!result.wasSuccessful()) {
+    this.totalTestCount += result.getTestsFoundCount();
+    if (result.getTestsFailedCount() > 0) {
       this.nrOfFailedConfigurations++;
-      this.totalFailureCount += result.failureCount();
-      this.totalErrorCount += result.errorCount();
+      this.totalFailureCount += result.getTestsFailedCount();
     }
+  }
+
+  private void appendTestResult(
+      String directory, String idtype, String config, TestExecutionSummary result) {
+    String resultFileName = directory + File.separator + RESULT_FILE_NAME;
+    String header = "Running tests for " + config + " with " + idtype + ":" + NEWLINE + "  ";
+    StringBuilder builder = new StringBuilder(header);
+    builder.append(getTestResult(result));
+    appendTCKResultMessage(resultFileName, builder.toString());
+  }
+
+  private String getTestResult(TestExecutionSummary summary) {
+    StringBuilder builder = new StringBuilder();
+    builder.append(summary.getTestsFailedCount() == 0 ? "OK " : "** ");
+    builder.append("Tests found: ").append(summary.getTestsFoundCount());
+    builder.append(", started: ").append(summary.getTestsStartedCount());
+    builder.append(", succeeded: ").append(summary.getTestsSucceededCount());
+    builder.append(", failed: ").append(summary.getTestsFailedCount());
+    builder.append(", skipped: ").append(summary.getTestsSkippedCount());
+    builder.append(", aborted: ").append(summary.getTestsAbortedCount());
+    builder
+        .append(", time: ")
+        .append(((summary.getTimeFinished() - summary.getTimeStarted()) / 1000.0))
+        .append(" seconds");
+    return builder.toString();
   }
 
   /**
@@ -151,7 +176,7 @@ public class ResultSummary implements Serializable {
    * @param directory the directory
    */
   private void save(String directory) {
-    String fileName = directory + FILE_NAME_OF_RESULT_SUMMARY;
+    String fileName = directory + File.separator + FILE_NAME_OF_RESULT_SUMMARY;
     try {
       try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
         oos.writeObject(this);
@@ -167,17 +192,15 @@ public class ResultSummary implements Serializable {
    * @see Object#toString()
    */
   public String toString() {
-    String newLine = System.getProperty("line.separator");
     StringBuilder result = new StringBuilder();
     result.append("Total tests run: ").append(totalTestCount).append(".");
     if (this.nrOfFailedConfigurations == 0) {
-      result.append(newLine);
+      result.append(NEWLINE);
       result.append("All (").append(this.nrOfTotalConfigurations);
       result.append(") configurations passed.");
     } else {
-      result.append(" Failures: ").append(totalFailureCount);
-      result.append(", Errors: ").append(totalErrorCount).append(".");
-      result.append(newLine);
+      result.append(" Failures: ").append(totalFailureCount).append(".");
+      result.append(NEWLINE);
       result.append(this.nrOfFailedConfigurations).append(" of ");
       result.append(this.nrOfTotalConfigurations);
       result.append(" configurations failed.");

@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> retrieveWithFetchPlan with Null Arguments <br>
@@ -32,15 +32,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * elements, and the null elements will be ignored.]
  */
 public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RetrieveWithFetchPlanNullArgs.class);
-  }
 
   static final MethodUnderTest retrieveWithFetchPlan = new MethodUnderTestRetrieveWithFetchPlan();
 
@@ -62,6 +53,7 @@ public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
   }
 
   /** Test that retrieveWithFetchPlan() with null valued argument does nothing. */
+  @Test
   public void testRetrieveWithFetchPlanNullObject() {
     executeNullObjectParameter(retrieveWithFetchPlan, "retrieveWithFetchPlan(null)");
   }
@@ -70,6 +62,7 @@ public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
    * Test that retrieveWithFetchPlanAll() with null valued Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testRetrieveWithFetchPlanNullCollection() {
     executeNullCollectionParameter(
         retrieveWithFetchPlan, "retrieveWithFetchPlanAll((Collection)null)");
@@ -79,6 +72,7 @@ public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
    * Test that retrieveWithFetchPlanAll() with null valued array argument throws
    * NullPointerException.
    */
+  @Test
   public void testRetrieveWithFetchPlanNullArray() {
     executeNullArrayParameter(retrieveWithFetchPlan, "retrieveWithFetchPlanAll((Object[])null)");
   }
@@ -87,6 +81,7 @@ public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
    * Test that retrieveWithFetchPlanAll() with a null element of a Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testRetrieveWithFetchPlanCollectionNullElement() {
     executeCollectionNullElement(
         collNullElem, retrieveWithFetchPlan, "retrieveWithFetchPlanAll(Collection)");
@@ -96,6 +91,7 @@ public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
    * Test that retrieveWithFetchPlanAll() with a null element of a array argument throws
    * NullPointerException.
    */
+  @Test
   public void testRetrieveWithFetchPlanArrayNullElement() {
     executeArrayNullElement(
         arrayNullElem, retrieveWithFetchPlan, "retrieveWithFetchPlanAll(Object[])");

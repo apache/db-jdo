@@ -127,6 +127,8 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
    */
   protected abstract InstanceLifecycleListenerImpl getListener();
 
+  public void runTest() {}
+
   /**
    * The classes to be used for the test. This method is implemented by the subclasses to use the
    * proper classes. The classes returned by this method are used for two purposes: they are used to

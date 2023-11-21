@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QMedicalInsurance;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Navigation Through a Reference and comparing a Relationship with null <br>
@@ -70,16 +70,8 @@ public class NavigationComparisonWithNull extends QueryTest {
    *   emp9
    */
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NavigationThroughReferencesUsesDotOperator.class);
-  }
-
   /** this.manager == null */
+  @Test
   public void testPositive0() {
     // 0: simple manager check being null
     List<Employee> expected =
@@ -112,6 +104,7 @@ public class NavigationComparisonWithNull extends QueryTest {
   }
 
   /** this.manager != null */
+  @Test
   public void testPositive1() {
     // 1: simple manager check being not null
     List<Employee> expected =
@@ -145,6 +138,7 @@ public class NavigationComparisonWithNull extends QueryTest {
   }
 
   /** !(this.manager == null) */
+  @Test
   public void testPositive2() {
     // 2: simple manager check being not null using not operator
     List<Employee> expected =
@@ -178,6 +172,7 @@ public class NavigationComparisonWithNull extends QueryTest {
   }
 
   /** this.manager.manager == null Disabled, because it currently fails on the RI. */
+  @Test
   public void testPositive3() {
     // 3: manager's manager check
     List<Employee> expected =
@@ -212,6 +207,7 @@ public class NavigationComparisonWithNull extends QueryTest {
   }
 
   /** this.manager != null AND this.manager.manager == null */
+  @Test
   public void testPositive4() {
     // 4: manager's manager check with extra check on first level manager
     List<Employee> expected =
@@ -246,6 +242,7 @@ public class NavigationComparisonWithNull extends QueryTest {
   }
 
   /** this.manager.manager != null */
+  @Test
   public void testPositive5() {
     // 5 : manager's manager check not being null
     List<Employee> expected =
@@ -279,6 +276,7 @@ public class NavigationComparisonWithNull extends QueryTest {
   }
 
   /** !(this.manager.manager == null) */
+  @Test
   public void testPositive6() {
     // 6 : manager's manager check not being null using not operator
     List<Employee> expected =
@@ -313,6 +311,7 @@ public class NavigationComparisonWithNull extends QueryTest {
   }
 
   /** this.employee.manager.manager == null Disabled, because it currently fails on the RI. */
+  @Test
   public void testPositive7() {
     List<MedicalInsurance> expected =
         getTransientCompanyModelInstancesAsList(
@@ -349,6 +348,7 @@ public class NavigationComparisonWithNull extends QueryTest {
    * this.employee != null AND this.employee.manager != null AND this.employee.manager.manager ==
    * null
    */
+  @Test
   public void testPositive8() {
     // 8 : multiple relationships
     List<MedicalInsurance> expected =
@@ -388,6 +388,7 @@ public class NavigationComparisonWithNull extends QueryTest {
   }
 
   /** this.employee.manager.manager != null */
+  @Test
   public void testPositive9() {
     // 9 : multiple relationships
     List<MedicalInsurance> expected =
@@ -422,6 +423,7 @@ public class NavigationComparisonWithNull extends QueryTest {
   }
 
   /** !(this.employee.manager.manager == null) */
+  @Test
   public void testPositive10() {
     List<MedicalInsurance> expected =
         getTransientCompanyModelInstancesAsList(

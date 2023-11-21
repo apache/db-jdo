@@ -24,7 +24,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.inheritance.Constants;
 import org.apache.jdo.tck.pc.inheritance.FieldSameName4;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Field With the Same Name as a Field in a Superclass <br>
@@ -42,15 +42,6 @@ public class FieldWithSameNameInSuperclass extends TestParts {
       "Assertion A6.5-7 (FieldWithSameNameInSuperclass) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(FieldWithSameNameInSuperclass.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -59,6 +50,7 @@ public class FieldWithSameNameInSuperclass extends TestParts {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

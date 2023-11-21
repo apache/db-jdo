@@ -22,7 +22,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> New Query with Candidate Class and Collection <br>
@@ -38,16 +38,8 @@ public class NewQueryWithCandidateClassAndCollection extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.5-7 (NewQueryWithCandidateClassAndCollection) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NewQueryWithCandidateClassAndCollection.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();

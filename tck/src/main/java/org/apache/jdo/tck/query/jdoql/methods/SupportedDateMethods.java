@@ -24,7 +24,7 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Supported Date methods. <br>
@@ -44,16 +44,8 @@ public class SupportedDateMethods extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-60 (SupportedDateMethods) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedDateMethods.class);
-  }
-
   /** */
+  @Test
   public void testGetDate() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -85,6 +77,7 @@ public class SupportedDateMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testGetMonth() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -116,6 +109,7 @@ public class SupportedDateMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testGetYear() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 

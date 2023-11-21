@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Navigation Through a Null-Valued Field <br>
@@ -57,15 +57,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
     return NAVIGATION_TEST_COMPANY_TESTDATA;
   }
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NavigationThroughANullValuedField.class);
-  }
-
+  @Test
   public void testPositive1() {
     // navigation through reference relationship field
     // the relationship medicalInsurance is not set for emp2 and emp3 =>
@@ -99,6 +91,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
 
+  @Test
   public void testPositive2() {
     // navigation through reference relationship field
     // emp5 and emp6 have have emp4 as manager
@@ -132,6 +125,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
 
+  @Test
   public void testPositive3() {
     // multiple navigation through reference relationship field
     List<Employee> expected =
@@ -165,6 +159,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
   }
 
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive4() {
     // navigation through collection relationship field
     // employees emp2 and emp3 do not have a medicalInsurance, but emp1

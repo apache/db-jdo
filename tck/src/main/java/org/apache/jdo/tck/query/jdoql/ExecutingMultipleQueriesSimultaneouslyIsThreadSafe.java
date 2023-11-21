@@ -24,8 +24,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Executing Multiple Queries Simultaneously is ThreadSafe <br>
@@ -44,17 +44,9 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
   private static final String ASSERTION_FAILED =
       "Assertion A14.3-2 (ExecutingMultipleQueriesSimultaneouslyIsThreadSafe) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ExecutingMultipleQueriesSimultaneouslyIsThreadSafe.class);
-  }
-
   /** */
   @Override
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();

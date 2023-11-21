@@ -28,7 +28,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Multiple identical imports <br>
@@ -42,16 +42,8 @@ public class MultipleIdenticalImports extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.4-5 (MultipleIdenticalImports) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MultipleIdenticalImports.class);
-  }
-
   /** */
+  @Test
   public void testImportDepartmentTwice() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
@@ -90,6 +82,7 @@ public class MultipleIdenticalImports extends QueryTest {
   }
 
   /** */
+  @Test
   public void testImportDepartmentExplicitlyAndPerTypeImportOnDemand() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
@@ -128,6 +121,7 @@ public class MultipleIdenticalImports extends QueryTest {
   }
 
   /** */
+  @Test
   public void testTypeImportOnDemandTwice() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");

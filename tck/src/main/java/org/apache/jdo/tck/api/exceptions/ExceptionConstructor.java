@@ -18,7 +18,7 @@ package org.apache.jdo.tck.api.exceptions;
 
 import java.lang.reflect.Constructor;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Exception Constructor <br>
@@ -54,18 +54,11 @@ public class ExceptionConstructor extends JDO_Test {
       new Object[] {message, new Throwable[] {throwable}, object};
   protected static final Object[] objectArrayStringThrowableObject =
       new Object[] {message, throwable, object};
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ExceptionConstructor.class);
-  }
 
   /* test all constructors
    *
    */
+  @Test
   public void testConstructors() {
     constructJDOCanRetryException();
     constructJDODataStoreException();

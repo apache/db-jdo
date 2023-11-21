@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.PartTimeEmployee;
 import org.apache.jdo.tck.pc.company.Person;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> GetExtentWithSubclasses <br>
@@ -43,15 +43,6 @@ public class GetExtentWithSubclasses extends PersistenceManagerTest {
       "Assertion A12.5.4-3 (GetExtentWithSubclasses) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetExtentWithSubclasses.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -63,6 +54,7 @@ public class GetExtentWithSubclasses extends PersistenceManagerTest {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
     createObjects(pm);

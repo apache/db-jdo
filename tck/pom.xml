@@ -41,8 +41,24 @@
             <artifactId>jdo-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-console</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -78,6 +94,9 @@
             </resource>
             <resource>
                 <directory>${basedir}/src/main/resources/testdata</directory>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources/meta</directory>
             </resource>
         </resources>
         <plugins>

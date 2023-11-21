@@ -21,7 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test DetachSerialize <br>
@@ -39,16 +39,8 @@ public class DetachSerialize extends DetachTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.6.8-4, A12.6.8-5 (DetachSerialize) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DetachSerialize.class);
-  }
-
   /** */
+  @Test
   public void testDetachSerialize() {
     getPM().currentTransaction().begin();
     setCartFetchGroups();

@@ -24,7 +24,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Parameter Declared with Same Name as Field of Candidate Class <br>
@@ -39,16 +39,8 @@ public class ParameterDeclaredWithSameNameAsFieldOfCandidateClass extends QueryT
   private static final String ASSERTION_FAILED =
       "Assertion A14.4-2 (ParameterDeclaredWithSameNameAsFieldOfCandidateClass) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ParameterDeclaredWithSameNameAsFieldOfCandidateClass.class);
-  }
-
   /** */
+  @Test
   public void testPositve() {
     PersistenceManager pm = getPM();
 

@@ -27,7 +27,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Unconstrained Variables. <br>
@@ -42,16 +42,8 @@ public class UnconstrainedVariable extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.5-1 (UnconstrainedVariable) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(UnconstrainedVariable.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     if (isUnconstrainedVariablesSupported()) {
       List<Employee> expected =

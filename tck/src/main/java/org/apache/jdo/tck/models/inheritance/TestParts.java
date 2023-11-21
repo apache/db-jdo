@@ -50,6 +50,8 @@ public abstract class TestParts extends JDO_Test {
   static final String PERSISTENT_AFTER_ROLLBACK = "Read object back after rollback.  ";
   static final String TRANSIENT_AFTER_ROLLBACK = "Object reverted to transient after rollback.  ";
 
+  public void runTest() {}
+
   /** */
   void checkPersistentAreCorrect(
       String assertion,

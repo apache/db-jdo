@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Supported String methods. <br>
@@ -56,16 +56,8 @@ public class SupportedStringMethods extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-47 (SupportedStringMethods) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedStringMethods.class);
-  }
-
   /** */
+  @Test
   public void testToLowerCase() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -97,6 +89,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testToUpperCase() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -128,6 +121,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testIndexOfString() {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
@@ -159,6 +153,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testIndexOfStringInt() {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
@@ -190,6 +185,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMatches1() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -223,6 +219,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMatches2() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -255,6 +252,7 @@ public class SupportedStringMethods extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
+  @Test
   public void testMatches3() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -286,6 +284,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSubstringInt() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -319,6 +318,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSubstringIntInt() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -352,6 +352,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testStartsWith() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -385,6 +386,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testEndsWith() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -418,6 +420,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testStartsWithIndexed() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -451,6 +454,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testLength() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -484,6 +488,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testCharAt() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -515,6 +520,7 @@ public class SupportedStringMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testTrim() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 

@@ -24,7 +24,8 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>JDOConfigListener <br>
@@ -53,15 +54,6 @@ public class JDOConfigListener extends JDO_Test {
   private final Map<String, String> overrides = new HashMap<>();
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(JDOConfigListener.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -80,28 +72,33 @@ public class JDOConfigListener extends JDO_Test {
    * Test instantiation of InstanceLifecycleListener where listener class and target classes are
    * specified in jdoconfig.xml where listener class provides only a public no-args constructor.
    */
+  @Test
   public void testPCPointListener() {
     String pmfname = "testInstanceLifecycleListenerStore";
     pmf = JDOHelper.getPersistenceManagerFactory(overrides, pmfname);
     makePersistent();
-    assertTrue("Expected preStore() to have been invoked.", StoreListener.isPreStore());
-    assertTrue("Expected postStore() to have been invoked.", StoreListener.isPostStore());
+    Assertions.assertTrue(StoreListener.isPreStore(), "Expected preStore() to have been invoked.");
+    Assertions.assertTrue(
+        StoreListener.isPostStore(), "Expected postStore() to have been invoked.");
   }
 
   /**
    * Test instantiation of InstanceLifecycleListener where listener class and target classes are
    * specified in jdoconfig.xml where listener class provides a static method getInstance().
    */
+  @Test
   public void testPCPointListenerGetInstance() {
     String pmfname = "testInstanceLifecycleListenerStoreGetInstance";
     pmf = JDOHelper.getPersistenceManagerFactory(overrides, pmfname);
     makePersistent();
-    assertTrue("Expected preStore() to have been invoked.", StoreListenerGetInstance.isPreStore());
-    assertTrue(
-        "Expected postStore() to have been invoked.", StoreListenerGetInstance.isPostStore());
+    Assertions.assertTrue(
+        StoreListenerGetInstance.isPreStore(), "Expected preStore() to have been invoked.");
+    Assertions.assertTrue(
+        StoreListenerGetInstance.isPostStore(), "Expected postStore() to have been invoked.");
   }
 
   /** Test instantiation of Instance LifeCycleListener specified via property overrides. */
+  @Test
   public void testPCPointListenerOverrides() {
     overrides.put(
         "javax.jdo.listener.InstanceLifecycleListener.org.apache.jdo.tck.api.persistencemanagerfactory.config.StoreListener",
@@ -109,17 +106,20 @@ public class JDOConfigListener extends JDO_Test {
     String pmfname = "testInstanceLifecycleListenerStoreOverrides";
     pmf = JDOHelper.getPersistenceManagerFactory(overrides, pmfname);
     makePersistent();
-    assertTrue("Expected preStore() to have been invoked.", StoreListener.isPreStore());
-    assertTrue("Expected postStore() to have been invoked.", StoreListener.isPostStore());
+    Assertions.assertTrue(StoreListener.isPreStore(), "Expected preStore() to have been invoked.");
+    Assertions.assertTrue(
+        StoreListener.isPostStore(), "Expected postStore() to have been invoked.");
   }
 
   /** Test instantiation of InstanceLifecycleListener where class value is null */
+  @Test
   public void testPCPointListenerNullClasses() {
     String pmfname = "testInstanceLifecycleListenerClassesNull";
     pmf = JDOHelper.getPersistenceManagerFactory(overrides, pmfname);
     makePersistent();
-    assertTrue("Expected preStore() to have been invoked.", StoreListener.isPreStore());
-    assertTrue("Expected postStore() to have been invoked.", StoreListener.isPostStore());
+    Assertions.assertTrue(StoreListener.isPreStore(), "Expected preStore() to have been invoked.");
+    Assertions.assertTrue(
+        StoreListener.isPostStore(), "Expected postStore() to have been invoked.");
   }
 
   protected void makePersistent() {

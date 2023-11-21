@@ -31,7 +31,7 @@ import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Ordering Specification <br>
@@ -62,16 +62,8 @@ public class OrderingSpecification extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.6-1 (OrderingSpecification) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(OrderingSpecification.class);
-  }
-
   /** */
+  @Test
   public void testPositiveCompanyQueries0() {
     // nulls first
     List<DentalInsurance> expected =
@@ -112,6 +104,7 @@ public class OrderingSpecification extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPositiveCompanyQueries1() {
     // nulls last
     List<DentalInsurance> expected =
@@ -152,6 +145,7 @@ public class OrderingSpecification extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
 

@@ -24,7 +24,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Refresh All Side Effects <br>
@@ -52,15 +52,6 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
       new ArrayList<>(); // Collection of persistent instances
   private boolean useCollection = true;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RefreshAllSideEffects.class);
-  }
-
   /** */
   @Override
   public void localSetUp() {
@@ -80,12 +71,14 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
   }
 
   /** */
+  @Test
   public void testRefreshAllWithCollection() {
     useCollection = true;
     runtest();
   }
 
   /** */
+  @Test
   public void testRefreshAllWithArray() {
     useCollection = false;
     runtest();

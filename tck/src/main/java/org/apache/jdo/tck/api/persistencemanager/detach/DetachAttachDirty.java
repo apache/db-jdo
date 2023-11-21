@@ -17,7 +17,7 @@
 package org.apache.jdo.tck.api.persistencemanager.detach;
 
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test DetachAttach <br>
@@ -32,16 +32,8 @@ public class DetachAttachDirty extends DetachTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.6.8-26 (DetachAttachDirty) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DetachAttach.class);
-  }
-
   /** */
+  @Test
   public void testAttachDirty() {
     Cart detachedCart = createDetachedInstance(ASSERTION_FAILED);
     pm.currentTransaction().begin();

@@ -22,7 +22,7 @@ import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackNonPersistFdsClass;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Calling InstanceCallbacks Postload Method <br>
@@ -51,14 +51,7 @@ public class CallingJdoPostload extends JDO_Test {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A10.1-1 (CallingJdoPostload) failed";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(CallingJdoPostload.class);
-  }
+  public void runTest() {}
 
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -69,6 +62,7 @@ public class CallingJdoPostload extends JDO_Test {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
     Transaction t = pm.currentTransaction();

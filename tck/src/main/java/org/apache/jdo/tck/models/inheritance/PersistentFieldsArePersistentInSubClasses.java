@@ -23,7 +23,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.inheritance.AllPersist4;
 import org.apache.jdo.tck.pc.inheritance.Constants;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Persistent Fields Are Persistent in SubClasses <br>
@@ -39,15 +39,6 @@ public class PersistentFieldsArePersistentInSubClasses extends TestParts {
       "Assertion A6.5-4 (PersistentFieldsArePersistentInSubClasses) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(PersistentFieldsArePersistentInSubClasses.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -56,6 +47,7 @@ public class PersistentFieldsArePersistentInSubClasses extends TestParts {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

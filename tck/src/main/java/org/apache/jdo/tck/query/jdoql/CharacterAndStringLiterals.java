@@ -23,7 +23,7 @@ import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.pc.mylib.QPrimitiveTypes;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Character and String Literals. <br>
@@ -74,16 +74,8 @@ public class CharacterAndStringLiterals extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(CharacterAndStringLiterals.class);
-  }
-
   /** */
+  @Test
   public void testPositive1() {
     Object expected = getTransientMylibInstancesAsList("primitiveTypesCharacterStringLiterals");
 
@@ -115,6 +107,7 @@ public class CharacterAndStringLiterals extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPositive2() {
     Object expected = getTransientMylibInstancesAsList("primitiveTypesCharacterStringLiterals");
 
@@ -146,6 +139,7 @@ public class CharacterAndStringLiterals extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);

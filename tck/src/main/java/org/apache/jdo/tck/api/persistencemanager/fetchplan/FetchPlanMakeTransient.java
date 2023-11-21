@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 import java.util.Collection;
 import java.util.HashSet;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test FetchPlanMakeTransient <br>
@@ -39,16 +39,8 @@ public class FetchPlanMakeTransient extends AbstractFetchPlanTest {
   private static final String ASSERTION_FAILED =
       "Assertion 12.7.1 (FetchPlanMakeTransient) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(FetchPlanMakeTransient.class);
-  }
-
   /** */
+  @Test
   public void testMakeTransientAllCollection() {
     setBothGroup();
     pm.currentTransaction().begin();
@@ -62,6 +54,7 @@ public class FetchPlanMakeTransient extends AbstractFetchPlanTest {
   }
 
   /** */
+  @Test
   public void testMakeTransientAllArray() {
     setBothGroup();
     pm.currentTransaction().begin();
@@ -73,6 +66,7 @@ public class FetchPlanMakeTransient extends AbstractFetchPlanTest {
   }
 
   /** */
+  @Test
   public void testMakeTransient() {
     setBothGroup();
     pm.currentTransaction().begin();

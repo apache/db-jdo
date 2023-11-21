@@ -24,7 +24,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Make Nontransactional a Dirty Instance <br>
@@ -39,15 +39,6 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
   /** */
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.7-28 (MakeNontransactionalDirtyInstance) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakeNontransactionalDirtyInstance.class);
-  }
 
   private PCPoint p1 = null;
   private PCPoint p2 = null;
@@ -71,6 +62,7 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
   private final Collection<PCPoint> ccol2 = new HashSet<>();
 
   /** */
+  @Test
   public void testMakeNontransactional() {
     pm = getPM();
     /*  call with an explicit persistent dirty parameter instance */

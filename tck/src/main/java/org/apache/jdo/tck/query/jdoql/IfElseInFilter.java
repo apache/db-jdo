@@ -29,7 +29,7 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Use of If Else expression in filter <br>
@@ -93,16 +93,8 @@ public class IfElseInFilter extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(IfElseInFilter.class);
-  }
-
   /** */
+  @Test
   public void testPositive0() {
     // simple If/Else using literals
     List<FullTimeEmployee> expected =
@@ -138,6 +130,7 @@ public class IfElseInFilter extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
+  @Test
   public void testPositive1() {
     // simple If/Else using relationships
     List<Employee> expected =
@@ -177,6 +170,7 @@ public class IfElseInFilter extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
+  @Test
   public void testPositive2() {
     // multiple If/Else with distinct conditions
     List<FullTimeEmployee> expected =
@@ -217,6 +211,7 @@ public class IfElseInFilter extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
+  @Test
   public void testPositive3() {
     // multiple If/Else with overlapping conditions
     List<FullTimeEmployee> expected =
@@ -256,6 +251,7 @@ public class IfElseInFilter extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);

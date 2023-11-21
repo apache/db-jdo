@@ -23,7 +23,7 @@ import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Negative Range. <br>
@@ -39,15 +39,7 @@ public class NegativeRange extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.8-2 (NegativeRange) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NegativeRange.class);
-  }
-
+  @Test
   public void testNonUnique0() {
     Object expected = Arrays.asList();
 
@@ -76,6 +68,7 @@ public class NegativeRange extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
 
+  @Test
   public void testNonUnique1() {
     Object expected = Arrays.asList();
 
@@ -104,6 +97,7 @@ public class NegativeRange extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
 
+  @Test
   public void testUnique0() {
     Object expected = null;
 
@@ -132,6 +126,7 @@ public class NegativeRange extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
 
+  @Test
   public void testUnique1() {
     Object expected = null;
 

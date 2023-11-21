@@ -18,7 +18,8 @@ package org.apache.jdo.tck.api.persistencemanager.detach;
 
 import javax.jdo.JDOUserException;
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test DetachAttach <br>
@@ -33,26 +34,20 @@ public class CopyOnAttachFalse extends DetachTest {
 
   private static final String ASSERTION_FAILED = "Assertion A12.6.8 (CopyOnAttachFalse) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(CopyOnAttachFalse.class);
-  }
-
   /** */
+  @Test
   public void testAttachClean() {
     Cart detachedCart = createDetachedInstance(ASSERTION_FAILED);
     pm.setCopyOnAttach(false);
     pm.currentTransaction().begin();
     Cart attachedCart = pm.makePersistent(detachedCart);
-    assertTrue("Expected attached object to == detached object.", attachedCart == detachedCart);
+    Assertions.assertTrue(
+        attachedCart == detachedCart, "Expected attached object to == detached object.");
     pm.currentTransaction().commit();
   }
 
   /** */
+  @Test
   public void testAttachDirty() {
     Cart detachedCart = createDetachedInstance(ASSERTION_FAILED);
     pm.setCopyOnAttach(false);
@@ -60,11 +55,13 @@ public class CopyOnAttachFalse extends DetachTest {
     cartEntry1.setQuantity(500);
     goldenCartEntry.setQuantity(500);
     Cart attachedCart = pm.makePersistent(detachedCart);
-    assertTrue("Expected attached object to == detached object.", attachedCart == detachedCart);
+    Assertions.assertTrue(
+        attachedCart == detachedCart, "Expected attached object to == detached object.");
     pm.currentTransaction().commit();
   }
 
   /** */
+  @Test
   public void testNegativeAttachClean() {
     Cart detachedCart = createDetachedInstance(ASSERTION_FAILED);
     pm.setCopyOnAttach(false);

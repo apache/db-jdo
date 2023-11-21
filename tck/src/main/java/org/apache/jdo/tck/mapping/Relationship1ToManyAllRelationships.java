@@ -25,7 +25,8 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Relationship1ToManyAllRelationships <br>
@@ -49,15 +50,6 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   Department dept2 = null;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Relationship1ToManyAllRelationships.class);
-  }
-
-  /**
    * @see AbstractRelationshipTest#localSetUp()
    */
   @Override
@@ -75,20 +67,21 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
       dept2 = (Department) pm.getObjectById(dept2Oid);
 
       // Preconditions
-      assertTrue(
+      Assertions.assertTrue(
+          emp1.getDepartment() == dept1,
           ASSERTION_FAILED
               + ": Test aborted, precondition is false; "
-              + "expected emp.getDepartment()to be dept1",
-          emp1.getDepartment() == dept1);
-      assertTrue(
+              + "expected emp.getDepartment()to be dept1");
+      Assertions.assertTrue(
+          dept1.getEmployees().contains(emp1),
           ASSERTION_FAILED
               + ": Test aborted, precondition is false; "
-              + "expected dept.getEmployees() to contain emp1",
-          dept1.getEmployees().contains(emp1));
+              + "expected dept.getEmployees() to contain emp1");
     }
   }
 
   /** */
+  @Test
   public void testSetToExistingFromMappedSide() {
     testMethod = "testSetToExistingFromMappedSide";
     if (isTestToBePerformed) {
@@ -132,6 +125,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   }
 
   /** */
+  @Test
   public void testAddExistingFromMappedbySide() {
     testMethod = "testAddExistingFromMappedbySide";
     if (isTestToBePerformed) {
@@ -178,6 +172,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   }
 
   /** */
+  @Test
   public void testReplaceFromMappedbySide() {
     testMethod = "testReplaceFromMappedbySide";
     if (isTestToBePerformed) {
@@ -226,6 +221,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   }
 
   /** */
+  @Test
   public void testAddNewFromMappedbySide() {
     testMethod = "testAddNewFromMappedbySide";
     if (isTestToBePerformed) {
@@ -264,6 +260,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   }
 
   /** */
+  @Test
   public void testSetToNullFromMappedSide() {
     testMethod = "testSetToNullFromMappedSide";
     if (isTestToBePerformed) {
@@ -295,6 +292,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   }
 
   /** */
+  @Test
   public void testSetToNullFromMappedbySide() {
     testMethod = "testSetToNullFromMappedbySide";
     if (isTestToBePerformed) {
@@ -326,6 +324,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   }
 
   /** */
+  @Test
   public void testSetToNewFromMappedSide() {
     testMethod = "testSetToNewFromMappedSide";
     if (isTestToBePerformed) {
@@ -337,11 +336,11 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
       Object deptNewOid = pm.getObjectId(deptNew);
       pm.flush();
 
-      assertFalse(
+      Assertions.assertFalse(
+          deptNewOid == null,
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected deptNewOid to be non-null",
-          deptNewOid == null);
+              + "expected deptNewOid to be non-null");
 
       // Postcondition
       deferredAssertTrue(
@@ -376,6 +375,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   }
 
   /** */
+  @Test
   public void testRemoveFromMappedbySide() {
     testMethod = "testRemoveFromMappedbySide";
     if (isTestToBePerformed) {
@@ -407,6 +407,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   }
 
   /** */
+  @Test
   public void testDeleteFromMappedSide() {
     testMethod = "testDeleteFromMappedSide";
     if (isTestToBePerformed) {
@@ -439,6 +440,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
   }
 
   /** */
+  @Test
   public void testDeleteFromMappedbySide() {
     testMethod = "testDeleteFromMappedbySide";
     if (isTestToBePerformed) {

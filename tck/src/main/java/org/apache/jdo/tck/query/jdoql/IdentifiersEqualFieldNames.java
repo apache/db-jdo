@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Identifiers Equal Field Names. <br>
@@ -41,16 +41,8 @@ public class IdentifiersEqualFieldNames extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-43 (IdentifiersEqualFieldNames) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(IdentifiersEqualFieldNames.class);
-  }
-
   /** */
+  @Test
   public void testPositive0() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -82,6 +74,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPositive1() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -116,6 +109,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive2() {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
@@ -149,6 +143,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive3() {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
@@ -181,6 +176,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive4() {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 

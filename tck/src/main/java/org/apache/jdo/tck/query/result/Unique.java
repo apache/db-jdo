@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Unique. <br>
@@ -40,17 +40,8 @@ public class Unique extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.11-1 (Unique) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Unique.class);
-  }
-
   /** */
+  @Test
   public void testPositive0() {
     Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
@@ -82,6 +73,7 @@ public class Unique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPositive1() {
     Object expected = null;
 
@@ -113,6 +105,7 @@ public class Unique extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPositive2() {
     Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
@@ -144,6 +137,7 @@ public class Unique extends QueryTest {
   }
 
   @SuppressWarnings("unchecked")
+  @Test
   public void testNegative() {
     String singleString = "SELECT UNIQUE FROM " + Person.class.getName();
 

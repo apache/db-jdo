@@ -22,7 +22,7 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> No Candidate Class. <br>
@@ -36,15 +36,6 @@ public class NoCandidateClass extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.7-3 (CandidateClass) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NoCandidateClass.class);
-  }
 
   /** The array of valid SQL queries. */
   private static final String[] VALID_SQL_QUERIES = {"SELECT firstname, lastname FROM {0}.persons"};
@@ -62,6 +53,7 @@ public class NoCandidateClass extends QueryTest {
   };
 
   /** */
+  @Test
   public void testNamedQuery() {
     if (isSQLSupported()) {
       int index = 0;
@@ -72,6 +64,7 @@ public class NoCandidateClass extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNoCandidateClass() {
     if (isSQLSupported()) {
       int index = 0;

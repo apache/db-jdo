@@ -24,7 +24,7 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Projected Second Class Objects Do Not Track Their Changes <br>
@@ -48,15 +48,6 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
     cal.set(1970, 0, 1, 0, 0, 0);
     cal.set(Calendar.MILLISECOND, 0);
     expectedDate = cal.getTime();
-  }
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ProjectedSCODoesNotTrackChanges.class);
   }
 
   /**
@@ -86,6 +77,7 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
    * This tests that when an embedded field is selected and modified, there is no change in the
    * owned instance.
    */
+  @Test
   public void testEmbeddedField() {
     String testZip = "94040";
     pm = getPM();
@@ -125,6 +117,7 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
    * This tests that when a Date field is selected and modified, there is no change in the owned
    * instance.
    */
+  @Test
   public void testDateField() {
     pm = getPM();
     pm.currentTransaction().begin();

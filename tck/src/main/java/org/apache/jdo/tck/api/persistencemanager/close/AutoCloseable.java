@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.close;
 
 import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> AutoCloseable <br>
@@ -34,17 +34,9 @@ public class AutoCloseable extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED = "Assertion A12.6-? (AutoCloseable) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AutoCloseable.class);
-  }
-
-  /**
    * The method creates a pm with try-with-resources and checks that it is closed after the block.
    */
+  @Test
   public void testTryWithResource() {
 
     try (PersistenceManager pm1 = getPM()) {
@@ -65,6 +57,7 @@ public class AutoCloseable extends PersistenceManagerTest {
    * The method creates a pm with try-with-resources and checks that it is closed after the block,
    * if the block is ended with an exception.
    */
+  @Test
   public void testTryWithResourceThrowingException() {
 
     try (PersistenceManager pm1 = getPM()) {

@@ -19,7 +19,7 @@ package org.apache.jdo.tck.query.api;
 import javax.jdo.JDOUserException;
 import org.apache.jdo.tck.pc.query.NamedQueriesSample;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> NamedQueryRepeatableAnnotations <br>
@@ -33,16 +33,8 @@ public class NamedQueryRepeatableAnnotations extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A19.?? (NamedQueryRepeatableAnnotations) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NamedQueryRepeatableAnnotations.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     try {
       getPM().newNamedQuery(NamedQueriesSample.class, "NameIsJohn");

@@ -23,7 +23,7 @@ import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> New Named Query. <br>
@@ -50,16 +50,8 @@ public class NewNamedQuery extends QueryTest {
     new FullName("emp1First", "emp1Last")
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NewNamedQuery.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     int index = 0;
     executeNamedQuery(Person.class, "validNotUnique", expectedResult[index], true);
@@ -69,6 +61,7 @@ public class NewNamedQuery extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     executeNamedQuery(Person.class, "invalidUnique", null, false);
   }

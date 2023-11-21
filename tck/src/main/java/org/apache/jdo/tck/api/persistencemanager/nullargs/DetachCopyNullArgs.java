@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> detachCopy with Null Arguments <br>
@@ -32,15 +32,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * elements, and the null elements will be ignored.]
  */
 public class DetachCopyNullArgs extends PersistenceManagerNullsTest {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DetachCopyNullArgs.class);
-  }
 
   static final MethodUnderTest detachCopy = new MethodUnderTestDetachCopy();
 
@@ -62,16 +53,19 @@ public class DetachCopyNullArgs extends PersistenceManagerNullsTest {
   }
 
   /** Test that detachCopy() with null valued argument does nothing. */
+  @Test
   public void testDetachCopyNullObject() {
     executeNullObjectParameterReturn(detachCopy, "detachCopy(null)");
   }
 
   /** Test that detachCopyAll() with null valued Collection argument throws NullPointerException. */
+  @Test
   public void testDetachCopyNullCollection() {
     executeNullCollectionParameterReturn(detachCopy, "detachCopyAll((Collection)null)");
   }
 
   /** Test that detachCopyAll() with null valued array argument throws NullPointerException. */
+  @Test
   public void testDetachCopyNullArray() {
     executeNullArrayParameterReturn(detachCopy, "detachCopyAll((Array)null)");
   }
@@ -80,6 +74,7 @@ public class DetachCopyNullArgs extends PersistenceManagerNullsTest {
    * Test that detachCopyAll() with a null element of a Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testDetachCopyCollectionNullElement() {
     executeCollectionNullElementReturn(collNullElem, detachCopy, "detachCopyAll(Collection)");
   }
@@ -87,6 +82,7 @@ public class DetachCopyNullArgs extends PersistenceManagerNullsTest {
   /**
    * Test that detachCopyAll() with a null element of a array argument throws NullPointerException.
    */
+  @Test
   public void testDetachCopyArrayNullElement() {
     executeArrayNullElementReturn(arrayNullElem, detachCopy, "detachCopyAll(Array)");
   }

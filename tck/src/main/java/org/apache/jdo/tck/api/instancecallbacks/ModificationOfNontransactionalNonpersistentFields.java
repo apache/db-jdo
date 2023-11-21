@@ -22,7 +22,7 @@ import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackNonPersistFdsClass;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Modification of Nontransactional Nonpersistent Fields <br>
@@ -48,14 +48,7 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
   private static final String ASSERTION_FAILED =
       "Assertion A6.4.1-3 (ModificationOfNontransactionalNonpersistentFields) failed";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ModificationOfNontransactionalNonpersistentFields.class);
-  }
+  public void runTest() {}
 
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -66,6 +59,7 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
     Transaction t = pm.currentTransaction();

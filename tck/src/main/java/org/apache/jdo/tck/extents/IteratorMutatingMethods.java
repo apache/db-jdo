@@ -19,7 +19,7 @@ package org.apache.jdo.tck.extents;
 
 import java.util.Iterator;
 import javax.jdo.Extent;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Iterator Mutating Methods <br>
@@ -35,16 +35,8 @@ public class IteratorMutatingMethods extends ExtentTest {
   private static final String ASSERTION_FAILED =
       "Assertion A15.3-4 (IteratorMutatingMethods) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(IteratorMutatingMethods.class);
-  }
-
   /** */
+  @Test
   public void test() {
     beginTransaction();
     Extent<?> ex = getExtent();

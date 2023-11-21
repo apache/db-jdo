@@ -24,7 +24,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> White Space is a Character and is Ignored <br>
@@ -39,18 +39,10 @@ public class WhiteSpaceIsACharacterAndIgnored extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-6 (WhiteSpaceIsACharacterAndIgnored) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(WhiteSpaceIsACharacterAndIgnored.class);
-  }
-
   List<PCPoint> expected = null;
 
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
 

@@ -51,13 +51,13 @@ public class InstallSchema extends AbstractTCKMojo {
       if (cfgList != null) {
         System.out.println("cfgList is " + cfgList);
         cfgs = new HashSet<String>();
-        PropertyUtils.string2Set(cfgList, cfgs);
+        PropertyUtils.string2Collection(cfgList, cfgs);
       } else {
         // Fallback to "src/conf/main/resources/configurations.list"
         setCfgListFromFile();
         if (cfgList != null) {
           cfgs = new HashSet<String>();
-          PropertyUtils.string2Set(cfgList, cfgs);
+          PropertyUtils.string2Collection(cfgList, cfgs);
         }
 
         if (cfgList == null) {
@@ -68,8 +68,8 @@ public class InstallSchema extends AbstractTCKMojo {
       }
     }
 
-    PropertyUtils.string2Set(dblist, dbs);
-    PropertyUtils.string2Set(identitytypes, idtypes);
+    PropertyUtils.string2Collection(dblist, dbs);
+    PropertyUtils.string2Collection(identitytypes, idtypes);
     PropertyUtils.mappingsSet(cfgs, confDirectory, mappings);
     System.out.println(
         "*>Schemas to be installed for \n  configurations: "
@@ -152,7 +152,7 @@ public class InstallSchema extends AbstractTCKMojo {
             System.out.println("FAILED!");
             ex.printStackTrace();
             System.out.println("*> Classpath is ");
-            new Utilities().printClasspath();
+            Utilities.printClasspath();
             System.out.println(
                 "*> jdo.tck.basedir is \n    " + System.getProperty("jdo.tck.basedir"));
             System.out.println(

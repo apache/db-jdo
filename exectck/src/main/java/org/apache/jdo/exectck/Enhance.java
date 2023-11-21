@@ -84,6 +84,10 @@ public class Enhance extends AbstractTCKMojo {
   @Parameter(property = "jdo.tck.doEnhance", defaultValue = "true", required = true)
   private boolean doEnhance;
 
+  /** To run the Enhance plugin goal in verbose mode. */
+  @Parameter(property = "jdo.tck.runTCKVerbose", defaultValue = "false", required = true)
+  private boolean runtckVerbose;
+
   /** Root of the TCK source installation. */
   @Parameter(
       property = "project.src.directory",
@@ -100,7 +104,7 @@ public class Enhance extends AbstractTCKMojo {
     }
 
     idtypes = new HashSet<String>();
-    PropertyUtils.string2Set(identitytypes, idtypes);
+    PropertyUtils.string2Collection(identitytypes, idtypes);
 
     // Reset logfile content (may not be empty if previous run crashed)
     resetFileContent(implLogFile);
@@ -156,8 +160,10 @@ public class Enhance extends AbstractTCKMojo {
         if (loggingPropsCl != null) {
           Thread.currentThread().setContextClassLoader(loggingPropsCl);
         }
-        System.out.println("ClassLoader ContextClassLoader:");
-        Utilities.printClasspath(Thread.currentThread().getContextClassLoader());
+        if (runtckVerbose) {
+          System.out.println("ClassLoader ContextClassLoader:");
+          Utilities.printClasspath(Thread.currentThread().getContextClassLoader());
+        }
         System.out.println("Get enhancer");
         JDOEnhancer enhancer = JDOHelper.getEnhancer(enhancerLoader);
         System.out.println("enhancer.setVerbose()");
@@ -279,8 +285,10 @@ public class Enhance extends AbstractTCKMojo {
       }
       enhancerLoader =
           new URLClassLoader(cpList1.toArray(classPathURLs1), getClass().getClassLoader());
-      System.out.println("ClassLoader enhancerLoader:");
-      Utilities.printClasspath(enhancerLoader);
+      if (runtckVerbose) {
+        System.out.println("ClassLoader enhancerLoader:");
+        Utilities.printClasspath(enhancerLoader);
+      }
     } catch (MalformedURLException ex) {
       Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
     }

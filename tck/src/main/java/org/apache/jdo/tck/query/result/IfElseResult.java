@@ -29,7 +29,7 @@ import org.apache.jdo.tck.pc.company.QDentalInsurance;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> IfElseResult. <br>
@@ -93,16 +93,8 @@ public class IfElseResult extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NullResults.class);
-  }
-
   /** */
+  @Test
   public void testPositive0() {
     Object expected =
         Arrays.asList("emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last", "No employee");
@@ -139,6 +131,7 @@ public class IfElseResult extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive1() {
     Object expected =
         Arrays.asList(
@@ -180,6 +173,7 @@ public class IfElseResult extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive2() {
     Object expected = Arrays.asList("No reviewer", "Reviewer team", "Single reviewer");
 
@@ -218,6 +212,7 @@ public class IfElseResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);

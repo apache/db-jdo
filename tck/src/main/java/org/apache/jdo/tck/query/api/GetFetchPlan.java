@@ -22,7 +22,8 @@ import javax.jdo.FetchPlan;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.mylib.PCClass;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Get Fetch Plan. <br>
@@ -40,15 +41,6 @@ public class GetFetchPlan extends QueryTest {
   private static final String FETCH_GROUP_1 = "fetchGroup1";
   private static final String FETCH_GROUP_2 = "fetchGroup2";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetFetchPlan.class);
-  }
-
   /** */
   private Query<PCClass> createQuery() {
     Query<PCClass> query = getPM().newQuery(PCClass.class, "true");
@@ -57,6 +49,7 @@ public class GetFetchPlan extends QueryTest {
   }
 
   /** */
+  @Test
   public void testFetchGroup1() {
     // localSetUp closes the PM
     Query<PCClass> query = createQuery();
@@ -65,6 +58,7 @@ public class GetFetchPlan extends QueryTest {
     cleanupPM();
   }
 
+  @Test
   public void testFetchGroup2() {
     // localSetUp closes the PM
     Query<PCClass> query = createQuery();
@@ -92,9 +86,9 @@ public class GetFetchPlan extends QueryTest {
   private void checkFetchGroup1(Query<PCClass> query) {
     FetchPlan fetchplan = query.getFetchPlan();
     Collection<String> fetchgroups = fetchplan.getGroups();
-    assertTrue(
-        "FetchPlan should include fetchGroup1 and not fetchGroup2",
-        fetchgroups.contains(FETCH_GROUP_1) && !fetchgroups.contains(FETCH_GROUP_2));
+    Assertions.assertTrue(
+        fetchgroups.contains(FETCH_GROUP_1) && !fetchgroups.contains(FETCH_GROUP_2),
+        "FetchPlan should include fetchGroup1 and not fetchGroup2");
   }
 
   /**
@@ -111,9 +105,9 @@ public class GetFetchPlan extends QueryTest {
     fetchplan.addGroup(FETCH_GROUP_2);
     Collection<String> fetchgroups = fetchplan.getGroups();
     try {
-      assertTrue(
-          "FetchPlan should include fetchGroup1 and fetchGroup2",
-          fetchgroups.contains(FETCH_GROUP_1) && fetchgroups.contains(FETCH_GROUP_2));
+      Assertions.assertTrue(
+          fetchgroups.contains(FETCH_GROUP_1) && fetchgroups.contains(FETCH_GROUP_2),
+          "FetchPlan should include fetchGroup1 and fetchGroup2");
     } finally {
       query.getFetchPlan().removeGroup(FETCH_GROUP_2);
     }

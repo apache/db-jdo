@@ -26,7 +26,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Execute Query with Map <br>
@@ -44,16 +44,8 @@ public class ExecuteQueryWithMap extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.1-5 (ExecuteQueryWithMap) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ExecuteQueryWithMap.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
 

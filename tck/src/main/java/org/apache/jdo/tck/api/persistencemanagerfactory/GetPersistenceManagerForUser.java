@@ -21,7 +21,7 @@ import java.util.Properties;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>GetPersistenceManagerForUser of PersistenceManagerFactory <br>
@@ -43,15 +43,6 @@ public class GetPersistenceManagerForUser extends JDO_Test {
   /** The value of the ConnectionPassword property. */
   private String password;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetPersistenceManagerForUser.class);
-  }
-
   /** */
   @Override
   protected void localSetUp() {
@@ -62,6 +53,7 @@ public class GetPersistenceManagerForUser extends JDO_Test {
   }
 
   /** */
+  @Test
   public void test() {
     PersistenceManager pm = null;
     try {

@@ -28,7 +28,7 @@ import javax.jdo.JDOFatalException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.lifecycle.StateTransitionObj;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test State Transitions <br>
@@ -41,15 +41,6 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
   /** */
   private static final String ASSERTION_FAILED =
       "Assertions A5.9-1 through A5.5.8 (serialization, detachment, attachment) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(StateTransitionsReturnedObjects.class);
-  }
 
   private Transaction transaction;
   private int scenario;
@@ -203,6 +194,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     generatePersistentInstances();
   }
 
+  @Test
   public void test() {
     scenario = DATASTORE_TX;
     checkTransitions();

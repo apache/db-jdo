@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Shape of Result. <br>
@@ -37,15 +37,6 @@ public class ShapeOfResult extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.7-4 (ShapeOfResult) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ShapeOfResult.class);
-  }
 
   /** The array of valid SQL queries. */
   private static final String[] VALID_SQL_QUERIES = {
@@ -105,6 +96,7 @@ public class ShapeOfResult extends QueryTest {
   };
 
   /** */
+  @Test
   public void testCanidateClass() {
     if (isSQLSupported()) {
       int index = 0;
@@ -131,6 +123,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSingleColumn() {
     if (isSQLSupported()) {
       int index = 2;
@@ -157,6 +150,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMultipleColumn() {
     if (isSQLSupported()) {
       int index = 4;
@@ -183,6 +177,7 @@ public class ShapeOfResult extends QueryTest {
   }
 
   /** */
+  @Test
   public void testResultClass() {
     if (isSQLSupported()) {
       int index = 6;
@@ -210,6 +205,7 @@ public class ShapeOfResult extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testNegative() {
     if (isSQLSupported()) {
       String schema = getPMFProperty("javax.jdo.mapping.Schema");

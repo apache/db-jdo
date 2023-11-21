@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Set NonTransactionalRead of persistencemanagerfactory <br>
@@ -34,15 +34,6 @@ public class SetNonTransactionalRead extends JDO_Test {
   private static final String ASSERTION_FAILED =
       "Assertions A11.1-7,A11.1-8 (SetNonTransactionalRead) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetNonTransactionalRead.class);
-  }
-
   /** */
   @Override
   protected void localSetUp() {
@@ -51,6 +42,7 @@ public class SetNonTransactionalRead extends JDO_Test {
   }
 
   /** Set NonTransactionalRead to true or false and use getNonTransactionalRead value to verify. */
+  @Test
   public void test() {
     try {
       setNontransactionalRead(false);

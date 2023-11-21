@@ -24,7 +24,7 @@ import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManagerFactory;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>AfterCloseSetMethodsThrowException <br>
@@ -48,17 +48,9 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
   private static final String ASSERTION_FAILED =
       "Assertion A11.4-9A (AfterCloseSetMethodsThrowException) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AfterCloseSetMethodsThrowException.class);
-  }
-
   /** */
   @SuppressWarnings({"rawtypes", "unchecked"})
+  @Test
   public void test() {
     Class<String>[] stringParameters = new Class[] {String.class};
     Class<Boolean>[] booleanParameters = new Class[] {boolean.class};

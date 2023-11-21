@@ -24,7 +24,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.LocalTimeSample;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Supported LocalTime methods. <br>
@@ -50,16 +50,8 @@ public class SupportedLocalTimeMethods extends QueryTest {
   /** */
   private Object oidOfLocalTime2;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedLocalTimeMethods.class);
-  }
-
   /** */
+  @Test
   public void testHour() {
     final String filter = "localTime.getHour() == 14";
     PersistenceManager pm = getPM();
@@ -80,6 +72,7 @@ public class SupportedLocalTimeMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMinute() {
     final String filter = "localTime.getMinute() == 22";
     PersistenceManager pm = getPM();
@@ -100,6 +93,7 @@ public class SupportedLocalTimeMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSecond() {
     final String filter = "localTime.getSecond() == 25";
     PersistenceManager pm = getPM();

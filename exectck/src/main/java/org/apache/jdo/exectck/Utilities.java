@@ -21,12 +21,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.CharBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -34,7 +30,7 @@ import javax.jdo.JDOException;
 
 public class Utilities {
 
-  Utilities() {}
+  private Utilities() {}
 
   private static final String DATE_FORMAT_NOW = "yyyyMMdd-HHmmss";
 
@@ -83,7 +79,7 @@ public class Utilities {
     }
   }
 
-  public void printClasspath() {
+  public static void printClasspath() {
 
     // Get the System Classloader
     printClasspath(ClassLoader.getSystemClassLoader());
@@ -105,33 +101,17 @@ public class Utilities {
     }
   }
 
-  InvocationResult invokeTest(List<String> command) {
-    return invokeTest(new ProcessBuilder(command));
-  }
-
-  InvocationResult invokeTest(List<String> command, File directory) {
-    ProcessBuilder builder = new ProcessBuilder(command);
-    builder.directory(directory);
-    return invokeTest(builder);
-  }
-
-  private InvocationResult invokeTest(ProcessBuilder builder) {
-    InvocationResult result = new InvocationResult();
+  public static int invokeCommand(List<String> command, File directory, String logFile) {
+    ProcessBuilder pb = new ProcessBuilder(command);
+    pb.directory(directory);
+    if (logFile != null) {
+      File log = new File(logFile);
+      pb.redirectErrorStream(true);
+      pb.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
+    }
     try {
-      Process proc = builder.start();
-      InputStream stdout = proc.getInputStream();
-      InputStream stderr = proc.getErrorStream();
-      CharBuffer outBuffer = CharBuffer.allocate(1000000);
-      CharBuffer errBuffer = CharBuffer.allocate(1000000);
-      Thread outputThread = createReaderThread(stdout, outBuffer);
-      Thread errorThread = createReaderThread(stderr, errBuffer);
-      int exitValue = proc.waitFor();
-      result.setExitValue(exitValue);
-      errorThread.join(10000); // wait ten seconds to get stderr after process terminates
-      outputThread.join(10000); // wait ten seconds to get stdout after process terminates
-      result.setErrorString(errBuffer.toString());
-      result.setOutputString(outBuffer.toString());
-      // wait until the Enhancer command finishes
+      Process proc = pb.start();
+      return proc.waitFor();
     } catch (InterruptedException ex) {
       // Restore interrupted state...
       Thread.currentThread().interrupt();
@@ -145,55 +125,7 @@ public class Utilities {
       for (Throwable throwable : throwables) {
         throwable.printStackTrace();
       }
-    }
-    return result;
-  }
-
-  private Thread createReaderThread(final InputStream input, final CharBuffer output) {
-    final Reader reader = new InputStreamReader(input);
-    Thread thread =
-        new Thread(
-            () -> {
-              try {
-                while (-1 != reader.read(output))
-                  ;
-              } catch (IOException e) {
-                e.printStackTrace();
-              } finally {
-                output.flip();
-              }
-            });
-    thread.start();
-    return thread;
-  }
-
-  static class InvocationResult {
-    private int exitValue;
-    private String errorString;
-    private String outputString;
-
-    int getExitValue() {
-      return exitValue;
-    }
-
-    private void setExitValue(int exitValue) {
-      this.exitValue = exitValue;
-    }
-
-    private void setErrorString(String errorString) {
-      this.errorString = errorString;
-    }
-
-    String getErrorString() {
-      return errorString;
-    }
-
-    private void setOutputString(String outputString) {
-      this.outputString = outputString;
-    }
-
-    String getOutputString() {
-      return outputString;
+      return 1;
     }
   }
 }

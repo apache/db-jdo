@@ -21,7 +21,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.FieldsOfByte;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Support of field type Byte. <br>
@@ -37,15 +37,6 @@ public class TestFieldsOfByte extends JDO_Test {
   private static final String ASSERTION_FAILED = "Assertion A6.4.3-11 (TestFieldsOfByte) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(TestFieldsOfByte.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -54,6 +45,7 @@ public class TestFieldsOfByte extends JDO_Test {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

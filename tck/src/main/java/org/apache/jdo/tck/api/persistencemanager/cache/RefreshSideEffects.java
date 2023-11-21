@@ -21,11 +21,11 @@ import javax.jdo.JDOFatalException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
-import junit.framework.AssertionFailedError;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * <B>Title:</B> Refresh Side Effects <br>
@@ -48,17 +48,9 @@ public class RefreshSideEffects extends PersistenceManagerTest {
   static final int DELAY = 100;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RefreshSideEffects.class);
-  }
-
-  /**
    * @throws Exception exception
    */
+  @Test
   public void test() throws Exception {
     PersistenceManagerFactory pmf = getPMF();
     PersistenceManager pm1 = pmf.getPersistenceManager();

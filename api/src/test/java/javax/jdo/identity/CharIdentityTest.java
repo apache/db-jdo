@@ -22,12 +22,8 @@
 
 package javax.jdo.identity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import javax.jdo.JDONullIdentityException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -43,8 +39,8 @@ class CharIdentityTest extends SingleFieldIdentityTest {
     CharIdentity c1 = new CharIdentity(Object.class, 'a');
     CharIdentity c2 = new CharIdentity(Object.class, 'a');
     CharIdentity c3 = new CharIdentity(Object.class, 'b');
-    assertEquals(c1, c2, "Equal CharIdentity instances compare not equal.");
-    assertNotEquals(c1, c3, "Not equal CharIdentity instances compare equal");
+    Assertions.assertEquals(c1, c2, "Equal CharIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, c3, "Not equal CharIdentity instances compare equal");
   }
 
   @Test
@@ -52,15 +48,15 @@ class CharIdentityTest extends SingleFieldIdentityTest {
     CharIdentity c1 = new CharIdentity(Object.class, 'a');
     CharIdentity c2 = new CharIdentity(Object.class, Character.valueOf('a'));
     CharIdentity c3 = new CharIdentity(Object.class, Character.valueOf('b'));
-    assertEquals(c1, c2, "Equal CharIdentity instances compare not equal.");
-    assertNotEquals(c1, c3, "Not equal CharIdentity instances compare equal");
+    Assertions.assertEquals(c1, c2, "Equal CharIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, c3, "Not equal CharIdentity instances compare equal");
   }
 
   @Test
   void testToStringConstructor() {
     CharIdentity c1 = new CharIdentity(Object.class, 'a');
     CharIdentity c2 = new CharIdentity(Object.class, c1.toString());
-    assertEquals(c1, c2, "Equal CharIdentity instances compare not equal.");
+    Assertions.assertEquals(c1, c2, "Equal CharIdentity instances compare not equal.");
   }
 
   @Test
@@ -68,13 +64,13 @@ class CharIdentityTest extends SingleFieldIdentityTest {
     CharIdentity c1 = new CharIdentity(Object.class, 'a');
     CharIdentity c2 = new CharIdentity(Object.class, "a");
     CharIdentity c3 = new CharIdentity(Object.class, "b");
-    assertEquals(c1, c2, "Equal CharIdentity instances compare not equal.");
-    assertNotEquals(c1, c3, "Not equal CharIdentity instances compare equal");
+    Assertions.assertEquals(c1, c2, "Equal CharIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, c3, "Not equal CharIdentity instances compare equal");
   }
 
   @Test
   void testStringConstructorTooLong() {
-    assertThrows(
+    Assertions.assertThrows(
         IllegalArgumentException.class,
         () -> new CharIdentity(Object.class, "ab"),
         "No exception caught for String too long.");
@@ -82,7 +78,7 @@ class CharIdentityTest extends SingleFieldIdentityTest {
 
   @Test
   void testStringConstructorTooShort() {
-    assertThrows(
+    Assertions.assertThrows(
         IllegalArgumentException.class,
         () -> new CharIdentity(Object.class, ""),
         "No exception caught for String too short.");
@@ -97,31 +93,33 @@ class CharIdentityTest extends SingleFieldIdentityTest {
     Object sc1 = scis[0];
     Object sc2 = scis[1];
     Object sc3 = scis[2];
-    assertEquals(c1, sc1, "Equal CharIdentity instances compare not equal.");
-    assertEquals(c2, sc2, "Equal CharIdentity instances compare not equal.");
-    assertEquals(sc1, c2, "Equal CharIdentity instances compare not equal.");
-    assertEquals(sc2, c1, "Equal CharIdentity instances compare not equal.");
-    assertNotEquals(c1, sc3, "Not equal CharIdentity instances compare equal.");
-    assertNotEquals(sc1, c3, "Not equal CharIdentity instances compare equal.");
-    assertNotEquals(sc1, sc3, "Not equal CharIdentity instances compare equal.");
-    assertNotEquals(sc3, sc1, "Not equal CharIdentity instances compare equal.");
+    Assertions.assertEquals(c1, sc1, "Equal CharIdentity instances compare not equal.");
+    Assertions.assertEquals(c2, sc2, "Equal CharIdentity instances compare not equal.");
+    Assertions.assertEquals(sc1, c2, "Equal CharIdentity instances compare not equal.");
+    Assertions.assertEquals(sc2, c1, "Equal CharIdentity instances compare not equal.");
+    Assertions.assertNotEquals(c1, sc3, "Not equal CharIdentity instances compare equal.");
+    Assertions.assertNotEquals(sc1, c3, "Not equal CharIdentity instances compare equal.");
+    Assertions.assertNotEquals(sc1, sc3, "Not equal CharIdentity instances compare equal.");
+    Assertions.assertNotEquals(sc3, sc1, "Not equal CharIdentity instances compare equal.");
   }
 
   @Test
   void testGetKeyAsObjectPrimitive() {
     CharIdentity c1 = new CharIdentity(Object.class, '1');
-    assertEquals(c1.getKeyAsObject(), Character.valueOf('1'), "keyAsObject doesn't match.");
+    Assertions.assertEquals(
+        c1.getKeyAsObject(), Character.valueOf('1'), "keyAsObject doesn't match.");
   }
 
   @Test
   void testGetKeyAsObject() {
     CharIdentity c1 = new CharIdentity(Object.class, Character.valueOf('1'));
-    assertEquals(c1.getKeyAsObject(), Character.valueOf('1'), "keyAsObject doesn't match.");
+    Assertions.assertEquals(
+        c1.getKeyAsObject(), Character.valueOf('1'), "keyAsObject doesn't match.");
   }
 
   @Test
   void testBadConstructorNullCharacterParam() {
-    assertThrows(
+    Assertions.assertThrows(
         JDONullIdentityException.class,
         () -> new CharIdentity(Object.class, (Character) null),
         "Failed to catch expected exception.");
@@ -129,7 +127,7 @@ class CharIdentityTest extends SingleFieldIdentityTest {
 
   @Test
   void testBadConstructorNullStringParam() {
-    assertThrows(
+    Assertions.assertThrows(
         JDONullIdentityException.class,
         () -> new CharIdentity(Object.class, (String) null),
         "Failed to catch expected exception.");
@@ -141,12 +139,12 @@ class CharIdentityTest extends SingleFieldIdentityTest {
     CharIdentity c2 = new CharIdentity(Object.class, '1');
     CharIdentity c3 = new CharIdentity(Object.class, '2');
     CharIdentity c4 = new CharIdentity(Class.class, '1');
-    assertEquals(0, c1.compareTo(c2), "Equal CharIdentity instances compare not equal.");
-    assertTrue(
+    Assertions.assertEquals(0, c1.compareTo(c2), "Equal CharIdentity instances compare not equal.");
+    Assertions.assertTrue(
         c1.compareTo(c3) < 0, "Not equal CharIdentity instances have wrong compareTo result");
-    assertTrue(
+    Assertions.assertTrue(
         c3.compareTo(c1) > 0, "Not equal CharIdentity instances have wrong compareTo result");
-    assertTrue(
+    Assertions.assertTrue(
         c1.compareTo(c4) > 0, "Not equal CharIdentity instances have wrong compareTo result");
   }
 }

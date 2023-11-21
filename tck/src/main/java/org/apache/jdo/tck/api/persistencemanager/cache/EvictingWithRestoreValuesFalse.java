@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanager.cache;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Evicting With RestoreValues False <br>
@@ -46,15 +46,6 @@ public class EvictingWithRestoreValuesFalse extends PersistenceManagerTest {
       "Assertion A12.6.1-1 (EvictingWithRestoreValuesFalse) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(EvictingWithRestoreValuesFalse.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -64,6 +55,7 @@ public class EvictingWithRestoreValuesFalse extends PersistenceManagerTest {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
     PCPoint2 pt = getHollowInstance();

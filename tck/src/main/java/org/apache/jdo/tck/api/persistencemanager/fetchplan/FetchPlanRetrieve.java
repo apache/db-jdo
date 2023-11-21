@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 import java.util.Collection;
 import java.util.HashSet;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test FetchPlanRetrieve <br>
@@ -36,16 +36,8 @@ public class FetchPlanRetrieve extends AbstractFetchPlanTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion 12.7.1 (FetchPlanRetrieve) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(FetchPlanRetrieve.class);
-  }
-
   /** */
+  @Test
   public void testRetrieve() {
     setBothGroup();
     pm.currentTransaction().begin();
@@ -57,6 +49,7 @@ public class FetchPlanRetrieve extends AbstractFetchPlanTest {
   }
 
   /** */
+  @Test
   public void testRetrieveAllCollection() {
     setBothGroup();
     pm.currentTransaction().begin();
@@ -70,6 +63,7 @@ public class FetchPlanRetrieve extends AbstractFetchPlanTest {
   }
 
   /** */
+  @Test
   public void testRetrieveAllArray() {
     setBothGroup();
     pm.currentTransaction().begin();

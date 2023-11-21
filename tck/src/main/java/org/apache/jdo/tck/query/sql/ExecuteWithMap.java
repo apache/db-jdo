@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> ExecuteWithMap <br>
@@ -40,15 +40,6 @@ public class ExecuteWithMap extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.7-5 (ExecuteWithMap)";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ExecuteWithMap.class);
-  }
 
   /** The array of valid SQL queries. */
   private static final String[] VALID_SQL_QUERIES = {
@@ -119,6 +110,7 @@ public class ExecuteWithMap extends QueryTest {
   private static final Map<Object, Object>[] parameterMap = new Map[] {hm1, hm2, hm3, hm4};
 
   /** */
+  @Test
   public void testSetClass() {
     if (isSQLSupported()) {
       int index = 0;
@@ -168,6 +160,7 @@ public class ExecuteWithMap extends QueryTest {
   }
 
   /** */
+  @Test
   public void testNegative() {
     if (isSQLSupported()) {
       String query =

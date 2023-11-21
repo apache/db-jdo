@@ -22,7 +22,8 @@ import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
 import org.apache.jdo.tck.pc.company.MedicalInsurance;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Relationship1To1AllRelationships <br>
@@ -37,15 +38,6 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
   String testMethod = null;
   private static final String ASSERTION_FAILED =
       "Assertion A15-3.14 (Relationship1To1AllRelationships) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Relationship1To1AllRelationships.class);
-  }
 
   Object emp1Oid = null;
   Object emp2Oid = null;
@@ -76,34 +68,35 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
       medIns2 = (IMedicalInsurance) pm.getObjectById(medIns2Oid);
 
       // Preconditions
-      assertTrue(
+      Assertions.assertTrue(
+          emp1.getMedicalInsurance() == medIns1,
           ASSERTION_FAILED
               + testMethod
               + ": Test aborted, precondition is false; "
-              + "expected emp.getMedicalInsurance()to be medicalIns1",
-          emp1.getMedicalInsurance() == medIns1);
-      assertTrue(
+              + "expected emp.getMedicalInsurance()to be medicalIns1");
+      Assertions.assertTrue(
+          medIns1.getEmployee() == emp1,
           ASSERTION_FAILED
               + testMethod
               + ": Test aborted, precondition is false; "
-              + "expected ins.getEmployee() to be emp1",
-          medIns1.getEmployee() == emp1);
-      assertTrue(
+              + "expected ins.getEmployee() to be emp1");
+      Assertions.assertTrue(
+          emp2.getMedicalInsurance() == medIns2,
           ASSERTION_FAILED
               + testMethod
               + ": Test aborted, precondition is false; "
-              + "expected emp.getMedicalInsurance()to be medicalIns1",
-          emp2.getMedicalInsurance() == medIns2);
-      assertTrue(
+              + "expected emp.getMedicalInsurance()to be medicalIns1");
+      Assertions.assertTrue(
+          medIns2.getEmployee() == emp2,
           ASSERTION_FAILED
               + testMethod
               + ": Test aborted, precondition is false; "
-              + "expected ins.getEmployee() to be emp1",
-          medIns2.getEmployee() == emp2);
+              + "expected ins.getEmployee() to be emp1");
     }
   }
 
   /** */
+  @Test
   public void testSetToExistingFromMappedSide() {
     testMethod = "testSetToExistingFromMappedSide";
     if (isTestToBePerformed) {
@@ -153,6 +146,7 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
   }
 
   /** */
+  @Test
   public void testSetToExistingFromMappedBySide() {
     testMethod = "testSetToExistingFromMappedBySide";
     if (isTestToBePerformed) {
@@ -202,6 +196,7 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
   }
 
   /** */
+  @Test
   public void testSetToNullFromMappedSide() {
     testMethod = "testSetToNullFromMappedSide";
     if (isTestToBePerformed) {
@@ -233,6 +228,7 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
   }
 
   /** */
+  @Test
   public void testSetToNullFromMappedBySide() {
     testMethod = "testSetToNullFromMappedBySide";
     if (isTestToBePerformed) {
@@ -265,6 +261,7 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
   }
 
   /** */
+  @Test
   public void testSetToNewFromMappedSide() {
     testMethod = "testSetToNewFromMappedSide";
     if (isTestToBePerformed) {
@@ -277,11 +274,11 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
       Object empNewOid = pm.getObjectId(empNew);
       pm.flush();
 
-      assertFalse(
+      Assertions.assertFalse(
+          empNewOid == null,
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected empNewOid to be non-null",
-          empNewOid == null);
+              + "expected empNewOid to be non-null");
 
       // Postcondition
       deferredAssertTrue(
@@ -316,6 +313,7 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
   }
 
   /** */
+  @Test
   public void testSetToNewFromMappedBySide() {
     testMethod = "testSetToNewFromMappedBySide";
     if (isTestToBePerformed) {
@@ -327,11 +325,11 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
       Object medInsNewOid = pm.getObjectId(medInsNew);
       pm.flush();
 
-      assertFalse(
+      Assertions.assertFalse(
+          medInsNewOid == null,
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected medInsNewOid to be non-null",
-          medInsNewOid == null);
+              + "expected medInsNewOid to be non-null");
 
       // Postcondition
       deferredAssertTrue(
@@ -365,6 +363,7 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
     }
   }
   /** */
+  @Test
   public void testDeleteFromMappedSide() {
     testMethod = "testDeleteFromMappedSide";
     if (isTestToBePerformed) {
@@ -395,6 +394,7 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
   }
 
   /** */
+  @Test
   public void testDeleteFromMappedBySide() {
     testMethod = "testDeleteFromMappedBySide";
     if (isTestToBePerformed) {

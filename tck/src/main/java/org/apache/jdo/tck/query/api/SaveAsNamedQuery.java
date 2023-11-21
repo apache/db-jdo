@@ -22,7 +22,8 @@ import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> SaveAsNamedQuery. <br>
@@ -51,17 +52,9 @@ public class SaveAsNamedQuery extends QueryTest {
         })
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SaveAsNamedQuery.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testSave() {
     int index = 0;
     Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
@@ -78,7 +71,7 @@ public class SaveAsNamedQuery extends QueryTest {
 
     // Retrieve via the name, and execute
     Query<Person> namedQuery = getPM().newNamedQuery(Person.class, savedName);
-    assertNotNull(namedQuery);
+    Assertions.assertNotNull(namedQuery);
     executeJDOQuery(
         ASSERTION_FAILED,
         namedQuery,

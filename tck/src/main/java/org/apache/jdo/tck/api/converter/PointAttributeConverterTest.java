@@ -26,8 +26,9 @@ import org.apache.jdo.tck.pc.converter.IPCRect;
 import org.apache.jdo.tck.pc.converter.PCRect;
 import org.apache.jdo.tck.pc.converter.PCRectAnnotated;
 import org.apache.jdo.tck.pc.mylib.Point;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.PointToStringConverter;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>PointAttributeConverterTest <br>
@@ -44,15 +45,6 @@ public class PointAttributeConverterTest extends JDO_Test {
   private static final int LR_Y = 1;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(PointAttributeConverterTest.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -62,51 +54,61 @@ public class PointAttributeConverterTest extends JDO_Test {
   }
 
   /** Test method creating and storing a PCRectString instance. */
+  @Test
   public void testStorePCRectStringInstance() {
     runStoreIPCRectInstance(PCRect.class);
   }
 
   /** Test method reading a PCRectString instance from the datastore. */
+  @Test
   public void testReadPCRectStringInstance() {
     runReadIPCRectInstance(PCRect.class);
   }
 
   /** Test method modifying a PCRectString instance and storing in the datastore. */
+  @Test
   public void testModifyPCRectStringInstance() {
     runModifyIPCRectInstance(PCRect.class);
   }
 
   /** Test method running a PCRectString query with a query parameter of type Point. */
+  @Test
   public void testPCRectStringQueryWithPointParam() {
     runQueryWithPointParameter(PCRect.class);
   }
 
   /** Test method running a PCRectString query with a query parameter of type String. */
+  @Test
   public void testPCRectStringQueryWithStringParam() throws Exception {
     runQueryWithStringParameter(PCRect.class);
   }
 
   /** Test method creating and storing a PCRectStringAnnotated instance. */
+  @Test
   public void testStorePCRectStringAnnotatedInstance() {
     runStoreIPCRectInstance(PCRectAnnotated.class);
   }
 
   /** Test method reading a PCRectStringAnnotated instance from the datastore. */
+  @Test
   public void testReadPCRectStringAnnotatedInstance() {
     runReadIPCRectInstance(PCRectAnnotated.class);
   }
 
   /** Test method modifying a PCRectStringAnnotated instance and storing in the datastore. */
+  @Test
   public void testModifyPCRectStringAnnotatedInstance() {
     runModifyIPCRectInstance(PCRectAnnotated.class);
   }
 
   /** Test method running a PCRectStringAnnotated query with a query parameter of type String. */
+  @Test
   public void testPCRectStringAnnotatedQueryWithPointParam() {
     runQueryWithPointParameter(PCRectAnnotated.class);
   }
 
   /** Test method running a PCRectStringAnnotated query with a query parameter of type Point. */
+  @Test
   public void testPCRectStringAnnotatedQueryWithStringParam() throws Exception {
     runQueryWithStringParameter(PCRectAnnotated.class);
   }
@@ -126,9 +128,11 @@ public class PointAttributeConverterTest extends JDO_Test {
     createIPCRectInstances(pcrectClass, 1);
 
     // convertToDatastore should be called twice
-    assertEquals(2, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        2, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should not be called
-    assertEquals(0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
   }
 
   /**
@@ -160,14 +164,16 @@ public class PointAttributeConverterTest extends JDO_Test {
     pm.currentTransaction().commit();
 
     // convertToDatastore should not be called
-    assertEquals(0, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        0, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should be called twice
-    assertEquals(2, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        2, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
     // Check the values of the associated Point instances
-    assertEquals(UL_X, ul.getX());
-    assertEquals(UL_Y, ul.getY() == null ? 0 : ul.getY().intValue());
-    assertEquals(LR_X, lr.getX());
-    assertEquals(LR_Y, lr.getY() == null ? 0 : lr.getY().intValue());
+    Assertions.assertEquals(UL_X, ul.getX());
+    Assertions.assertEquals(UL_Y, ul.getY() == null ? 0 : ul.getY().intValue());
+    Assertions.assertEquals(LR_X, lr.getX());
+    Assertions.assertEquals(LR_Y, lr.getY() == null ? 0 : lr.getY().intValue());
   }
 
   /**
@@ -202,13 +208,15 @@ public class PointAttributeConverterTest extends JDO_Test {
     rect.setUpperLeft(new Point(UL_X + 1, UL_Y + 1));
     rect.setLowerRight(new Point(LR_X + 1, LR_Y + 1));
     // IPCRect instance should be dirty
-    assertTrue(JDOHelper.isDirty(rect));
+    Assertions.assertTrue(JDOHelper.isDirty(rect));
     tx.commit();
 
     // convertToDatastore should be called twice
-    assertEquals(2, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        2, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should be called twice
-    assertEquals(2, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        2, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
   }
 
   /**
@@ -225,9 +233,11 @@ public class PointAttributeConverterTest extends JDO_Test {
     nrOfAttrCalls = PointToStringConverter.getNrOfConvertToAttributeCalls();
     createIPCRectInstances(pcrectClass, 5);
     // convertToDatastore should be called twice per instance = 10 times
-    assertEquals(10, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        10, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should not be called
-    assertEquals(0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
 
     // Cleanup the 2nd-level cache and close the pm to make sure PCRect instances are not cached
     pm.getPersistenceManagerFactory().getDataStoreCache().evictAll(false, pcrectClass);
@@ -243,16 +253,16 @@ public class PointAttributeConverterTest extends JDO_Test {
       // AttributeConverter method convertToAttribute is called when loading instance from the
       // datastore
       List<T> res = q.executeList();
-      assertEquals(1, res.size());
+      Assertions.assertEquals(1, res.size());
       IPCRect rect = res.get(0);
       Point ul = rect.getUpperLeft();
       Point lr = rect.getLowerRight();
 
       // Check the coordinates of the associated Point instances
-      assertEquals(UL_X + 1, ul.getX());
-      assertEquals(UL_Y + 1, ul.getY() == null ? 0 : ul.getY().intValue());
-      assertEquals(LR_X + 1, lr.getX());
-      assertEquals(LR_Y + 1, lr.getY() == null ? 0 : lr.getY().intValue());
+      Assertions.assertEquals(UL_X + 1, ul.getX());
+      Assertions.assertEquals(UL_Y + 1, ul.getY() == null ? 0 : ul.getY().intValue());
+      Assertions.assertEquals(LR_X + 1, lr.getX());
+      Assertions.assertEquals(LR_Y + 1, lr.getY() == null ? 0 : lr.getY().intValue());
     } catch (Exception e) {
       fail(e.getMessage());
     } finally {
@@ -260,9 +270,11 @@ public class PointAttributeConverterTest extends JDO_Test {
     }
 
     // convertToDatastore should be called to handle the query parameter
-    assertTrue(PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls >= 1);
+    Assertions.assertTrue(
+        PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls >= 1);
     // convertToAttribute should be called at least twice
-    assertTrue(PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
+    Assertions.assertTrue(
+        PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
   }
 
   /**
@@ -280,9 +292,11 @@ public class PointAttributeConverterTest extends JDO_Test {
     nrOfAttrCalls = PointToStringConverter.getNrOfConvertToAttributeCalls();
     createIPCRectInstances(pcrectClass, 5);
     // convertToDatastore should be called twice per instance = 10 times
-    assertEquals(10, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        10, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should not be called
-    assertEquals(0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
 
     // Cleanup the 2nd-level cache and close the pm to make sure PCRect instances are not cached
     pm.getPersistenceManagerFactory().getDataStoreCache().evictAll(false, pcrectClass);
@@ -299,24 +313,26 @@ public class PointAttributeConverterTest extends JDO_Test {
       // AttributeConverter method convertToAttribute is called when loading instance from the
       // datastore
       List<T> res = q.executeList();
-      assertEquals(1, res.size());
+      Assertions.assertEquals(1, res.size());
       IPCRect rect = res.get(0);
       Point ul = rect.getUpperLeft();
       Point lr = rect.getLowerRight();
 
       // Check the coordinates of the associated Point instances
-      assertEquals(UL_X + 2, ul.getX());
-      assertEquals(UL_Y + 2, ul.getY() == null ? 0 : ul.getY().intValue());
-      assertEquals(LR_X + 2, lr.getX());
-      assertEquals(LR_Y + 2, lr.getY() == null ? 0 : lr.getY().intValue());
+      Assertions.assertEquals(UL_X + 2, ul.getX());
+      Assertions.assertEquals(UL_Y + 2, ul.getY() == null ? 0 : ul.getY().intValue());
+      Assertions.assertEquals(LR_X + 2, lr.getX());
+      Assertions.assertEquals(LR_Y + 2, lr.getY() == null ? 0 : lr.getY().intValue());
     } finally {
       pm.currentTransaction().commit();
     }
 
     // convertToDatastore should not be called
-    assertTrue(PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls == 0);
+    Assertions.assertTrue(
+        PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls == 0);
     // convertToAttribute should be called at least twice
-    assertTrue(PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
+    Assertions.assertTrue(
+        PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
   }
 
   /**

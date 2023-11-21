@@ -23,9 +23,9 @@ import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.RogueBarrier;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Thread Safe <br>
@@ -40,15 +40,6 @@ public class ThreadSafe extends PersistenceManagerTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A12.4-1 (ThreadSafe) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ThreadSafe.class);
-  }
-
   private final int threadCount = 10;
   private final ThreadExceptionHandler group = new ThreadExceptionHandler();
   private final RogueBarrier barrier = new RogueBarrier(threadCount);
@@ -56,6 +47,7 @@ public class ThreadSafe extends PersistenceManagerTest {
   private int exceptionCount = 0;
 
   /** */
+  @Test
   public void testThreadSafe() {
     if (debug) logger.debug("\nSTART testThreadSafe");
 

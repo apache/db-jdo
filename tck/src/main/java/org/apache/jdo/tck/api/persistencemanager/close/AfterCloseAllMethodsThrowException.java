@@ -22,7 +22,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> AfterCloseAllMethodsThrowException <br>
@@ -37,20 +37,12 @@ public class AfterCloseAllMethodsThrowException extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.5-6 (AfterCloseAllMethodsThrowException) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AfterCloseAllMethodsThrowException.class);
-  }
-
   private PersistenceManagerFactory pmf;
   private PersistenceManager pm;
   private Transaction tx;
 
   /** */
+  @Test
   public void testAfterCloseAllMethodsThrowException() {
     pm = getPM();
     pm.close();

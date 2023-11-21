@@ -25,7 +25,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.LocalDateTimeSample;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Supported LocalDateTime methods. <br>
@@ -54,16 +54,8 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
   /** */
   private Object oidOfLocalDateTime2;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedLocalDateTimeMethods.class);
-  }
-
   /** */
+  @Test
   public void testDayOfMonth() {
     final String filter = "localDateTime.getDayOfMonth() == 12";
     PersistenceManager pm = getPM();
@@ -83,6 +75,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMonthValue() {
     final String filter = "localDateTime.getMonthValue() == 8";
     PersistenceManager pm = getPM();
@@ -102,6 +95,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testYear() {
     final String filter = "localDateTime.getYear() == 2017";
     PersistenceManager pm = getPM();
@@ -122,6 +116,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testHour() {
     final String filter = "localDateTime.getHour() == 14";
     PersistenceManager pm = getPM();
@@ -141,6 +136,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMinute() {
     final String filter = "localDateTime.getMinute() == 22";
     PersistenceManager pm = getPM();
@@ -160,6 +156,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
   }
 
   /** */
+  @Test
   public void testSecond() {
     final String filter = "localDateTime.getSecond() == 25";
     PersistenceManager pm = getPM();

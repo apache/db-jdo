@@ -22,7 +22,8 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>GetManagedClasses of PersistenceManagerFactory <br>
@@ -32,17 +33,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  */
 public class GetManagedClasses extends JDO_Test {
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetManagedClasses.class);
-  }
-
   /** */
   @SuppressWarnings("rawtypes")
+  @Test
   public void test() {
     try {
       // Get PMF and a PM, and do an Extent on some classes
@@ -67,8 +60,10 @@ public class GetManagedClasses extends JDO_Test {
 
       // Check that the classes are now managed
       Collection<Class> managedClasses = pmf.getManagedClasses();
-      assertTrue("PCPoint ought to be managed but isnt", managedClasses.contains(PCPoint.class));
-      assertTrue("PCRect ought to be managed but isnt", managedClasses.contains(PCRect.class));
+      Assertions.assertTrue(
+          managedClasses.contains(PCPoint.class), "PCPoint ought to be managed but isnt");
+      Assertions.assertTrue(
+          managedClasses.contains(PCRect.class), "PCRect ought to be managed but isnt");
     } finally {
       pm.close();
     }

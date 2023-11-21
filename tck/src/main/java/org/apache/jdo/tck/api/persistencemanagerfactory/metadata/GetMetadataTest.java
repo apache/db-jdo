@@ -23,7 +23,8 @@ import javax.jdo.metadata.Metadata;
 import javax.jdo.metadata.PackageMetadata;
 import javax.jdo.metadata.TypeMetadata;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Metadata Test <br>
@@ -39,67 +40,64 @@ public class GetMetadataTest extends JDO_Test {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A11.10-1 (getMetadata) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetMetadataTest.class);
-  }
-
   /** test getMetadata with null class name */
+  @Test
   public void testNullParameter() {
     pm = getPM();
     String className = null;
     TypeMetadata metadata = pmf.getMetadata(className);
-    assertNull(ASSERTION_FAILED + "metadata should return null if null parameter", metadata);
+    Assertions.assertNull(
+        metadata, ASSERTION_FAILED + "metadata should return null if null parameter");
   }
 
   /** test getMetadata with concrete class name */
+  @Test
   public void testConcreteClassName() {
     pm = getPM();
     String className = "org.apache.jdo.tck.pc.company.PartTimeEmployee";
     TypeMetadata metadata = pmf.getMetadata(className);
-    assertNotNull(
-        ASSERTION_FAILED + "metadata must not be null for abstract class " + className, metadata);
+    Assertions.assertNotNull(
+        metadata, ASSERTION_FAILED + "metadata must not be null for abstract class " + className);
     Metadata parent = metadata.getParent();
-    assertNotNull(
-        ASSERTION_FAILED + "parent metadata must not be null for concrete class " + className,
-        parent);
+    Assertions.assertNotNull(
+        parent,
+        ASSERTION_FAILED + "parent metadata must not be null for concrete class " + className);
     String name = metadata.getName();
     String packageName = ((PackageMetadata) parent).getName();
-    assertEquals(
-        ASSERTION_FAILED + "metadata name and class name must match.",
+    Assertions.assertEquals(
         className,
-        packageName + "." + name);
+        packageName + "." + name,
+        ASSERTION_FAILED + "metadata name and class name must match.");
   }
 
   /** test getMetadata with abstract class name */
+  @Test
   public void testAbstractClassName() {
     pm = getPM();
     String className = "org.apache.jdo.tck.pc.company.Employee";
     TypeMetadata metadata = pmf.getMetadata(className);
-    assertNotNull(
-        ASSERTION_FAILED + "metadata must not be null for abstract class " + className, metadata);
+    Assertions.assertNotNull(
+        metadata, ASSERTION_FAILED + "metadata must not be null for abstract class " + className);
     Metadata parent = metadata.getParent();
-    assertNotNull(
-        ASSERTION_FAILED + "parent metadata must not be null for abstract class " + className,
-        parent);
+    Assertions.assertNotNull(
+        parent,
+        ASSERTION_FAILED + "parent metadata must not be null for abstract class " + className);
     String name = metadata.getName();
     String packageName = ((PackageMetadata) parent).getName();
-    assertEquals(
-        ASSERTION_FAILED + "metadata name and class name must match.",
+    Assertions.assertEquals(
         className,
-        packageName + "." + name);
+        packageName + "." + name,
+        ASSERTION_FAILED + "metadata name and class name must match.");
   }
 
   /** test getMetadata with invalid class name */
+  @Test
   public void testInvalidName() {
     pm = getPM();
     String className = "org.apache.jdo.tck.pc.company.Bogus";
     TypeMetadata metadata = pmf.getMetadata(className);
-    assertNull(ASSERTION_FAILED + "metadata should return null if unknown parameter", metadata);
+    Assertions.assertNull(
+        metadata, ASSERTION_FAILED + "metadata should return null if unknown parameter");
   }
 
   /** dump the contents of this metadata */

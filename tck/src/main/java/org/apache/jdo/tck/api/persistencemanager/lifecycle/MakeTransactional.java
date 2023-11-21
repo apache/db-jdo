@@ -23,7 +23,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> MakeTransactional <br>
@@ -39,15 +39,6 @@ public class MakeTransactional extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.7-20 (MakeTransactional) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakeTransactional.class);
-  }
-
   private PCPoint p = null;
   private PCPoint p1 = null;
   private PCPoint p2 = null;
@@ -55,6 +46,7 @@ public class MakeTransactional extends PersistenceManagerTest {
   private PCPoint p4 = null;
 
   /** */
+  @Test
   public void testTransactionalInst() {
     pm = getPM();
 

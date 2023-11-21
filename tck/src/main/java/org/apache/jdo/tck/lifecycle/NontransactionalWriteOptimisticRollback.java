@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.lifecycle;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test NontransactionalWriteOptimisticRollback <br>
@@ -47,18 +47,10 @@ public class NontransactionalWriteOptimisticRollback extends NontransactionalWri
       "Assertion A5.6.2-10 (NontransactionalWriteOptimisticRollback) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NontransactionalWriteOptimisticRollback.class);
-  }
-
-  /**
    * Create a nontransactional dirty instance, begin and rollback a transaction, and check that the
    * instance in the datastore has not been changed.
    */
+  @Test
   public void testOptimisticRollback() {
     if (!checkNontransactionalFeaturesSupported(true)) return;
     createAndModifyVersionedPCPoint();

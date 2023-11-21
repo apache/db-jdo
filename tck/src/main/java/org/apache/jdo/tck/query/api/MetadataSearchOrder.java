@@ -24,7 +24,7 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCClass;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Metadata Search Order. <br>
@@ -50,40 +50,36 @@ public class MetadataSearchOrder extends QueryTest {
     getTransientCompanyModelInstancesAsList(Employee.class, "emp4", "emp5")
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MetadataSearchOrder.class);
-  }
-
   /** */
+  @Test
   public void testPackageJDOInDefaultPackage() {
     int index = 0;
     executeNamedQuery(null, "packageJDOInDefaultPackage", expectedResult[index]);
   }
 
   /** */
+  @Test
   public void testPackageJDO() {
     int index = 1;
     executeNamedQuery(Person.class, "packageJDO", expectedResult[index]);
   }
 
   /** */
+  @Test
   public void testClassJDO() {
     int index = 2;
     executeNamedQuery(PCClass.class, "classJDO", expectedResult[index]);
   }
 
   /** */
+  @Test
   public void testPackageORM() {
     int index = 3;
     executeNamedQuery(Person.class, "packageORM", expectedResult[index]);
   }
 
   /** */
+  @Test
   public void testClassJDOQuery() {
     int index = 4;
     executeNamedQuery(Person.class, "classJDOQuery", expectedResult[index]);

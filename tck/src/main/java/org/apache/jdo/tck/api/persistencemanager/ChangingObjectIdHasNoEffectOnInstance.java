@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.api.persistencemanager;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Changing ObjectId Has No Effect On Instance <br>
@@ -34,17 +34,9 @@ public class ChangingObjectIdHasNoEffectOnInstance extends PersistenceManagerTes
       "Assertion A12.5.6-13 (ChangingObjectIdHasNoEffectOnInstance) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ChangingObjectIdHasNoEffectOnInstance.class);
-  }
-
-  /**
    * @throws Exception exception
    */
+  @Test
   public void testChangingObjectIdHasNoEffectOnInstance() throws Exception {
     pm = getPM();
     Object oid = createPCPointInstance(pm);

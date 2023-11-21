@@ -21,7 +21,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Refresh All No Parameters Side Effects <br>
@@ -46,15 +46,6 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
   PersistenceManager pm2;
   PersistenceManager pmVerify;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RefreshAllNoParameterSideEffects.class);
-  }
-
   /** */
   @Override
   public void localSetUp() {
@@ -69,6 +60,7 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
   }
 
   /** */
+  @Test
   public void test() {
     if (!isOptimisticSupported()) {
       printUnsupportedOptionalFeatureNotTested(

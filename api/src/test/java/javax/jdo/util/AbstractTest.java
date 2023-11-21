@@ -17,10 +17,9 @@
 
 package javax.jdo.util;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.PrintStream;
 import javax.jdo.Constants;
+import org.junit.jupiter.api.Assertions;
 
 /** */
 public abstract class AbstractTest implements Constants {
@@ -85,7 +84,7 @@ public abstract class AbstractTest implements Constants {
   protected void failOnError() {
     String errors = retrieveMessages();
     if (errors != null) {
-      fail(errors);
+      Assertions.fail(errors);
     }
   }
 }

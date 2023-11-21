@@ -24,7 +24,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> StartsWith and EndsWith Query Operators <br>
@@ -40,16 +40,8 @@ public class StartsWithAndEndsWith extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-33 (StartsWithAndEndsWith) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(StartsWithAndEndsWith.class);
-  }
-
   /** */
+  @Test
   public void testPositive0() {
     // startsWith
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
@@ -82,6 +74,7 @@ public class StartsWithAndEndsWith extends QueryTest {
   }
 
   /** */
+  @Test
   public void testPositive1() {
     // endsWith
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");

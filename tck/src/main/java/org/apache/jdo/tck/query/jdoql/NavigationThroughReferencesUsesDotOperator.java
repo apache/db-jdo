@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QMedicalInsurance;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Navigation Through a References uses Dot Operator <br>
@@ -55,15 +55,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     return NAVIGATION_TEST_COMPANY_TESTDATA;
   }
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NavigationThroughReferencesUsesDotOperator.class);
-  }
-
+  @Test
   public void testPositive0() {
     // navigation through one relationship
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
@@ -95,6 +87,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
 
+  @Test
   public void testPositive1() {
     // navigation through multiple relationships
     List<MedicalInsurance> expected =
@@ -133,6 +126,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
 
+  @Test
   public void testPositive2() {
     // navigation through a self referencing relationship
     List<MedicalInsurance> expected =
@@ -166,6 +160,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
 
+  @Test
   public void testPositive3() {
     // navigation through a self referencing relationship multiple times
     List<MedicalInsurance> expected =

@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanager.flags;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Setting Flags With Transaction instance <br>
@@ -36,16 +36,8 @@ public class SettingFlagsWithTransactionInstance extends PersistenceManagerTest 
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.2-3 (SettingFlagsWithTransactionInstance) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SettingFlagsWithTransactionInstance.class);
-  }
-
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

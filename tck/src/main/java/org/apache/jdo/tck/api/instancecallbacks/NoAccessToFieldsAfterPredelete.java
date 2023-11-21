@@ -24,7 +24,7 @@ import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> No Access To Fields After Predelete <br>
@@ -48,15 +48,6 @@ public class NoAccessToFieldsAfterPredelete extends JDO_Test {
       "Assertion A10.4-3 (NoAccessToFieldsAfterPredelete) failed";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NoAccessToFieldsAfterPredelete.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -64,7 +55,10 @@ public class NoAccessToFieldsAfterPredelete extends JDO_Test {
     addTearDownClass(InstanceCallbackClass.class);
   }
 
+  public void runTest() {}
+
   /** */
+  @Test
   public void test() {
     pm = getPM();
     Transaction t = pm.currentTransaction();

@@ -24,7 +24,7 @@ import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.IDepartment;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> SecondClassObjectsTrackTheirChanges <br>
@@ -42,15 +42,6 @@ public class SecondClassObjectsTrackTheirChanges extends JDO_Test {
       "Assertion A14.6.9-9 (SecondClassObjectsTrackTheirChanges) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SecondClassObjectsTrackTheirChanges.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -62,6 +53,7 @@ public class SecondClassObjectsTrackTheirChanges extends JDO_Test {
    * This tests that persistence-capable instances track changes or notify their owning instance
    * that they are dirty
    */
+  @Test
   public void testPCInstance() {
     pm = getPM();
     pm.currentTransaction().begin();
@@ -92,6 +84,7 @@ public class SecondClassObjectsTrackTheirChanges extends JDO_Test {
    * This tests that mutable system class instances track changes or notify their owning instance
    * that they are dirty
    */
+  @Test
   public void testMutableSystemClass() {
     pm = getPM();
     pm.currentTransaction().begin();

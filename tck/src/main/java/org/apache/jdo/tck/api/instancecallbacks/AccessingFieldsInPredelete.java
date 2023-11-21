@@ -22,7 +22,7 @@ import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Accessing Fields In Predelete <br>
@@ -59,9 +59,9 @@ public class AccessingFieldsInPredelete extends TestParts {
    *
    * @param args The arguments passed to the program.
    */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AccessingFieldsInPredelete.class);
-  }
+  public static void main(String[] args) {}
+
+  public void runTest() {}
 
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -72,6 +72,7 @@ public class AccessingFieldsInPredelete extends TestParts {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
     Transaction t = pm.currentTransaction();

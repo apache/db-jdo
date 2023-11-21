@@ -24,7 +24,7 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Range as String. <br>
@@ -37,16 +37,8 @@ public class RangeAsString extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.8-3 (RangeAsString) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RangeAsString.class);
-  }
-
   /** */
+  @Test
   public void testPositive0() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
@@ -79,6 +71,7 @@ public class RangeAsString extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
+  @Test
   public void testPositive1() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp2", "emp3", "emp4");
@@ -110,6 +103,7 @@ public class RangeAsString extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
+  @Test
   public void testPositive2() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(Person.class, "emp2", "emp3", "emp4", "emp5");
@@ -141,6 +135,7 @@ public class RangeAsString extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
+  @Test
   public void testPositive3() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(Person.class, "emp2", "emp3", "emp4");

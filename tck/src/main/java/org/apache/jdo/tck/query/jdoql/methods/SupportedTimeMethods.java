@@ -26,7 +26,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.TimeSample;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Supported Time methods. <br>
@@ -52,17 +52,9 @@ public class SupportedTimeMethods extends QueryTest {
   /** */
   private Object oidOfTime2;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedTimeMethods.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testHour() {
     final String filter = "time.getHour() == 10";
     PersistenceManager pm = getPM();
@@ -85,6 +77,7 @@ public class SupportedTimeMethods extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testMinute() {
     final String filter = "time.getMinute() == 15";
     PersistenceManager pm = getPM();
@@ -107,6 +100,7 @@ public class SupportedTimeMethods extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testSecond() {
     final String filter = "time.getSecond() == 45";
     PersistenceManager pm = getPM();

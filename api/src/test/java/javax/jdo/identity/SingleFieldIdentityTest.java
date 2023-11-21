@@ -22,15 +22,12 @@
 
 package javax.jdo.identity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.jdo.util.AbstractTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /** */
@@ -53,8 +50,8 @@ class SingleFieldIdentityTest extends AbstractTest {
     cti2 = new ConcreteTestIdentity(Object.class);
     cti3 = new ConcreteTestIdentity(Class.class);
 
-    assertEquals(cti1, cti2, "Equal identity instances compare not equal.");
-    assertFalse(cti1.equals(cti3), "Not equal identity instances compare equal.");
+    Assertions.assertEquals(cti1, cti2, "Equal identity instances compare not equal.");
+    Assertions.assertFalse(cti1.equals(cti3), "Not equal identity instances compare equal.");
   }
 
   @Test
@@ -66,13 +63,13 @@ class SingleFieldIdentityTest extends AbstractTest {
     scti1 = sctis[0];
     scti2 = sctis[1];
     scti3 = sctis[2];
-    assertEquals(cti1, scti1, "Deserialized instance compare not equal.");
-    assertEquals(cti2, scti2, "Deserialized instance compare not equal.");
-    assertEquals(cti3, scti3, "Deserialized instance compare not equal.");
-    assertEquals(scti1, cti1, "Deserialized instance compare not equal.");
-    assertEquals(scti2, cti2, "Deserialized instance compare not equal.");
-    assertEquals(scti3, cti3, "Deserialized instance compare not equal.");
-    assertFalse(scti1.equals(scti3), "Not equal identity instances compare equal.");
+    Assertions.assertEquals(cti1, scti1, "Deserialized instance compare not equal.");
+    Assertions.assertEquals(cti2, scti2, "Deserialized instance compare not equal.");
+    Assertions.assertEquals(cti3, scti3, "Deserialized instance compare not equal.");
+    Assertions.assertEquals(scti1, cti1, "Deserialized instance compare not equal.");
+    Assertions.assertEquals(scti2, cti2, "Deserialized instance compare not equal.");
+    Assertions.assertEquals(scti3, cti3, "Deserialized instance compare not equal.");
+    Assertions.assertFalse(scti1.equals(scti3), "Not equal identity instances compare equal.");
   }
 
   protected Object[] writeReadSerialized(Object[] in) {
@@ -91,7 +88,7 @@ class SingleFieldIdentityTest extends AbstractTest {
         result[i] = ois.readObject();
       }
     } catch (Exception e) {
-      fail(e.toString());
+      Assertions.fail(e.toString());
     }
     return result;
   }

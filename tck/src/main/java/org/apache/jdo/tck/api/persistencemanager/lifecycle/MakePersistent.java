@@ -24,7 +24,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> make instance persistent <br>
@@ -39,15 +39,6 @@ public class MakePersistent extends PersistenceManagerTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A12.5.7-6A (MakePersistent) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakePersistent.class);
-  }
-
   private PCPoint p1 = null;
   private PCPoint p2 = null;
   private PCPoint p3 = null;
@@ -61,6 +52,7 @@ public class MakePersistent extends PersistenceManagerTest {
   }
 
   /** */
+  @Test
   public void testMakePersistent() {
     pm = getPM();
 

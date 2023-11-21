@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanager.getobject;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Get Objectid <br>
@@ -35,16 +35,8 @@ public class GetObjectId extends PersistenceManagerTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A12.5.6-10 (GetObjectId) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetObjectId.class);
-  }
-
   /** */
+  @Test
   public void testGetObjectId() {
     pm = getPM();
     Transaction tx = pm.currentTransaction();

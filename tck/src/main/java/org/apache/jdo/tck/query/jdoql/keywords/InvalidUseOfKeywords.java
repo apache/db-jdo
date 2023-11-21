@@ -20,7 +20,7 @@ package org.apache.jdo.tck.query.jdoql.keywords;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Invalid uses of keywords. <br>
@@ -79,16 +79,8 @@ public class InvalidUseOfKeywords extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(InvalidUseOfKeywords.class);
-  }
-
   /** */
+  @Test
   public void testNegative() {
     for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
       compileSingleStringQuery(ASSERTION_FAILED, invalidSingleStringQuery, false);

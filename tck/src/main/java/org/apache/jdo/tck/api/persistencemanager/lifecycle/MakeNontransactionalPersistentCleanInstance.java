@@ -23,7 +23,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Make Nontransactional a Persistent-Clean Instance <br>
@@ -39,15 +39,6 @@ public class MakeNontransactionalPersistentCleanInstance extends PersistenceMana
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.7-27 (MakeNontransactionalPersistentCleanInstance) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakeNontransactionalPersistentCleanInstance.class);
-  }
-
   private PCPoint p1 = null;
   private PCPoint p2 = null;
   private PCPoint p3 = null;
@@ -60,6 +51,7 @@ public class MakeNontransactionalPersistentCleanInstance extends PersistenceMana
   private final Collection<PCPoint> col2 = new HashSet<>();
 
   /** */
+  @Test
   public void testTransactionalInstance() {
     pm = getPM();
 

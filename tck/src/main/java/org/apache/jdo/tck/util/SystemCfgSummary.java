@@ -31,7 +31,9 @@ public class SystemCfgSummary {
   /** The name of the system configuration summary file. */
   private static final String SYSCFG_FILE_NAME = "system_config.txt";
 
-  private static String newLine;
+  private static final String NL = System.getProperty("line.separator");
+
+  private final String path;
 
   /**
    * Creates a new file containing system configuration information.
@@ -40,19 +42,28 @@ public class SystemCfgSummary {
    *     file name
    */
   public static void main(String[] args) {
-    String directory = args[0] + File.separator;
+    String directory = args[0];
     String fileName = null;
     if (args[1] != null) {
       fileName = args[1];
     } else {
       fileName = SYSCFG_FILE_NAME;
     }
-    newLine = System.getProperty("line.separator");
+
+    SystemCfgSummary summary = new SystemCfgSummary(directory, fileName);
+    summary.save();
+  }
+
+  public SystemCfgSummary(String directory, String fileName) {
+    this.path = directory + File.separator + fileName;
+  }
+
+  public void save() {
     String message = getSystemInfo();
     if (message == null) {
       message = "No system information found.";
     }
-    saveSystemInfo(directory + fileName, message);
+    saveSystemInfo(this.path, message);
   }
 
   /**
@@ -60,14 +71,13 @@ public class SystemCfgSummary {
    *
    * @return System property keys and values as a String, one per line
    */
-  static String getSystemInfo() {
-
+  private String getSystemInfo() {
     Properties props = System.getProperties();
     Enumeration<?> propEnum = props.propertyNames();
     StringBuilder sysinfo = new StringBuilder();
     while (propEnum.hasMoreElements()) {
       String key = (String) propEnum.nextElement();
-      sysinfo.append(key + ":  " + props.getProperty(key) + newLine);
+      sysinfo.append(key + ":  " + props.getProperty(key) + NL);
     }
     return sysinfo.toString();
   }
@@ -78,7 +88,7 @@ public class SystemCfgSummary {
    * @param path the path
    * @param message the message
    */
-  static void saveSystemInfo(String path, String message) {
+  private void saveSystemInfo(String path, String message) {
     try (PrintStream resultStream = new PrintStream(new FileOutputStream(path, true))) {
       resultStream.println(message);
     } catch (FileNotFoundException e) {

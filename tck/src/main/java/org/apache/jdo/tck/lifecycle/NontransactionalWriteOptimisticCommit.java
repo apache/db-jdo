@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.lifecycle;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> TestNontransactionalWriteOptimisticCommit <br>
@@ -47,18 +47,10 @@ public class NontransactionalWriteOptimisticCommit extends NontransactionalWrite
       "Assertion A5.6.2-8 (NontransactionalWriteOptimisticCommit) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NontransactionalWriteOptimisticCommit.class);
-  }
-
-  /**
    * Create a nontransactional dirty instance, begin and commit an optimistic transaction, and check
    * that the instance in the datastore has the value as changed by the transaction.
    */
+  @Test
   public void testOptimisticCommit() {
     if (!checkNontransactionalFeaturesSupported(true)) return;
     createAndModifyVersionedPCPoint();

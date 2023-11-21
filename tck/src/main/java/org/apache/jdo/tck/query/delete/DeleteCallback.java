@@ -39,8 +39,8 @@ import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ConversionHelper;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Delete Persistent All. <br>
@@ -103,31 +103,26 @@ public class DeleteCallback extends QueryTest {
         "primitiveTypesPositive", "primitiveTypesNegative", "primitiveTypesCharacterStringLiterals")
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DeleteCallback.class);
-  }
-
   /** */
+  @Test
   public void testRelationshipsAPI() {
     queryUpdateDeleteVerify(0, false, "middlename");
   }
 
   /** */
+  @Test
   public void testRelationshipsSingleString() {
     queryUpdateDeleteVerify(0, true, "middlename");
   }
 
   /** */
+  @Test
   public void testNoRelationshipsAPI() {
     queryUpdateDeleteVerify(1, false, "stringNull");
   }
 
   /** */
+  @Test
   public void testNoRelationshipsSingleString() {
     queryUpdateDeleteVerify(1, true, "stringNull");
   }

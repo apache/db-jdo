@@ -29,7 +29,8 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.OptionalSample;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Optional Fields. <br>
@@ -56,16 +57,8 @@ public class SupportedOptionalMethods extends QueryTest {
   private Object oidEmpty;
   private Object oidNull;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedOptionalMethods.class);
-  }
-
   /** */
+  @Test
   public void testQueriesWithPresence() {
     // Matches 'optionalPC.isPresent() == true'
     checkQuery("optionalPC != null", oidPC, oidReferencedPC1);
@@ -104,6 +97,7 @@ public class SupportedOptionalMethods extends QueryTest {
         "!" + fieldName + ".isPresent()", oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2);
   }
 
+  @Test
   public void testQueriesWithNavigation() {
     checkQuery("optionalPC.id == " + REFERENCED_PC1_ID, oidPC);
     checkQuery("optionalPC.id != " + REFERENCED_PC1_ID, oidReferencedPC1);
@@ -178,6 +172,7 @@ public class SupportedOptionalMethods extends QueryTest {
   }
 
   /** This methods tests Optional fields and parameters. */
+  @Test
   public void testParameterOptional() {
     OptionalSample osReferencedPC1 = getOptionalSampleById(oidReferencedPC1);
     String paramDecl = "java.util.Optional op";
@@ -197,6 +192,7 @@ public class SupportedOptionalMethods extends QueryTest {
   }
 
   /** This methods tests Optional fields and parameters with auto de-referencing. */
+  @Test
   public void testParameterOptionalAutoDeref() {
     OptionalSample osReferencedPC1 = getOptionalSampleById(oidReferencedPC1);
     Map<String, Object> paramValues = new HashMap<>();
@@ -231,6 +227,7 @@ public class SupportedOptionalMethods extends QueryTest {
   }
 
   /** This methods tests that empty Optional fields and parameters matches with Optional.empty(). */
+  @Test
   public void testParameterOptionalWithEmptyFields() {
     String paramDecl = "java.util.Optional op";
     Map<String, Object> paramValues = new HashMap<>();
@@ -258,6 +255,7 @@ public class SupportedOptionalMethods extends QueryTest {
   }
 
   /** This methods tests that Optional fields and parameters matches with (Optional)null. */
+  @Test
   public void testParameterOptionalWithNull() {
     String paramDecl = "java.util.Optional op";
     Map<String, Object> paramValues = new HashMap<>();
@@ -285,6 +283,7 @@ public class SupportedOptionalMethods extends QueryTest {
   }
 
   /** This methods tests that Optional fields and parameters matches with (Object)null. */
+  @Test
   public void testParameterOptionalNull() {
     Map<String, Object> paramValues = new HashMap<>();
     paramValues.put("op", null);
@@ -311,6 +310,7 @@ public class SupportedOptionalMethods extends QueryTest {
   }
 
   /** This methods tests that Optional fields can be accessed in subqueries. */
+  @Test
   public void testSubqueries() {
     String queryStr1 =
         "SELECT FROM "
@@ -336,6 +336,7 @@ public class SupportedOptionalMethods extends QueryTest {
   }
 
   /** This methods tests that Optional fields can be accessed in subqueries. */
+  @Test
   public void testOptionalAggregation() {
     String clsName = OptionalSample.class.getName();
 
@@ -459,6 +460,7 @@ public class SupportedOptionalMethods extends QueryTest {
 
   /** Test Optional.orElse() in the SELECT clause of JDOQL queries. */
   @SuppressWarnings("unchecked")
+  @Test
   public void testOrElseInSELECT() {
     Transaction tx = pm.currentTransaction();
     try {
@@ -483,7 +485,7 @@ public class SupportedOptionalMethods extends QueryTest {
           case PC_NULL_ID:
           case REFERENCED_PC1_ID:
           case REFERENCED_PC2_ID:
-            assertEquals("NotPresent", i.optionalString);
+            Assertions.assertEquals("NotPresent", i.optionalString);
             break;
           default:
             fail(ASSERTION_FAILED, "Wrong object id: " + i.id);
@@ -500,6 +502,7 @@ public class SupportedOptionalMethods extends QueryTest {
    * This test assert that null-references are converted to Optional.empty() when loaded from the
    * database.
    */
+  @Test
   public void testPersistenceNotNull() {
     OptionalSample osNotNull = getOptionalSampleById(oidNull);
 

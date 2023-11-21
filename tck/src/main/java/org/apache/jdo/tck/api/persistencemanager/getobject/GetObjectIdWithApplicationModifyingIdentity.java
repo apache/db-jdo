@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanager.getobject;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Get ObjectId With Application Modifying Identity <br>
@@ -38,16 +38,8 @@ public class GetObjectIdWithApplicationModifyingIdentity extends PersistenceMana
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.6-11 (GetObjectIdWithApplicationModifyingIdentity) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetObjectIdWithApplicationModifyingIdentity.class);
-  }
-
   /** */
+  @Test
   public void testGetObjectByIdWithApplicationModifyingIdentity() {
     if (!isChangeApplicationIdentitySupported()) {
       if (debug) logger.debug("Implementation does not support chaning application identity");

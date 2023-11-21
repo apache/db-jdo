@@ -27,8 +27,9 @@ import org.apache.jdo.tck.pc.converter.PCPoint;
 import org.apache.jdo.tck.pc.converter.PCPointAnnotated;
 import org.apache.jdo.tck.pc.converter.PCPointProp;
 import org.apache.jdo.tck.pc.converter.PCPointPropAnnotated;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.IntegerToStringConverter;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>IntAttributeConverterTest <br>
@@ -44,15 +45,6 @@ public class IntAttributeConverterTest extends JDO_Test {
   private static final int MIN_Y = 5;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(IntAttributeConverterTest.class);
-  }
-
-  /**
    * @see JDO_Test#localSetUp()
    */
   @Override
@@ -64,101 +56,121 @@ public class IntAttributeConverterTest extends JDO_Test {
   }
 
   /** Test method creating and storing a PCPoint instance. */
+  @Test
   public void testStorePCPointInstance() {
     runStoreIPCPointInstance(PCPoint.class);
   }
 
   /** Test method reading a PCPoint instance from the datastore. */
+  @Test
   public void testReadPCPointInstance() {
     runReadIPCPointInstance(PCPoint.class);
   }
 
   /** Test method modifying a PCPoint instance and storing in the datastore. */
+  @Test
   public void testModifyPCPointInstance() {
     runModifyIPCPointInstance(PCPoint.class);
   }
 
   /** Test method running a PCPoint query with a query parameter of type Point. */
+  @Test
   public void testPCPointQueryWithPointParam() {
     runQueryWithIntParameter(PCPoint.class);
   }
 
   /** Test method running a PCPoint query with a query parameter of type String. */
+  @Test
   public void testPCPointQueryWithStringParam() throws Exception {
     runQueryWithStringParameter(PCPoint.class);
   }
 
   /** Test method creating and storing a PCPointAnnotated instance. */
+  @Test
   public void testStorePCPointAnnotatedInstance() {
     runStoreIPCPointInstance(PCPointAnnotated.class);
   }
 
   /** Test method reading a PCPointAnnotated instance from the datastore. */
+  @Test
   public void testReadPCPointAnnotatedInstance() {
     runReadIPCPointInstance(PCPointAnnotated.class);
   }
 
   /** Test method modifying a PCPointAnnotated instance and storing in the datastore. */
+  @Test
   public void testModifyPCPointAnnotatedInstance() {
     runModifyIPCPointInstance(PCPointAnnotated.class);
   }
 
   /** Test method running a PCPointAnnotated query with a query parameter of type String. */
+  @Test
   public void testPCPointAnnotatedQueryWithPointParam() {
     runQueryWithIntParameter(PCPointAnnotated.class);
   }
 
   /** Test method running a PCPointAnnotated query with a query parameter of type Point. */
+  @Test
   public void testPCPointAnnotatedQueryWithStringParam() throws Exception {
     runQueryWithStringParameter(PCPointAnnotated.class);
   }
 
   /** Test method creating and storing a PCPoint instance. */
+  @Test
   public void testStorePCPointPropInstance() {
     runStoreIPCPointInstance(PCPointProp.class);
   }
 
   /** Test method reading a PCPoint instance from the datastore. */
+  @Test
   public void testReadPCPointPropInstance() {
     runReadIPCPointInstance(PCPointProp.class);
   }
 
   /** Test method modifying a PCPoint instance and storing in the datastore. */
+  @Test
   public void testModifyPCPointPropInstance() {
     runModifyIPCPointInstance(PCPointProp.class);
   }
 
   /** Test method running a PCPoint query with a query parameter of type Point. */
+  @Test
   public void testPCPointPropQueryWithPointParam() {
     runQueryWithIntParameter(PCPointProp.class);
   }
 
   /** Test method running a PCPoint query with a query parameter of type String. */
+  @Test
   public void testPCPointPropQueryWithStringParam() throws Exception {
     runQueryWithStringParameter(PCPointProp.class);
   }
 
   /** Test method creating and storing a PCPointAnnotated instance. */
+  @Test
   public void testStorePCPointPropAnnotatedInstance() {
     runStoreIPCPointInstance(PCPointPropAnnotated.class);
   }
 
   /** Test method reading a PCPointAnnotated instance from the datastore. */
+  @Test
   public void testReadPCPointPropAnnotatedInstance() {
     runReadIPCPointInstance(PCPointPropAnnotated.class);
   }
 
   /** Test method modifying a PCPointAnnotated instance and storing in the datastore. */
+  @Test
   public void testModifyPCPointPropAnnotatedInstance() {
     runModifyIPCPointInstance(PCPointPropAnnotated.class);
   }
 
   /** Test method running a PCPointAnnotated query with a query parameter of type String. */
+  @Test
   public void testPCPointPropAnnotatedQueryWithPointParam() {
     runQueryWithIntParameter(PCPointPropAnnotated.class);
   }
 
   /** Test method running a PCPointAnnotated query with a query parameter of type Point. */
+  @Test
   public void testPCPointPropAnnotatedQueryWithStringParam() throws Exception {
     runQueryWithStringParameter(PCPointPropAnnotated.class);
   }
@@ -178,9 +190,11 @@ public class IntAttributeConverterTest extends JDO_Test {
     createIPCPointInstances(pcPointClass, 1);
 
     // convertToDatastore should be called twice
-    assertEquals(2, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        2, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should not be called
-    assertEquals(0, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        0, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
   }
 
   /**
@@ -212,12 +226,14 @@ public class IntAttributeConverterTest extends JDO_Test {
     pm.currentTransaction().commit();
 
     // convertToDatastore should not be called
-    assertEquals(0, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        0, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should be called twice
-    assertEquals(2, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        2, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
     // Check the values of the associated Point instances
-    assertEquals(MIN_X, x);
-    assertEquals(MIN_Y, y == null ? 0 : y.intValue());
+    Assertions.assertEquals(MIN_X, x);
+    Assertions.assertEquals(MIN_Y, y == null ? 0 : y.intValue());
   }
 
   /**
@@ -250,13 +266,15 @@ public class IntAttributeConverterTest extends JDO_Test {
     point.setX(MIN_X + 1);
     point.setY(Integer.valueOf(MIN_Y + 1));
     // IPCPoint instance should be dirty
-    assertTrue(JDOHelper.isDirty(point));
+    Assertions.assertTrue(JDOHelper.isDirty(point));
     tx.commit();
 
     // convertToDatastore should be called twice
-    assertEquals(2, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        2, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should be called twice
-    assertEquals(2, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        2, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
   }
 
   /**
@@ -273,9 +291,11 @@ public class IntAttributeConverterTest extends JDO_Test {
     nrOfAttrCalls = IntegerToStringConverter.getNrOfConvertToAttributeCalls();
     createIPCPointInstances(pcPointClass, 5);
     // convertToDatastore should be called twice per instance = 10 times
-    assertEquals(10, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        10, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should not be called
-    assertEquals(0, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        0, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
 
     // Cleanup the 2nd-level cache and close the pm to make sure PCPoint instances are not cached
     pm.getPersistenceManagerFactory().getDataStoreCache().evictAll(false, pcPointClass);
@@ -291,12 +311,12 @@ public class IntAttributeConverterTest extends JDO_Test {
       // AttributeConverter method convertToAttribute is called when loading instance from the
       // datastore
       List<T> res = q.executeList();
-      assertEquals(1, res.size());
+      Assertions.assertEquals(1, res.size());
       IPCPoint point = res.get(0);
 
       // Check the coordinates of the associated Point instances
-      assertEquals(MIN_X + 1, point.getX());
-      assertEquals(MIN_Y + 1, point.getY() == null ? 0 : point.getY().intValue());
+      Assertions.assertEquals(MIN_X + 1, point.getX());
+      Assertions.assertEquals(MIN_Y + 1, point.getY() == null ? 0 : point.getY().intValue());
     } catch (Exception e) {
       fail(e.getMessage());
     } finally {
@@ -304,9 +324,11 @@ public class IntAttributeConverterTest extends JDO_Test {
     }
 
     // convertToDatastore should be called to handle the query parameter
-    assertTrue(IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls >= 1);
+    Assertions.assertTrue(
+        IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls >= 1);
     // convertToAttribute should be called at least twice
-    assertTrue(IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
+    Assertions.assertTrue(
+        IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
   }
 
   /**
@@ -324,9 +346,11 @@ public class IntAttributeConverterTest extends JDO_Test {
     nrOfAttrCalls = IntegerToStringConverter.getNrOfConvertToAttributeCalls();
     createIPCPointInstances(pcPointClass, 5);
     // convertToDatastore should be called twice per instance = 10 times
-    assertEquals(10, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+    Assertions.assertEquals(
+        10, IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
     // convertToAttribute should not be called
-    assertEquals(0, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    Assertions.assertEquals(
+        0, IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
 
     // Cleanup the 2nd-level cache and close the pm to make sure PCPoint instances are not cached
     pm.getPersistenceManagerFactory().getDataStoreCache().evictAll(false, pcPointClass);
@@ -343,19 +367,21 @@ public class IntAttributeConverterTest extends JDO_Test {
       // AttributeConverter method convertToAttribute is called when loading instance from the
       // datastore
       List<T> res = q.executeList();
-      assertEquals(1, res.size());
+      Assertions.assertEquals(1, res.size());
       IPCPoint point = res.get(0);
 
-      assertEquals(MIN_X + 2, point.getX());
-      assertEquals(MIN_Y + 2, point.getY() == null ? 0 : point.getY().intValue());
+      Assertions.assertEquals(MIN_X + 2, point.getX());
+      Assertions.assertEquals(MIN_Y + 2, point.getY() == null ? 0 : point.getY().intValue());
     } finally {
       pm.currentTransaction().commit();
     }
 
     // convertToDatastore should not be called
-    assertTrue(IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls == 0);
+    Assertions.assertTrue(
+        IntegerToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls == 0);
     // convertToAttribute should be called at least twice
-    assertTrue(IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
+    Assertions.assertTrue(
+        IntegerToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
   }
 
   /**

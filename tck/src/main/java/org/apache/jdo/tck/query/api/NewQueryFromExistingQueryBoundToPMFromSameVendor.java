@@ -24,7 +24,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> New Query From Existing Query Bound to PersistenceManag er From Same Vendor <br>
@@ -43,16 +43,8 @@ public class NewQueryFromExistingQueryBoundToPMFromSameVendor extends QueryTest 
   private static final String ASSERTION_FAILED =
       "Assertion A14.5-3 (NewQueryFromExistingQueryBoundToPMFromSameVendor) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NewQueryFromExistingQueryBoundToPMFromSameVendor.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
 

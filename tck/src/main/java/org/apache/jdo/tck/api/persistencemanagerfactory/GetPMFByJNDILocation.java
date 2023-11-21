@@ -24,7 +24,7 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>GetPMFByJNDILocation of PersistenceManagerFactory <br>
@@ -46,21 +46,14 @@ public class GetPMFByJNDILocation extends AbstractGetPMF {
   private static final String ASSERTION_FAILED =
       "Assertion A8.6-19 (GetPMFByJNDILocation) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetPMFByJNDILocation.class);
-  }
-
   /** */
+  @Test
   public void testInvalidGetPMF() {
     checkGetPMFWithInvalidProperties(ASSERTION_FAILED);
   }
 
   /** */
+  @Test
   public void testValidGetPMF() {
     checkGetPMFWithValidProperties();
   }

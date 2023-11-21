@@ -17,13 +17,12 @@
 
 package javax.jdo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Random;
 import javax.jdo.util.AbstractTest;
+import org.junit.jupiter.api.Assertions;
 
 public abstract class AbstractJDOConfigTest extends AbstractTest {
 
@@ -105,7 +104,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
       String expectedValue = (String) entry.getValue();
       String actualValue = (String) actual.get(key);
 
-      assertEquals(
+      Assertions.assertEquals(
           expectedValue,
           actualValue,
           "Actual property at key ["

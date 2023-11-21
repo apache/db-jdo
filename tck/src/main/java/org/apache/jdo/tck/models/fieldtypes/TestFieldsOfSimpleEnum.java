@@ -22,7 +22,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.FieldsOfSimpleEnum;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleEnum;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Support of field type Enum. <br>
@@ -36,15 +36,6 @@ public class TestFieldsOfSimpleEnum extends JDO_Test {
   private static final String ASSERTION_FAILED = "Assertion A6.4.3-13 (TestFieldsOfEnum) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(TestFieldsOfSimpleEnum.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -53,6 +44,7 @@ public class TestFieldsOfSimpleEnum extends JDO_Test {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 
