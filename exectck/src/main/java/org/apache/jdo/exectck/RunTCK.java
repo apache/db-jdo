@@ -605,8 +605,8 @@ public class RunTCK extends AbstractTCKMojo {
   }
 
   /**
-   * Finalizes the TCK run: delete log files, create the result summary file TCK-results.txt,
-   * create system configuration description file, copy metadata from enhanced to configuration logs
+   * Finalizes the TCK run: delete log files, create the result summary file TCK-results.txt, create
+   * system configuration description file, copy metadata from enhanced to configuration logs
    * directory. This method is called once per TCK run.
    *
    * @param logDir the path of the log directory
