@@ -36,7 +36,7 @@ public class PropertyUtils {
    * @param col collection to contain String items
    */
   public static void string2Collection(String names, Collection<String> col) {
-    String[] items = names.split("[ \t\n,;]+");
+    String[] items = names.split(Utilities.DELIMITER_REGEX);
     col.addAll(Arrays.asList(items));
   }
 

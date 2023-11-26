@@ -30,10 +30,13 @@ import javax.jdo.JDOException;
 
 public class Utilities {
 
-  private Utilities() {}
+  static final String DELIMITER_REGEX = "[ \t\n,;]+";
 
   private static final String DATE_FORMAT_NOW = "yyyyMMdd-HHmmss";
 
+  private Utilities() {
+    // This method is deliberately left empty.
+  }
   /*
    * Return the current date/time as a String.
    */
@@ -58,7 +61,7 @@ public class Utilities {
   }
 
   public static String removeSubstrs(String original, String exclude) {
-    String[] deleteThese = exclude.split(" ");
+    String[] deleteThese = exclude.split(DELIMITER_REGEX);
     String filtered = original;
     for (String sub : deleteThese) {
       filtered = filtered.replaceAll(sub.trim(), "");

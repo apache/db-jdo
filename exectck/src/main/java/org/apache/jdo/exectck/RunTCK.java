@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -479,7 +480,8 @@ public class RunTCK extends AbstractTCKMojo {
     classes = Utilities.removeSubstrs(classes, excludeList);
     List<String> classesList = new ArrayList();
     PropertyUtils.string2Collection(classes, classesList);
-    return classesList;
+    // skip test classes in comments
+    return classesList.stream().filter(n -> !n.startsWith("#")).collect(Collectors.toList());
   }
 
   /**
