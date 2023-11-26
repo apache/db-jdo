@@ -49,12 +49,10 @@ public class Point {
   }
 
   public int getX() {
-    System.out.println("Hello from Point.getX");
     return x;
   }
 
   public Integer getY() {
-    System.out.println("Hello from Point.getY");
     return y;
   }
 

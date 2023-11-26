@@ -266,7 +266,7 @@ public class RunTCK extends AbstractTCKMojo {
           if (resultValue != 0) {
             failureCount++;
           }
-          copyLogFiles(logFilePrefix);
+          moveLogFiles(logFilePrefix);
 
           if (runOnce) {
             alreadyRan = true;
@@ -533,6 +533,7 @@ public class RunTCK extends AbstractTCKMojo {
       command.add(debugDirectives);
     }
     command.add(testRunnerClass);
+    command.add("execute");
     command.add("--disable-banner");
     command.add("--disable-ansi-colors");
     command.add("--details=" + testRunnerDetails);
@@ -583,34 +584,32 @@ public class RunTCK extends AbstractTCKMojo {
   }
 
   /**
-   * Copies the implementation log file and TCK log file to the current log directory
+   * Moves the implementation log file and TCK log file to the current log directory
    *
    * @param logFilePrefix the prefix of the log file consisting of idtype and conf
    */
-  private void copyLogFiles(String logFilePrefix) {
+  private void moveLogFiles(String logFilePrefix) {
     // Move log to per-test location
     String testLogFilename = logFilePrefix + impl + ".txt";
     try {
       File logFile = new File(implLogFile);
-      FileUtils.copyFile(logFile, new File(testLogFilename));
-      resetFileContent(implLogFile);
+      FileUtils.moveFile(logFile, new File(testLogFilename));
     } catch (Exception e) {
-      System.out.println(">> Error copying implementation log file: " + e.getMessage());
+      System.out.println(">> Error moving implementation log file: " + e.getMessage());
     }
     String tckLogFilename = logFilePrefix + TCK_LOG_FILE;
     try {
       File logFile = new File(tckLogFile);
-      FileUtils.copyFile(logFile, new File(tckLogFilename));
-      resetFileContent(tckLogFile);
+      FileUtils.moveFile(logFile, new File(tckLogFilename));
     } catch (Exception e) {
-      System.out.println(">> Error copying tck log file: " + e.getMessage());
+      System.out.println(">> Error moving tck log file: " + e.getMessage());
     }
   }
 
   /**
-   * Finalizes the TCK run: delete log files create the result summray file TCK-results.txt create
-   * system configuration description file Copy metadata from enhanced to configuration logs
-   * directory This method is called once per TCK run.
+   * Finalizes the TCK run: delete log files, create the result summary file TCK-results.txt, create
+   * system configuration description file, copy metadata from enhanced to configuration logs
+   * directory. This method is called once per TCK run.
    *
    * @param logDir the path of the log directory
    * @param cpString classpath
