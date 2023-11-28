@@ -119,13 +119,6 @@ public class RunTCK extends AbstractTCKMojo {
           "-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}")
   private String debugDirectives;
 
-  /** Class used to run a batch of tests. */
-  @Parameter(
-      property = "jdo.tck.testrunner.class",
-      defaultValue = "org.junit.platform.console.ConsoleLauncher",
-      required = true)
-  private String testRunnerClass;
-
   /** Location of tck log file. */
   @Parameter(
       property = "jdo.tck.logfile",
@@ -133,12 +126,26 @@ public class RunTCK extends AbstractTCKMojo {
       required = true)
   protected String tckLogFile;
 
+  /** Class used to run a batch of tests. */
+  @Parameter(
+      property = "jdo.tck.testrunner.class",
+      defaultValue = "org.junit.platform.console.ConsoleLauncher",
+      required = true)
+  private String testRunnerClass;
+
   /**
    * Output mode for test run. Use one of: none, summary, flat, tree, verbose, testfeed. If 'none'
    * is selected, then only the summary and test failures are shown. Default: tree.
    */
   @Parameter(property = "jdo.tck.testrunner.details", defaultValue = "tree", required = true)
   private String testRunnerDetails;
+
+  /**
+   * Whether to display colors in the junit result log file (jdo.tck.testrunner.colors=enable) or
+   * not (jdo.tck.testrunner.colors=disable).
+   */
+  @Parameter(property = "jdo.tck.testrunner.colors", defaultValue = "disable", required = true)
+  private String testRunnerColors;
 
   /**
    * Helper method returning the trimmed value of the specified property.
@@ -535,7 +542,9 @@ public class RunTCK extends AbstractTCKMojo {
     command.add(testRunnerClass);
     command.add("execute");
     command.add("--disable-banner");
-    command.add("--disable-ansi-colors");
+    if (disableColors()) {
+      command.add("--disable-ansi-colors");
+    }
     command.add("--details=" + testRunnerDetails);
     // add Test classes
     for (String testClass : classesList) {
@@ -683,5 +692,9 @@ public class RunTCK extends AbstractTCKMojo {
     if (TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY.equals(onFailure) && failureCount > 0) {
       throw new MojoExecutionException("There were " + failureCount + " TCK test failures.");
     }
+  }
+
+  private boolean disableColors() {
+    return !this.testRunnerColors.equalsIgnoreCase("enable");
   }
 }
