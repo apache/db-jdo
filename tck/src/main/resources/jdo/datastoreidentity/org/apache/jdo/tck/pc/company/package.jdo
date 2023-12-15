@@ -79,7 +79,7 @@ has datastore identity.
         <class name="FullTimeEmployee" identity-type="datastore">
             <query name="constructor">
 	        <![CDATA[
-                    select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager)
+                    select new org.apache.jdo.tck.query.api.SampleReadQueries$Info (firstname, salary, manager)
                     where department.name == :deptName
 	        ]]>
             </query>

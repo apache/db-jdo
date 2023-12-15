@@ -41,10 +41,10 @@ import org.apache.jdo.tck.util.EqualityHelper;
 import org.junit.jupiter.api.Test;
 
 /**
- * <B>Title:</B> SampleQueries <br>
+ * <B>Title:</B> SampleReadQueries <br>
  * <B>Keywords:</B> query <br>
  * <B>Assertion IDs:</B> <br>
- * <B>Assertion Description: </B> This test class runs the example queries from the JDO
+ * <B>Assertion Description: </B> This test class runs the example read queries from the JDO
  * specification.
  *
  * <p>There are up to six test methods per test case: testQueryxxa: runtime constructed JDO query
@@ -56,10 +56,10 @@ import org.junit.jupiter.api.Test;
  * version of the JDO query testQueryxxe: named query version of the JDO query testQueryxxf:
  * JDOQLTypedQuery version
  */
-public class SampleQueries extends QueryTest {
+public class SampleReadQueries extends QueryTest {
 
   /** */
-  private static final String ASSERTION_FAILED = "Assertion (SampleQueries) failed: ";
+  private static final String ASSERTION_FAILED = "Assertion (SampleReadQueries) failed: ";
 
   /** */
   private static final String SAMPLE_QUERIES_TEST_COMPANY_TESTDATA =
@@ -90,11 +90,11 @@ public class SampleQueries extends QueryTest {
       "select firstname from org.apache.jdo.tck.pc.company.Employee where department.name == :deptName";
 
   private static final String SINGLE_STRING_QUERY_08 =
-      "select firstname, salary, manager as reportsTo into org.apache.jdo.tck.query.api.SampleQueries$Info "
+      "select firstname, salary, manager as reportsTo into org.apache.jdo.tck.query.api.SampleReadQueries$Info "
           + "from org.apache.jdo.tck.pc.company.FullTimeEmployee where department.name == :deptName";
 
   private static final String SINGLE_STRING_QUERY_09 =
-      "select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager) "
+      "select new org.apache.jdo.tck.query.api.SampleReadQueries$Info (firstname, salary, manager) "
           + "from org.apache.jdo.tck.pc.company.FullTimeEmployee where department.name == :deptName";
 
   private static final String SINGLE_STRING_QUERY_10 =
@@ -118,11 +118,11 @@ public class SampleQueries extends QueryTest {
           + "where firstname == :empName";
 
   private static final String SINGLE_STRING_QUERY_15 =
-      "select into org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper "
+      "select into org.apache.jdo.tck.query.api.SampleReadQueries$EmpWrapper "
           + "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
 
   private static final String SINGLE_STRING_QUERY_16 =
-      "select into org.apache.jdo.tck.query.api.SampleQueries$EmpInfo "
+      "select into org.apache.jdo.tck.query.api.SampleReadQueries$EmpInfo "
           + "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
 
   private static final String SINGLE_STRING_QUERY_17 =
@@ -1182,7 +1182,7 @@ public class SampleQueries extends QueryTest {
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
-      List<SampleQueries.Info> expected = testQuery08Helper();
+      List<SampleReadQueries.Info> expected = testQuery08Helper();
       try (Query<FullTimeEmployee> q =
           pm.newQuery(FullTimeEmployee.class, "department.name == deptName")) {
         q.setResult("firstname, salary, manager as reportsTo");
@@ -1345,7 +1345,7 @@ public class SampleQueries extends QueryTest {
       try (Query<FullTimeEmployee> q =
           pm.newQuery(FullTimeEmployee.class, "department.name == deptName")) {
         q.setResult(
-            "new org.apache.jdo.tck.query.api.SampleQueries$Info(firstname, salary, manager)");
+            "new org.apache.jdo.tck.query.api.SampleReadQueries$Info(firstname, salary, manager)");
         q.declareParameters("String deptName");
         List<Info> infos = (List<Info>) q.execute("R&D");
         checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_09, infos, expected);
@@ -1378,7 +1378,7 @@ public class SampleQueries extends QueryTest {
       try (Query<FullTimeEmployee> q =
           pm.newQuery(FullTimeEmployee.class, "department.name == deptName")) {
         q.setResult(
-            "new org.apache.jdo.tck.query.api.SampleQueries$Info(firstname, salary, manager)");
+            "new org.apache.jdo.tck.query.api.SampleReadQueries$Info(firstname, salary, manager)");
         q.declareParameters("String deptName");
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("deptName", "R&D");
@@ -1414,7 +1414,7 @@ public class SampleQueries extends QueryTest {
       try (Query<FullTimeEmployee> q =
           pm.newQuery(FullTimeEmployee.class, "department.name == deptName")) {
         q.setResult(
-            "new org.apache.jdo.tck.query.api.SampleQueries$Info(firstname, salary, manager)");
+            "new org.apache.jdo.tck.query.api.SampleReadQueries$Info(firstname, salary, manager)");
         q.declareParameters("String deptName");
         q.setParameters("R&D");
         List<Info> infos = q.executeResultList(Info.class);
@@ -2985,43 +2985,6 @@ public class SampleQueries extends QueryTest {
     }
   }
 
-  /**
-   * Deleting Multiple Instances.
-   *
-   * <p>This query deletes all Employees who make more than the parameter salary.
-   */
-  @Test
-  public void testQuery20() {
-    Transaction tx = pm.currentTransaction();
-    try {
-      tx.begin();
-      Query<FullTimeEmployee> empQuery = pm.newQuery(FullTimeEmployee.class, "personid == 5");
-      empQuery.setUnique(true);
-      FullTimeEmployee emp5 = empQuery.executeUnique();
-      Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > sal");
-      q.declareParameters("Double sal");
-      q.deletePersistentAll(30000.);
-      tx.commit();
-
-      tx.begin();
-      Query<FullTimeEmployee> allQuery = pm.newQuery(FullTimeEmployee.class);
-      List<FullTimeEmployee> allFTE = allQuery.executeList();
-      if (!allFTE.isEmpty()) {
-        fail(
-            ASSERTION_FAILED,
-            "All FullTimeEmployee instances should have been deleted,"
-                + " there are still "
-                + allFTE.size()
-                + " instances left.");
-      }
-      tx.commit();
-    } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
-    }
-  }
-
   private List<Info> testQuery08Helper() {
     Info info1 = new Info();
     info1.firstname = "Michael";
@@ -3208,5 +3171,4 @@ public class SampleQueries extends QueryTest {
     return SAMPLE_QUERIES_TEST_COMPANY_TESTDATA;
   }
 
-  public void runTest() {}
 }
