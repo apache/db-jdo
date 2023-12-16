@@ -30,7 +30,6 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion IDs:</B> <br>
  * <B>Assertion Description: </B> This test class runs the example modify queries from the JDO
  * specification.
- *
  */
 public class SampleModifyQueries extends QueryTest {
 
@@ -93,5 +92,4 @@ public class SampleModifyQueries extends QueryTest {
   protected String getCompanyTestDataResource() {
     return SAMPLE_QUERIES_TEST_COMPANY_TESTDATA;
   }
-
 }

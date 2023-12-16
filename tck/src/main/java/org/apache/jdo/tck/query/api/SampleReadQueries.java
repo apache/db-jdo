@@ -3170,5 +3170,4 @@ public class SampleReadQueries extends QueryTest {
   protected String getCompanyTestDataResource() {
     return SAMPLE_QUERIES_TEST_COMPANY_TESTDATA;
   }
-
 }
