@@ -27,7 +27,10 @@ import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Shape of Result. <br>
@@ -35,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> A14.6.12-2. <br>
  * <B>Assertion Description: </B> Table 6: Shape of Result (C is the candidate class)
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ShapeOfResult extends QueryTest {
 
   /** */
@@ -389,6 +393,18 @@ public class ShapeOfResult extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, FullName.class, true, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

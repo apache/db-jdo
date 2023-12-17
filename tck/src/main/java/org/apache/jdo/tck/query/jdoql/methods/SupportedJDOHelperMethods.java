@@ -35,7 +35,10 @@ import org.apache.jdo.tck.pc.mylib.QVersionedPCPoint;
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Supported JDOHelper methods. <br>
@@ -48,6 +51,7 @@ import org.junit.jupiter.api.Test;
  *   <li>JDOHelper.getVersion(Object)
  * </ul>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedJDOHelperMethods extends QueryTest {
 
   /** */
@@ -213,6 +217,18 @@ public class SupportedJDOHelperMethods extends QueryTest {
   protected void localSetUp() {
     addTearDownClass(CompanyModelReader.getTearDownClasses());
     loadAndPersistCompanyModel(getPM());
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /** */

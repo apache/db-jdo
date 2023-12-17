@@ -26,7 +26,10 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QMedicalInsurance;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Navigation Through a References uses Dot Operator <br>
@@ -35,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> Navigation through single-valued fields is specified by the Java
  * language syntax of <code>field_name.field_name....field_name</code>.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
   /** */
@@ -192,6 +196,18 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

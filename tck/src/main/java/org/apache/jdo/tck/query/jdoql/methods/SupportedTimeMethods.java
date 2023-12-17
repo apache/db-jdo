@@ -26,7 +26,10 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.TimeSample;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Supported Time methods. <br>
@@ -40,6 +43,7 @@ import org.junit.jupiter.api.Test;
  *   <li>getSecond()
  * </ul>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedTimeMethods extends QueryTest {
 
   /** */
@@ -119,6 +123,18 @@ public class SupportedTimeMethods extends QueryTest {
     } finally {
       if ((tx != null) && tx.isActive()) tx.rollback();
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

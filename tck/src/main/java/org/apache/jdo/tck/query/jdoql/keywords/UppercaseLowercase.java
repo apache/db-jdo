@@ -18,7 +18,10 @@
 package org.apache.jdo.tck.query.jdoql.keywords;
 
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Keywords in uppercase and lowercase. <br>
@@ -27,6 +30,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> Keywords, identified above in bold, are either all upper-case or
  * all lower-case. Keywords cannot be mixed case.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UppercaseLowercase extends QueryTest {
 
   /** */
@@ -58,5 +62,17 @@ public class UppercaseLowercase extends QueryTest {
     for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
       compileSingleStringQuery(ASSERTION_FAILED, invalidSingleStringQuery, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 }

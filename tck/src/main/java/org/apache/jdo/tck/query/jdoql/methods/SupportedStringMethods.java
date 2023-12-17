@@ -26,7 +26,10 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Supported String methods. <br>
@@ -50,6 +53,7 @@ import org.junit.jupiter.api.Test;
  *   <li>trim()
  * </ul>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedStringMethods extends QueryTest {
 
   /** */
@@ -549,6 +553,18 @@ public class SupportedStringMethods extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

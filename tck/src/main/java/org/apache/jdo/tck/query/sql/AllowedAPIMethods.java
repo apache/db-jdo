@@ -29,7 +29,10 @@ import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Allowed API Methods. <br>
@@ -39,6 +42,7 @@ import org.junit.jupiter.api.Test;
  * candidate class, setUnique to declare that there is only one result row, and setResultClass to
  * establish the result class.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AllowedAPIMethods extends QueryTest {
 
   /** */
@@ -227,6 +231,18 @@ public class AllowedAPIMethods extends QueryTest {
 
   private void methodFailed(String method) {
     fail(ASSERTION_FAILED + method + " on a SQL query must throw JDOUserException.");
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

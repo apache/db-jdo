@@ -25,7 +25,10 @@ import org.apache.jdo.tck.pc.company.PartTimeEmployee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Instanceof operator. <br>
@@ -33,6 +36,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> A14.6.2-41. <br>
  * <B>Assertion Description: </B> instanceof operator
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Instanceof extends QueryTest {
 
   /** */
@@ -102,6 +106,18 @@ public class Instanceof extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

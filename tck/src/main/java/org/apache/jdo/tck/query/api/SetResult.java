@@ -23,7 +23,10 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Set Result. <br>
@@ -32,6 +35,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> void setResult (String result); Specify the results of the query
  * if not instances of the candidate class.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SetResult extends QueryTest {
 
   /** */
@@ -67,6 +71,18 @@ public class SetResult extends QueryTest {
               + "succeeded, though the result clause is invalid.");
     } catch (JDOUserException ignored) {
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

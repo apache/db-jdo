@@ -29,7 +29,10 @@ import org.apache.jdo.tck.pc.company.MeetingRoom;
 import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B>Supported list methods <br>
@@ -41,6 +44,7 @@ import org.junit.jupiter.api.Test;
  *   <LI>get(int)
  * </UL>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedListMethods extends QueryTest {
 
   /** */
@@ -122,6 +126,18 @@ public class SupportedListMethods extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

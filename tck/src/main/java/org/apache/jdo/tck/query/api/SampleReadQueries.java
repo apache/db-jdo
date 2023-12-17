@@ -38,7 +38,10 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> SampleReadQueries <br>
@@ -56,6 +59,7 @@ import org.junit.jupiter.api.Test;
  * version of the JDO query testQueryxxe: named query version of the JDO query testQueryxxf:
  * JDOQLTypedQuery version
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SampleReadQueries extends QueryTest {
 
   /** */
@@ -3150,6 +3154,18 @@ public class SampleReadQueries extends QueryTest {
       builder.append(")");
       return builder.toString();
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

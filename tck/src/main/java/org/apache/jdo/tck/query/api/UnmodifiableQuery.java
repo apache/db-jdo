@@ -25,7 +25,10 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Unmodifiable Query. <br>
@@ -35,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * modification of the query, except for specifying the range and result class and ignoreCache
  * option.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UnmodifiableQuery extends QueryTest {
 
   /** */
@@ -167,6 +171,18 @@ public class UnmodifiableQuery extends QueryTest {
 
   private void methodFailed(String method) {
     fail(ASSERTION_FAILED + method + " on an unmodifiable query must throw JDOUserException.");
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

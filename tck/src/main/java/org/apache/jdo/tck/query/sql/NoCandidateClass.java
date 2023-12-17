@@ -22,7 +22,10 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> No Candidate Class. <br>
@@ -32,6 +35,7 @@ import org.junit.jupiter.api.Test;
  * queries can be found by name using the factory method newNamedQuery, specifying the class as
  * null, or can be constructed without a candidate class.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NoCandidateClass extends QueryTest {
 
   /** */
@@ -78,6 +82,18 @@ public class NoCandidateClass extends QueryTest {
           expectedResult[index],
           false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

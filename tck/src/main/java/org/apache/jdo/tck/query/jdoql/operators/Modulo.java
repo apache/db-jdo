@@ -27,7 +27,10 @@ import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Modulo operator. <br>
@@ -35,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> A14.6.2-40. <br>
  * <B>Assertion Description: </B> modulo operator
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Modulo extends QueryTest {
 
   /** */
@@ -95,6 +99,18 @@ public class Modulo extends QueryTest {
     runSimplePrimitiveTypesQuery("bigInteger % 10 == 0", pm, instance4, ASSERTION_FAILED);
 
     tx.commit();
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

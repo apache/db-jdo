@@ -24,7 +24,10 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Supported Date methods. <br>
@@ -38,6 +41,7 @@ import org.junit.jupiter.api.Test;
  *   <li>getYear()
  * </ul>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedDateMethods extends QueryTest {
 
   /** */
@@ -138,6 +142,18 @@ public class SupportedDateMethods extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

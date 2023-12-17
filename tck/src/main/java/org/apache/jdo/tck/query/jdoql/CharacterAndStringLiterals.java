@@ -23,7 +23,10 @@ import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.pc.mylib.QPrimitiveTypes;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Character and String Literals. <br>
@@ -34,6 +37,7 @@ import org.junit.jupiter.api.Test;
  * String literals are allowed to be delimited by single quote marks or double quote marks. This
  * allows String literal filters to use single quote marks instead of escaped double quote marks.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CharacterAndStringLiterals extends QueryTest {
 
   /** */
@@ -145,6 +149,18 @@ public class CharacterAndStringLiterals extends QueryTest {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
       compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

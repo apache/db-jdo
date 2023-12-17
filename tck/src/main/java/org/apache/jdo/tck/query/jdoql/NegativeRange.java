@@ -23,7 +23,10 @@ import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Negative Range. <br>
@@ -34,6 +37,7 @@ import org.junit.jupiter.api.Test;
  * Iterator obtained from the List returns false to hasNext(). If the result of the query execution
  * is a single instance (setUnique(true)), it will have a value of null.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NegativeRange extends QueryTest {
 
   /** */
@@ -153,6 +157,18 @@ public class NegativeRange extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

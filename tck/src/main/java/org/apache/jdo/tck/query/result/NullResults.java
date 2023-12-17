@@ -25,7 +25,10 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Null Results. <br>
@@ -34,6 +37,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> If the returned value from a query specifying a result is null,
  * this indicates that the expression specified as the result was null.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NullResults extends QueryTest {
 
   /** */
@@ -135,6 +139,18 @@ public class NullResults extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

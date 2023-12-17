@@ -24,7 +24,10 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> StartsWith and EndsWith Query Operators <br>
@@ -34,6 +37,7 @@ import org.junit.jupiter.api.Test;
  * endsWith</code> support wild card queries. JDO does not define any special semantic to the
  * argument passed to the method; in particular, it does not define any wild card characters.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class StartsWithAndEndsWith extends QueryTest {
 
   /** */
@@ -104,6 +108,18 @@ public class StartsWithAndEndsWith extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

@@ -23,7 +23,10 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Order of Parameters. <br>
@@ -32,6 +35,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> If implicit parameters are used, their order of appearance in the
  * query determines their order for binding to positional parameters for execution.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OrderOfParameters extends QueryTest {
 
   /** */
@@ -91,6 +95,18 @@ public class OrderOfParameters extends QueryTest {
         tx.rollback();
       }
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

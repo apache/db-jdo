@@ -22,8 +22,11 @@ import javax.jdo.FetchPlan;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.mylib.PCClass;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Get Fetch Plan. <br>
@@ -33,6 +36,7 @@ import org.junit.jupiter.api.Test;
  * always returns the identical instance for the same Query instance. Any change made to the fetch
  * plan affects subsequent query execution.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GetFetchPlan extends QueryTest {
 
   /** */
@@ -111,5 +115,17 @@ public class GetFetchPlan extends QueryTest {
     } finally {
       query.getFetchPlan().removeGroup(FETCH_GROUP_2);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 }

@@ -25,7 +25,10 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Unique. <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * satisfied the filter. If more than one instance satisfies the filter, and the range is not
  * limited to one result, then execute throws a JDOUserException.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Unique extends QueryTest {
 
   /** */
@@ -147,6 +151,18 @@ public class Unique extends QueryTest {
 
     query = getPM().newQuery(singleString);
     executeJDOQuery(ASSERTION_FAILED, query, singleString, false, null, null, false);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

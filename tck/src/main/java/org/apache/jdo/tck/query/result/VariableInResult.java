@@ -28,7 +28,10 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Variable in Result. <br>
@@ -44,6 +47,7 @@ import org.junit.jupiter.api.Test;
  * variables used in the result that satisfy the filter. The result is the collection of result
  * expressions projected from the result tuples.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class VariableInResult extends QueryTest {
 
   /** */
@@ -233,6 +237,18 @@ public class VariableInResult extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

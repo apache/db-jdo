@@ -26,7 +26,10 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Distinct Candidate Instances. <br>
@@ -37,6 +40,7 @@ import org.junit.jupiter.api.Test;
  * contain duplicate candidate instances; the distinct keyword removes duplicates from the candidate
  * collection in this case.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DistinctCandidateInstances extends QueryTest {
 
   /** */
@@ -141,6 +145,18 @@ public class DistinctCandidateInstances extends QueryTest {
         null,
         getTransientCompanyModelInstancesAsList(Person.class, "emp1"),
         true);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

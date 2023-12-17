@@ -29,7 +29,10 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B>Supported collection methods <br>
@@ -43,6 +46,7 @@ import org.junit.jupiter.api.Test;
  *   <LI>size
  * </UL>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedCollectionMethods extends QueryTest {
 
   /** */
@@ -219,6 +223,18 @@ public class SupportedCollectionMethods extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

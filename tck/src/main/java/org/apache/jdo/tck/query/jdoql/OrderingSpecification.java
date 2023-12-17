@@ -31,7 +31,10 @@ import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Ordering Specification <br>
@@ -56,6 +59,7 @@ import org.junit.jupiter.api.Test;
  * via navigation through single-valued fields is specified by the Java language syntax of <code>
  * field_name.field_name....field_name</code>.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OrderingSpecification extends QueryTest {
 
   /** */
@@ -250,6 +254,18 @@ public class OrderingSpecification extends QueryTest {
     } finally {
       if ((tx != null) && tx.isActive()) tx.rollback();
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

@@ -34,7 +34,10 @@ import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Result Expressions. <br>
@@ -43,6 +46,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> The result expressions include: ... The result expression can be
  * explicitly cast using the (cast) operator.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ResultExpressions extends QueryTest {
 
   /** */
@@ -713,6 +717,18 @@ public class ResultExpressions extends QueryTest {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
       compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

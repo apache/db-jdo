@@ -34,7 +34,10 @@ import org.apache.jdo.tck.query.result.classes.NoFieldsNoMethods;
 import org.apache.jdo.tck.query.result.classes.PublicLongField;
 import org.apache.jdo.tck.query.result.classes.PublicPutMethod;
 import org.apache.jdo.tck.util.ConversionHelper;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Result Class Requirements. <br>
@@ -42,6 +45,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> A14.6.12-1. <br>
  * <B>Assertion Description: </B> The result class may be one of the java.lang classes ...
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ResultClassRequirements extends QueryTest {
 
   /** */
@@ -534,6 +538,18 @@ public class ResultClassRequirements extends QueryTest {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
       compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

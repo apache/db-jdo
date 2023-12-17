@@ -29,7 +29,10 @@ import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.opentest4j.AssertionFailedError;
 
 /**
@@ -47,6 +50,7 @@ import org.opentest4j.AssertionFailedError;
  * <p>Looks like Derby is evaluating the query on ResultSet.next() and thus the actual query
  * execution is too fast to be canceled.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class QueryCancel extends QueryTest {
 
   /** Time for the main thread to sleep after starting a parallel thread. */
@@ -210,6 +214,18 @@ public class QueryCancel extends QueryTest {
         if ((tx != null) && tx.isActive()) tx.rollback();
       }
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

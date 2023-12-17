@@ -20,7 +20,10 @@ package org.apache.jdo.tck.query.jdoql.keywords;
 import org.apache.jdo.tck.pc.query.JDOQLKeywordsAsFieldNames;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Keywords as field names. <br>
@@ -29,6 +32,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> Keywords are permitted as field names only if they are on the
  * right side of the "." in field access expressions.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class KeywordsAsFieldNames extends QueryTest {
 
   /** */
@@ -90,5 +94,17 @@ public class KeywordsAsFieldNames extends QueryTest {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
       compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 }

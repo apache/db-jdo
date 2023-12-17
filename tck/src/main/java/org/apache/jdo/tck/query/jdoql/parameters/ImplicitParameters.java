@@ -26,7 +26,10 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Implicit parameters. <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * ordering, or range) are identified by prepending a ":" to the parameter everywhere it appears.
  * All parameter types can be determined by one of the following techniques:
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ImplicitParameters extends QueryTest {
 
   /** */
@@ -174,6 +178,18 @@ public class ImplicitParameters extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     // TBD executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

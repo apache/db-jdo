@@ -29,7 +29,10 @@ import org.apache.jdo.tck.pc.company.QDentalInsurance;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> IfElseResult. <br>
@@ -37,6 +40,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> . <br>
  * <B>Assertion Description: </B>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class IfElseResult extends QueryTest {
 
   /** */
@@ -218,6 +222,18 @@ public class IfElseResult extends QueryTest {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
       compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

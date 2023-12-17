@@ -25,7 +25,10 @@ import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Grouping. <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * per group. The query groups all elements where all expressions specified in setGrouping have the
  * same values. The query result consists of one element per group.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Grouping extends QueryTest {
 
   /** */
@@ -110,6 +114,18 @@ public class Grouping extends QueryTest {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
       compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

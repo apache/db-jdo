@@ -28,7 +28,10 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.MeetingRoom;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QMeetingRoom;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Correlated Subqueries Without Parameters <br>
@@ -38,6 +41,7 @@ import org.junit.jupiter.api.Test;
  * expressions in the outer query. If the correlation can be expressed as a restriction of the
  * candidate collection of the subquery, no parameters are needed.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CorrelatedSubqueries extends SubqueriesTest {
 
   /** */
@@ -238,6 +242,18 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         tx.rollback();
       }
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

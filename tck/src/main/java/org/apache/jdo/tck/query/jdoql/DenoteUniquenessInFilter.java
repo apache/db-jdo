@@ -25,7 +25,10 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Element Returned in Query Result <br>
@@ -42,6 +45,7 @@ import org.junit.jupiter.api.Test;
  *       declaring an expression (for example, <code>e1 != e2</code>).
  * </UL>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DenoteUniquenessInFilter extends QueryTest {
 
   /** */
@@ -181,6 +185,18 @@ public class DenoteUniquenessInFilter extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

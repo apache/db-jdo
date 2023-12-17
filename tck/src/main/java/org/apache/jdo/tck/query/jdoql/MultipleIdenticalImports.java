@@ -28,7 +28,10 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Multiple identical imports <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> A14.4-5. <br>
  * <B>Assertion Description: </B> It is valid to specify the same import multiple times.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MultipleIdenticalImports extends QueryTest {
 
   /** */
@@ -157,6 +161,18 @@ public class MultipleIdenticalImports extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

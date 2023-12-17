@@ -30,7 +30,10 @@ import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Aggregate Result. <br>
@@ -40,6 +43,7 @@ import org.junit.jupiter.api.Test;
  * field's type for other Number types (BigDecimal, BigInteger, Float, and Double). Sum is invalid
  * if applied to non-Number types. Avg, min, and max return the type of the expression.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AggregateResult extends QueryTest {
 
   /** */
@@ -991,6 +995,18 @@ public class AggregateResult extends QueryTest {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
       compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

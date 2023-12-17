@@ -24,7 +24,10 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Bitwise Binary Query Operators <br>
@@ -39,6 +42,7 @@ import org.junit.jupiter.api.Test;
  *   <LI><code>byte, short, int, long, Byte, Short Integer, Long</code>
  * </UL>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BitwiseBinaryOperators extends QueryTest {
 
   /** */
@@ -249,6 +253,18 @@ public class BitwiseBinaryOperators extends QueryTest {
     }
 
     tx.commit();
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

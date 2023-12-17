@@ -23,7 +23,10 @@ import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> New Named Query. <br>
@@ -32,6 +35,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> Construct a new query instance with the given candidate class from
  * a named query.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NewNamedQuery extends QueryTest {
 
   /** */
@@ -77,6 +81,18 @@ public class NewNamedQuery extends QueryTest {
         null,
         expectedResult,
         positive);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

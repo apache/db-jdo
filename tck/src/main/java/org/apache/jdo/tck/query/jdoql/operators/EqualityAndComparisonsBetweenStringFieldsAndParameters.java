@@ -27,7 +27,10 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Equality and Comparisons Between String Fields and Parameters <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> Equality and ordering comparisons of <code>String</code> fields
  * and <code>String</code> parameters are valid. The comparison is done lexicographically.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class EqualityAndComparisonsBetweenStringFieldsAndParameters extends QueryTest {
 
   /** */
@@ -148,6 +152,18 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters extends Quer
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

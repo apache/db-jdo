@@ -25,7 +25,10 @@ import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Shape of Result. <br>
@@ -33,6 +36,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> A14.7-4. <br>
  * <B>Assertion Description: </B> Table 7: Shape of Result of SQL Query
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ShapeOfResult extends QueryTest {
 
   /** */
@@ -214,6 +218,18 @@ public class ShapeOfResult extends QueryTest {
       query.setClass(PrimitiveTypes.class);
       compile(ASSERTION_FAILED, query, sql, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

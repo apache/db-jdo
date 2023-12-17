@@ -25,7 +25,10 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> ExecuteWithMap <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * intValue is 1 is bound to the first ? in the SQL statement, and so forth.
  */
 @SuppressWarnings("unchecked")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ExecuteWithMap extends QueryTest {
 
   /** */
@@ -182,6 +186,18 @@ public class ExecuteWithMap extends QueryTest {
       executeSQLQuery(
           ASSERTION_FAILED, query, Person.class, null, false, illegalMapStringKeys, null, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

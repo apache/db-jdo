@@ -29,8 +29,11 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.OptionalSample;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Optional Fields. <br>
@@ -38,6 +41,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> A14.6.2-9 <br>
  * <B>Assertion Description: </B> Queries on fields of type java.util.Optional .
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedOptionalMethods extends QueryTest {
 
   /** */
@@ -540,6 +544,18 @@ public class SupportedOptionalMethods extends QueryTest {
         tx.rollback();
       }
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

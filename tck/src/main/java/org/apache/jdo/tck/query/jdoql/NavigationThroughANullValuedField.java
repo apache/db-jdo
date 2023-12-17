@@ -26,7 +26,10 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Navigation Through a Null-Valued Field <br>
@@ -37,6 +40,7 @@ import org.junit.jupiter.api.Test;
  * for the evaluation of the current set of variable values. Other values for variables might still
  * qualify the candidate instance for inclusion in the result set.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NavigationThroughANullValuedField extends QueryTest {
 
   /** */
@@ -193,6 +197,18 @@ public class NavigationThroughANullValuedField extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

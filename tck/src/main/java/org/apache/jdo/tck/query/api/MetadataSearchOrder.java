@@ -24,7 +24,10 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCClass;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Metadata Search Order. <br>
@@ -35,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * the query is found. The order is based on the metadata search order for class metadata, but
  * includes files named based on the query name.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MetadataSearchOrder extends QueryTest {
 
   /** */
@@ -90,6 +94,18 @@ public class MetadataSearchOrder extends QueryTest {
     Query<?> query = getPM().newNamedQuery(candidateClass, namedQuery);
     executeJDOQuery(
         ASSERTION_FAILED, query, "Named query " + namedQuery, false, null, expectedResult, true);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

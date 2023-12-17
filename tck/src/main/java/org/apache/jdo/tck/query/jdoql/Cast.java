@@ -28,7 +28,10 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Cast Query Operator <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> A14.6.2-38. <br>
  * <B>Assertion Description: </B> The cast operator can be used for type conversions on classes.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Cast extends QueryTest {
 
   /** */
@@ -115,6 +119,18 @@ public class Cast extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

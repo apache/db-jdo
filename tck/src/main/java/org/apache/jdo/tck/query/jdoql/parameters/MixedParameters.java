@@ -20,7 +20,10 @@ package org.apache.jdo.tck.query.jdoql.parameters;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Mixed parameters. <br>
@@ -29,6 +32,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> Parameters must all be declared explicitly via declareParameters
  * or all be declared implicitly in the filter.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MixedParameters extends QueryTest {
 
   /** */
@@ -117,5 +121,17 @@ public class MixedParameters extends QueryTest {
       compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
       compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 }

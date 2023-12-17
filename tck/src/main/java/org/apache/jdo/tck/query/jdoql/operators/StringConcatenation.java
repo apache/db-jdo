@@ -27,7 +27,10 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> String Concatenation Query Operator <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> The <code>String</code> concatenation operator (<code>+</code>) is
  * supported for the <code>String</code> type only.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class StringConcatenation extends QueryTest {
 
   /** */
@@ -108,6 +112,18 @@ public class StringConcatenation extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

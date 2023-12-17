@@ -26,7 +26,10 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> AutoCloseable <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * try-with-resources all results of execute(...) methods on this query instance are automatically
  * closed at the end of that block and all resources associated with it are released.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AutoCloseable extends QueryTest {
 
   /** */
@@ -228,6 +232,18 @@ public class AutoCloseable extends QueryTest {
         tx.rollback();
       }
     }
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

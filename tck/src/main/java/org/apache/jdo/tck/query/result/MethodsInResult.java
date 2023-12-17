@@ -26,7 +26,10 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Test using methods in the result expression <br>
@@ -35,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> The result expressions include: method expression: the value of an
  * expression calling any of the methods allowed in queries applied to fields is returned.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MethodsInResult extends QueryTest {
 
   /** */
@@ -248,6 +252,18 @@ public class MethodsInResult extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

@@ -26,7 +26,10 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Identifiers Equal Field Names. <br>
@@ -35,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> Identifiers that are persistent field names or public final static
  * field names are required to be supported by JDO implementations.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class IdentifiersEqualFieldNames extends QueryTest {
 
   /** */
@@ -205,6 +209,18 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**

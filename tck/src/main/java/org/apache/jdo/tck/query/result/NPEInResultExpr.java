@@ -26,7 +26,10 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> NullPointerException in Result Expression. <br>
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * field or variable has a null value for a particular set of conditions (the result calculation
  * would throw NullPointerException), then the result is null for that result expression.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NPEInResultExpr extends QueryTest {
 
   /** */
@@ -106,6 +110,18 @@ public class NPEInResultExpr extends QueryTest {
     executeAPIQuery(ASSERTION_FAILED, holder, expected);
     executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+  }
+
+  @BeforeAll
+  @Override
+  public void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  public void tearDown() {
+    super.tearDown();
   }
 
   /**
