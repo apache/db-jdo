@@ -19,14 +19,15 @@ package org.apache.jdo.tck.query.api;
 
 import java.util.Collection;
 import javax.jdo.FetchPlan;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.mylib.PCClass;
 import org.apache.jdo.tck.query.QueryTest;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Get Fetch Plan. <br>
@@ -46,28 +47,37 @@ public class GetFetchPlan extends QueryTest {
   private static final String FETCH_GROUP_2 = "fetchGroup2";
 
   /** */
-  private Query<PCClass> createQuery() {
-    Query<PCClass> query = getPM().newQuery(PCClass.class, "true");
+  private Query<PCClass> createQuery(PersistenceManager pm) {
+    Query<PCClass> query = pm.newQuery(PCClass.class, "true");
     query.getFetchPlan().setGroup(FETCH_GROUP_1);
     return query;
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testFetchGroup1() {
-    // localSetUp closes the PM
-    Query<PCClass> query = createQuery();
-    checkSameFetchPlanInstances(query);
-    checkFetchGroup1(query);
-    cleanupPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Query<PCClass> query = createQuery(pm);
+      checkSameFetchPlanInstances(query);
+      checkFetchGroup1(query);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testFetchGroup2() {
-    // localSetUp closes the PM
-    Query<PCClass> query = createQuery();
-    checkFetchGroup2(query);
-    checkFetchGroup1(query);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Query<PCClass> query = createQuery(pm);
+      checkFetchGroup2(query);
+      checkFetchGroup1(query);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   private void checkSameFetchPlanInstances(Query<PCClass> query) {
@@ -115,17 +125,5 @@ public class GetFetchPlan extends QueryTest {
     } finally {
       query.getFetchPlan().removeGroup(FETCH_GROUP_2);
     }
-  }
-
-  @BeforeAll
-  @Override
-  public void setUp() {
-    super.setUp();
-  }
-
-  @AfterAll
-  @Override
-  public void tearDown() {
-    super.tearDown();
   }
 }

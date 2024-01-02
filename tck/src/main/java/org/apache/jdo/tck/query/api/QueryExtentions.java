@@ -56,7 +56,7 @@ public class QueryExtentions extends QueryTest {
     query.setExtensions(extentions);
     query.addExtension("unknown key 2", "unknown value 2");
     executeJDOQuery(
-        ASSERTION_FAILED, query, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
+        ASSERTION_FAILED, pm, query, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
   }
 
   /**

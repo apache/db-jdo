@@ -24,7 +24,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Declare Parameters <br>
@@ -34,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * parameter statements to the query instance. This method defines the parameter types and names
  * which will be used by a subsequent <code>execute</code> method.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeclareParameters extends QueryTest {
 
   /** */
@@ -41,16 +47,9 @@ public class DeclareParameters extends QueryTest {
 
   /** */
   @Test
-  public void testPositive() {
-    PersistenceManager pm = getPM();
-
-    runTestDeclareParameters01(pm);
-    runTestDeclareParameters02(pm);
-    runTestDeclareParameters03(pm);
-  }
-
-  /** */
-  private void runTestDeclareParameters01(PersistenceManager pm) {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestDeclareParameters01() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -63,20 +62,20 @@ public class DeclareParameters extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p3 = new PCPoint(2, 2);
-      expected.add(p3);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(2));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == param", results, expected);
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  private void runTestDeclareParameters02(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestDeclareParameters02() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -89,21 +88,21 @@ public class DeclareParameters extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p3 = new PCPoint(2, 2);
-      expected.add(p3);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(2));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(
           ASSERTION_FAILED, "x == param1 && y == param2", results, expected);
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  void runTestDeclareParameters03(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestDeclareParameters03() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -116,16 +115,25 @@ public class DeclareParameters extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p = new PCPoint(1, 1);
-      expected.add(p);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(1));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == a && y == b", results, expected);
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

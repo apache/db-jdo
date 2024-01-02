@@ -17,11 +17,14 @@
 
 package org.apache.jdo.tck.query.jdoql.keywords;
 
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.query.QueryTest;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Keywords in uppercase and lowercase. <br>
@@ -51,28 +54,40 @@ public class UppercaseLowercase extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive() {
-    for (String validSingleStringQuery : VALID_SINGLE_STRING_QUERIES) {
-      compileSingleStringQuery(ASSERTION_FAILED, validSingleStringQuery, true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (String validSingleStringQuery : VALID_SINGLE_STRING_QUERIES) {
+        compileSingleStringQuery(ASSERTION_FAILED, pm, validSingleStringQuery, true);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegitve() {
-    for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
-      compileSingleStringQuery(ASSERTION_FAILED, invalidSingleStringQuery, false);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidSingleStringQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 }

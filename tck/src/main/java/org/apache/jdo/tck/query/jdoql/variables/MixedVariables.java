@@ -17,6 +17,7 @@
 
 package org.apache.jdo.tck.query.jdoql.variables;
 
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -25,6 +26,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Mixed Variables. <br>
@@ -104,30 +107,42 @@ public class MixedVariables extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive() {
-    for (int i = 0; i < VALID_QUERIES.length; i++) {
-      executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], expectedResult[i]);
-      executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], expectedResult[i]);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (int i = 0; i < VALID_QUERIES.length; i++) {
+        executeAPIQuery(ASSERTION_FAILED, pm, VALID_QUERIES[i], expectedResult[i]);
+        executeSingleStringQuery(ASSERTION_FAILED, pm, VALID_QUERIES[i], expectedResult[i]);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
-    for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
-      compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
-      compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+        compileAPIQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

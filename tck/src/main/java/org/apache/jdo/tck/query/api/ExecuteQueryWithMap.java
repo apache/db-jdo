@@ -26,7 +26,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Execute Query with Map <br>
@@ -38,6 +43,7 @@ import org.junit.jupiter.api.Test;
  * the value is the value to use in the query for that parameter. Unlike <code>execute</code>, there
  * is no limit on the number of parameters.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ExecuteQueryWithMap extends QueryTest {
 
   /** */
@@ -46,15 +52,9 @@ public class ExecuteQueryWithMap extends QueryTest {
 
   /** */
   @Test
-  public void testPositive() {
-    PersistenceManager pm = getPM();
-
-    runTestExecuteQueryWithMap01(pm);
-    runTestExecuteQueryWithMap02(pm);
-  }
-
-  /** */
-  private void runTestExecuteQueryWithMap01(PersistenceManager pm) {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestExecuteQueryWithMap01() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -70,21 +70,21 @@ public class ExecuteQueryWithMap extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p3 = new PCPoint(2, 2);
-      expected.add(p3);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(2));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == param", results, expected);
       tx.commit();
-      tx = null;
       if (debug) logger.debug("Test ExecuteQueryWithMap01 - Passed\n");
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  private void runTestExecuteQueryWithMap02(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestExecuteQueryWithMap02() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -101,18 +101,27 @@ public class ExecuteQueryWithMap extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p3 = new PCPoint(2, 2);
-      expected.add(p3);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(2));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(
           ASSERTION_FAILED, "x == param1 && y == param2", results, expected);
       tx.commit();
-      tx = null;
       if (debug) logger.debug("Test ExecuteQueryWithMap02 - Passed\n");
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

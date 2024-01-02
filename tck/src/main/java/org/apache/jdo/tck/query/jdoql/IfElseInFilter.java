@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.util.List;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import javax.jdo.query.BooleanExpression;
 import javax.jdo.query.IfThenElseExpression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -33,6 +34,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Use of If Else expression in filter <br>
@@ -99,179 +102,208 @@ public class IfElseInFilter extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive0() {
     // simple If/Else using literals
     List<FullTimeEmployee> expected =
         getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      IfThenElseExpression<Double> ifExpr =
+          query.ifThenElse(cand.department.name.eq("Development"), 15000.0, 25000.0);
+      query.filter(cand.salary.gt(ifExpr));
+      query.orderBy(cand.personid.asc());
 
-    JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
-    QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-    IfThenElseExpression<Double> ifExpr =
-        query.ifThenElse(cand.department.name.eq("Development"), 15000.0, 25000.0);
-    query.filter(cand.salary.gt(ifExpr));
-    query.orderBy(cand.personid.asc());
+      QueryElementHolder<FullTimeEmployee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ FullTimeEmployee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "this.salary > (IF (this.department.name == 'Development') 15000 ELSE 25000)",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ "this.personid",
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<FullTimeEmployee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ FullTimeEmployee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "this.salary > (IF (this.department.name == 'Development') 15000 ELSE 25000)",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ "this.personid",
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
+
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive1() {
     // simple If/Else using relationships
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+      QEmployee cand = QEmployee.candidate();
+      IfThenElseExpression<Long> ifExpr =
+          query.ifThenElse(
+              Long.class,
+              cand.manager.eq((Employee) null),
+              cand.mentor.department.deptid,
+              cand.manager.department.deptid);
+      query.filter(ifExpr.eq(cand.department.deptid));
+      query.orderBy(cand.personid.asc());
 
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
-    IfThenElseExpression<Long> ifExpr =
-        query.ifThenElse(
-            Long.class,
-            cand.manager.eq((Employee) null),
-            cand.mentor.department.deptid,
-            cand.manager.department.deptid);
-    query.filter(ifExpr.eq(cand.department.deptid));
-    query.orderBy(cand.personid.asc());
+      QueryElementHolder<Employee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "(IF (this.manager == null) this.mentor.department.deptid ELSE this.manager.department.deptid) == this.department.deptid",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ "this.personid",
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Employee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "(IF (this.manager == null) this.mentor.department.deptid ELSE this.manager.department.deptid) == this.department.deptid",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ "this.personid",
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
+
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive2() {
     // multiple If/Else with distinct conditions
     List<FullTimeEmployee> expected =
         getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      BooleanExpression cond1 = cand.salary.gt(0.0).and(cand.salary.lt(10000.1));
+      BooleanExpression cond2 = cand.salary.gt(10000.1).and(cand.salary.lt(20000.1));
+      BooleanExpression cond3 = cand.salary.gt(20000.1).and(cand.salary.lt(30000.1));
+      IfThenElseExpression<Integer> ifExpr =
+          query.ifThen(cond1, 1).ifThen(cond2, 2).ifThen(cond3, 3).elseEnd(4);
+      query.filter(ifExpr.eq(2));
+      query.orderBy(cand.personid.asc());
 
-    JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
-    QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-    BooleanExpression cond1 = cand.salary.gt(0.0).and(cand.salary.lt(10000.1));
-    BooleanExpression cond2 = cand.salary.gt(10000.1).and(cand.salary.lt(20000.1));
-    BooleanExpression cond3 = cand.salary.gt(20000.1).and(cand.salary.lt(30000.1));
-    IfThenElseExpression<Integer> ifExpr =
-        query.ifThen(cond1, 1).ifThen(cond2, 2).ifThen(cond3, 3).elseEnd(4);
-    query.filter(ifExpr.eq(2));
-    query.orderBy(cand.personid.asc());
+      QueryElementHolder<FullTimeEmployee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ FullTimeEmployee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "(IF (0.0 <= this.salary && this.salary < 10000.1) 1 ELSE "
+                  + "IF (10000.1 <= this.salary && this.salary < 20000.1) 2 ELSE "
+                  + "IF (20000.1 <= this.salary && this.salary < 30000.1) 3 ELSE 4) == 2",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ "this.personid",
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<FullTimeEmployee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ FullTimeEmployee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "(IF (0.0 <= this.salary && this.salary < 10000.1) 1 ELSE "
-                + "IF (10000.1 <= this.salary && this.salary < 20000.1) 2 ELSE "
-                + "IF (20000.1 <= this.salary && this.salary < 30000.1) 3 ELSE 4) == 2",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ "this.personid",
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
+
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive3() {
     // multiple If/Else with overlapping conditions
     List<FullTimeEmployee> expected =
         getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      BooleanExpression cond1 = cand.salary.lt(10000.1);
+      BooleanExpression cond2 = cand.salary.lt(20000.1);
+      BooleanExpression cond3 = cand.salary.lt(30000.1);
+      IfThenElseExpression<Integer> ifExpr =
+          query.ifThen(cond1, 1).ifThen(cond2, 2).ifThen(cond3, 3).elseEnd(4);
+      query.filter(ifExpr.eq(2));
 
-    JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
-    QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-    BooleanExpression cond1 = cand.salary.lt(10000.1);
-    BooleanExpression cond2 = cand.salary.lt(20000.1);
-    BooleanExpression cond3 = cand.salary.lt(30000.1);
-    IfThenElseExpression<Integer> ifExpr =
-        query.ifThen(cond1, 1).ifThen(cond2, 2).ifThen(cond3, 3).elseEnd(4);
-    query.filter(ifExpr.eq(2));
+      QueryElementHolder<FullTimeEmployee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ FullTimeEmployee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "(IF (this.salary < 10000.1) 1 ELSE "
+                  + "IF (this.salary < 20000.1) 2 ELSE IF (this.salary < 30000.1) 3 ELSE 4) == 2",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ "this.personid",
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<FullTimeEmployee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ FullTimeEmployee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "(IF (this.salary < 10000.1) 1 ELSE "
-                + "IF (this.salary < 20000.1) 2 ELSE IF (this.salary < 30000.1) 3 ELSE 4) == 2",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ "this.personid",
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
-    for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
-      compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
-      compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+        compileAPIQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

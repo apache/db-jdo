@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.util.List;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Person;
@@ -30,6 +31,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Identifiers Equal Field Names. <br>
@@ -47,179 +50,208 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive0() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
+      QPerson cand = QPerson.candidate();
+      query.filter(cand.firstname.eq("emp1First"));
 
-    JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
-    QPerson cand = QPerson.candidate();
-    query.filter(cand.firstname.eq("emp1First"));
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "this.firstname == 'emp1First'",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "this.firstname == 'emp1First'",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive1() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
             Person.class, "emp1", "emp2", "emp3", "emp4", "emp5");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
+      QPerson cand = QPerson.candidate();
+      query.filter(cand.personid.lt((long) Byte.MAX_VALUE));
 
-    JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
-    QPerson cand = QPerson.candidate();
-    query.filter(cand.personid.lt((long) Byte.MAX_VALUE));
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "this.personid < Byte.MAX_VALUE",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "this.personid < Byte.MAX_VALUE",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive2() {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
+      QDepartment cand = QDepartment.candidate();
+      query.filter(
+          cand.employees
+              .size()
+              .gt(org.apache.jdo.tck.pc.company.Department.RECOMMENDED_NO_OF_EMPS));
 
-    JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
-    QDepartment cand = QDepartment.candidate();
-    query.filter(
-        cand.employees.size().gt(org.apache.jdo.tck.pc.company.Department.RECOMMENDED_NO_OF_EMPS));
+      QueryElementHolder<Department> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Department.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "employees.size() > org.apache.jdo.tck.pc.company.Department.RECOMMENDED_NO_OF_EMPS",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Department> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Department.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "employees.size() > org.apache.jdo.tck.pc.company.Department.RECOMMENDED_NO_OF_EMPS",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive3() {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
 
-    JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
-    QDepartment cand = QDepartment.candidate();
-    query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
+      JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
+      QDepartment cand = QDepartment.candidate();
+      query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
 
-    QueryElementHolder<Department> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Department.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "employees.size() > Department.RECOMMENDED_NO_OF_EMPS",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
+      QueryElementHolder<Department> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Department.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "employees.size() > Department.RECOMMENDED_NO_OF_EMPS",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive4() {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
 
-    JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
-    QDepartment cand = QDepartment.candidate();
-    query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
+      JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
+      QDepartment cand = QDepartment.candidate();
+      query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
 
-    QueryElementHolder<Department> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Department.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "employees.size() > RECOMMENDED_NO_OF_EMPS",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
+      QueryElementHolder<Department> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Department.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "employees.size() > RECOMMENDED_NO_OF_EMPS",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

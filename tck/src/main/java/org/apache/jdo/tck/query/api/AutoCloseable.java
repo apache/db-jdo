@@ -30,6 +30,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> AutoCloseable <br>
@@ -50,9 +52,10 @@ public class AutoCloseable extends QueryTest {
    * the query result is not accessible after the block.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testTryWithResource() {
 
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
 
     try {
@@ -132,9 +135,7 @@ public class AutoCloseable extends QueryTest {
 
       tx.commit();
     } finally {
-      if (tx != null && tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -143,9 +144,10 @@ public class AutoCloseable extends QueryTest {
    * the query result is not accessible after the block, if the block is ended with an exception.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testTryWithResourceThrowingException() {
 
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -228,21 +230,19 @@ public class AutoCloseable extends QueryTest {
 
       tx.commit();
     } finally {
-      if (tx != null && tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

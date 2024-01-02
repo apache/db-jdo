@@ -71,8 +71,8 @@ public class SingleString extends QueryTest {
             /*JDOQLTyped*/ null,
             /*paramValues*/ paramValues);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+    executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+    executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
   }
 
   /**

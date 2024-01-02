@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import javax.jdo.query.StringExpression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -31,6 +32,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> String Concatenation Query Operator <br>
@@ -48,81 +51,91 @@ public class StringConcatenation extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testStringLiteralPlusStringLiteral() {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+      QEmployee cand = QEmployee.candidate();
+      query.filter(cand.firstname.eq("emp1" + "First"));
 
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
-    query.filter(cand.firstname.eq("emp1" + "First"));
+      QueryElementHolder<Employee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "firstname == \"emp1\" + \"First\"",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Employee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "firstname == \"emp1\" + \"First\"",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testStringFieldPlusStringLiteral() {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+      QEmployee cand = QEmployee.candidate();
+      StringExpression paramExpr = query.stringParameter("param");
+      query.filter(cand.firstname.add("Ext").eq(paramExpr));
 
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
-    StringExpression paramExpr = query.stringParameter("param");
-    query.filter(cand.firstname.add("Ext").eq(paramExpr));
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("param", "emp1FirstExt");
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("param", "emp1FirstExt");
+      // Import Department twice
+      QueryElementHolder<Employee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "firstname + \"Ext\" == param",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ "String param",
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ paramValues);
 
-    // Import Department twice
-    QueryElementHolder<Employee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "firstname + \"Ext\" == param",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ "String param",
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ paramValues);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

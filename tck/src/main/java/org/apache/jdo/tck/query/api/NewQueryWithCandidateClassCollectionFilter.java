@@ -48,7 +48,7 @@ public class NewQueryWithCandidateClassCollectionFilter extends QueryTest {
     try {
       tx.begin();
 
-      Query<PCPoint> query = pm.newQuery(PCPoint.class, inserted, "x ==2");
+      Query<PCPoint> query = pm.newQuery(PCPoint.class, persistentPCPoints, "x ==2");
       Object results = query.execute();
 
       // check query result

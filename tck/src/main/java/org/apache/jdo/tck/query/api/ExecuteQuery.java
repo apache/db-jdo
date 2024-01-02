@@ -24,7 +24,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Execute Query <br>
@@ -35,6 +40,7 @@ import org.junit.jupiter.api.Test;
  * filter. Each parameter of the <code>execute</code> method(s) is an object which is either the
  * value of the corresponding parameter or the wrapped value of a primitive parameter.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ExecuteQuery extends QueryTest {
 
   /** */
@@ -42,16 +48,9 @@ public class ExecuteQuery extends QueryTest {
 
   /** */
   @Test
-  public void testPositive() {
-    PersistenceManager pm = getPM();
-
-    runTestExecuteQuery01(pm);
-    runTestExecuteQuery02(pm);
-    runTestExecuteQuery03(pm);
-  }
-
-  /** */
-  private void runTestExecuteQuery01(PersistenceManager pm) {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestExecuteQuery01() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -63,21 +62,21 @@ public class ExecuteQuery extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p5 = new PCPoint(4, 4);
-      expected.add(p5);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(4));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 4", results, expected);
       tx.commit();
-      tx = null;
       if (debug) logger.debug("Test ExecuteQuery01 - Passed\n");
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  private void runTestExecuteQuery02(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestExecuteQuery02() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -91,21 +90,21 @@ public class ExecuteQuery extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p3 = new PCPoint(2, 2);
-      expected.add(p3);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(2));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == param", results, expected);
       tx.commit();
-      tx = null;
       if (debug) logger.debug("Test ExecuteQuery02 - Passed\n");
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  private void runTestExecuteQuery03(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestExecuteQuery03() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -119,18 +118,27 @@ public class ExecuteQuery extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p3 = new PCPoint(2, 2);
-      expected.add(p3);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(2));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(
           ASSERTION_FAILED, "x == param1 && y == param2", results, expected);
       tx.commit();
-      tx = null;
       if (debug) logger.debug("Test ExecuteQuery03 - Passed\n");
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

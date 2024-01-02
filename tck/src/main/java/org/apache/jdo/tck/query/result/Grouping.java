@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
@@ -29,6 +30,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Grouping. <br>
@@ -67,6 +70,7 @@ public class Grouping extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive() {
     Object expected =
         Arrays.asList(
@@ -78,53 +82,63 @@ public class Grouping extends QueryTest {
                 getTransientCompanyModelInstance(Department.class, "dept2"), Double.valueOf(45000.0)
               }
             });
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      query.result(false, cand.department, cand.salary.sum());
+      query.groupBy(cand.department);
 
-    JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
-    QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-    query.result(false, cand.department, cand.salary.sum());
-    query.groupBy(cand.department);
+      QueryElementHolder<FullTimeEmployee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ "department, SUM(salary)",
+              /*INTO*/ null,
+              /*FROM*/ FullTimeEmployee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ "department",
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<FullTimeEmployee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ "department, SUM(salary)",
-            /*INTO*/ null,
-            /*FROM*/ FullTimeEmployee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ "department",
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, null, true, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
-    for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
-      compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
-      compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+        compileAPIQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

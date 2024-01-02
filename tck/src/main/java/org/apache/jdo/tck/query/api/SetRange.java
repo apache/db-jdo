@@ -49,7 +49,7 @@ public class SetRange extends QueryTest {
     query.setRange(0, 5);
     String singleStringQuery = "SELECT FROM Person RANGE 0, 5";
     executeJDOQuery(
-        ASSERTION_FAILED, query, singleStringQuery, false, null, expectedResult[index], true);
+        ASSERTION_FAILED, pm, query, singleStringQuery, false, null, expectedResult[index], true);
   }
 
   /**

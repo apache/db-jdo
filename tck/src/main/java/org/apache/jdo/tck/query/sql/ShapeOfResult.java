@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.sql;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
@@ -29,6 +30,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Shape of Result. <br>
@@ -101,134 +104,220 @@ public class ShapeOfResult extends QueryTest {
 
   /** */
   @Test
-  public void testCanidateClass() {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testCanidateClass0() {
     if (isSQLSupported()) {
       int index = 0;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          PrimitiveTypes.class,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
-      index++;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          PrimitiveTypes.class,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          true);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            PrimitiveTypes.class,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
+
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testCanidateClass1() {
+    if (isSQLSupported()) {
+      int index = 1;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            PrimitiveTypes.class,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            true);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
   @Test
-  public void testSingleColumn() {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSingleColumn0() {
     if (isSQLSupported()) {
       int index = 2;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
-      index++;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          true);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
+
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSingleColumn1() {
+    if (isSQLSupported()) {
+      int index = 3;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            true);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
   @Test
-  public void testMultipleColumn() {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testMultipleColumn0() {
     if (isSQLSupported()) {
       int index = 4;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
-      index++;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          true);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
+
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testMultipleColumn1() {
+    if (isSQLSupported()) {
+      int index = 5;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            true);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
   @Test
-  public void testResultClass() {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testResultClass0() {
     if (isSQLSupported()) {
       int index = 6;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          FullName.class,
-          true,
-          null,
-          expectedResult[index],
-          false);
-      index++;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          FullName.class,
-          true,
-          null,
-          expectedResult[index],
-          true);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            FullName.class,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
+
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testResultClass1() {
+    if (isSQLSupported()) {
+      int index = 7;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            FullName.class,
+            true,
+            null,
+            expectedResult[index],
+            true);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
     if (isSQLSupported()) {
       String schema = getPMFProperty("javax.jdo.mapping.Schema");
       String sql = MessageFormat.format("SELECT stringNull FROM {0}.PrimitiveTypes", schema);
-      Query<PrimitiveTypes> query = getPM().newQuery("javax.jdo.query.SQL", sql);
-      query.setClass(PrimitiveTypes.class);
-      compile(ASSERTION_FAILED, query, sql, false);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        Query<PrimitiveTypes> query = pm.newQuery("javax.jdo.query.SQL", sql);
+        query.setClass(PrimitiveTypes.class);
+        compile(ASSERTION_FAILED, pm, query, sql, false);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

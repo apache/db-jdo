@@ -22,7 +22,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Set IgnoreCache <br>
@@ -31,6 +36,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> <code>Query.setIgnoreCache(boolean flag)</code> sets the
  * IgnoreCache option for queries.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SetIgnoreCache extends QueryTest {
 
   /** */
@@ -38,18 +44,9 @@ public class SetIgnoreCache extends QueryTest {
 
   /** */
   @Test
-  public void test() {
-    pm = getPM();
-
-    runTestSetIgnoreCache01(pm);
-    runTestSetIgnoreCache02(pm);
-
-    pm.close();
-    pm = null;
-  }
-
-  /** */
-  void runTestSetIgnoreCache01(PersistenceManager pm) {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestSetIgnoreCache01() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     tx.setOptimistic(false);
     try {
@@ -80,19 +77,21 @@ public class SetIgnoreCache extends QueryTest {
       query.compile();
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  void runTestSetIgnoreCache02(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestSetIgnoreCache02() {
     if (!isOptimisticSupported()) {
       if (debug) logger.debug("Optimistic tx not supported");
       return;
     }
 
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.setOptimistic(true);
@@ -124,9 +123,20 @@ public class SetIgnoreCache extends QueryTest {
       query.compile();
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 }

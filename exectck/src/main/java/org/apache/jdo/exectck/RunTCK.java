@@ -546,6 +546,8 @@ public class RunTCK extends AbstractTCKMojo {
       command.add("--disable-ansi-colors");
     }
     command.add("--details=" + testRunnerDetails);
+    command.add("--config");
+    command.add("junit.jupiter.execution.parallel.enabled=true");
     // add Test classes
     for (String testClass : classesList) {
       // skip empty entries

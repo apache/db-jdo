@@ -20,6 +20,7 @@ package org.apache.jdo.tck.query.sql;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import javax.jdo.JDOUserException;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
@@ -33,6 +34,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Allowed API Methods. <br>
@@ -74,81 +77,126 @@ public class AllowedAPIMethods extends QueryTest {
         new FullName("emp5First", "emp5Last"))
   };
 
-  /** */
   @Test
-  public void testSetClass() {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass0() {
     if (isSQLSupported()) {
-      int index = 0;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          PrimitiveTypes.class,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
+      final int index = 0;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            PrimitiveTypes.class,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
 
-      index = 1;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          Department.class,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass1() {
+    if (isSQLSupported()) {
+      final int index = 1;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            Department.class,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
 
-      index = 2;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          Person.class,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass2() {
+    if (isSQLSupported()) {
+      final int index = 2;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            Person.class,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testSetUnique() {
     if (isSQLSupported()) {
-      int index = 3;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          true);
+      final int index = 3;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            true);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testSetResultClass() {
     if (isSQLSupported()) {
       int index = 4;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          FullName.class,
-          true,
-          null,
-          expectedResult[index],
-          false);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            FullName.class,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
     if (isSQLSupported()) {
       String schema = getPMFProperty("javax.jdo.mapping.Schema");
@@ -158,8 +206,13 @@ public class AllowedAPIMethods extends QueryTest {
       // to check prohibited setters.
       String sql = "SELECT PERSONID FROM {0}.persons";
       sql = MessageFormat.format(sql, schema);
-      Query<?> query = getPM().newQuery("javax.jdo.query.SQL", sql);
-      checkProhibitedSetters(query);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        Query<?> query = pm.newQuery("javax.jdo.query.SQL", sql);
+        checkProhibitedSetters(query);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
@@ -178,6 +231,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.setResult("firstname, lastname");
       methodFailed("setResult()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -186,6 +240,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.setFilter("WHERE personid = 1");
       methodFailed("setFilter()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -194,6 +249,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.declareVariables("Employee emp");
       methodFailed("declareVariables()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -202,6 +258,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.declareParameters("Employee emp");
       methodFailed("declareParameters()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -210,6 +267,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.declareImports("import org.apache.jdo.tck.pc.company.Employee");
       methodFailed("declareImports()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -218,6 +276,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.setGrouping("firstname");
       methodFailed("setGrouping()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -226,6 +285,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.setOrdering("firstname ASCENDING");
       methodFailed("setOrdering()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -235,13 +295,13 @@ public class AllowedAPIMethods extends QueryTest {
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

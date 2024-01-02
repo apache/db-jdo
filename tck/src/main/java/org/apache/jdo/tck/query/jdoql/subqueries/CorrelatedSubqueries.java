@@ -20,6 +20,7 @@ package org.apache.jdo.tck.query.jdoql.subqueries;
 import java.util.List;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.JDOQLTypedSubquery;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.NumericExpression;
@@ -32,6 +33,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Correlated Subqueries Without Parameters <br>
@@ -62,7 +65,9 @@ public class CorrelatedSubqueries extends SubqueriesTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testCollectionApiQuery() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -91,16 +96,16 @@ public class CorrelatedSubqueries extends SubqueriesTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testCollectionSingleStringQuery() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -118,16 +123,16 @@ public class CorrelatedSubqueries extends SubqueriesTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testCollectionJDOQLTypedQuery() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -148,15 +153,15 @@ public class CorrelatedSubqueries extends SubqueriesTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testListApiQuery() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -184,16 +189,16 @@ public class CorrelatedSubqueries extends SubqueriesTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testListSingleStringQuery() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -209,16 +214,16 @@ public class CorrelatedSubqueries extends SubqueriesTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testListJDOQLTypedQuery() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -238,21 +243,19 @@ public class CorrelatedSubqueries extends SubqueriesTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

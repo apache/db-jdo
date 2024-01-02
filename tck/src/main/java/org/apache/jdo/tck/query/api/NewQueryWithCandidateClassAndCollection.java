@@ -46,12 +46,12 @@ public class NewQueryWithCandidateClassAndCollection extends QueryTest {
     try {
       tx.begin();
 
-      Query<PCPoint> query = pm.newQuery(PCPoint.class, inserted);
+      Query<PCPoint> query = pm.newQuery(PCPoint.class, persistentPCPoints);
       Object results = query.execute();
 
       // check query result
-      printOutput(results, inserted);
-      checkQueryResultWithoutOrder(ASSERTION_FAILED, results, inserted);
+      printOutput(results, persistentPCPoints);
+      checkQueryResultWithoutOrder(ASSERTION_FAILED, results, persistentPCPoints);
 
       tx.commit();
       tx = null;

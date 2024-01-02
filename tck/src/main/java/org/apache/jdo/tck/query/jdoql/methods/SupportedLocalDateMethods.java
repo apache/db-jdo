@@ -25,7 +25,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.LocalDateSample;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Supported LocalDate methods. <br>
@@ -39,6 +44,7 @@ import org.junit.jupiter.api.Test;
  *   <li>getYear()
  * </ul>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedLocalDateMethods extends QueryTest {
 
   /** */
@@ -53,9 +59,10 @@ public class SupportedLocalDateMethods extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testDayOfMonth() {
     final String filter = "localDate.getDayOfMonth() == 12";
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -67,15 +74,16 @@ public class SupportedLocalDateMethods extends QueryTest {
       checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
       tx.commit();
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testMonthValue() {
     final String filter = "localDate.getMonthValue() == 8";
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -87,15 +95,16 @@ public class SupportedLocalDateMethods extends QueryTest {
       checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
       tx.commit();
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testYear() {
     final String filter = "localDate.getYear() == 2017";
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -108,10 +117,21 @@ public class SupportedLocalDateMethods extends QueryTest {
       checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
       tx.commit();
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
+  }
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */

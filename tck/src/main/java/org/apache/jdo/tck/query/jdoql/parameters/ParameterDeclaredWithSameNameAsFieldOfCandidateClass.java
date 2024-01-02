@@ -24,7 +24,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Parameter Declared with Same Name as Field of Candidate Class <br>
@@ -33,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> A field of the candidate class of a <code>Query</code> can be
  * hidden if a parameter is declared with the same name.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ParameterDeclaredWithSameNameAsFieldOfCandidateClass extends QueryTest {
 
   /** */
@@ -40,16 +46,11 @@ public class ParameterDeclaredWithSameNameAsFieldOfCandidateClass extends QueryT
       "Assertion A14.4-2 (ParameterDeclaredWithSameNameAsFieldOfCandidateClass) failed: ";
 
   /** */
-  @Test
-  public void testPositve() {
-    PersistenceManager pm = getPM();
-
-    runTestParameterDeclaredWithSameNameAsFieldOfCandidateClass01(pm);
-    runTestParameterDeclaredWithSameNameAsFieldOfCandidateClass02(pm);
-  }
-
   /** */
-  void runTestParameterDeclaredWithSameNameAsFieldOfCandidateClass01(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestParameterDeclaredWithSameNameAsFieldOfCandidateClass01() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -62,31 +63,28 @@ public class ParameterDeclaredWithSameNameAsFieldOfCandidateClass extends QueryT
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p1 = new PCPoint(0, 0);
-      PCPoint p2 = new PCPoint(1, 1);
-      PCPoint p3 = new PCPoint(2, 2);
-      PCPoint p4 = new PCPoint(3, 3);
-      PCPoint p5 = new PCPoint(4, 4);
-      expected.add(p1);
-      expected.add(p2);
-      expected.add(p3);
-      expected.add(p4);
-      expected.add(p5);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(0));
+      expected.add(getTransientPCPoint(1));
+      expected.add(getTransientPCPoint(2));
+      expected.add(getTransientPCPoint(3));
+      expected.add(getTransientPCPoint(4));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == x", results, expected);
       if (debug)
         logger.debug("\nTest ParameterDeclaredWithSameNameAsFieldOfCandidateClass - Passed");
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  void runTestParameterDeclaredWithSameNameAsFieldOfCandidateClass02(PersistenceManager pm) {
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestParameterDeclaredWithSameNameAsFieldOfCandidateClass02() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -99,27 +97,32 @@ public class ParameterDeclaredWithSameNameAsFieldOfCandidateClass extends QueryT
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p1 = new PCPoint(0, 0);
-      PCPoint p2 = new PCPoint(1, 1);
-      PCPoint p3 = new PCPoint(2, 2);
-      PCPoint p4 = new PCPoint(3, 3);
-      PCPoint p5 = new PCPoint(4, 4);
-      expected.add(p1);
-      expected.add(p2);
-      expected.add(p3);
-      expected.add(p4);
-      expected.add(p5);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(0));
+      expected.add(getTransientPCPoint(1));
+      expected.add(getTransientPCPoint(2));
+      expected.add(getTransientPCPoint(3));
+      expected.add(getTransientPCPoint(4));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "y == y", results, expected);
       if (debug)
         logger.debug("\nTest ParameterDeclaredWithSameNameAsFieldOfCandidateClass - Passed");
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

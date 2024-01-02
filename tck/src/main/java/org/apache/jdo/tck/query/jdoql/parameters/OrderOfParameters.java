@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.query.jdoql.parameters;
 
 import java.util.List;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -47,6 +48,7 @@ public class OrderOfParameters extends QueryTest {
   public void testAPIQuery() {
     // Do not use QueryElementHolder, because QueryElementHolder always uses a Map for parameter
     // values
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     Query<Person> query = null;
     Object result = null;
@@ -58,14 +60,12 @@ public class OrderOfParameters extends QueryTest {
       result = query.execute("emp1First", "emp1Last");
       List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
       checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, result, expected);
-      tx.commit();
+      tx.rollback();
     } finally {
       if (query != null) {
         query.close(result);
       }
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -75,6 +75,7 @@ public class OrderOfParameters extends QueryTest {
   public void testSingleStringAPIQuery() {
     // Do not use QueryElementHolder, because QueryElementHolder always uses a Map for parameter
     // values
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     Query<Person> query = null;
     Object result = null;
@@ -91,21 +92,19 @@ public class OrderOfParameters extends QueryTest {
       if (query != null) {
         query.close(result);
       }
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import javax.jdo.query.DateTimeExpression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -34,6 +35,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Equality and Comparisons Between Date Fields and Parameters <br>
@@ -72,125 +75,143 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters extends QueryT
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testFieldEqualsParameter() {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
 
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
-    DateTimeExpression param = query.datetimeParameter("param");
-    query.filter(cand.hiredate.eq(param));
+      JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+      QEmployee cand = QEmployee.candidate();
+      DateTimeExpression param = query.datetimeParameter("param");
+      query.filter(cand.hiredate.eq(param));
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("param", FIRST_OF_JAN_1999);
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("param", FIRST_OF_JAN_1999);
 
-    // date field == date parameter
-    QueryElementHolder<Employee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "hiredate == param",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ "java.util.Date param",
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ paramValues);
+      // date field == date parameter
+      QueryElementHolder<Employee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "hiredate == param",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ "java.util.Date param",
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ paramValues);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testFieldGEParameter() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3", "emp4");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
 
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
-    DateTimeExpression param = query.datetimeParameter("param");
-    query.filter(cand.hiredate.gteq(param));
+      JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+      QEmployee cand = QEmployee.candidate();
+      DateTimeExpression param = query.datetimeParameter("param");
+      query.filter(cand.hiredate.gteq(param));
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("param", FIRST_OF_JAN_1999);
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("param", FIRST_OF_JAN_1999);
 
-    // date field >= date parameter
-    QueryElementHolder<Employee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "hiredate >= param",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ "java.util.Date param",
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ paramValues);
+      // date field >= date parameter
+      QueryElementHolder<Employee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "hiredate >= param",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ "java.util.Date param",
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ paramValues);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testParameterLTField() {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
 
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
-    DateTimeExpression param = query.datetimeParameter("param");
-    query.filter(param.lt(cand.birthdate));
+      JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+      QEmployee cand = QEmployee.candidate();
+      DateTimeExpression param = query.datetimeParameter("param");
+      query.filter(param.lt(cand.birthdate));
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("param", FIRST_OF_JAN_1999);
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("param", FIRST_OF_JAN_1999);
 
-    // Import Department twice
-    QueryElementHolder<Employee> holder = // date parameter < date field
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "param < birthdate",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ "java.util.Date param",
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ paramValues);
+      // Import Department twice
+      QueryElementHolder<Employee> holder = // date parameter < date field
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "param < birthdate",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ "java.util.Date param",
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ paramValues);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

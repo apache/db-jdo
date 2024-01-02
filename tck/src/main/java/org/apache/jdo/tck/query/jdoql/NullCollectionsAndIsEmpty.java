@@ -67,9 +67,9 @@ public class NullCollectionsAndIsEmpty extends QueryTest {
             /*JDOQLTyped*/ query,
             /*paramValues*/ null);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+    executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+    executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
   }
 
   /**
@@ -80,7 +80,7 @@ public class NullCollectionsAndIsEmpty extends QueryTest {
     addTearDownClass(CompanyModelReader.getTearDownClasses());
     loadAndPersistCompanyModel(getPM());
     getPM().currentTransaction().begin();
-    Employee emp1 = getPersistentCompanyModelInstance(Employee.class, "emp1");
+    Employee emp1 = getPersistentCompanyModelInstance(pm, Employee.class, "emp1");
     emp1.setProjects(null);
     getPM().currentTransaction().commit();
   }

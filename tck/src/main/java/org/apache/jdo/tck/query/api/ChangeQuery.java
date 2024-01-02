@@ -81,7 +81,7 @@ public class ChangeQuery extends QueryTest {
 
     // execute query
     executeJDOQuery(
-        ASSERTION_FAILED, query, singleStringQuery, true, parameters, expectedResult, true);
+        ASSERTION_FAILED, pm, query, singleStringQuery, true, parameters, expectedResult, true);
   }
 
   /**

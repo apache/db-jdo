@@ -75,6 +75,7 @@ public class SingleStringQuery extends QueryTest {
     Query<FullTimeEmployee> query = getPM().newQuery(SINGLE_STRING_QUERY);
     executeJDOQuery(
         ASSERTION_FAILED,
+        pm,
         query,
         SINGLE_STRING_QUERY,
         true,
@@ -96,7 +97,7 @@ public class SingleStringQuery extends QueryTest {
     query.setOrdering(null);
     query.setRange(null);
     executeJDOQuery(
-        ASSERTION_FAILED, query, singleStringQuery, false, null, expectedResult[index], true);
+        ASSERTION_FAILED, pm, query, singleStringQuery, false, null, expectedResult[index], true);
   }
 
   /**

@@ -52,9 +52,11 @@ public class NewQuery extends QueryTest {
   @Test
   public void testPositive() {
     if (isSQLSupported()) {
+      getPM();
       for (int i = 0; i < VALID_SQL_QUERIES.length; i++) {
         executeSQLQuery(
             ASSERTION_FAILED,
+            pm,
             VALID_SQL_QUERIES[i],
             null,
             null,

@@ -109,6 +109,7 @@ public class SetterReplacePreviousValues extends QueryTest {
     Object[] parameters = new Object[] {Long.valueOf(1)};
     executeJDOQuery(
         ASSERTION_FAILED,
+        pm,
         query,
         VALID_QUERIES[index].toString(),
         false,
@@ -119,6 +120,7 @@ public class SetterReplacePreviousValues extends QueryTest {
     query.declareParameters("long param");
     executeJDOQuery(
         ASSERTION_FAILED,
+        pm,
         query,
         VALID_QUERIES[index].toString(),
         false,
@@ -132,6 +134,7 @@ public class SetterReplacePreviousValues extends QueryTest {
     query.setFilter("personid == 2L");
     executeJDOQuery(
         ASSERTION_FAILED,
+        pm,
         query,
         VALID_QUERIES[index].toString(),
         false,
@@ -142,6 +145,7 @@ public class SetterReplacePreviousValues extends QueryTest {
     query.setFilter("personid == 2L");
     executeJDOQuery(
         ASSERTION_FAILED,
+        pm,
         query,
         VALID_QUERIES[index].toString(),
         false,
@@ -155,6 +159,7 @@ public class SetterReplacePreviousValues extends QueryTest {
     query.declareVariables("Employee e");
     executeJDOQuery(
         ASSERTION_FAILED,
+        pm,
         query,
         VALID_QUERIES[index].toString(),
         false,
@@ -165,6 +170,7 @@ public class SetterReplacePreviousValues extends QueryTest {
     query.declareVariables("Employee e");
     executeJDOQuery(
         ASSERTION_FAILED,
+        pm,
         query,
         VALID_QUERIES[index].toString(),
         false,

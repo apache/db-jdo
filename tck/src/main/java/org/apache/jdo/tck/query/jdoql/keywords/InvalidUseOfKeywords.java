@@ -17,10 +17,16 @@
 
 package org.apache.jdo.tck.query.jdoql.keywords;
 
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Invalid uses of keywords. <br>
@@ -29,6 +35,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> Keywords must not be used as package names, class names, parameter
  * names, or variable names in queries.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class InvalidUseOfKeywords extends QueryTest {
 
   /** */
@@ -81,14 +88,41 @@ public class InvalidUseOfKeywords extends QueryTest {
 
   /** */
   @Test
-  public void testNegative() {
-    for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
-      compileSingleStringQuery(ASSERTION_FAILED, invalidSingleStringQuery, false);
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testNegative1() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidSingleStringQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
+  }
 
-    for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
-      compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
-      compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testNegative2() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+        compileAPIQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 }

@@ -48,6 +48,12 @@ public class PCPoint implements Serializable {
     this.y = Integer.valueOf(y);
   }
 
+  public PCPoint(PCPoint pcPoint) {
+    this.id = pcPoint.id;
+    this.x = pcPoint.x;
+    this.y = pcPoint.y;
+  }
+
   public PCPoint(int x, Integer y) {
     this.x = x;
     this.y = y;
@@ -63,6 +69,24 @@ public class PCPoint implements Serializable {
       rc = "NPE getting PCPoint's values";
     }
     return rc;
+  }
+
+  /**
+   * @see Object#hashCode()
+   */
+  public int hashCode() {
+    return (int) id;
+  }
+
+  /**
+   * @see Object#equals(java.lang.Object)
+   */
+  public boolean equals(Object other) {
+    if (other != null && (other instanceof PCPoint)) {
+      PCPoint o = (PCPoint) other;
+      return o.id == this.id;
+    }
+    return false;
   }
 
   public void setX(int x) {

@@ -58,7 +58,7 @@ public class SetResultClass extends QueryTest {
     query.setResult("firstname, lastname");
     String singleStringQuery = "SELECT firstname, lastname INTO FullName FROM Person";
     executeJDOQuery(
-        ASSERTION_FAILED, query, singleStringQuery, false, null, expectedResult[index], true);
+        ASSERTION_FAILED, pm, query, singleStringQuery, false, null, expectedResult[index], true);
   }
 
   /**

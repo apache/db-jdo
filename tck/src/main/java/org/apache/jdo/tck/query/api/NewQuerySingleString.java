@@ -66,7 +66,7 @@ public class NewQuerySingleString extends QueryTest {
   @Test
   public void testPositive() {
     for (int i = 0; i < VALID_QUERIES.length; i++) {
-      executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], expectedResult[i]);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, VALID_QUERIES[i], expectedResult[i]);
     }
   }
 

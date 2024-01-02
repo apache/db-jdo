@@ -26,7 +26,12 @@ import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Declare Imports <br>
@@ -36,25 +41,16 @@ import org.junit.jupiter.api.Test;
  * statements to the query instance. All imports must be declared in the same method call, and the
  * imports must be separated by semicolons.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeclareImports extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6-8 (DeclareImports) failed: ";
 
-  /** */
   @Test
-  public void test() {
-    pm = getPM();
-
-    runTestDeclareImports01(pm);
-    runTestDeclareImports02(pm);
-    runTestDeclareImports03(pm);
-
-    pm.close();
-    pm = null;
-  }
-
-  private void runTestDeclareImports01(PersistenceManager pm) {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestDeclareImports01() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -68,21 +64,21 @@ public class DeclareImports extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p3 = new PCPoint(2, 2);
-      expected.add(p3);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(2));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "y == param", results, expected);
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  private void runTestDeclareImports02(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestDeclareImports02() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -97,14 +93,16 @@ public class DeclareImports extends QueryTest {
       // Just check whether query with import declaration compiles
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  private void runTestDeclareImports03(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestDeclareImports03() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -121,10 +119,21 @@ public class DeclareImports extends QueryTest {
       // Just check whether query with import declarations compiles
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

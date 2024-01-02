@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.api;
 
 import java.util.Arrays;
 import javax.jdo.JDOUserException;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
@@ -27,6 +28,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Set Result. <br>
@@ -48,40 +51,52 @@ public class SetResult extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive() {
     int index = 0;
-    Query<Person> query = getPM().newQuery(Person.class);
-    query.setResult("lastname");
-    String singleStringQuery = "SELECT lastname FROM Person";
-    executeJDOQuery(
-        ASSERTION_FAILED, query, singleStringQuery, false, null, expectedResult[index], true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Query<Person> query = pm.newQuery(Person.class);
+      query.setResult("lastname");
+      String singleStringQuery = "SELECT lastname FROM Person";
+      executeJDOQuery(
+          ASSERTION_FAILED, pm, query, singleStringQuery, false, null, expectedResult[index], true);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
-    Query<Person> query = getPM().newQuery(Person.class);
+    PersistenceManager pm = getPMF().getPersistenceManager();
     try {
-      query.setResult("noname");
-      query.compile();
-      fail(
-          ASSERTION_FAILED
-              + "Compilation for query "
-              + "'SELECT noname FROM Person' "
-              + "succeeded, though the result clause is invalid.");
-    } catch (JDOUserException ignored) {
+      Query<Person> query = pm.newQuery(Person.class);
+      try {
+        query.setResult("noname");
+        query.compile();
+        fail(
+            ASSERTION_FAILED
+                + "Compilation for query "
+                + "'SELECT noname FROM Person' "
+                + "succeeded, though the result clause is invalid.");
+      } catch (JDOUserException ignored) {
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

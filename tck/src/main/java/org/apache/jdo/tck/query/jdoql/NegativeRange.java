@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.util.Arrays;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -27,6 +28,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Negative Range. <br>
@@ -44,130 +47,150 @@ public class NegativeRange extends QueryTest {
   private static final String ASSERTION_FAILED = "Assertion A14.6.8-2 (NegativeRange) failed: ";
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNonUnique0() {
     Object expected = Arrays.asList();
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
 
-    JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ 4,
+              /*TO*/ 4,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ 4,
-            /*TO*/ 4,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNonUnique1() {
     Object expected = Arrays.asList();
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
 
-    JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ 4,
+              /*TO*/ 3,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ 4,
-            /*TO*/ 3,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testUnique0() {
     Object expected = null;
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
 
-    JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ Boolean.TRUE,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ 4,
+              /*TO*/ 4,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ Boolean.TRUE,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ 4,
-            /*TO*/ 4,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testUnique1() {
     Object expected = null;
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
 
-    JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ Boolean.TRUE,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ 4,
+              /*TO*/ 3,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ Boolean.TRUE,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ 4,
-            /*TO*/ 3,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

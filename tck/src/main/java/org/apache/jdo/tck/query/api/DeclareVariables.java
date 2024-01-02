@@ -22,7 +22,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Declare Variables <br>
@@ -33,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * variables that will be used in the filter but not provided as values by the <code>execute</code>
  * method.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeclareVariables extends QueryTest {
 
   /** */
@@ -40,18 +46,9 @@ public class DeclareVariables extends QueryTest {
 
   /** */
   @Test
-  public void test() {
-    pm = getPM();
-
-    runTestDeclareVariables01(pm);
-    runTestDeclareVariables02(pm);
-
-    pm.close();
-    pm = null;
-  }
-
-  /** */
-  private void runTestDeclareVariables01(PersistenceManager pm) {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestDeclareVariables01() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -65,14 +62,16 @@ public class DeclareVariables extends QueryTest {
       // Just check whether query compiles
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  private void runTestDeclareVariables02(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestDeclareVariables02() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -87,9 +86,20 @@ public class DeclareVariables extends QueryTest {
       // Just check whether query compiles
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 }

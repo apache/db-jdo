@@ -50,7 +50,7 @@ public class SetGrouping extends QueryTest {
     query.setGrouping("lastname");
     String singleStringQuery = "SELECT lastname FROM Person GROUP BY lastname";
     executeJDOQuery(
-        ASSERTION_FAILED, query, singleStringQuery, false, null, expectedResult[index], true);
+        ASSERTION_FAILED, pm, query, singleStringQuery, false, null, expectedResult[index], true);
   }
 
   /**

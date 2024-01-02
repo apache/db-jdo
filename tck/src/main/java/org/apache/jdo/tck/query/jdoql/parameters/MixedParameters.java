@@ -17,6 +17,7 @@
 
 package org.apache.jdo.tck.query.jdoql.parameters;
 
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -24,6 +25,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Mixed parameters. <br>
@@ -108,30 +111,42 @@ public class MixedParameters extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive() {
-    for (QueryElementHolder<?> validQuery : VALID_QUERIES) {
-      compileAPIQuery(ASSERTION_FAILED, validQuery, true);
-      compileSingleStringQuery(ASSERTION_FAILED, validQuery, true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (QueryElementHolder<?> validQuery : VALID_QUERIES) {
+        compileAPIQuery(ASSERTION_FAILED, pm, validQuery, true);
+        compileSingleStringQuery(ASSERTION_FAILED, pm, validQuery, true);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
-    for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
-      compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
-      compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+        compileAPIQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 }

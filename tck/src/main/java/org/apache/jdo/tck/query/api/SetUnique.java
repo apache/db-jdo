@@ -51,14 +51,14 @@ public class SetUnique extends QueryTest {
     query.setFilter("lastname == 'emp1Last'");
     String singleStringQuery = "SELECT FROM Person WHERE lastname == 'emp1Last'";
     executeJDOQuery(
-        ASSERTION_FAILED, query, singleStringQuery, false, null, expectedResult[index], true);
+        ASSERTION_FAILED, pm, query, singleStringQuery, false, null, expectedResult[index], true);
 
     index = 1;
     query = getPM().newQuery(Person.class);
     query.setUnique(false);
     singleStringQuery = "SELECT FROM Person";
     executeJDOQuery(
-        ASSERTION_FAILED, query, singleStringQuery, false, null, expectedResult[index], true);
+        ASSERTION_FAILED, pm, query, singleStringQuery, false, null, expectedResult[index], true);
   }
 
   /**

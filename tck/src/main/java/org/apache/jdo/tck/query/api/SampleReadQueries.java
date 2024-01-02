@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.JDOQLTypedSubquery;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.CollectionExpression;
@@ -42,6 +43,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> SampleReadQueries <br>
@@ -154,7 +157,12 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery01a " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -168,9 +176,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -184,7 +190,12 @@ public class SampleReadQueries extends QueryTest {
    * the comparison, and the candidate instance is rejected.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery01b " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -198,9 +209,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -215,7 +224,12 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery01d " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -229,9 +243,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -245,7 +257,12 @@ public class SampleReadQueries extends QueryTest {
    * the comparison, and the candidate instance is rejected.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery01f " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -261,9 +278,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -275,7 +290,12 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery02a " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -290,9 +310,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -303,7 +321,12 @@ public class SampleReadQueries extends QueryTest {
    * greater than the constant 30000, and returns a Collection ordered based on employee salary.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery02b " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -318,9 +341,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -332,7 +353,12 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery02d " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -346,9 +372,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -359,7 +383,12 @@ public class SampleReadQueries extends QueryTest {
    * greater than the constant 30000, and returns a Collection ordered based on employee salary.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery02f " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -375,9 +404,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -391,7 +418,12 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03a " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -407,9 +439,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -422,7 +452,12 @@ public class SampleReadQueries extends QueryTest {
    * cannot be unwrapped for the comparison, and the candidate instance is rejected.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03b " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -442,9 +477,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -457,7 +490,12 @@ public class SampleReadQueries extends QueryTest {
    * cannot be unwrapped for the comparison, and the candidate instance is rejected.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03c " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -474,9 +512,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -490,7 +526,12 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03d " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -504,9 +545,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -519,7 +558,12 @@ public class SampleReadQueries extends QueryTest {
    * cannot be unwrapped for the comparison, and the candidate instance is rejected.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03f " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -541,9 +585,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -557,7 +599,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -572,9 +616,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -587,7 +629,9 @@ public class SampleReadQueries extends QueryTest {
    * then it cannot be navigated for the comparison, and the candidate instance is rejected.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -605,9 +649,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -620,7 +662,9 @@ public class SampleReadQueries extends QueryTest {
    * then it cannot be navigated for the comparison, and the candidate instance is rejected.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -636,9 +680,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -652,7 +694,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -669,9 +713,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -684,7 +726,9 @@ public class SampleReadQueries extends QueryTest {
    * then it cannot be navigated for the comparison, and the candidate instance is rejected.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -704,9 +748,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -719,7 +761,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -736,9 +780,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -750,7 +792,9 @@ public class SampleReadQueries extends QueryTest {
    * greater than the value passed as a parameter.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -770,9 +814,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -784,7 +826,9 @@ public class SampleReadQueries extends QueryTest {
    * greater than the value passed as a parameter.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -802,9 +846,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -817,7 +859,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -831,9 +875,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -846,7 +888,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -867,9 +911,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -881,7 +923,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -897,9 +941,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -910,7 +952,9 @@ public class SampleReadQueries extends QueryTest {
    * collection, which in this example consists of three department names.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -928,9 +972,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -941,7 +983,9 @@ public class SampleReadQueries extends QueryTest {
    * collection, which in this example consists of three department names.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -957,9 +1001,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -971,7 +1013,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -988,9 +1032,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1001,7 +1043,9 @@ public class SampleReadQueries extends QueryTest {
    * collection, which in this example consists of three department names.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1022,9 +1066,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1035,7 +1077,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1050,9 +1094,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1062,7 +1104,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query selects names of all Employees who work in the parameter department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1080,9 +1124,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1092,7 +1134,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query selects names of all Employees who work in the parameter department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1108,9 +1152,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1121,7 +1163,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1137,9 +1181,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1149,7 +1191,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query selects names of all Employees who work in the parameter department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1168,9 +1212,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1182,7 +1224,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1199,9 +1243,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1212,7 +1254,9 @@ public class SampleReadQueries extends QueryTest {
    * department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1232,9 +1276,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1245,7 +1287,9 @@ public class SampleReadQueries extends QueryTest {
    * department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1263,9 +1307,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1277,7 +1319,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1291,9 +1335,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1304,7 +1346,9 @@ public class SampleReadQueries extends QueryTest {
    * department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1324,9 +1368,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1338,7 +1380,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1358,9 +1402,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1371,7 +1413,9 @@ public class SampleReadQueries extends QueryTest {
    * department, and uses the constructor for the result class.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1394,9 +1438,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1407,7 +1449,9 @@ public class SampleReadQueries extends QueryTest {
    * department, and uses the constructor for the result class.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1428,9 +1472,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1442,7 +1484,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1459,9 +1503,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1472,7 +1514,9 @@ public class SampleReadQueries extends QueryTest {
    * department, and uses the constructor for the result class.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09e() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1489,9 +1533,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1502,7 +1544,9 @@ public class SampleReadQueries extends QueryTest {
    * department, and uses the constructor for the result class.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1525,9 +1569,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1538,7 +1580,9 @@ public class SampleReadQueries extends QueryTest {
    * returns a single value.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1554,9 +1598,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1567,7 +1609,9 @@ public class SampleReadQueries extends QueryTest {
    * returns a single value.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1586,9 +1630,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1599,7 +1641,9 @@ public class SampleReadQueries extends QueryTest {
    * returns a single value.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1616,9 +1660,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1630,7 +1672,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1644,9 +1688,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1657,7 +1699,9 @@ public class SampleReadQueries extends QueryTest {
    * returns a single value.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1676,9 +1720,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1688,7 +1730,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query averages and sums the salaries of Employees who work in the parameter department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1704,9 +1748,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1716,7 +1758,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query averages and sums the salaries of Employees who work in the parameter department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1735,9 +1779,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1747,7 +1789,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query averages and sums the salaries of Employees who work in the parameter department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1764,9 +1808,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1777,7 +1819,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1791,9 +1835,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1803,7 +1845,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query averages and sums the salaries of Employees who work in the parameter department.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1823,9 +1867,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1837,7 +1879,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1858,9 +1902,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1871,7 +1913,9 @@ public class SampleReadQueries extends QueryTest {
    * more than one employee and aggregates by department name.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1892,9 +1936,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1906,7 +1948,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1925,9 +1969,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1938,7 +1980,9 @@ public class SampleReadQueries extends QueryTest {
    * more than one employee and aggregates by department name.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12e() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1957,9 +2001,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1970,7 +2012,9 @@ public class SampleReadQueries extends QueryTest {
    * more than one employee and aggregates by department name.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1993,9 +2037,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2005,7 +2047,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns a single instance of Employee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2020,9 +2064,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2032,7 +2074,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns a single instance of Employee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2050,9 +2094,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2062,7 +2104,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns a single instance of Employee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2078,9 +2122,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2091,7 +2133,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2105,9 +2149,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2117,7 +2159,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns a single instance of Employee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2136,9 +2180,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2148,7 +2190,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns a single field of a single Employee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2167,9 +2211,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2179,7 +2221,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns a single field of a single Employee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2200,9 +2244,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2212,7 +2254,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns a single field of a single Employee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2231,9 +2275,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2244,7 +2286,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2259,9 +2303,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2271,7 +2313,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns a single field of a single Employee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2291,9 +2335,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2306,7 +2348,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2321,9 +2365,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2335,7 +2377,9 @@ public class SampleReadQueries extends QueryTest {
    * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2353,9 +2397,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2367,7 +2409,9 @@ public class SampleReadQueries extends QueryTest {
    * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2383,9 +2427,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2398,7 +2440,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2412,9 +2456,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2426,7 +2468,9 @@ public class SampleReadQueries extends QueryTest {
    * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2445,9 +2489,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2459,7 +2501,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2474,9 +2518,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2487,7 +2529,9 @@ public class SampleReadQueries extends QueryTest {
    * stores the result in a user-defined class.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2505,9 +2549,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2518,7 +2560,9 @@ public class SampleReadQueries extends QueryTest {
    * stores the result in a user-defined class.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2534,9 +2578,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2548,7 +2590,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2562,9 +2606,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2575,7 +2617,9 @@ public class SampleReadQueries extends QueryTest {
    * stores the result in a user-defined class.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2594,9 +2638,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2607,7 +2649,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2623,9 +2667,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2635,7 +2677,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns the names of all Employees of all "Research" departments.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2651,9 +2695,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2664,7 +2706,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2677,9 +2721,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2689,7 +2731,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns the names of all Employees of all "Research" departments.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17e() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2702,9 +2746,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2715,7 +2757,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2732,9 +2776,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2745,7 +2787,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2763,9 +2807,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2775,7 +2817,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns names of employees who work more than the average of all employees.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2793,9 +2837,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2806,7 +2848,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2819,9 +2863,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2831,7 +2873,9 @@ public class SampleReadQueries extends QueryTest {
    * <p>This query returns names of employees who work more than the average of all employees.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2849,9 +2893,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2865,7 +2907,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2884,9 +2928,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2899,7 +2941,9 @@ public class SampleReadQueries extends QueryTest {
    * the subquery is the manager of the candidate employee.
    */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2918,9 +2962,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2934,7 +2976,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2947,9 +2991,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2963,7 +3005,9 @@ public class SampleReadQueries extends QueryTest {
    */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2983,9 +3027,7 @@ public class SampleReadQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -3158,16 +3200,15 @@ public class SampleReadQueries extends QueryTest {
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
-
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */

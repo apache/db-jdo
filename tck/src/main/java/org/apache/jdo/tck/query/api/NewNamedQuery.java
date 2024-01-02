@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.query.api;
 
 import java.util.Arrays;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
@@ -27,6 +28,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> New Named Query. <br>
@@ -56,42 +59,55 @@ public class NewNamedQuery extends QueryTest {
 
   /** */
   @Test
-  public void testPositive() {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive0() {
     int index = 0;
     executeNamedQuery(Person.class, "validNotUnique", expectedResult[index], true);
+  }
 
-    index = 1;
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive1() {
+    int index = 1;
     executeNamedQuery(Person.class, "validUnique", expectedResult[index], true);
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
     executeNamedQuery(Person.class, "invalidUnique", null, false);
   }
 
   private void executeNamedQuery(
       Class<?> candidateClass, String namedQuery, Object expectedResult, boolean positive) {
-    Query<?> query = getPM().newNamedQuery(candidateClass, namedQuery);
-    executeJDOQuery(
-        ASSERTION_FAILED,
-        query,
-        "Named query " + namedQuery,
-        false,
-        null,
-        expectedResult,
-        positive);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Query<?> query = pm.newNamedQuery(candidateClass, namedQuery);
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          query,
+          "Named query " + namedQuery,
+          false,
+          null,
+          expectedResult,
+          positive);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

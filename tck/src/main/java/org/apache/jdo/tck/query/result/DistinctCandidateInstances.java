@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.result;
 
 import java.util.List;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -30,6 +31,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Distinct Candidate Instances. <br>
@@ -49,113 +52,130 @@ public class DistinctCandidateInstances extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testExtentQueries0() {
     if (isUnconstrainedVariablesSupported()) {
       List<Employee> expected =
           getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp1");
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+        query.variable("p", Person.class);
 
-      JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-      query.variable("p", Person.class);
+        QueryElementHolder<Employee> holder =
+            new QueryElementHolder<>(
+                /*UNIQUE*/ null,
+                /*RESULT*/ null,
+                /*INTO*/ null,
+                /*FROM*/ Employee.class,
+                /*EXCLUDE*/ null,
+                /*WHERE*/ null,
+                /*VARIABLES*/ "Project p",
+                /*PARAMETERS*/ null,
+                /*IMPORTS*/ null,
+                /*GROUP BY*/ null,
+                /*ORDER BY*/ null,
+                /*FROM*/ null,
+                /*TO*/ null,
+                /*JDOQLTyped*/ query,
+                /*paramValues*/ null);
 
-      QueryElementHolder<Employee> holder =
-          new QueryElementHolder<>(
-              /*UNIQUE*/ null,
-              /*RESULT*/ null,
-              /*INTO*/ null,
-              /*FROM*/ Employee.class,
-              /*EXCLUDE*/ null,
-              /*WHERE*/ null,
-              /*VARIABLES*/ "Project p",
-              /*PARAMETERS*/ null,
-              /*IMPORTS*/ null,
-              /*GROUP BY*/ null,
-              /*ORDER BY*/ null,
-              /*FROM*/ null,
-              /*TO*/ null,
-              /*JDOQLTyped*/ query,
-              /*paramValues*/ null);
-
-      executeAPIQuery(ASSERTION_FAILED, holder, expected);
-      executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-      executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testExtentQueries1() {
     if (isUnconstrainedVariablesSupported()) {
       List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(true, cand);
+        query.variable("p", Person.class);
 
-      JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
-      query.result(true, cand);
-      query.variable("p", Person.class);
+        QueryElementHolder<Employee> holder =
+            new QueryElementHolder<>(
+                /*UNIQUE*/ null,
+                /*RESULT*/ "DISTINCT",
+                /*INTO*/ null,
+                /*FROM*/ Employee.class,
+                /*EXCLUDE*/ null,
+                /*WHERE*/ null,
+                /*VARIABLES*/ "Project p",
+                /*PARAMETERS*/ null,
+                /*IMPORTS*/ null,
+                /*GROUP BY*/ null,
+                /*ORDER BY*/ null,
+                /*FROM*/ null,
+                /*TO*/ null,
+                /*JDOQLTyped*/ query,
+                /*paramValues*/ null);
 
-      QueryElementHolder<Employee> holder =
-          new QueryElementHolder<>(
-              /*UNIQUE*/ null,
-              /*RESULT*/ "DISTINCT",
-              /*INTO*/ null,
-              /*FROM*/ Employee.class,
-              /*EXCLUDE*/ null,
-              /*WHERE*/ null,
-              /*VARIABLES*/ "Project p",
-              /*PARAMETERS*/ null,
-              /*IMPORTS*/ null,
-              /*GROUP BY*/ null,
-              /*ORDER BY*/ null,
-              /*FROM*/ null,
-              /*TO*/ null,
-              /*JDOQLTyped*/ query,
-              /*paramValues*/ null);
-
-      executeAPIQuery(ASSERTION_FAILED, holder, expected);
-      executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-      executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testCollectionQueries() {
     String singleStringQuery = "SELECT FROM " + Person.class.getName();
     String singleStringDistinctQuery = "SELECT DISTINCT FROM " + Person.class.getName();
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      List<Person> candidates =
+          getPersistentCompanyModelInstancesAsList(pm, Person.class, "emp1", "emp1");
+      Query<Person> query = pm.newQuery(Person.class);
+      query.setCandidates(candidates);
+      query.setResult("this");
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          query,
+          singleStringQuery,
+          false,
+          null,
+          getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp1"),
+          true);
 
-    List<Person> candidates =
-        getPersistentCompanyModelInstancesAsList(Person.class, "emp1", "emp1");
-    Query<Person> query = pm.newQuery(Person.class);
-    query.setCandidates(candidates);
-    query.setResult("this");
-    executeJDOQuery(
-        ASSERTION_FAILED,
-        query,
-        singleStringQuery,
-        false,
-        null,
-        getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp1"),
-        true);
-
-    query.setResult("DISTINCT this");
-    executeJDOQuery(
-        ASSERTION_FAILED,
-        query,
-        singleStringDistinctQuery,
-        false,
-        null,
-        getTransientCompanyModelInstancesAsList(Person.class, "emp1"),
-        true);
+      query.setResult("DISTINCT this");
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          query,
+          singleStringDistinctQuery,
+          false,
+          null,
+          getTransientCompanyModelInstancesAsList(Person.class, "emp1"),
+          true);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   @BeforeAll
   @Override
-  public void setUp() {
+  protected void setUp() {
     super.setUp();
   }
 
   @AfterAll
   @Override
-  public void tearDown() {
+  protected void tearDown() {
     super.tearDown();
   }
 

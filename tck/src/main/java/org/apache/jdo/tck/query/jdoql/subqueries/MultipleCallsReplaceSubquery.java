@@ -71,7 +71,7 @@ public class MultipleCallsReplaceSubquery extends SubqueriesTest {
     // represent the query of singleStringJDOQL
     apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
     executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
   }
 
   /**
