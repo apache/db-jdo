@@ -592,7 +592,7 @@ public class SupportedOptionalMethods extends QueryTest {
    */
   @Test
   // @Execution(ExecutionMode.CONCURRENT)
-  // Wrong result when executed in parallel
+  // ToDo: Wrong result when executed in parallel
   // Date field was 'null'
   public void testPersistenceNotNull() {
     PersistenceManager pm = getPMF().getPersistenceManager();
