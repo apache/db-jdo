@@ -61,7 +61,7 @@ public class SetOrdering extends QueryTest {
       Object results = query.execute();
 
       // check result
-      printOutput(results, persistentPCPoints);
+      printOutput(results, transientPCPoints);
       checkQueryResultWithOrder(ASSERTION_FAILED, results, transientPCPoints);
 
       tx.commit();
