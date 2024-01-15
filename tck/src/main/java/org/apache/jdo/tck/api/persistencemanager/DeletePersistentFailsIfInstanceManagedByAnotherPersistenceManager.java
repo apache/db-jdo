@@ -45,6 +45,10 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
   private PCPoint p4 = null;
   private PCPoint p5 = null;
 
+  private Collection<PCPoint> pcPointCol;
+
+  private PCPoint[] pcPointArray;
+
   /** */
   @Test
   public void testDeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager() {
@@ -81,6 +85,14 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
       pm.makePersistent(p3);
       pm.makePersistent(p4);
       pm.makePersistent(p5);
+
+      pcPointCol = new HashSet<>(2);
+      pcPointCol.add(p2);
+      pcPointCol.add(p1);
+
+      pcPointArray = new PCPoint[2];
+      pcPointArray[0] = p4;
+      pcPointArray[0] = p5;
       tx.commit();
     } finally {
       if ((tx != null) && tx.isActive()) tx.rollback();
@@ -112,12 +124,8 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
     try {
       tx.begin();
 
-      Collection<PCPoint> col1 = new HashSet<>();
-      col1.add(p2);
-      col1.add(p3);
-
       try {
-        pm.deletePersistentAll(col1);
+        pm.deletePersistentAll(pcPointCol);
         fail(
             ASSERTION_FAILED,
             "pm.deletePersistent(Collection) with pc instance(s) managed by another pm should throw exception");
@@ -136,12 +144,8 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
     try {
       tx.begin();
 
-      Collection<PCPoint> col1 = new HashSet<>();
-      col1.add(p4);
-      col1.add(p5);
-      Object[] obj1 = col1.toArray();
       try {
-        pm.deletePersistentAll(obj1);
+        pm.deletePersistentAll(pcPointArray);
         fail(
             ASSERTION_FAILED,
             "pm.deletePersistent(Object[]) with pc instance(s) managed by another pm should throw exception");

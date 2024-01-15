@@ -174,11 +174,11 @@ public class DeletePersistent extends PersistenceManagerTest {
       PCPoint np2 = new PCPoint(4, 4);
       pm.makePersistent(np1);
       pm.makePersistent(np2);
-      tx.commit();
 
       Collection<PCPoint> col1 = new HashSet<>();
       col1.add(np1);
       col1.add(np2);
+      tx.commit();
 
       try {
         pm.deletePersistentAll(col1);
@@ -204,12 +204,12 @@ public class DeletePersistent extends PersistenceManagerTest {
 
       pm.makePersistent(np1);
       pm.makePersistent(np2);
-      tx.commit();
 
       Collection<PCPoint> col1 = new HashSet<>();
       col1.add(np1);
       col1.add(np2);
       Object[] obj1 = col1.toArray();
+      tx.commit();
 
       try {
         pm.deletePersistentAll(obj1);

@@ -99,12 +99,12 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
     Transaction tx = pm.currentTransaction();
     try {
       tx = pm.currentTransaction();
+      tx.begin();
 
       Collection<PCPoint> col1 = new java.util.HashSet<>();
       col1.add(p2);
       col1.add(p3);
 
-      tx.begin();
       pm.deletePersistentAll(col1);
       pm.deletePersistentAll(col1);
       pm.deletePersistentAll(col1);
@@ -120,13 +120,13 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
   private void runTestDeletePersistentAll2(PersistenceManager pm) {
     Transaction tx = pm.currentTransaction();
     try {
+      tx.begin();
       Collection<PCPoint> col1 = new HashSet<>();
       col1.add(p4);
       col1.add(p5);
 
       Object[] obj1 = col1.toArray();
 
-      tx.begin();
       pm.deletePersistentAll(obj1);
       pm.deletePersistentAll(obj1);
       pm.deletePersistentAll(obj1);
