@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.result;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Map;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -33,8 +32,6 @@ import org.apache.jdo.tck.query.result.classes.LongString;
 import org.apache.jdo.tck.query.result.classes.MissingNoArgsConstructor;
 import org.apache.jdo.tck.query.result.classes.NoFieldsNoMethods;
 import org.apache.jdo.tck.query.result.classes.PublicLongField;
-import org.apache.jdo.tck.query.result.classes.PublicPutMethod;
-import org.apache.jdo.tck.util.ConversionHelper;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

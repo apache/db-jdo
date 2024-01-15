@@ -99,7 +99,8 @@ public class NewQuery extends QueryTest {
       "Assertion A19.?? (NamedQueryRepeatableAnnotations) failed: ";
 
   /** */
-  private static final String ASSERTION_FAILED_16 = "Assertion A14.5-16 (InvalidNamedQuery) failed: ";
+  private static final String ASSERTION_FAILED_16 =
+      "Assertion A14.5-16 (InvalidNamedQuery) failed: ";
 
   /**
    * The array of valid queries which may be executed as single string queries and as API queries.
@@ -559,9 +560,9 @@ public class NewQuery extends QueryTest {
     try {
       pm.newNamedQuery(Person.class, "invalidQuery");
       fail(
-              ASSERTION_FAILED
-                      + "Lookup of named query 'invalidQuery' "
-                      + " succeeded, though the query is not compilable.");
+          ASSERTION_FAILED
+              + "Lookup of named query 'invalidQuery' "
+              + " succeeded, though the query is not compilable.");
     } catch (JDOUserException ignored) {
       // ignored
     } finally {
