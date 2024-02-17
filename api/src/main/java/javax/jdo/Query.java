@@ -759,10 +759,9 @@ public interface Query<T> extends AutoCloseable, Serializable {
   Integer getDatastoreWriteTimeoutMillis();
 
   /**
-   * Method to cancel all executions of this query instance.
-   * If the underlying datastore doesn't support
-   * cancellation of queries this will throw JDOUnsupportedOptionException. If the cancellation
-   * fails (e.g in the underlying datastore) then this will throw a JDOException.
+   * Method to cancel all executions of this query instance. If the underlying datastore doesn't
+   * support cancellation of queries this will throw JDOUnsupportedOptionException. If the
+   * cancellation fails (e.g in the underlying datastore) then this will throw a JDOException.
    *
    * @since 3.0
    */
