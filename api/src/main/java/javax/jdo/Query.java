@@ -768,9 +768,10 @@ public interface Query<T> extends AutoCloseable, Serializable {
   void cancelAll();
 
   /**
-   * Method to cancel an executing query in the specified thread. If the underlying datastore
-   * doesn't support cancellation of queries this will throw JDOUnsupportedOptionException. If the
-   * cancellation fails (e.g in the underlying datastore) then this will throw a JDOException.
+   * Method to cancel any executions of this query instance that run in the specified thread. If the
+   * underlying datastore doesn't support cancellation of queries this will throw
+   * JDOUnsupportedOptionException. If the cancellation fails (e.g in the underlying datastore) then
+   * this will throw a JDOException.
    *
    * @param thread The thread to cancel
    * @since 3.0
