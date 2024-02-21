@@ -66,8 +66,8 @@ public class VariablesWithoutExtent extends QueryTest {
               /*JDOQLTyped*/ null,
               /*paramValues*/ null);
 
-      executeAPIQuery(ASSERTION_FAILED, holder, expected);
-      executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
     }
   }
 

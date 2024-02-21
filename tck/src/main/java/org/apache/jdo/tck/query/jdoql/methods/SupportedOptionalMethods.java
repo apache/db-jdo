@@ -29,8 +29,13 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.OptionalSample;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Optional Fields. <br>
@@ -38,6 +43,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion ID:</B> A14.6.2-9 <br>
  * <B>Assertion Description: </B> Queries on fields of type java.util.Optional .
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedOptionalMethods extends QueryTest {
 
   /** */
@@ -59,83 +65,104 @@ public class SupportedOptionalMethods extends QueryTest {
 
   /** */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQueriesWithPresence() {
-    // Matches 'optionalPC.isPresent() == true'
-    checkQuery("optionalPC != null", oidPC, oidReferencedPC1);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      // Matches 'optionalPC.isPresent() == true'
+      checkQuery(pm, "optionalPC != null", oidPC, oidReferencedPC1);
 
-    // matches !isPresent() but does NOT match Java 'optionalPC==null'
-    checkQuery("optionalPC == null", oidEmpty, oidNull, oidReferencedPC2);
+      // matches !isPresent() but does NOT match Java 'optionalPC==null'
+      checkQuery(pm, "optionalPC == null", oidEmpty, oidNull, oidReferencedPC2);
 
-    // matches isPresent()
-    checkQuery("!(optionalPC == null)", oidReferencedPC1, oidPC);
+      // matches isPresent()
+      checkQuery(pm, "!(optionalPC == null)", oidReferencedPC1, oidPC);
 
-    // matches !isPresent()
-    checkQuery("!(optionalPC != null)", oidReferencedPC2, oidEmpty, oidNull);
+      // matches !isPresent()
+      checkQuery(pm, "!(optionalPC != null)", oidReferencedPC2, oidEmpty, oidNull);
 
-    checkQuery("optionalPC.get() != null", oidPC, oidReferencedPC1);
-    checkQuery("optionalPC.get() == null", oidEmpty, oidNull, oidReferencedPC2);
-    checkQuery("optionalPC.isPresent()", oidPC, oidReferencedPC1);
-    checkQuery("!optionalPC.isPresent()", oidReferencedPC2, oidEmpty, oidNull);
+      checkQuery(pm, "optionalPC.get() != null", oidPC, oidReferencedPC1);
+      checkQuery(pm, "optionalPC.get() == null", oidEmpty, oidNull, oidReferencedPC2);
+      checkQuery(pm, "optionalPC.isPresent()", oidPC, oidReferencedPC1);
+      checkQuery(pm, "!optionalPC.isPresent()", oidReferencedPC2, oidEmpty, oidNull);
 
-    // querying non-PC 'Optional' fields
-    checkOptionalForPresence("optionalString");
-    checkOptionalForPresence("optionalDate");
-    checkOptionalForPresence("optionalInteger");
+      // querying non-PC 'Optional' fields
+      checkOptionalForPresence(pm, "optionalString");
+      checkOptionalForPresence(pm, "optionalDate");
+      checkOptionalForPresence(pm, "optionalInteger");
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
-  private void checkOptionalForPresence(String fieldName) {
-    checkQuery(fieldName + " != null", oidPC);
-    checkQuery(fieldName + " == null", oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2);
-    checkQuery("!(" + fieldName + " == null)", oidPC);
+  private void checkOptionalForPresence(PersistenceManager pm, String fieldName) {
+    checkQuery(pm, fieldName + " != null", oidPC);
+    checkQuery(pm, fieldName + " == null", oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2);
+    checkQuery(pm, "!(" + fieldName + " == null)", oidPC);
     checkQuery(
-        "!(" + fieldName + " != null)", oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2);
+        pm, "!(" + fieldName + " != null)", oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2);
 
-    checkQuery(fieldName + ".get() != null", oidPC);
-    checkQuery(fieldName + ".get() == null", oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2);
-    checkQuery(fieldName + ".isPresent()", oidPC);
+    checkQuery(pm, fieldName + ".get() != null", oidPC);
     checkQuery(
-        "!" + fieldName + ".isPresent()", oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2);
+        pm, fieldName + ".get() == null", oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2);
+    checkQuery(pm, fieldName + ".isPresent()", oidPC);
+    checkQuery(
+        pm,
+        "!" + fieldName + ".isPresent()",
+        oidEmpty,
+        oidNull,
+        oidReferencedPC1,
+        oidReferencedPC2);
   }
 
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQueriesWithNavigation() {
-    checkQuery("optionalPC.id == " + REFERENCED_PC1_ID, oidPC);
-    checkQuery("optionalPC.id != " + REFERENCED_PC1_ID, oidReferencedPC1);
-    checkQuery("!(optionalPC.id == " + REFERENCED_PC1_ID + ")", oidReferencedPC1);
-    checkQuery("optionalPC.get().id == " + REFERENCED_PC1_ID, oidPC);
-    checkQuery("optionalPC.get().id != " + REFERENCED_PC1_ID, oidReferencedPC1);
-    checkQuery("!(optionalPC.get().id == " + REFERENCED_PC1_ID + ")", oidReferencedPC1);
-    checkQuery("optionalPC.optionalPC.isPresent()", oidPC);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      checkQuery(pm, "optionalPC.id == " + REFERENCED_PC1_ID, oidPC);
+      checkQuery(pm, "optionalPC.id != " + REFERENCED_PC1_ID, oidReferencedPC1);
+      checkQuery(pm, "!(optionalPC.id == " + REFERENCED_PC1_ID + ")", oidReferencedPC1);
+      checkQuery(pm, "optionalPC.get().id == " + REFERENCED_PC1_ID, oidPC);
+      checkQuery(pm, "optionalPC.get().id != " + REFERENCED_PC1_ID, oidReferencedPC1);
+      checkQuery(pm, "!(optionalPC.get().id == " + REFERENCED_PC1_ID + ")", oidReferencedPC1);
+      checkQuery(pm, "optionalPC.optionalPC.isPresent()", oidPC);
 
-    // The following reflects the changed behavior in JDO 3.2 in  the sense that
-    // all instances are returned where either 'optionalPC.optionalPC==null' (not present)
-    // or 'optionalPC==null' (the 'null' evaluates to 'null', which is followed until it is
-    // evaluated in the 'isPresent()'). In other words, the query also returns all
-    // objects that match '!(optionalPC.isPresent())'.
-    checkQuery(
-        "!(optionalPC.optionalPC.isPresent())",
-        oidReferencedPC1,
-        oidReferencedPC2,
-        oidEmpty,
-        oidNull);
+      // The following reflects the changed behavior in JDO 3.2 in  the sense that
+      // all instances are returned where either 'optionalPC.optionalPC==null' (not present)
+      // or 'optionalPC==null' (the 'null' evaluates to 'null', which is followed until it is
+      // evaluated in the 'isPresent()'). In other words, the query also returns all
+      // objects that match '!(optionalPC.isPresent())'.
+      checkQuery(
+          pm,
+          "!(optionalPC.optionalPC.isPresent())",
+          oidReferencedPC1,
+          oidReferencedPC2,
+          oidEmpty,
+          oidNull);
 
-    // A query where 'optionalPC!=null' and 'optionalPC.optionalPC==null;
-    // can be done as follows:
-    checkQuery("optionalPC.isPresent() && !(optionalPC.optionalPC.isPresent())", oidReferencedPC1);
+      // A query where 'optionalPC!=null' and 'optionalPC.optionalPC==null;
+      // can be done as follows:
+      checkQuery(
+          pm, "optionalPC.isPresent() && !(optionalPC.optionalPC.isPresent())", oidReferencedPC1);
 
-    checkQuery("optionalPC.optionalPC.id == " + REFERENCED_PC2_ID, oidPC);
-    checkQuery("optionalPC.get().optionalPC.get().id == " + REFERENCED_PC2_ID, oidPC);
+      checkQuery(pm, "optionalPC.optionalPC.id == " + REFERENCED_PC2_ID, oidPC);
+      checkQuery(pm, "optionalPC.get().optionalPC.get().id == " + REFERENCED_PC2_ID, oidPC);
 
-    // test with && operator
-    checkQuery(
-        "!(optionalPC.isPresent() && optionalPC.id == " + REFERENCED_PC1_ID + ")",
-        oidReferencedPC1,
-        oidReferencedPC2,
-        oidEmpty,
-        oidNull);
+      // test with && operator
+      checkQuery(
+          pm,
+          "!(optionalPC.isPresent() && optionalPC.id == " + REFERENCED_PC1_ID + ")",
+          oidReferencedPC1,
+          oidReferencedPC2,
+          oidEmpty,
+          oidNull);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
-  private void checkQuery(String filter, Object... resultOids) {
+  private void checkQuery(PersistenceManager pm, String filter, Object... resultOids) {
     QueryElementHolder<OptionalSample> qeh =
         new QueryElementHolder<>(
             /*UNIQUE*/ null,
@@ -167,54 +194,68 @@ public class SupportedOptionalMethods extends QueryTest {
       }
     }
 
-    executeAPIQuery(ASSERTION_FAILED, qeh, expectedResults);
-    executeSingleStringQuery(ASSERTION_FAILED, qeh, expectedResults);
+    executeAPIQuery(ASSERTION_FAILED, pm, qeh, expectedResults);
+    executeSingleStringQuery(ASSERTION_FAILED, pm, qeh, expectedResults);
   }
 
   /** This methods tests Optional fields and parameters. */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testParameterOptional() {
-    OptionalSample osReferencedPC1 = getOptionalSampleById(oidReferencedPC1);
-    String paramDecl = "java.util.Optional op";
-    Map<String, Object> paramValues = new HashMap<>();
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      OptionalSample osReferencedPC1 = getOptionalSampleById(pm, oidReferencedPC1);
+      String paramDecl = "java.util.Optional op";
+      Map<String, Object> paramValues = new HashMap<>();
 
-    paramValues.put("op", Optional.of(osReferencedPC1));
-    checkQuery("this.optionalPC == op", paramDecl, paramValues, new Object[] {oidPC});
+      paramValues.put("op", Optional.of(osReferencedPC1));
+      checkQuery(pm, "this.optionalPC == op", paramDecl, paramValues, new Object[] {oidPC});
 
-    paramValues.put("op", Optional.of(DATE));
-    checkQuery("this.optionalDate == op", paramDecl, paramValues, new Object[] {oidPC});
+      paramValues.put("op", Optional.of(DATE));
+      checkQuery(pm, "this.optionalDate == op", paramDecl, paramValues, new Object[] {oidPC});
 
-    paramValues.put("op", Optional.of(INTEGER));
-    checkQuery("this.optionalInteger == op", paramDecl, paramValues, new Object[] {oidPC});
+      paramValues.put("op", Optional.of(INTEGER));
+      checkQuery(pm, "this.optionalInteger == op", paramDecl, paramValues, new Object[] {oidPC});
 
-    paramValues.put("op", Optional.of(STRING));
-    checkQuery("this.optionalString == op", paramDecl, paramValues, new Object[] {oidPC});
+      paramValues.put("op", Optional.of(STRING));
+      checkQuery(pm, "this.optionalString == op", paramDecl, paramValues, new Object[] {oidPC});
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** This methods tests Optional fields and parameters with auto de-referencing. */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testParameterOptionalAutoDeref() {
-    OptionalSample osReferencedPC1 = getOptionalSampleById(oidReferencedPC1);
-    Map<String, Object> paramValues = new HashMap<>();
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      OptionalSample osReferencedPC1 = getOptionalSampleById(pm, oidReferencedPC1);
+      Map<String, Object> paramValues = new HashMap<>();
 
-    paramValues.put("op", osReferencedPC1);
-    checkQuery(
-        "this.optionalPC == op",
-        OptionalSample.class.getName() + " op",
-        paramValues,
-        new Object[] {oidPC});
+      paramValues.put("op", osReferencedPC1);
+      checkQuery(
+          pm,
+          "this.optionalPC == op",
+          OptionalSample.class.getName() + " op",
+          paramValues,
+          new Object[] {oidPC});
 
-    paramValues.put("op", DATE);
-    checkQuery("this.optionalDate == op", "java.util.Date op", paramValues, new Object[] {oidPC});
+      paramValues.put("op", DATE);
+      checkQuery(
+          pm, "this.optionalDate == op", "java.util.Date op", paramValues, new Object[] {oidPC});
 
-    paramValues.put("op", INTEGER);
-    checkQuery("this.optionalInteger == op", "Integer op", paramValues, new Object[] {oidPC});
+      paramValues.put("op", INTEGER);
+      checkQuery(pm, "this.optionalInteger == op", "Integer op", paramValues, new Object[] {oidPC});
 
-    paramValues.put("op", STRING);
-    checkQuery("this.optionalString == op", "String op", paramValues, new Object[] {oidPC});
+      paramValues.put("op", STRING);
+      checkQuery(pm, "this.optionalString == op", "String op", paramValues, new Object[] {oidPC});
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
-  private OptionalSample getOptionalSampleById(Object id) {
+  private OptionalSample getOptionalSampleById(PersistenceManager pm, Object id) {
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -228,111 +269,147 @@ public class SupportedOptionalMethods extends QueryTest {
 
   /** This methods tests that empty Optional fields and parameters matches with Optional.empty(). */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testParameterOptionalWithEmptyFields() {
-    String paramDecl = "java.util.Optional op";
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("op", Optional.empty());
-    checkQuery(
-        "this.optionalPC == op",
-        paramDecl,
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC2});
-    checkQuery(
-        "this.optionalDate == op",
-        paramDecl,
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-    checkQuery(
-        "this.optionalInteger == op",
-        paramDecl,
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-    checkQuery(
-        "this.optionalString == op",
-        paramDecl,
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      String paramDecl = "java.util.Optional op";
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("op", Optional.empty());
+      checkQuery(
+          pm,
+          "this.optionalPC == op",
+          paramDecl,
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC2});
+      checkQuery(
+          pm,
+          "this.optionalDate == op",
+          paramDecl,
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+      checkQuery(
+          pm,
+          "this.optionalInteger == op",
+          paramDecl,
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+      checkQuery(
+          pm,
+          "this.optionalString == op",
+          paramDecl,
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** This methods tests that Optional fields and parameters matches with (Optional)null. */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testParameterOptionalWithNull() {
-    String paramDecl = "java.util.Optional op";
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("op", null);
-    checkQuery(
-        "this.optionalPC == op",
-        paramDecl,
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC2});
-    checkQuery(
-        "this.optionalDate == op",
-        paramDecl,
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-    checkQuery(
-        "this.optionalInteger == op",
-        paramDecl,
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-    checkQuery(
-        "this.optionalString == op",
-        paramDecl,
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      String paramDecl = "java.util.Optional op";
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("op", null);
+      checkQuery(
+          pm,
+          "this.optionalPC == op",
+          paramDecl,
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC2});
+      checkQuery(
+          pm,
+          "this.optionalDate == op",
+          paramDecl,
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+      checkQuery(
+          pm,
+          "this.optionalInteger == op",
+          paramDecl,
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+      checkQuery(
+          pm,
+          "this.optionalString == op",
+          paramDecl,
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** This methods tests that Optional fields and parameters matches with (Object)null. */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testParameterOptionalNull() {
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("op", null);
-    checkQuery(
-        "this.optionalPC == op",
-        OptionalSample.class.getName() + " op",
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC2});
-    checkQuery(
-        "this.optionalDate == op",
-        "java.util.Date op",
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-    checkQuery(
-        "this.optionalInteger == op",
-        "java.lang.Integer op",
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-    checkQuery(
-        "this.optionalString == op",
-        "java.lang.String op",
-        paramValues,
-        new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("op", null);
+      checkQuery(
+          pm,
+          "this.optionalPC == op",
+          OptionalSample.class.getName() + " op",
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC2});
+      checkQuery(
+          pm,
+          "this.optionalDate == op",
+          "java.util.Date op",
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+      checkQuery(
+          pm,
+          "this.optionalInteger == op",
+          "java.lang.Integer op",
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+      checkQuery(
+          pm,
+          "this.optionalString == op",
+          "java.lang.String op",
+          paramValues,
+          new Object[] {oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** This methods tests that Optional fields can be accessed in subqueries. */
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testSubqueries() {
-    String queryStr1 =
-        "SELECT FROM "
-            + OptionalSample.class.getName()
-            + " WHERE "
-            + "(select max(a.id) from "
-            + OptionalSample.class.getName()
-            + " a "
-            + "where a.optionalPC.isPresent() ) == id";
-    Object[] expectedResult1 = new Object[] {oidReferencedPC1};
-    checkSingleStringQuery(queryStr1, expectedResult1);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      String queryStr1 =
+          "SELECT FROM "
+              + OptionalSample.class.getName()
+              + " WHERE "
+              + "(select max(a.id) from "
+              + OptionalSample.class.getName()
+              + " a "
+              + "where a.optionalPC.isPresent() ) == id";
+      Object[] expectedResult1 = new Object[] {oidReferencedPC1};
+      checkSingleStringQuery(pm, queryStr1, expectedResult1);
 
-    String queryStr2 =
-        "SELECT FROM "
-            + OptionalSample.class.getName()
-            + " WHERE "
-            + "(select max(a.id) from "
-            + OptionalSample.class.getName()
-            + " a "
-            + "where a.optionalPC.get() != null) == id";
-    Object[] expectedResult2 = new Object[] {oidReferencedPC1};
-    checkSingleStringQuery(queryStr2, expectedResult2);
+      String queryStr2 =
+          "SELECT FROM "
+              + OptionalSample.class.getName()
+              + " WHERE "
+              + "(select max(a.id) from "
+              + OptionalSample.class.getName()
+              + " a "
+              + "where a.optionalPC.get() != null) == id";
+      Object[] expectedResult2 = new Object[] {oidReferencedPC1};
+      checkSingleStringQuery(pm, queryStr2, expectedResult2);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** This methods tests that Optional fields can be accessed in subqueries. */
@@ -342,11 +419,11 @@ public class SupportedOptionalMethods extends QueryTest {
 
     String queryStr1 = "SELECT AVG(optionalInteger) FROM " + clsName;
     Query<?> q1 = pm.newQuery(queryStr1);
-    executeJDOQuery(ASSERTION_FAILED, q1, queryStr1, false, null, (double) INTEGER, true);
+    executeJDOQuery(ASSERTION_FAILED, pm, q1, queryStr1, false, null, (double) INTEGER, true);
 
     String queryStr2 = "SELECT AVG(optionalInteger.get()) FROM " + clsName;
     Query<?> q2 = pm.newQuery(queryStr2);
-    executeJDOQuery(ASSERTION_FAILED, q2, queryStr2, false, null, (double) INTEGER, true);
+    executeJDOQuery(ASSERTION_FAILED, pm, q2, queryStr2, false, null, (double) INTEGER, true);
 
     // return the object whose Integer is the same as the AVG of all
     // objects that have the Integer present.
@@ -359,7 +436,7 @@ public class SupportedOptionalMethods extends QueryTest {
             + " a "
             + "where a.optionalInteger.isPresent() ) == optionalInteger";
     Object[] expectedResult1 = new Object[] {oidPC};
-    checkSingleStringQuery(queryStrSub1, expectedResult1);
+    checkSingleStringQuery(pm, queryStrSub1, expectedResult1);
 
     String queryStrSub2 =
         "SELECT FROM "
@@ -370,7 +447,7 @@ public class SupportedOptionalMethods extends QueryTest {
             + " a "
             + "where a.optionalInteger.isPresent() ) == optionalInteger";
     Object[] expectedResult2 = new Object[] {oidPC};
-    checkSingleStringQuery(queryStrSub2, expectedResult2);
+    checkSingleStringQuery(pm, queryStrSub2, expectedResult2);
 
     // Find all where the average is the same as the integer value itself.
     // This returns ALL objects!!!
@@ -383,10 +460,11 @@ public class SupportedOptionalMethods extends QueryTest {
             + " a "
             + " ) == optionalInteger";
     Object[] expectedResult3 = new Object[] {oidPC};
-    checkSingleStringQuery(queryStrSub3, expectedResult3);
+    checkSingleStringQuery(pm, queryStrSub3, expectedResult3);
   }
 
-  private void checkSingleStringQuery(String singleStringJDOQL, Object... resultOids) {
+  private void checkSingleStringQuery(
+      PersistenceManager pm, String singleStringJDOQL, Object... resultOids) {
     ArrayList<Object> expectedResults = new ArrayList<>();
     Transaction tx = pm.currentTransaction();
     try {
@@ -400,11 +478,22 @@ public class SupportedOptionalMethods extends QueryTest {
 
     Query<?> singleStringQuery = pm.newQuery(singleStringJDOQL);
     executeJDOQuery(
-        ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, false, null, expectedResults, true);
+        ASSERTION_FAILED,
+        pm,
+        singleStringQuery,
+        singleStringJDOQL,
+        false,
+        null,
+        expectedResults,
+        true);
   }
 
   private void checkQuery(
-      String filter, String paramDecl, Map<String, Object> paramValues, Object[] result) {
+      PersistenceManager pm,
+      String filter,
+      String paramDecl,
+      Map<String, Object> paramValues,
+      Object[] result) {
     QueryElementHolder<OptionalSample> qeh =
         new QueryElementHolder<>(
             /*UNIQUE*/ null,
@@ -424,7 +513,6 @@ public class SupportedOptionalMethods extends QueryTest {
             /*paramValues*/ paramValues);
 
     ArrayList<Object> expectedResults = new ArrayList<>();
-    PersistenceManager pm = getPM();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -441,8 +529,8 @@ public class SupportedOptionalMethods extends QueryTest {
       }
     }
 
-    executeAPIQuery(ASSERTION_FAILED, qeh, expectedResults);
-    executeSingleStringQuery(ASSERTION_FAILED, qeh, expectedResults);
+    executeAPIQuery(ASSERTION_FAILED, pm, qeh, expectedResults);
+    executeSingleStringQuery(ASSERTION_FAILED, pm, qeh, expectedResults);
   }
 
   /** Result class for queries on OptionalSample. */
@@ -461,7 +549,9 @@ public class SupportedOptionalMethods extends QueryTest {
   /** Test Optional.orElse() in the SELECT clause of JDOQL queries. */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testOrElseInSELECT() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -492,9 +582,7 @@ public class SupportedOptionalMethods extends QueryTest {
         }
       }
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -503,12 +591,15 @@ public class SupportedOptionalMethods extends QueryTest {
    * database.
    */
   @Test
+  // @Execution(ExecutionMode.CONCURRENT)
+  // ToDo: Wrong result when executed in parallel
+  // Date field was 'null'
   public void testPersistenceNotNull() {
-    OptionalSample osNotNull = getOptionalSampleById(oidNull);
-
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
+      OptionalSample osNotNull = (OptionalSample) pm.getObjectById(oidNull);
 
       if (osNotNull.getOptionalDate() == null) {
         fail(ASSERTION_FAILED, "Date field was 'null'");
@@ -535,11 +626,22 @@ public class SupportedOptionalMethods extends QueryTest {
       if (osNotNull.getOptionalString().isPresent()) {
         fail(ASSERTION_FAILED, "String field was present");
       }
+      tx.rollback();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

@@ -21,7 +21,12 @@ import javax.jdo.JDOException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Null Variable Declaration in addSubquery <br>
@@ -30,6 +35,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> If the trimmed value is the empty String, or the parameter is
  * null, then JDOUserException is thrown.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NullVariableDeclaration extends SubqueriesTest {
 
   /** */
@@ -37,38 +43,58 @@ public class NullVariableDeclaration extends SubqueriesTest {
       "Assertion A14.6.2-53 (NullVariableDeclaration) failed: ";
 
   /** */
+  @SuppressWarnings("unchecked")
   @Test
-  public void testNegative() {
-    PersistenceManager pm = getPM();
-    runTestNullVariable(pm);
-    runTestEmptyVariable(pm);
-  }
-
-  /** */
-  void runTestNullVariable(PersistenceManager pm) {
-    Query<Employee> apiQuery = pm.newQuery(Employee.class);
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestNullVariable() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     try {
-      apiQuery.addSubquery(null, null, null);
-      apiQuery.compile();
-      fail(
-          ASSERTION_FAILED,
-          "addSubquery called with a null varible declaration must throw a JDOUserException.");
-    } catch (JDOException ex) {
-      // expected JDOException
+      Query<Employee> apiQuery = pm.newQuery(Employee.class);
+      try {
+        apiQuery.addSubquery(null, null, null);
+        apiQuery.compile();
+        fail(
+            ASSERTION_FAILED,
+            "addSubquery called with a null varible declaration must throw a JDOUserException.");
+      } catch (JDOException ex) {
+        // expected JDOException
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
   /** */
-  void runTestEmptyVariable(PersistenceManager pm) {
-    Query<Employee> apiQuery = pm.newQuery(Employee.class);
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestEmptyVariable() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     try {
-      apiQuery.addSubquery(null, " ", null);
-      apiQuery.compile();
-      fail(
-          ASSERTION_FAILED,
-          "addSubquery called with an empty varible declaration must throw a JDOUserException.");
-    } catch (JDOException ex) {
-      // expected JDOException
+      Query<Employee> apiQuery = pm.newQuery(Employee.class);
+      try {
+        apiQuery.addSubquery(null, " ", null);
+        apiQuery.compile();
+        fail(
+            ASSERTION_FAILED,
+            "addSubquery called with an empty varible declaration must throw a JDOUserException.");
+      } catch (JDOException ex) {
+        // expected JDOException
+      }
+    } finally {
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 }

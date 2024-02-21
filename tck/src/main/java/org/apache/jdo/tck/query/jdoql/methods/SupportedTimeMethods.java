@@ -26,7 +26,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.query.TimeSample;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Supported Time methods. <br>
@@ -40,6 +45,7 @@ import org.junit.jupiter.api.Test;
  *   <li>getSecond()
  * </ul>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SupportedTimeMethods extends QueryTest {
 
   /** */
@@ -55,9 +61,10 @@ public class SupportedTimeMethods extends QueryTest {
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testHour() {
     final String filter = "time.getHour() == 10";
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -69,18 +76,18 @@ public class SupportedTimeMethods extends QueryTest {
       List<TimeSample> results = q.executeList();
       checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testMinute() {
     final String filter = "time.getMinute() == 15";
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -92,18 +99,18 @@ public class SupportedTimeMethods extends QueryTest {
       List<TimeSample> results = q.executeList();
       checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testSecond() {
     final String filter = "time.getSecond() == 45";
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -115,10 +122,21 @@ public class SupportedTimeMethods extends QueryTest {
       List<TimeSample> results = q.executeList();
       checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

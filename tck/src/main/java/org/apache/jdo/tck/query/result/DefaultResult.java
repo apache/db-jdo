@@ -63,9 +63,9 @@ public class DefaultResult extends QueryTest {
             /*JDOQLTyped*/ query,
             /*paramValues*/ null);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+    executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+    executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
   }
 
   /**

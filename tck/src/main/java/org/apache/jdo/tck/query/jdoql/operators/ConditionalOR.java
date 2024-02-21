@@ -23,7 +23,12 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Conditional OR Query Operator <br>
@@ -36,6 +41,7 @@ import org.junit.jupiter.api.Test;
  *   <LI><code>Boolean, boolean</code>
  * </UL>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ConditionalOR extends QueryTest {
 
   /** */
@@ -43,59 +49,142 @@ public class ConditionalOR extends QueryTest {
 
   /** */
   @Test
-  public void testPositive() {
-    PersistenceManager pm = getPM();
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive1() {
     if (debug) logger.debug("\nExecuting test ConditionalOR() ...");
 
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
-    tx.begin();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> instance9 = pm.newQuery(PrimitiveTypes.class, "id == 9").executeList();
 
-    List<PrimitiveTypes> instance9 = pm.newQuery(PrimitiveTypes.class, "id == 9").executeList();
-    List<PrimitiveTypes> instancesLess3 = pm.newQuery(PrimitiveTypes.class, "id < 3").executeList();
-    List<PrimitiveTypes> allOddInstances =
-        pm.newQuery(PrimitiveTypes.class, "booleanNull").executeList();
-    List<PrimitiveTypes> allInstances = pm.newQuery(PrimitiveTypes.class, "true").executeList();
-    List<PrimitiveTypes> empty = Collections.emptyList();
+      // case Boolean parameter
+      runParameterPrimitiveTypesQuery(
+          "param || id == 9", "Boolean param", Boolean.FALSE, pm, instance9, ASSERTION_FAILED);
+      // case boolean parameter
+      runParameterPrimitiveTypesQuery(
+          "param || id == 9", "boolean param", Boolean.FALSE, pm, instance9, ASSERTION_FAILED);
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
 
-    // case true || true
-    runSimplePrimitiveTypesQuery("true || true", pm, allInstances, ASSERTION_FAILED);
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive2() {
+    if (debug) logger.debug("\nExecuting test ConditionalOR() ...");
 
-    // case true || false
-    runSimplePrimitiveTypesQuery("true || false", pm, allInstances, ASSERTION_FAILED);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> instancesLess3 =
+          pm.newQuery(PrimitiveTypes.class, "id < 3").executeList();
 
-    // case false || true
-    runSimplePrimitiveTypesQuery("false || true", pm, allInstances, ASSERTION_FAILED);
+      // case boolean || boolean
+      runSimplePrimitiveTypesQuery("id == 1 || id == 2", pm, instancesLess3, ASSERTION_FAILED);
 
-    // case false || false
-    runSimplePrimitiveTypesQuery("false || false", pm, empty, ASSERTION_FAILED);
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive3() {
+    if (debug) logger.debug("\nExecuting test ConditionalOR() ...");
 
-    // case boolean || boolean
-    runSimplePrimitiveTypesQuery(
-        "intNotNull == 9 || booleanNotNull", pm, allOddInstances, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("id == 1 || id == 2", pm, instancesLess3, ASSERTION_FAILED);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> allOddInstances =
+          pm.newQuery(PrimitiveTypes.class, "booleanNull").executeList();
 
-    // case boolean || Boolean
-    runSimplePrimitiveTypesQuery(
-        "intNotNull == 9 || booleanNull", pm, allOddInstances, ASSERTION_FAILED);
-    // case Boolean || boolean
-    runSimplePrimitiveTypesQuery(
-        "booleanNull || intNotNull == 9", pm, allOddInstances, ASSERTION_FAILED);
-    // case Boolean || Boolean
-    runSimplePrimitiveTypesQuery(
-        "booleanNull || booleanNull", pm, allOddInstances, ASSERTION_FAILED);
+      // case boolean || boolean
+      runSimplePrimitiveTypesQuery(
+          "intNotNull == 9 || booleanNotNull", pm, allOddInstances, ASSERTION_FAILED);
+      // case boolean || Boolean
+      runSimplePrimitiveTypesQuery(
+          "intNotNull == 9 || booleanNull", pm, allOddInstances, ASSERTION_FAILED);
+      // case Boolean || boolean
+      runSimplePrimitiveTypesQuery(
+          "booleanNull || intNotNull == 9", pm, allOddInstances, ASSERTION_FAILED);
+      // case Boolean || Boolean
+      runSimplePrimitiveTypesQuery(
+          "booleanNull || booleanNull", pm, allOddInstances, ASSERTION_FAILED);
 
-    // case Boolean parameter
-    runParameterPrimitiveTypesQuery(
-        "param || id == 9", "Boolean param", Boolean.TRUE, pm, allInstances, ASSERTION_FAILED);
-    runParameterPrimitiveTypesQuery(
-        "param || id == 9", "Boolean param", Boolean.FALSE, pm, instance9, ASSERTION_FAILED);
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive4() {
+    if (debug) logger.debug("\nExecuting test ConditionalOR() ...");
 
-    // case boolean parameter
-    runParameterPrimitiveTypesQuery(
-        "param || id == 9", "boolean param", Boolean.TRUE, pm, allInstances, ASSERTION_FAILED);
-    runParameterPrimitiveTypesQuery(
-        "param || id == 9", "boolean param", Boolean.FALSE, pm, instance9, ASSERTION_FAILED);
-    tx.commit();
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> allInstances = pm.newQuery(PrimitiveTypes.class, "true").executeList();
+
+      // case true || true
+      runSimplePrimitiveTypesQuery("true || true", pm, allInstances, ASSERTION_FAILED);
+      // case true || false
+      runSimplePrimitiveTypesQuery("true || false", pm, allInstances, ASSERTION_FAILED);
+      // case false || true
+      runSimplePrimitiveTypesQuery("false || true", pm, allInstances, ASSERTION_FAILED);
+      // case Boolean parameter
+      runParameterPrimitiveTypesQuery(
+          "param || id == 9", "Boolean param", Boolean.TRUE, pm, allInstances, ASSERTION_FAILED);
+      // case boolean parameter
+      runParameterPrimitiveTypesQuery(
+          "param || id == 9", "boolean param", Boolean.TRUE, pm, allInstances, ASSERTION_FAILED);
+
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive5() {
+    if (debug) logger.debug("\nExecuting test ConditionalOR() ...");
+
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> empty = Collections.emptyList();
+
+      // case false || false
+      runSimplePrimitiveTypesQuery("false || false", pm, empty, ASSERTION_FAILED);
+
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

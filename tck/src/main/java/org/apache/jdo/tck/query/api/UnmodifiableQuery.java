@@ -19,13 +19,19 @@ package org.apache.jdo.tck.query.api;
 
 import java.util.Arrays;
 import javax.jdo.JDOUserException;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Unmodifiable Query. <br>
@@ -35,6 +41,7 @@ import org.junit.jupiter.api.Test;
  * modification of the query, except for specifying the range and result class and ignoreCache
  * option.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UnmodifiableQuery extends QueryTest {
 
   /** */
@@ -46,46 +53,70 @@ public class UnmodifiableQuery extends QueryTest {
   /** The expected results of valid queries. */
   private final Object[] expectedResult = {
     Arrays.asList(
-        new Object[] {
-          new FullName("emp1First", "emp1Last"),
-          new FullName("emp2First", "emp2Last"),
-          new FullName("emp3First", "emp3Last"),
-          new FullName("emp4First", "emp4Last"),
-          new FullName("emp5First", "emp5Last")
-        })
+        new FullName("emp1First", "emp1Last"),
+        new FullName("emp2First", "emp2Last"),
+        new FullName("emp3First", "emp3Last"),
+        new FullName("emp4First", "emp4Last"),
+        new FullName("emp5First", "emp5Last"))
   };
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive() {
     int index = 0;
-    Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
-    query.setUnmodifiable();
-    query.setResultClass(FullName.class);
-    query.setRange(0, 5);
-    query.setIgnoreCache(true);
-    executeJDOQuery(
-        ASSERTION_FAILED, query, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Query<Person> query = pm.newQuery(SINGLE_STRING_QUERY);
+      query.setUnmodifiable();
+      query.setResultClass(FullName.class);
+      query.setRange(0, 5);
+      query.setIgnoreCache(true);
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          query,
+          SINGLE_STRING_QUERY,
+          false,
+          null,
+          expectedResult[index],
+          true);
 
-    query = getPM().newNamedQuery(Person.class, "unmodifiable");
-    query.setResultClass(FullName.class);
-    query.setRange(0, 5);
-    query.setIgnoreCache(true);
-    executeJDOQuery(
-        ASSERTION_FAILED, query, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
+      query = pm.newNamedQuery(Person.class, "unmodifiable");
+      query.setResultClass(FullName.class);
+      query.setRange(0, 5);
+      query.setIgnoreCache(true);
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          query,
+          SINGLE_STRING_QUERY,
+          false,
+          null,
+          expectedResult[index],
+          true);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
-    Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
-    query.setUnmodifiable();
-    checkSetters(query);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Query<Person> query = pm.newQuery(SINGLE_STRING_QUERY);
+      query.setUnmodifiable();
+      checkSetters(query);
 
-    query = getPM().newNamedQuery(Person.class, "unmodifiable");
-    checkSetters(query);
+      query = pm.newNamedQuery(Person.class, "unmodifiable");
+      checkSetters(query);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   private void checkSetters(Query<?> query) {
@@ -167,6 +198,18 @@ public class UnmodifiableQuery extends QueryTest {
 
   private void methodFailed(String method) {
     fail(ASSERTION_FAILED + method + " on an unmodifiable query must throw JDOUserException.");
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

@@ -126,7 +126,7 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
       query.setCandidates(pm.getExtent(PCPoint.class, false));
       List<PCPoint> results = query.executeList();
       for (PCPoint result : results) {
-        inserted.add(result);
+        persistentPCPoints.add(result);
       }
       tx.commit();
       tx = null;

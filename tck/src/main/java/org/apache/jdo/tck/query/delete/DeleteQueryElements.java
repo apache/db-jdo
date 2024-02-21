@@ -200,7 +200,7 @@ public class DeleteQueryElements extends QueryTest {
             /*JDOQLTyped*/ null,
             /*paramValues*/ paramValues);
 
-    deletePersistentAllByAPIQuery(ASSERTION_FAILED, holder, 1);
+    deletePersistentAllByAPIQuery(ASSERTION_FAILED, pm, holder, 1);
   }
 
   /** */
@@ -229,15 +229,15 @@ public class DeleteQueryElements extends QueryTest {
             /*JDOQLTyped*/ null,
             /*paramValues*/ paramValues);
 
-    deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, holder, 1);
+    deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, pm, holder, 1);
   }
 
   /** */
   @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
-      deletePersistentAllByAPIQuery(ASSERTION_FAILED, invalidQuery, -1);
-      deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, invalidQuery, -1);
+      deletePersistentAllByAPIQuery(ASSERTION_FAILED, pm, invalidQuery, -1);
+      deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, pm, invalidQuery, -1);
     }
   }
 

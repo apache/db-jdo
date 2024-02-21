@@ -18,12 +18,16 @@
 package org.apache.jdo.tck.query.jdoql.parameters;
 
 import java.util.List;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * <B>Title:</B> Order of Parameters. <br>
@@ -32,6 +36,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> If implicit parameters are used, their order of appearance in the
  * query determines their order for binding to positional parameters for execution.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OrderOfParameters extends QueryTest {
 
   /** */
@@ -43,6 +48,7 @@ public class OrderOfParameters extends QueryTest {
   public void testAPIQuery() {
     // Do not use QueryElementHolder, because QueryElementHolder always uses a Map for parameter
     // values
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     Query<Person> query = null;
     Object result = null;
@@ -54,14 +60,12 @@ public class OrderOfParameters extends QueryTest {
       result = query.execute("emp1First", "emp1Last");
       List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
       checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, result, expected);
-      tx.commit();
+      tx.rollback();
     } finally {
       if (query != null) {
         query.close(result);
       }
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -71,6 +75,7 @@ public class OrderOfParameters extends QueryTest {
   public void testSingleStringAPIQuery() {
     // Do not use QueryElementHolder, because QueryElementHolder always uses a Map for parameter
     // values
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     Query<Person> query = null;
     Object result = null;
@@ -87,10 +92,20 @@ public class OrderOfParameters extends QueryTest {
       if (query != null) {
         query.close(result);
       }
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

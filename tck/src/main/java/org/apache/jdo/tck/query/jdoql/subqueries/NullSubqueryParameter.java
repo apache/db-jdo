@@ -60,12 +60,19 @@ public class NullSubqueryParameter extends SubqueriesTest {
     // null subquery parameter
     apiQuery.addSubquery(null, Employee.class.getName() + " emp", null);
     executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
 
     // single String JDOQL
     Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
     executeJDOQuery(
-        ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED,
+        pm,
+        singleStringQuery,
+        singleStringJDOQL,
+        false,
+        null,
+        expectedResult,
+        true);
   }
 
   /**

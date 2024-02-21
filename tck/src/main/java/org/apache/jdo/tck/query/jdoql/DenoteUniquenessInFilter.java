@@ -19,13 +19,19 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.util.List;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Element Returned in Query Result <br>
@@ -42,6 +48,7 @@ import org.junit.jupiter.api.Test;
  *       declaring an expression (for example, <code>e1 != e2</code>).
  * </UL>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DenoteUniquenessInFilter extends QueryTest {
 
   /** */
@@ -51,12 +58,13 @@ public class DenoteUniquenessInFilter extends QueryTest {
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive0() {
     // Uniqueness not specified.
     // emp1 qualifies for both contains clause => result is dept1
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
-    JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+    JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
     QDepartment cand = QDepartment.candidate();
     QEmployee e1 = QEmployee.variable("e1");
     QEmployee e2 = QEmployee.variable("e2");
@@ -84,60 +92,67 @@ public class DenoteUniquenessInFilter extends QueryTest {
             /*JDOQLTyped*/ query,
             /*paramValues*/ null);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+    executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+    executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive1() {
     // Uniqueness specified.
     // Only emp3 qualifies for both contains clause.
     // Condition e1 != e2 violated => result is empty
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
+      QDepartment cand = QDepartment.candidate();
+      QEmployee e1 = QEmployee.variable("e1");
+      QEmployee e2 = QEmployee.variable("e2");
+      query.filter(
+          cand.employees
+              .contains(e1)
+              .and(
+                  e1.personid
+                      .eq(3l)
+                      .and(
+                          cand.employees.contains(e2).and(e2.weeklyhours.eq(19d).and(e1.ne(e2))))));
 
-    JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
-    QDepartment cand = QDepartment.candidate();
-    QEmployee e1 = QEmployee.variable("e1");
-    QEmployee e2 = QEmployee.variable("e2");
-    query.filter(
-        cand.employees
-            .contains(e1)
-            .and(
-                e1.personid
-                    .eq(3l)
-                    .and(cand.employees.contains(e2).and(e2.weeklyhours.eq(19d).and(e1.ne(e2))))));
+      QueryElementHolder<Department> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Department.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "employees.contains(e1) && (e1.personid == 3 && "
+                  + "(employees.contains(e2) && (e2.weeklyhours == 19 && "
+                  + "e1 != e2)))",
+              /*VARIABLES*/ "Employee e1; Employee e2",
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Department> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Department.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "employees.contains(e1) && (e1.personid == 3 && "
-                + "(employees.contains(e2) && (e2.weeklyhours == 19 && "
-                + "e1 != e2)))",
-            /*VARIABLES*/ "Employee e1; Employee e2",
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
   @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive2() {
     // Uniqueness specified.
     // Only emp1 matches the first contains clause.
@@ -145,42 +160,59 @@ public class DenoteUniquenessInFilter extends QueryTest {
     // Thus, there are two different values for e1 and e2
     // satifying the entire filter => result is dept1
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
+      QDepartment cand = QDepartment.candidate();
+      QEmployee e1 = QEmployee.variable("e1");
+      QEmployee e2 = QEmployee.variable("e2");
+      query.filter(
+          cand.employees
+              .contains(e1)
+              .and(
+                  e1.personid
+                      .eq(1l)
+                      .and(
+                          cand.employees.contains(e2).and(e2.weeklyhours.eq(40d).and(e1.ne(e2))))));
 
-    JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
-    QDepartment cand = QDepartment.candidate();
-    QEmployee e1 = QEmployee.variable("e1");
-    QEmployee e2 = QEmployee.variable("e2");
-    query.filter(
-        cand.employees
-            .contains(e1)
-            .and(
-                e1.personid
-                    .eq(1l)
-                    .and(cand.employees.contains(e2).and(e2.weeklyhours.eq(40d).and(e1.ne(e2))))));
+      QueryElementHolder<Department> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Department.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "employees.contains(e1) && (e1.personid == 1 && "
+                  + "(employees.contains(e2) && (e2.weeklyhours == 40 && "
+                  + "e1 != e2)))",
+              /*VARIABLES*/ "Employee e1; Employee e2",
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Department> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Department.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "employees.contains(e1) && (e1.personid == 1 && "
-                + "(employees.contains(e2) && (e2.weeklyhours == 40 && "
-                + "e1 != e2)))",
-            /*VARIABLES*/ "Employee e1; Employee e2",
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
+  }
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

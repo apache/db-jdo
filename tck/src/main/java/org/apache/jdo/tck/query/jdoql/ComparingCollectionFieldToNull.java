@@ -47,7 +47,7 @@ public class ComparingCollectionFieldToNull extends QueryTest {
   /** */
   @Test
   public void testPositive() {
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+    JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
     QEmployee cand = QEmployee.candidate();
     query.filter(cand.personid.eq(1L).and(cand.projects.eq(null)));
 
@@ -69,9 +69,9 @@ public class ComparingCollectionFieldToNull extends QueryTest {
             /*JDOQLTyped*/ query,
             /*paramValues*/ null);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
+    executeAPIQuery(ASSERTION_FAILED, pm, holder, expectedResult);
+    executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expectedResult);
+    executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expectedResult);
   }
 
   /**

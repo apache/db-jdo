@@ -23,7 +23,12 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.IEmployee;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Unmodified Subquery Instance. <br>
@@ -36,6 +41,7 @@ import org.junit.jupiter.api.Test;
  * result specification, and grouping specification. The association with a PersistenceManager, the
  * candidate collection or extent, result class, and range limits are not used.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UnmodifiedSubqueryInstance extends SubqueriesTest {
 
   /** */
@@ -43,15 +49,10 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
       "Assertion A14.6.2-50 (UnmodifiedSubqueryInstance) failed: ";
 
   /** */
+  @SuppressWarnings("unchecked")
   @Test
-  public void testPositive() {
-    PersistenceManager pm = getPM();
-    runTestUnmodifiedSubquery(pm);
-    runTestDifferentPM(pm);
-  }
-
-  /** */
-  void runTestUnmodifiedSubquery(PersistenceManager pm) {
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestUnmodifiedSubquery() {
     List<IEmployee> expectedResult =
         getTransientCompanyModelInstancesAsList(
             IEmployee.class, "emp1", "emp2", "emp4", "emp5", "emp6", "emp7", "emp10");
@@ -68,26 +69,49 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
             + singleStringJDOQLSubquery
             + ")";
 
-    // execute subquery
-    Query<Employee> sub = pm.newQuery(Employee.class);
-    sub.setResult("avg(this.weeklyhours)");
-    executeJDOQuery(
-        ASSERTION_FAILED, sub, singleStringJDOQLSubquery, false, null, averageWeeklyHours, true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
 
-    // execute API query
-    Query<Employee> apiQuery = pm.newQuery(Employee.class);
-    apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
-    apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
-    executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+      // execute subquery
+      Query<Employee> sub = pm.newQuery(Employee.class);
+      sub.setResult("avg(this.weeklyhours)");
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          sub,
+          singleStringJDOQLSubquery,
+          false,
+          null,
+          averageWeeklyHours,
+          true);
 
-    // execute subquery again
-    executeJDOQuery(
-        ASSERTION_FAILED, sub, singleStringJDOQLSubquery, false, null, averageWeeklyHours, true);
+      // execute API query
+      Query<Employee> apiQuery = pm.newQuery(Employee.class);
+      apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
+      apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
+      executeJDOQuery(
+          ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+
+      // execute subquery again
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          sub,
+          singleStringJDOQLSubquery,
+          false,
+          null,
+          averageWeeklyHours,
+          true);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
-  void runTestDifferentPM(PersistenceManager pm) {
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestDifferentPM() {
     List<IEmployee> expectedResult =
         getTransientCompanyModelInstancesAsList(
             IEmployee.class, "emp1", "emp2", "emp4", "emp5", "emp6", "emp7", "emp10");
@@ -100,17 +124,34 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
             + "(SELECT AVG(e.weeklyhours) FROM "
             + Employee.class.getName()
             + " e)";
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
 
-    // create subquery instance using different pm
-    PersistenceManager newPM = pm.getPersistenceManagerFactory().getPersistenceManager();
-    Query<Employee> sub = newPM.newQuery(Employee.class);
-    sub.setResult("avg(this.weeklyhours)");
+      // create subquery instance using different pm
+      PersistenceManager newPM = pm.getPersistenceManagerFactory().getPersistenceManager();
+      Query<Employee> sub = newPM.newQuery(Employee.class);
+      sub.setResult("avg(this.weeklyhours)");
 
-    Query<Employee> apiQuery = pm.newQuery(Employee.class);
-    apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
-    apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
-    executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+      Query<Employee> apiQuery = pm.newQuery(Employee.class);
+      apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
+      apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
+      executeJDOQuery(
+          ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

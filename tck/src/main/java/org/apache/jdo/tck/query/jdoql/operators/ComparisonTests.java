@@ -21,14 +21,10 @@ import java.util.List;
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 
 public abstract class ComparisonTests extends JDO_Test {
-  protected Query<AllTypes> query;
-  protected Transaction tx;
-  protected List<AllTypes> queryResult;
 
   protected static final String BooleanParameter = "Boolean value";
   protected static final String booleanParameter = "boolean value";
@@ -80,15 +76,15 @@ public abstract class ComparisonTests extends JDO_Test {
    * @param parameterValue the parameter value
    * @param assertion assertion
    */
-  protected void runQuery(
+  protected QueryInfo runQuery(
       PersistenceManager pm,
       String filter,
       String parameter,
       Object parameterValue,
       String assertion) {
     Extent<AllTypes> e = pm.getExtent(AllTypes.class, false);
-    query = pm.newQuery(e, filter);
-    queryResult = null;
+    Query<AllTypes> query = pm.newQuery(e, filter);
+    List<AllTypes> queryResult = null;
     try {
       if (parameter != null) {
         query.declareParameters(parameter);
@@ -99,12 +95,21 @@ public abstract class ComparisonTests extends JDO_Test {
       if (debug) throwable.printStackTrace();
       fail(assertion, "Exception on Query.execute " + throwable, filter, parameter);
       queryResult = null;
-      if (tx.isActive()) tx.rollback();
-      return;
+      return new QueryInfo(query, queryResult);
     }
     if (queryResult == null) {
       fail(assertion, "Query.execute returned a null", filter, parameter);
-      if (tx.isActive()) tx.rollback();
+    }
+    return new QueryInfo(query, queryResult);
+  }
+
+  protected static class QueryInfo {
+    public Query<AllTypes> query;
+    public List<AllTypes> queryResult;
+
+    public QueryInfo(Query<AllTypes> query, List<AllTypes> queryResult) {
+      this.query = query;
+      this.queryResult = queryResult;
     }
   }
 }

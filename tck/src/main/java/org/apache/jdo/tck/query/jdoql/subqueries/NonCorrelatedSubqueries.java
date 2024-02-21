@@ -26,7 +26,12 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.IEmployee;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Non-correlated Subqueries <br>
@@ -35,6 +40,7 @@ import org.junit.jupiter.api.Test;
  * <B>Assertion Description: </B> If the subquery has no references to expressions in the outer
  * query the subquery is noncorrelated.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NonCorrelatedSubqueries extends SubqueriesTest {
 
   /** */
@@ -42,16 +48,10 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
       "Assertion A14.6.2-55 (NonCorrelatedSubqueries) failed: ";
 
   /** */
-  @Test
-  public void testPositive() {
-    PersistenceManager pm = getPM();
-    runTestSubqueries01(pm);
-    runTestSubqueries02(pm);
-  }
-
-  /** */
   @SuppressWarnings("unchecked")
-  void runTestSubqueries01(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestSubqueries01() {
     List<IEmployee> expectedResult =
         getTransientCompanyModelInstancesAsList(
             IEmployee.class, "emp1", "emp2", "emp4", "emp5", "emp6", "emp7", "emp10");
@@ -65,30 +65,45 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
             + Employee.class.getName()
             + " e)";
 
-    // API query
-    Query<Employee> sub = pm.newQuery(Employee.class);
-    sub.setResult("avg(this.weeklyhours)");
-    Query<Employee> apiQuery = pm.newQuery(Employee.class);
-    apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
-    apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
-    executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
 
-    // API query against memory model
-    List<Employee> allEmployees = getAllEmployees(pm);
-    apiQuery.setCandidates(allEmployees);
-    executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+      // API query
+      Query<Employee> sub = pm.newQuery(Employee.class);
+      sub.setResult("avg(this.weeklyhours)");
+      Query<Employee> apiQuery = pm.newQuery(Employee.class);
+      apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
+      apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
+      executeJDOQuery(
+          ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
 
-    // single String JDOQL
-    Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
-    executeJDOQuery(
-        ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, false, null, expectedResult, true);
+      // API query against memory model
+      List<Employee> allEmployees = getAllEmployees(pm);
+      apiQuery.setCandidates(allEmployees);
+      executeJDOQuery(
+          ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+
+      // single String JDOQL
+      Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          singleStringQuery,
+          singleStringJDOQL,
+          false,
+          null,
+          expectedResult,
+          true);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
-  void runTestSubqueries02(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestSubqueries02() {
     List<IEmployee> expectedResult =
         getTransientCompanyModelInstancesAsList(IEmployee.class, "emp2", "emp5", "emp10");
 
@@ -106,43 +121,64 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
     cal.set(2002, Calendar.SEPTEMBER, 1, 0, 0, 0);
     Date hired = cal.getTime();
 
-    // API query
-    Query<Employee> sub = pm.newQuery(Employee.class);
-    sub.setResult("avg(this.weeklyhours)");
-    Query<Employee> apiQuery = pm.newQuery(Employee.class);
-    apiQuery.setFilter("this.hiredate > :hired && this.weeklyhours > averageWeeklyhours");
-    apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
-    executeJDOQuery(
-        ASSERTION_FAILED,
-        apiQuery,
-        singleStringJDOQL,
-        false,
-        new Object[] {hired},
-        expectedResult,
-        true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
 
-    // API query against memory model
-    List<Employee> allEmployees = getAllEmployees(pm);
-    apiQuery.setCandidates(allEmployees);
-    executeJDOQuery(
-        ASSERTION_FAILED,
-        apiQuery,
-        singleStringJDOQL,
-        false,
-        new Object[] {hired},
-        expectedResult,
-        true);
+      // API query
+      Query<Employee> sub = pm.newQuery(Employee.class);
+      sub.setResult("avg(this.weeklyhours)");
+      Query<Employee> apiQuery = pm.newQuery(Employee.class);
+      apiQuery.setFilter("this.hiredate > :hired && this.weeklyhours > averageWeeklyhours");
+      apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          apiQuery,
+          singleStringJDOQL,
+          false,
+          new Object[] {hired},
+          expectedResult,
+          true);
 
-    // single String JDOQL
-    Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
-    executeJDOQuery(
-        ASSERTION_FAILED,
-        singleStringQuery,
-        singleStringJDOQL,
-        false,
-        new Object[] {hired},
-        expectedResult,
-        true);
+      // API query against memory model
+      List<Employee> allEmployees = getAllEmployees(pm);
+      apiQuery.setCandidates(allEmployees);
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          apiQuery,
+          singleStringJDOQL,
+          false,
+          new Object[] {hired},
+          expectedResult,
+          true);
+
+      // single String JDOQL
+      Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          singleStringQuery,
+          singleStringJDOQL,
+          false,
+          new Object[] {hired},
+          expectedResult,
+          true);
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

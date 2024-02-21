@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
+import javax.jdo.JDOHelper;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
@@ -56,7 +57,13 @@ public abstract class QueryTest extends AbstractReaderTest {
   public static final String MYLIB_TESTDATA = "org/apache/jdo/tck/pc/mylib/mylibForQueryTests.xml";
 
   /** List of inserted instances (see methods insertPCPoints and getFromInserted). */
-  protected final List<PCPoint> inserted = new ArrayList<>();
+  protected final List<PCPoint> persistentPCPoints = new ArrayList<>();
+
+  /**
+   * List of transient copies of inserted instances (see methods insertPCPoints and
+   * getFromInserted).
+   */
+  protected final List<PCPoint> transientPCPoints = new ArrayList<>();
 
   /**
    * The company model reader is used to read company model instances from an XML file. Instances
@@ -103,7 +110,8 @@ public abstract class QueryTest extends AbstractReaderTest {
       for (int i = 0; i < numInsert; i++) {
         PCPoint pc = new PCPoint(i, i);
         pm.makePersistent(pc);
-        inserted.add(pc);
+        persistentPCPoints.add(pc);
+        transientPCPoints.add(new PCPoint(pc));
       }
       tx.commit();
       tx = null;
@@ -122,11 +130,33 @@ public abstract class QueryTest extends AbstractReaderTest {
 
     List<PCPoint> result = new ArrayList<>();
     for (PCPoint pc : list) {
-      for (PCPoint pci : inserted) {
+      for (PCPoint pci : persistentPCPoints) {
         if (pc.getX() == pci.getX()) {
           result.add(pci);
           break;
         }
+      }
+    }
+    return result;
+  }
+
+  public PCPoint getTransientPCPoint(int x) {
+    PCPoint result = null;
+    for (PCPoint pc : transientPCPoints) {
+      if (x == pc.getX()) {
+        result = pc;
+        break;
+      }
+    }
+    return result;
+  }
+
+  public PCPoint getPersistentPCPoint(PersistenceManager pm, int x) {
+    PCPoint result = null;
+    for (PCPoint pc : persistentPCPoints) {
+      if (x == pc.getX()) {
+        Object oid = JDOHelper.getObjectId(pc);
+        result = (PCPoint) pm.getObjectId(oid);
       }
     }
     return result;
@@ -252,6 +282,17 @@ public abstract class QueryTest extends AbstractReaderTest {
         : getBean(getCompanyModelReaderForPersistentInstances(), clazz, beanName);
   }
 
+  protected <T> T getPersistentCompanyModelInstance(
+      PersistenceManager pm, Class<T> clazz, String beanName) {
+    T instance = null;
+    if (beanName != null) {
+      instance = getBean(getCompanyModelReaderForPersistentInstances(), clazz, beanName);
+      Object id = JDOHelper.getObjectId(instance);
+      instance = (T) pm.getObjectById(id, false);
+    }
+    return instance;
+  }
+
   /**
    * Returns a transient company model instance for the given bean name.
    *
@@ -280,6 +321,16 @@ public abstract class QueryTest extends AbstractReaderTest {
     }
     return result;
   }
+
+  protected <T> List<T> getPersistentCompanyModelInstancesAsList(
+      PersistenceManager pm, Class<T> elementType, String... beanNames) {
+    List<T> result = new ArrayList<>(beanNames.length);
+    for (String beanName : beanNames) {
+      result.add(getPersistentCompanyModelInstance(pm, elementType, beanName));
+    }
+    return result;
+  }
+
   /**
    * Returns a list of transient company model instances for beans names in the given argument.
    *
@@ -895,11 +946,14 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param positive determines if the compilation is supposed to succeed or to fail.
    */
   protected void compileAPIQuery(
-      String assertion, QueryElementHolder<?> queryElementHolder, boolean positive) {
+      String assertion,
+      PersistenceManager pm,
+      QueryElementHolder<?> queryElementHolder,
+      boolean positive) {
     if (logger.isDebugEnabled()) {
       logger.debug("Compiling API query: " + queryElementHolder);
     }
-    compile(assertion, queryElementHolder, false, queryElementHolder.toString(), positive);
+    compile(assertion, pm, queryElementHolder, false, queryElementHolder.toString(), positive);
   }
 
   /**
@@ -914,10 +968,13 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param positive determines if the compilation is supposed to succeed or to fail.
    */
   protected void compileSingleStringQuery(
-      String assertion, QueryElementHolder<?> queryElementHolder, boolean positive) {
+      String assertion,
+      PersistenceManager pm,
+      QueryElementHolder<?> queryElementHolder,
+      boolean positive) {
     if (logger.isDebugEnabled())
       logger.debug("Compiling single string query: " + queryElementHolder);
-    compile(assertion, queryElementHolder, true, queryElementHolder.toString(), positive);
+    compile(assertion, pm, queryElementHolder, true, queryElementHolder.toString(), positive);
   }
 
   /**
@@ -932,10 +989,10 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param positive determines if the compilation is supposed to succeed or to fail.
    */
   protected void compileSingleStringQuery(
-      String assertion, String singleStringQuery, boolean positive) {
+      String assertion, PersistenceManager pm, String singleStringQuery, boolean positive) {
     if (logger.isDebugEnabled())
       logger.debug("Compiling single string query: " + singleStringQuery);
-    compile(assertion, null, true, singleStringQuery, positive);
+    compile(assertion, pm, null, true, singleStringQuery, positive);
   }
 
   /**
@@ -958,11 +1015,11 @@ public abstract class QueryTest extends AbstractReaderTest {
    */
   private void compile(
       String assertion,
+      PersistenceManager pm,
       QueryElementHolder<?> queryElementHolder,
       boolean asSingleString,
       String singleStringQuery,
       boolean positive) {
-    getPM();
     try {
       Query<?> query;
       if (queryElementHolder != null) {
@@ -972,9 +1029,9 @@ public abstract class QueryTest extends AbstractReaderTest {
           query = queryElementHolder.getAPIQuery(pm);
         }
       } else {
-        query = getPM().newQuery(singleStringQuery);
+        query = pm.newQuery(singleStringQuery);
       }
-      compile(assertion, query, singleStringQuery, positive);
+      compile(assertion, pm, query, singleStringQuery, positive);
     } catch (JDOUserException e) {
       // This exception handler considers a JDOUserException
       // to be thrown in newQuery methods.
@@ -1002,8 +1059,8 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param queryText the text representation of the query
    * @param positive positive test
    */
-  protected void compile(String assertion, Query<?> query, String queryText, boolean positive) {
-    getPM();
+  protected void compile(
+      String assertion, PersistenceManager pm, Query<?> query, String queryText, boolean positive) {
     Transaction tx = pm.currentTransaction();
     tx.begin();
     try {
@@ -1040,11 +1097,14 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param expectedResult the expected query result.
    */
   protected void executeAPIQuery(
-      String assertion, QueryElementHolder<?> queryElementHolder, Object expectedResult) {
+      String assertion,
+      PersistenceManager pm,
+      QueryElementHolder<?> queryElementHolder,
+      Object expectedResult) {
     if (logger.isDebugEnabled()) {
       logger.debug("Executing API query: " + queryElementHolder);
     }
-    execute(assertion, queryElementHolder, false, expectedResult);
+    execute(assertion, pm, queryElementHolder, false, expectedResult);
   }
 
   /**
@@ -1058,10 +1118,13 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param expectedResult the expected query result.
    */
   protected void executeSingleStringQuery(
-      String assertion, QueryElementHolder<?> queryElementHolder, Object expectedResult) {
+      String assertion,
+      PersistenceManager pm,
+      QueryElementHolder<?> queryElementHolder,
+      Object expectedResult) {
     if (logger.isDebugEnabled())
       logger.debug("Executing single string query: " + queryElementHolder);
-    execute(assertion, queryElementHolder, true, expectedResult);
+    execute(assertion, pm, queryElementHolder, true, expectedResult);
   }
 
   /**
@@ -1070,8 +1133,11 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param expectedResult expected query result
    */
   protected void executeJDOQLTypedQuery(
-      String assertion, QueryElementHolder<?> queryElementHolder, Object expectedResult) {
-    executeJDOQLTypedQuery(assertion, queryElementHolder, null, false, expectedResult);
+      String assertion,
+      PersistenceManager pm,
+      QueryElementHolder<?> queryElementHolder,
+      Object expectedResult) {
+    executeJDOQLTypedQuery(assertion, pm, queryElementHolder, null, false, expectedResult);
   }
 
   /**
@@ -1083,12 +1149,12 @@ public abstract class QueryTest extends AbstractReaderTest {
    */
   protected void executeJDOQLTypedQuery(
       String assertion,
+      PersistenceManager pm,
       QueryElementHolder<?> queryElementHolder,
       Class<?> resultClass,
       boolean resultClauseSpecified,
       Object expectedResult) {
     String singleStringQuery = queryElementHolder.toString();
-    getPM();
     Transaction tx = pm.currentTransaction();
     tx.begin();
     try {
@@ -1159,7 +1225,7 @@ public abstract class QueryTest extends AbstractReaderTest {
   /**
    * Converts the given query element holder instance to a JDO query instance, based on argument
    * <code>asSingleString</code>. Afterwards, delegates to method {@link QueryTest#execute(String,
-   * Query, String, boolean, Object, Object, boolean)}.
+   * PersistenceManager, Query, String, boolean, Object, Object, boolean)}.
    *
    * @param assertion the assertion to prompt if the test case fails.
    * @param queryElementHolder the query to execute.
@@ -1170,10 +1236,10 @@ public abstract class QueryTest extends AbstractReaderTest {
    */
   private Object execute(
       String assertion,
+      PersistenceManager pm,
       QueryElementHolder<?> queryElementHolder,
       boolean asSingleString,
       Object expectedResult) {
-    getPM();
     Query<?> query =
         asSingleString
             ? queryElementHolder.getSingleStringQuery(pm)
@@ -1181,6 +1247,7 @@ public abstract class QueryTest extends AbstractReaderTest {
     Object result =
         execute(
             assertion,
+            pm,
             query,
             queryElementHolder.toString(),
             queryElementHolder.hasOrdering(),
@@ -1206,6 +1273,7 @@ public abstract class QueryTest extends AbstractReaderTest {
    */
   protected Object executeJDOQuery(
       String assertion,
+      PersistenceManager pm,
       Query<?> query,
       String singleStringQuery,
       boolean hasOrdering,
@@ -1216,7 +1284,7 @@ public abstract class QueryTest extends AbstractReaderTest {
       logger.debug("Executing JDO query: " + singleStringQuery);
     }
     return execute(
-        assertion, query, singleStringQuery, hasOrdering, parameters, expectedResult, positive);
+        assertion, pm, query, singleStringQuery, hasOrdering, parameters, expectedResult, positive);
   }
 
   /**
@@ -1239,6 +1307,7 @@ public abstract class QueryTest extends AbstractReaderTest {
   @SuppressWarnings("unchecked")
   protected <T> void executeSQLQuery(
       String assertion,
+      PersistenceManager pm,
       String sql,
       Class<T> candidateClass,
       Class<?> resultClass,
@@ -1249,7 +1318,7 @@ public abstract class QueryTest extends AbstractReaderTest {
     String schema = getPMFProperty("javax.jdo.mapping.Schema");
     sql = MessageFormat.format(sql, new Object[] {schema});
     if (logger.isDebugEnabled()) logger.debug("Executing SQL query: " + sql);
-    Query<T> query = getPM().newQuery("javax.jdo.query.SQL", sql);
+    Query<T> query = pm.newQuery("javax.jdo.query.SQL", sql);
     if (unique) {
       query.setUnique(unique);
     }
@@ -1259,7 +1328,7 @@ public abstract class QueryTest extends AbstractReaderTest {
     if (resultClass != null) {
       query.setResultClass(resultClass);
     }
-    execute(assertion, query, sql, false, parameters, expectedResult, positive);
+    execute(assertion, pm, query, sql, false, parameters, expectedResult, positive);
   }
 
   /**
@@ -1297,6 +1366,7 @@ public abstract class QueryTest extends AbstractReaderTest {
   @SuppressWarnings("unchecked")
   private Object execute(
       String assertion,
+      PersistenceManager pm,
       Query<?> query,
       String singleStringQuery,
       boolean hasOrdering,
@@ -1304,7 +1374,6 @@ public abstract class QueryTest extends AbstractReaderTest {
       Object expectedResult,
       boolean positive) {
     Object result = null;
-    getPM();
     Transaction tx = pm.currentTransaction();
     tx.begin();
     try {
@@ -1401,11 +1470,14 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param expectedNrOfDeletedObjects the expected number of deleted objects.
    */
   protected void deletePersistentAllByAPIQuery(
-      String assertion, QueryElementHolder<?> queryElementHolder, long expectedNrOfDeletedObjects) {
+      String assertion,
+      PersistenceManager pm,
+      QueryElementHolder<?> queryElementHolder,
+      long expectedNrOfDeletedObjects) {
     if (logger.isDebugEnabled()) {
       logger.debug("Deleting persistent by API query: " + queryElementHolder);
     }
-    delete(assertion, queryElementHolder, false, expectedNrOfDeletedObjects);
+    delete(assertion, pm, queryElementHolder, false, expectedNrOfDeletedObjects);
   }
 
   /**
@@ -1421,11 +1493,14 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param expectedNrOfDeletedObjects the expected number of deleted objects.
    */
   protected void deletePersistentAllBySingleStringQuery(
-      String assertion, QueryElementHolder<?> queryElementHolder, long expectedNrOfDeletedObjects) {
+      String assertion,
+      PersistenceManager pm,
+      QueryElementHolder<?> queryElementHolder,
+      long expectedNrOfDeletedObjects) {
     if (logger.isDebugEnabled()) {
       logger.debug("Deleting persistent by single string query: " + queryElementHolder);
     }
-    delete(assertion, queryElementHolder, true, expectedNrOfDeletedObjects);
+    delete(assertion, pm, queryElementHolder, true, expectedNrOfDeletedObjects);
   }
 
   /**
@@ -1447,16 +1522,17 @@ public abstract class QueryTest extends AbstractReaderTest {
    */
   private void delete(
       String assertion,
+      PersistenceManager pm,
       QueryElementHolder<?> queryElementHolder,
       boolean asSingleString,
       long expectedNrOfDeletedObjects) {
-    getPM();
     Query<?> query =
         asSingleString
             ? queryElementHolder.getSingleStringQuery(pm)
             : queryElementHolder.getAPIQuery(pm);
     delete(
         assertion,
+        pm,
         query,
         queryElementHolder.toString(),
         queryElementHolder.getParamValues(),
@@ -1465,6 +1541,7 @@ public abstract class QueryTest extends AbstractReaderTest {
     if (positive) {
       execute(
           assertion,
+          pm,
           queryElementHolder,
           asSingleString,
           queryElementHolder.isUnique() ? null : Collections.emptyList());
@@ -1490,12 +1567,12 @@ public abstract class QueryTest extends AbstractReaderTest {
   @SuppressWarnings("unchecked")
   private void delete(
       String assertion,
+      PersistenceManager pm,
       Query<?> query,
       String singleStringQuery,
       Object parameters,
       long expectedNrOfDeletedObjects) {
     boolean positive = expectedNrOfDeletedObjects >= 0;
-    getPM();
     Transaction tx = pm.currentTransaction();
     tx.begin();
     try {

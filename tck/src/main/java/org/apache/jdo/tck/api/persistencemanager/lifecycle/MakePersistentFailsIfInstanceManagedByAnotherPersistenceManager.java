@@ -46,6 +46,10 @@ public class MakePersistentFailsIfInstanceManagedByAnotherPersistenceManager
   private PCPoint p4 = null;
   private PCPoint p5 = null;
 
+  private Collection<PCPoint> pcPointCol;
+
+  private PCPoint[] pcPointArray;
+
   /** */
   @Test
   public void testMakePersistentFailsIfInstanceManagedByAnotherPersistenceManager() {
@@ -83,6 +87,15 @@ public class MakePersistentFailsIfInstanceManagedByAnotherPersistenceManager
       pm.makePersistent(p3);
       pm.makePersistent(p4);
       pm.makePersistent(p5);
+
+      pcPointCol = new HashSet<>();
+      pcPointCol.add(p2);
+      pcPointCol.add(p3);
+
+      pcPointArray = new PCPoint[2];
+      pcPointArray[0] = p4;
+      pcPointArray[0] = p5;
+
       tx.commit();
       tx = null;
     } finally {
@@ -116,12 +129,8 @@ public class MakePersistentFailsIfInstanceManagedByAnotherPersistenceManager
     try {
       tx.begin();
 
-      Collection<PCPoint> col1 = new HashSet<>();
-      col1.add(p2);
-      col1.add(p3);
-
       try {
-        pm.makePersistentAll(col1);
+        pm.makePersistentAll(pcPointCol);
         fail(
             ASSERTION_FAILED,
             "pm.makePersistentAll(Collection) should throw JDOUserException if instance is already made persistence by different pm.");
@@ -141,13 +150,8 @@ public class MakePersistentFailsIfInstanceManagedByAnotherPersistenceManager
     try {
       tx.begin();
 
-      Collection<PCPoint> col1 = new HashSet<>();
-      col1.add(p4);
-      col1.add(p5);
-      Object[] obj1 = col1.toArray();
-
       try {
-        pm.makePersistentAll(obj1);
+        pm.makePersistentAll(pcPointArray);
         fail(
             ASSERTION_FAILED,
             "pm.makePersistentAll(Object[]) should throw JDOUserException if instance is already made persistence by different pm.");

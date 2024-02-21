@@ -148,6 +148,13 @@ public class RunTCK extends AbstractTCKMojo {
   private String testRunnerColors;
 
   /**
+   * Whether to display colors in the junit result log file (jdo.tck.testrunner.colors=enable) or
+   * not (jdo.tck.testrunner.colors=disable).
+   */
+  @Parameter(property = "jdo.tck.parallel.execution", defaultValue = "true", required = true)
+  private boolean testParallelExecution;
+
+  /**
    * Helper method returning the trimmed value of the specified property.
    *
    * @param props the Properties object
@@ -546,6 +553,8 @@ public class RunTCK extends AbstractTCKMojo {
       command.add("--disable-ansi-colors");
     }
     command.add("--details=" + testRunnerDetails);
+    command.add("--config");
+    command.add("junit.jupiter.execution.parallel.enabled=" + testParallelExecution);
     // add Test classes
     for (String testClass : classesList) {
       // skip empty entries

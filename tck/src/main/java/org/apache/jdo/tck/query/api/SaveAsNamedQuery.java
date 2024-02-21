@@ -62,7 +62,7 @@ public class SaveAsNamedQuery extends QueryTest {
     query.setRange(0, 5);
     query.setIgnoreCache(true);
     executeJDOQuery(
-        ASSERTION_FAILED, query, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
+        ASSERTION_FAILED, pm, query, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
 
     // Save query under this name
     String savedName = "MySavedName";
@@ -74,6 +74,7 @@ public class SaveAsNamedQuery extends QueryTest {
     Assertions.assertNotNull(namedQuery);
     executeJDOQuery(
         ASSERTION_FAILED,
+        pm,
         namedQuery,
         SINGLE_STRING_QUERY,
         false,

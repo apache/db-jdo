@@ -61,18 +61,25 @@ public class AggregateOnSize extends SubqueriesTest {
     apiQuery.setFilter("this.employees.size() == number");
     apiQuery.addSubquery(sub, "long number", null);
     executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
 
     // API query against memory model
     List<Department> allDepartments = getAllPersistentInstances(pm, Department.class);
     apiQuery.setCandidates(allDepartments);
     executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
 
     // single String JDOQL
     Query<Department> singleStringQuery = pm.newQuery(singleStringJDOQL);
     executeJDOQuery(
-        ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED,
+        pm,
+        singleStringQuery,
+        singleStringJDOQL,
+        false,
+        null,
+        expectedResult,
+        true);
   }
 
   /**

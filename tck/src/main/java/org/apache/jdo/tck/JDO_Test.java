@@ -244,7 +244,7 @@ public abstract class JDO_Test {
   }
 
   @BeforeEach
-  protected final void setUp() {
+  protected void setUp() {
     if (!preSetUp()) {
       return;
     }
@@ -297,7 +297,7 @@ public abstract class JDO_Test {
    * of each configuration, unless the property jdo.tck.closePMFAfterEachTest is set to true.
    */
   @AfterEach
-  protected final void tearDown() {
+  protected void tearDown() {
     if (!preTearDown()) {
       return;
     }

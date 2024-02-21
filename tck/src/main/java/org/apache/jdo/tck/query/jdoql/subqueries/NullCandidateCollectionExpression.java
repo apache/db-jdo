@@ -66,14 +66,14 @@ public class NullCandidateCollectionExpression extends SubqueriesTest {
     // null candidate collection
     apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
     executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
 
     apiQuery = pm.newQuery(Employee.class);
     apiQuery.setFilter("this.weeklyhours > averageWeeklyhours");
     // empty candidate collection
     apiQuery.addSubquery(sub, "double averageWeeklyhours", " ");
     executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
   }
 
   /**
