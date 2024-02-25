@@ -87,7 +87,7 @@ import java.util.Map;
  * and are not remembered for future execution.
  *
  * @version 2.1
- * @param T Candidate class for the query
+ * @param <T> Candidate class for the query
  */
 public interface Query<T> extends AutoCloseable, Serializable {
 
