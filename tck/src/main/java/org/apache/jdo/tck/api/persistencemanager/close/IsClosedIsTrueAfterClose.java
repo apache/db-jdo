@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.close;
 
 import javax.jdo.PersistenceManagerFactory;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Is Closed Is True After Close <br>
@@ -35,16 +35,8 @@ public class IsClosedIsTrueAfterClose extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.5-5 (IsClosedIsTrueAfterClose) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(IsClosedIsTrueAfterClose.class);
-  }
-
   /** */
+  @Test
   public void test() {
     PersistenceManagerFactory pmf = getPMF();
     pm = pmf.getPersistenceManager();

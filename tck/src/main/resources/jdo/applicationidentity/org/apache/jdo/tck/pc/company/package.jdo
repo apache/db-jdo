@@ -93,7 +93,7 @@ has application identity.
             persistence-capable-superclass="org.apache.jdo.tck.pc.company.Employee">
             <query name="constructor">
 	        <![CDATA[
-                    select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager)
+                    select new org.apache.jdo.tck.query.api.SampleReadQueries$Info (firstname, salary, manager)
                     where department.name == :deptName
 	        ]]>
             </query>

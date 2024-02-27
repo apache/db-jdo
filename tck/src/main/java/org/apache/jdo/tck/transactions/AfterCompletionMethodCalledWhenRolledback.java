@@ -23,7 +23,7 @@ import javax.transaction.Status;
 import javax.transaction.Synchronization;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> After Completion Method Called When Rolledback <br>
@@ -50,15 +50,6 @@ public class AfterCompletionMethodCalledWhenRolledback extends JDO_Test implemen
       "Assertion A13.4.3-7 (AfterCompletionMethodCalledWhenRolledback) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AfterCompletionMethodCalledWhenRolledback.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -67,6 +58,7 @@ public class AfterCompletionMethodCalledWhenRolledback extends JDO_Test implemen
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

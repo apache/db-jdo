@@ -25,7 +25,7 @@ import javax.jdo.JDOOptimisticVerificationException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> OptimisticFailure <br>
@@ -42,15 +42,6 @@ public class OptimisticFailure extends PersistenceManagerTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A13.5-1 (OptimisticFailure) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(OptimisticFailure.class);
-  }
 
   private final VersionedPCPoint p1 =
       new VersionedPCPoint(1, 1); // this will be updated in tx1, updated in tx2, verified in tx3
@@ -77,6 +68,7 @@ public class OptimisticFailure extends PersistenceManagerTest {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
     PersistenceManager pm2 = pmf.getPersistenceManager();

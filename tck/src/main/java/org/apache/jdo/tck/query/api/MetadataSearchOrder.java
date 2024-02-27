@@ -17,6 +17,7 @@
 
 package org.apache.jdo.tck.query.api;
 
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -24,7 +25,12 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCClass;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Metadata Search Order. <br>
@@ -35,6 +41,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * the query is found. The order is based on the metadata search order for class metadata, but
  * includes files named based on the query name.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MetadataSearchOrder extends QueryTest {
 
   /** */
@@ -50,40 +57,41 @@ public class MetadataSearchOrder extends QueryTest {
     getTransientCompanyModelInstancesAsList(Employee.class, "emp4", "emp5")
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MetadataSearchOrder.class);
-  }
-
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPackageJDOInDefaultPackage() {
     int index = 0;
     executeNamedQuery(null, "packageJDOInDefaultPackage", expectedResult[index]);
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPackageJDO() {
     int index = 1;
     executeNamedQuery(Person.class, "packageJDO", expectedResult[index]);
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testClassJDO() {
     int index = 2;
     executeNamedQuery(PCClass.class, "classJDO", expectedResult[index]);
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPackageORM() {
     int index = 3;
     executeNamedQuery(Person.class, "packageORM", expectedResult[index]);
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testClassJDOQuery() {
     int index = 4;
     executeNamedQuery(Person.class, "classJDOQuery", expectedResult[index]);
@@ -91,9 +99,33 @@ public class MetadataSearchOrder extends QueryTest {
 
   private void executeNamedQuery(
       Class<?> candidateClass, String namedQuery, Object expectedResult) {
-    Query<?> query = getPM().newNamedQuery(candidateClass, namedQuery);
-    executeJDOQuery(
-        ASSERTION_FAILED, query, "Named query " + namedQuery, false, null, expectedResult, true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Query<?> query = pm.newNamedQuery(candidateClass, namedQuery);
+      executeJDOQuery(
+          ASSERTION_FAILED,
+          pm,
+          query,
+          "Named query " + namedQuery,
+          false,
+          null,
+          expectedResult,
+          true);
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

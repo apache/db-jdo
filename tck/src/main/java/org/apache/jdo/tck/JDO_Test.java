@@ -49,11 +49,13 @@ import javax.jdo.LegacyJava;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
-import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
-public abstract class JDO_Test extends TestCase {
+public abstract class JDO_Test {
   public static final int TRANSIENT = 0;
   public static final int PERSISTENT_NEW = 1;
   public static final int PERSISTENT_CLEAN = 2;
@@ -208,9 +210,6 @@ public abstract class JDO_Test extends TestCase {
   /** The PersistenceManager. */
   protected PersistenceManager pm;
 
-  // Flag indicating successful test run
-  protected boolean testSucceeded;
-
   /** Logger */
   protected final Log logger = LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
@@ -244,8 +243,8 @@ public abstract class JDO_Test extends TestCase {
     return true;
   }
 
-  @Override
-  protected final void setUp() {
+  @BeforeEach
+  protected void setUp() {
     if (!preSetUp()) {
       return;
     }
@@ -259,29 +258,6 @@ public abstract class JDO_Test extends TestCase {
    * to successfully execute this testcase.
    */
   protected void localSetUp() {}
-
-  /**
-   * Runs the bare test sequence.
-   *
-   * @exception Throwable if any exception is thrown
-   */
-  @Override
-  public final void runBare() throws Throwable {
-    try {
-      testSucceeded = false;
-      setUp();
-      runTest();
-      testSucceeded = true;
-    } catch (Throwable e) {
-      if (logger.isInfoEnabled()) logger.info("Exception during setUp or runtest: ", e);
-      throw e;
-    } finally {
-      tearDown();
-      if (debug) {
-        logger.debug("Free memory: " + Runtime.getRuntime().freeMemory());
-      }
-    }
-  }
 
   /**
    * Sets field <code>tearDownThrowable</code> if it is <code>null</code>. Else, the given throwable
@@ -320,8 +296,8 @@ public abstract class JDO_Test extends TestCase {
    * <p><b>Note:</b>By default, the method tearDown does not close the pmf. This is done at the end
    * of each configuration, unless the property jdo.tck.closePMFAfterEachTest is set to true.
    */
-  @Override
-  protected final void tearDown() {
+  @AfterEach
+  protected void tearDown() {
     if (!preTearDown()) {
       return;
     }
@@ -358,10 +334,7 @@ public abstract class JDO_Test extends TestCase {
     if (this.tearDownThrowable != null) {
       Throwable t = this.tearDownThrowable;
       this.tearDownThrowable = null;
-      if (testSucceeded) {
-        // runTest succeeded, but this method threw exception => error
-        throw new JDOFatalException("Exception during tearDown", t);
-      }
+      throw new JDOFatalException("Exception during tearDown", t);
     }
   }
 
@@ -694,7 +667,11 @@ public abstract class JDO_Test extends TestCase {
    */
   public void fail(String assertionFailure, String msg) {
     if (debug) logger.debug(msg);
-    fail(assertionFailure + NL + msg);
+    Assertions.fail(assertionFailure + NL + msg);
+  }
+
+  public static void fail(String msg) {
+    Assertions.fail(msg);
   }
 
   // Helper methods to check for supported options
@@ -1322,7 +1299,7 @@ public abstract class JDO_Test extends TestCase {
   protected void failOnError() {
     String errors = retrieveMessages();
     if (errors != null) {
-      fail(errors);
+      Assertions.fail(errors);
     }
   }
 

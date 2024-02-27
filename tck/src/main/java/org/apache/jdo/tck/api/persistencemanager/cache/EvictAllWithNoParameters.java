@@ -21,7 +21,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> EvictAllWithNoParameters <br>
@@ -44,19 +44,11 @@ public class EvictAllWithNoParameters extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.1-2 (EvictAllWithNoParameters) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(EvictAllWithNoParameters.class);
-  }
-
   private PCPoint2 pnt1 = null;
   private PCPoint2 p1 = null;
 
   /** */
+  @Test
   public void testEvictAllWithNoParameters() {
     pm = getPM();
     createObjects(pm);

@@ -24,7 +24,8 @@ import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.IEmployee;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Relationship1ToManyNoRelationships <br>
@@ -48,15 +49,6 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
   Department dept2 = null;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Relationship1ToManyNoRelationships.class);
-  }
-
-  /**
    * @see AbstractRelationshipTest#localSetUp()
    */
   @Override
@@ -74,21 +66,22 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
       dept2 = (Department) pm.getObjectById(dept2Oid);
 
       // Preconditions
-      assertTrue(
+      Assertions.assertTrue(
+          emp1.getDepartment() == null,
           ASSERTION_FAILED
               + ": Test aborted, precondition is false; "
-              + "expected emp.getDepartment()to be null",
-          emp1.getDepartment() == null);
-      assertTrue(
+              + "expected emp.getDepartment()to be null");
+      Assertions.assertTrue(
+          dept1.getEmployees().isEmpty(),
           ASSERTION_FAILED
               + testMethod
               + ": Test aborted, precondition is false; "
-              + "expected dept.getEmployees() to be empty",
-          dept1.getEmployees().isEmpty());
+              + "expected dept.getEmployees() to be empty");
     }
   }
 
   /** */
+  @Test
   public void testSetToExistingFromMappedSide() {
     testMethod = "testSetToExistingFromMappedSide";
     if (isTestToBePerformed) {
@@ -121,6 +114,7 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
   }
 
   /** */
+  @Test
   public void testAddExistingFromMappedbySide() {
     testMethod = "testSetToExistingFromMappedbySide";
     if (isTestToBePerformed) {
@@ -155,6 +149,7 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
   }
 
   /** */
+  @Test
   public void testSetToNewFromMappedSide() {
     testMethod = "testSetToNewFromMappedSide";
     if (isTestToBePerformed) {
@@ -166,11 +161,11 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
       Object deptNewOid = pm.getObjectId(deptNew);
       pm.flush();
 
-      assertFalse(
+      Assertions.assertFalse(
+          deptNewOid == null,
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected deptNewOid to be non-null",
-          deptNewOid == null);
+              + "expected deptNewOid to be non-null");
 
       // Postcondition
       deferredAssertTrue(
@@ -205,6 +200,7 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
   }
 
   /** */
+  @Test
   public void testSetToNewFromMappedbySide() {
     testMethod = "testSetToNewFromMappedbySide";
     if (isTestToBePerformed) {

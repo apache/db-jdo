@@ -26,6 +26,8 @@ public abstract class TestParts extends JDO_Test {
   /** */
   public TestParts() {}
 
+  public void runTest() {}
+
   /** */
   void checkInstances(
       String assertion,

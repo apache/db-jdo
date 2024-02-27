@@ -24,7 +24,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Use of this to Access Hidden Field <br>
@@ -33,33 +38,20 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion Description: </B> A hidden field may be accessed using the <code>'this'</code>
  * qualifier: <code>this.fieldName</code>.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UseOfThisToAcessHiddenField extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED =
       "Assertion A14.4-4 (UseOfThisToAcessHiddenField) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(UseOfThisToAcessHiddenField.class);
-  }
-
   /** */
-  public void testPositve() {
-    PersistenceManager pm = getPM();
-
-    runTestUseOfThisToAcessHiddenField01(pm);
-    runTestUseOfThisToAcessHiddenField02(pm);
-  }
-
-  /** */
-  void runTestUseOfThisToAcessHiddenField01(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestUseOfThisToAcessHiddenField01() {
     if (debug) logger.debug("\nExecuting test UseOfThisToAcessHiddenField01() ...");
 
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -73,24 +65,24 @@ public class UseOfThisToAcessHiddenField extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p3 = new PCPoint(2, 2);
-      expected.add(p3);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(2));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "this.x == x", results, expected);
       if (debug) logger.debug("Test UseOfThisToAcessHiddenField01(): Passed");
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
   }
 
   /** */
-  void runTestUseOfThisToAcessHiddenField02(PersistenceManager pm) {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void runTestUseOfThisToAcessHiddenField02() {
     if (debug) logger.debug("\nExecuting test UseOfThisToAcessHiddenField02() ...");
 
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -104,18 +96,27 @@ public class UseOfThisToAcessHiddenField extends QueryTest {
 
       // check query result
       List<PCPoint> expected = new ArrayList<>();
-      PCPoint p4 = new PCPoint(3, 3);
-      expected.add(p4);
-      expected = getFromInserted(expected);
+      expected.add(getTransientPCPoint(3));
       printOutput(results, expected);
       checkQueryResultWithoutOrder(ASSERTION_FAILED, "this.y == y", results, expected);
       if (debug) logger.debug("Test UseOfThisToAcessHiddenField02(): Passed");
 
       tx.commit();
-      tx = null;
     } finally {
-      if ((tx != null) && tx.isActive()) tx.rollback();
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

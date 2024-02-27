@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import javax.jdo.JDOException;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Set ConnectionUserName of PersistenceManagerFactory <br>
@@ -37,15 +37,6 @@ public class SetConnectionUserName extends JDO_Test {
   /** The value of the ConnectionUserName property. */
   private String username;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetConnectionUserName.class);
-  }
-
   /** */
   @Override
   protected void localSetUp() {
@@ -55,6 +46,7 @@ public class SetConnectionUserName extends JDO_Test {
   }
 
   /** Set ConnectionUserName value and get ConnectionUserName value to verify. */
+  @Test
   public void test() {
     try {
       if (username == null) {

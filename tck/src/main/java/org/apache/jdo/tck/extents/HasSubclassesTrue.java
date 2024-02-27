@@ -19,7 +19,7 @@ package org.apache.jdo.tck.extents;
 
 import javax.jdo.Extent;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Has Subclasses is True <br>
@@ -33,16 +33,8 @@ public class HasSubclassesTrue extends ExtentTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A15.3-6 (HasSubclassesTrue) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(HasSubclassesTrue.class);
-  }
-
   /** */
+  @Test
   public void test() {
     Extent<Employee> ex = getPM().getExtent(Employee.class, true);
     if (!ex.hasSubclasses()) {

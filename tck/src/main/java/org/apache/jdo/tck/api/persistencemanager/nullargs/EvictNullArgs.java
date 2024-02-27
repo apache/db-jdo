@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> evict with Null Arguments <br>
@@ -32,15 +32,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * elements, and the null elements will be ignored.]
  */
 public class EvictNullArgs extends PersistenceManagerNullsTest {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(EvictNullArgs.class);
-  }
 
   static final MethodUnderTest evict = new MethodUnderTestEvict();
 
@@ -62,16 +53,19 @@ public class EvictNullArgs extends PersistenceManagerNullsTest {
   }
 
   /** Test that evict() with null valued argument does nothing. */
+  @Test
   public void testEvictNullObject() {
     executeNullObjectParameter(evict, "evict(null)");
   }
 
   /** Test that evictAll() with null valued Collection argument throws NullPointerException. */
+  @Test
   public void testEvictNullCollection() {
     executeNullCollectionParameter(evict, "evictAll((Collection)null)");
   }
 
   /** Test that evictAll() with null valued array argument throws NullPointerException. */
+  @Test
   public void testEvictNullArray() {
     executeNullArrayParameter(evict, "evictAll((Object[])null)");
   }
@@ -79,11 +73,13 @@ public class EvictNullArgs extends PersistenceManagerNullsTest {
   /**
    * Test that evictAll() with a null element of a Collection argument throws NullPointerException.
    */
+  @Test
   public void testEvictCollectionNullElement() {
     executeCollectionNullElement(collNullElem, evict, "evictAll(Collection)");
   }
 
   /** Test that evictAll() with a null element of a array argument throws NullPointerException. */
+  @Test
   public void testEvictArrayNullElement() {
     executeArrayNullElement(arrayNullElem, evict, "evictAll(Object[])");
   }

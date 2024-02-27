@@ -20,6 +20,7 @@ package org.apache.jdo.tck.query.sql;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import javax.jdo.JDOUserException;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
@@ -29,7 +30,12 @@ import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Allowed API Methods. <br>
@@ -39,19 +45,11 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * candidate class, setUnique to declare that there is only one result row, and setResultClass to
  * establish the result class.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AllowedAPIMethods extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.7-2 (AllowedAPIMethods) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AllowedAPIMethods.class);
-  }
 
   /** The array of valid SQL queries. */
   private static final String[] VALID_SQL_QUERIES = {
@@ -79,77 +77,126 @@ public class AllowedAPIMethods extends QueryTest {
         new FullName("emp5First", "emp5Last"))
   };
 
-  /** */
-  public void testSetClass() {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass0() {
     if (isSQLSupported()) {
-      int index = 0;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          PrimitiveTypes.class,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
+      final int index = 0;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            PrimitiveTypes.class,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
 
-      index = 1;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          Department.class,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass1() {
+    if (isSQLSupported()) {
+      final int index = 1;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            Department.class,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
 
-      index = 2;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          Person.class,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass2() {
+    if (isSQLSupported()) {
+      final int index = 2;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            Person.class,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testSetUnique() {
     if (isSQLSupported()) {
-      int index = 3;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          true);
+      final int index = 3;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            true);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testSetResultClass() {
     if (isSQLSupported()) {
       int index = 4;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          FullName.class,
-          true,
-          null,
-          expectedResult[index],
-          false);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            FullName.class,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
     if (isSQLSupported()) {
       String schema = getPMFProperty("javax.jdo.mapping.Schema");
@@ -159,8 +206,13 @@ public class AllowedAPIMethods extends QueryTest {
       // to check prohibited setters.
       String sql = "SELECT PERSONID FROM {0}.persons";
       sql = MessageFormat.format(sql, schema);
-      Query<?> query = getPM().newQuery("javax.jdo.query.SQL", sql);
-      checkProhibitedSetters(query);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        Query<?> query = pm.newQuery("javax.jdo.query.SQL", sql);
+        checkProhibitedSetters(query);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
@@ -179,6 +231,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.setResult("firstname, lastname");
       methodFailed("setResult()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -187,6 +240,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.setFilter("WHERE personid = 1");
       methodFailed("setFilter()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -195,6 +249,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.declareVariables("Employee emp");
       methodFailed("declareVariables()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -203,6 +258,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.declareParameters("Employee emp");
       methodFailed("declareParameters()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -211,6 +267,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.declareImports("import org.apache.jdo.tck.pc.company.Employee");
       methodFailed("declareImports()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -219,6 +276,7 @@ public class AllowedAPIMethods extends QueryTest {
       query.setGrouping("firstname");
       methodFailed("setGrouping()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
@@ -227,11 +285,24 @@ public class AllowedAPIMethods extends QueryTest {
       query.setOrdering("firstname ASCENDING");
       methodFailed("setOrdering()");
     } catch (JDOUserException ignored) {
+      // ignored
     }
   }
 
   private void methodFailed(String method) {
     fail(ASSERTION_FAILED + method + " on a SQL query must throw JDOUserException.");
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

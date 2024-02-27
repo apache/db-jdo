@@ -23,7 +23,7 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.IEmployee;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Null Candidate Collection Expression in addSubquery <br>
@@ -40,16 +40,8 @@ public class NullCandidateCollectionExpression extends SubqueriesTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-53 (NullCandidateCollectionExpression) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NullCandidateCollectionExpression.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
 
@@ -74,14 +66,14 @@ public class NullCandidateCollectionExpression extends SubqueriesTest {
     // null candidate collection
     apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
     executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
 
     apiQuery = pm.newQuery(Employee.class);
     apiQuery.setFilter("this.weeklyhours > averageWeeklyhours");
     // empty candidate collection
     apiQuery.addSubquery(sub, "double averageWeeklyhours", " ");
     executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
   }
 
   /**

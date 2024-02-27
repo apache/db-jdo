@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.lifecycle;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test NontransactionalWriteDatastoreRollback <br>
@@ -47,18 +47,10 @@ public class NontransactionalWriteDatastoreRollback extends NontransactionalWrit
       "Assertion A5.6.2-6 (NontransactionalWriteDatastoreRollback) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NontransactionalWriteDatastoreRollback.class);
-  }
-
-  /**
    * Create a nontransactional dirty instance, begin and rollback a datastore transaction, and check
    * that the instance in the datastore has the original value.
    */
+  @Test
   public void testDatastoreRollback() {
     if (!checkNontransactionalFeaturesSupported(false)) return;
     createAndModifyVersionedPCPoint();

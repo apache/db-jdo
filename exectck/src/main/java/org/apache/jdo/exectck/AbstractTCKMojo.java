@@ -87,7 +87,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
   /** Location of implementation log file. */
   @Parameter(
       property = "jdo.tck.impl.logfile",
-      defaultValue = "${user.dir}/datanucleus.txt",
+      defaultValue = "${project.build.directory}/datanucleus.txt",
       required = true)
   protected String implLogFile;
 

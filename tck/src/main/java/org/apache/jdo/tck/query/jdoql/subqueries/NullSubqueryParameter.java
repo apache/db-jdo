@@ -23,7 +23,7 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.IEmployee;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Null Subquery Parameter. <br>
@@ -38,17 +38,9 @@ public class NullSubqueryParameter extends SubqueriesTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-52 (NullSubqueryParameter) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NullSubqueryParameter.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive() {
     PersistenceManager pm = getPM();
 
@@ -68,12 +60,19 @@ public class NullSubqueryParameter extends SubqueriesTest {
     // null subquery parameter
     apiQuery.addSubquery(null, Employee.class.getName() + " emp", null);
     executeJDOQuery(
-        ASSERTION_FAILED, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED, pm, apiQuery, singleStringJDOQL, false, null, expectedResult, true);
 
     // single String JDOQL
     Query<Employee> singleStringQuery = pm.newQuery(singleStringJDOQL);
     executeJDOQuery(
-        ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, false, null, expectedResult, true);
+        ASSERTION_FAILED,
+        pm,
+        singleStringQuery,
+        singleStringJDOQL,
+        false,
+        null,
+        expectedResult,
+        true);
   }
 
   /**

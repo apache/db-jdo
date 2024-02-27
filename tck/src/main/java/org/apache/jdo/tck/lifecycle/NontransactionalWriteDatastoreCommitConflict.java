@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.lifecycle;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test NontransactionalWriteDatastoreCommitConflict <br>
@@ -47,19 +47,11 @@ public class NontransactionalWriteDatastoreCommitConflict extends Nontransaction
       "Assertion A5.6.2-4 " + "(NontransactionalWriteDatastoreCommitConflict) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NontransactionalWriteDatastoreCommitConflict.class);
-  }
-
-  /**
    * Create a nontransactional dirty instance, begin and commit a conflicting transaction, begin and
    * commit a datastore transaction, and check that the instance in the datastore was overwritten by
    * this datastore transaction.
    */
+  @Test
   public void testDatastoreCommitConflict() {
     if (!checkNontransactionalFeaturesSupported(false)) return;
     createAndModifyVersionedPCPoint();

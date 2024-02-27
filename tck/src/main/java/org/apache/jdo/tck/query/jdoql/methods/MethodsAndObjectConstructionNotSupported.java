@@ -23,7 +23,12 @@ import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Methods and Object Construction not Supported <br>
@@ -32,28 +37,47 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion Description: </B> Methods, including object construction, are not supported in a
  * <code>Query</code> filter.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MethodsAndObjectConstructionNotSupported extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-8 (MethodsAndObjectConstructionNotSupported) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MethodsAndObjectConstructionNotSupported.class);
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testNegative1() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      runTestUnsupportedOperators01(pm, Employee.class, "this.team.add(this)");
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
-  public void testNegative() {
-    PersistenceManager pm = getPM();
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testNegative2() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      runTestUnsupportedOperators01(pm, Employee.class, "this.team.remove(this)");
+    } finally {
+      cleanupPM(pm);
+    }
+  }
 
-    runTestUnsupportedOperators01(pm, Employee.class, "this.team.add(this)");
-    runTestUnsupportedOperators01(pm, Employee.class, "this.team.remove(this)");
-    runTestUnsupportedOperators01(pm, PCPoint.class, "y == Integer.valueOf(1)");
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testNegative3() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      runTestUnsupportedOperators01(pm, PCPoint.class, "y == Integer.valueOf(1)");
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
@@ -70,5 +94,17 @@ public class MethodsAndObjectConstructionNotSupported extends QueryTest {
     } catch (JDOUserException ex) {
       if (debug) logger.debug("expected exception " + ex);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 }

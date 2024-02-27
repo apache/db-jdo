@@ -22,9 +22,9 @@ import java.util.List;
 import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.companyListWithoutJoin.CompanyFactoryRegistry;
 import org.apache.jdo.tck.pc.companyListWithoutJoin.CompanyModelReader;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Completeness Test List <br>
@@ -39,15 +39,6 @@ public class CompletenessTestList extends AbstractReaderTest {
 
   /** */
   private final boolean isTestToBePerformed = isTestToBePerformed();
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(CompletenessTestList.class);
-  }
 
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -73,6 +64,7 @@ public class CompletenessTestList extends AbstractReaderTest {
   }
 
   /** */
+  @Test
   public void test() {
     if (isTestToBePerformed) {
       // register the default factory

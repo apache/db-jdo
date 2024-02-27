@@ -25,12 +25,17 @@ import javax.jdo.JDOUnsupportedOptionException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-import junit.framework.AssertionFailedError;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * <B>Title:</B> QueryCancel <br>
@@ -47,6 +52,7 @@ import org.apache.jdo.tck.util.ThreadExceptionHandler;
  * <p>Looks like Derby is evaluating the query on ResultSet.next() and thus the actual query
  * execution is too fast to be canceled.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class QueryCancel extends QueryTest {
 
   /** Time for the main thread to sleep after starting a parallel thread. */
@@ -68,60 +74,58 @@ public class QueryCancel extends QueryTest {
           + "import org.apache.jdo.tck.pc.mylib.PCPoint2; ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(QueryCancel.class);
-  }
-
-  /**
    * @throws Exception exception
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testCancel() throws InterruptedException {
-    PersistenceManager pm = getPM();
-    // Test query
-    Query<PCPoint> query = pm.newQuery(SSJDOQL);
-    query.compile();
-
-    // Thread executing the query
-    CyclicBarrier barrier = new CyclicBarrier(2);
-    ThreadExceptionHandler group = new ThreadExceptionHandler();
-    QueryExecutor runnable = new QueryExecutor(pm, query, barrier);
-    Thread t = new Thread(group, runnable, "Query Executor");
-    t.start();
-
+    PersistenceManager pm = getPMF().getPersistenceManager();
     try {
-      // Wait for the other thread
-      barrier.await();
+      // Test query
+      Query<PCPoint> query = pm.newQuery(SSJDOQL);
+      query.compile();
 
-      // Wait a couple of millis such that the other thread can start query execution
-      Thread.sleep(MAIN_SLEEP_MILLIS);
+      // Thread executing the query
+      CyclicBarrier barrier = new CyclicBarrier(2);
+      ThreadExceptionHandler group = new ThreadExceptionHandler();
+      QueryExecutor runnable = new QueryExecutor(pm, query, barrier);
+      Thread t = new Thread(group, runnable, "Query Executor");
+      t.start();
 
-      // cancel query
-      query.cancel(t);
-      if (!isQueryCancelSupported()) {
-        fail(
-            ASSERTION_FAILED,
-            "Query.cancel should throw a JDOQueryInterruptedException, "
-                + "if query canceling is not supported ");
+      try {
+        // Wait for the other thread
+        barrier.await();
+
+        // Wait a couple of millis such that the other thread can start query execution
+        Thread.sleep(MAIN_SLEEP_MILLIS);
+
+        // cancel query
+        query.cancel(t);
+        if (!isQueryCancelSupported()) {
+          fail(
+              ASSERTION_FAILED,
+              "Query.cancel should throw a JDOQueryInterruptedException, "
+                  + "if query canceling is not supported ");
+        }
+      } catch (JDOUnsupportedOptionException | InterruptedException | BrokenBarrierException ex) {
+        if (isQueryCancelSupported()) {
+          fail(
+              ASSERTION_FAILED,
+              "Query.cancel should not result in a JDOQueryInterruptedException, "
+                  + "if query canceling is supported ");
+        }
       }
-    } catch (JDOUnsupportedOptionException | InterruptedException | BrokenBarrierException ex) {
-      if (isQueryCancelSupported()) {
-        fail(
-            ASSERTION_FAILED,
-            "Query.cancel should not result in a JDOQueryInterruptedException, "
-                + "if query canceling is supported ");
-      }
-    }
 
-    t.join();
-    Throwable problem = group.getUncaughtException(t);
-    if (problem != null) {
-      if (problem instanceof AssertionFailedError) throw (AssertionFailedError) problem;
-      else throw new JDOFatalException("Thread " + t.getName() + " results in exception ", problem);
+      t.join();
+      Throwable problem = group.getUncaughtException(t);
+      if (problem != null) {
+        if (problem instanceof AssertionFailedError) throw (AssertionFailedError) problem;
+        else
+          throw new JDOFatalException("Thread " + t.getName() + " results in exception ", problem);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
@@ -129,48 +133,55 @@ public class QueryCancel extends QueryTest {
    * @throws Exception exception
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testCancelAll() throws Exception {
-    PersistenceManager pm = getPM();
-    // Test query
-    Query<PCPoint> query = pm.newQuery(SSJDOQL);
-    query.compile();
-
-    // Thread executing the query
-    CyclicBarrier barrier = new CyclicBarrier(2);
-    ThreadExceptionHandler group = new ThreadExceptionHandler();
-    QueryExecutor runnable = new QueryExecutor(pm, query, barrier);
-    Thread t = new Thread(group, runnable, "Query Executor");
-    t.start();
-
+    PersistenceManager pm = getPMF().getPersistenceManager();
     try {
-      // cancel query
-      // Wait for the other thread
-      barrier.await();
+      // Test query
+      Query<PCPoint> query = pm.newQuery(SSJDOQL);
+      query.compile();
 
-      // Wait a couple of millis such that the other thread can start query execution
-      Thread.sleep(MAIN_SLEEP_MILLIS);
+      // Thread executing the query
+      CyclicBarrier barrier = new CyclicBarrier(2);
+      ThreadExceptionHandler group = new ThreadExceptionHandler();
+      QueryExecutor runnable = new QueryExecutor(pm, query, barrier);
+      Thread t = new Thread(group, runnable, "Query Executor");
+      t.start();
 
-      query.cancelAll();
-      if (!isQueryCancelSupported()) {
-        fail(
-            ASSERTION_FAILED,
-            "Query.cancel should throw a JDOQueryInterruptedException, "
-                + "if query canceling is not supported ");
+      try {
+        // cancel query
+        // Wait for the other thread
+        barrier.await();
+
+        // Wait a couple of millis such that the other thread can start query execution
+        Thread.sleep(MAIN_SLEEP_MILLIS);
+
+        query.cancelAll();
+        if (!isQueryCancelSupported()) {
+          fail(
+              ASSERTION_FAILED,
+              "Query.cancel should throw a JDOQueryInterruptedException, "
+                  + "if query canceling is not supported ");
+        }
+      } catch (JDOUnsupportedOptionException ex) {
+        if (isQueryCancelSupported()) {
+          fail(
+              ASSERTION_FAILED,
+              "Query.cancel should not result in a JDOQueryInterruptedException, "
+                  + "if query canceling is supported ");
+        }
       }
-    } catch (JDOUnsupportedOptionException ex) {
-      if (isQueryCancelSupported()) {
-        fail(
-            ASSERTION_FAILED,
-            "Query.cancel should not result in a JDOQueryInterruptedException, "
-                + "if query canceling is supported ");
-      }
-    }
 
-    t.join();
-    Throwable problem = group.getUncaughtException(t);
-    if (problem != null) {
-      if (problem instanceof AssertionFailedError) throw (AssertionFailedError) problem;
-      else throw new JDOFatalException("Thread " + t.getName() + " results in exception ", problem);
+      t.join();
+      Throwable problem = group.getUncaughtException(t);
+      if (problem != null) {
+        if (problem instanceof AssertionFailedError) throw (AssertionFailedError) problem;
+        else
+          throw new JDOFatalException("Thread " + t.getName() + " results in exception ", problem);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
@@ -217,6 +228,18 @@ public class QueryCancel extends QueryTest {
         if ((tx != null) && tx.isActive()) tx.rollback();
       }
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.instancecallbacks;
 import java.util.Date;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Access Other Instances In Prestore Method <br>
@@ -47,14 +47,7 @@ public class AccessOtherInstancesInPrestore extends TestParts {
   private static final String ASSERTION_FAILED =
       "Assertion A10.2-3 (AccessOtherInstancesInPrestore) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(AccessOtherInstancesInPrestore.class);
-  }
+  public void runTest() {}
 
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -65,6 +58,7 @@ public class AccessOtherInstancesInPrestore extends TestParts {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
     Transaction t = pm.currentTransaction();

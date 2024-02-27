@@ -17,8 +17,14 @@
 
 package org.apache.jdo.tck.query.jdoql.keywords;
 
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Keywords in uppercase and lowercase. <br>
@@ -27,6 +33,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion Description: </B> Keywords, identified above in bold, are either all upper-case or
  * all lower-case. Keywords cannot be mixed case.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UppercaseLowercase extends QueryTest {
 
   /** */
@@ -45,25 +52,42 @@ public class UppercaseLowercase extends QueryTest {
     "SeLeCt FrOm org.apache.jdo.tck.pc.company.Person"
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(UppercaseLowercase.class);
-  }
-
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive() {
-    for (String validSingleStringQuery : VALID_SINGLE_STRING_QUERIES) {
-      compileSingleStringQuery(ASSERTION_FAILED, validSingleStringQuery, true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (String validSingleStringQuery : VALID_SINGLE_STRING_QUERIES) {
+        compileSingleStringQuery(ASSERTION_FAILED, pm, validSingleStringQuery, true);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegitve() {
-    for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
-      compileSingleStringQuery(ASSERTION_FAILED, invalidSingleStringQuery, false);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidSingleStringQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 }

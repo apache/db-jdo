@@ -26,7 +26,8 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Close of PersistenceManagerFactory <br>
@@ -46,55 +47,51 @@ public class Persistence extends JDO_Test {
   private PersistenceManagerFactory pmf = null;
   private PersistenceManager pm = null;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Persistence.class);
-  }
-
   /** */
+  @Test
   public void testGetPMFfromNamedPU() {
     String name = "PUNamed_" + IDENTITYTYPE + "0";
     pmf = JDOHelper.getPersistenceManagerFactory(name);
-    assertEquals("Incorrect value for RestoreValues", false, pmf.getRestoreValues());
+    Assertions.assertEquals(false, pmf.getRestoreValues(), "Incorrect value for RestoreValues");
     runTest(name);
   }
 
   /** */
+  @Test
   public void testGetPMFfromNamedPUWithNullOverrides() {
     String name = "PUNamed_" + IDENTITYTYPE + "0";
     pmf = JDOHelper.getPersistenceManagerFactory(null, name);
-    assertEquals("Incorrect value for RestoreValues", false, pmf.getRestoreValues());
+    Assertions.assertEquals(false, pmf.getRestoreValues(), "Incorrect value for RestoreValues");
     runTest(name);
   }
 
   /** */
+  @Test
   public void testGetPMFfromNamedPUWithEmptyOverrides() {
     String name = "PUNamed_" + IDENTITYTYPE + "0";
     Map<Object, Object> overrides = new HashMap<>();
     pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
-    assertEquals("Incorrect value for RestoreValues", false, pmf.getRestoreValues());
+    Assertions.assertEquals(false, pmf.getRestoreValues(), "Incorrect value for RestoreValues");
     runTest(name);
   }
 
   /** */
+  @Test
   public void testGetPMFfromNamedPUWithOverrides() {
     String name = "PUNamed_" + IDENTITYTYPE + "0";
     Properties overrides = new Properties();
     overrides.setProperty(Constants.PROPERTY_RESTORE_VALUES, "true");
     pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
-    assertEquals("Incorrect value for RestoreValues", true, pmf.getRestoreValues());
+    Assertions.assertEquals(true, pmf.getRestoreValues(), "Incorrect value for RestoreValues");
     runTest(name);
   }
 
   /** */
+  @Test
   public void testGetPMFfromNamedPUWithWhiteSpace() {
     String name = "PUNamed_" + IDENTITYTYPE + "0";
     pmf = JDOHelper.getPersistenceManagerFactory(" \t" + name + " \n");
-    assertEquals("Incorrect value for RestoreValues", false, pmf.getRestoreValues());
+    Assertions.assertEquals(false, pmf.getRestoreValues(), "Incorrect value for RestoreValues");
     runTest(name);
   }
 
@@ -103,7 +100,7 @@ public class Persistence extends JDO_Test {
    */
   public void runTest(String name) {
     String actualPUName = pmf.getPersistenceUnitName();
-    assertEquals("Incorrect PersistenceUnitName", name, actualPUName);
+    Assertions.assertEquals(name, actualPUName, "Incorrect PersistenceUnitName");
 
     // check pmf.isClosed() before and after pmf.close()
     if (pmf.isClosed()) {

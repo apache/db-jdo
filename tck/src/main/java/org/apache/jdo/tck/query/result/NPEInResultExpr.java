@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -26,7 +27,12 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> NullPointerException in Result Expression. <br>
@@ -36,83 +42,99 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * field or variable has a null value for a particular set of conditions (the result calculation
  * would throw NullPointerException), then the result is null for that result expression.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NPEInResultExpr extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.9-4 (NPEInResultExpr) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NPEInResultExpr.class);
-  }
-
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive0() {
     Object expected = Arrays.asList("emp2Last", null, "emp2Last", "emp2Last", "emp2Last");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+      QEmployee cand = QEmployee.candidate();
+      query.result(false, cand.manager.lastname);
 
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
-    query.result(false, cand.manager.lastname);
+      QueryElementHolder<Employee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ "manager.lastname",
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Employee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ "manager.lastname",
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, null, true, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive1() {
     Object expected = Arrays.asList("emp2Last", null, "emp2Last", "emp2Last", "emp2Last");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
+      QDepartment cand = QDepartment.candidate();
+      QEmployee e = QEmployee.variable("e");
+      query.filter(cand.employees.contains(e));
+      query.result(false, e.manager.lastname);
 
-    JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
-    QDepartment cand = QDepartment.candidate();
-    QEmployee e = QEmployee.variable("e");
-    query.filter(cand.employees.contains(e));
-    query.result(false, e.manager.lastname);
+      QueryElementHolder<Department> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ "e.manager.lastname",
+              /*INTO*/ null,
+              /*FROM*/ Department.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "employees.contains(e)",
+              /*VARIABLES*/ "Employee e",
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Department> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ "e.manager.lastname",
-            /*INTO*/ null,
-            /*FROM*/ Department.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "employees.contains(e)",
-            /*VARIABLES*/ "Employee e",
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, null, true, expected);
+    } finally {
+      cleanupPM(pm);
+    }
+  }
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

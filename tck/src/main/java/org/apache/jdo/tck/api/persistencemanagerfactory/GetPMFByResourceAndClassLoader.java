@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>GetPMFByResourceAndClassLoader of PersistenceManagerFactory <br>
@@ -41,21 +41,14 @@ public class GetPMFByResourceAndClassLoader extends AbstractGetPMF {
   private static final String ASSERTION_FAILED =
       "Assertion A8.6-16 (GetPMFByResourceAndClassLoader) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetPMFByResourceAndClassLoader.class);
-  }
-
   /** */
+  @Test
   public void testInvalidGetPMF() {
     checkGetPMFWithInvalidProperties(ASSERTION_FAILED);
   }
 
   /** */
+  @Test
   public void testValidGetPMF() {
     checkGetPMFWithValidProperties();
   }

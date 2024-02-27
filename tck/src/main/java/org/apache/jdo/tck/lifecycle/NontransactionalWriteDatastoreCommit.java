@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.lifecycle;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test NontransactionalWriteDatastoreCommit <br>
@@ -47,18 +47,10 @@ public class NontransactionalWriteDatastoreCommit extends NontransactionalWriteT
       "Assertion A5.6.2-4 (NontransactionalWriteDatastoreCommit) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NontransactionalWriteDatastoreCommit.class);
-  }
-
-  /**
    * Create a nontransactional dirty instance, begin and commit a datastore transaction, and check
    * that the instance in the datastore has the value as changed by the transaction.
    */
+  @Test
   public void testDatastoreCommit() {
     if (!checkNontransactionalFeaturesSupported(false)) return;
     createAndModifyVersionedPCPoint();

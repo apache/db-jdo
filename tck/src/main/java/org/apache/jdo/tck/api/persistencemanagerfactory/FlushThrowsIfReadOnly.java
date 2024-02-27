@@ -27,7 +27,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>ReadOnly property of PersistenceManagerFactory <br>
@@ -47,14 +47,6 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
 
   /** The company oid */
   Object oid;
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(FlushThrowsIfReadOnly.class);
-  }
 
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -77,6 +69,7 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testMakePersistent() {
     // Try to makePersistent and flush the transaction
     pm = pmf2.getPersistenceManager();
@@ -107,6 +100,7 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testUpdate() {
     // Try to update and flush the transaction
     pm = pmf2.getPersistenceManager();
@@ -137,6 +131,7 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testDeletePersistent() {
     // Try to deletePersistent and flush the transaction
     pm = pmf2.getPersistenceManager();

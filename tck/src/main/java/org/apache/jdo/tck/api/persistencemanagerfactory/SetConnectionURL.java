@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import javax.jdo.JDOException;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Set ConnectionURL of PersistenceManagerFactory <br>
@@ -38,15 +38,6 @@ public class SetConnectionURL extends JDO_Test {
   /** The value of the ConnectionURL property. */
   private String url;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetConnectionURL.class);
-  }
-
   /** */
   @Override
   protected void localSetUp() {
@@ -56,6 +47,7 @@ public class SetConnectionURL extends JDO_Test {
   }
 
   /** Set ConnectionURL value and get ConnectionURL value to verify. */
+  @Test
   public void test() {
     try {
       if (url == null) {

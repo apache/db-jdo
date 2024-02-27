@@ -26,7 +26,8 @@ import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.pc.company.Project;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>RelationshipManyToManyNoRelationships <br>
@@ -48,15 +49,6 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
   Project proj1 = null;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RelationshipManyToManyNoRelationships.class);
-  }
-
-  /**
    * @see AbstractRelationshipTest#localSetUp()
    */
   @Override
@@ -72,20 +64,21 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
       proj1 = (Project) pm.getObjectById(proj1Oid);
 
       // Preconditions
-      assertTrue(
+      Assertions.assertTrue(
+          emp1.getProjects().isEmpty(),
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected emp.getProjects()to be empty",
-          emp1.getProjects().isEmpty());
-      assertTrue(
+              + "expected emp.getProjects()to be empty");
+      Assertions.assertTrue(
+          proj1.getMembers().isEmpty(),
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected ins.getMembers() to be empty",
-          proj1.getMembers().isEmpty());
+              + "expected ins.getMembers() to be empty");
     }
   }
 
   /** */
+  @Test
   public void testAddFromMappedSide() {
     testMethod = "testAddFromMappedSide";
     if (isTestToBePerformed) {
@@ -120,6 +113,7 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
   }
 
   /** */
+  @Test
   public void testAddFromMappedbySide() {
     testMethod = "testAddFromMappedbySide";
     if (isTestToBePerformed) {
@@ -154,6 +148,7 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
   }
 
   /** */
+  @Test
   public void testReplaceFromMappedSide() {
     testMethod = "testReplaceFromMappedSide";
     if (isTestToBePerformed) {
@@ -169,11 +164,11 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
       Object empNewOid = pm.getObjectId(empNew);
       pm.flush();
 
-      assertFalse(
+      Assertions.assertFalse(
+          empNewOid == null,
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected empNewOid to be non-null",
-          empNewOid == null);
+              + "expected empNewOid to be non-null");
 
       // Postcondition
 
@@ -200,6 +195,7 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
   }
 
   /** */
+  @Test
   public void testReplaceFromMappedbySide() {
     testMethod = "testReplaceFromMappedbySide";
     if (isTestToBePerformed) {
@@ -213,11 +209,11 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
       Object projNewOid = pm.getObjectId(projNew);
       pm.flush();
 
-      assertFalse(
+      Assertions.assertFalse(
+          projNewOid == null,
           testMethod
               + ": Test aborted, precondition is false; "
-              + "expected projNewOid to be non-null",
-          projNewOid == null);
+              + "expected projNewOid to be non-null");
 
       // Postcondition
       deferredAssertTrue(

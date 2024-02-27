@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import javax.jdo.datastore.JDOConnection;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> DataStoreConnectionThrows <br>
@@ -41,15 +41,6 @@ public class DataStoreConnectionThrows extends PersistenceManagerTest {
       "Assertion A12.16-2 (DataStoreConnectionThrows) failed: ";
 
   protected PCPoint goldenPoint;
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DataStoreConnectionThrows.class);
-  }
 
   /**
    * @param conn connection
@@ -75,6 +66,7 @@ public class DataStoreConnectionThrows extends PersistenceManagerTest {
   }
 
   /** */
+  @Test
   public void testDataStoreConnectionThrows() {
     if (!(isDataStoreConnectionSupported() && isSQLSupported())) {
       printUnsupportedOptionalFeatureNotTested(

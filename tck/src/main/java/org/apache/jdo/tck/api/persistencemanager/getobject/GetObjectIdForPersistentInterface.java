@@ -23,7 +23,7 @@ import javax.jdo.identity.LongIdentity;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.company.ICompany;
 import org.apache.jdo.tck.pc.company.PICompany;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Get ObjectidForPersistentInterface <br>
@@ -38,21 +38,13 @@ public class GetObjectIdForPersistentInterface extends PersistenceManagerTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A12.6.6-1 (GetObjectId) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetObjectIdForPersistentInterface.class);
-  }
-
   @Override
   public void localSetUp() {
     addTearDownClass(PICompany.class);
   }
 
   /** */
+  @Test
   public void testGetObjectId() {
     if (!runsWithApplicationIdentity()) {
       printNonApplicableIdentityType("GetObjectIdForPersistentInterface", APPLICATION_IDENTITY);

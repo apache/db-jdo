@@ -23,7 +23,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Variable Declared with Same Name as Field of Candidate Class <br>
@@ -38,16 +38,8 @@ public class VariableDeclaredWithSameNameAsFieldOfCandidateClass extends QueryTe
   private static final String ASSERTION_FAILED =
       "Assertion A14.4-3 (VariableDeclaredWithSameNameAsFieldOfCandidateClass) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(VariableDeclaredWithSameNameAsFieldOfCandidateClass.class);
-  }
-
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

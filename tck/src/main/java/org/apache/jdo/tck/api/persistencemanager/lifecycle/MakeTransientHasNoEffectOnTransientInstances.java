@@ -23,7 +23,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> MakeTransientHasNoEffectOnTransientInstances <br>
@@ -38,15 +38,6 @@ public class MakeTransientHasNoEffectOnTransientInstances extends PersistenceMan
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.7-19 (MakeTransientHasNoEffectOnTransientInstances) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(MakeTransientHasNoEffectOnTransientInstances.class);
-  }
-
   private PCPoint p1 = null;
   private PCPoint p2 = null;
   private PCPoint p3 = null;
@@ -54,6 +45,7 @@ public class MakeTransientHasNoEffectOnTransientInstances extends PersistenceMan
   private PCPoint p5 = null;
 
   /** */
+  @Test
   public void testMakeTransientHasNoEffectOnTransientInstances() {
     pm = getPM();
 

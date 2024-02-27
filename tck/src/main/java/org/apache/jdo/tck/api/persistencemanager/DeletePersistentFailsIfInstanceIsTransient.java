@@ -22,7 +22,7 @@ import java.util.HashSet;
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> DeletePersistent Fails If Instance Is Transient <br>
@@ -37,16 +37,8 @@ public class DeletePersistentFailsIfInstanceIsTransient extends PersistenceManag
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.7-12 (DeletePersistentFailsIfInstanceIsTransient) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DeletePersistentFailsIfInstanceIsTransient.class);
-  }
-
   /** */
+  @Test
   public void testDeletePersistentFailsIfInstanceIsTransient() {
     pm = getPM();
     runTestDeletePersistent();

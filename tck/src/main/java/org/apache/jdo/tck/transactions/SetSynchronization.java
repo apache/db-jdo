@@ -21,7 +21,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import javax.transaction.Synchronization;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Set Synchronization <br>
@@ -45,15 +45,6 @@ public class SetSynchronization extends JDO_Test implements Synchronization {
   /** */
   private static final String ASSERTION_FAILED =
       "Assertion A13.4.3-1 (SetSynchronization) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetSynchronization.class);
-  }
 
   /** */
   public void beforeCompletion() {
@@ -83,6 +74,7 @@ public class SetSynchronization extends JDO_Test implements Synchronization {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

@@ -22,9 +22,9 @@ import java.util.List;
 import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.order.OrderFactoryRegistry;
 import org.apache.jdo.tck.pc.order.OrderModelReader;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Completeness Test for the Order model <br>
@@ -39,15 +39,6 @@ public class CompletenessTestOrder extends AbstractReaderTest {
   /** */
   private static final String ASSERTION_FAILED =
       "Assertion A5.4.1-5[Compound identity is a special case of application identity. References to other persistence-capable classes can be defined as key fields. In this case, the object id class contains a field that is of the type of the object id of the relationship field.] failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(CompletenessTestOrder.class);
-  }
 
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -73,6 +64,7 @@ public class CompletenessTestOrder extends AbstractReaderTest {
   }
 
   /** */
+  @Test
   public void test() {
     if (runsWithApplicationIdentity()) {
       // register the default factory

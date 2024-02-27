@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.lifecycle;
 
 import javax.jdo.JDOUnsupportedOptionException;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test NontransactionalWriteThrows <br>
@@ -35,18 +35,10 @@ public class NontransactionalWriteThrows extends NontransactionalWriteTest {
       "Assertion A13.4.2-6 (NontransactionalWriteThrows) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NontransactionalWriteThrows.class);
-  }
-
-  /**
    * Make sure that if NontransactionalWrite is not supported, an exception is thrown when setting
    * NontransactionalWrite.
    */
+  @Test
   public void testNontransactionalWriteThrows() {
     if (!checkNontransactionalWriteSupported()) {
       try {

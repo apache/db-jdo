@@ -39,22 +39,14 @@ import org.apache.jdo.tck.pc.company.PIEmployee;
 import org.apache.jdo.tck.pc.company.PartTimeEmployee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.Project;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * This class is an abstract superclass for the fetch plan tests. It contains methods useful for
  * testing the behavior of the fetch plan.
  */
 public class FetchGroupTest extends JDO_Test {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(FetchGroupTest.class);
-  }
 
   /** All fetch groups in this PMF. */
   protected Set<FetchGroup> allPMFFetchGroups;
@@ -150,6 +142,7 @@ public class FetchGroupTest extends JDO_Test {
   }
 
   @SuppressWarnings("unchecked")
+  @Test
   public void testPMFGetFetchGroup() {
     allPMFFetchGroups = pmf.getFetchGroups();
     Map<String, FetchGroup> unscopedFetchGroupMap = new HashMap<>();
@@ -170,97 +163,105 @@ public class FetchGroupTest extends JDO_Test {
     unscopedFetchGroupMap.put("Project+default", pmf.getFetchGroup(Project.class, "default"));
   }
 
+  @Test
   public void testPMFGetFetchGroupHashCode() {
     FetchGroup scoped = pm.getFetchGroup(Address.class, "default");
     FetchGroup unscoped = pmf.getFetchGroup(Address.class, "default");
     int actual = scoped.hashCode();
     int expected = unscoped.hashCode();
-    assertEquals(
+    Assertions.assertEquals(
+        actual,
+        expected,
         "Scoped hash code does not equal unscoped hash code;"
             + "Expected: "
             + expected
             + " actual: "
-            + actual,
-        actual,
-        expected);
+            + actual);
   }
 
+  @Test
   public void testPMGetFetchGroupIdentical() {
     FetchGroup scoped = pm.getFetchGroup(Address.class, "default");
     FetchGroup identical = pm.getFetchGroup(Address.class, "default");
-    assertSame(
+    Assertions.assertSame(
+        scoped,
+        identical,
         "Modifiable FetchGroup is not identical to modifiable FetchGroup;"
             + "FetchGroup: "
             + printFetchGroup(scoped)
             + " identical: "
-            + printFetchGroup(identical),
-        scoped,
-        identical);
+            + printFetchGroup(identical));
   }
 
+  @Test
   public void testPMGetFetchGroupUnmodifiableNotIdentical() {
     FetchGroup scoped = pm.getFetchGroup(Address.class, "default");
     scoped.setUnmodifiable();
     FetchGroup modifiable = pm.getFetchGroup(Address.class, "default");
-    assertNotSame(
+    Assertions.assertNotSame(
+        scoped,
+        modifiable,
         "Unmodifiable FetchGroup is identical to modifiable FetchGroup;"
             + "\nunmodifiable: "
             + printFetchGroup(scoped)
             + "\n  modifiable: "
-            + printFetchGroup(modifiable),
-        scoped,
-        modifiable);
+            + printFetchGroup(modifiable));
   }
 
+  @Test
   public void testPMFGetFetchGroupNotIdentical() {
     FetchGroup first = pmf.getFetchGroup(Address.class, "default");
     FetchGroup second = pmf.getFetchGroup(Address.class, "default");
-    assertNotSame(
+    Assertions.assertNotSame(
+        first,
+        second,
         "First FetchGroup is identical to second FetchGroup;"
             + "\n first: "
             + printFetchGroup(first)
             + "\nsecond: "
-            + printFetchGroup(second),
-        first,
-        second);
+            + printFetchGroup(second));
   }
 
+  @Test
   public void testPMGetFetchGroupEquals() {
     FetchGroup unmodifiable = pm.getFetchGroup(Address.class, "default");
     unmodifiable.setUnmodifiable();
     FetchGroup modifiable = pm.getFetchGroup(Address.class, "default");
-    assertEquals(
+    Assertions.assertEquals(
+        unmodifiable,
+        modifiable,
         "Unmodifiable FetchGroup is not equal to modifiable FetchGroup;"
             + "\nunmodifiable: "
             + printFetchGroup(unmodifiable)
             + "\n  modifiable: "
-            + printFetchGroup(modifiable),
-        unmodifiable,
-        modifiable);
+            + printFetchGroup(modifiable));
   }
 
+  @Test
   public void testPMModifiable() {
     FetchGroup scoped = pm.getFetchGroup(Address.class, "default");
-    assertFalse(
-        "Scoped FetchGroup should be modifiable initially, but is unmodifiable.",
-        scoped.isUnmodifiable());
+    Assertions.assertFalse(
+        scoped.isUnmodifiable(),
+        "Scoped FetchGroup should be modifiable initially, but is unmodifiable.");
     scoped.setUnmodifiable();
-    assertTrue(
-        "Scoped FetchGroup should be unmodifiable after setUnmodifiable, but is modifiable.",
-        scoped.isUnmodifiable());
+    Assertions.assertTrue(
+        scoped.isUnmodifiable(),
+        "Scoped FetchGroup should be unmodifiable after setUnmodifiable, but is modifiable.");
   }
 
+  @Test
   public void testPMFModifiable() {
     FetchGroup scoped = pmf.getFetchGroup(Address.class, "default");
-    assertFalse(
-        "Unscoped FetchGroup should be modifiable initially, but is unmodifiable.",
-        scoped.isUnmodifiable());
+    Assertions.assertFalse(
+        scoped.isUnmodifiable(),
+        "Unscoped FetchGroup should be modifiable initially, but is unmodifiable.");
     scoped.setUnmodifiable();
-    assertTrue(
-        "Unscoped FetchGroup should be unmodifiable after setUnmodifiable, but is modifiable.",
-        scoped.isUnmodifiable());
+    Assertions.assertTrue(
+        scoped.isUnmodifiable(),
+        "Unscoped FetchGroup should be unmodifiable after setUnmodifiable, but is modifiable.");
   }
 
+  @Test
   public void testCategoriesClass() {
     checkAddCategory(Employee.class, FetchGroup.ALL, allMembers);
     checkAddCategory(Employee.class, FetchGroup.BASIC, basicMembers);
@@ -270,6 +271,7 @@ public class FetchGroupTest extends JDO_Test {
     failOnError();
   }
 
+  @Test
   public void testCategoriesInterface() {
     checkAddCategory(PIEmployee.class, FetchGroup.ALL, allMembers);
     checkAddCategory(PIEmployee.class, FetchGroup.BASIC, basicMembers);
@@ -280,6 +282,7 @@ public class FetchGroupTest extends JDO_Test {
   }
 
   @SuppressWarnings("unchecked")
+  @Test
   public void testRemoveCategory() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveCategory");
     Set<String> expectedSet = new HashSet<>();
@@ -288,29 +291,31 @@ public class FetchGroupTest extends JDO_Test {
     fg.addCategory(FetchGroup.ALL);
     fg.removeCategory(FetchGroup.MULTIVALUED);
     members = fg.getMembers();
-    assertEquals(
-        "FetchGroup.addCategory(all).removeCategory(multivalued)"
-            + " should contain all but multivalued members.\n",
+    Assertions.assertEquals(
         expectedSet,
-        members);
+        members,
+        "FetchGroup.addCategory(all).removeCategory(multivalued)"
+            + " should contain all but multivalued members.\n");
   }
 
   @SuppressWarnings("unchecked")
+  @Test
   public void testAddMember() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testAddMember");
     for (int i = 0; i < allMembers.length; ++i) {
       String member = allMembers[i];
       fg.addMember(member);
       Set<String> members = fg.getMembers();
-      assertTrue(
-          "FetchGroup should contain " + member + " but does not.\n" + printFetchGroup(fg),
-          members.contains(member));
-      assertEquals(
-          "FetchGroup should contain " + i + 1 + "members, but does not; ", i + 1, members.size());
+      Assertions.assertTrue(
+          members.contains(member),
+          "FetchGroup should contain " + member + " but does not.\n" + printFetchGroup(fg));
+      Assertions.assertEquals(
+          i + 1, members.size(), "FetchGroup should contain " + i + 1 + "members, but does not; ");
     }
   }
 
   @SuppressWarnings("unchecked")
+  @Test
   public void testAddMembers() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testAddMembers");
     fg.addMembers(multivaluedMembers);
@@ -318,10 +323,11 @@ public class FetchGroupTest extends JDO_Test {
     Set<String> members = fg.getMembers();
     Set<String> expectedSet = new HashSet<>();
     expectedSet.addAll(Arrays.asList(allMembers));
-    assertEquals("FetchGroup should contain all members.\n", expectedSet, members);
+    Assertions.assertEquals(expectedSet, members, "FetchGroup should contain all members.\n");
   }
 
   @SuppressWarnings("unchecked")
+  @Test
   public void testRemoveMembers() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveMembers");
     fg.addMembers(allMembers);
@@ -330,18 +336,20 @@ public class FetchGroupTest extends JDO_Test {
     Set<String> expectedSet = new HashSet<>();
     expectedSet.addAll(Arrays.asList(basicMembers));
     expectedSet.add("phoneNumbers");
-    assertEquals(
-        "FetchGroup should contain basic members " + "plus address plus phoneNumbers.\n",
+    Assertions.assertEquals(
         expectedSet,
-        members);
+        members,
+        "FetchGroup should contain basic members " + "plus address plus phoneNumbers.\n");
     fg.removeMembers(basicMembers);
     members = fg.getMembers();
     expectedSet = new HashSet<>();
     expectedSet.add("phoneNumbers");
-    assertEquals("FetchGroup should contain address plus phoneNumbers.\n", expectedSet, members);
+    Assertions.assertEquals(
+        expectedSet, members, "FetchGroup should contain address plus phoneNumbers.\n");
   }
 
   @SuppressWarnings("unchecked")
+  @Test
   public void testRemoveMember() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveMember");
     fg.addCategory(FetchGroup.ALL);
@@ -349,40 +357,44 @@ public class FetchGroupTest extends JDO_Test {
       String member = allMembers[i];
       fg.removeMember(member);
       Set<String> members = fg.getMembers();
-      assertFalse(
-          "FetchGroup should not contain " + member + " but does.\n" + printFetchGroup(fg),
-          members.contains(member));
-      assertEquals("FetchGroup should contain " + i + "members, but does not; ", i, members.size());
+      Assertions.assertFalse(
+          members.contains(member),
+          "FetchGroup should not contain " + member + " but does.\n" + printFetchGroup(fg));
+      Assertions.assertEquals(
+          i, members.size(), "FetchGroup should contain " + i + "members, but does not; ");
     }
   }
 
+  @Test
   public void testRecursionDepth() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testRecursionDepth");
     fg.addMember("manager");
     int depth = fg.getRecursionDepth("manager");
-    assertEquals(
-        "Initial recursion depth for manager should be 1." + printFetchGroup(fg), 1, depth);
+    Assertions.assertEquals(
+        1, depth, "Initial recursion depth for manager should be 1." + printFetchGroup(fg));
     fg.setRecursionDepth("manager", 64);
-    assertEquals(
-        "Recursion depth for manager should be 64." + printFetchGroup(fg),
+    Assertions.assertEquals(
         64,
-        fg.getRecursionDepth("manager"));
+        fg.getRecursionDepth("manager"),
+        "Recursion depth for manager should be 64." + printFetchGroup(fg));
   }
 
+  @Test
   public void testPostLoad() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testPostLoad");
-    assertFalse(
-        "New FetchGroup should have post-load false; " + printFetchGroup(fg), fg.getPostLoad());
+    Assertions.assertFalse(
+        fg.getPostLoad(), "New FetchGroup should have post-load false; " + printFetchGroup(fg));
     fg.setPostLoad(true);
-    assertTrue(
-        "After setPostLoad(true) FetchGroup should have post-load true; " + printFetchGroup(fg),
-        fg.getPostLoad());
+    Assertions.assertTrue(
+        fg.getPostLoad(),
+        "After setPostLoad(true) FetchGroup should have post-load true; " + printFetchGroup(fg));
     fg.setPostLoad(false);
-    assertFalse(
-        "After setPostLoad, FetchGroup should have post-load false; " + printFetchGroup(fg),
-        fg.getPostLoad());
+    Assertions.assertFalse(
+        fg.getPostLoad(),
+        "After setPostLoad, FetchGroup should have post-load false; " + printFetchGroup(fg));
   }
 
+  @Test
   public void testUnmodifiableSetPostLoad() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testUnmodifiableSetPostLoad");
     fg.setUnmodifiable();
@@ -394,6 +406,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testUnmodifiableAddMember() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testUnmodifiableAddMember");
     fg.setUnmodifiable();
@@ -405,6 +418,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testUnmodifiableAddMembers() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testUnmodifiableAddMembers");
     fg.setUnmodifiable();
@@ -416,6 +430,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testUnmodifiableRemoveMember() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testUnmodifiableRemoveMember");
     fg.addMembers(allMembers);
@@ -428,6 +443,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testUnmodifiableRemoveMembers() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testUnmodifiableRemoveMembers");
     fg.addMembers(allMembers);
@@ -440,6 +456,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testUnmodifiableAddCategory() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testUnmodifiableAddCategory");
     fg.setUnmodifiable();
@@ -451,6 +468,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testUnmodifiableRemoveCategory() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testUnmodifiableRemoveCategory");
     fg.addCategory(FetchGroup.ALL);
@@ -463,6 +481,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testUnmodifiableSetRecursionDepth() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testUnmodifiableSetRecursionDepth");
     fg.setUnmodifiable();
@@ -474,12 +493,14 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testUnmodifiableSetUnmodifiable() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testUnmodifiableSetUnmodifiable");
     fg.setUnmodifiable();
     fg.setUnmodifiable(); // should be ok
   }
 
+  @Test
   public void testPMGetFetchGroupClassNotPersistenceCapable() {
     try {
       FetchGroup fg =
@@ -490,6 +511,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testPMGetFetchGroupInterfaceNotPersistenceCapable() {
     try {
       FetchGroup fg =
@@ -500,6 +522,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testPMFGetFetchGroupClassNotPersistenceCapable() {
     try {
       FetchGroup fg =
@@ -512,6 +535,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testPMFGetFetchGroupInterfaceNotPersistenceCapable() {
     try {
       FetchGroup fg =
@@ -522,6 +546,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testAddMemberNotAMember() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testAddMemberNotAMember");
     try {
@@ -532,6 +557,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testAddMembersNotAMember() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testAddMembersNotAMember");
     try {
@@ -542,6 +568,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testRemoveMemberNotAMember() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveMemberNotAMember");
     fg.addCategory(FetchGroup.ALL);
@@ -553,6 +580,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testRemoveMembersNotAMember() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveMembersNotAMember");
     fg.addCategory(FetchGroup.ALL);
@@ -564,6 +592,7 @@ public class FetchGroupTest extends JDO_Test {
     }
   }
 
+  @Test
   public void testSetRecursionDepthNotAMember() {
     FetchGroup fg = pm.getFetchGroup(Employee.class, "testSetRecursionDepthNotAMember");
     try {
@@ -580,7 +609,8 @@ public class FetchGroupTest extends JDO_Test {
     Set<String> expectedSet = new HashSet<>();
     expectedSet.addAll(Arrays.asList(expected));
     Set<String> members = fg.getMembers();
-    assertTrue("New FetchGroup should have no members; " + printFetchGroup(fg), members.isEmpty());
+    Assertions.assertTrue(
+        members.isEmpty(), "New FetchGroup should have no members; " + printFetchGroup(fg));
     fg.addCategory(category);
     members = fg.getMembers();
     if (!members.equals(expectedSet)) {

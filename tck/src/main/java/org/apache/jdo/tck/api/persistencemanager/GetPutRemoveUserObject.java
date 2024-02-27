@@ -18,7 +18,8 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test GetPutRemoveUserObject <br>
@@ -47,21 +48,13 @@ public class GetPutRemoveUserObject extends JDO_Test {
   /** Non-existent key */
   private static final String KEY_DOES_NOT_EXIST = "jdo.tck.keyDoesNotExist";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetPutRemoveUserObject.class);
-  }
-
   /** */
+  @Test
   public void testGetNonexistentKey() {
     getPM();
-    assertNull(
-        ASSERTION_FAILED + "Non-null value returned from key that does not exist.",
-        pm.getUserObject(KEY_DOES_NOT_EXIST));
+    Assertions.assertNull(
+        pm.getUserObject(KEY_DOES_NOT_EXIST),
+        ASSERTION_FAILED + "Non-null value returned from key that does not exist.");
   }
 
   public void testPutKey() {
@@ -74,28 +67,28 @@ public class GetPutRemoveUserObject extends JDO_Test {
     Object obj2pv = pm.putUserObject(KEY2, obj2p);
     Object obj1rv = pm.putUserObject(KEY1, obj3p);
     Object obj2rv = pm.putUserObject(KEY2, obj4p);
-    assertNull(
-        ASSERTION_FAILED + "putUserObject expected null on first put" + "; actual: " + obj1pv,
-        obj1pv);
-    assertSame(
+    Assertions.assertNull(
+        obj1pv,
+        ASSERTION_FAILED + "putUserObject expected null on first put" + "; actual: " + obj1pv);
+    Assertions.assertSame(
+        obj1p,
+        obj1rv,
         ASSERTION_FAILED
             + "putUserObject expected replaced object returned: "
             + obj1p
             + "; actual: "
-            + obj1rv,
-        obj1p,
-        obj1rv);
-    assertNull(
-        ASSERTION_FAILED + "putUserObject expected null on first put" + "; actual: " + obj2pv,
-        obj2pv);
-    assertSame(
+            + obj1rv);
+    Assertions.assertNull(
+        obj2pv,
+        ASSERTION_FAILED + "putUserObject expected null on first put" + "; actual: " + obj2pv);
+    Assertions.assertSame(
+        obj2p,
+        obj2rv,
         ASSERTION_FAILED
             + "putUserObject expected replaced object returned: "
             + obj2p
             + "; actual: "
-            + obj2rv,
-        obj2p,
-        obj2rv);
+            + obj2rv);
   }
 
   public void testGetKey() {
@@ -108,12 +101,14 @@ public class GetPutRemoveUserObject extends JDO_Test {
     Object obj2g = pm.getUserObject(KEY2);
     pm.putUserObject(KEY1, null);
     pm.putUserObject(KEY2, null);
-    assertNull(ASSERTION_FAILED + "putUserObject expected null" + "; actual: " + obj1pv, obj1pv);
-    assertSame(
-        ASSERTION_FAILED + "getUserObject expected: " + obj1p + "; actual: " + obj1g, obj1p, obj1g);
-    assertNull(ASSERTION_FAILED + "putUserObject expected null" + "; actual: " + obj2pv, obj2pv);
-    assertSame(
-        ASSERTION_FAILED + "getUserObject expected: " + obj2p + "; actual: " + obj2g, obj2p, obj2g);
+    Assertions.assertNull(
+        obj1pv, ASSERTION_FAILED + "putUserObject expected null" + "; actual: " + obj1pv);
+    Assertions.assertSame(
+        obj1p, obj1g, ASSERTION_FAILED + "getUserObject expected: " + obj1p + "; actual: " + obj1g);
+    Assertions.assertNull(
+        obj2pv, ASSERTION_FAILED + "putUserObject expected null" + "; actual: " + obj2pv);
+    Assertions.assertSame(
+        obj2p, obj2g, ASSERTION_FAILED + "getUserObject expected: " + obj2p + "; actual: " + obj2g);
   }
 
   public void testRemoveKey() {
@@ -126,18 +121,18 @@ public class GetPutRemoveUserObject extends JDO_Test {
     Object obj1rr = pm.removeUserObject(KEY1);
     Object obj2r = pm.removeUserObject(KEY2);
     Object obj2rr = pm.removeUserObject(KEY2);
-    assertSame(
-        ASSERTION_FAILED + "removeUserObject(KEY1) expected: " + obj1p + "; actual: " + obj1r,
+    Assertions.assertSame(
         obj1p,
-        obj1r);
-    assertNull(
-        ASSERTION_FAILED + "getUserObject(KEY1) expected null: " + "; actual: " + obj1rr, obj1rr);
-    assertSame(
-        ASSERTION_FAILED + "removeUserObject(KEY2) returned: " + obj2p + "; actual: " + obj2r,
+        obj1r,
+        ASSERTION_FAILED + "removeUserObject(KEY1) expected: " + obj1p + "; actual: " + obj1r);
+    Assertions.assertNull(
+        obj1rr, ASSERTION_FAILED + "getUserObject(KEY1) expected null: " + "; actual: " + obj1rr);
+    Assertions.assertSame(
         obj2p,
-        obj2r);
-    assertNull(
-        ASSERTION_FAILED + "getUserObject(KEY2) expected null: " + "; actual: " + obj2rr, obj2rr);
+        obj2r,
+        ASSERTION_FAILED + "removeUserObject(KEY2) returned: " + obj2p + "; actual: " + obj2r);
+    Assertions.assertNull(
+        obj2rr, ASSERTION_FAILED + "getUserObject(KEY2) expected null: " + "; actual: " + obj2rr);
   }
 
   private class UserObject {

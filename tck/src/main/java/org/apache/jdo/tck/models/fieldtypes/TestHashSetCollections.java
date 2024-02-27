@@ -27,7 +27,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.HashSetCollections;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Support of field type HashSet <br>
@@ -44,15 +44,6 @@ public class TestHashSetCollections extends JDO_Test {
       "Assertion A6.4.3-22 (TestHashSetCollections) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(TestHashSetCollections.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -62,6 +53,7 @@ public class TestHashSetCollections extends JDO_Test {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

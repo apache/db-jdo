@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.JDOQLTypedSubquery;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.CollectionExpression;
@@ -37,14 +38,19 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
- * <B>Title:</B> SampleQueries <br>
+ * <B>Title:</B> SampleReadQueries <br>
  * <B>Keywords:</B> query <br>
  * <B>Assertion IDs:</B> <br>
- * <B>Assertion Description: </B> This test class runs the example queries from the JDO
+ * <B>Assertion Description: </B> This test class runs the example read queries from the JDO
  * specification.
  *
  * <p>There are up to six test methods per test case: testQueryxxa: runtime constructed JDO query
@@ -56,23 +62,15 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * version of the JDO query testQueryxxe: named query version of the JDO query testQueryxxf:
  * JDOQLTypedQuery version
  */
-public class SampleQueries extends QueryTest {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class SampleReadQueries extends QueryTest {
 
   /** */
-  private static final String ASSERTION_FAILED = "Assertion (SampleQueries) failed: ";
+  private static final String ASSERTION_FAILED = "Assertion (SampleReadQueries) failed: ";
 
   /** */
   private static final String SAMPLE_QUERIES_TEST_COMPANY_TESTDATA =
       "org/apache/jdo/tck/pc/company/companyForSampleQueriesTest.xml";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SampleQueries.class);
-  }
 
   private static final String SINGLE_STRING_QUERY_01 =
       "select from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > 30000";
@@ -99,11 +97,11 @@ public class SampleQueries extends QueryTest {
       "select firstname from org.apache.jdo.tck.pc.company.Employee where department.name == :deptName";
 
   private static final String SINGLE_STRING_QUERY_08 =
-      "select firstname, salary, manager as reportsTo into org.apache.jdo.tck.query.api.SampleQueries$Info "
+      "select firstname, salary, manager as reportsTo into org.apache.jdo.tck.query.api.SampleReadQueries$Info "
           + "from org.apache.jdo.tck.pc.company.FullTimeEmployee where department.name == :deptName";
 
   private static final String SINGLE_STRING_QUERY_09 =
-      "select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager) "
+      "select new org.apache.jdo.tck.query.api.SampleReadQueries$Info (firstname, salary, manager) "
           + "from org.apache.jdo.tck.pc.company.FullTimeEmployee where department.name == :deptName";
 
   private static final String SINGLE_STRING_QUERY_10 =
@@ -127,11 +125,11 @@ public class SampleQueries extends QueryTest {
           + "where firstname == :empName";
 
   private static final String SINGLE_STRING_QUERY_15 =
-      "select into org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper "
+      "select into org.apache.jdo.tck.query.api.SampleReadQueries$EmpWrapper "
           + "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
 
   private static final String SINGLE_STRING_QUERY_16 =
-      "select into org.apache.jdo.tck.query.api.SampleQueries$EmpInfo "
+      "select into org.apache.jdo.tck.query.api.SampleReadQueries$EmpInfo "
           + "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
 
   private static final String SINGLE_STRING_QUERY_17 =
@@ -158,7 +156,13 @@ public class SampleQueries extends QueryTest {
    * the comparison, and the candidate instance is rejected.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery01a " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -172,9 +176,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -187,7 +189,13 @@ public class SampleQueries extends QueryTest {
    * the value for the salary field in a candidate instance isnull, then it cannot be unwrapped for
    * the comparison, and the candidate instance is rejected.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery01b " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -201,9 +209,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -217,7 +223,13 @@ public class SampleQueries extends QueryTest {
    * the comparison, and the candidate instance is rejected.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery01d " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -231,9 +243,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -246,7 +256,13 @@ public class SampleQueries extends QueryTest {
    * the value for the salary field in a candidate instance isnull, then it cannot be unwrapped for
    * the comparison, and the candidate instance is rejected.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery01f " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -262,9 +278,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -275,7 +289,13 @@ public class SampleQueries extends QueryTest {
    * greater than the constant 30000, and returns a Collection ordered based on employee salary.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery02a " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -290,9 +310,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -302,7 +320,13 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects all Employee instances from the candidate collection where the salary is
    * greater than the constant 30000, and returns a Collection ordered based on employee salary.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery02b " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -317,9 +341,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -330,7 +352,13 @@ public class SampleQueries extends QueryTest {
    * greater than the constant 30000, and returns a Collection ordered based on employee salary.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery02d " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -344,9 +372,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -356,7 +382,13 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects all Employee instances from the candidate collection where the salary is
    * greater than the constant 30000, and returns a Collection ordered based on employee salary.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery02f " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -372,9 +404,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -387,7 +417,13 @@ public class SampleQueries extends QueryTest {
    * cannot be unwrapped for the comparison, and the candidate instance is rejected.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03a " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -403,9 +439,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -417,7 +451,13 @@ public class SampleQueries extends QueryTest {
    * second parameter. If the value for the salary field in a candidate instance is null, then it
    * cannot be unwrapped for the comparison, and the candidate instance is rejected.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03b " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -437,9 +477,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -451,7 +489,13 @@ public class SampleQueries extends QueryTest {
    * second parameter. If the value for the salary field in a candidate instance is null, then it
    * cannot be unwrapped for the comparison, and the candidate instance is rejected.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03c " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -468,9 +512,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -483,7 +525,13 @@ public class SampleQueries extends QueryTest {
    * cannot be unwrapped for the comparison, and the candidate instance is rejected.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03d " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -497,9 +545,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -511,7 +557,13 @@ public class SampleQueries extends QueryTest {
    * second parameter. If the value for the salary field in a candidate instance is null, then it
    * cannot be unwrapped for the comparison, and the candidate instance is rejected.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("testQuery03f " + Thread.currentThread().getName());
+    }
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -533,9 +585,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -548,7 +598,10 @@ public class SampleQueries extends QueryTest {
    * then it cannot be navigated for the comparison, and the candidate instance is rejected.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -563,9 +616,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -577,7 +628,10 @@ public class SampleQueries extends QueryTest {
    * value passed as a parameter. If the value for the dept field in a candidate instance is null,
    * then it cannot be navigated for the comparison, and the candidate instance is rejected.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -595,9 +649,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -609,7 +661,10 @@ public class SampleQueries extends QueryTest {
    * value passed as a parameter. If the value for the dept field in a candidate instance is null,
    * then it cannot be navigated for the comparison, and the candidate instance is rejected.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -625,9 +680,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -640,7 +693,10 @@ public class SampleQueries extends QueryTest {
    * then it cannot be navigated for the comparison, and the candidate instance is rejected.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -657,9 +713,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -671,7 +725,10 @@ public class SampleQueries extends QueryTest {
    * value passed as a parameter. If the value for the dept field in a candidate instance is null,
    * then it cannot be navigated for the comparison, and the candidate instance is rejected.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -691,9 +748,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -705,7 +760,10 @@ public class SampleQueries extends QueryTest {
    * greater than the value passed as a parameter.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -722,9 +780,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -735,7 +791,10 @@ public class SampleQueries extends QueryTest {
    * collection of Employee instances contains at least one Employee instance having a salary
    * greater than the value passed as a parameter.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -755,9 +814,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -768,7 +825,10 @@ public class SampleQueries extends QueryTest {
    * collection of Employee instances contains at least one Employee instance having a salary
    * greater than the value passed as a parameter.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -786,9 +846,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -800,7 +858,10 @@ public class SampleQueries extends QueryTest {
    * greater than the value passed as a parameter.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -814,9 +875,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -828,7 +887,10 @@ public class SampleQueries extends QueryTest {
    * greater than the value passed as a parameter.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -849,9 +911,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -862,7 +922,10 @@ public class SampleQueries extends QueryTest {
    * collection, which in this example consists of three department names.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -878,9 +941,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -890,7 +951,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects all Department instances where the name field is contained in a parameter
    * collection, which in this example consists of three department names.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -908,9 +972,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -920,7 +982,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects all Department instances where the name field is contained in a parameter
    * collection, which in this example consists of three department names.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -936,9 +1001,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -949,7 +1012,10 @@ public class SampleQueries extends QueryTest {
    * collection, which in this example consists of three department names.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -966,9 +1032,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -978,7 +1042,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects all Department instances where the name field is contained in a parameter
    * collection, which in this example consists of three department names.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -999,9 +1066,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1011,7 +1076,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects names of all Employees who work in the parameter department.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1026,9 +1094,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1037,7 +1103,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query selects names of all Employees who work in the parameter department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1055,9 +1124,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1066,7 +1133,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query selects names of all Employees who work in the parameter department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1082,9 +1152,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1094,7 +1162,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects names of all Employees who work in the parameter department.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1110,9 +1181,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1121,7 +1190,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query selects names of all Employees who work in the parameter department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1140,9 +1212,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1153,11 +1223,14 @@ public class SampleQueries extends QueryTest {
    * department.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
-      List<SampleQueries.Info> expected = testQuery08Helper();
+      List<SampleReadQueries.Info> expected = testQuery08Helper();
       try (Query<FullTimeEmployee> q =
           pm.newQuery(FullTimeEmployee.class, "department.name == deptName")) {
         q.setResult("firstname, salary, manager as reportsTo");
@@ -1170,9 +1243,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1182,7 +1253,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects names, salaries, and bosses of Employees who work in the parameter
    * department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1202,9 +1276,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1214,7 +1286,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects names, salaries, and bosses of Employees who work in the parameter
    * department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1232,9 +1307,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1245,7 +1318,10 @@ public class SampleQueries extends QueryTest {
    * department.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1259,9 +1335,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1271,7 +1345,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects names, salaries, and bosses of Employees who work in the parameter
    * department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1291,9 +1368,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1304,7 +1379,10 @@ public class SampleQueries extends QueryTest {
    * department, and uses the constructor for the result class.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1315,7 +1393,7 @@ public class SampleQueries extends QueryTest {
       try (Query<FullTimeEmployee> q =
           pm.newQuery(FullTimeEmployee.class, "department.name == deptName")) {
         q.setResult(
-            "new org.apache.jdo.tck.query.api.SampleQueries$Info(firstname, salary, manager)");
+            "new org.apache.jdo.tck.query.api.SampleReadQueries$Info(firstname, salary, manager)");
         q.declareParameters("String deptName");
         List<Info> infos = (List<Info>) q.execute("R&D");
         checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_09, infos, expected);
@@ -1324,9 +1402,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1336,7 +1412,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects names, salaries, and bosses of Employees who work in the parameter
    * department, and uses the constructor for the result class.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1347,7 +1426,7 @@ public class SampleQueries extends QueryTest {
       try (Query<FullTimeEmployee> q =
           pm.newQuery(FullTimeEmployee.class, "department.name == deptName")) {
         q.setResult(
-            "new org.apache.jdo.tck.query.api.SampleQueries$Info(firstname, salary, manager)");
+            "new org.apache.jdo.tck.query.api.SampleReadQueries$Info(firstname, salary, manager)");
         q.declareParameters("String deptName");
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("deptName", "R&D");
@@ -1359,9 +1438,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1371,7 +1448,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects names, salaries, and bosses of Employees who work in the parameter
    * department, and uses the constructor for the result class.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1382,7 +1462,7 @@ public class SampleQueries extends QueryTest {
       try (Query<FullTimeEmployee> q =
           pm.newQuery(FullTimeEmployee.class, "department.name == deptName")) {
         q.setResult(
-            "new org.apache.jdo.tck.query.api.SampleQueries$Info(firstname, salary, manager)");
+            "new org.apache.jdo.tck.query.api.SampleReadQueries$Info(firstname, salary, manager)");
         q.declareParameters("String deptName");
         q.setParameters("R&D");
         List<Info> infos = q.executeResultList(Info.class);
@@ -1392,9 +1472,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1405,7 +1483,10 @@ public class SampleQueries extends QueryTest {
    * department, and uses the constructor for the result class.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1422,9 +1503,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1434,7 +1513,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects names, salaries, and bosses of Employees who work in the parameter
    * department, and uses the constructor for the result class.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09e() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1451,9 +1533,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1463,7 +1543,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects names, salaries, and bosses of Employees who work in the parameter
    * department, and uses the constructor for the result class.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1486,9 +1569,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1498,7 +1579,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query averages the salaries of Employees who work in the parameter department and
    * returns a single value.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1514,9 +1598,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1526,7 +1608,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query averages the salaries of Employees who work in the parameter department and
    * returns a single value.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1545,9 +1630,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1557,7 +1640,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query averages the salaries of Employees who work in the parameter department and
    * returns a single value.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1574,9 +1660,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1587,7 +1671,10 @@ public class SampleQueries extends QueryTest {
    * returns a single value.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1601,9 +1688,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1613,7 +1698,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query averages the salaries of Employees who work in the parameter department and
    * returns a single value.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1632,9 +1720,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1643,7 +1729,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query averages and sums the salaries of Employees who work in the parameter department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1659,9 +1748,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1670,7 +1757,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query averages and sums the salaries of Employees who work in the parameter department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1689,9 +1779,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1700,7 +1788,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query averages and sums the salaries of Employees who work in the parameter department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1717,9 +1808,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1729,7 +1818,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query averages and sums the salaries of Employees who work in the parameter department.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1743,9 +1835,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1754,7 +1844,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query averages and sums the salaries of Employees who work in the parameter department.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1774,9 +1867,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1787,7 +1878,10 @@ public class SampleQueries extends QueryTest {
    * more than one employee and aggregates by department name.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1808,9 +1902,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1820,7 +1912,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query averages and sums the salaries of Employees who work in all departments having
    * more than one employee and aggregates by department name.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1841,9 +1936,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1854,7 +1947,10 @@ public class SampleQueries extends QueryTest {
    * more than one employee and aggregates by department name.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1873,9 +1969,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1885,7 +1979,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query averages and sums the salaries of Employees who work in all departments having
    * more than one employee and aggregates by department name.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12e() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1904,9 +2001,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1916,7 +2011,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query averages and sums the salaries of Employees who work in all departments having
    * more than one employee and aggregates by department name.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1939,9 +2037,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1950,7 +2046,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns a single instance of Employee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1965,9 +2064,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -1976,7 +2073,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns a single instance of Employee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -1994,9 +2094,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2005,7 +2103,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns a single instance of Employee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2021,9 +2122,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2033,7 +2132,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query returns a single instance of Employee.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2047,9 +2149,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2058,7 +2158,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns a single instance of Employee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2077,9 +2180,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2088,7 +2189,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns a single field of a single Employee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2107,9 +2211,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2118,7 +2220,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns a single field of a single Employee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2139,9 +2244,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2150,7 +2253,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns a single field of a single Employee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2169,9 +2275,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2181,7 +2285,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query returns a single field of a single Employee.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2196,9 +2303,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2207,7 +2312,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns a single field of a single Employee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2227,9 +2335,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2241,7 +2347,10 @@ public class SampleQueries extends QueryTest {
    * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2256,9 +2365,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2269,7 +2376,10 @@ public class SampleQueries extends QueryTest {
    * the result in a user-defined class. Since the default is "distinct this as FullTimeEmployee",
    * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2287,9 +2397,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2300,7 +2408,10 @@ public class SampleQueries extends QueryTest {
    * the result in a user-defined class. Since the default is "distinct this as FullTimeEmployee",
    * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2316,9 +2427,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2330,7 +2439,10 @@ public class SampleQueries extends QueryTest {
    * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2344,9 +2456,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2357,7 +2467,10 @@ public class SampleQueries extends QueryTest {
    * the result in a user-defined class. Since the default is "distinct this as FullTimeEmployee",
    * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2376,9 +2489,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2389,7 +2500,10 @@ public class SampleQueries extends QueryTest {
    * stores the result in a user-defined class.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2404,9 +2518,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2416,7 +2528,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects instances of FullTimeEmployee who make more than the parameter salary and
    * stores the result in a user-defined class.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2434,9 +2549,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2446,7 +2559,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects instances of FullTimeEmployee who make more than the parameter salary and
    * stores the result in a user-defined class.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2462,9 +2578,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2475,7 +2589,10 @@ public class SampleQueries extends QueryTest {
    * stores the result in a user-defined class.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2489,9 +2606,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2501,7 +2616,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query selects instances of FullTimeEmployee who make more than the parameter salary and
    * stores the result in a user-defined class.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2520,9 +2638,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2532,7 +2648,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query returns the names of all Employees of all "Research" departments.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2548,9 +2667,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2559,7 +2676,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns the names of all Employees of all "Research" departments.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2575,9 +2695,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2587,7 +2705,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query returns the names of all Employees of all "Research" departments.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2600,9 +2721,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2611,7 +2730,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns the names of all Employees of all "Research" departments.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17e() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2624,9 +2746,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2636,7 +2756,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query returns the names of all Employees of all "Research" departments.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2653,9 +2776,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2665,7 +2786,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query returns names of employees who work more than the average of all employees.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2683,9 +2807,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2694,7 +2816,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns names of employees who work more than the average of all employees.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2712,9 +2837,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2724,7 +2847,10 @@ public class SampleQueries extends QueryTest {
    * <p>This query returns names of employees who work more than the average of all employees.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2737,9 +2863,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2748,7 +2872,10 @@ public class SampleQueries extends QueryTest {
    *
    * <p>This query returns names of employees who work more than the average of all employees.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2766,9 +2893,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2781,7 +2906,10 @@ public class SampleQueries extends QueryTest {
    * the subquery is the manager of the candidate employee.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2800,9 +2928,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2814,7 +2940,10 @@ public class SampleQueries extends QueryTest {
    * collection of employees in the department of the candidate employee and the parameter passed to
    * the subquery is the manager of the candidate employee.
    */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2833,9 +2962,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2848,7 +2975,10 @@ public class SampleQueries extends QueryTest {
    * the subquery is the manager of the candidate employee.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2861,9 +2991,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -2876,7 +3004,10 @@ public class SampleQueries extends QueryTest {
    * the subquery is the manager of the candidate employee.
    */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
@@ -2896,46 +3027,7 @@ public class SampleQueries extends QueryTest {
       }
       tx.commit();
     } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
-    }
-  }
-
-  /**
-   * Deleting Multiple Instances.
-   *
-   * <p>This query deletes all Employees who make more than the parameter salary.
-   */
-  public void testQuery20() {
-    Transaction tx = pm.currentTransaction();
-    try {
-      tx.begin();
-      Query<FullTimeEmployee> empQuery = pm.newQuery(FullTimeEmployee.class, "personid == 5");
-      empQuery.setUnique(true);
-      FullTimeEmployee emp5 = empQuery.executeUnique();
-      Object emp5Oid = pm.getObjectId(emp5);
-      Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > sal");
-      q.declareParameters("Double sal");
-      q.deletePersistentAll(30000.);
-      tx.commit();
-
-      tx.begin();
-      Query<FullTimeEmployee> allQuery = pm.newQuery(FullTimeEmployee.class);
-      List<FullTimeEmployee> allFTE = allQuery.executeList();
-      if (!allFTE.isEmpty()) {
-        fail(
-            ASSERTION_FAILED,
-            "All FullTimeEmployee instances should have been deleted,"
-                + " there are still "
-                + allFTE.size()
-                + " instances left.");
-      }
-      tx.commit();
-    } finally {
-      if (tx.isActive()) {
-        tx.rollback();
-      }
+      cleanupPM(pm);
     }
   }
 
@@ -3106,6 +3198,17 @@ public class SampleQueries extends QueryTest {
     }
   }
 
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
+  }
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */

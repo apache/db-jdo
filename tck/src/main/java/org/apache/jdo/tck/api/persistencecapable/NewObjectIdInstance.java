@@ -33,7 +33,7 @@ import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldPrimitivelong
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldPrimitiveshort;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldShort;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldString;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>NewObjectIdInstance of PersistenceCapable <br>
@@ -63,123 +63,133 @@ public class NewObjectIdInstance extends AbstractPersistenceCapableTest {
   /** */
   private static final String ASSERTION_A7_12_39_FAILED = "Assertion A7.12-39" + FAILED;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NewObjectIdInstance.class);
-  }
-
+  @Test
   public void testSingleFieldIdentityNotInitializedByte() {
     if (isTestToBePerformed()) {
       singleFieldIdentityNotInitialized(new PCPointSingleFieldByte());
     }
   }
 
+  @Test
   public void testSingleFieldIdentityNotInitializedCharacter() {
     if (isTestToBePerformed()) {
       singleFieldIdentityNotInitialized(new PCPointSingleFieldCharacter());
     }
   }
 
+  @Test
   public void testSingleFieldIdentityNotInitializedInteger() {
     if (isTestToBePerformed()) {
       singleFieldIdentityNotInitialized(new PCPointSingleFieldInteger());
     }
   }
 
+  @Test
   public void testSingleFieldIdentityNotInitializedLong() {
     if (isTestToBePerformed()) {
       singleFieldIdentityNotInitialized(new PCPointSingleFieldLong());
     }
   }
 
+  @Test
   public void testSingleFieldIdentityNotInitializedShort() {
     if (isTestToBePerformed()) {
       singleFieldIdentityNotInitialized(new PCPointSingleFieldShort());
     }
   }
 
+  @Test
   public void testSingleFieldIdentityNotInitializedString() {
     if (isTestToBePerformed()) {
       singleFieldIdentityNotInitialized(new PCPointSingleFieldString());
     }
   }
 
+  @Test
   public void testSingleFieldIdentityNotInitializedDate() {
     if (isTestToBePerformed()) {
       singleFieldIdentityNotInitialized(new PCPointSingleFieldDate());
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedbyte() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldPrimitivebyte(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedByte() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldByte(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedchar() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldPrimitivechar(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedCharacter() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldCharacter(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedint() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldPrimitiveint(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedInteger() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldInteger(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedlong() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldPrimitivelong(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedLong() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldLong(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedshort() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldPrimitiveshort(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedShort() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldShort(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedString() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldString(1, 2));
     }
   }
 
+  @Test
   public void testSingleFieldIdentityInitializedDate() {
     if (isTestToBePerformed()) {
       singleFieldIdentityInitialized(new PCPointSingleFieldDate(1, 2));

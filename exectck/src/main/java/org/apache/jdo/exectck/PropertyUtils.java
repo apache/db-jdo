@@ -18,7 +18,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Properties;
 
 /** Helper class that sets properties required for running the JDO TCK. */
@@ -34,24 +33,11 @@ public class PropertyUtils {
    * <p>Used to collect command line arguments.
    *
    * @param names String of white space separated items
-   * @param set Set to contain String items
+   * @param col collection to contain String items
    */
-  public static void string2Set(String names, Collection<String> set) {
-    String[] items = names.split("[ \t\n]");
-    set.addAll(Arrays.asList(items));
-  }
-
-  /**
-   * Separates white space separated items from a String into a List.
-   *
-   * <p>Used to collect command line arguments.
-   *
-   * @param names String of white space separated items
-   * @param list List to contain String items
-   */
-  public static void string2List(String names, List<String> list) {
-    String[] items = names.split("[ \t\n]");
-    list.addAll(Arrays.asList(items));
+  public static void string2Collection(String names, Collection<String> col) {
+    String[] items = names.split(Utilities.DELIMITER_REGEX);
+    col.addAll(Arrays.asList(items));
   }
 
   /**
@@ -68,6 +54,11 @@ public class PropertyUtils {
     for (String cfg : cfglist) {
       String mapping = "";
       String confName = confDir + File.separator + cfg;
+      if (!new File(confName).exists()) {
+        // Conf file nor found => continue
+        System.out.println("ERROR: Configuration file " + confName + " not found.");
+        continue;
+      }
 
       Properties props = new Properties();
       try (FileInputStream fis = new FileInputStream(confName)) {

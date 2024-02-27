@@ -24,7 +24,7 @@ import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Query Extentions. <br>
@@ -45,17 +45,9 @@ public class QueryExtentions extends QueryTest {
     getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3", "emp4", "emp5")
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(QueryExtentions.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive() {
     int index = 0;
     Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
@@ -64,7 +56,7 @@ public class QueryExtentions extends QueryTest {
     query.setExtensions(extentions);
     query.addExtension("unknown key 2", "unknown value 2");
     executeJDOQuery(
-        ASSERTION_FAILED, query, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
+        ASSERTION_FAILED, pm, query, SINGLE_STRING_QUERY, false, null, expectedResult[index], true);
   }
 
   /**

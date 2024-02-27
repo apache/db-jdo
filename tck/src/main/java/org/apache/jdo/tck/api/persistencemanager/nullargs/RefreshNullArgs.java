@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> refresh with Null Arguments <br>
@@ -32,15 +32,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * elements, and the null elements will be ignored.]
  */
 public class RefreshNullArgs extends PersistenceManagerNullsTest {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RefreshNullArgs.class);
-  }
 
   static final MethodUnderTest refresh = new MethodUnderTestRefresh();
 
@@ -62,16 +53,19 @@ public class RefreshNullArgs extends PersistenceManagerNullsTest {
   }
 
   /** Test that refresh() with null valued argument does nothing. */
+  @Test
   public void testRefreshNullObject() {
     executeNullObjectParameter(refresh, "refresh(null)");
   }
 
   /** Test that refreshAll() with null valued Collection argument throws NullPointerException. */
+  @Test
   public void testRefreshNullCollection() {
     executeNullCollectionParameter(refresh, "refreshAll((Collection)null)");
   }
 
   /** Test that refreshAll() with null valued array argument throws NullPointerException. */
+  @Test
   public void testRefreshNullArray() {
     executeNullArrayParameter(refresh, "refreshAll((Object[])null)");
   }
@@ -80,11 +74,13 @@ public class RefreshNullArgs extends PersistenceManagerNullsTest {
    * Test that refreshAll() with a null element of a Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testRefreshCollectionNullElement() {
     executeCollectionNullElement(collNullElem, refresh, "refreshAll(Collection)");
   }
 
   /** Test that refreshAll() with a null element of a array argument throws NullPointerException. */
+  @Test
   public void testRefreshArrayNullElement() {
     executeArrayNullElement(arrayNullElem, refresh, "refreshAll(Object[])");
   }

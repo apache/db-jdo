@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.query.NoExtent;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Variables without Extent. <br>
@@ -41,16 +41,8 @@ public class VariablesWithoutExtent extends QueryTest {
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.5-2 (VariablesWithoutExtent) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(VariablesWithoutExtent.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
     if (isUnconstrainedVariablesSupported()) {
 
@@ -74,8 +66,8 @@ public class VariablesWithoutExtent extends QueryTest {
               /*JDOQLTyped*/ null,
               /*paramValues*/ null);
 
-      executeAPIQuery(ASSERTION_FAILED, holder, expected);
-      executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
     }
   }
 

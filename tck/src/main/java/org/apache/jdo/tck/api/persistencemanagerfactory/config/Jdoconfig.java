@@ -24,7 +24,8 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Close of PersistenceManagerFactory <br>
@@ -47,15 +48,6 @@ public class Jdoconfig extends JDO_Test {
   private final Map<String, String> overrides = new HashMap<>();
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Jdoconfig.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -71,12 +63,14 @@ public class Jdoconfig extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGetPMFNoArgs() {
     privatePmf = JDOHelper.getPersistenceManagerFactory();
     checkIsOpen(ANONYMOUS_PMF_NAME);
   }
 
   /** */
+  @Test
   public void testGetPMFEmptyString() {
     String name = "";
     privatePmf = JDOHelper.getPersistenceManagerFactory(name);
@@ -84,6 +78,7 @@ public class Jdoconfig extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGetPMFNull() {
     String name = null;
     privatePmf = JDOHelper.getPersistenceManagerFactory(name);
@@ -91,6 +86,7 @@ public class Jdoconfig extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGetPMFStringSpace() {
     String name = " ";
     privatePmf = JDOHelper.getPersistenceManagerFactory(name);
@@ -98,14 +94,17 @@ public class Jdoconfig extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGetPMFNamed() {
     String name = "namedPMF0";
     privatePmf = JDOHelper.getPersistenceManagerFactory(name);
-    assertEquals("Incorrect value for RestoreValues", privatePmf.getRestoreValues(), false);
+    Assertions.assertEquals(
+        privatePmf.getRestoreValues(), false, "Incorrect value for RestoreValues");
     checkIsOpen(name);
   }
 
   /** */
+  @Test
   public void testGetPMFEmptyStringOverrides() {
     String name = "";
     privatePmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
@@ -113,6 +112,7 @@ public class Jdoconfig extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGetPMFNullOverrides() {
     String name = null;
     privatePmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
@@ -120,6 +120,7 @@ public class Jdoconfig extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGetPMFStringSpaceOverrides() {
     String name = " ";
     privatePmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
@@ -127,18 +128,22 @@ public class Jdoconfig extends JDO_Test {
   }
 
   /** */
+  @Test
   public void testGetPMFNamedOverrides() {
     String name = "namedPMF0";
     privatePmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
-    assertEquals("Incorrect value for RestoreValues", privatePmf.getRestoreValues(), false);
+    Assertions.assertEquals(
+        privatePmf.getRestoreValues(), false, "Incorrect value for RestoreValues");
     checkPersistent(name);
   }
 
   /** */
+  @Test
   public void testGetPMFNamedSpacesOverrides() {
     String name = "namedPMF1";
     privatePmf = JDOHelper.getPersistenceManagerFactory(overrides, " \t" + name + " \n");
-    assertEquals("Incorrect value for RestoreValues", privatePmf.getRestoreValues(), true);
+    Assertions.assertEquals(
+        privatePmf.getRestoreValues(), true, "Incorrect value for RestoreValues");
     checkPersistent(name);
   }
 
@@ -146,7 +151,7 @@ public class Jdoconfig extends JDO_Test {
    * @param name the name
    */
   public void checkIsOpen(String name) {
-    assertEquals("Incorrect PMF name", name, privatePmf.getName());
+    Assertions.assertEquals(name, privatePmf.getName(), "Incorrect PMF name");
     if (privatePmf.isClosed()) {
       fail(ASSERTION_FAILED, "PMF.isClosed() returned true on an open pmf");
     }
@@ -162,7 +167,7 @@ public class Jdoconfig extends JDO_Test {
    * @param name the name
    */
   public void checkPersistent(String name) {
-    assertEquals("Incorrect PMF name", name, privatePmf.getName());
+    Assertions.assertEquals(name, privatePmf.getName(), "Incorrect PMF name");
 
     makePersistent();
 

@@ -24,7 +24,7 @@ import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Comparing a Collection Field to Null <br>
@@ -44,18 +44,10 @@ public class ComparingCollectionFieldToNull extends QueryTest {
   /** The expected results of valid queries. */
   private List<Employee> expectedResult;
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ComparingCollectionFieldToNull.class);
-  }
-
   /** */
+  @Test
   public void testPositive() {
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+    JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
     QEmployee cand = QEmployee.candidate();
     query.filter(cand.personid.eq(1L).and(cand.projects.eq(null)));
 
@@ -77,9 +69,9 @@ public class ComparingCollectionFieldToNull extends QueryTest {
             /*JDOQLTyped*/ query,
             /*paramValues*/ null);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
+    executeAPIQuery(ASSERTION_FAILED, pm, holder, expectedResult);
+    executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expectedResult);
+    executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expectedResult);
   }
 
   /**

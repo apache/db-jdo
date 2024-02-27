@@ -21,7 +21,7 @@ import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Get ObjectId For Null Or Not Persistent <br>
@@ -37,16 +37,8 @@ public class GetObjectByIdNotResolved extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.6-1 (GetObjectByIdNotResolved) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetObjectByIdNotResolved.class);
-  }
-
   /* passing null paramameter to getObjectId */
+  @Test
   public void testGetObjectByIdNotResolved() {
     pm = getPM();
     if (debug) logger.debug(" *** testObjectByIdNotResolved *** ");

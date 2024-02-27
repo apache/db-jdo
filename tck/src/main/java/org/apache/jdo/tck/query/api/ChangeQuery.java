@@ -26,7 +26,7 @@ import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Change Query. <br>
@@ -40,17 +40,9 @@ public class ChangeQuery extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.5-15 (ChangeQuery) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ChangeQuery.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive() {
     @SuppressWarnings("rawtypes")
     Query query = getPM().newNamedQuery(Person.class, "changeQuery");
@@ -89,7 +81,7 @@ public class ChangeQuery extends QueryTest {
 
     // execute query
     executeJDOQuery(
-        ASSERTION_FAILED, query, singleStringQuery, true, parameters, expectedResult, true);
+        ASSERTION_FAILED, pm, query, singleStringQuery, true, parameters, expectedResult, true);
   }
 
   /**

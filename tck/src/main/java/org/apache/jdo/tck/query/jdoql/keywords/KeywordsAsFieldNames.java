@@ -17,10 +17,16 @@
 
 package org.apache.jdo.tck.query.jdoql.keywords;
 
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.query.JDOQLKeywordsAsFieldNames;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Keywords as field names. <br>
@@ -29,6 +35,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion Description: </B> Keywords are permitted as field names only if they are on the
  * right side of the "." in field access expressions.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class KeywordsAsFieldNames extends QueryTest {
 
   /** */
@@ -75,27 +82,44 @@ public class KeywordsAsFieldNames extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(KeywordsAsFieldNames.class);
-  }
-
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive() {
-    for (QueryElementHolder<?> validQuery : VALID_QUERIES) {
-      compileAPIQuery(ASSERTION_FAILED, validQuery, true);
-      compileSingleStringQuery(ASSERTION_FAILED, validQuery, true);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (QueryElementHolder<?> validQuery : VALID_QUERIES) {
+        compileAPIQuery(ASSERTION_FAILED, pm, validQuery, true);
+        compileSingleStringQuery(ASSERTION_FAILED, pm, validQuery, true);
+      }
+    } finally {
+      cleanupPM(pm);
     }
   }
 
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
-    for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
-      compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
-      compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+        compileAPIQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 }

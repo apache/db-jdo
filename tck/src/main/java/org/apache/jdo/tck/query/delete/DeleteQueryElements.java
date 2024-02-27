@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.Insurance;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Delete Query Elements. <br>
@@ -174,16 +174,8 @@ public class DeleteQueryElements extends QueryTest {
   /** Parameters of valid queries. */
   private final Object[][] parameters = {{new BigDecimal("2500000")}};
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DeleteQueryElements.class);
-  }
-
   /** */
+  @Test
   public void testAPI() {
     Map<String, Object> paramValues = new HashMap<>();
     paramValues.put("limit", new BigDecimal("2500000"));
@@ -208,10 +200,11 @@ public class DeleteQueryElements extends QueryTest {
             /*JDOQLTyped*/ null,
             /*paramValues*/ paramValues);
 
-    deletePersistentAllByAPIQuery(ASSERTION_FAILED, holder, 1);
+    deletePersistentAllByAPIQuery(ASSERTION_FAILED, pm, holder, 1);
   }
 
   /** */
+  @Test
   public void testSingleString() {
     Map<String, Object> paramValues = new HashMap<>();
     paramValues.put("limit", new BigDecimal("2500000"));
@@ -236,14 +229,15 @@ public class DeleteQueryElements extends QueryTest {
             /*JDOQLTyped*/ null,
             /*paramValues*/ paramValues);
 
-    deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, holder, 1);
+    deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, pm, holder, 1);
   }
 
   /** */
+  @Test
   public void testNegative() {
     for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
-      deletePersistentAllByAPIQuery(ASSERTION_FAILED, invalidQuery, -1);
-      deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, invalidQuery, -1);
+      deletePersistentAllByAPIQuery(ASSERTION_FAILED, pm, invalidQuery, -1);
+      deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, pm, invalidQuery, -1);
     }
   }
 

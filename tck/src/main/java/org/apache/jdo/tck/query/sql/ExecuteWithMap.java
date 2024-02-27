@@ -19,13 +19,19 @@ package org.apache.jdo.tck.query.sql;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> ExecuteWithMap <br>
@@ -36,19 +42,11 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * intValue is 1 is bound to the first ? in the SQL statement, and so forth.
  */
 @SuppressWarnings("unchecked")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ExecuteWithMap extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.7-5 (ExecuteWithMap)";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ExecuteWithMap.class);
-  }
 
   /** The array of valid SQL queries. */
   private static final String[] VALID_SQL_QUERIES = {
@@ -60,6 +58,11 @@ public class ExecuteWithMap extends QueryTest {
     "SELECT * FROM {0}.persons WHERE FIRSTNAME = ? AND LASTNAME = ?"
         + " AND MIDDLENAME = ? AND CITY = ?"
   };
+
+  private static final String INVALID_SQL_QUERY =
+      "SELECT * FROM {0}.persons WHERE FIRSTNAME = ? "
+          + "AND LASTNAME = ? AND MIDDLENAME = ? AND CITY = ? "
+          + "AND FUNDINGDEPT = ?";
 
   /** The expected results of valid SQL queries. */
   private final Object[] expectedResult = {
@@ -119,76 +122,175 @@ public class ExecuteWithMap extends QueryTest {
   private static final Map<Object, Object>[] parameterMap = new Map[] {hm1, hm2, hm3, hm4};
 
   /** */
-  public void testSetClass() {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass0() {
     if (isSQLSupported()) {
-      int index = 0;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          PrimitiveTypes.class,
-          null,
-          true,
-          parameterMap[index],
-          expectedResult[index],
-          false);
+      final int index = 0;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            PrimitiveTypes.class,
+            null,
+            true,
+            parameterMap[index],
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
 
-      index = 1;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          Person.class,
-          null,
-          true,
-          parameterMap[index],
-          expectedResult[index],
-          false);
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass1() {
+    if (isSQLSupported()) {
+      final int index = 1;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            Person.class,
+            null,
+            true,
+            parameterMap[index],
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
 
-      index = 2;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          Person.class,
-          null,
-          true,
-          parameterMap[index],
-          expectedResult[index],
-          false);
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass2() {
+    if (isSQLSupported()) {
+      final int index = 2;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            Person.class,
+            null,
+            true,
+            parameterMap[index],
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
 
-      index = 3;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          Person.class,
-          null,
-          true,
-          parameterMap[index],
-          expectedResult[index],
-          false);
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testSetClass3() {
+    if (isSQLSupported()) {
+      final int index = 3;
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            Person.class,
+            null,
+            true,
+            parameterMap[index],
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
-  public void testNegative() {
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testNegative0() {
     if (isSQLSupported()) {
-      String query =
-          "SELECT * FROM {0}.persons WHERE FIRSTNAME = ? "
-              + "AND LASTNAME = ? AND MIDDLENAME = ? AND CITY = ? "
-              + "AND FUNDINGDEPT = ?";
-      String singleStringQuery = query;
-      executeSQLQuery(
-          ASSERTION_FAILED, query, Person.class, null, false, illegalMapMissingKeyTwo, null, false);
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          query,
-          Person.class,
-          null,
-          false,
-          illegalMapStartsWithZero,
-          null,
-          false);
-      executeSQLQuery(
-          ASSERTION_FAILED, query, Person.class, null, false, illegalMapStringKeys, null, false);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            INVALID_SQL_QUERY,
+            Person.class,
+            null,
+            false,
+            illegalMapMissingKeyTwo,
+            null,
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
     }
+  }
+
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testNegative1() {
+    if (isSQLSupported()) {
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            INVALID_SQL_QUERY,
+            Person.class,
+            null,
+            false,
+            illegalMapStartsWithZero,
+            null,
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
+
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testNegative2() {
+    if (isSQLSupported()) {
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            INVALID_SQL_QUERY,
+            Person.class,
+            null,
+            false,
+            illegalMapStringKeys,
+            null,
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
+    }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

@@ -23,7 +23,12 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Conditional AND Query Operator <br>
@@ -37,71 +42,131 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *   <LI><code>Boolean, boolean</code>
  * </UL>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ConditionalAND extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.2-21 (ConditionalAND) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ConditionalAND.class);
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive1() {
+    if (debug) logger.debug("\nExecuting test ConditionalAND() ...");
+
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> instance9 = pm.newQuery(PrimitiveTypes.class, "id == 9").executeList();
+
+      // case boolean && boolean
+      runSimplePrimitiveTypesQuery(
+          "intNotNull == 9 && booleanNotNull", pm, instance9, ASSERTION_FAILED);
+      // case boolean && Boolean
+      runSimplePrimitiveTypesQuery(
+          "intNotNull == 9 && booleanNull", pm, instance9, ASSERTION_FAILED);
+      // case Boolean && boolean
+      runSimplePrimitiveTypesQuery(
+          "booleanNull && intNotNull == 9", pm, instance9, ASSERTION_FAILED);
+      // case Boolean parameter
+      runParameterPrimitiveTypesQuery(
+          "param && id == 9", "Boolean param", Boolean.TRUE, pm, instance9, ASSERTION_FAILED);
+      // case boolean parameter
+      runParameterPrimitiveTypesQuery(
+          "param && id == 9", "boolean param", Boolean.TRUE, pm, instance9, ASSERTION_FAILED);
+
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
-  public void testPositive() {
-    PersistenceManager pm = getPM();
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive2() {
     if (debug) logger.debug("\nExecuting test ConditionalAND() ...");
 
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
-    tx.begin();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> allOddInstances =
+          pm.newQuery(PrimitiveTypes.class, "booleanNull").executeList();
 
-    List<PrimitiveTypes> instance9 = pm.newQuery(PrimitiveTypes.class, "id == 9").executeList();
-    List<PrimitiveTypes> allOddInstances =
-        pm.newQuery(PrimitiveTypes.class, "booleanNull").executeList();
-    List<PrimitiveTypes> allInstances = pm.newQuery(PrimitiveTypes.class, "true").executeList();
-    List<PrimitiveTypes> empty = Collections.emptyList();
+      // case Boolean && Boolean
+      runSimplePrimitiveTypesQuery(
+          "booleanNull && booleanNull", pm, allOddInstances, ASSERTION_FAILED);
 
-    // case true && true
-    runSimplePrimitiveTypesQuery("true && true", pm, allInstances, ASSERTION_FAILED);
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
 
-    // case true && false
-    runSimplePrimitiveTypesQuery("true && false", pm, empty, ASSERTION_FAILED);
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive3() {
+    if (debug) logger.debug("\nExecuting test ConditionalAND() ...");
 
-    // case false && true
-    runSimplePrimitiveTypesQuery("false && true", pm, empty, ASSERTION_FAILED);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> allInstances = pm.newQuery(PrimitiveTypes.class, "true").executeList();
 
-    // case false && false
-    runSimplePrimitiveTypesQuery("false && false", pm, empty, ASSERTION_FAILED);
+      // case true && true
+      runSimplePrimitiveTypesQuery("true && true", pm, allInstances, ASSERTION_FAILED);
 
-    // case boolean && boolean
-    runSimplePrimitiveTypesQuery(
-        "intNotNull == 9 && booleanNotNull", pm, instance9, ASSERTION_FAILED);
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
 
-    // case boolean && Boolean
-    runSimplePrimitiveTypesQuery("intNotNull == 9 && booleanNull", pm, instance9, ASSERTION_FAILED);
-    // case Boolean && boolean
-    runSimplePrimitiveTypesQuery("booleanNull && intNotNull == 9", pm, instance9, ASSERTION_FAILED);
-    // case Boolean && Boolean
-    runSimplePrimitiveTypesQuery(
-        "booleanNull && booleanNull", pm, allOddInstances, ASSERTION_FAILED);
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive4() {
+    if (debug) logger.debug("\nExecuting test ConditionalAND() ...");
 
-    // case Boolean parameter
-    runParameterPrimitiveTypesQuery(
-        "param && id == 9", "Boolean param", Boolean.TRUE, pm, instance9, ASSERTION_FAILED);
-    runParameterPrimitiveTypesQuery(
-        "param && id == 9", "Boolean param", Boolean.FALSE, pm, empty, ASSERTION_FAILED);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> empty = Collections.emptyList();
 
-    // case boolean parameter
-    runParameterPrimitiveTypesQuery(
-        "param && id == 9", "boolean param", Boolean.TRUE, pm, instance9, ASSERTION_FAILED);
-    runParameterPrimitiveTypesQuery(
-        "param && id == 9", "boolean param", Boolean.FALSE, pm, empty, ASSERTION_FAILED);
+      // case true && false
+      runSimplePrimitiveTypesQuery("true && false", pm, empty, ASSERTION_FAILED);
+      // case false && true
+      runSimplePrimitiveTypesQuery("false && true", pm, empty, ASSERTION_FAILED);
+      // case false && false
+      runSimplePrimitiveTypesQuery("false && false", pm, empty, ASSERTION_FAILED);
+      // case Boolean parameter
+      runParameterPrimitiveTypesQuery(
+          "param && id == 9", "Boolean param", Boolean.FALSE, pm, empty, ASSERTION_FAILED);
+      // case boolean parameter
+      runParameterPrimitiveTypesQuery(
+          "param && id == 9", "boolean param", Boolean.FALSE, pm, empty, ASSERTION_FAILED);
 
-    tx.commit();
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

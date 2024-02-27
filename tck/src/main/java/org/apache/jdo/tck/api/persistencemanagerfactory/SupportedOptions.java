@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 import java.util.Collection;
 import javax.jdo.PersistenceManagerFactory;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>SupportedOptions of persistencemanagerfactory <br>
@@ -44,16 +44,8 @@ public class SupportedOptions extends JDO_Test {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A11.5-1 (SupportedOptions) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SupportedOptions.class);
-  }
-
   /** */
+  @Test
   public void test() {
     PersistenceManagerFactory pmf = getPMF();
     if (debug) logger.debug("Options supported by this implementation:");

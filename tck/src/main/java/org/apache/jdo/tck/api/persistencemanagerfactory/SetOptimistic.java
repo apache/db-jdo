@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Set optimistic of persistencemanagerfactory <br>
@@ -34,15 +34,6 @@ public class SetOptimistic extends JDO_Test {
   private static final String ASSERTION_FAILED =
       "Assertion A11.1-1, A11.1-2 (SetOptimistic) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetOptimistic.class);
-  }
-
   /** */
   @Override
   protected void localSetUp() {
@@ -51,6 +42,7 @@ public class SetOptimistic extends JDO_Test {
   }
 
   /** Set Optimistic to true or false and use getOptimistic value to verify. */
+  @Test
   public void test() {
     if (!isOptimisticSupported()) {
       printUnsupportedOptionalFeatureNotTested(

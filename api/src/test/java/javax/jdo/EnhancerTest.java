@@ -17,10 +17,6 @@
 
 package javax.jdo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.jdo.util.AbstractTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -55,9 +52,9 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer(option);
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("javax.jdo.Enhancer"),
         "Expected Usage message from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -66,9 +63,10 @@ class EnhancerTest extends AbstractTest {
   void testInvalidOption() {
     // invoke enhancer with an invalid option
     InvocationResult result = invokeEnhancer("-poo");
-    assertEquals(Constants.ENHANCER_USAGE_ERROR, result.getExitValue(), "Wrong return value ");
+    Assertions.assertEquals(
+        Constants.ENHANCER_USAGE_ERROR, result.getExitValue(), "Wrong return value ");
     String errorString = result.getErrorString();
-    assertTrue(
+    Assertions.assertTrue(
         errorString.contains("javax.jdo.Enhancer"),
         "Expected Usage message from err:\n" + errorString);
   }
@@ -79,33 +77,33 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains(Constants.PROPERTY_ENHANCER_VENDOR_NAME),
         "Expected MockEnhancer vendor message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains(Constants.PROPERTY_ENHANCER_VERSION_NUMBER),
         "Expected MockEnhancer version message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("Mock Enhancer"),
         "Expected MockEnhancer vendor message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("2.3.0"),
         "Expected MockEnhancer vendor message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("MockKey"),
         "Expected MockEnhancer properties message from out:\n"
             + outputString
@@ -120,9 +118,9 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer(option);
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("javax.jdo.MockEnhancer"),
         "Expected Enhancer class message from out:\n"
             + outputString
@@ -136,12 +134,12 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v some.class");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some.class"),
         "Expected class message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("1"),
         "Expected number of classes from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -152,12 +150,12 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v some.jar");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some.jar"),
         "Expected jar message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("1"),
         "Expected number of jars from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -168,12 +166,12 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v some.jdo");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some.jdo"),
         "Expected jdo message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("1"),
         "Expected number of jdos from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -184,18 +182,18 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v some.class some.jar some.jdo");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some.jdo"),
         "Expected jdo message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some.jar"),
         "Expected jar message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some.class"),
         "Expected class message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("3"),
         "Expected number of elements from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -206,18 +204,18 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v -checkonly some.class some.jar some.jdo");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some.jdo"),
         "Expected jdo message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some.jar"),
         "Expected jar message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some.class"),
         "Expected class message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("3"),
         "Expected number of elements from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -226,7 +224,7 @@ class EnhancerTest extends AbstractTest {
   void testMissingPU() {
     // invoke enhancer with missing parameter
     InvocationResult result = invokeEnhancer("-v -pu");
-    assertEquals(3, result.getExitValue(), "Wrong return value ");
+    Assertions.assertEquals(3, result.getExitValue(), "Wrong return value ");
   }
 
   @Test
@@ -235,15 +233,15 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v -pu myPU -pu yourPU");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("myPU"),
         "Expected pu message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("yourPU"),
         "Expected pu message from out:\n" + outputString + " with err:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("2"),
         "Expected number of elements from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -256,9 +254,9 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v -cp " + BASEDIR + "/target/classes");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("target/classes"),
         "Expected classpath message from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -270,9 +268,9 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v -cp target");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         1, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         errorString.contains("JDOHelper"),
         "Expected classpath error message from out:\n"
             + outputString
@@ -294,14 +292,14 @@ class EnhancerTest extends AbstractTest {
         Runtime.getRuntime()
             .exec("jar -cf " + enhancerJarPathname + " -C " + BASEDIR + "/target/classes .");
     int returnCode = create.waitFor();
-    assertEquals(0, returnCode, "jar command returned wrong return code.");
+    Assertions.assertEquals(0, returnCode, "jar command returned wrong return code.");
     // find the jdo.jar in target
     InvocationResult result = invokeEnhancer("-v -cp " + enhancerJar);
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains(enhancerJar),
         "Expected classpath message from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -312,9 +310,9 @@ class EnhancerTest extends AbstractTest {
     InvocationResult result = invokeEnhancer("-v -d some/output/directory");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("some/output/directory"),
         "Expected directory message from out:\n" + outputString + " with err:\n" + errorString);
   }
@@ -323,7 +321,7 @@ class EnhancerTest extends AbstractTest {
   void testMissingOutputDirectory() {
     // invoke enhancer with missing parameter
     InvocationResult result = invokeEnhancer("-v -d");
-    assertEquals(3, result.getExitValue(), "Wrong return value ");
+    Assertions.assertEquals(3, result.getExitValue(), "Wrong return value ");
   }
 
   @Test
@@ -333,39 +331,39 @@ class EnhancerTest extends AbstractTest {
         invokeEnhancer("-v " + BASEDIR + "/target/test-classes/enhancer-test-dir");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("enhancer-test-dir"),
         "Expected directory enhancer-test-dir in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("file1.jdo"),
         "Expected file file1.jdo in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("file2.class"),
         "Expected file file2.class in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("file3.jar"),
         "Expected file file3.jar in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertFalse(
+    Assertions.assertFalse(
         outputString.contains("enhancer-test-subdir"),
         "Expected no directory enhancer-test-subdir in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("3"),
         "Expected 3 files to be enhanced in message from out:\n"
             + outputString
@@ -380,57 +378,57 @@ class EnhancerTest extends AbstractTest {
         invokeEnhancer("-v -r " + BASEDIR + "/target/test-classes/enhancer-test-dir");
     String outputString = result.getOutputString();
     String errorString = result.getErrorString();
-    assertEquals(
+    Assertions.assertEquals(
         0, result.getExitValue(), "Wrong exit code from Enhancer with stderr:\n" + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("enhancer-test-dir"),
         "Expected directory enhancer-test-dir in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("enhancer-test-subdir"),
         "Expected directory enhancer-test-subdir in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("file1.jdo"),
         "Expected file file1.jdo in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("file2.class"),
         "Expected file file2.class in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("file3.jar"),
         "Expected file file3.jar in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("file4.jdo"),
         "Expected file file4.jdo in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("file5.class"),
         "Expected file file5.class in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("file6.jar"),
         "Expected file file6.jar in message from out:\n"
             + outputString
             + " with err:\n"
             + errorString);
-    assertTrue(
+    Assertions.assertTrue(
         outputString.contains("6"),
         "Expected 6 files to be enhanced in message from out:\n"
             + outputString

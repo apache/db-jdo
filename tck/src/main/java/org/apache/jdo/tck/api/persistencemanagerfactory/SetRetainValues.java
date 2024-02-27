@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>Set RetainValues of persistencemanagerfactory <br>
@@ -35,15 +35,6 @@ public class SetRetainValues extends JDO_Test {
   private static final String ASSERTION_FAILED =
       "Assertion A11.1-3,A11.1-4 (SetRetainValues) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetRetainValues.class);
-  }
-
   /** */
   @Override
   protected void localSetUp() {
@@ -52,6 +43,7 @@ public class SetRetainValues extends JDO_Test {
   }
 
   /** Set RetainValues to true or false and use getRetainValues value to verify. */
+  @Test
   public void test() {
     try {
       setRetainValues(false);

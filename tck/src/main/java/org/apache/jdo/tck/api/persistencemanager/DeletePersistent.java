@@ -23,7 +23,7 @@ import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Delete Persistent <br>
@@ -39,15 +39,6 @@ public class DeletePersistent extends PersistenceManagerTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A12.5.7-9 (DeletePersistent) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DeletePersistent.class);
-  }
-
   private PCPoint p1 = null;
   private PCPoint p2 = null;
   private PCPoint p3 = null;
@@ -55,6 +46,7 @@ public class DeletePersistent extends PersistenceManagerTest {
   private PCPoint p5 = null;
 
   /** */
+  @Test
   public void testDeletePersistent() {
     pm = getPM();
     createObjects(pm);
@@ -182,11 +174,11 @@ public class DeletePersistent extends PersistenceManagerTest {
       PCPoint np2 = new PCPoint(4, 4);
       pm.makePersistent(np1);
       pm.makePersistent(np2);
-      tx.commit();
 
       Collection<PCPoint> col1 = new HashSet<>();
       col1.add(np1);
       col1.add(np2);
+      tx.commit();
 
       try {
         pm.deletePersistentAll(col1);
@@ -212,12 +204,12 @@ public class DeletePersistent extends PersistenceManagerTest {
 
       pm.makePersistent(np1);
       pm.makePersistent(np2);
-      tx.commit();
 
       Collection<PCPoint> col1 = new HashSet<>();
       col1.add(np1);
       col1.add(np2);
       Object[] obj1 = col1.toArray();
+      tx.commit();
 
       try {
         pm.deletePersistentAll(obj1);

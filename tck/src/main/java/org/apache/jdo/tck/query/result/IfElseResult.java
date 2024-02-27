@@ -20,6 +20,7 @@ package org.apache.jdo.tck.query.result;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import javax.jdo.query.IfThenElseExpression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
@@ -29,7 +30,12 @@ import org.apache.jdo.tck.pc.company.QDentalInsurance;
 import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> IfElseResult. <br>
@@ -37,6 +43,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion ID:</B> . <br>
  * <B>Assertion Description: </B>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class IfElseResult extends QueryTest {
 
   /** */
@@ -93,136 +100,165 @@ public class IfElseResult extends QueryTest {
         /*TO*/ null)
   };
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NullResults.class);
-  }
-
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive0() {
     Object expected =
         Arrays.asList("emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last", "No employee");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
+      QDentalInsurance cand = QDentalInsurance.candidate();
+      query.result(
+          false,
+          query.ifThenElse(
+              cand.employee.eq((Employee) null), "No employee", cand.employee.lastname));
+      query.orderBy(cand.insid.asc());
 
-    JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
-    QDentalInsurance cand = QDentalInsurance.candidate();
-    query.result(
-        false,
-        query.ifThenElse(cand.employee.eq((Employee) null), "No employee", cand.employee.lastname));
-    query.orderBy(cand.insid.asc());
+      QueryElementHolder<DentalInsurance> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ "IF (this.employee == null) 'No employee' ELSE this.employee.lastname",
+              /*INTO*/ null,
+              /*FROM*/ DentalInsurance.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ "this.insid ascending",
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<DentalInsurance> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ "IF (this.employee == null) 'No employee' ELSE this.employee.lastname",
-            /*INTO*/ null,
-            /*FROM*/ DentalInsurance.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ "this.insid ascending",
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, null, true, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive1() {
     Object expected =
         Arrays.asList(
             new BigDecimal("3000001.188"), new BigDecimal("55000"), new BigDecimal("2201.089"));
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
+      QProject cand = QProject.candidate();
+      query.result(
+          false,
+          query.ifThenElse(
+              BigDecimal.class,
+              cand.members.size().gt(2),
+              cand.budget.mul(new BigDecimal("1.2")),
+              cand.budget.mul(new BigDecimal("1.1"))));
+      query.orderBy(cand.projid.asc());
 
-    JDOQLTypedQuery<Project> query = getPM().newJDOQLTypedQuery(Project.class);
-    QProject cand = QProject.candidate();
-    query.result(
-        false,
-        query.ifThenElse(
-            BigDecimal.class,
-            cand.members.size().gt(2),
-            cand.budget.mul(new BigDecimal("1.2")),
-            cand.budget.mul(new BigDecimal("1.1"))));
-    query.orderBy(cand.projid.asc());
+      QueryElementHolder<Project> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ "IF (this.members.size() > 2) this.budget * 1.2 ELSE this.budget * 1.1",
+              /*INTO*/ null,
+              /*FROM*/ Project.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ "this.projid ascending",
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Project> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ "IF (this.members.size() > 2) this.budget * 1.2 ELSE this.budget * 1.1",
-            /*INTO*/ null,
-            /*FROM*/ Project.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ "this.projid ascending",
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, null, true, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive2() {
     Object expected = Arrays.asList("No reviewer", "Reviewer team", "Single reviewer");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
+      QProject cand = QProject.candidate();
+      IfThenElseExpression<String> ifThenElse =
+          query
+              .ifThen(cand.reviewers.isEmpty(), "No reviewer")
+              .ifThen(cand.reviewers.size().eq(1), "Single reviewer")
+              .elseEnd("Reviewer team");
+      query.result(false, ifThenElse);
+      query.orderBy(cand.projid.asc());
 
-    JDOQLTypedQuery<Project> query = getPM().newJDOQLTypedQuery(Project.class);
-    QProject cand = QProject.candidate();
-    IfThenElseExpression<String> ifThenElse =
-        query
-            .ifThen(cand.reviewers.isEmpty(), "No reviewer")
-            .ifThen(cand.reviewers.size().eq(1), "Single reviewer")
-            .elseEnd("Reviewer team");
-    query.result(false, ifThenElse);
-    query.orderBy(cand.projid.asc());
+      QueryElementHolder<Project> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ "IF (this.reviewers.isEmpty()) 'No reviewer' "
+                  + "ELSE IF (this.reviewers.size() == 1) 'Single reviewer' ELSE 'Reviewer team'",
+              /*INTO*/ null,
+              /*FROM*/ Project.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ "this.projid ascending",
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    QueryElementHolder<Project> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ "IF (this.reviewers.isEmpty()) 'No reviewer' "
-                + "ELSE IF (this.reviewers.size() == 1) 'Single reviewer' ELSE 'Reviewer team'",
-            /*INTO*/ null,
-            /*FROM*/ Project.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ "this.projid ascending",
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, null, true, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNegative() {
-    for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
-      compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
-      compileSingleStringQuery(ASSERTION_FAILED, invalidQuery, false);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+        compileAPIQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+        compileSingleStringQuery(ASSERTION_FAILED, pm, invalidQuery, false);
+      }
+    } finally {
+      cleanupPM(pm);
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

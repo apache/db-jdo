@@ -22,7 +22,7 @@ import javax.jdo.Extent;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.lifecycle.StateTransitionObj;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test that a PM returns the same JDO instance if getObjectById(ObjectId) is called
@@ -45,15 +45,6 @@ public class PMReturnsIdenticalInstancesForEqualObjIds extends JDO_Test {
   private Object[] obj;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(PMReturnsIdenticalInstancesForEqualObjIds.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -63,6 +54,7 @@ public class PMReturnsIdenticalInstancesForEqualObjIds extends JDO_Test {
     obj = generatePersistentInstances();
   }
 
+  @Test
   public void test() {
     pm.currentTransaction().begin();
     try {

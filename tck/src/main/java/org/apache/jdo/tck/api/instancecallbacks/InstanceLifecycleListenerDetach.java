@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.instancecallbacks;
 import java.util.Date;
 import javax.jdo.listener.DetachCallback;
 import javax.jdo.listener.InstanceLifecycleEvent;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test InstanceLifecycleListenerDetach <br>
@@ -52,19 +52,11 @@ public class InstanceLifecycleListenerDetach extends AbstractInstanceLifecycleLi
   }
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(InstanceLifecycleListenerLoad.class);
-  }
-
-  /**
    * This test creates a new persistent instance and commits it. Since the RetainValues flag is set
    * to false, the persistent fields will be cleared, and the pre-clear listener, pre-clear
    * callback, and post-clear listener will be called.
    */
+  @Test
   public void testDetach() {
 
     // set up the persistent instance

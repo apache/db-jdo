@@ -22,7 +22,7 @@ import java.util.HashSet;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> DeletePersistent Has No Effect On Deleted Instances <br>
@@ -37,15 +37,6 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.7-10 (DeletePersistentHasNoEffectOnDeletedInstances) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DeletePersistentHasNoEffectOnDeletedInstances.class);
-  }
-
   private PCPoint p1 = null;
   private PCPoint p2 = null;
   private PCPoint p3 = null;
@@ -53,6 +44,7 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
   private PCPoint p5 = null;
 
   /** */
+  @Test
   public void testDeletePersistentHasNoEffectOnDeletedInstances() {
     pm = getPM();
     createObjects(pm);
@@ -107,12 +99,12 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
     Transaction tx = pm.currentTransaction();
     try {
       tx = pm.currentTransaction();
+      tx.begin();
 
       Collection<PCPoint> col1 = new java.util.HashSet<>();
       col1.add(p2);
       col1.add(p3);
 
-      tx.begin();
       pm.deletePersistentAll(col1);
       pm.deletePersistentAll(col1);
       pm.deletePersistentAll(col1);
@@ -128,13 +120,13 @@ public class DeletePersistentHasNoEffectOnDeletedInstances extends PersistenceMa
   private void runTestDeletePersistentAll2(PersistenceManager pm) {
     Transaction tx = pm.currentTransaction();
     try {
+      tx.begin();
       Collection<PCPoint> col1 = new HashSet<>();
       col1.add(p4);
       col1.add(p5);
 
       Object[] obj1 = col1.toArray();
 
-      tx.begin();
       pm.deletePersistentAll(obj1);
       pm.deletePersistentAll(obj1);
       pm.deletePersistentAll(obj1);

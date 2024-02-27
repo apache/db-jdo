@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.lifecycle;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test NontransactionalWriteOptimisticCommitConflict <br>
@@ -47,19 +47,11 @@ public class NontransactionalWriteOptimisticCommitConflict extends Nontransactio
       "Assertion A5.6.2-8 " + "(NontransactionalWriteOptimisticCommitConflict) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NontransactionalWriteOptimisticCommitConflict.class);
-  }
-
-  /**
    * Create a nontransactional dirty instance, begin and commit a conflicting transaction, begin and
    * commit an optimistic transaction and check that the instance in the datastore has the value as
    * changed by the conflicting transaction.
    */
+  @Test
   public void testOptimisticCommitConflict() {
     if (!checkNontransactionalFeaturesSupported(true)) return;
     String location = ASSERTION_FAILED + "after optimistic commit with conflict";

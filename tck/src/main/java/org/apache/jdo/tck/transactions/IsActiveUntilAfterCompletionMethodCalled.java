@@ -22,7 +22,7 @@ import javax.jdo.Transaction;
 import javax.transaction.Synchronization;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Is Active Until After Completion Method Called <br>
@@ -45,15 +45,6 @@ public class IsActiveUntilAfterCompletionMethodCalled extends JDO_Test implement
   /** */
   private static final String ASSERTION_FAILED =
       "Assertion A13.4.1-3 (IsActiveUntilAfterCompletionMethodCalled) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(IsActiveUntilAfterCompletionMethodCalled.class);
-  }
 
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
@@ -95,6 +86,7 @@ public class IsActiveUntilAfterCompletionMethodCalled extends JDO_Test implement
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -27,10 +29,9 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
-import org.apache.jdo.exectck.Utilities.InvocationResult;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
@@ -45,9 +46,13 @@ public class RunTCK extends AbstractTCKMojo {
   private static final String TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY = "failGoal"; // NOI18N
   private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly"; // NOI18N
 
+  private static final String FS = File.separator;
+
   private static final String CLASSES_DIR_NAME = "classes"; // NOI18N
 
   private static final String TCK_LOG_FILE = "tck.txt"; // NOI18N
+
+  private static final String JUNIT_LOG_FILE = "junit.txt"; // NOI18N
 
   /** To skip running of TCK, set to false. */
   @Parameter(property = "jdo.tck.doRunTCK", defaultValue = "true", required = true)
@@ -114,19 +119,40 @@ public class RunTCK extends AbstractTCKMojo {
           "-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}")
   private String debugDirectives;
 
+  /** Location of tck log file. */
+  @Parameter(
+      property = "jdo.tck.logfile",
+      defaultValue = "${project.build.directory}/" + TCK_LOG_FILE,
+      required = true)
+  protected String tckLogFile;
+
   /** Class used to run a batch of tests. */
   @Parameter(
-      property = "jdo.tck.testrunnerclass",
-      defaultValue = "org.apache.jdo.tck.util.BatchTestRunner",
+      property = "jdo.tck.testrunner.class",
+      defaultValue = "org.junit.platform.console.ConsoleLauncher",
       required = true)
   private String testRunnerClass;
 
-  /** Class used to output test result and configuration information. */
-  @Parameter(
-      property = "jdo.tck.resultprinterclass",
-      defaultValue = "org.apache.jdo.tck.util.BatchResultPrinter",
-      required = true)
-  private String resultPrinterClass;
+  /**
+   * Output mode for test run. Use one of: none, summary, flat, tree, verbose, testfeed. If 'none'
+   * is selected, then only the summary and test failures are shown. Default: tree.
+   */
+  @Parameter(property = "jdo.tck.testrunner.details", defaultValue = "tree", required = true)
+  private String testRunnerDetails;
+
+  /**
+   * Whether to display colors in the junit result log file (jdo.tck.testrunner.colors=enable) or
+   * not (jdo.tck.testrunner.colors=disable).
+   */
+  @Parameter(property = "jdo.tck.testrunner.colors", defaultValue = "disable", required = true)
+  private String testRunnerColors;
+
+  /**
+   * Whether to display colors in the junit result log file (jdo.tck.testrunner.colors=enable) or
+   * not (jdo.tck.testrunner.colors=disable).
+   */
+  @Parameter(property = "jdo.tck.parallel.execution", defaultValue = "true", required = true)
+  private boolean testParallelExecution;
 
   /**
    * Helper method returning the trimmed value of the specified property.
@@ -140,23 +166,149 @@ public class RunTCK extends AbstractTCKMojo {
     return value == null ? "" : value.trim();
   }
 
+  private static String fileToString(String fileName) {
+    try {
+      byte[] encoded = Files.readAllBytes(Paths.get(fileName));
+      return new String(encoded);
+    } catch (IOException ex) {
+      return "Problems reading " + fileName + ": " + ex.getMessage();
+    }
+  }
+
+  /** */
   @Override
-  public void execute() throws MojoExecutionException, MojoFailureException {
+  public void execute() throws MojoExecutionException {
     if (!doRunTCK) {
       System.out.println("Skipping RunTCK goal!");
       return;
     }
 
-    Properties props = null;
-    boolean alreadyran = false;
-    String runonce = "false";
-    List<String> propsString = new ArrayList<>();
-    List<String> command;
+    boolean alreadyRan = false;
+    boolean runOnce = false;
     String cpString = null;
-    InvocationResult result;
-    File fromFile = null;
-    File toFile = null;
 
+    List<String> propsString = initTCKRun();
+    String excludeFile = confDirectory + FS + exclude;
+    propsString.add(
+        "-Djdo.tck.exclude="
+            + getTrimmedPropertyValue(PropertyUtils.getProperties(excludeFile), "jdo.tck.exclude"));
+
+    // Create configuration log directory
+    String logDir = logsDirectory + FS + Utilities.now();
+    String cfgDirName = logDir + FS + "configuration";
+    File cfgDir = new File(cfgDirName);
+    if (!cfgDir.exists() && !cfgDir.mkdirs()) {
+      throw new MojoExecutionException("Failed to create directory " + cfgDirName);
+    }
+    propsString.add("-Djdo.tck.log.directory=" + logDir);
+
+    copyConfigurationFiles();
+
+    // Get ClassLoader URLs to build classpath below
+    List<URL> urlList =
+        new ArrayList<>(
+            Arrays.asList(
+                ((URLClassLoader) Thread.currentThread().getContextClassLoader()).getURLs()));
+
+    // Get contents of pmf properties file to build new file below
+    String pmfPropsReadFileName = confDirectory + FS + pmfProperties;
+    String defaultPropsContents = "";
+    try {
+      defaultPropsContents = Utilities.readFile(pmfPropsReadFileName);
+    } catch (IOException ex) {
+      Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    // Reset logfile content (may not be empty if previous run crashed)
+    resetFileContent(implLogFile);
+    resetFileContent(tckLogFile);
+
+    int failureCount = 0;
+    for (String db : dbs) {
+      System.setProperty("jdo.tck.database", db);
+      alreadyRan = false;
+
+      for (String idtype : idtypes) {
+        List<String> idPropsString = new ArrayList<>();
+        idPropsString.addAll(propsString);
+        idPropsString.add("-Djdo.tck.identitytype=" + idtype);
+        String enhancedDirName = buildDirectory + FS + "enhanced" + FS + impl + FS + idtype + FS;
+        File enhancedDir = new File(enhancedDirName);
+        if (!enhancedDir.exists()) {
+          throw new MojoExecutionException(
+              "Could not find enhanced directory "
+                  + enhancedDirName
+                  + ". Execute Enhance goal before RunTCK.");
+        }
+
+        // get classpath string: add new entries to URLS from loader
+        cpString = getClasspathString(urlList, enhancedDir);
+
+        for (String cfg : cfgs) {
+          // Parse conf file and set properties String
+          String confFileName = confDirectory + FS + cfg;
+          if (!new File(confFileName).exists()) {
+            // Conf file nor found => continue
+            System.out.println("ERROR: Configuration file " + confFileName + " not found.");
+            continue;
+          }
+          Properties props = PropertyUtils.getProperties(confDirectory + FS + cfg);
+          String mapping = getTrimmedPropertyValue(props, "jdo.tck.mapping");
+          if (mapping == null) {
+            throw new MojoExecutionException("Could not find mapping value in conf file: " + cfg);
+          }
+          List<String> classesList = getTestClasses(props, cfg, excludeFile);
+          if (classesList.isEmpty()) {
+            System.out.println("Skipping configuration " + cfg + ": classes excluded");
+            continue;
+          }
+
+          String runonceString = getTrimmedPropertyValue(props, "runOnce");
+          runOnce = runonceString != null && "true".equalsIgnoreCase(runonceString);
+          if (runOnce && alreadyRan) {
+            continue;
+          }
+
+          // Add Mapping and schemaname to properties file
+          writePMFPropsFile(idtype, mapping, defaultPropsContents);
+
+          String logFilePrefix = getLogFilePrefix(logDir, idtype, cfg);
+          List<String> cfgPropsString = getCfgProps(idPropsString, props, idtype, cfg, mapping);
+          int resultValue =
+              executeTestClass(
+                  cpString, cfgPropsString, classesList, idtype, cfg, db, mapping, logFilePrefix);
+          if (resultValue != 0) {
+            failureCount++;
+          }
+          moveLogFiles(logFilePrefix);
+
+          if (runOnce) {
+            alreadyRan = true;
+          }
+
+          if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
+            break;
+          }
+        }
+        if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
+          break;
+        }
+      }
+      if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
+        break;
+      }
+    }
+    finalizeTCKRun(logDir, cpString, cfgDirName, failureCount);
+  }
+
+  /**
+   * Initializes the TCK run: get the list of configurations (.conf files); get the properties
+   * required for test execution. This method is called once per TCK run.
+   *
+   * @return the properties required for test execution
+   * @throws MojoExecutionException
+   */
+  private List<String> initTCKRun() throws MojoExecutionException {
     if (impl.equals("iut")) {
       pmfProperties = "iut-pmf.properties";
     }
@@ -164,13 +316,13 @@ public class RunTCK extends AbstractTCKMojo {
     if (cfgs == null) {
       if (cfgList != null) {
         cfgs = new ArrayList<String>();
-        PropertyUtils.string2List(cfgList, (List<String>) cfgs);
+        PropertyUtils.string2Collection(cfgList, cfgs);
       } else {
         // Fallback to "src/conf/configurations.list"
         setCfgListFromFile();
         if (cfgList != null) {
           cfgs = new ArrayList<String>();
-          PropertyUtils.string2List(cfgList, (List<String>) cfgs);
+          PropertyUtils.string2Collection(cfgList, cfgs);
         }
 
         if (cfgList == null) {
@@ -181,8 +333,8 @@ public class RunTCK extends AbstractTCKMojo {
       }
     }
 
-    PropertyUtils.string2Set(dblist, dbs);
-    PropertyUtils.string2Set(identitytypes, idtypes);
+    PropertyUtils.string2Collection(dblist, dbs);
+    PropertyUtils.string2Collection(identitytypes, idtypes);
     System.out.println(
         "*>TCK to be run for implementation '"
             + impl
@@ -198,38 +350,19 @@ public class RunTCK extends AbstractTCKMojo {
 
     // Properties required for test execution
     System.out.println("cleanupaftertest is " + cleanupaftertest);
-    propsString.add("-DResultPrinterClass=" + resultPrinterClass);
+
+    List<String> propsString = new ArrayList<>();
     propsString.add("-Dverbose=" + verbose);
     propsString.add("-Djdo.tck.cleanupaftertest=" + cleanupaftertest);
     propsString.add(
-        "-DPMFProperties="
-            + buildDirectory
-            + File.separator
-            + CLASSES_DIR_NAME
-            + File.separator
-            + pmfProperties);
+        "-DPMFProperties=" + buildDirectory + FS + CLASSES_DIR_NAME + FS + pmfProperties);
     propsString.add(
-        "-DPMF2Properties="
-            + buildDirectory
-            + File.separator
-            + CLASSES_DIR_NAME
-            + File.separator
-            + pmfProperties);
-    String excludeFile = confDirectory + File.separator + exclude;
-    propsString.add(
-        "-Djdo.tck.exclude="
-            + getTrimmedPropertyValue(PropertyUtils.getProperties(excludeFile), "jdo.tck.exclude"));
+        "-DPMF2Properties=" + buildDirectory + FS + CLASSES_DIR_NAME + FS + pmfProperties);
+    return propsString;
+  }
 
-    // Create configuration log directory
-    String timestamp = Utilities.now();
-    String thisLogDir = logsDirectory + File.separator + timestamp + File.separator;
-    String cfgDirName = thisLogDir + "configuration";
-    File cfgDir = new File(cfgDirName);
-    if (!(cfgDir.exists()) && !(cfgDir.mkdirs())) {
-      throw new MojoExecutionException("Failed to create directory " + cfgDirName);
-    }
-    propsString.add("-Djdo.tck.log.directory=" + thisLogDir);
-
+  /** Copy/create configuration files for logging, jdoconfig and JPA. */
+  private void copyConfigurationFiles() {
     try {
       copyLog4j2ConfigurationFile();
     } catch (IOException ex) {
@@ -238,256 +371,272 @@ public class RunTCK extends AbstractTCKMojo {
 
     // Copy JDO config files to classes dir
     try {
-      fromFile = new File(confDirectory + File.separator + impl + "-jdoconfig.xml");
-      toFile =
-          new File(
-              buildDirectory
-                  + File.separator
-                  + CLASSES_DIR_NAME
-                  + File.separator
-                  + "META-INF"
-                  + File.separator
-                  + "jdoconfig.xml");
+      File fromFile = new File(confDirectory + FS + impl + "-jdoconfig.xml");
+      File toFile =
+          new File(buildDirectory + FS + CLASSES_DIR_NAME + FS + "META-INF" + FS + "jdoconfig.xml");
       FileUtils.copyFile(fromFile, toFile);
-      fromFile = new File(confDirectory + File.separator + impl + "-persistence.xml");
+      fromFile = new File(confDirectory + FS + impl + "-persistence.xml");
       toFile =
           new File(
-              buildDirectory
-                  + File.separator
-                  + CLASSES_DIR_NAME
-                  + File.separator
-                  + "META-INF"
-                  + File.separator
-                  + "persistence.xml");
+              buildDirectory + FS + CLASSES_DIR_NAME + FS + "META-INF" + FS + "persistence.xml");
       FileUtils.copyFile(fromFile, toFile);
     } catch (IOException ex) {
       Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
     }
+  }
 
-    // Get ClassLoader URLs to build classpath below
-    URL[] cpURLs = ((URLClassLoader) Thread.currentThread().getContextClassLoader()).getURLs();
-    ArrayList<URL> urlList = new ArrayList<>(Arrays.asList(cpURLs));
-
-    // Get contents of pmf properties file to build new file below
-    String pmfPropsReadFileName = confDirectory + File.separator + pmfProperties;
-    String defaultPropsContents = "";
+  /**
+   * Get classpath string: add new entries to URLS from loader
+   *
+   * @param urlList ClassLoader URLs
+   * @param enhancedDir
+   * @return
+   */
+  private String getClasspathString(List<URL> urlList, File enhancedDir) {
+    String cpString;
+    ArrayList<URL> cpList = new ArrayList<>();
+    cpList.addAll(urlList);
     try {
-      defaultPropsContents = Utilities.readFile(pmfPropsReadFileName);
+      URL url1 = enhancedDir.toURI().toURL();
+      URL url2 = new File(buildDirectory + FS + CLASSES_DIR_NAME + FS).toURI().toURL();
+      if (runtckVerbose) {
+        System.out.println("url2 is " + url2.toString());
+      }
+      cpList.add(url1);
+      cpList.add(url2);
+      String[] jars = {"jar"};
+      Iterator<File> fi = FileUtils.iterateFiles(new File(extLibsDirectory), jars, true);
+      while (fi.hasNext()) {
+        cpList.add(fi.next().toURI().toURL());
+      }
+      for (String dependency : this.dependencyClasspath.split(File.pathSeparator)) {
+        cpList.add(new File(dependency).toURI().toURL());
+      }
+    } catch (MalformedURLException ex) {
+      ex.printStackTrace();
+      Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    cpString = Utilities.urls2ClasspathString(cpList);
+    if (runtckVerbose) {
+      System.out.println("\nClasspath is " + cpString);
+    }
+    return cpString;
+  }
+
+  /**
+   * Create the jdo pmf properties file.
+   *
+   * @param idtype identity type
+   * @param mapping the mapping index
+   * @param defaultPropsContents default pmf properties
+   */
+  private void writePMFPropsFile(String idtype, String mapping, String defaultPropsContents) {
+    StringBuilder propsFileData = new StringBuilder();
+    propsFileData.append("\n### Properties below added by maven 2 goal RunTCK.jdori");
+    propsFileData.append("\njavax.jdo.mapping.Schema=" + idtype + mapping);
+    mapping = (mapping.equals("0")) ? "" : mapping;
+    propsFileData.append("\njavax.jdo.option.Mapping=standard" + mapping);
+    propsFileData.append("\n");
+    String pmfPropsWriteFileName = buildDirectory + FS + CLASSES_DIR_NAME + FS + pmfProperties;
+    try (BufferedWriter out = new BufferedWriter(new FileWriter(pmfPropsWriteFileName, false))) {
+      out.write(defaultPropsContents + propsFileData.toString());
     } catch (IOException ex) {
       Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
     }
+  }
 
-    // Reset logfile content (may not be empty if previous run crashed)
-    resetFileContent(implLogFile);
-    resetFileContent(TCK_LOG_FILE);
+  /**
+   * Returns the configuration properties as List
+   *
+   * @param idPropsString
+   * @param props the Properties object including the properties defined in the conf file
+   * @param idtype identity type
+   * @param cfg name of the configuration
+   * @param mapping the mapping index
+   * @return configuration properties
+   */
+  private List<String> getCfgProps(
+      List<String> idPropsString, Properties props, String idtype, String cfg, String mapping) {
+    List<String> cfgPropsString = new ArrayList<>();
+    cfgPropsString.addAll(idPropsString);
+    cfgPropsString.add("-Djdo.tck.testdata=" + getTrimmedPropertyValue(props, "jdo.tck.testdata"));
+    cfgPropsString.add(
+        "-Djdo.tck.standarddata=" + getTrimmedPropertyValue(props, "jdo.tck.standarddata"));
+    cfgPropsString.add(
+        "-Djdo.tck.mapping.companyfactory="
+            + getTrimmedPropertyValue(props, "jdo.tck.mapping.companyfactory"));
+    cfgPropsString.add(
+        "-Djdo.tck.requiredOptions=" + getTrimmedPropertyValue(props, "jdo.tck.requiredOptions"));
+    cfgPropsString.add("-Djdo.tck.signaturefile=" + signaturefile);
+    cfgPropsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
+    cfgPropsString.add("-Djdo.tck.cfg=" + cfg);
+    return cfgPropsString;
+  }
 
-    int failureCount = 0;
-    for (String db : dbs) {
-      System.setProperty("jdo.tck.database", db);
-      alreadyran = false;
+  /**
+   * Returns a list of class names of TCK test classes. Classes mentioned in the excludeFile are not
+   * part of the result.
+   *
+   * @param props
+   * @param cfg name of the configuration
+   * @param excludeFile
+   * @return
+   * @throws MojoExecutionException
+   */
+  private List<String> getTestClasses(Properties props, String cfg, String excludeFile)
+      throws MojoExecutionException {
+    String classes = getTrimmedPropertyValue(props, "jdo.tck.classes");
+    if (classes == null || classes.isEmpty()) {
+      throw new MojoExecutionException("Could not find jdo.tck.classes value in conf file: " + cfg);
+    }
+    String excludeList =
+        getTrimmedPropertyValue(PropertyUtils.getProperties(excludeFile), "jdo.tck.exclude");
+    classes = Utilities.removeSubstrs(classes, excludeList);
+    List<String> classesList = new ArrayList();
+    PropertyUtils.string2Collection(classes, classesList);
+    // skip test classes in comments
+    return classesList.stream().filter(n -> !n.startsWith("#")).collect(Collectors.toList());
+  }
 
-      for (String idtype : idtypes) {
-        List<String> idPropsString = new ArrayList<>();
-        idPropsString.addAll(propsString);
-        idPropsString.add("-Djdo.tck.identitytype=" + idtype);
-        String enhancedDirName =
-            buildDirectory
-                + File.separator
-                + "enhanced"
-                + File.separator
-                + impl
-                + File.separator
-                + idtype
-                + File.separator;
-        File enhancedDir = new File(enhancedDirName);
-        if (!(enhancedDir.exists())) {
-          throw new MojoExecutionException(
-              "Could not find enhanced directory "
-                  + enhancedDirName
-                  + ". Execute Enhance goal before RunTCK.");
-        }
+  /**
+   * Returns the perfix of the log file name. It includes the path, followed by an indicator for the
+   * identitytype followed by the name of the configuration.
+   *
+   * @param logDir
+   * @param idtype identity type
+   * @param cfg name of the configuration
+   * @return
+   */
+  private String getLogFilePrefix(String logDir, String idtype, String cfg) {
+    String idname = idtype.trim().equals("applicationidentity") ? "app" : "dsid";
+    String configName = cfg.indexOf('.') > 0 ? cfg.substring(0, cfg.indexOf('.')) : cfg;
+    return logDir + FS + idname + "-" + configName + "-";
+  }
 
-        // Set classpath string: add new entries to URLS from loader
-        ArrayList<URL> cpList = new ArrayList<>();
-        cpList.addAll(urlList);
-        try {
-          URL url1 = enhancedDir.toURI().toURL();
-          URL url2 =
-              new File(buildDirectory + File.separator + CLASSES_DIR_NAME + File.separator)
-                  .toURI()
-                  .toURL();
-          if (runtckVerbose) {
-            System.out.println("url2 is " + url2.toString());
-          }
-          cpList.add(url1);
-          cpList.add(url2);
-          String[] jars = {"jar"};
-          Iterator<File> fi = FileUtils.iterateFiles(new File(extLibsDirectory), jars, true);
-          while (fi.hasNext()) {
-            cpList.add(fi.next().toURI().toURL());
-          }
-          for (String dependency : this.dependencyClasspath.split(File.pathSeparator)) {
-            cpList.add(new File(dependency).toURI().toURL());
-          }
-        } catch (MalformedURLException ex) {
-          ex.printStackTrace();
-          Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        cpString = Utilities.urls2ClasspathString(cpList);
-        if (runtckVerbose) {
-          System.out.println("\nClasspath is " + cpString);
-        }
-
-        for (String cfg : cfgs) {
-          List<String> cfgPropsString = new ArrayList<>();
-          cfgPropsString.addAll(idPropsString);
-          // Parse conf file and set properties String
-          props = PropertyUtils.getProperties(confDirectory + File.separator + cfg);
-          cfgPropsString.add(
-              "-Djdo.tck.testdata=" + getTrimmedPropertyValue(props, "jdo.tck.testdata"));
-          cfgPropsString.add(
-              "-Djdo.tck.standarddata=" + getTrimmedPropertyValue(props, "jdo.tck.standarddata"));
-          cfgPropsString.add(
-              "-Djdo.tck.mapping.companyfactory="
-                  + getTrimmedPropertyValue(props, "jdo.tck.mapping.companyfactory"));
-          cfgPropsString.add(
-              "-Djdo.tck.requiredOptions="
-                  + getTrimmedPropertyValue(props, "jdo.tck.requiredOptions"));
-          cfgPropsString.add("-Djdo.tck.signaturefile=" + signaturefile);
-          String mapping = getTrimmedPropertyValue(props, "jdo.tck.mapping");
-          if (mapping == null) {
-            throw new MojoExecutionException("Could not find mapping value in conf file: " + cfg);
-          }
-          String classes = getTrimmedPropertyValue(props, "jdo.tck.classes");
-          String excludeList =
-              getTrimmedPropertyValue(PropertyUtils.getProperties(excludeFile), "jdo.tck.exclude");
-          if (classes == null) {
-            throw new MojoExecutionException("Could not find classes value in conf file: " + cfg);
-          }
-          classes = Utilities.removeSubstrs(classes, excludeList);
-          if (classes.equals("")) {
-            System.out.println("Skipping configuration " + cfg + ": classes excluded");
-            continue;
-          }
-          List<String> classesList = Arrays.asList(classes.split(" "));
-
-          cfgPropsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
-          cfgPropsString.add("-Djdo.tck.cfg=" + cfg);
-
-          runonce = getTrimmedPropertyValue(props, "runOnce");
-          runonce = (runonce == null) ? "false" : runonce;
-
-          // Add Mapping and schemaname to properties file
-          StringBuilder propsFileData = new StringBuilder();
-          propsFileData.append("\n### Properties below added by maven 2 goal RunTCK.jdori");
-          propsFileData.append("\njavax.jdo.mapping.Schema=" + idtype + mapping);
-          mapping = (mapping.equals("0")) ? "" : mapping;
-          propsFileData.append("\njavax.jdo.option.Mapping=standard" + mapping);
-          propsFileData.append("\n");
-          String pmfPropsWriteFileName =
-              buildDirectory + File.separator + CLASSES_DIR_NAME + File.separator + pmfProperties;
-          try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(pmfPropsWriteFileName, false));
-            out.write(defaultPropsContents + propsFileData.toString());
-            out.close();
-          } catch (IOException ex) {
-            Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
-          }
-
-          // build command line string
-          command = new ArrayList<>();
-          command.add("java");
-          command.add("-cp");
-          command.add(cpString);
-          command.addAll(cfgPropsString);
-          command.add(dbproperties);
-          command.add(jvmproperties);
-          if (debugTCK) {
-            command.add(debugDirectives);
-          }
-          command.add(testRunnerClass);
-          command.addAll(classesList);
-
-          if (runonce.equals("true") && alreadyran) {
-            continue;
-          }
-
-          if (debugTCK) {
-            System.out.println("Using debug arguments: \n" + debugDirectives);
-          }
-
-          // invoke class runner
-          System.out.print(
-              "*> Running tests for "
-                  + cfg
-                  + " with "
-                  + idtype
-                  + " on '"
-                  + db
-                  + "'"
-                  + " mapping="
-                  + mapping
-                  + " ... ");
-          try {
-            result = (new Utilities()).invokeTest(command);
-            if (result.getExitValue() == 0) {
-              System.out.println("success");
-            } else {
-              System.out.println("FAIL");
-              failureCount++;
-            }
-            if (runtckVerbose) {
-              System.out.println("\nCommand line is: \n" + command.toString());
-              System.out.println("Test exit value is " + result.getExitValue());
-              System.out.println("Test result output:\n" + result.getOutputString());
-              System.out.println("Test result error:\n" + result.getErrorString());
-            }
-          } catch (java.lang.RuntimeException re) {
-            System.out.println("Exception on command " + command);
-          }
-
-          // Move log to per-test location
-          String idname = "dsid";
-          if (idtype.trim().equals("applicationidentity")) {
-            idname = "app";
-          }
-          String configName = cfg;
-          if (cfg.indexOf('.') > 0) {
-            configName = configName.substring(0, cfg.indexOf('.'));
-          }
-          String testLogFilename = thisLogDir + idname + "-" + configName + "-" + impl + ".txt";
-          try {
-            File logFile = new File(implLogFile);
-            FileUtils.copyFile(logFile, new File(testLogFilename));
-            resetFileContent(implLogFile);
-          } catch (Exception e) {
-            System.out.println(">> Error copying implementation log file: " + e.getMessage());
-          }
-          String tckLogFilename = thisLogDir + idname + "-" + configName + "-" + TCK_LOG_FILE;
-          try {
-            File logFile = new File(TCK_LOG_FILE);
-            FileUtils.copyFile(logFile, new File(tckLogFilename));
-            resetFileContent(TCK_LOG_FILE);
-          } catch (Exception e) {
-            System.out.println(">> Error copying tck log file: " + e.getMessage());
-          }
-
-          if (runonce.equals("true")) {
-            alreadyran = true;
-          }
-
-          if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
-            break;
-          }
-        }
-        if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
-          break;
-        }
-      }
-      if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
-        break;
+  /**
+   * Creates the java command to run a TCK test class and executes the command.
+   *
+   * @param cpString classpath
+   * @param cfgPropsString configuration properties
+   * @param classesList
+   * @param idtype identity type
+   * @param cfg name of the configuration
+   * @param db the database
+   * @param mapping the mapping index
+   * @param logFilePrefix
+   * @return
+   */
+  private int executeTestClass(
+      String cpString,
+      List<String> cfgPropsString,
+      List<String> classesList,
+      String idtype,
+      String cfg,
+      String db,
+      String mapping,
+      String logFilePrefix) {
+    // build command line string
+    List<String> command = new ArrayList<>();
+    command.add("java");
+    command.add("-cp");
+    command.add(cpString);
+    command.addAll(cfgPropsString);
+    command.add(dbproperties);
+    command.add(jvmproperties);
+    if (debugTCK) {
+      command.add(debugDirectives);
+    }
+    command.add(testRunnerClass);
+    command.add("execute");
+    command.add("--disable-banner");
+    if (disableColors()) {
+      command.add("--disable-ansi-colors");
+    }
+    command.add("--details=" + testRunnerDetails);
+    command.add("--config");
+    command.add("junit.jupiter.execution.parallel.enabled=" + testParallelExecution);
+    // add Test classes
+    for (String testClass : classesList) {
+      // skip empty entries
+      if (testClass != null && testClass.trim().length() > 0) {
+        command.add("-c");
+        command.add(testClass);
       }
     }
+
+    if (debugTCK) {
+      System.out.println("Using debug arguments: \n" + debugDirectives);
+    }
+
+    // invoke class runner
+    System.out.print(
+        "*> Running tests for "
+            + cfg
+            + " with "
+            + idtype
+            + " on '"
+            + db
+            + "'"
+            + " mapping="
+            + mapping
+            + " ... ");
+
+    String junitLogFilename = logFilePrefix + JUNIT_LOG_FILE;
+    int resultValue = 0;
+    try {
+      resultValue = Utilities.invokeCommand(command, new File(buildDirectory), junitLogFilename);
+      if (resultValue == 0) {
+        System.out.println("success");
+      } else {
+        System.out.println("FAIL");
+      }
+      if (runtckVerbose) {
+        System.out.println("\nCommand line is: \n" + command.toString());
+        System.out.println("Test exit value is " + resultValue);
+        System.out.println("Test result output:\n" + fileToString(junitLogFilename));
+      }
+    } catch (java.lang.RuntimeException re) {
+      System.out.println("Exception on command " + command);
+    }
+    return resultValue;
+  }
+
+  /**
+   * Moves the implementation log file and TCK log file to the current log directory
+   *
+   * @param logFilePrefix the prefix of the log file consisting of idtype and conf
+   */
+  private void moveLogFiles(String logFilePrefix) {
+    // Move log to per-test location
+    String testLogFilename = logFilePrefix + impl + ".txt";
+    try {
+      File logFile = new File(implLogFile);
+      FileUtils.moveFile(logFile, new File(testLogFilename));
+    } catch (Exception e) {
+      System.out.println(">> Error moving implementation log file: " + e.getMessage());
+    }
+    String tckLogFilename = logFilePrefix + TCK_LOG_FILE;
+    try {
+      File logFile = new File(tckLogFile);
+      FileUtils.moveFile(logFile, new File(tckLogFilename));
+    } catch (Exception e) {
+      System.out.println(">> Error moving tck log file: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Finalizes the TCK run: delete log files, create the result summary file TCK-results.txt, create
+   * system configuration description file, copy metadata from enhanced to configuration logs
+   * directory. This method is called once per TCK run.
+   *
+   * @param logDir the path of the log directory
+   * @param cpString classpath
+   * @param cfgDirName configuration directory
+   * @param failureCount number of TCK test failures
+   * @throws MojoExecutionException
+   */
+  private void finalizeTCKRun(String logDir, String cpString, String cfgDirName, int failureCount)
+      throws MojoExecutionException {
     // Remove log file
     try {
       FileUtils.forceDeleteOnExit(new File(implLogFile));
@@ -501,63 +650,60 @@ public class RunTCK extends AbstractTCKMojo {
     }
 
     // Output results
-    command = new ArrayList<>();
+    String resultSummaryLogFile = logDir + FS + "ResultSummary.txt";
+    List<String> command = new ArrayList<>();
     command.add("java");
     command.add("-cp");
     command.add(cpString);
     command.add("org.apache.jdo.tck.util.ResultSummary");
-    command.add(thisLogDir);
-    result = (new Utilities()).invokeTest(command, new File(buildDirectory));
+    command.add(logDir);
+    Utilities.invokeCommand(command, new File(buildDirectory), resultSummaryLogFile);
+    System.out.println(fileToString(resultSummaryLogFile));
 
     // Create system configuration description file
     command.set(3, "org.apache.jdo.tck.util.SystemCfgSummary");
     command.set(4, cfgDirName);
     command.add("system_config.txt");
-    result = (new Utilities()).invokeTest(command, new File(buildDirectory));
+    Utilities.invokeCommand(command, new File(buildDirectory), null);
 
     // Copy metadata from enhanced to configuration logs directory
     for (String idtype : idtypes) {
-      String fromDirName =
-          buildDirectory
-              + File.separator
-              + "enhanced"
-              + File.separator
-              + impl
-              + File.separator
-              + idtype
-              + File.separator;
+      String fromDirName = buildDirectory + FS + "enhanced" + FS + impl + FS + idtype + FS;
       String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};
-      String fromFileName = null;
-      String pkgName = null;
-      int startIdx = -1;
       // iterator over list of abs name of metadata files in src
       Iterator<File> fi = FileUtils.iterateFiles(new File(fromDirName), metadataExtensions, true);
       while (fi.hasNext()) {
-        try {
-          fromFile = fi.next();
-          fromFileName = fromFile.toString();
-          if ((startIdx = fromFileName.indexOf(idtype + File.separator)) > -1) {
-            // fully specified name of file (idtype + package + filename)
-            pkgName = fromFileName.substring(startIdx);
-            toFile = new File(cfgDirName + File.separator + pkgName);
+        File fromFile = fi.next();
+        String fromFileName = fromFile.toString();
+        int startIdx = -1;
+        if ((startIdx = fromFileName.indexOf(idtype + FS)) > -1) {
+          // fully specified name of file (idtype + package + filename)
+          String pkgName = fromFileName.substring(startIdx);
+          File toFile = new File(cfgDirName + FS + pkgName);
+          try {
             FileUtils.copyFile(fromFile, toFile);
+          } catch (IOException ex) {
+            throw new MojoExecutionException(
+                "Failed to copy files from "
+                    + fromFileName
+                    + " to "
+                    + toFile.toString()
+                    + ": "
+                    + ex.getLocalizedMessage());
           }
-        } catch (IOException ex) {
-          throw new MojoExecutionException(
-              "Failed to copy files from "
-                  + fromFileName
-                  + " to "
-                  + toFile.toString()
-                  + ": "
-                  + ex.getLocalizedMessage());
         }
       }
     }
+
     if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
       throw new MojoExecutionException("Aborted TCK test run after 1 failure.");
     }
     if (TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY.equals(onFailure) && failureCount > 0) {
       throw new MojoExecutionException("There were " + failureCount + " TCK test failures.");
     }
+  }
+
+  private boolean disableColors() {
+    return !this.testRunnerColors.equalsIgnoreCase("enable");
   }
 }

@@ -21,12 +21,18 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Implicit parameters. <br>
@@ -36,6 +42,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * ordering, or range) are identified by prepending a ":" to the parameter everywhere it appears.
  * All parameter types can be determined by one of the following techniques:
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ImplicitParameters extends QueryTest {
 
   /** */
@@ -44,141 +51,168 @@ public class ImplicitParameters extends QueryTest {
 
   private static final String PARAMETER = "parameterInResult";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(ImplicitParameters.class);
-  }
-
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testResult() {
     Object expected =
         getExpectedResultOfFirstQuery(
             getTransientCompanyModelInstancesAsList(
                 Person.class, "emp1", "emp2", "emp3", "emp4", "emp5"));
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("param", PARAMETER);
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("param", PARAMETER);
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ "this, :param",
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ null,
+              /*paramValues*/ paramValues);
 
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ "this, :param",
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ null,
-            /*paramValues*/ paramValues);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    // TBD executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      // TBD executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testFilter() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("param", "emp1First");
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("param", "emp1First");
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "firstname == :param",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ null,
+              /*paramValues*/ paramValues);
 
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "firstname == :param",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ null,
-            /*paramValues*/ paramValues);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    // TBD executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      // TBD executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testGrouping() {
     Object expected = /* Note: "Development" is not a bean name! */ Arrays.asList("Development");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("minValue", Long.valueOf(3));
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("minValue", Long.valueOf(3));
+      // Import Department twice
+      QueryElementHolder<Employee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ "department.name",
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ "department.name HAVING COUNT(this) >= :minValue",
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ null,
+              /*paramValues*/ paramValues);
 
-    // Import Department twice
-    QueryElementHolder<Employee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ "department.name",
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ "department.name HAVING COUNT(this) >= :minValue",
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ null,
-            /*paramValues*/ paramValues);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    // TBD executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      // TBD executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testRange() {
     List<Person> expected =
         getTransientCompanyModelInstancesAsList(
             Person.class, "emp1", "emp2", "emp3", "emp4", "emp5");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("zero", Long.valueOf(0));
+      paramValues.put("five", Long.valueOf(5));
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("zero", Long.valueOf(0));
-    paramValues.put("five", Long.valueOf(5));
+      // Import Department twice
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ null,
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ ":zero",
+              /*TO*/ ":five",
+              /*JDOQLTyped*/ null,
+              /*paramValues*/ paramValues);
 
-    // Import Department twice
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ null,
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ ":zero",
-            /*TO*/ ":five",
-            /*JDOQLTyped*/ null,
-            /*paramValues*/ paramValues);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      // TBD executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
+  }
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    // TBD executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

@@ -21,7 +21,7 @@ import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Get Object By Id With Validation, Instance in Cache, Not in Datastore <br>
@@ -39,16 +39,8 @@ public class GetObjectByIdWithValidationInstanceInCacheNotInDatastore
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.6-8 (GetObjectByIdWithValidationInstanceInCacheNotInDatastore) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(GetObjectByIdWithValidationInstanceInCacheNotInDatastore.class);
-  }
-
   /* passing null paramameter to getObjectId */
+  @Test
   public void testGetObjectByIdWithValidationInstanceInCacheNotInDatastore() {
     pm = getPM();
     Transaction tx = pm.currentTransaction();

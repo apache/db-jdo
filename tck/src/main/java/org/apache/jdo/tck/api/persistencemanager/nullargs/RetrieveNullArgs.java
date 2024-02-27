@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> retrieve with Null Arguments <br>
@@ -32,15 +32,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * elements, and the null elements will be ignored.]
  */
 public class RetrieveNullArgs extends PersistenceManagerNullsTest {
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RetrieveNullArgs.class);
-  }
 
   static final MethodUnderTest retrieve = new MethodUnderTestRetrieve();
 
@@ -62,16 +53,19 @@ public class RetrieveNullArgs extends PersistenceManagerNullsTest {
   }
 
   /** Test that retrieve() with null valued argument does nothing. */
+  @Test
   public void testRetrieveNullObject() {
     executeNullObjectParameter(retrieve, "retrieve(null)");
   }
 
   /** Test that retrieveAll() with null valued Collection argument throws NullPointerException. */
+  @Test
   public void testRetrieveNullCollection() {
     executeNullCollectionParameter(retrieve, "retrieveAll((Collection)null)");
   }
 
   /** Test that retrieveAll() with null valued array argument throws NullPointerException. */
+  @Test
   public void testRetrieveNullArray() {
     executeNullArrayParameter(retrieve, "retrieveAll((Object[])null)");
   }
@@ -80,6 +74,7 @@ public class RetrieveNullArgs extends PersistenceManagerNullsTest {
    * Test that retrieveAll() with a null element of a Collection argument throws
    * NullPointerException.
    */
+  @Test
   public void testRetrieveCollectionNullElement() {
     executeCollectionNullElement(collNullElem, retrieve, "retrieveAll(Collection)");
   }
@@ -87,6 +82,7 @@ public class RetrieveNullArgs extends PersistenceManagerNullsTest {
   /**
    * Test that retrieveAll() with a null element of a array argument throws NullPointerException.
    */
+  @Test
   public void testRetrieveArrayNullElement() {
     executeArrayNullElement(arrayNullElem, retrieve, "retrieveAll(Object[])");
   }

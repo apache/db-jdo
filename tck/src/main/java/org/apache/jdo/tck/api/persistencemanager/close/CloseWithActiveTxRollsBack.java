@@ -22,7 +22,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Close Throws Exception <br>
@@ -37,16 +38,8 @@ public class CloseWithActiveTxRollsBack extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.6-2 (CloseWithActiveTxRollsBack) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(CloseWithActiveTxRollsBack.class);
-  }
-
   /** */
+  @Test
   public void test() {
     pm = getPM();
     Transaction tx = pm.currentTransaction();
@@ -61,8 +54,8 @@ public class CloseWithActiveTxRollsBack extends PersistenceManagerTest {
       // This should rollback the transaction
       pm.close();
 
-      assertFalse(tx.isActive());
-      assertTrue(pm.isClosed());
+      Assertions.assertFalse(tx.isActive());
+      Assertions.assertTrue(pm.isClosed());
     } finally {
       pm = null;
       PersistenceManager pm2 = getPM();

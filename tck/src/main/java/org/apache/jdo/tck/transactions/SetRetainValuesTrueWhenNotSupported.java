@@ -21,7 +21,7 @@ import javax.jdo.JDOUnsupportedOptionException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Set Retain Values True When Not Supported <br>
@@ -44,16 +44,8 @@ public class SetRetainValuesTrueWhenNotSupported extends JDO_Test {
   private static final String ASSERTION_FAILED =
       "Assertion A13.4.2-8 (SetRetainValuesTrueWhenNotSupported) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SetRetainValuesTrueWhenNotSupported.class);
-  }
-
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

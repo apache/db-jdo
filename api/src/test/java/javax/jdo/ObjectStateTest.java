@@ -17,13 +17,12 @@
 
 package javax.jdo;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import javax.jdo.spi.PersistenceCapable;
 import javax.jdo.util.AbstractTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /*
@@ -140,7 +139,7 @@ class ObjectStateTest extends AbstractTest {
     ObjectState actual = JDOHelper.getObjectState(pc);
     // test for == here because enums should be singleton
     if (actual == expected) return;
-    fail(
+    Assertions.fail(
         "ObjectState failure for " + string + NL + "expected: " + expected + ", actual: " + actual);
   }
 
@@ -200,7 +199,7 @@ class ObjectStateTest extends AbstractTest {
       if (method.equals(jdoIsDetached)) {
         return (0 != (states & DETACHED));
       }
-      fail("Unexpected method called: " + method.getName());
+      Assertions.fail("Unexpected method called: " + method.getName());
       return Boolean.FALSE; // not reached
     }
   }

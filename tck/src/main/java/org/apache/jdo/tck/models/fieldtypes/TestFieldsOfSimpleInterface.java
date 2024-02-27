@@ -23,7 +23,7 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.FieldsOfSimpleInterface;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleInterface;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Support of interfaces as field type. <br>
@@ -39,15 +39,6 @@ public class TestFieldsOfSimpleInterface extends JDO_Test {
       "Assertion A6.4.3-32 (TestFieldsOfSimpleInterface) failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(TestFieldsOfSimpleInterface.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -56,6 +47,7 @@ public class TestFieldsOfSimpleInterface extends JDO_Test {
   }
 
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

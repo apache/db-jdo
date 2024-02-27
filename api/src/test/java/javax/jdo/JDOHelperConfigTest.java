@@ -16,16 +16,12 @@
  */
 package javax.jdo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -218,7 +214,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
     String name = testVariantName == null ? null : expected.get(Constants.PROPERTY_NAME);
     Map<Object, Object> actual = JDOHelper.getPropertiesFromJdoconfig(name, loader);
 
-    assertNotNull(actual, "No properties found");
+    Assertions.assertNotNull(actual, "No properties found");
     if (checkEqualProperties) {
       assertEqualProperties(expected, actual);
     }
@@ -270,8 +266,8 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
     Map<Object, Object> actual =
         JDOHelper.getPropertiesFromJdoconfig(
             Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
-    assertNotNull(actual, "Anonymous PMF with no properties returned null");
-    assertEquals(0, actual.size(), "Anonymous PMF with no properties had properties");
+    Assertions.assertNotNull(actual, "Anonymous PMF with no properties returned null");
+    Assertions.assertEquals(0, actual.size(), "Anonymous PMF with no properties had properties");
   }
 
   @Test
@@ -284,8 +280,9 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
     Map<Object, Object> properties =
         JDOHelper.getPropertiesFromJdoconfig(
             Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
-    assertNotNull(properties, "Anonymous PMF with no properties returned null");
-    assertEquals(0, properties.size(), "Anonymous PMF with no properties had properties");
+    Assertions.assertNotNull(properties, "Anonymous PMF with no properties returned null");
+    Assertions.assertEquals(
+        0, properties.size(), "Anonymous PMF with no properties had properties");
   }
 
   @ParameterizedTest
@@ -301,8 +298,8 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + path);
     String actual = getPMFClassNameViaServiceLookup(loader);
 
-    assertNotNull(actual, "No PMF name found via services lookup");
-    assertEquals(expected, actual);
+    Assertions.assertNotNull(actual, "No PMF name found via services lookup");
+    Assertions.assertEquals(expected, actual);
   }
 
   @Test
@@ -317,7 +314,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
         JDOHelper.getPropertiesFromJdoconfig(
             Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
-    assertNotNull(actual, "No properties found");
+    Assertions.assertNotNull(actual, "No properties found");
     assertEqualProperties(expected, actual);
   }
 
@@ -333,7 +330,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
         JDOHelper.getPropertiesFromJdoconfig(
             Constants.ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
-    assertNotNull(actual, "No properties found");
+    Assertions.assertNotNull(actual, "No properties found");
     assertEqualProperties(expected, actual);
   }
 
@@ -349,7 +346,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
     URLClassLoader loader =
         new JDOConfigTestClassLoader(
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + path);
-    assertThrows(
+    Assertions.assertThrows(
         JDOFatalUserException.class,
         () -> JDOHelper.getPersistenceManagerFactory(loader),
         "JDOHelper failed to throw JDOFatalUserException");
@@ -360,7 +357,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
     URLClassLoader loader =
         new JDOConfigTestClassLoader(
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative03/");
-    assertThrows(
+    Assertions.assertThrows(
         JDOFatalUserException.class,
         () -> JDOHelper.getPersistenceManagerFactory("name.negative03", loader),
         "JDOHelper failed to throw JDOFatalUserException");
@@ -371,7 +368,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
     URLClassLoader loader =
         new JDOConfigTestClassLoader(
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative04/");
-    assertThrows(
+    Assertions.assertThrows(
         JDOFatalUserException.class,
         () -> JDOHelper.getPersistenceManagerFactory("name.negative04.value0", loader),
         "JDOHelper failed to throw JDOFatalUserException");
@@ -384,7 +381,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
             getClass().getClassLoader(),
             JDOCONFIG_CLASSPATH_PREFIX + "/Negative06/6a/",
             JDOCONFIG_CLASSPATH_PREFIX + "/Negative06/6b/");
-    assertThrows(
+    Assertions.assertThrows(
         JDOFatalUserException.class,
         () -> JDOHelper.getPersistenceManagerFactory("name.negative06", loader),
         "JDOHelper failed to throw JDOFatalUserException");
@@ -396,17 +393,17 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
         new JDOConfigTestClassLoader(
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative07/");
     String shouldBeNull = getPMFClassNameViaServiceLookup(testLoader);
-    assertNull(shouldBeNull);
+    Assertions.assertNull(shouldBeNull);
   }
 
   @Test
   void testNegative08_NoResourcesFound() {
     String resource = "" + RANDOM.nextLong();
     InputStream in = getClass().getClassLoader().getResourceAsStream(resource);
-    assertNull(in);
+    Assertions.assertNull(in);
 
     // resource pretty much guaranteed not to exist
-    assertThrows(
+    Assertions.assertThrows(
         JDOFatalUserException.class,
         () -> JDOHelper.getPersistenceManagerFactory(resource),
         "JDOHelper failed to throw JDOFatalUserException");
@@ -418,7 +415,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
         new JDOConfigTestClassLoader(
             getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative08/");
     String shouldBeNull = getPMFClassNameViaServiceLookup(testLoader);
-    assertNull(shouldBeNull);
+    Assertions.assertNull(shouldBeNull);
   }
 
   @Test
@@ -435,7 +432,7 @@ class JDOHelperConfigTest extends AbstractJDOConfigTest implements Constants {
             TEST_CLASSPATH,
             API_CLASSPATH);
     JDOFatalException x =
-        assertThrows(
+        Assertions.assertThrows(
             JDOFatalException.class,
             () -> JDOHelper.getPersistenceManagerFactory("name.negative09", loader),
             "JDOHelper failed to throw JDOFatalUserException");

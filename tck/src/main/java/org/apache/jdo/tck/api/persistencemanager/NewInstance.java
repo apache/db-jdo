@@ -23,7 +23,7 @@ import org.apache.jdo.tck.pc.newInstance.Address;
 import org.apache.jdo.tck.pc.newInstance.Address_bad;
 import org.apache.jdo.tck.pc.newInstance.IAddress;
 import org.apache.jdo.tck.pc.newInstance.IAddress_bad;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Delete Persistent <br>
@@ -40,34 +40,29 @@ public class NewInstance extends PersistenceManagerTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A12.6.6-2 (NewInstance) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NewInstance.class);
-  }
-
   /** test newInstance (Class pcInterface) */
+  @Test
   public void testNewInstanceInterface() {
     pm = getPM();
     IAddress instance = pm.newInstance(IAddress.class);
   }
 
   /** test newInstance (Class pcAbstractClass) */
+  @Test
   public void testNewInstanceAbstractClass() {
     pm = getPM();
     AAddress instance = pm.newInstance(AAddress.class);
   }
 
   /** test newInstance (Class pcClass) */
+  @Test
   public void testNewInstanceClass() {
     pm = getPM();
     Address instance = pm.newInstance(Address.class);
   }
 
   /** test newInstance (Class pcInterface) */
+  @Test
   public void testNewInstanceInterfaceBad() {
     pm = getPM();
     try {
@@ -83,6 +78,7 @@ public class NewInstance extends PersistenceManagerTest {
   }
 
   /** test newInstance (Class pcAbstractClass) */
+  @Test
   public void testNewInstanceAbstractClassBad() {
     pm = getPM();
     try {
@@ -98,6 +94,7 @@ public class NewInstance extends PersistenceManagerTest {
   }
 
   /** test newInstance (Class pcClass) */
+  @Test
   public void testNewInstanceClassBad() {
     pm = getPM();
     try {

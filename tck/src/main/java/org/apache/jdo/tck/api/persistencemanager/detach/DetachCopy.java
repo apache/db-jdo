@@ -19,7 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.detach;
 import java.util.Collection;
 import java.util.HashSet;
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Test DetachCopy <br>
@@ -36,16 +36,8 @@ public class DetachCopy extends DetachTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.6.8-13, A12.6.8-18, A12.6.8-19, A12.6.8-20" + " (DetachCopy) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DetachCopy.class);
-  }
-
   /** */
+  @Test
   public void testDetachCopy() {
     getPM().currentTransaction().begin();
     setCartFetchGroups();
@@ -57,6 +49,7 @@ public class DetachCopy extends DetachTest {
   }
 
   /** */
+  @Test
   public void testDetachCopyAllCollection() {
     getPM().currentTransaction().begin();
     setCartFetchGroups();
@@ -71,6 +64,7 @@ public class DetachCopy extends DetachTest {
   }
 
   /** */
+  @Test
   public void testDetachCopyAllArray() {
     getPM().currentTransaction().begin();
     setCartFetchGroups();

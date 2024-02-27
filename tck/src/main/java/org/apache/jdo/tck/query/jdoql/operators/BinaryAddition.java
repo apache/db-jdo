@@ -22,7 +22,12 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Binary Addition Query Operator <br>
@@ -41,52 +46,78 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * Boolean, Byte, Short, Integer, Long, Float</code>, and <code>Double</code>), and numeric types (
  * <code>BigDecimal</code> and <code>BigInteger</code>) use the wrapped values as operands.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BinaryAddition extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.2-26 (BinaryAddition) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(BinaryAddition.class);
+  /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive1() {
+    if (debug) logger.debug("\nExecuting test BinaryAddition() ...");
+
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> instance9 = pm.newQuery(PrimitiveTypes.class, "id == 9").executeList();
+
+      runSimplePrimitiveTypesQuery("id + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("byteNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("shortNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("intNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("longNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("floatNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("doubleNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("byteNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("shortNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("intNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("longNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("floatNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("doubleNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("bigDecimal + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("bigInteger + 1 == 10", pm, instance9, ASSERTION_FAILED);
+
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
-  public void testPositive() {
-    PersistenceManager pm = getPM();
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testPositive2() {
     if (debug) logger.debug("\nExecuting test BinaryAddition() ...");
 
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
-    tx.begin();
+    try {
+      tx.begin();
+      List<PrimitiveTypes> allOddInstances =
+          pm.newQuery(PrimitiveTypes.class, "booleanNull").executeList();
 
-    List<PrimitiveTypes> instance9 = pm.newQuery(PrimitiveTypes.class, "id == 9").executeList();
-    List<PrimitiveTypes> allOddInstances =
-        pm.newQuery(PrimitiveTypes.class, "booleanNull").executeList();
+      runSimplePrimitiveTypesQuery("charNull + 1 == 'P'", pm, allOddInstances, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("charNotNull + 1 == 'P'", pm, allOddInstances, ASSERTION_FAILED);
 
-    runSimplePrimitiveTypesQuery("id + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("byteNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("shortNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("intNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("longNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("floatNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("doubleNotNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("byteNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("shortNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("intNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("longNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("floatNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("doubleNull + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("bigDecimal + 1 == 10", pm, instance9, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("bigInteger + 1 == 10", pm, instance9, ASSERTION_FAILED);
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
 
-    runSimplePrimitiveTypesQuery("charNull + 1 == 'P'", pm, allOddInstances, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("charNotNull + 1 == 'P'", pm, allOddInstances, ASSERTION_FAILED);
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
 
-    tx.commit();
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

@@ -24,7 +24,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Insurance;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Delete Persistent All. <br>
@@ -42,16 +42,8 @@ public class DeletePersistentAll extends QueryTest {
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.8-1 (DeletePersistentAll) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DeletePersistentAll.class);
-  }
-
   /** */
+  @Test
   public void testNoParametersAPI() {
     Transaction tx = pm.currentTransaction();
     Query<Insurance> query = null;
@@ -85,6 +77,7 @@ public class DeletePersistentAll extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testNoParametersSingleString() {
     Transaction tx = pm.currentTransaction();
     Query<Insurance> query = null;
@@ -117,6 +110,7 @@ public class DeletePersistentAll extends QueryTest {
   }
 
   /** */
+  @Test
   public void testObjectArrayParametersAPI() {
     Transaction tx = pm.currentTransaction();
     Query<Insurance> query = null;
@@ -154,6 +148,7 @@ public class DeletePersistentAll extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testObjectArrayParametersSingleString() {
     Transaction tx = pm.currentTransaction();
     Query<Insurance> query = null;
@@ -189,6 +184,7 @@ public class DeletePersistentAll extends QueryTest {
   }
 
   /** */
+  @Test
   public void testMapParametersAPI() {
     Transaction tx = pm.currentTransaction();
     Query<Insurance> query = null;
@@ -227,6 +223,7 @@ public class DeletePersistentAll extends QueryTest {
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testMapParametersSingleString() {
     Transaction tx = pm.currentTransaction();
     Query<Insurance> query = null;

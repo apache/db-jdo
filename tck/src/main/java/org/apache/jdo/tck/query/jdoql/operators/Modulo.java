@@ -27,7 +27,12 @@ import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Modulo operator. <br>
@@ -35,73 +40,88 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion ID:</B> A14.6.2-40. <br>
  * <B>Assertion Description: </B> modulo operator
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Modulo extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.2-40 (Modulo) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(Modulo.class);
-  }
-
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPositive() {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp2", "emp4");
+    try {
+      JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
+      QPerson cand = QPerson.candidate();
+      query.filter(cand.personid.mod(2).eq(0L));
 
-    JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
-    QPerson cand = QPerson.candidate();
-    query.filter(cand.personid.mod(2).eq(0L));
+      // Import Department twice
+      QueryElementHolder<Person> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Person.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "personid % 2 == 0",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ null,
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ null);
 
-    // Import Department twice
-    QueryElementHolder<Person> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Person.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "personid % 2 == 0",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ null,
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ null);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    // DataNucleus: UnsupportedOperationException: Dont currently support operator  %  in JDOQL
-    // conversion
-    // executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      // DataNucleus: UnsupportedOperationException: Dont currently support operator  %  in JDOQL
+      // conversion
+      // executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPostiveUsingPrimitiveTypes() {
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
-    tx.begin();
+    try {
+      tx.begin();
 
-    List<PrimitiveTypes> instance4 = pm.newQuery(PrimitiveTypes.class, "id == 10").executeList();
+      List<PrimitiveTypes> instance4 = pm.newQuery(PrimitiveTypes.class, "id == 10").executeList();
 
-    runSimplePrimitiveTypesQuery("id % 10 == 0", pm, instance4, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("byteNotNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("shortNotNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("intNotNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("longNotNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("byteNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("shortNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("intNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("longNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
-    runSimplePrimitiveTypesQuery("bigInteger % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("id % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("byteNotNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("shortNotNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("intNotNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("longNotNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("byteNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("shortNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("intNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("longNull % 10 == 0", pm, instance4, ASSERTION_FAILED);
+      runSimplePrimitiveTypesQuery("bigInteger % 10 == 0", pm, instance4, ASSERTION_FAILED);
 
-    tx.commit();
+      tx.rollback();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

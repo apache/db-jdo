@@ -24,8 +24,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.signature.SignatureVerifier;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> SignatureTest <br>
@@ -45,21 +45,13 @@ public class SignatureTest extends JDO_Test {
   private static final String ASSERTION_FAILED = "API Signature Test failed: ";
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(SignatureTest.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
   protected void localSetUp() {}
 
   /** Runs the API Signature Test. */
+  @Test
   public void testSignatures() {
     // create a SignatureVerifier instance
     final StringWriter sw = new StringWriter();

@@ -24,7 +24,12 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Bitwise Binary Query Operators <br>
@@ -39,25 +44,19 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *   <LI><code>byte, short, int, long, Byte, Short Integer, Long</code>
  * </UL>
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BitwiseBinaryOperators extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-20 and A14.6.2-22 (BitwiseBinaryOperators) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(BitwiseBinaryOperators.class);
-  }
-
   /** Testing bitwise AND */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testBitwiseAndPositive() {
     if (isBitwiseOperationsSupported()) {
-      PersistenceManager pm = getPM();
+      PersistenceManager pm = getPMF().getPersistenceManager();
       Transaction tx = pm.currentTransaction();
       try {
         tx.begin();
@@ -75,18 +74,20 @@ public class BitwiseBinaryOperators extends QueryTest {
         runSimplePrimitiveTypesQuery("(longNotNull & 4) != 0", pm, expected, ASSERTION_FAILED);
         runSimplePrimitiveTypesQuery("(longNull & 4) != 0", pm, expected, ASSERTION_FAILED);
 
-        tx.commit();
+        tx.rollback();
         tx = null;
       } finally {
-        if ((tx != null) && tx.isActive()) tx.rollback();
+        cleanupPM(pm);
       }
     }
   }
 
   /** Testing bitwise OR */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testBitwiseOrPositive() {
     if (isBitwiseOperationsSupported()) {
-      PersistenceManager pm = getPM();
+      PersistenceManager pm = getPMF().getPersistenceManager();
       Transaction tx = pm.currentTransaction();
       try {
         tx.begin();
@@ -104,18 +105,19 @@ public class BitwiseBinaryOperators extends QueryTest {
         runSimplePrimitiveTypesQuery("(longNotNull | 3) == 7", pm, expected, ASSERTION_FAILED);
         runSimplePrimitiveTypesQuery("(longNull | 3) == 7", pm, expected, ASSERTION_FAILED);
 
-        tx.commit();
+        tx.rollback();
         tx = null;
       } finally {
-        if ((tx != null) && tx.isActive()) tx.rollback();
+        cleanupPM(pm);
       }
     }
   }
 
   /** Testing bitwise XOR */
+  @Test
   public void testBitwiseXOrPositive() {
     if (isBitwiseOperationsSupported()) {
-      PersistenceManager pm = getPM();
+      PersistenceManager pm = getPMF().getPersistenceManager();
       Transaction tx = pm.currentTransaction();
       try {
         tx.begin();
@@ -132,37 +134,24 @@ public class BitwiseBinaryOperators extends QueryTest {
         runSimplePrimitiveTypesQuery("(longNotNull ^ 1) == 0", pm, expected, ASSERTION_FAILED);
         runSimplePrimitiveTypesQuery("(longNull ^ 1) == 0", pm, expected, ASSERTION_FAILED);
 
-        tx.commit();
+        tx.rollback();
         tx = null;
       } finally {
-        if ((tx != null) && tx.isActive()) tx.rollback();
+        cleanupPM(pm);
       }
     }
   }
 
   /** Queries using bitwise AND that should result in a JDOException. */
+  @Test
   public void testBitwiseAndNegative() {
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
-    tx.begin();
-
     try {
-      Query<PrimitiveTypes> q =
-          pm.newQuery(PrimitiveTypes.class, "stringNull & stringNull == stringNull");
-      q.execute();
-      fail(
-          ASSERTION_FAILED,
-          "Query using & operator for non-supported types should throw JDOUserException.");
-    } catch (JDOUserException ex) {
-      // expected exception
-      if (debug) {
-        logger.debug("expected exception: " + ex);
-      }
-    }
-
-    if (!isBitwiseOperationsSupported()) {
+      tx.begin();
       try {
-        Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "(intNotNull & 4) > 0");
+        Query<PrimitiveTypes> q =
+            pm.newQuery(PrimitiveTypes.class, "stringNull & stringNull == stringNull");
         q.execute();
         fail(
             ASSERTION_FAILED,
@@ -173,72 +162,81 @@ public class BitwiseBinaryOperators extends QueryTest {
           logger.debug("expected exception: " + ex);
         }
       }
-    }
 
-    tx.commit();
+      if (!isBitwiseOperationsSupported()) {
+        try {
+          Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "(intNotNull & 4) > 0");
+          q.execute();
+          fail(
+              ASSERTION_FAILED,
+              "Query using & operator for non-supported types should throw JDOUserException.");
+        } catch (JDOUserException ex) {
+          // expected exception
+          if (debug) {
+            logger.debug("expected exception: " + ex);
+          }
+        }
+      }
+
+      tx.rollback();
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** Queries using bitwise AND that should result in a JDOException. */
+  @Test
   public void testBitwiseOrNegative() {
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
-    tx.begin();
-
     try {
-      Query<PrimitiveTypes> q =
-          pm.newQuery(PrimitiveTypes.class, "stringNull | stringNull == stringNull");
-      q.execute();
-      fail(
-          ASSERTION_FAILED,
-          "Query using | operator for non-supported types should throw JDOUserException.");
-    } catch (JDOUserException ex) {
-      // expected exception
-      if (debug) {
-        logger.debug("expected exception: " + ex);
-      }
-    }
 
-    if (!isBitwiseOperationsSupported()) {
+      tx.begin();
       try {
-        Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "(intNotNull | 3) == 7");
+        Query<PrimitiveTypes> q =
+            pm.newQuery(PrimitiveTypes.class, "stringNull | stringNull == stringNull");
         q.execute();
         fail(
             ASSERTION_FAILED,
-            "Query using & operator for non-supported types should throw JDOUserException.");
+            "Query using | operator for non-supported types should throw JDOUserException.");
       } catch (JDOUserException ex) {
         // expected exception
         if (debug) {
           logger.debug("expected exception: " + ex);
         }
       }
-    }
 
-    tx.commit();
+      if (!isBitwiseOperationsSupported()) {
+        try {
+          Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "(intNotNull | 3) == 7");
+          q.execute();
+          fail(
+              ASSERTION_FAILED,
+              "Query using & operator for non-supported types should throw JDOUserException.");
+        } catch (JDOUserException ex) {
+          // expected exception
+          if (debug) {
+            logger.debug("expected exception: " + ex);
+          }
+        }
+      }
+
+      tx.rollback();
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** Queries using bitwise AND that should result in a JDOException. */
+  @Test
   public void testBitwiseXOrNegative() {
-    PersistenceManager pm = getPM();
+    PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
-    tx.begin();
-
     try {
-      Query<PrimitiveTypes> q =
-          pm.newQuery(PrimitiveTypes.class, "stringNull ^ stringNul == stringNull");
-      q.execute();
-      fail(
-          ASSERTION_FAILED,
-          "Query using & operator for non-supported types should throw JDOUserException.");
-    } catch (JDOUserException ex) {
-      // expected exception
-      if (debug) {
-        logger.debug("expected exception: " + ex);
-      }
-    }
-
-    if (!isBitwiseOperationsSupported()) {
+      tx.begin();
       try {
-        Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "(intNotNull ^ 1) == 0");
+        Query<PrimitiveTypes> q =
+            pm.newQuery(PrimitiveTypes.class, "stringNull ^ stringNul == stringNull");
         q.execute();
         fail(
             ASSERTION_FAILED,
@@ -249,9 +247,38 @@ public class BitwiseBinaryOperators extends QueryTest {
           logger.debug("expected exception: " + ex);
         }
       }
-    }
 
-    tx.commit();
+      if (!isBitwiseOperationsSupported()) {
+        try {
+          Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "(intNotNull ^ 1) == 0");
+          q.execute();
+          fail(
+              ASSERTION_FAILED,
+              "Query using & operator for non-supported types should throw JDOUserException.");
+        } catch (JDOUserException ex) {
+          // expected exception
+          if (debug) {
+            logger.debug("expected exception: " + ex);
+          }
+        }
+      }
+
+      tx.rollback();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

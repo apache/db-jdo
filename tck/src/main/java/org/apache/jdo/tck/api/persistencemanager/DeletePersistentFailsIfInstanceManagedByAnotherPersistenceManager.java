@@ -23,7 +23,7 @@ import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> DeletePersistent Fails If Instance Managed By Another PersistenceManager <br>
@@ -39,22 +39,18 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.7-11 (DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager.class);
-  }
-
   private PCPoint p1 = null;
   private PCPoint p2 = null;
   private PCPoint p3 = null;
   private PCPoint p4 = null;
   private PCPoint p5 = null;
 
+  private Collection<PCPoint> pcPointCol;
+
+  private PCPoint[] pcPointArray;
+
   /** */
+  @Test
   public void testDeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager() {
     pm = getPM();
     PersistenceManager pm2 = getPMF().getPersistenceManager();
@@ -89,6 +85,14 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
       pm.makePersistent(p3);
       pm.makePersistent(p4);
       pm.makePersistent(p5);
+
+      pcPointCol = new HashSet<>(2);
+      pcPointCol.add(p2);
+      pcPointCol.add(p1);
+
+      pcPointArray = new PCPoint[2];
+      pcPointArray[0] = p4;
+      pcPointArray[0] = p5;
       tx.commit();
     } finally {
       if ((tx != null) && tx.isActive()) tx.rollback();
@@ -120,12 +124,8 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
     try {
       tx.begin();
 
-      Collection<PCPoint> col1 = new HashSet<>();
-      col1.add(p2);
-      col1.add(p3);
-
       try {
-        pm.deletePersistentAll(col1);
+        pm.deletePersistentAll(pcPointCol);
         fail(
             ASSERTION_FAILED,
             "pm.deletePersistent(Collection) with pc instance(s) managed by another pm should throw exception");
@@ -144,12 +144,8 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
     try {
       tx.begin();
 
-      Collection<PCPoint> col1 = new HashSet<>();
-      col1.add(p4);
-      col1.add(p5);
-      Object[] obj1 = col1.toArray();
       try {
-        pm.deletePersistentAll(obj1);
+        pm.deletePersistentAll(pcPointArray);
         fail(
             ASSERTION_FAILED,
             "pm.deletePersistent(Object[]) with pc instance(s) managed by another pm should throw exception");

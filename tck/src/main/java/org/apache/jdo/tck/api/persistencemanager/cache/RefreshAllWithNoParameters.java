@@ -21,7 +21,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Refresh All With No Parameters <br>
@@ -46,16 +46,8 @@ public class RefreshAllWithNoParameters extends PersistenceManagerTest {
   private static final String ASSERTION_FAILED =
       "Assertion A12.5.1-6 (RefreshAllWithNoParameters) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(RefreshAllWithNoParameters.class);
-  }
-
   /** */
+  @Test
   public void test() {
     pm = getPM();
 

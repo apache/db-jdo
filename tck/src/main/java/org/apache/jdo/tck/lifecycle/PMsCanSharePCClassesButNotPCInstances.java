@@ -26,11 +26,11 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
-import junit.framework.AssertionFailedError;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.lifecycle.StateTransitionObj;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * <B>Title:</B> Test PM ability to share PC classes but not PC instances <br>
@@ -62,15 +62,6 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
   protected int insertedCountExpected = 0;
 
   /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(PMsCanSharePCClassesButNotPCInstances.class);
-  }
-
-  /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */
   @Override
@@ -78,6 +69,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
     addTearDownClass(StateTransitionObj.class);
   }
 
+  @Test
   public void testSharedPC() {
     // test shared PC - only one PM should succeed to insert the shared PC
     threads = 0;
@@ -87,6 +79,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
     insertObjects(true);
   }
 
+  @Test
   public void testNonSharedPC() {
     // test non-shared PCs - each PM should succeed to insert its own non-shared PC
     threads = 0;

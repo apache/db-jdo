@@ -18,11 +18,17 @@
 package org.apache.jdo.tck.query.sql;
 
 import java.util.Arrays;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> No Candidate Class. <br>
@@ -32,19 +38,11 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * queries can be found by name using the factory method newNamedQuery, specifying the class as
  * null, or can be constructed without a candidate class.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NoCandidateClass extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.7-3 (CandidateClass) failed: ";
-
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NoCandidateClass.class);
-  }
 
   /** The array of valid SQL queries. */
   private static final String[] VALID_SQL_QUERIES = {"SELECT firstname, lastname FROM {0}.persons"};
@@ -62,29 +60,63 @@ public class NoCandidateClass extends QueryTest {
   };
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNamedQuery() {
     if (isSQLSupported()) {
       int index = 0;
-      Query<Employee> query = getPM().newNamedQuery(null, "SQLQuery");
-      executeJDOQuery(
-          ASSERTION_FAILED, query, "Named SQL query", false, null, expectedResult[index], true);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        Query<Employee> query = pm.newNamedQuery(null, "SQLQuery");
+        executeJDOQuery(
+            ASSERTION_FAILED,
+            pm,
+            query,
+            "Named SQL query",
+            false,
+            null,
+            expectedResult[index],
+            true);
+      } finally {
+        cleanupPM(pm);
+      }
     }
   }
 
   /** */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testNoCandidateClass() {
     if (isSQLSupported()) {
       int index = 0;
-      executeSQLQuery(
-          ASSERTION_FAILED,
-          VALID_SQL_QUERIES[index],
-          null,
-          null,
-          true,
-          null,
-          expectedResult[index],
-          false);
+      PersistenceManager pm = getPMF().getPersistenceManager();
+      try {
+        executeSQLQuery(
+            ASSERTION_FAILED,
+            pm,
+            VALID_SQL_QUERIES[index],
+            null,
+            null,
+            true,
+            null,
+            expectedResult[index],
+            false);
+      } finally {
+        cleanupPM(pm);
+      }
     }
+  }
+
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**

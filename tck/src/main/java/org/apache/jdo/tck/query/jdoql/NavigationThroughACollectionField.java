@@ -25,7 +25,7 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B> Navigation Through a Collection Field <br>
@@ -54,17 +54,9 @@ public class NavigationThroughACollectionField extends QueryTest {
     return NAVIGATION_TEST_COMPANY_TESTDATA;
   }
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NavigationThroughACollectionField.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
   public void testPositive() {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
@@ -91,9 +83,9 @@ public class NavigationThroughACollectionField extends QueryTest {
             /*JDOQLTyped*/ query,
             /*paramValues*/ null);
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+    executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+    executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
   }
 
   /**

@@ -367,6 +367,7 @@ public class JDOHelper implements Constants {
       return IMPL_HELPER.nonBinaryCompatibleGet(pc, getVersion);
     }
   }
+
   /**
    * Tests whether the parameter instance is dirty.
    *
@@ -1143,6 +1144,11 @@ public class JDOHelper implements Constants {
 
   protected static DocumentBuilderFactory getDefaultDocumentBuilderFactory() {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    try {
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+    } catch (ParserConfigurationException e) {
+      throw new JDOFatalUserException(e.getMessage());
+    }
     factory.setIgnoringComments(true);
     factory.setNamespaceAware(true);
     factory.setValidating(false);

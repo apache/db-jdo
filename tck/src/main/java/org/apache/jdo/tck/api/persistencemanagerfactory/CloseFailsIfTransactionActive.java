@@ -23,7 +23,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * <B>Title:</B>CloseFailsIfTransactionActive of PersistenceManagerFactory <br>
@@ -50,18 +50,10 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
   private static final String ASSERTION_FAILED =
       "Assertion A11.4-4 (CloseFailsIfTransactionActive) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(CloseFailsIfTransactionActive.class);
-  }
-
   protected boolean aborted = false;
 
   /** */
+  @Test
   public void test() {
     PersistenceManager pm1 = null;
     PersistenceManager pm2 = null;

@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.PersistenceManager;
 import javax.jdo.query.Expression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -28,7 +29,12 @@ import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Null Collections and Contains Method <br>
@@ -38,94 +44,110 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * are treated as if they were empty and all <code>contains</code> methods return <code>false</code>
  * .
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NullCollectionsAndContainsMethod extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED =
       "Assertion A14.6.2-35 (NullCollectionsAndContainsMethod) failed: ";
 
-  /**
-   * The <code>main</code> is called when the class is directly executed from the command line.
-   *
-   * @param args The arguments passed to the program.
-   */
-  public static void main(String[] args) {
-    BatchTestRunner.run(NullCollectionsAndContainsMethod.class);
-  }
-
   /** */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testContains1() {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+      QEmployee cand = QEmployee.candidate();
+      Expression<Project> empParam = query.parameter("p", Project.class);
+      query.filter(cand.personid.eq(1L).and(cand.projects.contains(empParam)));
 
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
-    Expression<Project> empParam = query.parameter("p", Project.class);
-    query.filter(cand.personid.eq(1L).and(cand.projects.contains(empParam)));
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("p", getPersistentCompanyModelInstance(pm, Project.class, "proj1"));
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
+      // contains
+      QueryElementHolder<Employee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "personid == 1 && projects.contains(p)",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ "org.apache.jdo.tck.pc.company.Project p",
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ paramValues);
 
-    // contains
-    QueryElementHolder<Employee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "personid == 1 && projects.contains(p)",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ "org.apache.jdo.tck.pc.company.Project p",
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ paramValues);
-
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
   }
 
   /** */
   @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
   public void testContains2() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    try {
+      JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
+      QEmployee cand = QEmployee.candidate();
+      Expression<Project> empParam = query.parameter("p", Project.class);
+      query.filter(cand.projects.contains(empParam));
 
-    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
-    Expression<Project> empParam = query.parameter("p", Project.class);
-    query.filter(cand.projects.contains(empParam));
+      Map<String, Object> paramValues = new HashMap<>();
+      paramValues.put("p", getPersistentCompanyModelInstance(pm, Project.class, "proj1"));
 
-    Map<String, Object> paramValues = new HashMap<>();
-    paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
+      // contains
+      QueryElementHolder<Employee> holder =
+          new QueryElementHolder<>(
+              /*UNIQUE*/ null,
+              /*RESULT*/ null,
+              /*INTO*/ null,
+              /*FROM*/ Employee.class,
+              /*EXCLUDE*/ null,
+              /*WHERE*/ "projects.contains(p)",
+              /*VARIABLES*/ null,
+              /*PARAMETERS*/ "org.apache.jdo.tck.pc.company.Project p",
+              /*IMPORTS*/ null,
+              /*GROUP BY*/ null,
+              /*ORDER BY*/ null,
+              /*FROM*/ null,
+              /*TO*/ null,
+              /*JDOQLTyped*/ query,
+              /*paramValues*/ paramValues);
 
-    // contains
-    QueryElementHolder<Employee> holder =
-        new QueryElementHolder<>(
-            /*UNIQUE*/ null,
-            /*RESULT*/ null,
-            /*INTO*/ null,
-            /*FROM*/ Employee.class,
-            /*EXCLUDE*/ null,
-            /*WHERE*/ "projects.contains(p)",
-            /*VARIABLES*/ null,
-            /*PARAMETERS*/ "org.apache.jdo.tck.pc.company.Project p",
-            /*IMPORTS*/ null,
-            /*GROUP BY*/ null,
-            /*ORDER BY*/ null,
-            /*FROM*/ null,
-            /*TO*/ null,
-            /*JDOQLTyped*/ query,
-            /*paramValues*/ paramValues);
+      executeAPIQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeSingleStringQuery(ASSERTION_FAILED, pm, holder, expected);
+      executeJDOQLTypedQuery(ASSERTION_FAILED, pm, holder, expected);
+    } finally {
+      cleanupPM(pm);
+    }
+  }
 
-    executeAPIQuery(ASSERTION_FAILED, holder, expected);
-    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  @BeforeAll
+  @Override
+  protected void setUp() {
+    super.setUp();
+  }
+
+  @AfterAll
+  @Override
+  protected void tearDown() {
+    super.tearDown();
   }
 
   /**
@@ -136,7 +158,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
     addTearDownClass(CompanyModelReader.getTearDownClasses());
     loadAndPersistCompanyModel(getPM());
     getPM().currentTransaction().begin();
-    Employee emp1 = getPersistentCompanyModelInstance(Employee.class, "emp1");
+    Employee emp1 = getPersistentCompanyModelInstance(pm, Employee.class, "emp1");
     emp1.setProjects(null);
     getPM().currentTransaction().commit();
   }
