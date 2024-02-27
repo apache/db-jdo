@@ -87,7 +87,7 @@ import java.util.Map;
  * and are not remembered for future execution.
  *
  * @version 2.1
- * @param T Candidate class for the query
+ * @param <T> Candidate class for the query
  */
 public interface Query<T> extends AutoCloseable, Serializable {
 
@@ -759,18 +759,19 @@ public interface Query<T> extends AutoCloseable, Serializable {
   Integer getDatastoreWriteTimeoutMillis();
 
   /**
-   * Method to cancel any executing queries. If the underlying datastore doesn't support
-   * cancellation of queries this will throw JDOUnsupportedOptionException. If the cancellation
-   * fails (e.g in the underlying datastore) then this will throw a JDOException.
+   * Method to cancel all executions of this query instance. If the underlying datastore doesn't
+   * support cancellation of queries this will throw JDOUnsupportedOptionException. If the
+   * cancellation fails (e.g in the underlying datastore) then this will throw a JDOException.
    *
    * @since 3.0
    */
   void cancelAll();
 
   /**
-   * Method to cancel an executing query in the specified thread. If the underlying datastore
-   * doesn't support cancellation of queries this will throw JDOUnsupportedOptionException. If the
-   * cancellation fails (e.g in the underlying datastore) then this will throw a JDOException.
+   * Method to cancel an execution of this query in the parameter thread. If the underlying
+   * datastore doesn't support cancellation of queries this will throw
+   * JDOUnsupportedOptionException. If the cancellation fails (e.g in the underlying datastore) then
+   * this will throw a JDOException.
    *
    * @param thread The thread to cancel
    * @since 3.0
