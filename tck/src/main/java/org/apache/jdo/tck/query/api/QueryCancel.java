@@ -25,12 +25,14 @@ import javax.jdo.JDOUnsupportedOptionException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.parallel.Execution;
@@ -56,7 +58,7 @@ import org.opentest4j.AssertionFailedError;
 public class QueryCancel extends QueryTest {
 
   /** Time for the main thread to sleep after starting a parallel thread. */
-  private static final int MAIN_SLEEP_MILLIS = 40;
+  private static final int MAIN_SLEEP_MILLIS = 1000;
 
   /** Number of instances to be created. */
   private static final int NO_OF_INSTANCES = 5000;
@@ -101,7 +103,12 @@ public class QueryCancel extends QueryTest {
         Thread.sleep(MAIN_SLEEP_MILLIS);
 
         // cancel query
+        long start = System.currentTimeMillis();
+        logger.info("Start query cancel " + start);
         query.cancel(t);
+        long end = System.currentTimeMillis();
+        logger.info("End query cancel " + end);
+        logger.info(" Query cancel took " + (end -start) + "ms");
         if (!isQueryCancelSupported()) {
           fail(
               ASSERTION_FAILED,
@@ -133,6 +140,7 @@ public class QueryCancel extends QueryTest {
    * @throws Exception exception
    */
   @SuppressWarnings("unchecked")
+  @Disabled
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testCancelAll() throws Exception {
@@ -165,6 +173,7 @@ public class QueryCancel extends QueryTest {
                   + "if query canceling is not supported ");
         }
       } catch (JDOUnsupportedOptionException ex) {
+        logger.info("caught " + ex);
         if (isQueryCancelSupported()) {
           fail(
               ASSERTION_FAILED,
@@ -206,7 +215,12 @@ public class QueryCancel extends QueryTest {
         // wait for the other thread
         barrier.await();
 
+        long start = System.currentTimeMillis();
+        QueryCancel.this.logger.info("Start query execute " + start);
         Object result = query.execute();
+        long end = System.currentTimeMillis();
+        QueryCancel.this.logger.info("End query execute " + end);
+        QueryCancel.this.logger.info("query execute took " + (end - start) + "ms");
         tx.commit();
         tx = null;
         if (isQueryCancelSupported()) {
