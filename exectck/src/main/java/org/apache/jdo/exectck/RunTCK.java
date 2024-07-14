@@ -154,6 +154,10 @@ public class RunTCK extends AbstractTCKMojo {
   @Parameter(property = "jdo.tck.parallel.execution", defaultValue = "true", required = true)
   private boolean testParallelExecution;
 
+  /** Whether the datastore support query canceling. */
+  @Parameter(property = "jdo.tck.datastore.supportsQueryCancel", required = false)
+  private String datastoreSupportsQueryCancel;
+
   /**
    * Helper method returning the trimmed value of the specified property.
    *
@@ -541,6 +545,7 @@ public class RunTCK extends AbstractTCKMojo {
     command.add("-cp");
     command.add(cpString);
     command.addAll(cfgPropsString);
+    command.add(getDatastoreSupportsQueryCancelOption());
     command.add(dbproperties);
     command.add(jvmproperties);
     if (debugTCK) {
@@ -705,5 +710,19 @@ public class RunTCK extends AbstractTCKMojo {
 
   private boolean disableColors() {
     return !this.testRunnerColors.equalsIgnoreCase("enable");
+  }
+
+  private String getDatastoreSupportsQueryCancelOption() {
+    boolean support = true;
+    if (datastoreSupportsQueryCancel == null || datastoreSupportsQueryCancel.isEmpty()) {
+      // property not set -> check database
+      String db = System.getProperty("jdo.tck.database");
+      if (db != null && db.equals("derby")) {
+        support = false;
+      }
+    } else {
+      support = datastoreSupportsQueryCancel.equalsIgnoreCase("true");
+    }
+    return "-Djdo.tck.datastore.supportsQueryCancel=" + support;
   }
 }
