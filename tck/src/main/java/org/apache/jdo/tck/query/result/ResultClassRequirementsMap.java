@@ -32,6 +32,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * <B>Title:</B> Result Class Requirements. <br>
@@ -72,15 +74,7 @@ public class ResultClassRequirementsMap extends QueryTest {
 
   /** */
   @Test
-  // @Execution(ExecutionMode.CONCURRENT)
-  // ToDo: Wrong query result when exceuted in parallel
-  // query: SELECT personid AS id, lastname AS name INTO java.util.Map
-  //        FROM org.apache.jdo.tck.pc.company.FullTimeEmployee
-  // expected: java.util.ArrayList of size 3
-  //         [{name=emp1Last, id=1}, {name=emp2Last, id=2}, {name=emp5Last, id=5}]
-  // got:      java.util.ArrayList of size 3
-  //         [{personid=5, lastname=emp5Last}, {personid=2, lastname=emp2Last},
-  //          {personid=1, lastname=emp1Last}]
+  @Execution(ExecutionMode.CONCURRENT)
   public void testMap() {
     Object expected =
         Arrays.asList(
@@ -90,7 +84,7 @@ public class ResultClassRequirementsMap extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // JDOQLTypedQuery API: Map Result
       query.result(false, cand.personid.as("id"), cand.lastname.as("name"));
 
@@ -122,21 +116,7 @@ public class ResultClassRequirementsMap extends QueryTest {
 
   /** */
   @Test
-  // @Execution(ExecutionMode.CONCURRENT)
-  // ToDo: Wrong query result when exceuted in parallel
-  // query: SELECT personid, lastname INTO org.apache.jdo.tck.query.result.classes.PublicPutMethod
-  //        FROM org.apache.jdo.tck.pc.company.FullTimeEmployee
-  // expected: java.util.ArrayList of size 3
-  //         [org.apache.jdo.tck.query.result.classes.PublicPutMethod(
-  //             {personid=1, lastname=emp1Last}),
-  //          org.apache.jdo.tck.query.result.classes.PublicPutMethod(
-  //             {personid=2, lastname=emp2Last}),
-  //          org.apache.jdo.tck.query.result.classes.PublicPutMethod(
-  //             {personid=5, lastname=emp5Last})]
-  // got:      java.util.ArrayList of size 3
-  //         [org.apache.jdo.tck.query.result.classes.PublicPutMethod({name=emp5Last, id=5}),
-  //          org.apache.jdo.tck.query.result.classes.PublicPutMethod({name=emp2Last, id=2}),
-  //          org.apache.jdo.tck.query.result.classes.PublicPutMethod({name=emp1Last, id=1})]
+  @Execution(ExecutionMode.CONCURRENT)
   public void testPut() {
     Object expected =
         Arrays.asList(
@@ -146,7 +126,7 @@ public class ResultClassRequirementsMap extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // JDOQLTypedQuery API: constructor
       query.result(false, cand.personid.as("personid"), cand.lastname.as("lastname"));
 
