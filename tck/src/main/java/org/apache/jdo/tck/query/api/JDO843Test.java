@@ -59,7 +59,33 @@ public class JDO843Test extends QueryTest {
    * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
    */
   @Test
-  public void testQuery15f() {
+  public void testQuery15fFailure() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<SampleReadQueries.EmpWrapper> expected = testQuery15Helper();
+      try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
+        // Using the following candidate method returns a query result wrapping null as FullTimeEmployee instance
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
+        NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
+        q.result(true, cand.as("FullTimeEmployee")).filter(cand.salary.gt(sal));
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("sal", 30000.);
+        q.setParameters(paramValues);
+        List<SampleReadQueries.EmpWrapper> infos = q.executeResultList(SampleReadQueries.EmpWrapper.class);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_15, infos, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  //@Test
+  public void testQuery15fSuccess() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -67,9 +93,7 @@ public class JDO843Test extends QueryTest {
       List<SampleReadQueries.EmpWrapper> expected = testQuery15Helper();
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
         // Using the following candidate method returns the expected query result
-        //QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-        // Using the following candidate method returns a query result wrapping null as FullTimeEmployee instance
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
         q.result(true, cand.as("FullTimeEmployee")).filter(cand.salary.gt(sal));
         Map<String, Object> paramValues = new HashMap<>();
@@ -93,7 +117,33 @@ public class JDO843Test extends QueryTest {
    * stores the result in a user-defined class.
    */
   @Test
-  public void testQuery16f() {
+  public void testQuery16fFailure() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<SampleReadQueries.EmpInfo> expected = testQuery16Helper();
+      try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
+        // Using the following candidate method returns a query result wrapping null as FullTimeEmployee instance
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
+        NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
+        q.result(true, cand.as("FullTimeEmployee")).filter(cand.salary.gt(sal));
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("sal", 30000.);
+        q.setParameters(paramValues);
+        List<SampleReadQueries.EmpInfo> infos = q.executeResultList(SampleReadQueries.EmpInfo.class);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_16, infos, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  //@Test
+  public void testQuery16fSuccess() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -101,9 +151,7 @@ public class JDO843Test extends QueryTest {
       List<SampleReadQueries.EmpInfo> expected = testQuery16Helper();
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
         // Using the following candidate method returns the expected query result
-        //QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-        // Using the following candidate method returns a query result wrapping null as FullTimeEmployee instance
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
         q.result(true, cand.as("FullTimeEmployee")).filter(cand.salary.gt(sal));
         Map<String, Object> paramValues = new HashMap<>();
