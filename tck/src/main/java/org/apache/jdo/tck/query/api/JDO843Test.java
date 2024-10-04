@@ -84,7 +84,7 @@ public class JDO843Test extends QueryTest {
     }
   }
 
-  //@Test
+  @Test
   public void testQuery15fSuccess() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -142,7 +142,7 @@ public class JDO843Test extends QueryTest {
     }
   }
 
-  //@Test
+  @Test
   public void testQuery16fSuccess() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
