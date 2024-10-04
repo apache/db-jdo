@@ -27,6 +27,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.CollectionExpression;
+import javax.jdo.query.Expression;
 import javax.jdo.query.NumericExpression;
 import javax.jdo.query.StringExpression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -269,7 +270,7 @@ public class SampleReadQueries extends QueryTest {
       List<FullTimeEmployee> expected =
           getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         q.filter(cand.salary.gt(30000.));
         List<FullTimeEmployee> emps = q.executeList();
         checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_01, emps, expected);
@@ -395,7 +396,7 @@ public class SampleReadQueries extends QueryTest {
       List<FullTimeEmployee> expected =
           getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5", "emp2");
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         q.filter(cand.salary.gt(30000.)).orderBy(cand.salary.asc());
         List<FullTimeEmployee> emps = q.executeList();
         checkQueryResultWithOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_02, emps, expected);
@@ -570,7 +571,7 @@ public class SampleReadQueries extends QueryTest {
       List<FullTimeEmployee> expected =
           getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
         StringExpression begin = q.stringParameter("begin");
         q.filter(cand.salary.gt(sal).and(cand.firstname.startsWith(begin)));
@@ -735,7 +736,7 @@ public class SampleReadQueries extends QueryTest {
       List<Employee> expected =
           getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
       try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
-        QEmployee cand = QEmployee.candidate();
+        QEmployee cand = QEmployee.candidate("this");
         StringExpression dep = q.stringParameter("dep");
         q.filter(cand.department.name.eq(dep));
         Map<String, Object> paramValues = new HashMap<>();
@@ -897,7 +898,7 @@ public class SampleReadQueries extends QueryTest {
       List<Department> expected =
           getTransientCompanyModelInstancesAsList(Department.class, "dept1");
       try (JDOQLTypedQuery<Department> q = pm.newJDOQLTypedQuery(Department.class)) {
-        QDepartment cand = QDepartment.candidate();
+        QDepartment cand = QDepartment.candidate("this");
         QEmployee emp = QEmployee.variable("emp");
         NumericExpression<Double> hours = q.numericParameter("hours", double.class);
         q.filter(cand.employees.contains(emp).and(emp.weeklyhours.gt(hours)));
@@ -1052,7 +1053,7 @@ public class SampleReadQueries extends QueryTest {
       List<Department> expected =
           getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
       try (JDOQLTypedQuery<Department> q = pm.newJDOQLTypedQuery(Department.class)) {
-        QDepartment cand = QDepartment.candidate();
+        QDepartment cand = QDepartment.candidate("this");
         CollectionExpression<Collection<String>, String> depts =
             q.collectionParameter("depts", String.class);
         q.filter(depts.contains(cand.name));
@@ -1199,7 +1200,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
       try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
-        QEmployee cand = QEmployee.candidate();
+        QEmployee cand = QEmployee.candidate("this");
         StringExpression deptName = q.stringParameter("deptName");
         q.filter(cand.department.name.eq(deptName)).result(false, cand.firstname);
         Map<String, Object> paramValues = new HashMap<>();
@@ -1354,7 +1355,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       List<Info> expected = testQuery08Helper();
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         StringExpression deptName = q.stringParameter("deptName");
         q.result(false, cand.firstname, cand.salary, cand.manager.as("reportsTo"))
             .filter(cand.department.name.eq(deptName));
@@ -1555,7 +1556,7 @@ public class SampleReadQueries extends QueryTest {
               new Info("Michael", 40000., getTransientCompanyModelInstance(Employee.class, "emp2")),
               new Info("Craig", 50000., null));
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         StringExpression deptName = q.stringParameter("deptName");
         q.result(false, cand.firstname, cand.salary, cand.manager)
             .filter(cand.department.name.eq(deptName));
@@ -1707,7 +1708,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       Double expected = 45000.;
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         StringExpression deptName = q.stringParameter("deptName");
         q.result(false, cand.salary.avg()).filter(cand.department.name.eq(deptName));
         Map<String, Object> paramValues = new HashMap<>();
@@ -1853,7 +1854,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       Double[] expected = new Double[] {45000., 90000.};
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         StringExpression deptName = q.stringParameter("deptName");
         q.result(false, cand.salary.avg(), cand.salary.sum())
             .filter(cand.department.name.eq(deptName));
@@ -2020,7 +2021,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       Object[] expectedRow = new Object[] {45000., 90000., "R&D"};
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         q.result(false, cand.salary.avg(), cand.salary.sum(), cand.department.name)
             .groupBy(cand.department.name)
             .having(cand.department.name.count().gt(1L));
@@ -2167,7 +2168,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       Employee expectedEmp = getTransientCompanyModelInstance(Employee.class, "emp1");
       try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
-        QEmployee cand = QEmployee.candidate();
+        QEmployee cand = QEmployee.candidate("this");
         StringExpression empName = q.stringParameter("empName");
         q.filter(cand.firstname.eq(empName));
         Map<String, Object> paramValues = new HashMap<>();
@@ -2321,7 +2322,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       Double expectedSalary = 40000.;
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         StringExpression empName = q.stringParameter("empName");
         q.result(false, cand.salary).filter(cand.firstname.eq(empName));
         Map<String, Object> paramValues = new HashMap<>();
@@ -2476,7 +2477,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       List<EmpWrapper> expected = testQuery15Helper();
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
         q.result(true, cand.as("FullTimeEmployee")).filter(cand.salary.gt(sal));
         Map<String, Object> paramValues = new HashMap<>();
@@ -2625,7 +2626,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       List<EmpInfo> expected = testQuery16Helper();
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
         q.result(true, cand.as("FullTimeEmployee")).filter(cand.salary.gt(sal));
         Map<String, Object> paramValues = new HashMap<>();
@@ -2765,7 +2766,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       List<String> expected = Arrays.asList("Michael", "Craig", "Joe");
       try (JDOQLTypedQuery<Department> q = pm.newJDOQLTypedQuery(Department.class)) {
-        QDepartment cand = QDepartment.candidate();
+        QDepartment cand = QDepartment.candidate("this");
         QEmployee e = QEmployee.variable("e");
         q.filter(cand.name.startsWith("R&D").and(cand.employees.contains(e)))
             .result(false, e.firstname);
@@ -2881,7 +2882,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       List<String> expected = Arrays.asList("Michael", "Craig");
       try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
-        QEmployee cand = QEmployee.candidate();
+        QEmployee cand = QEmployee.candidate("this");
         JDOQLTypedSubquery<Employee> subquery = q.subquery("e");
         QEmployee candsub = QEmployee.candidate("e");
         q.result(false, cand.firstname)
@@ -3013,7 +3014,7 @@ public class SampleReadQueries extends QueryTest {
       tx.begin();
       List<String> expected = Arrays.asList("Michael");
       try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
-        QEmployee cand = QEmployee.candidate();
+        QEmployee cand = QEmployee.candidate("this");
         JDOQLTypedSubquery<Employee> subquery =
             q.subquery(cand.department.employees, Employee.class, "e");
         QEmployee candsub = QEmployee.candidate("e");
@@ -3146,7 +3147,7 @@ public class SampleReadQueries extends QueryTest {
       builder.append("EmpWrapper(");
       builder
           .append("FullTimeEmployee:")
-          .append(FullTimeEmployee == null ? "null" : FullTimeEmployee.getFirstname());
+          .append(FullTimeEmployee == null ? "null" : "name = " + FullTimeEmployee.getFirstname());
       builder.append(")");
       return builder.toString();
     }

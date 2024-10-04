@@ -56,7 +56,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters extends Quer
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       StringExpression paramVariable = query.stringParameter("param");
       query.filter(cand.firstname.eq(paramVariable));
 
@@ -99,7 +99,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters extends Quer
     try {
 
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       StringExpression paramVariable = query.stringParameter("param");
       query.filter(cand.firstname.gteq(paramVariable));
 
@@ -141,7 +141,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters extends Quer
     try {
 
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       StringExpression paramVariable = query.stringParameter("param");
       query.filter(paramVariable.lt(cand.firstname));
 

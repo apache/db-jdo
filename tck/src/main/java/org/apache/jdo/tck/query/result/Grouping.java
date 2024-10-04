@@ -85,7 +85,7 @@ public class Grouping extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.department, cand.salary.sum());
       query.groupBy(cand.department);
 

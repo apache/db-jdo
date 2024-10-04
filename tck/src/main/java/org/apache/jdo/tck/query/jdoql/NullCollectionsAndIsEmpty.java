@@ -46,7 +46,7 @@ public class NullCollectionsAndIsEmpty extends QueryTest {
     List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
     JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
+    QEmployee cand = QEmployee.candidate("this");
     query.filter(cand.personid.eq(1L).and(cand.projects.isEmpty()));
 
     QueryElementHolder<Employee> holder =

@@ -56,7 +56,7 @@ public class StartsWithAndEndsWith extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.firstname.startsWith("emp1"));
 
       QueryElementHolder<Employee> holder =
@@ -94,7 +94,7 @@ public class StartsWithAndEndsWith extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.firstname.endsWith("1First"));
 
       QueryElementHolder<Employee> holder =

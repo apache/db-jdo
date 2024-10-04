@@ -70,7 +70,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.medicalInsurance.carrier.eq("Carrier1"));
 
       QueryElementHolder<Employee> holder =
@@ -114,7 +114,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<MedicalInsurance> query = pm.newJDOQLTypedQuery(MedicalInsurance.class);
-      QMedicalInsurance cand = QMedicalInsurance.candidate();
+      QMedicalInsurance cand = QMedicalInsurance.candidate("this");
       query.filter(cand.employee.department.name.eq("Development"));
 
       QueryElementHolder<MedicalInsurance> holder =
@@ -153,7 +153,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<MedicalInsurance> query = pm.newJDOQLTypedQuery(MedicalInsurance.class);
-      QMedicalInsurance cand = QMedicalInsurance.candidate();
+      QMedicalInsurance cand = QMedicalInsurance.candidate("this");
       query.filter(cand.employee.manager.firstname.eq("emp1First"));
 
       QueryElementHolder<MedicalInsurance> holder =
@@ -192,7 +192,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<MedicalInsurance> query = pm.newJDOQLTypedQuery(MedicalInsurance.class);
-      QMedicalInsurance cand = QMedicalInsurance.candidate();
+      QMedicalInsurance cand = QMedicalInsurance.candidate("this");
       query.filter(cand.employee.manager.manager.firstname.eq("emp0First"));
 
       QueryElementHolder<MedicalInsurance> holder =

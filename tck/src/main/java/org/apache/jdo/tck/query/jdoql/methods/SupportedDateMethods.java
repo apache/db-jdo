@@ -59,7 +59,7 @@ public class SupportedDateMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.birthdate.getDay().eq(10));
 
       QueryElementHolder<Person> holder =
@@ -96,7 +96,7 @@ public class SupportedDateMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.birthdate.getMonth().eq(5));
 
       QueryElementHolder<Person> holder =
@@ -133,7 +133,7 @@ public class SupportedDateMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.birthdate.getYear().eq(1970));
 
       QueryElementHolder<Person> holder =

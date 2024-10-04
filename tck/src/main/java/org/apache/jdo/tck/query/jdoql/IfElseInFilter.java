@@ -110,7 +110,7 @@ public class IfElseInFilter extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       IfThenElseExpression<Double> ifExpr =
           query.ifThenElse(cand.department.name.eq("Development"), 15000.0, 25000.0);
       query.filter(cand.salary.gt(ifExpr));
@@ -152,7 +152,7 @@ public class IfElseInFilter extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       IfThenElseExpression<Long> ifExpr =
           query.ifThenElse(
               Long.class,
@@ -198,7 +198,7 @@ public class IfElseInFilter extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       BooleanExpression cond1 = cand.salary.gt(0.0).and(cand.salary.lt(10000.1));
       BooleanExpression cond2 = cand.salary.gt(10000.1).and(cand.salary.lt(20000.1));
       BooleanExpression cond3 = cand.salary.gt(20000.1).and(cand.salary.lt(30000.1));
@@ -245,7 +245,7 @@ public class IfElseInFilter extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       BooleanExpression cond1 = cand.salary.lt(10000.1);
       BooleanExpression cond2 = cand.salary.lt(20000.1);
       BooleanExpression cond3 = cand.salary.lt(30000.1);

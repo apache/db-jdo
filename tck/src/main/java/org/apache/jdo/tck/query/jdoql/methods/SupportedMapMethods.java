@@ -63,7 +63,7 @@ public class SupportedMapMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.phoneNumbers.get("home").eq("1111"));
 
       QueryElementHolder<Person> holder =
@@ -103,7 +103,7 @@ public class SupportedMapMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.phoneNumbers.containsKey("home"));
 
       QueryElementHolder<Person> holder =
@@ -141,7 +141,7 @@ public class SupportedMapMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.phoneNumbers.containsValue("1111"));
 
       QueryElementHolder<Person> holder =
@@ -178,7 +178,7 @@ public class SupportedMapMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.phoneNumbers.isEmpty());
 
       QueryElementHolder<Person> holder =
@@ -218,7 +218,7 @@ public class SupportedMapMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.phoneNumbers.size().eq(2));
 
       QueryElementHolder<Person> holder =

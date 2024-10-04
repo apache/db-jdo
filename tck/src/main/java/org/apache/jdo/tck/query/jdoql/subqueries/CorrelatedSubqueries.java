@@ -140,7 +140,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
           getTransientCompanyModelInstancesAsList(
               Employee.class, "emp1", "emp2", "emp4", "emp6", "emp7", "emp10");
       try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
-        QEmployee cand = QEmployee.candidate();
+        QEmployee cand = QEmployee.candidate("this");
         JDOQLTypedSubquery<Employee> subquery =
             q.subquery(cand.department.employees, Employee.class, "e");
         QEmployee candsub = QEmployee.candidate("e");
@@ -230,7 +230,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
       List<Employee> expected =
           getTransientCompanyModelInstancesAsList(Employee.class, "emp7", "emp8", "emp9", "emp10");
       try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
-        QEmployee cand = QEmployee.candidate();
+        QEmployee cand = QEmployee.candidate("this");
         JDOQLTypedSubquery<MeetingRoom> subquery =
             q.subquery(cand.department.meetingRooms, MeetingRoom.class, "r");
         QMeetingRoom candsub = QMeetingRoom.candidate("r");

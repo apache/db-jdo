@@ -55,7 +55,7 @@ public class MethodsInResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.result(false, cand.employees.size());
       query.orderBy(cand.name.asc());
 
@@ -99,7 +99,7 @@ public class MethodsInResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.phoneNumbers.size());
       query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
@@ -137,7 +137,7 @@ public class MethodsInResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.result(false, cand.employees.size().max());
 
       QueryElementHolder<Department> holder =
@@ -175,7 +175,7 @@ public class MethodsInResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.phoneNumbers.get("home"));
       query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
@@ -213,7 +213,7 @@ public class MethodsInResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.firstname.substring(1, 4));
       query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
@@ -257,7 +257,7 @@ public class MethodsInResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.firstname.indexOf("First"));
       query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 

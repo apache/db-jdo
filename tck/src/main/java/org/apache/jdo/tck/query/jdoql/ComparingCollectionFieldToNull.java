@@ -48,7 +48,7 @@ public class ComparingCollectionFieldToNull extends QueryTest {
   @Test
   public void testPositive() {
     JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-    QEmployee cand = QEmployee.candidate();
+    QEmployee cand = QEmployee.candidate("this");
     query.filter(cand.personid.eq(1L).and(cand.projects.eq(null)));
 
     QueryElementHolder<Employee> holder =

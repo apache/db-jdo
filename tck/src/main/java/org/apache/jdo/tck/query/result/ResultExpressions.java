@@ -131,7 +131,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand);
 
       QueryElementHolder<Employee> holder =
@@ -170,7 +170,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.personid);
 
       QueryElementHolder<Employee> holder =
@@ -208,7 +208,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QProject p = QProject.variable("p");
       query.result(false, p.projid);
       query.filter(cand.projects.contains(p).and(cand.personid.eq(1l)));
@@ -248,7 +248,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QProject variable = QProject.variable("p");
       query.result(false, variable);
       query.filter(cand.projects.contains(variable).and(cand.personid.eq(1l)));
@@ -288,7 +288,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.count());
 
       QueryElementHolder<Employee> holder =
@@ -327,7 +327,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QProject p = QProject.variable("p");
       query.result(false, p.count());
       query.filter(cand.projects.contains(p).and(cand.personid.eq(1l)));
@@ -367,7 +367,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.personid.sum());
 
       QueryElementHolder<Employee> holder =
@@ -405,7 +405,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.personid.min());
 
       QueryElementHolder<Employee> holder =
@@ -443,7 +443,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.personid.max());
 
       QueryElementHolder<Employee> holder =
@@ -481,7 +481,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.personid.avg());
 
       QueryElementHolder<Employee> holder =
@@ -521,7 +521,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.result(false, cand.personid.add(1));
 
       QueryElementHolder<Person> holder =
@@ -561,7 +561,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.personid);
 
       QueryElementHolder<Employee> holder =
@@ -600,7 +600,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QEmployee e = QEmployee.variable("e");
       Expression<Employee> eExpr = query.variable("e", Employee.class);
       query.result(true, e.department.name);
@@ -641,7 +641,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QProject p = QProject.parameter("p");
       query.parameter("p", Project.class);
       query.result(false, p.projid);
@@ -685,7 +685,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.department.deptid);
       query.filter(cand.personid.eq(1l));
 
@@ -724,7 +724,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QProject p = QProject.parameter("p");
       query.parameter("p", Project.class);
       query.result(false, p);
@@ -768,7 +768,7 @@ public class ResultExpressions extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.manager.cast(FullTimeEmployee.class));
       query.filter(cand.personid.eq(1l));
 

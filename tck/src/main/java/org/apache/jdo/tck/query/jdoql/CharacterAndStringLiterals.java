@@ -89,7 +89,7 @@ public class CharacterAndStringLiterals extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.stringNull.startsWith("Even").or(cand.charNotNull.eq('0')));
 
       QueryElementHolder<PrimitiveTypes> holder =
@@ -126,7 +126,7 @@ public class CharacterAndStringLiterals extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.stringNull.startsWith("Even").or(cand.charNotNull.eq('0')));
 
       QueryElementHolder<PrimitiveTypes> holder =

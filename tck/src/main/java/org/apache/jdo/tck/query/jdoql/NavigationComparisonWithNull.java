@@ -87,7 +87,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.manager.eq((Employee) null));
 
       QueryElementHolder<Employee> holder =
@@ -127,7 +127,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.manager.ne((Employee) null));
 
       QueryElementHolder<Employee> holder =
@@ -167,7 +167,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.manager.eq((Employee) null).not());
 
       QueryElementHolder<Employee> holder =
@@ -208,7 +208,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     try {
 
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.manager.manager.eq((Employee) null));
 
       QueryElementHolder<Employee> holder =
@@ -249,7 +249,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     try {
 
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.manager.ne((Employee) null).and(cand.manager.manager.eq((Employee) null)));
 
       QueryElementHolder<Employee> holder =
@@ -289,7 +289,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     try {
 
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.manager.manager.ne((Employee) null));
 
       QueryElementHolder<Employee> holder =
@@ -329,7 +329,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     try {
 
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QEmployee e = QEmployee.variable("e");
       query.filter(cand.manager.manager.eq((Employee) null).not());
 
@@ -370,7 +370,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     try {
 
       JDOQLTypedQuery<MedicalInsurance> query = pm.newJDOQLTypedQuery(MedicalInsurance.class);
-      QMedicalInsurance cand = QMedicalInsurance.candidate();
+      QMedicalInsurance cand = QMedicalInsurance.candidate("this");
       query.filter(cand.employee.manager.manager.eq((Employee) null));
 
       QueryElementHolder<MedicalInsurance> holder =
@@ -414,7 +414,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     try {
 
       JDOQLTypedQuery<MedicalInsurance> query = pm.newJDOQLTypedQuery(MedicalInsurance.class);
-      QMedicalInsurance cand = QMedicalInsurance.candidate();
+      QMedicalInsurance cand = QMedicalInsurance.candidate("this");
       query.filter(
           cand.employee
               .ne((Employee) null)
@@ -460,7 +460,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     try {
 
       JDOQLTypedQuery<MedicalInsurance> query = pm.newJDOQLTypedQuery(MedicalInsurance.class);
-      QMedicalInsurance cand = QMedicalInsurance.candidate();
+      QMedicalInsurance cand = QMedicalInsurance.candidate("this");
       query.filter(cand.employee.manager.manager.ne((Employee) null));
 
       QueryElementHolder<MedicalInsurance> holder =
@@ -500,7 +500,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     try {
 
       JDOQLTypedQuery<MedicalInsurance> query = pm.newJDOQLTypedQuery(MedicalInsurance.class);
-      QMedicalInsurance cand = QMedicalInsurance.candidate();
+      QMedicalInsurance cand = QMedicalInsurance.candidate("this");
       query.filter(cand.employee.manager.manager.eq((Employee) null).not());
 
       QueryElementHolder<MedicalInsurance> holder =
