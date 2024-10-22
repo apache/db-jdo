@@ -223,7 +223,7 @@
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-api-jdo</artifactId>
-                    <version>5.2.9</version>
+                    <version>5.2.11</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
