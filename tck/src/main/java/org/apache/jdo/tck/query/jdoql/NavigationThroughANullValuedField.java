@@ -74,7 +74,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.medicalInsurance.carrier.eq("Carrier1"));
 
       QueryElementHolder<Employee> holder =
@@ -113,7 +113,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.manager.lastname.eq("emp4Last"));
 
       QueryElementHolder<Employee> holder =
@@ -151,7 +151,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.manager.manager.lastname.eq("emp0Last"));
 
       QueryElementHolder<Employee> holder =
@@ -192,7 +192,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       query.filter(cand.employees.contains(e).and(e.medicalInsurance.carrier.eq("Carrier1")));
 

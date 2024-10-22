@@ -63,7 +63,7 @@ public class VariablesAndFields extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QEmployee e = QEmployee.variable("e");
       query.filter(cand.team.contains(e).and(e.firstname.eq("emp1First")));
 
@@ -102,7 +102,7 @@ public class VariablesAndFields extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QEmployee e = QEmployee.variable("e");
       query.filter(cand.team.contains(e).and(e.firstname.eq("emp1First")));
 
@@ -140,7 +140,7 @@ public class VariablesAndFields extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.eq("emp1First"));
 
       QueryElementHolder<Person> holder =
@@ -178,7 +178,7 @@ public class VariablesAndFields extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QEmployee manager = QEmployee.variable("manager");
       query.filter(cand.team.contains(manager).and(manager.firstname.eq("emp1First")));
 
@@ -217,7 +217,7 @@ public class VariablesAndFields extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QEmployee manager = QEmployee.variable("manager");
       query.filter(cand.team.contains(cand.manager).and(cand.manager.firstname.eq("emp1First")));
 
@@ -256,7 +256,7 @@ public class VariablesAndFields extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QEmployee employee = QEmployee.variable("employee");
       query.filter(cand.team.contains(employee).and(employee.firstname.eq("emp1First")));
 

@@ -85,7 +85,7 @@ public class OrderingSpecification extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
-      QDentalInsurance cand = QDentalInsurance.candidate();
+      QDentalInsurance cand = QDentalInsurance.candidate("this");
       query.orderBy(cand.lifetimeOrthoBenefit.asc().nullsFirst());
 
       QueryElementHolder<DentalInsurance> holder =
@@ -131,7 +131,7 @@ public class OrderingSpecification extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
-      QDentalInsurance cand = QDentalInsurance.candidate();
+      QDentalInsurance cand = QDentalInsurance.candidate("this");
       query.orderBy(cand.lifetimeOrthoBenefit.asc().nullsLast());
 
       QueryElementHolder<DentalInsurance> holder =

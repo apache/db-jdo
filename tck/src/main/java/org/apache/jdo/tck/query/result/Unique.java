@@ -55,7 +55,7 @@ public class Unique extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.personid.eq(1l));
 
       QueryElementHolder<Person> holder =
@@ -92,7 +92,7 @@ public class Unique extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.personid.eq(0l));
 
       QueryElementHolder<Person> holder =
@@ -129,7 +129,7 @@ public class Unique extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.orderBy(cand.personid.asc());
 
       QueryElementHolder<Person> holder =

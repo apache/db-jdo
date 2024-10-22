@@ -61,7 +61,7 @@ public class NavigationThroughACollectionField extends QueryTest {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
     JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
-    QDepartment cand = QDepartment.candidate();
+    QDepartment cand = QDepartment.candidate("this");
     QEmployee e = QEmployee.variable("e");
     query.filter(cand.employees.contains(e).and(e.firstname.eq("emp1First")));
 

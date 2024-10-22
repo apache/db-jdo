@@ -58,7 +58,7 @@ public class MultipleIdenticalImports extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       Expression<Department> empParam = query.parameter("d", Department.class);
       query.filter(cand.department.eq(empParam));
 
@@ -102,7 +102,7 @@ public class MultipleIdenticalImports extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       Expression<Department> empParam = query.parameter("d", Department.class);
       query.filter(cand.department.eq(empParam));
 
@@ -146,7 +146,7 @@ public class MultipleIdenticalImports extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       Expression<Department> empParam = query.parameter("d", Department.class);
       query.filter(cand.department.eq(empParam));
 

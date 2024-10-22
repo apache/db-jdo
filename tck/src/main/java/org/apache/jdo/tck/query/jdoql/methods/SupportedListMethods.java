@@ -64,7 +64,7 @@ public class SupportedListMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       Expression<MeetingRoom> roomParam = query.parameter("room1", MeetingRoom.class);
       NumericExpression<?> posParam = query.numericParameter("pos");
       query.filter(cand.meetingRooms.get(posParam).eq(roomParam));
@@ -111,7 +111,7 @@ public class SupportedListMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.result(false, cand.meetingRooms.get(1));
       query.filter(cand.deptid.eq(1L));
 

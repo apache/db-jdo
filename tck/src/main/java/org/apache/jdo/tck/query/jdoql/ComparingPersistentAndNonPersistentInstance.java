@@ -57,7 +57,7 @@ public class ComparingPersistentAndNonPersistentInstance extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       Expression<Employee> empParam = query.parameter("param", Employee.class);
       query.filter(cand.eq(empParam));
 
@@ -98,7 +98,7 @@ public class ComparingPersistentAndNonPersistentInstance extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       Expression<Employee> empParamExpression = query.parameter("param", Employee.class);
       QEmployee empParam = QEmployee.parameter("param");
       query.filter(cand.personid.eq(empParam.personid));

@@ -82,7 +82,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.count());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -120,7 +120,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.count());
       query.filter(cand.personid.eq(0L));
 
@@ -159,7 +159,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.manager.count());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -197,7 +197,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.manager.personid.count());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -235,7 +235,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.manager.countDistinct());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -273,7 +273,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.personid.sum());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -311,7 +311,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.salary.sum());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -350,7 +350,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
-      QProject cand = QProject.candidate();
+      QProject cand = QProject.candidate("this");
       query.result(false, cand.budget.sum());
 
       QueryElementHolder<Project> holder =
@@ -388,7 +388,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
-      QProject cand = QProject.candidate();
+      QProject cand = QProject.candidate("this");
       query.result(false, cand.budget.sum());
       query.filter(cand.projid.eq(0L));
 
@@ -427,7 +427,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // DataNucleus: java.lang.ClassCastException:
       // org.datanucleus.api.jdo.query.PersistableExpressionImpl
       // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
@@ -469,7 +469,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // DataNucleus: )java.lang.ClassCastException:
       // org.datanucleus.api.jdo.query.PersistableExpressionImpl
       // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
@@ -511,7 +511,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.personid.min());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -549,7 +549,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.salary.min());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -587,7 +587,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
-      QProject cand = QProject.candidate();
+      QProject cand = QProject.candidate("this");
       query.result(false, cand.budget.min());
 
       QueryElementHolder<Project> holder =
@@ -625,7 +625,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
-      QProject cand = QProject.candidate();
+      QProject cand = QProject.candidate("this");
       query.result(false, cand.budget.min());
       query.filter(cand.projid.eq(0L));
 
@@ -664,7 +664,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // DataNucleus: ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
       // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
       QFullTimeEmployee cast = (QFullTimeEmployee) cand.manager.cast(FullTimeEmployee.class);
@@ -705,7 +705,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.personid.max());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -743,7 +743,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.salary.max());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -781,7 +781,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
-      QProject cand = QProject.candidate();
+      QProject cand = QProject.candidate("this");
       query.result(false, cand.budget.max());
 
       QueryElementHolder<Project> holder =
@@ -819,7 +819,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
-      QProject cand = QProject.candidate();
+      QProject cand = QProject.candidate("this");
       query.result(false, cand.budget.max());
       query.filter(cand.projid.eq(0L));
 
@@ -858,7 +858,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // DataNucleus: java.lang.ClassCastException:
       // org.datanucleus.api.jdo.query.PersistableExpressionImpl
       // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
@@ -900,7 +900,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.result(false, cand.personid.avg());
 
       QueryElementHolder<Person> holder =
@@ -938,7 +938,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.salary.avg());
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -976,7 +976,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
-      QDentalInsurance cand = QDentalInsurance.candidate();
+      QDentalInsurance cand = QDentalInsurance.candidate("this");
       query.result(false, cand.lifetimeOrthoBenefit.avg());
 
       QueryElementHolder<DentalInsurance> holder =
@@ -1014,7 +1014,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
-      QDentalInsurance cand = QDentalInsurance.candidate();
+      QDentalInsurance cand = QDentalInsurance.candidate("this");
       query.result(false, cand.lifetimeOrthoBenefit.avg());
       query.filter(cand.insid.eq(0L));
 
@@ -1053,7 +1053,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // DataNucleus: java.lang.ClassCastException:
       // org.datanucleus.api.jdo.query.PersistableExpressionImpl
       // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
@@ -1095,7 +1095,7 @@ public class AggregateResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // DataNucleus: java.lang.ClassCastException:
       // org.datanucleus.api.jdo.query.PersistableExpressionImpl
       // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee

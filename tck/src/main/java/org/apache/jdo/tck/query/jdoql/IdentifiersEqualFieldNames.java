@@ -56,7 +56,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.eq("emp1First"));
 
       QueryElementHolder<Person> holder =
@@ -95,7 +95,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.personid.lt((long) Byte.MAX_VALUE));
 
       QueryElementHolder<Person> holder =
@@ -133,7 +133,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.filter(
           cand.employees
               .size()
@@ -175,7 +175,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     try {
 
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
 
       QueryElementHolder<Department> holder =
@@ -214,7 +214,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     try {
 
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
 
       QueryElementHolder<Department> holder =

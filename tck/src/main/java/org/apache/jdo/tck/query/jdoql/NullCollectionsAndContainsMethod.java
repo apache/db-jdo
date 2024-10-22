@@ -60,7 +60,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       Expression<Project> empParam = query.parameter("p", Project.class);
       query.filter(cand.personid.eq(1L).and(cand.projects.contains(empParam)));
 
@@ -104,7 +104,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       Expression<Project> empParam = query.parameter("p", Project.class);
       query.filter(cand.projects.contains(empParam));
 

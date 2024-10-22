@@ -161,7 +161,7 @@ public class ResultClassRequirements extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.personid);
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -199,7 +199,7 @@ public class ResultClassRequirements extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.salary);
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -238,7 +238,7 @@ public class ResultClassRequirements extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
-      QProject cand = QProject.candidate();
+      QProject cand = QProject.candidate("this");
       query.result(false, cand.budget);
 
       QueryElementHolder<Project> holder =
@@ -279,7 +279,7 @@ public class ResultClassRequirements extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       query.result(false, cand.hiredate);
 
       QueryElementHolder<FullTimeEmployee> holder =
@@ -320,7 +320,7 @@ public class ResultClassRequirements extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // JDOQLTypedQuery API: user defined class
       query.result(false, cand.personid.as("l"), cand.lastname.as("s"));
 
@@ -362,7 +362,7 @@ public class ResultClassRequirements extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // JDOQLTypedQuery API: constructor
       query.result(false, cand.personid, cand.lastname);
 
@@ -404,7 +404,7 @@ public class ResultClassRequirements extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // JDOQLTypedQuery API: constructor
       query.result(false, cand.personid, cand.lastname);
 
@@ -443,7 +443,7 @@ public class ResultClassRequirements extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<FullTimeEmployee> query = pm.newJDOQLTypedQuery(FullTimeEmployee.class);
-      QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+      QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
       // JDOQLTypedQuery API:
       query.result(false, cand.personid.as("l"));
 

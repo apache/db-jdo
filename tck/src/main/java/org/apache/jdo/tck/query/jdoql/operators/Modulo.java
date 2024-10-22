@@ -52,7 +52,7 @@ public class Modulo extends QueryTest {
     List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp2", "emp4");
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.personid.mod(2).eq(0L));
 
       // Import Department twice

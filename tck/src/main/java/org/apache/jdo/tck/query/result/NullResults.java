@@ -54,7 +54,7 @@ public class NullResults extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.lastname.eq("emp2Last"));
       query.result(false, cand.manager);
 
@@ -92,7 +92,7 @@ public class NullResults extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.lastname.eq("emp2Last"));
       query.result(false, cand.manager);
 
@@ -130,7 +130,7 @@ public class NullResults extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(true, cand.manager);
 
       QueryElementHolder<Employee> holder =

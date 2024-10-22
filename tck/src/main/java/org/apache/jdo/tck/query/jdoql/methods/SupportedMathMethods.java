@@ -80,7 +80,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.intNotNull.abs().eq(4));
 
       QueryElementHolder<PrimitiveTypes> holder =
@@ -118,7 +118,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.intNull.abs().eq(4));
 
       QueryElementHolder<PrimitiveTypes> holder =
@@ -156,7 +156,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.longNotNull.abs().eq(4L));
 
       QueryElementHolder<PrimitiveTypes> holder =
@@ -194,7 +194,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.longNull.abs().eq(4L));
 
       QueryElementHolder<PrimitiveTypes> holder =
@@ -232,7 +232,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.floatNotNull.abs().lt(4.1f).and(cand.floatNotNull.abs().gt(3.9f)));
 
       QueryElementHolder<PrimitiveTypes> holder =
@@ -270,7 +270,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.floatNull.abs().lt(4.1f).and(cand.floatNull.abs().gt(3.9f)));
 
       QueryElementHolder<PrimitiveTypes> holder =
@@ -308,7 +308,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.doubleNotNull.abs().lt(4.1).and(cand.doubleNotNull.abs().gt(3.9)));
 
       QueryElementHolder<PrimitiveTypes> holder =
@@ -346,7 +346,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(cand.doubleNull.abs().lt(4.1).and(cand.doubleNull.abs().gt(3.9)));
 
       QueryElementHolder<PrimitiveTypes> holder =
@@ -383,7 +383,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(
           cand.doubleNotNull
               .gt(0d)
@@ -425,7 +425,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(
           cand.doubleNull
               .gt(0d)
@@ -467,7 +467,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(
           cand.intNotNull
               .gt(0)
@@ -509,7 +509,7 @@ public class SupportedMathMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<PrimitiveTypes> query = pm.newJDOQLTypedQuery(PrimitiveTypes.class);
-      QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+      QPrimitiveTypes cand = QPrimitiveTypes.candidate("this");
       query.filter(
           cand.intNull.gt(0).and(cand.intNull.sqrt().lt(2.1).and(cand.intNull.sqrt().gt(1.9))));
 

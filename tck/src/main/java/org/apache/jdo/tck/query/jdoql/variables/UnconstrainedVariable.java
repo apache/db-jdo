@@ -50,7 +50,7 @@ public class UnconstrainedVariable extends QueryTest {
           getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3", "emp4");
 
       JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QEmployee e = QEmployee.variable("e");
       NumericExpression<?> param = query.numericParameter("id");
       query.filter(cand.hiredate.gt(e.hiredate).and(e.hiredate.eq(param)));

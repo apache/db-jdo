@@ -56,7 +56,7 @@ public class NPEInResultExpr extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.manager.lastname);
 
       QueryElementHolder<Employee> holder =
@@ -94,7 +94,7 @@ public class NPEInResultExpr extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       query.filter(cand.employees.contains(e));
       query.result(false, e.manager.lastname);

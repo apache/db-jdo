@@ -98,7 +98,7 @@ public class DistinctCandidateInstances extends QueryTest {
       PersistenceManager pm = getPMF().getPersistenceManager();
       try {
         JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-        QEmployee cand = QEmployee.candidate();
+        QEmployee cand = QEmployee.candidate("this");
         query.result(true, cand);
         query.variable("p", Person.class);
 
