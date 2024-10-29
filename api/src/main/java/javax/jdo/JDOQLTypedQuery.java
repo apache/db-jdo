@@ -54,6 +54,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
    * type-safe handling.
    *
    * @return Expression for the candidate
+   * @deprecated Users should use the static public method Q{type}.candidate("this")
    */
   PersistableExpression<T> candidate();
 
@@ -205,6 +206,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
    * @param type Type of the variable
    * @return Expression for the variable
    * @param <V> type for the variable
+   * @deprecated Users should use the static public method Q{type}.variable(String name, Expression exp)
    */
   <V> Expression<V> variable(String name, Class<V> type);
 
