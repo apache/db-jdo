@@ -45,6 +45,9 @@ DROP TABLE dentalinsurance;
 DROP TABLE medicalinsurance;
 DROP TABLE project_reviewer;
 DROP TABLE project_member;
+DROP TABLE employee_language;
+DROP TABLE fulltime_employee_language;
+DROP TABLE parttime_employee_language;
 DROP TABLE employee_phoneno_type;
 DROP TABLE fulltime_employee_phoneno_type;
 DROP TABLE parttime_employee_phoneno_type;
@@ -202,7 +205,22 @@ CREATE TABLE parttime_employee_phoneno_type (
     TYPE VARCHAR(16) NOT NULL
 );
 
-ALTER TABLE project_reviewer 
+CREATE TABLE employee_language(
+    EMPID INTEGER REFERENCES persons NOT NULL,
+    LANGUAGE VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE fulltime_employee_language (
+    EMPID INTEGER REFERENCES fulltimeemployees NOT NULL,
+   LANGUAGE VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE parttime_employee_language (
+    EMPID INTEGER REFERENCES parttimeemployees NOT NULL,
+    LANGUAGE VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE project_reviewer
     ADD CONSTRAINT PR_PROJ_FK FOREIGN KEY
         (PROJID) REFERENCES projects(PROJID);
 

@@ -22,8 +22,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Element;
 import javax.jdo.annotations.Embedded;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
@@ -85,6 +88,11 @@ public class FCAppPerson
   @Key(types = java.lang.String.class, column = "TYPE")
   @Value(types = java.lang.String.class, column = "PHONENO")
   private Map<String, String> phoneNumbers = new HashMap<>();
+
+  @Persistent(table = "employee_language")
+  @Join(column = "EMPID")
+  @Element(types = java.lang.String.class, column = "LANGUAGE")
+  private Set<String> languages = new HashSet<>();
 
   /** This is the JDO-required no-args constructor. */
   protected FCAppPerson() {}
@@ -299,6 +307,24 @@ public class FCAppPerson
     // workaround: create a new HashMap, because fostore does not
     // support LinkedHashMap
     this.phoneNumbers = (phoneNumbers != null) ? new HashMap<>(phoneNumbers) : null;
+  }
+
+  /**
+   * Get the map of languages as an unmodifiable Set.
+   *
+   * @return The set of languages, as an unmodifiable set.
+   */
+  public Set<String> getLanguages() {
+    return Collections.unmodifiableSet(languages);
+  }
+
+  /**
+   * Set the languages set to be in this person.
+   *
+   * @param languages The map of phoneNumbers for this person.
+   */
+  public void setLanguages(Set<String> languages) {
+    this.languages = languages;
   }
 
   /**

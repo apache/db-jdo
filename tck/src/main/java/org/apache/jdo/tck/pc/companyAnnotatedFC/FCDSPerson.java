@@ -22,8 +22,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Element;
 import javax.jdo.annotations.Embedded;
 import javax.jdo.annotations.Join;
 import javax.jdo.annotations.Key;
@@ -81,6 +84,11 @@ public class FCDSPerson
   @Key(types = java.lang.String.class, column = "TYPE")
   @Value(types = java.lang.String.class, column = "PHONENO")
   private Map<String, String> phoneNumbers = new HashMap<>();
+
+  @Persistent(table = "employee_language")
+  @Join(column = "EMPID")
+  @Element(types = java.lang.String.class, column = "LANGUAGE")
+  private Set<String> languages = new HashSet<>();
 
   /** This is the JDO-required no-args constructor. */
   protected FCDSPerson() {}
@@ -298,6 +306,24 @@ public class FCDSPerson
   }
 
   /**
+   * Get the map of languages as an unmodifiable Set.
+   *
+   * @return The set of languages, as an unmodifiable set.
+   */
+  public Set<String> getLanguages() {
+    return Collections.unmodifiableSet(languages);
+  }
+
+  /**
+   * Set the languages set to be in this person.
+   *
+   * @param languages The map of phoneNumbers for this person.
+   */
+  public void setLanguages(Set<String> languages) {
+    this.languages = languages;
+  }
+
+  /**
    * Returns a String representation of a <code>FCDSPerson</code> object.
    *
    * @return a string representation of a <code>FCDSPerson</code> object.
@@ -318,6 +344,7 @@ public class FCDSPerson
     rc.append(", ").append(firstname);
     rc.append(", born ").append(JDOCustomDateEditor.getDateRepr(birthdate));
     rc.append(", phone ").append(phoneNumbers);
+    rc.append(", languages ").append(languages);
     return rc.toString();
   }
 
@@ -340,7 +367,8 @@ public class FCDSPerson
         & helper.equals(middlename, otherPerson.getMiddlename(), where + ".middlename")
         & helper.equals(birthdate, otherPerson.getBirthdate(), where + ".birthdate")
         & helper.deepEquals(address, otherPerson.getAddress(), where + ".address")
-        & helper.deepEquals(phoneNumbers, otherPerson.getPhoneNumbers(), where + ".phoneNumbers");
+        & helper.deepEquals(phoneNumbers, otherPerson.getPhoneNumbers(), where + ".phoneNumbers")
+        & helper.deepEquals(languages, otherPerson.getLanguages(), where + ".languages");
   }
 
   /**

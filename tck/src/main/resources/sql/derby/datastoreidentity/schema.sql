@@ -226,6 +226,7 @@ ALTER TABLE insuranceplans DROP CONSTRAINT INS_EMP_FK;
 DROP TABLE insuranceplans;
 DROP TABLE project_reviewer;
 DROP TABLE project_member;
+DROP TABLE employee_language;
 DROP TABLE employee_phoneno_type;
 DROP TABLE persons;
 DROP TABLE projects;
@@ -344,7 +345,12 @@ CREATE TABLE employee_phoneno_type (
     TYPE VARCHAR(16) NOT NULL
 );
 
-ALTER TABLE project_reviewer 
+CREATE TABLE employee_language (
+    EMPID INTEGER REFERENCES persons NOT NULL,
+    LANGUAGE VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE project_reviewer
     ADD CONSTRAINT PR_PROJ_FK FOREIGN KEY
         (PROJID) REFERENCES projects;
 

@@ -110,7 +110,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
 
     while (!attemptsComplete()) {
       try {
-        Thread.sleep(100);
+        Thread.sleep(200);
       } catch (InterruptedException ex) {
         logger.debug("interrupted while waiting for threads to insert");
       }
@@ -118,7 +118,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
 
     while (threads > 0) {
       try {
-        Thread.sleep(100);
+        Thread.sleep(200);
       } catch (InterruptedException ex) {
         logger.debug("interrupted while waiting for threads to finish");
       }
