@@ -45,9 +45,9 @@ DROP TABLE dentalinsurance;
 DROP TABLE medicalinsurance;
 DROP TABLE project_reviewer;
 DROP TABLE project_member;
-DROP TABLE employee_language;
-DROP TABLE fulltime_employee_language;
-DROP TABLE parttime_employee_language;
+DROP TABLE employee_languages;
+DROP TABLE fulltime_employee_languages;
+DROP TABLE parttime_employee_languages;
 DROP TABLE employee_phoneno_type;
 DROP TABLE fulltime_employee_phoneno_type;
 DROP TABLE parttime_employee_phoneno_type;
@@ -205,17 +205,17 @@ CREATE TABLE parttime_employee_phoneno_type (
     TYPE VARCHAR(16) NOT NULL
 );
 
-CREATE TABLE employee_language(
+CREATE TABLE employee_languages(
     EMPID INTEGER REFERENCES persons NOT NULL,
     LANGUAGE VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE fulltime_employee_language (
+CREATE TABLE fulltime_employee_languages (
     EMPID INTEGER REFERENCES fulltimeemployees NOT NULL,
    LANGUAGE VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE parttime_employee_language (
+CREATE TABLE parttime_employee_languages (
     EMPID INTEGER REFERENCES parttimeemployees NOT NULL,
     LANGUAGE VARCHAR(255) NOT NULL
 );

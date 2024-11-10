@@ -45,9 +45,9 @@ DROP TABLE dentalinsurance;
 DROP TABLE medicalinsurance;
 DROP TABLE project_reviewer;
 DROP TABLE project_member;
-DROP TABLE employee_language;
-DROP TABLE fulltime_employee_language;
-DROP TABLE parttime_employee_language;
+DROP TABLE employee_languages;
+DROP TABLE fulltime_employee_languages;
+DROP TABLE parttime_employee_languages;
 DROP TABLE employee_phoneno_type;
 DROP TABLE fulltime_employee_phoneno_type;
 DROP TABLE parttime_employee_phoneno_type;
@@ -250,21 +250,21 @@ CREATE TABLE parttime_employee_phoneno_type (
         REFERENCES parttimeemployees (DATASTORE_IDENTITY)
 );
 
-CREATE TABLE employee_language (
+CREATE TABLE employee_languages (
     EMPID INTEGER NOT NULL,
     LANGUAGE VARCHAR(255) NOT NULL,
     CONSTRAINT EMP_LANGUAGE_PERSONS FOREIGN KEY (EMPID)
         REFERENCES persons (DATASTORE_IDENTITY)
 );
 
-CREATE TABLE fulltime_employee_language (
+CREATE TABLE fulltime_employee_languages (
      EMPID INTEGER NOT NULL,
      LANGUAGE VARCHAR(255) NOT NULL,
      CONSTRAINT FTEMP_LANGUAGE_FTEMP FOREIGN KEY (EMPID)
         REFERENCES fulltimeemployees (DATASTORE_IDENTITY)
 );
 
-CREATE TABLE parttime_employee_language (
+CREATE TABLE parttime_employee_languages (
       EMPID INTEGER REFERENCES parttimeemployees NOT NULL,
       LANGUAGE VARCHAR(255) NOT NULL,
       CONSTRAINT PTEMP_LANGUAGE_PTEMP FOREIGN KEY (EMPID)

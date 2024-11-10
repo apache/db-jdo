@@ -97,7 +97,7 @@ public class JPAAppPerson
   private Map<String, JPAAppPhoneNumber> phoneNumbers = new HashMap<>();
 
   @ElementCollection
-  @CollectionTable(name = "employee_language", joinColumns = @JoinColumn(name = "EMPID"))
+  @CollectionTable(name = "employee_languages", joinColumns = @JoinColumn(name = "EMPID"))
   private Set<String> languages = new HashSet<>();
 
   /** This is the JDO-required no-args constructor. */
@@ -330,7 +330,7 @@ public class JPAAppPerson
    * @param languages The map of phoneNumbers for this person.
    */
   public void setLanguages(Set<String> languages) {
-    this.languages = languages;
+    this.languages = new HashSet(languages);
   }
 
   /**

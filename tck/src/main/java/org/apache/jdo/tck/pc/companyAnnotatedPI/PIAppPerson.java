@@ -87,7 +87,7 @@ public interface PIAppPerson extends IPerson {
   @Value(types = java.lang.String.class, column = "PHONENO")
   Map<String, String> getPhoneNumbers();
 
-  @Persistent(persistenceModifier = PersistenceModifier.PERSISTENT, table = "employee_language")
+  @Persistent(persistenceModifier = PersistenceModifier.PERSISTENT, table = "employee_languages")
   @Join(column = "EMPID")
   @Element(types = java.lang.String.class, column = "LANGUAGE")
   Set<String> getLanguages();

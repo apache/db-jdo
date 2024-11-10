@@ -85,7 +85,7 @@ public interface PIDSPerson extends IPerson {
   @Value(types = java.lang.String.class, column = "PHONENO")
   Map<String, String> getPhoneNumbers();
 
-  @Persistent(table = "employee_language")
+  @Persistent(table = "employee_languages")
   @Join(column = "EMPID")
   @Element(types = java.lang.String.class, column = "LANGUAGE")
   Set<String> getLanguages();

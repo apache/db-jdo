@@ -40,7 +40,7 @@ DROP TABLE dentalinsurance;
 DROP TABLE medicalinsurance;
 DROP TABLE project_reviewer;
 DROP TABLE project_member;
-DROP TABLE employee_language;
+DROP TABLE employee_languages;
 DROP TABLE employee_phoneno_type;
 DROP TABLE fulltimeemployees;
 DROP TABLE parttimeemployees;
@@ -205,7 +205,7 @@ CREATE TABLE employee_phoneno_type (
         REFERENCES persons (DATASTORE_IDENTITY)
 );
 
-CREATE TABLE employee_language (
+CREATE TABLE employee_languages (
      EMPID INTEGER NOT NULL,
      LANGUAGE VARCHAR(255) NOT NULL,
      CONSTRAINT EMP_LANGUAGE_PERSONS FOREIGN KEY (EMPID)

@@ -132,7 +132,7 @@ has application identity.
                 <map key-type="String" value-type="String"/>
             </field>
             <field name="languages" persistence-modifier="persistent">
-                <collection type="String"/>
+                <collection element-type="java.lang.String"/>
             </field>
             <query name="validNotUnique">
                 SELECT firstname, lastname 
@@ -279,7 +279,7 @@ has application identity.
                 <map key-type="String" value-type="String"/>
             </property>
             <property name="languages" persistence-modifier="persistent">
-                <collection type="String"/>
+                <collection element-type="java.lang.String"/>
             </property>
             <query name="validNotUnique">
                 SELECT firstname, lastname 

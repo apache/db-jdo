@@ -313,7 +313,7 @@ public class PCAppPerson
    * @param languages The set of languages for this person.
    */
   public void setLanguages(Set<String> languages) {
-    this._languages = languages;
+    this._languages = new HashSet(languages);
   }
 
   /**

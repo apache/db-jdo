@@ -156,7 +156,7 @@ has datastore identity.
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </field>
-            <field name="languages" table="employee_language" >
+            <field name="languages" table="employee_languages" >
                  <join column="EMPID"/>
                  <element column="LANGUAGE"/>
             </field>
@@ -325,7 +325,7 @@ has datastore identity.
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </property>
-            <property name="languages" table="employee_language" >
+            <property name="languages" table="employee_languages" >
                  <join column="EMPID"/>
                  <element column="LANGUAGE"/>
             </property>

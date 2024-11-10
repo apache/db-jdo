@@ -280,7 +280,7 @@ public class Person
    * @param languages The set of languages for this person.
    */
   public void setLanguages(Set<String> languages) {
-    this.languages = languages;
+    this.languages = new HashSet(languages);
   }
 
   /**

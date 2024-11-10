@@ -102,7 +102,7 @@ Inheritance strategy:
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </field>
-            <field name="Person.languages" table="parttime_employee_language" >
+            <field name="Person.languages" table="parttime_employee_languages" >
                  <join column="EMPID"/>
                  <value column="LANGUAGE"/>
             </field>
@@ -161,7 +161,7 @@ Inheritance strategy:
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </field>
-            <field name="languages" table="fulltime_employee_language" >
+            <field name="languages" table="fulltime_employee_languages" >
                  <join column="EMPID"/>
                  <value column="LANGUAGE"/>
             </field>
@@ -224,7 +224,7 @@ Inheritance strategy:
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </field>
-            <field name="languages" table="employee_language" >
+            <field name="languages" table="employee_languages" >
                  <join column="EMPID"/>
                  <element column="LANGUAGE"/>
             </field>

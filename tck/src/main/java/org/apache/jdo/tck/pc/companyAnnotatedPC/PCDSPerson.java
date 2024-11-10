@@ -313,7 +313,7 @@ public class PCDSPerson
    * @param languages The map of phoneNumbers for this person.
    */
   public void setLanguages(Set<String> languages) {
-    this._languages = languages;
+    this._languages = new HashSet(languages);
   }
 
   /**

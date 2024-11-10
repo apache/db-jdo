@@ -89,7 +89,7 @@ public class FCAppPerson
   @Value(types = java.lang.String.class, column = "PHONENO")
   private Map<String, String> phoneNumbers = new HashMap<>();
 
-  @Persistent(table = "employee_language")
+  @Persistent(table = "employee_languages")
   @Join(column = "EMPID")
   @Element(types = java.lang.String.class, column = "LANGUAGE")
   private Set<String> languages = new HashSet<>();
@@ -324,7 +324,7 @@ public class FCAppPerson
    * @param languages The map of phoneNumbers for this person.
    */
   public void setLanguages(Set<String> languages) {
-    this.languages = languages;
+    this.languages = new HashSet(languages);
   }
 
   /**

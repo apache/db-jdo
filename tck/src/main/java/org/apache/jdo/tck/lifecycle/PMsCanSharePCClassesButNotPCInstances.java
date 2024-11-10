@@ -118,7 +118,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
 
     while (threads > 0) {
       try {
-        Thread.sleep(200);
+        Thread.sleep(100);
       } catch (InterruptedException ex) {
         logger.debug("interrupted while waiting for threads to finish");
       }
