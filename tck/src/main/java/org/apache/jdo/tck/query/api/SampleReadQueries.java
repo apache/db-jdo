@@ -27,6 +27,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.CollectionExpression;
+import javax.jdo.query.Expression;
 import javax.jdo.query.NumericExpression;
 import javax.jdo.query.StringExpression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -53,14 +54,18 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
  * <B>Assertion Description: </B> This test class runs the example read queries from the JDO
  * specification.
  *
- * <p>There are up to six test methods per test case: testQueryxxa: runtime constructed JDO query
- * using execute to run the query testQueryxxb: runtime constructed JDO query using
- * setNamedParameters to specify the parameter values and
- * executeList/executeResultList/executeResultUnique to run the query testQueryxxc: runtime
- * constructed JDO query using setParameters to specify the parameter values and
- * executeList/executeResultList/executeResultUnique to run the query testQueryxxd: single string
- * version of the JDO query testQueryxxe: named query version of the JDO query testQueryxxf:
- * JDOQLTypedQuery version
+ * <p>There are up to six test methods per test case:
+ *
+ * <ul>
+ *   <li>testQueryxxa: runtime constructed JDO query using execute to run the query
+ *   <li>testQueryxxb: runtime constructed JDO query using setNamedParameters to specify the
+ *       parameter values and executeList/executeResultList/executeResultUnique to run the query
+ *   <li>testQueryxxc: runtime constructed JDO query using setParameters to specify the parameter
+ *       values and executeList/executeResultList/executeResultUnique to run the query
+ *   <li>testQueryxxd: single string version of the JDO query
+ *   <li>testQueryxxe: named query version of the JDO query
+ *   <li>testQueryxxf: JDOQLTypedQuery version
+ * </ul>
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SampleReadQueries extends QueryTest {
@@ -145,6 +150,18 @@ public class SampleReadQueries extends QueryTest {
       "select firstname from org.apache.jdo.tck.pc.company.Employee "
           + "where this.weeklyhours > "
           + " (select AVG(e.weeklyhours) from this.department.employees e where e.manager == this.manager)";
+
+  private static final String SINGLE_STRING_QUERY_20 =
+      "select from org.apache.jdo.tck.pc.company.FullTimeEmployee "
+          + "where languages.contains(lang) && lang == 'German' variables String lang";
+
+  private static final String SINGLE_STRING_QUERY_21 =
+      "select from org.apache.jdo.tck.pc.company.FullTimeEmployee "
+          + "where phoneNumbers.containsKey(key) && key == 'home' variables String key";
+
+  private static final String SINGLE_STRING_QUERY_22 =
+      "select from org.apache.jdo.tck.pc.company.FullTimeEmployee "
+          + "where phoneNumbers.containsValue(value) && value == '1111' variables String value";
 
   /**
    * Basic query.
@@ -3022,6 +3039,450 @@ public class SampleReadQueries extends QueryTest {
             .filter(cand.weeklyhours.gt(subquery.selectUnique(candsub.weeklyhours.avg())));
         List<String> names = q.executeResultList(String.class);
         checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_19, names, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery20a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(FullTimeEmployee.class, "languages.contains(lang) && lang == 'German'")) {
+        q.declareVariables("String lang");
+        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_20, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery20b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(FullTimeEmployee.class, "languages.contains(lang) && lang == 'German'")) {
+        q.declareVariables("String lang");
+        List<FullTimeEmployee> emps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_20, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery20c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(FullTimeEmployee.class, "languages.contains(lang) && lang == 'German'")) {
+        q.declareVariables("String lang");
+        List<FullTimeEmployee> emps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_20, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery20d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+      try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_20)) {
+        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_20, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery20f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+      try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
+        Expression<String> lang = q.variable("lang", String.class);
+        q.filter(cand.languages.contains(lang).and(lang.eq("German")));
+        List<FullTimeEmployee> emps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_20, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * home phone number (i.e. the phoneNumbers map includes an entry with key "home").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery21a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(FullTimeEmployee.class, "phoneNumbers.containsKey(key) && key == 'home'")) {
+        q.declareVariables("String key");
+        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_21, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * home phone number (i.e. the phoneNumbers map includes an entry with key "home").
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery21b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(FullTimeEmployee.class, "phoneNumbers.containsKey(key) && key == 'home'")) {
+        q.declareVariables("String key");
+        List<FullTimeEmployee> emps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_21, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * home phone number (i.e. the phoneNumbers map includes an entry with key "home").
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery21c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(FullTimeEmployee.class, "phoneNumbers.containsKey(key) && key == 'home'")) {
+        q.declareVariables("String key");
+        List<FullTimeEmployee> emps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_21, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * home phone number (i.e. the phoneNumbers map includes an entry with key "home").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery21d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
+      try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_21)) {
+        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_21, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * home phone number (i.e. the phoneNumbers map includes an entry with key "home").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery21f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
+      try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
+        Expression<String> key = q.variable("key", String.class);
+        q.filter(cand.phoneNumbers.containsKey(key).and(key.eq("home")));
+        List<FullTimeEmployee> emps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_21, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * phone number "1111" (i.e. the phoneNumbers map includes an entry with value "1111").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery22a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(
+              FullTimeEmployee.class, "phoneNumbers.containsValue(value) && value == '1111'")) {
+        q.declareVariables("String value");
+        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_22, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * phone number "1111" (i.e. the phoneNumbers map includes an entry with value "1111").
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery22b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(
+              FullTimeEmployee.class, "phoneNumbers.containsValue(value) && value == '1111'")) {
+        q.declareVariables("String value");
+        List<FullTimeEmployee> emps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_22, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * phone number "1111" (i.e. the phoneNumbers map includes an entry with value "1111").
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery22c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(
+              FullTimeEmployee.class, "phoneNumbers.containsValue(value) && value == '1111'")) {
+        q.declareVariables("String value");
+        List<FullTimeEmployee> emps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_22, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * phone number "1111" (i.e. the phoneNumbers map includes an entry with value "1111").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery22d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
+      try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_22)) {
+        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_22, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection having a
+   * phone number "1111" (i.e. the phoneNumbers map includes an entry with value "1111").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery22f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
+      try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
+        Expression<String> value = q.variable("value", String.class);
+        q.filter(cand.phoneNumbers.containsValue(value).and(value.eq("1111")));
+        List<FullTimeEmployee> emps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_22, emps, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }

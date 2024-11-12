@@ -143,6 +143,12 @@
                 <entry key="work"><value>123456-1</value></entry>
             </map>
 	    </property>
+        <property name="languages">
+            <set>
+                <value>German</value>
+                <value>English</value>
+            </set>
+        </property>
         <property name="department"><ref bean="dept1"/></property>
         <property name="fundingDept"><ref bean="dept2"/></property>
         <property name="manager"><ref bean="emp2"/></property>
@@ -178,6 +184,12 @@
                 <entry key="work"><value>123456-2</value></entry>
             </map>
 	    </property>
+        <property name="languages">
+            <set>
+                <value>English</value>
+                <value>Japanese</value>
+            </set>
+        </property>
         <property name="department"><ref bean="dept1"/></property>
         <property name="fundingDept"><ref bean="dept1"/></property>
         <property name="mentor"><ref bean="emp3"/></property>
@@ -216,6 +228,12 @@
                 <entry key="work"><value>123456-3</value></entry>
             </map>
 	    </property>
+        <property name="languages">
+            <set>
+                <value>English</value>
+                <value>French</value>
+            </set>
+        </property>
         <property name="department"><ref bean="dept1"/></property>
         <property name="fundingDept"><ref bean="dept1"/></property>
         <property name="manager"><ref bean="emp2"/></property>
@@ -246,6 +264,11 @@
                 <entry key="work"><value>124456-3</value></entry>
             </map>
 	    </property>
+        <property name="languages">
+            <set>
+                <value>English</value>
+            </set>
+        </property>
         <property name="department"><ref bean="dept2"/></property>
         <property name="fundingDept"><ref bean="dept2"/></property>
         <property name="manager"><ref bean="emp2"/></property>
@@ -280,6 +303,14 @@
                 <entry key="work"><value>126456-3</value></entry>
             </map>
 	    </property>
+        <property name="languages">
+            <set>
+                <value>German</value>
+                <value>English</value>
+                <value>French</value>
+                <value>Japanese</value>
+            </set>
+        </property>
         <property name="department"><ref bean="dept2"/></property>
         <property name="fundingDept"><ref bean="dept2"/></property>
         <property name="manager"><ref bean="emp2"/></property>

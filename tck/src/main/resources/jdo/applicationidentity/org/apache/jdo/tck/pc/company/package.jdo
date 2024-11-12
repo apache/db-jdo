@@ -131,6 +131,9 @@ has application identity.
             <field name="phoneNumbers" persistence-modifier="persistent">
                 <map key-type="String" value-type="String"/>
             </field>
+            <field name="languages" persistence-modifier="persistent">
+                <collection element-type="java.lang.String"/>
+            </field>
             <query name="validNotUnique">
                 SELECT firstname, lastname 
                 INTO org.apache.jdo.tck.query.result.classes.FullName 
@@ -274,6 +277,9 @@ has application identity.
                    persistence-modifier="persistent"/>
             <property name="phoneNumbers" persistence-modifier="persistent">
                 <map key-type="String" value-type="String"/>
+            </property>
+            <property name="languages" persistence-modifier="persistent">
+                <collection element-type="java.lang.String"/>
             </property>
             <query name="validNotUnique">
                 SELECT firstname, lastname 

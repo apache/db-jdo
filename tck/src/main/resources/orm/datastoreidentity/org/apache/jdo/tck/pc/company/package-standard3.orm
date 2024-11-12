@@ -140,6 +140,10 @@ MedicalInsurance and DentalInsurance have inheritance strategy "new-table".
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </field>
+            <field name="languages" table="employee_languages" >
+                 <join column="EMPID"/>
+                 <element column="LANGUAGE"/>
+            </field>
         </class>
 
         <class name="Insurance" table="insuranceplans">

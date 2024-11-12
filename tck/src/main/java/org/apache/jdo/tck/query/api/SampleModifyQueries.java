@@ -46,7 +46,7 @@ public class SampleModifyQueries extends QueryTest {
    * <p>This query deletes all Employees who make more than the parameter salary.
    */
   @Test
-  public void testQuery20() {
+  public void testQuery23() {
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();

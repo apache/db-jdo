@@ -18,17 +18,22 @@
 package org.apache.jdo.tck.pc.companyAnnotatedJPA;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,6 +41,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -89,6 +95,10 @@ public class JPAAppPerson
   @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
   @MapKey(name = "type")
   private Map<String, JPAAppPhoneNumber> phoneNumbers = new HashMap<>();
+
+  @ElementCollection
+  @CollectionTable(name = "employee_languages", joinColumns = @JoinColumn(name = "EMPID"))
+  private Set<String> languages = new HashSet<>();
 
   /** This is the JDO-required no-args constructor. */
   protected JPAAppPerson() {}
@@ -306,6 +316,24 @@ public class JPAAppPerson
   }
 
   /**
+   * Get the map of languages as an unmodifiable Set.
+   *
+   * @return The set of languages, as an unmodifiable set.
+   */
+  public Set<String> getLanguages() {
+    return Collections.unmodifiableSet(languages);
+  }
+
+  /**
+   * Set the languages set to be in this person.
+   *
+   * @param languages The map of phoneNumbers for this person.
+   */
+  public void setLanguages(Set<String> languages) {
+    this.languages = new HashSet(languages);
+  }
+
+  /**
    * Converts HashMap of String, String to HashMap of String, JPAAppPhoneNmber
    *
    * @param pnums Map of phoneNumbers
@@ -360,6 +388,7 @@ public class JPAAppPerson
     rc.append(", ").append(firstname);
     rc.append(", born ").append(JDOCustomDateEditor.getDateRepr(birthdate));
     rc.append(", phone ").append(convertPhone2String(phoneNumbers));
+    rc.append(", languages ").append(languages);
     return rc.toString();
   }
 
@@ -385,7 +414,8 @@ public class JPAAppPerson
         & helper.deepEquals(
             convertPhone2String(phoneNumbers),
             otherPerson.getPhoneNumbers(),
-            where + ".phoneNumbers");
+            where + ".phoneNumbers")
+        & helper.deepEquals(languages, otherPerson.getLanguages(), where + ".languages");
   }
 
   /**
