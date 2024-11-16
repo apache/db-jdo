@@ -267,6 +267,7 @@ public abstract class FCAppEmployee extends FCAppPerson implements IEmployee {
   public void setDentalInsurance(IDentalInsurance dentalInsurance) {
     this.dentalInsurance = (FCAppDentalInsurance) dentalInsurance;
   }
+
   /**
    * Get the medical insurance of the employee.
    *

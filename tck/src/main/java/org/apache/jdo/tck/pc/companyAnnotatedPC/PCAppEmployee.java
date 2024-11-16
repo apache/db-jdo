@@ -246,6 +246,7 @@ public abstract class PCAppEmployee extends PCAppPerson implements IEmployee {
   public void setDentalInsurance(IDentalInsurance dentalInsurance) {
     this._dentalInsurance = (PCAppDentalInsurance) dentalInsurance;
   }
+
   /**
    * Get the medical insurance of the employee.
    *

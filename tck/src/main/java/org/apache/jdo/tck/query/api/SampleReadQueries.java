@@ -3577,6 +3577,7 @@ public class SampleReadQueries extends QueryTest {
     public FullTimeEmployee FullTimeEmployee;
 
     public EmpWrapper() {}
+
     // Need constructor to prevent
     // java.lang.NullPointerException
     // at
@@ -3617,6 +3618,7 @@ public class SampleReadQueries extends QueryTest {
     private FullTimeEmployee worker;
 
     public EmpInfo() {}
+
     // Need constructor to prevent
     // java.lang.NullPointerException
     // at
@@ -3670,6 +3672,7 @@ public class SampleReadQueries extends QueryTest {
   protected void tearDown() {
     super.tearDown();
   }
+
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */

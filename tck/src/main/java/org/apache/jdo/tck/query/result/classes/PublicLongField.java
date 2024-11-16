@@ -27,6 +27,7 @@ public class PublicLongField {
   public PublicLongField(long l) {
     this.l = l;
   }
+
   /**
    * @see Object#hashCode()
    */

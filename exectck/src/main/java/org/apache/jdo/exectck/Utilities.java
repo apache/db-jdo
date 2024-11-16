@@ -37,6 +37,7 @@ public class Utilities {
   private Utilities() {
     // This method is deliberately left empty.
   }
+
   /*
    * Return the current date/time as a String.
    */

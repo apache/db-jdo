@@ -105,6 +105,7 @@ public class BitwiseComplement extends QueryTest {
   protected void tearDown() {
     super.tearDown();
   }
+
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */

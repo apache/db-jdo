@@ -254,6 +254,7 @@ public class NotEquals extends ComparisonTests {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)

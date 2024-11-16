@@ -53,6 +53,7 @@ public class AbstractFetchPlanTest extends JDO_Test {
   protected final String[] lowerRightGroup = new String[] {"default", "PCRect.lowerRight"};
   protected final String[] bothGroup =
       new String[] {"default", "PCRect.upperLeft", "PCRect.lowerRight"};
+
   /**
    * @see org.apache.jdo.tck.JDO_Test#localSetUp()
    */

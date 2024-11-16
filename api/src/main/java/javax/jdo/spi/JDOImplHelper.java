@@ -798,6 +798,7 @@ public class JDOImplHelper extends java.lang.Object {
     String variant = s.substring(secondUnderbar + 1);
     return new Locale(lang, country, variant);
   }
+
   /**
    * Determine if a class is loadable in the current environment.
    *
@@ -992,6 +993,7 @@ public class JDOImplHelper extends java.lang.Object {
     Class<?> getPersistenceCapableSuperclass() {
       return persistenceCapableSuperclass;
     }
+
     /**
      * This is an instance of <code>PersistenceCapable</code>, used at runtime to create new
      * instances.

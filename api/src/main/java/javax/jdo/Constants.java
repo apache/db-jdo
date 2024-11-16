@@ -108,126 +108,147 @@ public interface Constants {
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_CLASS = "class";
+
   /**
    * The name of the persistence manager factory element's "name" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_NAME = "name";
+
   /**
    * The name of the persistence manager factory element's "persistence-unit-name" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME = "persistence-unit-name";
+
   /**
    * The name of the persistence manager factory element's "optimistic" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_OPTIMISTIC = "optimistic";
+
   /**
    * The name of the persistence manager factory element's "readonly" attribute.
    *
    * @since 2.2
    */
   static String PMF_ATTRIBUTE_READONLY = "readonly";
+
   /**
    * The name of the persistence manager factory element's "retain-values" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_RETAIN_VALUES = "retain-values";
+
   /**
    * The name of the persistence manager factory element's "restore-values" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_RESTORE_VALUES = "restore-values";
+
   /**
    * The name of the persistence manager factory element's "ignore-cache" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_IGNORE_CACHE = "ignore-cache";
+
   /**
    * The name of the persistence manager factory element's "nontransactional-read" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_NONTRANSACTIONAL_READ = "nontransactional-read";
+
   /**
    * The name of the persistence manager factory element's "nontransactional-write" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE = "nontransactional-write";
+
   /**
    * The name of the persistence manager factory element's "multithreaded" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_MULTITHREADED = "multithreaded";
+
   /**
    * The name of the persistence manager factory element's "connection-driver-name" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME = "connection-driver-name";
+
   /**
    * The name of the persistence manager factory element's "connection-user-name" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_CONNECTION_USER_NAME = "connection-user-name";
+
   /**
    * The name of the persistence manager factory element's "connection-password" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_CONNECTION_PASSWORD = "connection-password";
+
   /**
    * The name of the persistence manager factory element's "connection-url" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_CONNECTION_URL = "connection-url";
+
   /**
    * The name of the persistence manager factory element's "connection-factory-name" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME = "connection-factory-name";
+
   /**
    * The name of the persistence manager factory element's "connection-factory2-name" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME = "connection-factory2-name";
+
   /**
    * The name of the persistence manager factory element's "detach-all-on-commit" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT = "detach-all-on-commit";
+
   /**
    * The name of the persistence manager factory element's "copy-on-attach" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_COPY_ON_ATTACH = "copy-on-attach";
+
   /**
    * The name of the persistence manager factory element's "mapping" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_MAPPING = "mapping";
+
   /**
    * The name of the persistence manager factory element's "server-time-zone-id" attribute.
    *
    * @since 2.1
    */
   static String PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID = "server-time-zone-id";
+
   /**
    * The name of the persistence manager factory element's "datastore-read-timeout-millis"
    * attribute.
@@ -235,6 +256,7 @@ public interface Constants {
    * @since 3.0
    */
   static String PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS = "datastore-read-timeout-millis";
+
   /**
    * The name of the persistence manager factory element's "datastore-write-timeout-millis"
    * attribute.
@@ -242,12 +264,15 @@ public interface Constants {
    * @since 3.0
    */
   static String PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS = "datastore-write-timeout-millis";
+
   /**
    * The name of the persistence manager factory property elements in the JDO configuration file.
    */
   static String ELEMENT_PROPERTY = "property";
+
   /** The name of the persistence manager factory property element's "name" attribute. */
   static String PROPERTY_ATTRIBUTE_NAME = "name";
+
   /** The name of the persistence manager factory property element's "value" attribute. */
   static String PROPERTY_ATTRIBUTE_VALUE = "value";
 
@@ -256,6 +281,7 @@ public interface Constants {
 
   /** The name of the instance lifecycle listener element's "listener" attribute. */
   static String INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_LISTENER = "listener";
+
   /** The name of the instance lifecycle listener element's "classes" attribute. */
   static String INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_CLASSES = "classes";
 
@@ -266,6 +292,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_TRANSACTIONAL_TRANSIENT = "javax.jdo.option.TransientTransactional";
+
   /**
    * "javax.jdo.option.NontransactionalRead"
    *
@@ -273,6 +300,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_NONTRANSACTIONAL_READ = "javax.jdo.option.NontransactionalRead";
+
   /**
    * "javax.jdo.option.NontransactionalWrite"
    *
@@ -280,6 +308,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_NONTRANSACTIONAL_WRITE = "javax.jdo.option.NontransactionalWrite";
+
   /**
    * "javax.jdo.option.RetainValues"
    *
@@ -287,6 +316,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_RETAIN_VALUES = "javax.jdo.option.RetainValues";
+
   /**
    * "javax.jdo.option.Optimistic"
    *
@@ -294,6 +324,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_OPTIMISTIC = "javax.jdo.option.Optimistic";
+
   /**
    * "javax.jdo.option.ApplicationIdentity"
    *
@@ -301,6 +332,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_APPLICATION_IDENTITY = "javax.jdo.option.ApplicationIdentity";
+
   /**
    * "javax.jdo.option.DatastoreIdentity"
    *
@@ -308,6 +340,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_DATASTORE_IDENTITY = "javax.jdo.option.DatastoreIdentity";
+
   /**
    * "javax.jdo.option.NonDurableIdentity"
    *
@@ -315,6 +348,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_NONDURABLE_IDENTITY = "javax.jdo.option.NonDurableIdentity";
+
   /**
    * "javax.jdo.option.ArrayList"
    *
@@ -322,6 +356,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_ARRAYLIST = "javax.jdo.option.ArrayList";
+
   /**
    * "javax.jdo.option.LinkedList"
    *
@@ -329,6 +364,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_LINKEDLIST = "javax.jdo.option.LinkedList";
+
   /**
    * "javax.jdo.option.TreeMap"
    *
@@ -336,6 +372,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_TREEMAP = "javax.jdo.option.TreeMap";
+
   /**
    * "javax.jdo.option.TreeSet"
    *
@@ -343,6 +380,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_TREESET = "javax.jdo.option.TreeSet";
+
   /**
    * "javax.jdo.option.Vector"
    *
@@ -350,6 +388,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_VECTOR = "javax.jdo.option.Vector";
+
   /**
    * "javax.jdo.option.Array"
    *
@@ -357,6 +396,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_ARRAY = "javax.jdo.option.Array";
+
   /**
    * "javax.jdo.option.NullCollection"
    *
@@ -364,6 +404,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_NULL_COLLECTION = "javax.jdo.option.NullCollection";
+
   /**
    * "javax.jdo.option.ChangeApplicationIdentity"
    *
@@ -371,6 +412,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_CHANGE_APPLICATION_IDENTITY = "javax.jdo.option.ChangeApplicationIdentity";
+
   /**
    * "javax.jdo.option.BinaryCompatibility"
    *
@@ -378,6 +420,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_BINARY_COMPATIBILITY = "javax.jdo.option.BinaryCompatibility";
+
   /**
    * "javax.jdo.option.GetDataStoreConnection"
    *
@@ -385,6 +428,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_GET_DATASTORE_CONNECTION = "javax.jdo.option.GetDataStoreConnection";
+
   /**
    * "javax.jdo.option.GetJDBCConnection"
    *
@@ -392,6 +436,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_GET_JDBC_CONNECTION = "javax.jdo.option.GetJDBCConnection";
+
   /**
    * "javax.jdo.query.SQL"
    *
@@ -432,6 +477,7 @@ public interface Constants {
    * @since 3.0
    */
   static String OPTION_DATASTORE_TIMEOUT = "javax.jdo.option.DatastoreTimeout";
+
   /**
    * "javax.jdo.option.version.DateTime"
    *
@@ -439,6 +485,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_VERSION_DATETIME = "javax.jdo.option.version.DateTime";
+
   /**
    * "javax.jdo.option.version.StateImage"
    *
@@ -446,6 +493,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_VERSION_STATE_IMAGE = "javax.jdo.option.version.StateImage";
+
   /**
    * "javax.jdo.option.PreDirtyEvent"
    *
@@ -453,6 +501,7 @@ public interface Constants {
    * @since 2.1
    */
   static String OPTION_PREDIRTY_EVENT = "javax.jdo.option.PreDirtyEvent";
+
   /**
    * "javax.jdo.option.mapping.HeterogeneousObjectType"
    *
@@ -461,6 +510,7 @@ public interface Constants {
    */
   static String OPTION_MAPPING_HETEROGENEOUS_OBJECT_TYPE =
       "javax.jdo.option.mapping.HeterogeneousObjectType";
+
   /**
    * "javax.jdo.option.mapping.HeterogeneousInterfaceType"
    *
@@ -469,6 +519,7 @@ public interface Constants {
    */
   static String OPTION_MAPPING_HETEROGENEOUS_INTERFACE_TYPE =
       "javax.jdo.option.mapping.HeterogeneousInterfaceType";
+
   /**
    * "javax.jdo.option.mapping.JoinedTablePerClass"
    *
@@ -477,6 +528,7 @@ public interface Constants {
    */
   static String OPTION_MAPPING_JOINED_TABLE_PER_CLASS =
       "javax.jdo.option.mapping.JoinedTablePerClass";
+
   /**
    * "javax.jdo.option.mapping.JoinedTablePerConcreteClass"
    *
@@ -485,6 +537,7 @@ public interface Constants {
    */
   static String OPTION_MAPPING_JOINED_TABLE_PER_CONCRETE_CLASS =
       "javax.jdo.option.mapping.JoinedTablePerConcreteClass";
+
   /**
    * "javax.jdo.option.mapping.NonJoinedTablePerConcreteClass"
    *
@@ -493,6 +546,7 @@ public interface Constants {
    */
   static String OPTION_MAPPING_NON_JOINED_TABLE_PER_CONCRETE_CLASS =
       "javax.jdo.option.mapping.NonJoinedTablePerConcreteClass";
+
   /**
    * "javax.jdo.option.mapping.RelationSubclassTable"
    *
@@ -555,6 +609,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_OPTIMISTIC = "javax.jdo.option.Optimistic";
+
   /**
    * "javax.jdo.option.ReadOnly"
    *
@@ -562,6 +617,7 @@ public interface Constants {
    * @since 2.2
    */
   static String PROPERTY_READONLY = "javax.jdo.option.ReadOnly";
+
   /**
    * "javax.jdo.option.RetainValues"
    *
@@ -569,6 +625,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_RETAIN_VALUES = "javax.jdo.option.RetainValues";
+
   /**
    * "javax.jdo.option.RestoreValues"
    *
@@ -576,6 +633,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_RESTORE_VALUES = "javax.jdo.option.RestoreValues";
+
   /**
    * "javax.jdo.option.IgnoreCache"
    *
@@ -583,6 +641,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_IGNORE_CACHE = "javax.jdo.option.IgnoreCache";
+
   /**
    * "javax.jdo.option.NontransactionalRead"
    *
@@ -590,6 +649,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_NONTRANSACTIONAL_READ = "javax.jdo.option.NontransactionalRead";
+
   /**
    * "javax.jdo.option.NontransactionalWrite"
    *
@@ -597,6 +657,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_NONTRANSACTIONAL_WRITE = "javax.jdo.option.NontransactionalWrite";
+
   /**
    * "javax.jdo.option.Multithreaded"
    *
@@ -604,12 +665,14 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_MULTITHREADED = "javax.jdo.option.Multithreaded";
+
   /**
    * "javax.jdo.option.TransactionIsolationLevel"
    *
    * @since 2.2
    */
   static String PROPERTY_TRANSACTION_ISOLATION_LEVEL = "javax.jdo.option.TransactionIsolationLevel";
+
   /**
    * "javax.jdo.option.TransactionIsolationLevel.read-uncommitted"
    *
@@ -618,6 +681,7 @@ public interface Constants {
    */
   static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_UNCOMMITTED =
       "javax.jdo.option.TransactionIsolationLevel.read-uncommitted";
+
   /**
    * "javax.jdo.option.TransactionIsolationLevel.read-committed"
    *
@@ -626,6 +690,7 @@ public interface Constants {
    */
   static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED =
       "javax.jdo.option.TransactionIsolationLevel.read-committed";
+
   /**
    * "javax.jdo.option.TransactionIsolationLevel.repeatable-read"
    *
@@ -634,6 +699,7 @@ public interface Constants {
    */
   static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_REPEATABLE_READ =
       "javax.jdo.option.TransactionIsolationLevel.repeatable-read";
+
   /**
    * "javax.jdo.option.TransactionIsolationLevel.snapshot"
    *
@@ -642,6 +708,7 @@ public interface Constants {
    */
   static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SNAPSHOT =
       "javax.jdo.option.TransactionIsolationLevel.snapshot";
+
   /**
    * "javax.jdo.option.TransactionIsolationLevel.serializable"
    *
@@ -650,6 +717,7 @@ public interface Constants {
    */
   static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SERIALIZABLE =
       "javax.jdo.option.TransactionIsolationLevel.serializable";
+
   /**
    * "javax.jdo.option.DetachAllOnCommit"
    *
@@ -657,6 +725,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_DETACH_ALL_ON_COMMIT = "javax.jdo.option.DetachAllOnCommit";
+
   /**
    * "javax.jdo.option.CopyOnAttach"
    *
@@ -664,6 +733,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_COPY_ON_ATTACH = "javax.jdo.option.CopyOnAttach";
+
   /**
    * "javax.jdo.option.ConnectionDriverName" This property might be ignored by the JDO
    * implementation because the JDBC DriverManager handles the driver name.
@@ -672,6 +742,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_CONNECTION_DRIVER_NAME = "javax.jdo.option.ConnectionDriverName";
+
   /**
    * "javax.jdo.option.ConnectionUserName"
    *
@@ -679,12 +750,14 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_CONNECTION_USER_NAME = "javax.jdo.option.ConnectionUserName";
+
   /**
    * "javax.jdo.option.Password"
    *
    * @since 2.1
    */
   static String PROPERTY_CONNECTION_PASSWORD = "javax.jdo.option.ConnectionPassword";
+
   /**
    * "javax.jdo.option.ConnectionURL"
    *
@@ -692,6 +765,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_CONNECTION_URL = "javax.jdo.option.ConnectionURL";
+
   /**
    * "javax.jdo.option.ConnectionFactoryName"
    *
@@ -699,6 +773,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_CONNECTION_FACTORY_NAME = "javax.jdo.option.ConnectionFactoryName";
+
   /**
    * "javax.jdo.option.ConnectionFactory2Name"
    *
@@ -706,6 +781,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_CONNECTION_FACTORY2_NAME = "javax.jdo.option.ConnectionFactory2Name";
+
   /**
    * "javax.jdo.option.Mapping"
    *
@@ -713,6 +789,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_MAPPING = "javax.jdo.option.Mapping";
+
   /**
    * "javax.jdo.option.PersistenceUnitName"
    *
@@ -720,6 +797,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_PERSISTENCE_UNIT_NAME = "javax.jdo.option.PersistenceUnitName";
+
   /**
    * "javax.jdo.option.Name"
    *
@@ -783,6 +861,7 @@ public interface Constants {
    * @since 2.1
    */
   static String PROPERTY_MAPPING_CATALOG = "javax.jdo.mapping.Catalog";
+
   /**
    * Mapping "javax.jdo.mapping.Schema"
    *
