@@ -224,6 +224,7 @@ public abstract class Employee extends Person implements IEmployee {
   public void setDentalInsurance(IDentalInsurance dentalInsurance) {
     this.dentalInsurance = (DentalInsurance) dentalInsurance;
   }
+
   /**
    * Get the medical insurance of the employee.
    *

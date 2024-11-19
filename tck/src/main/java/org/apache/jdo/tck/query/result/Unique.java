@@ -47,6 +47,7 @@ public class Unique extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.11-1 (Unique) failed: ";
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)

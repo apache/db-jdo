@@ -232,6 +232,7 @@ public class GreaterThan extends ComparisonTests {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)

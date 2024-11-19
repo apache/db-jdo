@@ -67,6 +67,7 @@ public class FetchGroupTest extends JDO_Test {
       new String[] {
         "hiredate", "weeklyhours", "personid", "firstname", "lastname", "middlename", "birthdate"
       };
+
   /** In org/apache/jdo/tck/pc/package.jdo, middlename is not in DFG */
   protected final String[] defaultMembers =
       new String[] {"hiredate", "weeklyhours", "personid", "firstname", "lastname", "birthdate"};
@@ -96,6 +97,7 @@ public class FetchGroupTest extends JDO_Test {
         "phoneNumbers",
         "languages"
       };
+
   /** Address address is of type Address and is a relationship */
   protected final String[] relationshipMembers =
       new String[] {
@@ -113,6 +115,7 @@ public class FetchGroupTest extends JDO_Test {
         "hradvisees",
         "address"
       };
+
   /** Map phoneNumbers and set languages are not relationships but are multivalued */
   protected final String[] multivaluedMembers =
       new String[] {

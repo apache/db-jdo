@@ -44,6 +44,7 @@ public class JDOConfigListener extends JDO_Test {
 
   /** Creates a new instance of JDOConfigListener */
   public JDOConfigListener() {}
+
   /** */
   private static final String ASSERTION_FAILED = "Assertions 11.1-40 failed: ";
 

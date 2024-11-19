@@ -581,6 +581,7 @@ public class Equality extends ComparisonTests {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)

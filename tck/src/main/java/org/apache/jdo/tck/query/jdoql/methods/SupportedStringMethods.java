@@ -288,6 +288,7 @@ public class SupportedStringMethods extends QueryTest {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)

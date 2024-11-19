@@ -419,6 +419,7 @@ public class FCDSPerson
   public int hashCode() {
     return (int) personid;
   }
+
   /**
    * This class is used to represent the application identifier for the <code>Person</code> class.
    */

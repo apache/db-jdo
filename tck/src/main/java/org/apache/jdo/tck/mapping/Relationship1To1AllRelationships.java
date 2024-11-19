@@ -362,6 +362,7 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
       failOnError();
     }
   }
+
   /** */
   @Test
   public void testDeleteFromMappedSide() {

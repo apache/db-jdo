@@ -80,6 +80,7 @@ public class Enhance extends AbstractTCKMojo {
         + "inheritance"
         + File.separator
   };
+
   /** Location of TCK generated output. */
   @Parameter(property = "jdo.tck.doEnhance", defaultValue = "true", required = true)
   private boolean doEnhance;

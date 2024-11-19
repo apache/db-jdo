@@ -97,6 +97,7 @@ public class EqualityHelper {
     }
     return result;
   }
+
   /** Comparator used in method deepEquals comparing maps of DeepEquality. */
   private static class DeepEqualityEntryKeyComparator<K, V> implements Comparator<Map.Entry<K, V>> {
     final Comparator<K> comparator;

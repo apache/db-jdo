@@ -82,6 +82,7 @@ public class RangeAsString extends QueryTest {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)
@@ -157,6 +158,7 @@ public class RangeAsString extends QueryTest {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)

@@ -264,6 +264,7 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
   public void setDentalInsurance(IDentalInsurance dentalInsurance) {
     this.dentalInsurance = (FCDSDentalInsurance) dentalInsurance;
   }
+
   /**
    * Get the medical insurance of the employee.
    *
