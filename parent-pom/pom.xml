@@ -164,6 +164,8 @@
 
     <properties>
         <project.build.outputTimestamp>1653504961</project.build.outputTimestamp>
+        <version.cyclonedx-maven-plugin>2.9.1</version.cyclonedx-maven-plugin>
+        <version.spdx-maven-plugin>0.7.4</version.spdx-maven-plugin>
     </properties>
 
     <dependencyManagement>
@@ -291,12 +293,37 @@
                 <plugin>
                     <groupId>org.cyclonedx</groupId>
                     <artifactId>cyclonedx-maven-plugin</artifactId>
-                    <version>2.9.1</version>
+                    <version>${version.cyclonedx-maven-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>build-sbom-cyclonedx</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>makeAggregateBom</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <outputName>${project.artifactId}-${project.version}-cyclonedx</outputName>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.spdx</groupId>
                     <artifactId>spdx-maven-plugin</artifactId>
-                    <version>0.7.4</version>
+                    <version>${version.spdx-maven-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>build-sbom-spdx</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>createSPDX</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <outputFormat>JSON</outputFormat>
+                        <spdxFile>${project.build.directory}/${project.artifactId}-${project.version}-spdx.json</spdxFile>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -346,4 +373,16 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>jdk8-plugin-fix-version</id>
+            <activation>
+                <jdk>[1.8,1.9)</jdk>
+            </activation>
+            <properties>
+                <version.spdx-maven-plugin>0.6.3</version.spdx-maven-plugin>
+            </properties>
+        </profile>
+    </profiles>
 </project>
