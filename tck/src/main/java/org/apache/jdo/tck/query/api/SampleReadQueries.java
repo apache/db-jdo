@@ -27,7 +27,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.CollectionExpression;
-import javax.jdo.query.Expression;
 import javax.jdo.query.NumericExpression;
 import javax.jdo.query.StringExpression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -99,9 +98,9 @@ public class SampleReadQueries extends QueryTest {
       "select from org.apache.jdo.tck.pc.company.Department where :depts.contains(name)";
 
   private static final String SINGLE_STRING_QUERY_07 =
-          "select from org.apache.jdo.tck.pc.company.FullTimeEmployee "
-                  + "where languages.contains(:lang)";
-  
+      "select from org.apache.jdo.tck.pc.company.FullTimeEmployee "
+          + "where languages.contains(:lang)";
+
   private static final String SINGLE_STRING_QUERY_08 =
       "select firstname from org.apache.jdo.tck.pc.company.Employee where department.name == :deptName";
 
@@ -154,7 +153,7 @@ public class SampleReadQueries extends QueryTest {
       "select firstname from org.apache.jdo.tck.pc.company.Employee "
           + "where this.weeklyhours > "
           + " (select AVG(e.weeklyhours) from this.department.employees e where e.manager == this.manager)";
-  
+
   /**
    * Basic query.
    *
@@ -1094,9 +1093,9 @@ public class SampleReadQueries extends QueryTest {
     try {
       tx.begin();
       List<FullTimeEmployee> expected =
-              getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
       try (Query<FullTimeEmployee> q =
-                   pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
+          pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
         List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute("German");
         checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
       } catch (Exception ex) {
@@ -1122,9 +1121,9 @@ public class SampleReadQueries extends QueryTest {
     try {
       tx.begin();
       List<FullTimeEmployee> expected =
-              getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
       try (Query<FullTimeEmployee> q =
-                   pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
+          pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("lang", "German");
         q.setNamedParameters(paramValues);
@@ -1153,9 +1152,9 @@ public class SampleReadQueries extends QueryTest {
     try {
       tx.begin();
       List<FullTimeEmployee> expected =
-              getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
       try (Query<FullTimeEmployee> q =
-                   pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
+          pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
         q.setParameters("German");
         List<FullTimeEmployee> emps = q.executeList();
         checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
@@ -1183,7 +1182,7 @@ public class SampleReadQueries extends QueryTest {
     try {
       tx.begin();
       List<FullTimeEmployee> expected =
-              getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
       try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_07)) {
         List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute("German");
         checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
@@ -1211,7 +1210,7 @@ public class SampleReadQueries extends QueryTest {
     try {
       tx.begin();
       List<FullTimeEmployee> expected =
-              getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
         StringExpression lang = q.stringParameter("lang");
