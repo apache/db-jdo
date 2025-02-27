@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.LegacyJava;
+
+import org.apache.jdo.tck.pc.order.DefaultListableInstanceFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 /*
@@ -55,7 +57,23 @@ public abstract class AbstractReaderTest extends JDO_Test {
   }
 
   protected <T> T getBean(
-      final DefaultListableBeanFactory factory, Class<T> clazz, final String name) {
+          final DefaultListableBeanFactory factory, Class<T> clazz, final String name) {
+    return doPrivileged(() -> factory.getBean(name, clazz));
+  }
+
+  /**
+   * Get the named bean from the bean factory.
+   *
+   * @param factory the bean factory
+   * @param name the name of the bean
+   * @return the named object
+   */
+  protected Object getBean(final DefaultListableInstanceFactory factory, final String name) {
+    return doPrivileged(() -> factory.getBean(name));
+  }
+
+  protected <T> T getBean(
+          final DefaultListableInstanceFactory factory, Class<T> clazz, final String name) {
     return doPrivileged(() -> factory.getBean(name, clazz));
   }
 
@@ -79,6 +97,17 @@ public abstract class AbstractReaderTest extends JDO_Test {
    */
   @SuppressWarnings("unchecked")
   protected List<Object> getRootList(DefaultListableBeanFactory factory) {
+    return (List<Object>) getBean(factory, ROOT_NAME);
+  }
+
+  /**
+   * Get the root object from the bean factory.
+   *
+   * @param factory the bean factory
+   * @return the List of objects
+   */
+  @SuppressWarnings("unchecked")
+  protected List<Object> getRootList(DefaultListableInstanceFactory factory) {
     return (List<Object>) getBean(factory, ROOT_NAME);
   }
 

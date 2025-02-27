@@ -59,6 +59,7 @@ public abstract class OrderFactoryAbstractImpl implements OrderFactory {
     return result;
   }
 
+  @Deprecated // TODO (TZ) remove
   public Order newOrder(long orderId, Set<OrderItem> items, long customerId) {
     Order result = newOrder();
     result.setOrderId(orderId);
@@ -71,6 +72,12 @@ public abstract class OrderFactoryAbstractImpl implements OrderFactory {
   public OrderItem newOrderItem(Order order, long item, String description, int quantity) {
     OrderItem result = newOrderItem();
     result.setOrder(order);
+    // TODO order.addItem(result); // TODO (TZ) This causes an error:
+    // org.datanucleus.exceptions.NucleusDataStoreException:
+    // Insert of object "org.apache.jdo.tck.pc.order.OrderItem@6d6fadb8" using statement
+    // "INSERT INTO APPLICATIONIDENTITY0.ITEM (DESCRIPTION,QUANTITY,ID,ORDERID) VALUES (?,?,?,?)" failed :
+    // The statement was aborted because it would have caused a duplicate key value in a unique or primary key
+    // constraint or unique index identified by 'ITEM_CONST' defined on 'ITEM'.
     result.setItem(item);
     result.setDescription(description);
     result.setQuantity(quantity);
