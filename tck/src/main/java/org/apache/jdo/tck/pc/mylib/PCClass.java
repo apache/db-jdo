@@ -31,6 +31,14 @@ public class PCClass implements LoadCallback {
 
   public PCClass() {}
 
+  public PCClass(long id, int number1, int number2, int transientNumber1, int transientNumber2) {
+    this.id = id;
+    this.number1 = number1;
+    this.number2 = number2;
+    this.transientNumber1 = transientNumber1;
+    this.transientNumber2 = transientNumber2;
+  }
+
   /**
    * @see LoadCallback#jdoPostLoad()
    */
