@@ -26,9 +26,6 @@ public class MylibReader2 extends DefaultListableInstanceFactory {
 
   private static final long serialVersionUID = 1L;
 
-  /** The name of the root list bean. */
-  private static final String ROOT_LIST_NAME = "root";
-
   /** Teardown classes */
   @SuppressWarnings("rawtypes")
   private static final Class<?>[] tearDownClasses =
@@ -40,19 +37,7 @@ public class MylibReader2 extends DefaultListableInstanceFactory {
    * @param resourceName the name of the resource
    */
   public MylibReader2(String resourceName) {
-    // Use the class loader of the PrimitiveTypes class to find the resource
-    this(resourceName, PrimitiveTypes.class.getClassLoader());
-  }
-
-  /**
-   * Create a MylibReader for the specified resourceName.
-   *
-   * @param resourceName the name of the resource
-   * @param classLoader the ClassLoader for the lookup
-   */
-  public MylibReader2(String resourceName, ClassLoader classLoader) {
     super();
-    //   configureFactory();
     init();
   }
 
@@ -93,38 +78,12 @@ public class MylibReader2 extends DefaultListableInstanceFactory {
             3, false, null, (byte) 0, null, (short) 0, null, 0, null, 0, null, 0, null, 0, null,
             (char) 0, (char) 0, null, "Even", null, null, null);
 
-    List<Object> roots = new ArrayList<>();
-    roots.add(primitiveTypesPositive);
-    roots.add(primitiveTypesNegative);
-    roots.add(pcClass1);
-    roots.add(pcClass2);
-    roots.add(primitiveTypesCharacterStringLiterals);
     register("primitiveTypesPositive", primitiveTypesPositive);
     register("primitiveTypesNegative", primitiveTypesNegative);
     register("pcClass1", pcClass1);
     register("pcClass2", pcClass2);
     register("primitiveTypesCharacterStringLiterals", primitiveTypesCharacterStringLiterals);
-    register(ROOT_LIST_NAME, roots);
   }
-
-  /**
-   * Returns a list of root objects. The method expects to find a bean called "root" of type list in
-   * the xml and returns it.
-   *
-   * @return a list of root instances
-   */
-  @SuppressWarnings("unchecked")
-  public List<Object> getRootList() {
-    return (List<Object>) getBean(ROOT_LIST_NAME);
-  }
-
-  //  /**
-  //   * Configure the MylibReader, e.g. register CustomEditor classes to convert the string
-  //   * representation of a property into an instance of the right type.
-  //   */
-  //  private void configureFactory() {
-  //    registerCustomEditor(Date.class, JDOCustomDateEditor.class);
-  //  }
 
   // Convenience methods
 
