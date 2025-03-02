@@ -45,7 +45,7 @@ public class MylibReader extends DefaultListableBeanFactory {
    *
    * @param resourceName the name of the resource
    */
-  private MylibReader(String resourceName) {
+  public MylibReader(String resourceName) {
     // Use the class loader of the PrimitiveTypes class to find the resource
     this(resourceName, PrimitiveTypes.class.getClassLoader());
   }
