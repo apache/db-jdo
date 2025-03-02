@@ -212,7 +212,7 @@ public class Variable extends QueryTest {
   /** */
   @SuppressWarnings("unchecked")
   @Test
-  //@Execution(ExecutionMode.CONCURRENT)
+  // @Execution(ExecutionMode.CONCURRENT)
   public void testNoNavigation() {
     List<Employee> expected =
         getTransientCompanyModelInstancesAsList(
@@ -352,7 +352,7 @@ public class Variable extends QueryTest {
   /** */
   @SuppressWarnings("unchecked")
   @Test
-  //@Execution(ExecutionMode.CONCURRENT) // TODO this fixed it
+  // @Execution(ExecutionMode.CONCURRENT) // TODO this fixed it
   public void testNavigationWithCompanyAndEmployeeAndProject() {
     Object expected =
         Arrays.asList(
@@ -652,7 +652,7 @@ public class Variable extends QueryTest {
   /** */
   @SuppressWarnings("unchecked")
   @Test
-  //@Execution(ExecutionMode.CONCURRENT)
+  // @Execution(ExecutionMode.CONCURRENT)
   public void testNavigationWithCompanyConstraint() {
     Object expected =
         Arrays.asList(
