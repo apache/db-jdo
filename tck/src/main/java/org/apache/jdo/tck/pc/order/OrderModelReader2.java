@@ -17,32 +17,18 @@
 
 package org.apache.jdo.tck.pc.order;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import org.apache.jdo.tck.util.ConversionHelper;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.core.io.ClassPathResource;
 
 /** Utility class to create a graph of order model instances from an xml representation. */
 public class OrderModelReader2 extends DefaultListableInstanceFactory {
 
   private static final long serialVersionUID = 1L;
 
-  /** The name of the root list bean. */
-  public static final String ROOT_LIST_NAME = "root";
-
-  /** The bean-factory name in the xml input files. */
-  public static final String BEAN_FACTORY_NAME = "orderFactory";
-
   /** The order factory instance. */
   private OrderFactory orderFactory;
-
-  /** Bean definition reader */
-  // private final XmlBeanDefinitionReader reader;
 
   /**
    * Create a OrderModelReader for the specified resourceName.
@@ -50,91 +36,16 @@ public class OrderModelReader2 extends DefaultListableInstanceFactory {
    * @param resourceName the name of the resource
    */
   public OrderModelReader2(String resourceName) {
-    // Use the class loader of the Order class to find the resource
-    this(resourceName, Order.class.getClassLoader());
-  }
-
-  /**
-   * Create a OrderModelReader for the specified resourceName.
-   *
-   * @param resourceName the name of the resource
-   * @param classLoader the ClassLOader for the lookup
-   */
-  public OrderModelReader2(String resourceName, ClassLoader classLoader) {
     super();
     configureFactory();
-    // this.reader = new XmlBeanDefinitionReader(this);
-    // this.reader.loadBeanDefinitions(new ClassPathResource(resourceName, classLoader));
     init();
   }
 
-  /**
-   * Returns a list of root objects. The method expects to find a bean called "root" of type list in
-   * the xml and returns it.
-   *
-   * @return a list of root instances
-   */
-  @SuppressWarnings("unchecked")
-  public List<Object> getRootList() {
-    return (List<Object>) getBean(ROOT_LIST_NAME);
-  }
-
   private void init() {
-
-
-
-//            <bean id="root" class="java.util.ArrayList">
-//        <constructor-arg index="0">
-//            <list>
-//                <ref bean="order1"/>
-//            </list>
-//        </constructor-arg>
-//    </bean>
-
-//    <bean id="order1" factory-bean="orderFactory" factory-method="newOrder">
-//        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
-//        <constructor-arg index="1" type="long"><value>3</value></constructor-arg>
-//        <property name="items">
-//            <set>
-//                <ref bean="item1"/>
-//                <ref bean="item2"/>
-//            </set>
-//        </property>
-//    </bean>
-
-      Order order1 = orderFactory.newOrder(1, 3);
-
-
-
-      OrderItem item1 = orderFactory.newOrderItem(order1, 1, "SunRay", 15);
-//    <bean id="item1" factory-bean="orderFactory" factory-method="newOrderItem">
-//        <constructor-arg index="0" type="org.apache.jdo.tck.pc.order.Order">
-//            <ref bean="order1"/></constructor-arg>
-//        <constructor-arg index="1" type="long" ><value>1</value>
-//        </constructor-arg>
-//        <constructor-arg index="2" type="java.lang.String" >
-//            <value>SunRay</value></constructor-arg>
-//        <constructor-arg index="3" type="int" ><value>15</value>
-//        </constructor-arg>
-//    </bean>
-
-      OrderItem item2 = orderFactory.newOrderItem(order1, 1, "SUn Ultra 40", 3);
-//    <bean id="item2" factory-bean="orderFactory" factory-method="newOrderItem">
-//        <constructor-arg index="0" type="org.apache.jdo.tck.pc.order.Order">
-//            <ref bean="order1"/></constructor-arg>
-//        <constructor-arg index="1" type="long" ><value>1</value>
-//        </constructor-arg>
-//        <constructor-arg index="2" type="java.lang.String" >
-//            <value>Sun Ultra 40</value></constructor-arg>
-//        <constructor-arg index="3" type="int" ><value>3</value>
-//        </constructor-arg>
-//    </bean>
-
-              List<Object> roots = new ArrayList<>();
-      roots.add(order1);
-
-      register("order1", order1);
-      register(ROOT_LIST_NAME, roots);
+    Order order1 = orderFactory.newOrder(1, 3);
+    OrderItem item1 = orderFactory.newOrderItem(order1, 1, "SunRay", 15);
+    OrderItem item2 = orderFactory.newOrderItem(order1, 1, "Sun Ultra 40", 3);
+    register("order1", order1);
   }
 
   /**
