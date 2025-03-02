@@ -131,7 +131,7 @@ public class Variable extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testDistinctNavigation() {
     Object elem = new Object[] {Long.valueOf(1), "orange"};
-    Object expected = Collections.singletonList(elem);
+    Object expected = Arrays.asList(elem);
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
@@ -264,7 +264,7 @@ public class Variable extends QueryTest {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
       QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
-      query.filter(cand.deptid.eq(2L).and(cand.employees.contains(e)));
+      query.filter(cand.deptid.eq(2l).and(cand.employees.contains(e)));
       query.result(false, e);
 
       // SELECT e FROM Department WHERE deptid==2 & employees.contains(e) VARIABLES Employee e
@@ -297,7 +297,7 @@ public class Variable extends QueryTest {
   /** */
   @SuppressWarnings("unchecked")
   @Test
-  //@Execution(ExecutionMode.CONCURRENT)
+  // @Execution(ExecutionMode.CONCURRENT) TODO fails!
   public void testNavigationWithCompanyAndDepartmentAndEmployeeAndProject() {
     Object expected =
         Arrays.asList(
@@ -621,7 +621,7 @@ public class Variable extends QueryTest {
       QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
-      query.filter(cand.deptid.eq(1L).and(cand.employees.contains(e)).and(e.projects.contains(p)));
+      query.filter(cand.deptid.eq(1l).and(cand.employees.contains(e)).and(e.projects.contains(p)));
       query.result(false, e, p);
 
       QueryElementHolder<Department> holder =
