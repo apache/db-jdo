@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
@@ -130,7 +131,7 @@ public class Variable extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testDistinctNavigation() {
     Object elem = new Object[] {Long.valueOf(1), "orange"};
-    Object expected = Arrays.asList(elem);
+    Object expected = Collections.singletonList(elem);
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
@@ -263,7 +264,7 @@ public class Variable extends QueryTest {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
       QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
-      query.filter(cand.deptid.eq(2l).and(cand.employees.contains(e)));
+      query.filter(cand.deptid.eq(2L).and(cand.employees.contains(e)));
       query.result(false, e);
 
       // SELECT e FROM Department WHERE deptid==2 & employees.contains(e) VARIABLES Employee e
@@ -620,7 +621,7 @@ public class Variable extends QueryTest {
       QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
-      query.filter(cand.deptid.eq(1l).and(cand.employees.contains(e)).and(e.projects.contains(p)));
+      query.filter(cand.deptid.eq(1L).and(cand.employees.contains(e)).and(e.projects.contains(p)));
       query.result(false, e, p);
 
       QueryElementHolder<Department> holder =
