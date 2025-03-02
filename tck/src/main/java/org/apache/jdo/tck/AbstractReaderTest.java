@@ -85,6 +85,7 @@ public abstract class AbstractReaderTest extends JDO_Test {
       if (e.getCause() instanceof RuntimeException) {
         throw (RuntimeException) e.getCause();
       }
+      e.printStackTrace();
       throw new JDOFatalInternalException(e.getMessage());
     }
   }
