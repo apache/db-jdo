@@ -50,6 +50,11 @@ jobs:
         java: [ 8, 11, 17, 21 ]
         # run different builds with the listed java versions
         os: [ ubuntu-latest, windows-latest ]
+        exclude:
+          - os:  windows-latest
+            java: 11
+          - os:  windows-latest
+            java: 17
       # continue to run other matrix builds if one of them fails
       fail-fast: false
     runs-on: ${{ matrix.os }}
