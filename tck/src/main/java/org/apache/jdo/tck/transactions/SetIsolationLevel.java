@@ -35,6 +35,7 @@ public class SetIsolationLevel extends JDO_Test implements Constants {
   /** */
   private static final String ASSERTION_29_FAILED =
       "Assertion A13.4.2-29 (setIsolationLevel) failed: ";
+
   /** */
   private static final String ASSERTION_25_FAILED =
       "Assertion A13.4.2-25 (setIsolationLevel) failed: ";

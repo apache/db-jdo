@@ -156,6 +156,10 @@ has datastore identity.
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </field>
+            <field name="languages" table="employee_languages" >
+                 <join column="EMPID"/>
+                 <element column="LANGUAGE"/>
+            </field>
             <query name="packageORM">
                 SELECT FROM org.apache.jdo.tck.pc.company.Person
                 WHERE personid > 2
@@ -320,6 +324,10 @@ has datastore identity.
                 <join column="EMPID"/>
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
+            </property>
+            <property name="languages" table="employee_languages" >
+                 <join column="EMPID"/>
+                 <element column="LANGUAGE"/>
             </property>
             <query name="packageORM">
                 SELECT FROM org.apache.jdo.tck.pc.company.Person

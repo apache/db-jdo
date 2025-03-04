@@ -19,6 +19,7 @@ package org.apache.jdo.tck.pc.company;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This interface represents the persistent state of Person. Javadoc was deliberately omitted
@@ -40,6 +41,8 @@ public interface PIPerson extends IPerson {
 
   Map<String, String> getPhoneNumbers();
 
+  Set<String> getLanguages();
+
   void setPersonid(long personid);
 
   void setLastname(String lastname);
@@ -53,4 +56,6 @@ public interface PIPerson extends IPerson {
   void setBirthdate(Date birthdate);
 
   void setPhoneNumbers(Map<String, String> phoneNumbers);
+
+  void setLanguages(Set<String> languages);
 }

@@ -82,7 +82,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters extends QueryT
     try {
 
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       DateTimeExpression param = query.datetimeParameter("param");
       query.filter(cand.hiredate.eq(param));
 
@@ -126,7 +126,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters extends QueryT
     try {
 
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       DateTimeExpression param = query.datetimeParameter("param");
       query.filter(cand.hiredate.gteq(param));
 
@@ -169,7 +169,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters extends QueryT
     try {
 
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       DateTimeExpression param = query.datetimeParameter("param");
       query.filter(param.lt(cand.birthdate));
 

@@ -78,10 +78,13 @@ public class Enhancer {
 
   /** New Line */
   private static final char NL = '\n'; // NOI18N
+
   /** Jar file suffix */
   private static final String JAR_FILE_SUFFIX = ".jar"; // NOI18N
+
   /** JDO Metadata file suffix */
   private static final String JDO_FILE_SUFFIX = ".jdo"; // NOI18N
+
   /** Class file suffix */
   private static final String CLASS_FILE_SUFFIX = ".class"; // NOI18N
 
@@ -92,37 +95,52 @@ public class Enhancer {
 
   /** Error indicator */
   private boolean error = false;
+
   /** If set, process parameters, print usage, and exit. */
   private boolean printAndExit = false;
 
   /** Persistence Units */
   private final List<String> persistenceUnitNames = new ArrayList<>();
+
   /** Target Directory Parameter */
   private String directoryName = null;
+
   /** ClassLoader for JDOEnhancer */
   private ClassLoader loader = null;
+
   /** Classpath (-cp) parameter */
   private String classPath = null;
+
   /** Check Only flag */
   private boolean checkOnly = false;
+
   /** Verbose flag */
   private boolean verbose = false;
+
   /** Recurse flag */
   private boolean recurse = false;
+
   /** Error messages should be empty unless there is an error */
   private final StringBuilder errorBuffer = new StringBuilder();
+
   /** Verbose messages are always collected but only output if verbose flag is set */
   private final StringBuilder verboseBuffer = new StringBuilder();
+
   /** File Names */
   private List<String> fileNames = new ArrayList<>();
+
   /** Class File Names */
   private final List<String> classFileNames = new ArrayList<>();
+
   /** JDO File Names */
   private final List<String> jdoFileNames = new ArrayList<>();
+
   /** Jar File Names */
   private final List<String> jarFileNames = new ArrayList<>();
+
   /** The number of classes validated by the JDOEnhancer */
   private int numberOfValidatedClasses = 0;
+
   /** The number of classes enhanced by the JDOEnhancer */
   private int numberOfEnhancedClasses = 0;
 

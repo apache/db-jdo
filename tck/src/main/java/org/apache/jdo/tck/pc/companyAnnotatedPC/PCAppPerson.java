@@ -18,10 +18,13 @@
 package org.apache.jdo.tck.pc.companyAnnotatedPC;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Discriminator;
 import javax.jdo.annotations.DiscriminatorStrategy;
@@ -62,6 +65,7 @@ public class PCAppPerson
   @NotPersistent() private Date _birthdate;
   @NotPersistent() private PCAppAddress _address;
   @NotPersistent() private Map<String, String> _phoneNumbers = new HashMap<>();
+  @NotPersistent() private Set<String> _languages = new HashSet<>();
 
   /** This is the JDO-required no-args constructor. */
   protected PCAppPerson() {}
@@ -295,6 +299,24 @@ public class PCAppPerson
   }
 
   /**
+   * Get the map of languages as an unmodifiable Set.
+   *
+   * @return The set of languages, as an unmodifiable set.
+   */
+  public Set<String> getLanguages() {
+    return Collections.unmodifiableSet(_languages);
+  }
+
+  /**
+   * Set the languages set to be in this person.
+   *
+   * @param languages The set of languages for this person.
+   */
+  public void setLanguages(Set<String> languages) {
+    this._languages = new HashSet(languages);
+  }
+
+  /**
    * Returns a String representation of a <code>PCAppPerson</code> object.
    *
    * @return a string representation of a <code>PCAppPerson</code> object.
@@ -388,6 +410,7 @@ public class PCAppPerson
   public int hashCode() {
     return (int) _personid;
   }
+
   /**
    * This class is used to represent the application identifier for the <code>Person</code> class.
    */

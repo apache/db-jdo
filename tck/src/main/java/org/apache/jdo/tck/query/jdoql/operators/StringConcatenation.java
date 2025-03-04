@@ -57,7 +57,7 @@ public class StringConcatenation extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.firstname.eq("emp1" + "First"));
 
       QueryElementHolder<Employee> holder =
@@ -93,7 +93,7 @@ public class StringConcatenation extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       StringExpression paramExpr = query.stringParameter("param");
       query.filter(cand.firstname.add("Ext").eq(paramExpr));
 

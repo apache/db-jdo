@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.api;
 
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import javax.jdo.JDOFatalException;
 import javax.jdo.JDOQueryInterruptedException;
@@ -56,22 +55,27 @@ import org.opentest4j.AssertionFailedError;
 public class QueryCancel extends QueryTest {
 
   /** Time for the main thread to sleep after starting a parallel thread. */
-  private static final int MAIN_SLEEP_MILLIS = 40;
+  private static final int MAIN_SLEEP_MILLIS = 100;
 
   /** Number of instances to be created. */
   private static final int NO_OF_INSTANCES = 5000;
+
+  protected static final boolean DATASTORE_SUPPORTS_QUERY_CANCEL =
+      System.getProperty("jdo.tck.datastore.supportsQueryCancel", "true").equalsIgnoreCase("true");
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion A14.6.1-8 (QueryCancel) failed: ";
 
   /** Single String JDOQL Query to be canceled. */
   private static final String SSJDOQL =
-      "select avg (this.x + point2.y) "
+      "select max (this.x) "
           + "from PCPoint "
-          + "where this.y >= 0 && point2.x >= 0 "
-          + "variables PCPoint2 point2 "
+          + "where point2.x >= 0 "
+          + "variables PCPoint point2 "
           + "import org.apache.jdo.tck.pc.mylib.PCPoint; "
-          + "import org.apache.jdo.tck.pc.mylib.PCPoint2; ";
+          + "import org.apache.jdo.tck.pc.mylib.PCPoint2; "
+          + "group by this.x % 10 "
+          + "having max (this.x) > 2 ";
 
   /**
    * @throws Exception exception
@@ -79,7 +83,7 @@ public class QueryCancel extends QueryTest {
   @SuppressWarnings("unchecked")
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testCancel() throws InterruptedException {
+  public void testCancel() throws Exception {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       // Test query
@@ -102,17 +106,17 @@ public class QueryCancel extends QueryTest {
 
         // cancel query
         query.cancel(t);
-        if (!isQueryCancelSupported()) {
+        if (!isQueryCancelSupported() || !DATASTORE_SUPPORTS_QUERY_CANCEL) {
           fail(
               ASSERTION_FAILED,
-              "Query.cancel should throw a JDOQueryInterruptedException, "
+              "Query.cancel should throw a JDOUnsupportedOptionException, "
                   + "if query canceling is not supported ");
         }
-      } catch (JDOUnsupportedOptionException | InterruptedException | BrokenBarrierException ex) {
-        if (isQueryCancelSupported()) {
+      } catch (JDOUnsupportedOptionException ex) {
+        if (isQueryCancelSupported() && DATASTORE_SUPPORTS_QUERY_CANCEL) {
           fail(
               ASSERTION_FAILED,
-              "Query.cancel should not result in a JDOQueryInterruptedException, "
+              "Query.cancel should not result in a JDOUnsupportedOptionException, "
                   + "if query canceling is supported ");
         }
       }
@@ -158,17 +162,17 @@ public class QueryCancel extends QueryTest {
         Thread.sleep(MAIN_SLEEP_MILLIS);
 
         query.cancelAll();
-        if (!isQueryCancelSupported()) {
+        if (!isQueryCancelSupported() || !DATASTORE_SUPPORTS_QUERY_CANCEL) {
           fail(
               ASSERTION_FAILED,
-              "Query.cancel should throw a JDOQueryInterruptedException, "
+              "Query.cancel should throw a JDOUnsupportedOptionException, "
                   + "if query canceling is not supported ");
         }
       } catch (JDOUnsupportedOptionException ex) {
-        if (isQueryCancelSupported()) {
+        if (isQueryCancelSupported() && DATASTORE_SUPPORTS_QUERY_CANCEL) {
           fail(
               ASSERTION_FAILED,
-              "Query.cancel should not result in a JDOQueryInterruptedException, "
+              "Query.cancel should not result in a JDOUnsupportedOptionException, "
                   + "if query canceling is supported ");
         }
       }
@@ -209,14 +213,14 @@ public class QueryCancel extends QueryTest {
         Object result = query.execute();
         tx.commit();
         tx = null;
-        if (isQueryCancelSupported()) {
+        if (isQueryCancelSupported() && DATASTORE_SUPPORTS_QUERY_CANCEL) {
           fail(
               ASSERTION_FAILED,
               "Query.execute should result in a JDOQueryInterruptedException, "
                   + "if query canceling is supported.");
         }
       } catch (JDOQueryInterruptedException ex) {
-        if (!isQueryCancelSupported()) {
+        if (!isQueryCancelSupported() || !DATASTORE_SUPPORTS_QUERY_CANCEL) {
           fail(
               ASSERTION_FAILED,
               "Query.execute should not result in a JDOQueryInterruptedException, "

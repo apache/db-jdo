@@ -22,7 +22,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
@@ -45,6 +47,8 @@ public class Person
   // maps phone number types ("home", "work", "mobile", etc.)
   // to phone numbers specified as String
   private Map<String, String> phoneNumbers = new HashMap<>();
+
+  private Set<String> languages = new HashSet<>();
 
   /** This is the JDO-required no-args constructor. */
   protected Person() {}
@@ -262,6 +266,24 @@ public class Person
   }
 
   /**
+   * Get the set of languages as an unmodifiable set.
+   *
+   * @return The set of languages, as an unmodifiable set.
+   */
+  public Set<String> getLanguages() {
+    return Collections.unmodifiableSet(languages);
+  }
+
+  /**
+   * Set the languages set to be in this person.
+   *
+   * @param languages The set of languages for this person.
+   */
+  public void setLanguages(Set<String> languages) {
+    this.languages = new HashSet(languages);
+  }
+
+  /**
    * Returns a String representation of a <code>Person</code> object.
    *
    * @return a string representation of a <code>Person</code> object.
@@ -282,6 +304,7 @@ public class Person
     rc.append(", ").append(firstname);
     rc.append(", born ").append(JDOCustomDateEditor.getDateRepr(birthdate));
     rc.append(", phone ").append(phoneNumbers);
+    rc.append(", languages ").append(languages);
     return rc.toString();
   }
 
@@ -304,7 +327,8 @@ public class Person
         & helper.equals(middlename, otherPerson.getMiddlename(), where + ".middlename")
         & helper.equals(birthdate, otherPerson.getBirthdate(), where + ".birthdate")
         & helper.deepEquals(address, otherPerson.getAddress(), where + ".address")
-        & helper.deepEquals(phoneNumbers, otherPerson.getPhoneNumbers(), where + ".phoneNumbers");
+        & helper.deepEquals(phoneNumbers, otherPerson.getPhoneNumbers(), where + ".phoneNumbers")
+        & helper.deepEquals(languages, otherPerson.getLanguages(), where + ".languages");
   }
 
   /**
@@ -355,6 +379,7 @@ public class Person
   public int hashCode() {
     return (int) personid;
   }
+
   /**
    * This class is used to represent the application identifier for the <code>Person</code> class.
    */

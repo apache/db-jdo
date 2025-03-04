@@ -190,3 +190,9 @@ There are two profiles to support code formatting using the maven fmt-maven-plug
 #### GitHub Action Integration
 
 The formatting of the code is checked automatically through the GitHub actions for every PR and/or push on master.
+
+### SBOM Support
+
+In order to create SBOM files using the cyclonedx-maven-plugin and the spdx-maven-plugin please call
+
+    mvn clean cyclonedx:makeBom spdx:createSPDX

@@ -138,6 +138,7 @@ public class SetTransactionIsolationLevel extends JDO_Test implements Constants 
     closePMF();
     return;
   }
+
   /** */
   private void getPMFsetTransactionIsolationLevelFromProperties(String level) {
     String property = Constants.PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;

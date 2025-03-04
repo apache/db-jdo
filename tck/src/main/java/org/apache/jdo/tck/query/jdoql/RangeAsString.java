@@ -54,7 +54,7 @@ public class RangeAsString extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.orderBy(cand.personid.asc());
 
       QueryElementHolder<Person> holder =
@@ -82,6 +82,7 @@ public class RangeAsString extends QueryTest {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)
@@ -91,7 +92,7 @@ public class RangeAsString extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.orderBy(cand.personid.asc());
 
       QueryElementHolder<Person> holder =
@@ -129,7 +130,7 @@ public class RangeAsString extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.orderBy(cand.personid.asc());
 
       QueryElementHolder<Person> holder =
@@ -157,6 +158,7 @@ public class RangeAsString extends QueryTest {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)
@@ -166,7 +168,7 @@ public class RangeAsString extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.orderBy(cand.personid.asc());
 
       QueryElementHolder<Person> holder =

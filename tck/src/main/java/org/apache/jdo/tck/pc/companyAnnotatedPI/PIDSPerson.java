@@ -19,10 +19,12 @@ package org.apache.jdo.tck.pc.companyAnnotatedPI;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.Discriminator;
 import javax.jdo.annotations.DiscriminatorStrategy;
+import javax.jdo.annotations.Element;
 import javax.jdo.annotations.Embedded;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Inheritance;
@@ -82,6 +84,11 @@ public interface PIDSPerson extends IPerson {
   @Key(types = java.lang.String.class, column = "TYPE")
   @Value(types = java.lang.String.class, column = "PHONENO")
   Map<String, String> getPhoneNumbers();
+
+  @Persistent(table = "employee_languages")
+  @Join(column = "EMPID")
+  @Element(types = java.lang.String.class, column = "LANGUAGE")
+  Set<String> getLanguages();
 
   void setPersonid(long personid);
 

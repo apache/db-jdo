@@ -92,6 +92,7 @@ public class ConditionalOR extends QueryTest {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)
@@ -123,6 +124,7 @@ public class ConditionalOR extends QueryTest {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)

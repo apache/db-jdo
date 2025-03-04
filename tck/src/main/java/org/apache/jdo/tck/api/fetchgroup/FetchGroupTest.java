@@ -67,6 +67,7 @@ public class FetchGroupTest extends JDO_Test {
       new String[] {
         "hiredate", "weeklyhours", "personid", "firstname", "lastname", "middlename", "birthdate"
       };
+
   /** In org/apache/jdo/tck/pc/package.jdo, middlename is not in DFG */
   protected final String[] defaultMembers =
       new String[] {"hiredate", "weeklyhours", "personid", "firstname", "lastname", "birthdate"};
@@ -93,8 +94,10 @@ public class FetchGroupTest extends JDO_Test {
         "middlename",
         "birthdate",
         "address",
-        "phoneNumbers"
+        "phoneNumbers",
+        "languages"
       };
+
   /** Address address is of type Address and is a relationship */
   protected final String[] relationshipMembers =
       new String[] {
@@ -112,9 +115,12 @@ public class FetchGroupTest extends JDO_Test {
         "hradvisees",
         "address"
       };
-  /** Map phoneNumbers is not a relationship but is multivalued */
+
+  /** Map phoneNumbers and set languages are not relationships but are multivalued */
   protected final String[] multivaluedMembers =
-      new String[] {"reviewedProjects", "projects", "team", "hradvisees", "phoneNumbers"};
+      new String[] {
+        "reviewedProjects", "projects", "team", "hradvisees", "phoneNumbers", "languages"
+      };
 
   protected final String[] allButMultivaluedMembers =
       new String[] {
@@ -336,16 +342,21 @@ public class FetchGroupTest extends JDO_Test {
     Set<String> expectedSet = new HashSet<>();
     expectedSet.addAll(Arrays.asList(basicMembers));
     expectedSet.add("phoneNumbers");
+    expectedSet.add("languages");
     Assertions.assertEquals(
         expectedSet,
         members,
-        "FetchGroup should contain basic members " + "plus address plus phoneNumbers.\n");
+        "FetchGroup should contain basic members "
+            + "plus address plus phoneNumbers and languages.\n");
     fg.removeMembers(basicMembers);
     members = fg.getMembers();
     expectedSet = new HashSet<>();
     expectedSet.add("phoneNumbers");
+    expectedSet.add("languages");
     Assertions.assertEquals(
-        expectedSet, members, "FetchGroup should contain address plus phoneNumbers.\n");
+        expectedSet,
+        members,
+        "FetchGroup should contain address plus phoneNumbers and languages.\n");
   }
 
   @SuppressWarnings("unchecked")

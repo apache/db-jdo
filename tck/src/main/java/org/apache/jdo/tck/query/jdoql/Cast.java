@@ -56,7 +56,7 @@ public class Cast extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       // DataNucleus: java.lang.ClassCastException:
       // org.datanucleus.api.jdo.query.PersistableExpressionImpl
       // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
@@ -100,7 +100,7 @@ public class Cast extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       // DataNucleus: java.lang.ClassCastException:
       // org.datanucleus.api.jdo.query.PersistableExpressionImpl

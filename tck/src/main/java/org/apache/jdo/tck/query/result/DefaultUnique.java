@@ -255,7 +255,7 @@ public class DefaultUnique extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.department.count());
       query.groupBy(cand.department);
 
@@ -293,7 +293,7 @@ public class DefaultUnique extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
-      QDentalInsurance cand = QDentalInsurance.candidate();
+      QDentalInsurance cand = QDentalInsurance.candidate("this");
       query.filter(cand.employee.ne((Employee) null));
       query.result(false, cand.lifetimeOrthoBenefit.avg());
       query.groupBy(cand.employee.department);
@@ -332,7 +332,7 @@ public class DefaultUnique extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
-      QDentalInsurance cand = QDentalInsurance.candidate();
+      QDentalInsurance cand = QDentalInsurance.candidate("this");
       query.filter(cand.employee.ne((Employee) null));
       query.result(false, cand.lifetimeOrthoBenefit.min());
       query.groupBy(cand.employee.department);
@@ -371,7 +371,7 @@ public class DefaultUnique extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
-      QDentalInsurance cand = QDentalInsurance.candidate();
+      QDentalInsurance cand = QDentalInsurance.candidate("this");
       query.filter(cand.employee.ne((Employee) null));
       query.result(false, cand.lifetimeOrthoBenefit.max());
       query.groupBy(cand.employee.department);
@@ -410,7 +410,7 @@ public class DefaultUnique extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
-      QDentalInsurance cand = QDentalInsurance.candidate();
+      QDentalInsurance cand = QDentalInsurance.candidate("this");
       query.filter(cand.employee.ne((Employee) null));
       query.result(false, cand.lifetimeOrthoBenefit.sum());
       query.groupBy(cand.employee.department);

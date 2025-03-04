@@ -41,8 +41,10 @@ public class Persistence extends JDO_Test {
 
   /** Creates a new instance of Jdoconfig */
   public Persistence() {}
+
   /** */
   private static final String ASSERTION_FAILED = "Assertion A11.1.2-1 failed: ";
+
   // Do not use superclass pmf, pm
   private PersistenceManagerFactory pmf = null;
   private PersistenceManager pm = null;

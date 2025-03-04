@@ -99,7 +99,7 @@ public class Having extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.groupBy(cand.department).having(cand.department.count().gt(0L));
       query.result(false, cand.department, cand.weeklyhours.avg());
 
@@ -147,7 +147,7 @@ public class Having extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.groupBy(cand.department).having(cand.personid.count().gt(1L));
       query.result(false, cand.department, cand.weeklyhours.avg());
 

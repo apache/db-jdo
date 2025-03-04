@@ -109,7 +109,7 @@ public class IfElseResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<DentalInsurance> query = pm.newJDOQLTypedQuery(DentalInsurance.class);
-      QDentalInsurance cand = QDentalInsurance.candidate();
+      QDentalInsurance cand = QDentalInsurance.candidate("this");
       query.result(
           false,
           query.ifThenElse(
@@ -153,7 +153,7 @@ public class IfElseResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
-      QProject cand = QProject.candidate();
+      QProject cand = QProject.candidate("this");
       query.result(
           false,
           query.ifThenElse(
@@ -198,7 +198,7 @@ public class IfElseResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Project> query = pm.newJDOQLTypedQuery(Project.class);
-      QProject cand = QProject.candidate();
+      QProject cand = QProject.candidate("this");
       IfThenElseExpression<String> ifThenElse =
           query
               .ifThen(cand.reviewers.isEmpty(), "No reviewer")

@@ -56,12 +56,14 @@ public class StateTransitionObj implements Serializable {
   public void writeNonmanagedField(int value) {
     nonmanaged_field = value;
   }
+
   /**
    * @return Returns the id.
    */
   public int getId() {
     return id;
   }
+
   /**
    * @param id The id to set.
    */

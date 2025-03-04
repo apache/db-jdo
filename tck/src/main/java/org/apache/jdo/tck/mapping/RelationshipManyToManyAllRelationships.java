@@ -296,6 +296,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
       failOnError();
     }
   }
+
   /** */
   @Test
   public void testAddExistingFromMappedSide() {
@@ -432,6 +433,7 @@ public class RelationshipManyToManyAllRelationships extends AbstractRelationship
       failOnError();
     }
   }
+
   /** */
   @Test
   public void testDeleteFromMappedSide() {

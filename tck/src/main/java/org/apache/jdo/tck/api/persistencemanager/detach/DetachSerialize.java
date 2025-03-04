@@ -61,6 +61,7 @@ public class DetachSerialize extends DetachTest {
     byte[] cartStream = serialize(pc);
     return deserialize(cartStream);
   }
+
   /** */
   private byte[] serialize(Object root) {
     try {

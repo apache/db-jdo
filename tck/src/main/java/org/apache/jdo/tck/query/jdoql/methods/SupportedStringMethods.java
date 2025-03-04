@@ -71,7 +71,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.toLowerCase().eq("emp1first"));
 
       QueryElementHolder<Person> holder =
@@ -108,7 +108,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.toUpperCase().eq("EMP1FIRST"));
 
       QueryElementHolder<Person> holder =
@@ -145,7 +145,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.filter(cand.name.indexOf("e").eq(1));
 
       QueryElementHolder<Department> holder =
@@ -182,7 +182,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.filter(cand.name.indexOf("e", 2).eq(3));
 
       QueryElementHolder<Department> holder =
@@ -221,7 +221,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.matches(".*First"));
 
       QueryElementHolder<Person> holder =
@@ -260,7 +260,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.matches("emp.First"));
 
       QueryElementHolder<Person> holder =
@@ -288,6 +288,7 @@ public class SupportedStringMethods extends QueryTest {
       cleanupPM(pm);
     }
   }
+
   /** */
   @Test
   @Execution(ExecutionMode.CONCURRENT)
@@ -296,7 +297,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.matches("(?i)EMP1FIRST"));
 
       QueryElementHolder<Person> holder =
@@ -335,7 +336,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.substring(4).eq("First"));
 
       QueryElementHolder<Person> holder =
@@ -374,7 +375,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.substring(4, 9).eq("First"));
 
       QueryElementHolder<Person> holder =
@@ -413,7 +414,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.startsWith("emp"));
 
       QueryElementHolder<Person> holder =
@@ -452,7 +453,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.endsWith("First"));
 
       QueryElementHolder<Person> holder =
@@ -491,7 +492,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.startsWith("mp", 1));
 
       QueryElementHolder<Person> holder =
@@ -530,7 +531,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.length().eq(9));
 
       QueryElementHolder<Person> holder =
@@ -567,7 +568,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.charAt(3).eq('1'));
 
       QueryElementHolder<Person> holder =
@@ -604,7 +605,7 @@ public class SupportedStringMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.firstname.trim().eq("emp1First"));
 
       QueryElementHolder<Person> holder =

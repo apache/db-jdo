@@ -40,6 +40,7 @@ DROP TABLE dentalinsurance;
 DROP TABLE medicalinsurance;
 DROP TABLE project_reviewer;
 DROP TABLE project_member;
+DROP TABLE employee_languages;
 DROP TABLE employee_phoneno_type;
 DROP TABLE fulltimeemployees;
 DROP TABLE parttimeemployees;
@@ -165,7 +166,12 @@ CREATE TABLE employee_phoneno_type (
     TYPE VARCHAR(16) NOT NULL
 );
 
-ALTER TABLE project_reviewer 
+CREATE TABLE employee_languages (
+    EMPID INTEGER REFERENCES persons NOT NULL,
+    LANGUAGE VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE project_reviewer
     ADD CONSTRAINT PR_PROJ_FK FOREIGN KEY
         (PROJID) REFERENCES projects(PROJID);
 

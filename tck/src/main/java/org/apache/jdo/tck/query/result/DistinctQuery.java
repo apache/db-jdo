@@ -58,7 +58,7 @@ public class DistinctQuery extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.department);
 
       QueryElementHolder<Employee> holder =
@@ -96,7 +96,7 @@ public class DistinctQuery extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(true, cand.department);
 
       QueryElementHolder<Employee> holder =
@@ -141,7 +141,7 @@ public class DistinctQuery extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(false, cand.department.deptid, cand.department.name);
 
       QueryElementHolder<Employee> holder =
@@ -183,7 +183,7 @@ public class DistinctQuery extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.result(true, cand.department.deptid, cand.department.name);
 
       QueryElementHolder<Employee> holder =

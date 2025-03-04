@@ -93,7 +93,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       query.filter(cand.employees.contains(e));
       query.result(true, e);
@@ -134,7 +134,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QProject p = QProject.variable("p");
       query.filter(cand.projects.contains(p).and(p.name.eq("orange")));
       query.result(true, p.projid, p.name);
@@ -178,7 +178,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       QProject p = QProject.variable("p");
       query.filter(cand.projects.contains(p).and(p.name.eq("orange")));
       query.result(false, p.projid, p.name);
@@ -220,7 +220,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       query.filter(cand.employees.contains(e));
       query.result(false, e);
@@ -261,7 +261,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       query.filter(cand.deptid.eq(2l).and(cand.employees.contains(e)));
       query.result(false, e);
@@ -310,7 +310,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Company> query = pm.newJDOQLTypedQuery(Company.class);
-      QCompany cand = QCompany.candidate();
+      QCompany cand = QCompany.candidate("this");
       QDepartment d = QDepartment.variable("d");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
@@ -366,7 +366,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Company> query = pm.newJDOQLTypedQuery(Company.class);
-      QCompany cand = QCompany.candidate();
+      QCompany cand = QCompany.candidate("this");
       QDepartment d = QDepartment.variable("d");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
@@ -422,7 +422,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Company> query = pm.newJDOQLTypedQuery(Company.class);
-      QCompany cand = QCompany.candidate();
+      QCompany cand = QCompany.candidate("this");
       QDepartment d = QDepartment.variable("d");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
@@ -472,7 +472,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
       query.filter(cand.employees.contains(e).and(e.projects.contains(p)).and(p.name.eq("orange")));
@@ -521,7 +521,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
       query.filter(cand.employees.contains(e).and(e.projects.contains(p)));
@@ -570,7 +570,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
       query.filter(cand.employees.contains(e).and(e.projects.contains(p)));
@@ -617,7 +617,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
       query.filter(cand.deptid.eq(1l).and(cand.employees.contains(e)).and(e.projects.contains(p)));
@@ -666,7 +666,7 @@ public class Variable extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e = QEmployee.variable("e");
       QProject p = QProject.variable("p");
       query.filter(

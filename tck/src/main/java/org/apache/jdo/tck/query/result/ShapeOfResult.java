@@ -96,7 +96,7 @@ public class ShapeOfResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.result(false, cand);
 
       QueryElementHolder<Person> holder =
@@ -134,7 +134,7 @@ public class ShapeOfResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.personid.eq(1l));
 
       QueryElementHolder<Person> holder =
@@ -172,7 +172,7 @@ public class ShapeOfResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.personid.eq(1l));
       query.result(false, cand);
 
@@ -212,7 +212,7 @@ public class ShapeOfResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.result(false, cand.firstname);
 
       QueryElementHolder<Person> holder =
@@ -250,7 +250,7 @@ public class ShapeOfResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.personid.eq(1l));
       query.result(false, cand.firstname);
 
@@ -295,7 +295,7 @@ public class ShapeOfResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.result(false, cand.firstname, cand.lastname);
 
       QueryElementHolder<Person> holder =
@@ -333,7 +333,7 @@ public class ShapeOfResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.personid.eq(1l));
       query.result(false, cand.firstname, cand.lastname);
 
@@ -378,7 +378,7 @@ public class ShapeOfResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       // JDOQLTypedQuery API
       query.result(false, cand.firstname, cand.lastname);
 
@@ -417,7 +417,7 @@ public class ShapeOfResult extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.filter(cand.personid.eq(1l));
       // JDOQLTypedQuery API
       query.result(false, cand.firstname, cand.lastname);

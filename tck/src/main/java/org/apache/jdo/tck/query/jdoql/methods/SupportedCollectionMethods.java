@@ -67,7 +67,7 @@ public class SupportedCollectionMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee eVariable = QEmployee.variable("e");
       query.filter(cand.employees.contains(eVariable).and(eVariable.personid.eq(1L)));
 
@@ -101,7 +101,7 @@ public class SupportedCollectionMethods extends QueryTest {
       paramValues.put("e", getPersistentCompanyModelInstance(pm, Employee.class, "emp1"));
 
       query = pm.newJDOQLTypedQuery(Department.class);
-      cand = QDepartment.candidate();
+      cand = QDepartment.candidate("this");
       Expression<Employee> paramExpression = query.parameter("e", Employee.class);
       query.filter(cand.employees.contains(paramExpression));
 
@@ -142,7 +142,7 @@ public class SupportedCollectionMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.filter(cand.employees.isEmpty().not());
 
       QueryElementHolder<Department> holder =
@@ -212,7 +212,7 @@ public class SupportedCollectionMethods extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       query.filter(cand.employees.size().eq(3));
 
       QueryElementHolder<Department> holder =

@@ -53,7 +53,7 @@ public class Instanceof extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
 
       // Import Department twice
@@ -91,7 +91,7 @@ public class Instanceof extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
 
       // Import Department twice

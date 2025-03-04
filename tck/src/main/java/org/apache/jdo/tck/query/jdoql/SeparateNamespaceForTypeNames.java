@@ -60,7 +60,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Employee> query = pm.newJDOQLTypedQuery(Employee.class);
-      QEmployee cand = QEmployee.candidate();
+      QEmployee cand = QEmployee.candidate("this");
       Expression<Department> empParam = query.parameter("Department", Department.class);
       query.filter(cand.department.eq(empParam));
 
@@ -103,7 +103,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee variable = QEmployee.variable("Employee");
       query.filter(cand.employees.contains(variable).and(variable.firstname.eq("emp1First")));
 

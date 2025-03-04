@@ -65,7 +65,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
     List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
     JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-    QDepartment cand = QDepartment.candidate();
+    QDepartment cand = QDepartment.candidate("this");
     QEmployee e1 = QEmployee.variable("e1");
     QEmployee e2 = QEmployee.variable("e2");
     query.filter(
@@ -109,7 +109,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e1 = QEmployee.variable("e1");
       QEmployee e2 = QEmployee.variable("e2");
       query.filter(
@@ -163,7 +163,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
     PersistenceManager pm = getPMF().getPersistenceManager();
     try {
       JDOQLTypedQuery<Department> query = pm.newJDOQLTypedQuery(Department.class);
-      QDepartment cand = QDepartment.candidate();
+      QDepartment cand = QDepartment.candidate("this");
       QEmployee e1 = QEmployee.variable("e1");
       QEmployee e2 = QEmployee.variable("e2");
       query.filter(

@@ -69,7 +69,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
       Class<?> oidClass = pm.getObjectIdClass(Person.class);
       List<Person> expectedResult = getExpectedResult(pm, true, Person.class);
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       query.result(false, cand.jdoObjectId());
 
       QueryElementHolder<Person> holder =
@@ -106,7 +106,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
     try {
       List<Person> expectedResult = getExpectedResult(pm, false, Person.class, "personid == 1");
       JDOQLTypedQuery<Person> query = pm.newJDOQLTypedQuery(Person.class);
-      QPerson cand = QPerson.candidate();
+      QPerson cand = QPerson.candidate("this");
       Expression<Object> oid = query.parameter("oid", Object.class);
       query.filter(cand.jdoObjectId().eq(oid));
 
@@ -159,7 +159,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
       List<Long> expectedResult1 = Arrays.asList(Long.valueOf(1));
 
       JDOQLTypedQuery<VersionedPCPoint> query = pm.newJDOQLTypedQuery(VersionedPCPoint.class);
-      QVersionedPCPoint cand = QVersionedPCPoint.candidate();
+      QVersionedPCPoint cand = QVersionedPCPoint.candidate("this");
       query.result(false, cand.jdoVersion());
 
       QueryElementHolder<VersionedPCPoint> holder =
