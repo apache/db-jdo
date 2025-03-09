@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.order.OrderFactoryRegistry;
-import org.apache.jdo.tck.pc.order.OrderModelReader2;
+import org.apache.jdo.tck.pc.order.OrderModelReader;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ public class CompletenessTestOrder extends AbstractReaderTest {
     if (runsWithApplicationIdentity()) {
       getPM();
       OrderFactoryRegistry.registerFactory(pm);
-      OrderModelReader2 reader = new OrderModelReader2(inputFilename);
+      OrderModelReader reader = new OrderModelReader(inputFilename);
       addTearDownClass(reader.getTearDownClassesFromFactory());
       // persist test data
       pm.currentTransaction().begin();
@@ -70,7 +70,7 @@ public class CompletenessTestOrder extends AbstractReaderTest {
       // register the default factory
       OrderFactoryRegistry.registerFactory();
       // get new obj graph to compare persistent graph with
-      OrderModelReader2 reader = new OrderModelReader2(inputFilename);
+      OrderModelReader reader = new OrderModelReader(inputFilename);
       List<Object> rootList = getRootList(reader);
 
       getPM();
