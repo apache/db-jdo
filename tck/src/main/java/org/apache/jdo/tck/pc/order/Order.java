@@ -70,9 +70,6 @@ public class Order implements Serializable, Comparable<Order>, Comparator<Order>
   }
 
   public void addItem(OrderItem item) {
-    if (items == null) {
-      items = new HashSet<>();
-    }
     items.add(item);
   }
 

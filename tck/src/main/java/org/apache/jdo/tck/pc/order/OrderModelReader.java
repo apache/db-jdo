@@ -45,6 +45,8 @@ public class OrderModelReader extends DefaultListableInstanceFactory {
     Order order1 = orderFactory.newOrder(1, 3);
     OrderItem item1 = orderFactory.newOrderItem(order1, 1, "SunRay", 15);
     OrderItem item2 = orderFactory.newOrderItem(order1, 1, "Sun Ultra 40", 3);
+    order1.addItem(item1);
+    order1.addItem(item2);
     register("order1", order1);
   }
 
