@@ -38,7 +38,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.mylib.MylibReader2;
+import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.util.ConversionHelper;
@@ -82,13 +82,13 @@ public abstract class QueryTest extends AbstractReaderTest {
    * The mylib reader is used to read mylib instances from an XML file. Instances refered by this
    * reader are made persistent by {@link QueryTest#loadAndPersistMylib(PersistenceManager)}.
    */
-  private MylibReader2 mylibReaderForPersistentInstances;
+  private MylibReader mylibReaderForPersistentInstances;
 
   /**
    * The mylib reader is used to read mylib instances from an XML file. Instances refered by this
    * reader are made persistent by
    */
-  private MylibReader2 mylibReaderForTransientInstances;
+  private MylibReader mylibReaderForTransientInstances;
 
   // Helper methods to create persistent PCPoint instances
 
@@ -204,9 +204,9 @@ public abstract class QueryTest extends AbstractReaderTest {
    *
    * @return the mylib reader for persistent instances.
    */
-  private MylibReader2 getMylibReaderForPersistentInstances() {
+  private MylibReader getMylibReaderForPersistentInstances() {
     if (mylibReaderForPersistentInstances == null) {
-      mylibReaderForPersistentInstances = new MylibReader2(MYLIB_TESTDATA);
+      mylibReaderForPersistentInstances = new MylibReader(MYLIB_TESTDATA);
     }
     return mylibReaderForPersistentInstances;
   }
@@ -216,9 +216,9 @@ public abstract class QueryTest extends AbstractReaderTest {
    *
    * @return the mylib reader for transient instances.
    */
-  private MylibReader2 getMylibReaderForTransientInstances() {
+  private MylibReader getMylibReaderForTransientInstances() {
     if (mylibReaderForTransientInstances == null) {
-      mylibReaderForTransientInstances = new MylibReader2(MYLIB_TESTDATA);
+      mylibReaderForTransientInstances = new MylibReader(MYLIB_TESTDATA);
     }
     return mylibReaderForTransientInstances;
   }
@@ -244,7 +244,7 @@ public abstract class QueryTest extends AbstractReaderTest {
    * @param pm the PersistenceManager
    * @return mylib reader
    */
-  public MylibReader2 loadAndPersistMylib(PersistenceManager pm) {
+  public MylibReader loadAndPersistMylib(PersistenceManager pm) {
     makePersistentAll(pm, getRootList(getMylibReaderForPersistentInstances()));
     return getMylibReaderForPersistentInstances();
   }

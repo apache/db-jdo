@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.companyMapWithoutJoin.CompanyFactoryRegistry;
-import org.apache.jdo.tck.pc.companyMapWithoutJoin.CompanyModelReader2;
+import org.apache.jdo.tck.pc.companyMapWithoutJoin.CompanyModelReader;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ public class CompletenessTestMap extends AbstractReaderTest {
     if (isTestToBePerformed) {
       getPM();
       CompanyFactoryRegistry.registerFactory(pm);
-      CompanyModelReader2 reader = new CompanyModelReader2(inputFilename);
+      CompanyModelReader reader = new CompanyModelReader(inputFilename);
       addTearDownClass(reader.getTearDownClassesFromFactory());
       // persist test data
       pm.currentTransaction().begin();
@@ -70,7 +70,7 @@ public class CompletenessTestMap extends AbstractReaderTest {
       // register the default factory
       CompanyFactoryRegistry.registerFactory();
       // get new obj graph to compare persistent graph with
-      CompanyModelReader2 reader = new CompanyModelReader2(inputFilename);
+      CompanyModelReader reader = new CompanyModelReader(inputFilename);
       List<Object> rootList = getRootList(reader);
 
       getPM();
