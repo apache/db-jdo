@@ -20,6 +20,7 @@ package org.apache.jdo.tck.pc.order;
 import java.util.Date;
 import java.util.Locale;
 import org.apache.jdo.tck.util.ConversionHelper;
+import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /** Utility class to create a graph of order model instances from an xml representation. */
