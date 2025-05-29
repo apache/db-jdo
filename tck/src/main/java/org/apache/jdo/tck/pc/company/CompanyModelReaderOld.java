@@ -17,12 +17,10 @@
 
 package org.apache.jdo.tck.pc.company;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.apache.jdo.tck.util.ConversionHelper;
-import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
@@ -33,35 +31,28 @@ import org.springframework.core.io.ClassPathResource;
  *
  * @author Michael Bouschen
  */
-public class CompanyModelReader extends DefaultListableInstanceFactory {
+public class CompanyModelReaderOld extends DefaultListableBeanFactory {
 
   private static final long serialVersionUID = 1L;
 
-  public static final String QUERY_TEST =
-          "org/apache/jdo/tck/pc/company/companyForQueryTests.xml";
-  public static final String MYLIB_TEST = "org/apache/jdo/tck/pc/mylib/mylibForQueryTests.xml";
-  public static final String COMPLETENESS_TEST =
-          "org/apache/jdo/tck/pc/company/company_1_Tests.xml";
-  public static final String COMPLETENESS_TEST_JPA =
-          "org/apache/jdo/tck/pc/company/company_2_Tests.xml";
-  public static final String RELATIONSHIP_TEST =
-          "org/apache/jdo/tck/pc/company/company_R_Tests.xml";
-  public static final String SAMPLE_QUERIES = "org/apache/jdo/tck/pc/company/companyForSampleQueriesTest.xml";
-  public static final String JDOQL_NAVIGATION_TESTS = "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
-  public static final String JDOQL_SUBQUERIES_TESTS = "org/apache/jdo/tck/pc/company/companyForSubqueriesTests.xml";
+  /** The name of the root list bean. */
+  public static final String ROOT_LIST_NAME = "root";
+
+  /** The bean-factory name in the xml input files. */
+  public static final String BEAN_FACTORY_NAME = "companyFactory";
 
   /** The company factory instance. */
   private CompanyFactory companyFactory;
 
   /** Bean definition reader */
-  private final CompanyModelReaderOld reader;
+  private final XmlBeanDefinitionReader reader;
 
   /**
    * Create a CompanyModelReader for the specified resourceName.
    *
    * @param resourceName the name of the resource
    */
-  public CompanyModelReader(String resourceName) {
+  public CompanyModelReaderOld(String resourceName) {
     // Use the class loader of the Company class to find the resource
     this(resourceName, Company.class.getClassLoader());
   }
@@ -72,37 +63,11 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    * @param resourceName the name of the resource
    * @param classLoader the ClassLoader for the lookup
    */
-  public CompanyModelReader(String resourceName, ClassLoader classLoader) {
+  public CompanyModelReaderOld(String resourceName, ClassLoader classLoader) {
     super();
     configureFactory();
-
-    switch (resourceName) {
-      case SAMPLE_QUERIES:
-      case JDOQL_NAVIGATION_TESTS:
-      case JDOQL_SUBQUERIES_TESTS:
-      case QUERY_TEST:
-      case COMPLETENESS_TEST:
-      case COMPLETENESS_TEST_JPA:
-      case RELATIONSHIP_TEST:
-      case MYLIB_TEST:
-        reader = new CompanyModelReaderOld(resourceName, classLoader);
-        break;
-      default:
-        // this.reader = null;
-        reader = new CompanyModelReaderOld(resourceName, classLoader);
-        System.err.println("Not registered: " + resourceName);
-        throw new IllegalArgumentException("Not registered: " + resourceName);
-    }
-
-    // init(resourceName);
-  }
-
-
-  public <T> T getBean(String name, Class<T> clazz) {
-    if (reader != null) {
-      return reader.getBean(name, clazz);
-    }
-    return super.getBean(name, clazz);
+    this.reader = new XmlBeanDefinitionReader(this);
+    this.reader.loadBeanDefinitions(new ClassPathResource(resourceName, classLoader));
   }
 
   /**
@@ -113,10 +78,7 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    */
   @SuppressWarnings("unchecked")
   public List<Object> getRootList() {
-    if (reader != null) {
-      return reader.getRootList();
-    }
-    return super.getRootList();
+    return (List<Object>) getBean(ROOT_LIST_NAME);
   }
 
   /**
@@ -124,19 +86,15 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    * representation of a property into an instance of the right type.
    */
   private void configureFactory() {
-    // registerCustomEditor(Date.class, JDOCustomDateEditor.class);
+    registerCustomEditor(Date.class, JDOCustomDateEditor.class);
     companyFactory = CompanyFactoryRegistry.getInstance();
-    // addSingleton(BEAN_FACTORY_NAME, companyFactory);
+    addSingleton(BEAN_FACTORY_NAME, companyFactory);
   }
 
   /**
    * @return Returns the tearDownClasses.
    */
   public Class<?>[] getTearDownClassesFromFactory() {
-    for (Class<?> c : companyFactory.getTearDownClasses()) {
-      System.err.println("TearDownClass: " + c);
-    }
-    System.err.println("TearDownClass: " + Arrays.toString(companyFactory.getTearDownClasses()));
     return companyFactory.getTearDownClasses();
   }
 

@@ -27,7 +27,6 @@ public class DefaultListableInstanceFactory {
   }
 
   public synchronized List<Object> getRootList() {
-    new RuntimeException().printStackTrace();
     return Collections.unmodifiableList(rootList);
   }
 }
