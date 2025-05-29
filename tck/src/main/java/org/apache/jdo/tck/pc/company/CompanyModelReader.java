@@ -37,16 +37,9 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
 
   private static final long serialVersionUID = 1L;
 
-  public static final String QUERY_TEST =
-          "org/apache/jdo/tck/pc/company/companyForQueryTests.xml";
+  public static final String QUERY_TEST = "org/apache/jdo/tck/pc/company/companyForQueryTests.xml";
   public static final String MYLIB_TEST = "org/apache/jdo/tck/pc/mylib/mylibForQueryTests.xml";
-  public static final String COMPLETENESS_TEST =
-          "org/apache/jdo/tck/pc/company/company_1_Tests.xml";
-  public static final String COMPLETENESS_TEST_JPA =
-          "org/apache/jdo/tck/pc/company/company_2_Tests.xml";
-  public static final String RELATIONSHIP_TEST =
-          "org/apache/jdo/tck/pc/company/company_R_Tests.xml";
-  public static final String SAMPLE_QUERIES = "org/apache/jdo/tck/pc/company/companyForSampleQueriesTest.xml";
+  public static final String SAMPLE_QUERIES_TEST = "org/apache/jdo/tck/pc/company/companyForSampleQueriesTest.xml";
   public static final String JDOQL_NAVIGATION_TESTS = "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
   public static final String JDOQL_SUBQUERIES_TESTS = "org/apache/jdo/tck/pc/company/companyForSubqueriesTests.xml";
 
@@ -77,19 +70,15 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
     configureFactory();
 
     switch (resourceName) {
-      case SAMPLE_QUERIES:
+      case SAMPLE_QUERIES_TEST:
       case JDOQL_NAVIGATION_TESTS:
       case JDOQL_SUBQUERIES_TESTS:
       case QUERY_TEST:
-      case COMPLETENESS_TEST:
-      case COMPLETENESS_TEST_JPA:
-      case RELATIONSHIP_TEST:
       case MYLIB_TEST:
         reader = new CompanyModelReaderOld(resourceName, classLoader);
         break;
       default:
-        // this.reader = null;
-        reader = new CompanyModelReaderOld(resourceName, classLoader);
+        this.reader = null;
         System.err.println("Not registered: " + resourceName);
         throw new IllegalArgumentException("Not registered: " + resourceName);
     }
