@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.pc.mylib;
 
-import org.apache.jdo.tck.pc.order.DefaultListableInstanceFactory;
+import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
 /** Utility class to create a mylib instances from an xml representation. */
 public class MylibReader extends DefaultListableInstanceFactory {

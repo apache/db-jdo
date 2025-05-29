@@ -1,4 +1,4 @@
-package org.apache.jdo.tck.pc.order;
+package org.apache.jdo.tck.util;
 
 import java.util.ArrayList;
 import java.util.Collections;

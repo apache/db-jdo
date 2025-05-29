@@ -25,7 +25,7 @@ import java.util.Map;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.LegacyJava;
 
-import org.apache.jdo.tck.pc.order.DefaultListableInstanceFactory;
+import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 /*
