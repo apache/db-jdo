@@ -17,18 +17,21 @@
 
 package org.apache.jdo.tck.pc.companyListWithoutJoin;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import org.apache.jdo.tck.util.ConversionHelper;
-import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.core.io.ClassPathResource;
 
 /**
  * Utility class to create a graph of company model instances from an xml representation.
  *
  * @author Michael Bouschen
  */
-public class CompanyModelReader extends DefaultListableInstanceFactory {
+public class CompanyModelReaderOld extends DefaultListableBeanFactory {
 
   private static final long serialVersionUID = 1L;
 
@@ -41,12 +44,15 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
   /** The company factory instance. */
   private CompanyFactory companyFactory;
 
+  /** Bean definition reader */
+  private final XmlBeanDefinitionReader reader;
+
   /**
    * Create a CompanyModelReader for the specified resourceName.
    *
    * @param resourceName the name of the resource
    */
-  public CompanyModelReader(String resourceName) {
+  public CompanyModelReaderOld(String resourceName) {
     // Use the class loader of the Company class to find the resource
     this(resourceName, Company.class.getClassLoader());
   }
@@ -57,109 +63,22 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    * @param resourceName the name of the resource
    * @param classLoader the ClassLoader for the lookup
    */
-  public CompanyModelReader(String resourceName, ClassLoader classLoader) {
+  public CompanyModelReaderOld(String resourceName, ClassLoader classLoader) {
     super();
     configureFactory();
-    init();
+    this.reader = new XmlBeanDefinitionReader(this);
+    this.reader.loadBeanDefinitions(new ClassPathResource(resourceName, classLoader));
   }
 
-  private void init() {
-    ICompany company1 =
-        companyFactory.newCompany(1L, "Sun Microsystems, Inc.", new Date(1952, 4, 11, 0, 0, 0));
-    super.register("company1", company1);
-
-    IDepartment dept1 = companyFactory.newDepartment(1, "Development", company1);
-    IDepartment dept2 = companyFactory.newDepartment(2, "Human Resources", company1);
-    company1.setDepartments(toSet(dept1, dept2));
-
-    IFullTimeEmployee emp1 =
-        companyFactory.newFullTimeEmployee(
-            1,
-            "emp1First",
-            "emp1Last",
-            "emp1Middle",
-            new Date(1970, 6, 10, 0, 0, 0),
-            new Date(1999, 1, 1, 0, 0, 0),
-            60000);
-
-    IFullTimeEmployee emp2 =
-        companyFactory.newFullTimeEmployee(
-            2,
-            "emp2First",
-            "emp2Last",
-            "emp2Middle",
-            new Date(1975, 12, 22, 0, 0, 0),
-            new Date(2003, 7, 1, 0, 0, 0),
-            47000);
-
-    IFullTimeEmployee emp3 =
-        companyFactory.newFullTimeEmployee(
-            3,
-            "emp3First",
-            "emp3Last",
-            "emp3Middle",
-            new Date(1972, 7, 5, 0, 0, 0),
-            new Date(2002, 8, 15, 0, 0, 0),
-            67.00);
-
-    IFullTimeEmployee emp4 =
-        companyFactory.newFullTimeEmployee(
-            4,
-            "emp4First",
-            "emp4Last",
-            "emp4Middle",
-            new Date(1973, 7, 6, 0, 0, 0),
-            new Date(2001, 4, 15, 0, 0, 0),
-            37.00);
-
-    IFullTimeEmployee emp5 =
-        companyFactory.newFullTimeEmployee(
-            5,
-            "emp5First",
-            "emp5Last",
-            "emp5Middle",
-            new Date(1962, 7, 5, 0, 0, 0),
-            new Date(1998, 8, 15, 0, 0, 0),
-            73000);
-
-    emp1.setWeeklyhours(40);
-    emp1.setDepartment(dept1);
-    emp1.setFundingDept(dept2);
-    emp1.setManager(emp2);
-    emp1.setHradvisor(emp5);
-    dept1.addEmployee(emp1); // TODO do this inside setDepartment
-
-    emp2.setWeeklyhours(40);
-    emp2.setDepartment(dept1);
-    emp2.setFundingDept(dept1);
-    emp2.setHradvisor(emp5);
-    emp2.setTeam(toSet(emp1, emp3, emp4, emp5));
-    dept1.addEmployee(emp2); // TODO do this inside setDepartment
-
-    emp3.setWeeklyhours(19);
-    emp3.setDepartment(dept1);
-    emp3.setFundingDept(dept1);
-    emp3.setManager(emp2);
-    emp3.setHradvisor(emp5);
-    dept1.addEmployee(emp3); // TODO do this inside setDepartment
-
-    // emp4.setWeeklyhours(19);
-    emp4.setDepartment(dept2);
-    emp4.setFundingDept(dept2);
-    emp4.setManager(emp2);
-    emp4.setHradvisor(emp5);
-    dept2.addEmployee(emp4); // TODO do this inside setDepartment
-
-    // emp5.setWeeklyhours(19);
-    emp5.setDepartment(dept2);
-    emp5.setFundingDept(dept2);
-    emp5.setManager(emp2);
-    emp5.setHradvisees(toSet(emp1, emp2, emp3, emp4));
-    dept2.addEmployee(emp5); // TODO do this inside setDepartment
-  }
-
-  private <T> Set<T> toSet(T... objs) {
-    return Arrays.stream(objs).collect(Collectors.toSet());
+  /**
+   * Returns a list of root objects. The method expects to find a bean called "root" of type list in
+   * the xml and returns it.
+   *
+   * @return a list of root instances
+   */
+  @SuppressWarnings("unchecked")
+  public List<Object> getRootList() {
+    return (List<Object>) getBean(ROOT_LIST_NAME);
   }
 
   /**
@@ -167,9 +86,9 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    * representation of a property into an instance of the right type.
    */
   private void configureFactory() {
-    //    registerCustomEditor(Date.class, JDOCustomDateEditor.class);
+    registerCustomEditor(Date.class, JDOCustomDateEditor.class);
     companyFactory = CompanyFactoryRegistry.getInstance();
-    //    addSingleton(BEAN_FACTORY_NAME, companyFactory);
+    addSingleton(BEAN_FACTORY_NAME, companyFactory);
   }
 
   // Convenience methods

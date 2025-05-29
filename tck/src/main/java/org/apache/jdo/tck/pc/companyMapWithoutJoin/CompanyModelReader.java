@@ -19,8 +19,8 @@ package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.ConversionHelper;
+import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**

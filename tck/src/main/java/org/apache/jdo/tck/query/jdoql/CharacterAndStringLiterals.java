@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.jdoql;
 
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
-
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.pc.mylib.QPrimitiveTypes;
