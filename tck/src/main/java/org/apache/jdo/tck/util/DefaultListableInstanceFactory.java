@@ -21,12 +21,13 @@ public class DefaultListableInstanceFactory {
     return clazz.cast(getBean(name));
   }
 
-  protected synchronized void register(String name, Object obj) {
+  public synchronized void register(String name, Object obj) {
     rootMap.put(name, obj);
     rootList.add(obj);
   }
 
   public synchronized List<Object> getRootList() {
+    System.out.println("Getting root list: " + rootList.size()); // TODO TZ remove
     return Collections.unmodifiableList(rootList);
   }
 }

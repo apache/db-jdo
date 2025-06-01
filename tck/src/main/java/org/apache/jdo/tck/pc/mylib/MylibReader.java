@@ -36,10 +36,10 @@ public class MylibReader extends DefaultListableInstanceFactory {
    */
   public MylibReader(String resourceName) {
     super();
-    init();
+    init(this);
   }
 
-  private void init() {
+  public static void init(DefaultListableInstanceFactory factory) {
     System.err.println("MyLibReader2.init()");
     PrimitiveTypes primitiveTypesPositive =
         new PrimitiveTypes(
@@ -76,11 +76,11 @@ public class MylibReader extends DefaultListableInstanceFactory {
             3, false, null, (byte) 0, null, (short) 0, null, 0, null, 0, null, 0, null, 0, null,
             (char) 0, (char) 0, null, "Even", null, null, null);
 
-    register("primitiveTypesPositive", primitiveTypesPositive);
-    register("primitiveTypesNegative", primitiveTypesNegative);
-    register("pcClass1", pcClass1);
-    register("pcClass2", pcClass2);
-    register("primitiveTypesCharacterStringLiterals", primitiveTypesCharacterStringLiterals);
+    factory.register("primitiveTypesPositive", primitiveTypesPositive);
+    factory.register("primitiveTypesNegative", primitiveTypesNegative);
+    factory.register("pcClass1", pcClass1);
+    factory.register("pcClass2", pcClass2);
+    factory.register("primitiveTypesCharacterStringLiterals", primitiveTypesCharacterStringLiterals);
   }
 
   // Convenience methods

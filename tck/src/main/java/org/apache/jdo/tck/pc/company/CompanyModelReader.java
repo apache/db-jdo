@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.util.ConversionHelper;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
@@ -73,17 +75,22 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
       case SAMPLE_QUERIES_TEST:
       case JDOQL_NAVIGATION_TESTS:
       case JDOQL_SUBQUERIES_TESTS:
-      case QUERY_TEST:
-      case MYLIB_TEST:
         reader = new CompanyModelReaderOld(resourceName, classLoader);
+        break;
+      case QUERY_TEST:
+        CompanyModelData.initQueryTest(companyFactory, this);
+        reader = null;
+        break;
+      case MYLIB_TEST:
+        // TODO use companyModelFactory!
+        MylibReader.init(this);
+        this.reader = null;
         break;
       default:
         this.reader = null;
         System.err.println("Not registered: " + resourceName);
         throw new IllegalArgumentException("Not registered: " + resourceName);
     }
-
-    // init(resourceName);
   }
 
 
@@ -100,7 +107,6 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    *
    * @return a list of root instances
    */
-  @SuppressWarnings("unchecked")
   public List<Object> getRootList() {
     if (reader != null) {
       return reader.getRootList();
