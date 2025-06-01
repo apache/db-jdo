@@ -40,4 +40,6 @@ public interface IDepartment {
   void setCompany(ICompany company);
 
   void setRoles(Map<String, IEmployee> roles);
+
+  void add(IEmployee emp);
 }
