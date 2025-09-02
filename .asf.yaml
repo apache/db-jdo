@@ -53,7 +53,6 @@ github:
     close_pr: "Re: [PR] {title} ({repository})"
     comment_pr: "Re: [PR] {title} ({repository})"
     merge_pr: "Re: [PR] {title} ({repository})"
-    catchall: "Updated: {repository}/#{issue_id}: {title}"
     new_issue: "[I] {title} ({repository})"
     comment_issue: "Re: [I] {title} ({repository})"
     close_issue: "Re: [I] {title} ({repository})"
