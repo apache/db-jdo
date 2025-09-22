@@ -69,7 +69,9 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    */
   public CompanyModelReader(String resourceName, ClassLoader classLoader) {
     super();
-    configureFactory();
+//    configureFactory();
+ //   reader = new CompanyModelReaderOld(resourceName, classLoader);
+
 
     switch (resourceName) {
       case SAMPLE_QUERIES_TEST:
@@ -78,18 +80,23 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
         reader = new CompanyModelReaderOld(resourceName, classLoader);
         break;
       case QUERY_TEST:
+        configureFactory();
+      //  this.reset();
+//        reader = new CompanyModelReaderOld(resourceName, classLoader);
         CompanyModelData.initQueryTest(companyFactory, this);
         reader = null;
         break;
       case MYLIB_TEST:
+        configureFactory();
         // TODO use companyModelFactory!
         MylibReader.init(this);
         this.reader = null;
         break;
       default:
-        this.reader = null;
-        System.err.println("Not registered: " + resourceName);
-        throw new IllegalArgumentException("Not registered: " + resourceName);
+        reader = new CompanyModelReaderOld(resourceName, classLoader);
+//        this.reader = null;
+        System.err.println("ERROR: Not registered: " + resourceName);
+        //throw new IllegalArgumentException("Not registered: " + resourceName);
     }
   }
 
@@ -128,6 +135,10 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    * @return Returns the tearDownClasses.
    */
   public Class<?>[] getTearDownClassesFromFactory() {
+    if (reader != null) {
+      return reader.getTearDownClassesFromFactory();
+    }
+
     for (Class<?> c : companyFactory.getTearDownClasses()) {
       System.err.println("TearDownClass: " + c);
     }

@@ -70,7 +70,7 @@ public class CompanyModelData {
 
         // Company constructor
         ICompany company1 =
-                companyFactory.newCompany(1L, "Sun Microsystems, Inc.", new Date(1952, 4, 11, 0, 0, 0), addr1);
+                companyFactory.newCompany(1L, "Sun Microsystems, Inc.", date(1952, 4, 11, 0, 0, 0), addr1);
 
         // Meeting room constructors
         IMeetingRoom room1 = companyFactory.newMeetingRoom(1, "Comfy Room");
@@ -89,9 +89,9 @@ public class CompanyModelData {
                         "emp1First",
                         "emp1Last",
                         "emp1Middle",
-                        new Date(1970, 6, 10, 0, 0, 0),
+                        date(1970, 6, 10, 0, 0, 0),
                         addr1,
-                        new Date(1999, 1, 1, 0, 0, 0),
+                        date(1999, 1, 1, 0, 0, 0),
                         20000);
 
         IFullTimeEmployee emp2 =
@@ -100,9 +100,9 @@ public class CompanyModelData {
                         "emp2First",
                         "emp2Last",
                         "emp2Middle",
-                        new Date(1975, 12, 22, 0, 0, 0),
+                        date(1975, 12, 22, 0, 0, 0),
                         addr2,
-                        new Date(2003, 7, 1, 0, 0, 0),
+                        date(2003, 7, 1, 0, 0, 0),
                         10000);
 
         IPartTimeEmployee emp3 =
@@ -111,9 +111,9 @@ public class CompanyModelData {
                         "emp3First",
                         "emp3Last",
                         "emp3Middle",
-                        new Date(1972, 7, 5, 0, 0, 0),
+                        date(1972, 7, 5, 0, 0, 0),
                         addr3,
-                        new Date(2002, 8, 15, 0, 0, 0),
+                        date(2002, 8, 15, 0, 0, 0),
                         15);
 
         IPartTimeEmployee emp4 =
@@ -122,9 +122,9 @@ public class CompanyModelData {
                         "emp4First",
                         "emp4Last",
                         "emp4Middle",
-                        new Date(1973, 7, 6, 0, 0, 0),
+                        date(1973, 7, 6, 0, 0, 0),
                         addr3,
-                        new Date(2001, 4, 15, 0, 0, 0),
+                        date(2001, 4, 15, 0, 0, 0),
                         13);
 
         IFullTimeEmployee emp5 =
@@ -133,9 +133,9 @@ public class CompanyModelData {
                         "emp5First",
                         "emp5Last",
                         "emp5Middle",
-                        new Date(1962, 7, 5, 0, 0, 0),
+                        date(1962, 7, 5, 0, 0, 0),
                         addr3,
-                        new Date(1998, 8, 15, 0, 0, 0),
+                        date(1998, 8, 15, 0, 0, 0),
                         45000);
 
         // Employee properties
@@ -246,6 +246,23 @@ public class CompanyModelData {
         registry.register("proj1", proj1);
         registry.register("proj2", proj2);
         registry.register("proj3", proj3);
+        registry.register("dentalIns1", dentalIns1);
+        registry.register("dentalIns2", dentalIns2);
+        registry.register("dentalIns3", dentalIns3);
+        registry.register("dentalIns4", dentalIns4);
+        registry.register("dentalIns5", dentalIns5);
+        registry.register("medicalIns1", medicalIns1);
+        registry.register("medicalIns2", medicalIns2);
+        registry.register("medicalIns3", medicalIns3);
+        registry.register("medicalIns4", medicalIns4);
+        registry.register("medicalIns5", medicalIns5);
+        registry.register("room1", room1);
+        registry.register("room2", room2);
+    }
+
+    private static Date date(int y, int m, int d, int h, int min, int sec) {
+        Date date = new Date(y - 1900, m-1, d, h, min, sec);
+        return date;
     }
 
     private static <T> List<T> toList(T... objs) {
