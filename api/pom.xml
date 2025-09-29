@@ -114,6 +114,14 @@
                     </includes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.spdx</groupId>
+                <artifactId>spdx-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
     <reporting>
