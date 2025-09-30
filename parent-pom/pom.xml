@@ -182,7 +182,7 @@
         <version.maven-bundle-plugin>5.1.9</version.maven-bundle-plugin>
         <version.fmt-maven-plugin>2.25</version.fmt-maven-plugin>
         <version.cyclonedx-maven-plugin>2.9.1</version.cyclonedx-maven-plugin>
-        <version.spdx-maven-plugin>0.7.4</version.spdx-maven-plugin>
+        <version.spdx-maven-plugin>1.0.3</version.spdx-maven-plugin>
     </properties>
 
     <dependencyManagement>
@@ -278,7 +278,6 @@
     </dependencyManagement>
 
     <build>
-
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -305,12 +304,13 @@
                             <id>build-sbom-cyclonedx</id>
                             <phase>package</phase>
                             <goals>
-                                <goal>makeAggregateBom</goal>
+                                <goal>makeBom</goal>
                             </goals>
                         </execution>
                     </executions>
                     <configuration>
                         <outputName>${project.artifactId}-${project.version}-cyclonedx</outputName>
+                        <outputFormat>json</outputFormat>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -329,6 +329,12 @@
                     <configuration>
                         <outputFormat>JSON</outputFormat>
                         <spdxFile>${project.build.directory}/${project.artifactId}-${project.version}-spdx.json</spdxFile>
+                        <defaultFileCopyright>Copyright (c) 2005-2025 The Apache Software Foundation</defaultFileCopyright>
+                        <defaultLicenseInformationInFile>Apache-2.0</defaultLicenseInformationInFile>
+                        <defaultFileConcludedLicense>Apache-2.0</defaultFileConcludedLicense>
+                        <licenseDeclared>Apache-2.0</licenseDeclared>
+                        <includeTestScope>false</includeTestScope>
+                        <sbomType>consolidated</sbomType>
                     </configuration>
                 </plugin>
             </plugins>
