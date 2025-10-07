@@ -62,6 +62,10 @@ public class RunTCK extends AbstractTCKMojo {
   @Parameter(property = "jdo.tck.runTCKVerbose", defaultValue = "false", required = true)
   private boolean runtckVerbose;
 
+  /** Run the TCK tests in verbose mode. */
+  @Parameter(property = "jdo.tck.verbose", defaultValue = "false")
+  private String verbose;
+
   /** Define handling of TCK failures. */
   @Parameter(property = "jdo.tck.onFailure", defaultValue = "failGoal", required = true)
   private String onFailure;
@@ -70,12 +74,12 @@ public class RunTCK extends AbstractTCKMojo {
   @Parameter(property = "jdo.tck.debugTCK", defaultValue = "false", required = true)
   private boolean debugTCK;
 
-  /** Location of third party libraries such as JNDI. */
+  /** User-supplied arguments for debug directives. */
   @Parameter(
-      property = "project.lib.ext.directory",
-      defaultValue = "${basedir}/../lib/ext",
-      required = true)
-  private String extLibsDirectory;
+      property = "jdo.tck.debug.jvmargs",
+      defaultValue =
+          "-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}")
+  private String debugDirectives;
 
   /** Name of file in src/conf containing pmf properties. */
   @Parameter(property = "jdo.tck.pmfproperties", defaultValue = "jdori-pmf.properties")
@@ -88,36 +92,19 @@ public class RunTCK extends AbstractTCKMojo {
   @Parameter(property = "jdo.tck.excludefile", defaultValue = "exclude.list", required = true)
   private String exclude;
 
-  /** Run the TCK tests in verbose mode. */
-  @Parameter(property = "jdo.tck.verbose", defaultValue = "false")
-  private String verbose;
-
-  /** To retain test output for debugging, set to false. */
-  @Parameter(property = "jdo.tck.cleanupaftertest", defaultValue = "true")
-  private String cleanupaftertest;
-
-  /** Properties to use in accessing database. */
-  @Parameter(
-      property = "database.runtck.sysproperties",
-      defaultValue = "-Dderby.system.home=${basedir}/target/database/derby")
-  private String dbproperties; // NOTE: only allows for one db
-
-  /** Properties to use in accessing database. */
+  /** Name of the signatute file used to test the signatures of the JDO API classes. */
   @Parameter(
       property = "jdo.tck.signaturefile",
       defaultValue = "${basedir}/src/main/resources/conf/jdo-signatures.txt")
   private String signaturefile;
 
+  /** To retain test output for debugging, set to false. */
+  @Parameter(property = "jdo.tck.cleanupaftertest", defaultValue = "true")
+  private String cleanupaftertest;
+
   /** JVM properties. */
   @Parameter(property = "jdo.tck.jvmproperties", defaultValue = "-Xmx512m")
   private String jvmproperties;
-
-  /** User-supplied arguments for debug directives. */
-  @Parameter(
-      property = "jdo.tck.debug.jvmargs",
-      defaultValue =
-          "-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}")
-  private String debugDirectives;
 
   /** Location of tck log file. */
   @Parameter(
@@ -147,16 +134,26 @@ public class RunTCK extends AbstractTCKMojo {
   @Parameter(property = "jdo.tck.testrunner.colors", defaultValue = "disable", required = true)
   private String testRunnerColors;
 
-  /**
-   * Whether to display colors in the junit result log file (jdo.tck.testrunner.colors=enable) or
-   * not (jdo.tck.testrunner.colors=disable).
-   */
+  /** Whether to run the tck test cases in parallel threads or not. */
   @Parameter(property = "jdo.tck.parallel.execution", defaultValue = "true", required = true)
   private boolean testParallelExecution;
 
-  /** Whether the datastore support query canceling. */
+  /** Whether the datastore supports query canceling. */
   @Parameter(property = "jdo.tck.datastore.supportsQueryCancel", required = false)
   private String datastoreSupportsQueryCancel;
+
+  /** Location of third party libraries such as JNDI. */
+  @Parameter(
+      property = "project.lib.ext.directory",
+      defaultValue = "${basedir}/../lib/ext",
+      required = true)
+  private String extLibsDirectory;
+
+  /** Properties to use in accessing database. */
+  @Parameter(
+      property = "database.runtck.sysproperties",
+      defaultValue = "-Dderby.system.home=${basedir}/target/database/derby")
+  private String dbproperties; // NOTE: only allows for one db
 
   /**
    * Helper method returning the trimmed value of the specified property.

@@ -120,12 +120,27 @@ The *jdo-exectck* Maven plugin has the following options
 * -Djdo.tck.dblist : Overrides the property value in project.properties by supplying one or more comma-separated database names. Currently only derby is supported.
 * -Djdo.tck.identitytypes : Overrides the identity types to be run, supplying one or more comma-separated identity types (*applicationidentity* or *datastoreidentity*) to use for this run.
 * -Djdo.tck.impl.logfile : Location of implementation log file. Default: `${user.dir}/datanucleus.txt`
+* -Djdo.tck.doRunTCK : Setting this parameter to false will bypass running the TCK.
 * -Djdo.tck.doInstallSchema : Setting this parameter to *false* will bypass schema installation.
 * -Djdo.tck.doEnhance : Setting this parameter to false will bypass enhancement.
-* -Djdo.tck.doRunTCK : Setting this parameter to false will bypass running the TCK.
 * -Djdo.tck.runTCKVerbose : Setting this parameter to *true* will display test progress and error output while the TCK is running.
+* -Djdo.tck.verbose: Setting this parameter to *true* will run the TCK tests in verbose mode.
 * -Djdo.tck.onFailure : Specifies how test failures are treated. *failFast* will immediately abort the test run. *failGoal* (default) will execute the whole TCK before failing. *logOnly* will report failures to console and logs only but return 'SUCCESS' to the Maven execution environment.
-
+* -Djdo.tck.debugTCK: Setting this parameter to *true* will run the TCK in a debugger.
+* -Djdo.tck.debug.jvmargs: User-supplied arguments for debug directives.
+* -Djdo.tck.pmfproperties: Name of file in src/conf containing pmf properties.
+* -Djdo.tck.excludefile: Name of file in src/conf containing property jdo.tck.exclude, whose value is a list of files to be excluded from testing.
+* -Djdo.tck.signaturefile: Name of the signatute file used to test the signatures of the JDO API classes.
+* -Djdo.tck.cleanupaftertest: Setting this parameter to *false* withh retain test output for debugging.
+* -Djdo.tck.jvmproperties: JVM properties.
+* -Djdo.tck.logfile: Name of the tck log file.
+* -Djdo.tck.testrunner.class: Class used to run a batch of tests.
+* -Djdo.tck.testrunner.details: Output mode for test run. Use one of: none, summary, flat, tree, verbose, testfeed. If `none`is selected, then only the summary and test failures are shown.
+* -Djdo.tck.testrunner.colors: Setting this parameter to *enable* displays colors in the junit result log file.
+* -Djdo.tck.parallel.execution: Setting this parameter to *false* will disable parallel exceution of tck test methods in parallel threads.
+* -Djdo.tck.datastore.supportsQueryCancel: Setting this parameter to *true* indicates whether the datastore supports query canceling.
+* -Dproject.lib.ext.directory: Location of third party libraries such as JNDI.
+* -Ddatabase.runtck.sysproperties: Properties to use in accessing database.
 
 ### Examples
 

@@ -67,6 +67,13 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
   @Parameter protected Collection<String> cfgs;
 
   /**
+   * Implementation to be tested (jdori or iut). Any value other than "jdori" will test an
+   * appropriately configured IUT
+   */
+  @Parameter(property = "jdo.tck.impl", defaultValue = "jdori", required = true)
+  protected String impl;
+
+  /**
    * List of configuration files, each describing a test configuration. Allows command line override
    * of configured cfgs value.
    */
@@ -77,12 +84,14 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
   @Parameter(property = "jdo.tck.dblist", defaultValue = "derby", required = true)
   protected String dblist;
 
-  /**
-   * Implementation to be tested (jdori or iut). Any value other than "jdori" will test an
-   * appropriately configured IUT
-   */
-  @Parameter(property = "jdo.tck.impl", defaultValue = "jdori", required = true)
-  protected String impl;
+  /** List of identity types to be tested. */
+  @Parameter(
+      property = "jdo.tck.identitytypes",
+      defaultValue = "applicationidentity datastoreidentity",
+      required = true)
+  protected String identitytypes;
+
+  protected Collection<String> idtypes = new HashSet<>();
 
   /** Location of implementation log file. */
   @Parameter(
@@ -96,15 +105,6 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
   protected String dependencyClasspath;
 
   protected Collection<String> dbs = new HashSet<>();
-
-  /** List of identity types to be tested. */
-  @Parameter(
-      property = "jdo.tck.identitytypes",
-      defaultValue = "applicationidentity datastoreidentity",
-      required = true)
-  protected String identitytypes;
-
-  protected Collection<String> idtypes = new HashSet<>();
 
   /**
    * Convenience method to set the cfgList from the file

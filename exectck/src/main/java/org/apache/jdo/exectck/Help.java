@@ -65,27 +65,68 @@ public class Help extends AbstractMojo {
     msg.append("  Default value is \"applicationidentity datastoreidentity\"\n");
     msg.append("* jdo.tck.impl.logfile\n");
     msg.append("  Location of implementation log file. Default: ${user.dir}/datanucleus.txt\n");
+    msg.append("* jdo.tck.doRunTCK\n");
+    msg.append("  Setting this parameter to false will bypass running the TCK.\n");
     msg.append("* jdo.tck.doInstallSchema\n");
     msg.append("  Setting this parameter to false will bypass schema installation.\n");
     msg.append("* jdo.tck.doEnhance\n");
     msg.append("  Setting this parameter to false will bypass enhancement.\n");
-    msg.append("* jdo.tck.doRunTCK\n");
-    msg.append("  Setting this parameter to false will bypass running the TCK.\n");
     msg.append("* jdo.tck.runTCKVerbose\n");
     msg.append(
         "  Setting this parameter to true will display test progress and"
             + "error output while the TCK is running.\n");
+    msg.append("* jdo.tck.verbose:\n");
+    msg.append("  Setting this parameter to true will run the TCK tests in verbose mode.\n");
     msg.append("* jdo.tck.onFailure\n");
     msg.append(
-        "  Specifies how test failures are treated. \"failFast\" will immediately abort the test run. "
-            + "\"failGoal\" (default) will execute the whole TCK (maven goal) before failing. "
-            + "\"logOnly\" will report failures to console and logs only but return 'SUCCESS' to the "
+        "  Specifies how test failures are treated.\n"
+            + "    \"failFast\" will immediately abort the test run.\n"
+            + "    \"failGoal\" (default) will execute the whole TCK (maven goal) before failing.\n"
+            + "    \"logOnly\" will report failures to console and logs only but return 'SUCCESS' to the "
             + "Maven execution environment.\n");
+    msg.append("* jdo.tck.debugTCK:\n");
+    msg.append("  Setting this parameter to true will run the TCK in a debugger.\n");
+    msg.append("* jdo.tck.debug.jvmargs:\n");
+    msg.append("  User-supplied arguments for debug directives.\n");
+    msg.append("* jdo.tck.pmfproperties:\n");
+    msg.append("  Name of file in src/conf containing pmf properties.\n");
+    msg.append("* jdo.tck.excludefile:\n");
+    msg.append(
+        "  Name of file in src/conf containing property jdo.tck.exclude, "
+            + "whose value is a list of files to be excluded from testing.\n");
+    msg.append("* jdo.tck.signaturefile:\n");
+    msg.append(
+        "  Name of the signatute file used to test the signatures of the JDO API classes.\n");
+    msg.append("* jdo.tck.cleanupaftertest:\n");
+    msg.append("  Setting this parameter to false withh retain test output for debugging.\n");
+    msg.append("* jdo.tck.jvmproperties:\n");
+    msg.append("  JVM properties.\n");
+    msg.append("* jdo.tck.logfile:\n");
+    msg.append("  Name of the tck log file.\n");
+    msg.append("* jdo.tck.testrunner.class:\n");
+    msg.append("  Class used to run a batch of tests.\n");
+    msg.append("* jdo.tck.testrunner.details:\n");
+    msg.append(
+        "  Output mode for test run. Use one of: none, summary, flat, tree, verbose, testfeed.\n"
+            + "  If none is selected, then only the summary and test failures are shown.\n");
+    msg.append("* jdo.tck.testrunner.colors:\n");
+    msg.append(
+        "  Setting this parameter to enable displays colors in the junit result log file.\n");
+    msg.append("* jdo.tck.parallel.execution:\n");
+    msg.append(
+        "  Setting this parameter to false will disable parallel exceution of tck test methods in parallel threads.\n");
+    msg.append("* jdo.tck.datastore.supportsQueryCancel:\n");
+    msg.append(
+        "  Setting this parameter to true indicates whether the datastore supports query canceling.\n");
+    msg.append("* project.lib.ext.directory:\n");
+    msg.append("  Location of third party libraries such as JNDI.\n");
+    msg.append("* database.runtck.sysproperties:\n");
+    msg.append("  Properties to use in accessing database.\n");
     msg.append(
         "\n  To run the TCK on an implementation under test, \n"
-            + "      edit the pom.xml in tck and add the iut dependencies to the iut profile\n"
-            + "      and set jdo.tck.impl to iut:\n");
-    msg.append("     mvn integration-test -D jdo.tck.impl=\"iut\"\n\n");
+            + "  edit the pom.xml in tck and add the iut dependencies to the iut profile\n"
+            + "  and set jdo.tck.impl to iut:\n");
+    msg.append("     mvn integration-test -D jdo.tck.impl=\"iut\"\n");
     msg.append("\n END EXECTCK HELP INFORMATION\n");
 
     System.out.println(msg.toString());
