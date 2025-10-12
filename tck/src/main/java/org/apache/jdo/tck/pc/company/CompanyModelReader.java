@@ -74,16 +74,19 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
 
 
     switch (resourceName) {
-      case SAMPLE_QUERIES_TEST:
+      //case SAMPLE_QUERIES_TEST:
       case JDOQL_NAVIGATION_TESTS:
       case JDOQL_SUBQUERIES_TESTS:
         reader = new CompanyModelReaderOld(resourceName, classLoader);
         break;
       case QUERY_TEST:
         configureFactory();
-      //  this.reset();
-//        reader = new CompanyModelReaderOld(resourceName, classLoader);
         CompanyModelData.initQueryTest(companyFactory, this);
+        reader = null;
+        break;
+      case SAMPLE_QUERIES_TEST:
+        configureFactory();
+        CompanyModelData.initSampleQueryTest(companyFactory, this);
         reader = null;
         break;
       case MYLIB_TEST:
@@ -143,6 +146,7 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
       System.err.println("TearDownClass: " + c);
     }
     System.err.println("TearDownClass: " + Arrays.toString(companyFactory.getTearDownClasses()));
+    this.reset();
     return companyFactory.getTearDownClasses();
   }
 
