@@ -22,13 +22,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.jdo.tck.pc.company.data.NavigationTestData;
+import org.apache.jdo.tck.pc.company.data.QueryTestData;
+import org.apache.jdo.tck.pc.company.data.SampleQueryTestData;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.util.ConversionHelper;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.core.io.ClassPathResource;
 
 /**
  * Utility class to create a graph of company model instances from an xml representation.
@@ -76,17 +76,21 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
     switch (resourceName) {
       //case SAMPLE_QUERIES_TEST:
       case JDOQL_NAVIGATION_TESTS:
+        configureFactory();
+        NavigationTestData.initNavigationTest(companyFactory, this);
+        reader = null;
+        break;
       case JDOQL_SUBQUERIES_TESTS:
         reader = new CompanyModelReaderOld(resourceName, classLoader);
         break;
       case QUERY_TEST:
         configureFactory();
-        CompanyModelData.initQueryTest(companyFactory, this);
+        QueryTestData.initQueryTest(companyFactory, this);
         reader = null;
         break;
       case SAMPLE_QUERIES_TEST:
         configureFactory();
-        CompanyModelData.initSampleQueryTest(companyFactory, this);
+        SampleQueryTestData.initSampleQueryTest(companyFactory, this);
         reader = null;
         break;
       case MYLIB_TEST:
