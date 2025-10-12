@@ -147,7 +147,7 @@ public class SubqueryTestData {
     emp10.setManager(emp1);
     emp10.setTeam(toSet());
 
-    // Finish departments
+    // Department properties
     dept1.setEmployees(toSet(emp1, emp2, emp3, emp4, emp5, emp6));
     dept1.setMeetingRooms(toList(room1, room2));
 

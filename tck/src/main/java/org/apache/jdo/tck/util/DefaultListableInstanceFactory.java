@@ -15,25 +15,25 @@ public class DefaultListableInstanceFactory {
   }
 
   public synchronized <T> T getBean(String name, Class<T> clazz) {
-    if (!rootMap.containsKey(name)) {
-      System.err.println("CLIF: Not found: " + name + " ---------------------------- ");
-      System.err.println("CLIF:   Beans: " + rootMap.size() + " " + Arrays.toString(rootMap.keySet().toArray()) + " ---------------------------- ");
-    }
-    if (rootMap.get(name) == null) {
-      System.err.println("CLIF: NULL: " + name + " ---------------------------- ");
-      System.err.println("CLIF:   Beans: " + rootMap.size() + " " + Arrays.toString(rootMap.keySet().toArray()) + " ---------------------------- ");
-    }
+//    if (!rootMap.containsKey(name)) {
+//      System.err.println("CLIF: Not found: " + name + " ---------------------------- ");
+//      System.err.println("CLIF:   Beans: " + rootMap.size() + " " + Arrays.toString(rootMap.keySet().toArray()) + " ---------------------------- ");
+//    }
+//    if (rootMap.get(name) == null) {
+//      System.err.println("CLIF: NULL: " + name + " ---------------------------- ");
+//      System.err.println("CLIF:   Beans: " + rootMap.size() + " " + Arrays.toString(rootMap.keySet().toArray()) + " ---------------------------- ");
+//    }
     return clazz.cast(getBean(name));
   }
 
   public synchronized void register(String name, Object obj) {
-    System.out.println("CLIF: Registering: " + name + " " + rootList.size() + " -----------------------"); // TODO TZ remove
+//    System.out.println("CLIF: Registering: " + name + " " + rootList.size() + " -----------------------"); // TODO TZ remove
     rootMap.put(name, obj);
     rootList.add(obj);
   }
 
   public synchronized List<Object> getRootList() {
-    System.out.println("CLIF: Getting root list: " + rootList.size() + " -----------------------"); // TODO TZ remove
+//    System.out.println("CLIF: Getting root list: " + rootList.size() + " -----------------------"); // TODO TZ remove
     return Collections.unmodifiableList(rootList);
   }
 

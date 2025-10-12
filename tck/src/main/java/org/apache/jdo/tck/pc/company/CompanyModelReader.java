@@ -46,6 +46,13 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
   public static final String JDOQL_NAVIGATION_TESTS = "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
   public static final String JDOQL_SUBQUERIES_TESTS = "org/apache/jdo/tck/pc/company/companyForSubqueriesTests.xml";
 
+  public static final String RELATIONSHIPS_ALL = "org/apache/jdo/tck/pc/company/companyAllRelationships.xml";
+  public static final String RELATIONSHIPS_1_1 = "org/apache/jdo/tck/pc/company/company1-1Relationships.xml";
+  public static final String RELATIONSHIPS_1_M = "org/apache/jdo/tck/pc/company/company1-MRelationships.xml";
+  public static final String EMBEDDED = "org/apache/jdo/tck/pc/company/companyEmbedded.xml";
+  public static final String RELATIONSHIPS_M_M = "org/apache/jdo/tck/pc/company/companyM-MRelationships.xml";
+  public static final String RELATIONSHIPS_NO = "org/apache/jdo/tck/pc/company/companyNoRelationships.xml";
+
   /** The company factory instance. */
   private CompanyFactory companyFactory;
 
@@ -74,16 +81,21 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
 //    configureFactory();
  //   reader = new CompanyModelReaderOld(resourceName, classLoader);
 
-
     switch (resourceName) {
-      //case SAMPLE_QUERIES_TEST:
+      case RELATIONSHIPS_ALL:
+      case RELATIONSHIPS_1_1:
+      case RELATIONSHIPS_1_M:
+      case RELATIONSHIPS_M_M:
+      case RELATIONSHIPS_NO:
+      case EMBEDDED:
+        reader = new CompanyModelReaderOld(resourceName, classLoader);
+        break;
       case JDOQL_NAVIGATION_TESTS:
         configureFactory();
         NavigationTestData.initNavigationTest(companyFactory, this);
         reader = null;
         break;
       case JDOQL_SUBQUERIES_TESTS:
-//        reader = new CompanyModelReaderOld(resourceName, classLoader);
         configureFactory();
         SubqueryTestData.initSubqueryTest(companyFactory, this);
         reader = null;

@@ -164,7 +164,7 @@ public class SampleQueryTestData {
     emp5.setReviewedProjects(toSet(proj2));
     emp5.setHradvisees(toSet(emp1, emp2, emp3, emp4));
 
-    // Finish departments
+    // Department properties
     dept1.setEmployees(toSet(emp1, emp2, emp3));
     dept1.setFundedEmps(toSet(emp2, emp3));
     dept1.setMeetingRooms(toList(room1, room2, room3));
