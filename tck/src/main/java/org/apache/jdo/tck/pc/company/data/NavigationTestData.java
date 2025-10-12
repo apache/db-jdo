@@ -291,5 +291,6 @@ public class NavigationTestData {
     registry.register("medicalIns5", medicalIns5);
     registry.register("room1", room1);
     registry.register("room2", room2);
+    registry.register("room3", room3);
   }
 }

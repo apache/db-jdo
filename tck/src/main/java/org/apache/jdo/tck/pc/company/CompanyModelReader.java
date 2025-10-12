@@ -25,6 +25,7 @@ import java.util.Locale;
 import org.apache.jdo.tck.pc.company.data.NavigationTestData;
 import org.apache.jdo.tck.pc.company.data.QueryTestData;
 import org.apache.jdo.tck.pc.company.data.SampleQueryTestData;
+import org.apache.jdo.tck.pc.company.data.SubqueryTestData;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.util.ConversionHelper;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
@@ -69,6 +70,7 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    */
   public CompanyModelReader(String resourceName, ClassLoader classLoader) {
     super();
+    this.reset();
 //    configureFactory();
  //   reader = new CompanyModelReaderOld(resourceName, classLoader);
 
@@ -81,7 +83,10 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
         reader = null;
         break;
       case JDOQL_SUBQUERIES_TESTS:
-        reader = new CompanyModelReaderOld(resourceName, classLoader);
+//        reader = new CompanyModelReaderOld(resourceName, classLoader);
+        configureFactory();
+        SubqueryTestData.initSubqueryTest(companyFactory, this);
+        reader = null;
         break;
       case QUERY_TEST:
         configureFactory();
