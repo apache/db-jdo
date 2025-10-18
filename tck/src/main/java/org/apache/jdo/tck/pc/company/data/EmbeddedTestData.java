@@ -35,7 +35,7 @@ public class EmbeddedTestData {
     // Insurance constructors
     IMedicalInsurance medicalIns1 = factory.newMedicalInsurance(1, "Carrier1", "PPO");
     IMedicalInsurance medicalIns2 = factory.newMedicalInsurance(2, "Carrier2", "HMO");
-    IMedicalInsurance medicalIns3 = factory.newMedicalInsurance(3, "Carrier2", "HMO");
+    IMedicalInsurance medicalIns3 = factory.newMedicalInsurance(3, "Carrier3", "HMO");
     IDentalInsurance dentalIns1 =
         factory.newDentalInsurance(4, "Carrier2", BigDecimal.valueOf(99.999));
 
