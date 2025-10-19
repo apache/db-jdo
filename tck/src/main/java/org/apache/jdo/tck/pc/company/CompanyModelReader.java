@@ -22,10 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.jdo.tck.pc.company.data.NavigationTestData;
-import org.apache.jdo.tck.pc.company.data.QueryTestData;
-import org.apache.jdo.tck.pc.company.data.SampleQueryTestData;
-import org.apache.jdo.tck.pc.company.data.SubqueryTestData;
+import org.apache.jdo.tck.pc.company.data.*;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.util.ConversionHelper;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
@@ -83,6 +80,10 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
 
     switch (resourceName) {
       case RELATIONSHIPS_ALL:
+        configureFactory();
+        AllRelationshipsData.init(companyFactory, this);
+        reader = null;
+        break;
       case RELATIONSHIPS_1_1:
       case RELATIONSHIPS_1_M:
       case RELATIONSHIPS_M_M:
@@ -167,7 +168,6 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
       System.err.println("TearDownClass: " + c);
     }
     System.err.println("TearDownClass: " + Arrays.toString(companyFactory.getTearDownClasses()));
-    this.reset();
     return companyFactory.getTearDownClasses();
   }
 
