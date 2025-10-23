@@ -81,15 +81,33 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
     switch (resourceName) {
       case RELATIONSHIPS_ALL:
         configureFactory();
-        AllRelationshipsData.init(companyFactory, this);
+        RelationshipsAllData.init(companyFactory, this);
         reader = null;
         break;
       case RELATIONSHIPS_1_1:
+        configureFactory();
+        Relationships1_1Data.init(companyFactory, this);
+        reader = null;
+        break;
       case RELATIONSHIPS_1_M:
+        configureFactory();
+        Relationships1_MData.init(companyFactory, this);
+        reader = null;
+        break;
       case RELATIONSHIPS_M_M:
+        configureFactory();
+        RelationshipsM_MData.init(companyFactory, this);
+        reader = null;
+        break;
       case RELATIONSHIPS_NO:
+        configureFactory();
+        RelationshipsNoData.init(companyFactory, this);
+        reader = null;
+        break;
       case EMBEDDED:
-        reader = new CompanyModelReaderOld(resourceName, classLoader);
+        configureFactory();
+        EmbeddedTestData.init(companyFactory, this);
+        reader = null;
         break;
       case JDOQL_NAVIGATION_TESTS:
         configureFactory();

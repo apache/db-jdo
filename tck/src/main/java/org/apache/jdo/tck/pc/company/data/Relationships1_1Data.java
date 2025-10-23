@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import org.apache.jdo.tck.pc.company.*;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
-public class EmbeddedTestData {
+public class Relationships1_1Data {
 
   public static void init(
           CompanyFactory factory, DefaultListableInstanceFactory registry) {
@@ -36,8 +36,18 @@ public class EmbeddedTestData {
     IMedicalInsurance medicalIns1 = factory.newMedicalInsurance(1, "Carrier1", "PPO");
     IMedicalInsurance medicalIns2 = factory.newMedicalInsurance(2, "Carrier2", "HMO");
     IMedicalInsurance medicalIns3 = factory.newMedicalInsurance(3, "Carrier3", "HMO");
+    IMedicalInsurance medicalIns4 = factory.newMedicalInsurance(4, "Carrier4", "HMO");
+    IMedicalInsurance medicalIns5 = factory.newMedicalInsurance(5, "Carrier5", "HMO");
     IDentalInsurance dentalIns1 =
-        factory.newDentalInsurance(4, "Carrier2", BigDecimal.valueOf(99.999));
+        factory.newDentalInsurance(11, "Carrier1", BigDecimal.valueOf(99.999));
+    IDentalInsurance dentalIns2 =
+            factory.newDentalInsurance(12, "Carrier2", BigDecimal.valueOf(99.999));
+    IDentalInsurance dentalIns3 =
+            factory.newDentalInsurance(13, "Carrier3", BigDecimal.valueOf(99.999));
+    IDentalInsurance dentalIns4 =
+            factory.newDentalInsurance(14, "Carrier4", BigDecimal.valueOf(99.999));
+    IDentalInsurance dentalIns5 =
+            factory.newDentalInsurance(15, "Carrier5", BigDecimal.valueOf(99.999));
 
     // Project constructors
     IProject proj1 = factory.newProject(1, "orange", BigDecimal.valueOf(2500000.99));
@@ -83,21 +93,47 @@ public class EmbeddedTestData {
 
     // Employee properties
     emp1.setWeeklyhours(40);
-    emp1.setPhoneNumbers(toMap("home", "1111", "work", "123456-1"));
+    emp1.setMedicalInsurance(medicalIns1);
+    emp1.setDentalInsurance(dentalIns1);
+    emp1.setMentor(emp2);
+    emp1.setProtege(emp5);
 
     emp2.setWeeklyhours(40);
-    emp2.setPhoneNumbers(toMap("home", "2222", "work", "123456-2"));
+    emp2.setMedicalInsurance(medicalIns2);
+    emp2.setDentalInsurance(dentalIns2);
+    emp2.setMentor(emp3);
+    emp2.setProtege(emp1);
 
     emp3.setWeeklyhours(19);
-    emp3.setPhoneNumbers(toMap("home", "3333", "work", "123456-3"));
+    emp3.setMedicalInsurance(medicalIns3);
+    emp3.setDentalInsurance(dentalIns3);
+    emp3.setMentor(emp4);
+    emp3.setProtege(emp2);
 
-    emp4.setPhoneNumbers(toMap("home", "3343", "work", "124456-3"));
+    emp4.setMedicalInsurance(medicalIns4);
+    emp4.setDentalInsurance(dentalIns4);
+    emp4.setMentor(emp5);
+    emp4.setProtege(emp3);
 
-    emp5.setPhoneNumbers(toMap("home", "3363", "work", "126456-3"));
+    emp5.setMedicalInsurance(medicalIns5);
+    emp5.setDentalInsurance(dentalIns5);
+    emp5.setMentor(emp1);
+    emp5.setProtege(emp4);
 
     // Department properties
 
     // Insurance properties
+    medicalIns1.setEmployee(emp1);
+    medicalIns2.setEmployee(emp2);
+    medicalIns3.setEmployee(emp3);
+    medicalIns4.setEmployee(emp4);
+    medicalIns5.setEmployee(emp5);
+
+    dentalIns1.setEmployee(emp1);
+    dentalIns2.setEmployee(emp2);
+    dentalIns3.setEmployee(emp3);
+    dentalIns4.setEmployee(emp4);
+    dentalIns5.setEmployee(emp5);
 
     // Project properties
 
@@ -110,10 +146,6 @@ public class EmbeddedTestData {
     registry.register("emp3", emp3);
     registry.register("emp4", emp4);
     registry.register("emp5", emp5);
-    registry.register("medicalIns1", medicalIns1);
-    registry.register("medicalIns2", medicalIns2);
-    registry.register("medicalIns3", medicalIns3);
-    registry.register("dentalIns1", dentalIns1);
     registry.register("proj1", proj1);
     registry.register("proj2", proj2);
     registry.register("proj3", proj3);

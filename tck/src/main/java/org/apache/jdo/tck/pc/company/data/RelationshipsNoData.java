@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import org.apache.jdo.tck.pc.company.*;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
-public class EmbeddedTestData {
+public class RelationshipsNoData {
 
   public static void init(
           CompanyFactory factory, DefaultListableInstanceFactory registry) {
@@ -36,8 +36,18 @@ public class EmbeddedTestData {
     IMedicalInsurance medicalIns1 = factory.newMedicalInsurance(1, "Carrier1", "PPO");
     IMedicalInsurance medicalIns2 = factory.newMedicalInsurance(2, "Carrier2", "HMO");
     IMedicalInsurance medicalIns3 = factory.newMedicalInsurance(3, "Carrier3", "HMO");
+    IMedicalInsurance medicalIns4 = factory.newMedicalInsurance(4, "Carrier4", "HMO");
+    IMedicalInsurance medicalIns5 = factory.newMedicalInsurance(5, "Carrier5", "HMO");
     IDentalInsurance dentalIns1 =
-        factory.newDentalInsurance(4, "Carrier2", BigDecimal.valueOf(99.999));
+        factory.newDentalInsurance(11, "Carrier1", BigDecimal.valueOf(99.999));
+    IDentalInsurance dentalIns2 =
+            factory.newDentalInsurance(12, "Carrier2", BigDecimal.valueOf(99.999));
+    IDentalInsurance dentalIns3 =
+            factory.newDentalInsurance(13, "Carrier3", BigDecimal.valueOf(99.999));
+    IDentalInsurance dentalIns4 =
+            factory.newDentalInsurance(14, "Carrier4", BigDecimal.valueOf(99.999));
+    IDentalInsurance dentalIns5 =
+            factory.newDentalInsurance(15, "Carrier5", BigDecimal.valueOf(99.999));
 
     // Project constructors
     IProject proj1 = factory.newProject(1, "orange", BigDecimal.valueOf(2500000.99));
@@ -83,17 +93,10 @@ public class EmbeddedTestData {
 
     // Employee properties
     emp1.setWeeklyhours(40);
-    emp1.setPhoneNumbers(toMap("home", "1111", "work", "123456-1"));
 
     emp2.setWeeklyhours(40);
-    emp2.setPhoneNumbers(toMap("home", "2222", "work", "123456-2"));
 
     emp3.setWeeklyhours(19);
-    emp3.setPhoneNumbers(toMap("home", "3333", "work", "123456-3"));
-
-    emp4.setPhoneNumbers(toMap("home", "3343", "work", "124456-3"));
-
-    emp5.setPhoneNumbers(toMap("home", "3363", "work", "126456-3"));
 
     // Department properties
 
