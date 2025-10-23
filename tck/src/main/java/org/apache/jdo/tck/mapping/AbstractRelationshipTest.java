@@ -21,15 +21,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.apache.jdo.tck.AbstractReaderTest;
-import org.apache.jdo.tck.pc.company.CompanyFactoryRegistry;
-import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.IEmployee;
-import org.apache.jdo.tck.pc.company.IProject;
+import org.apache.jdo.tck.pc.company.*;
+import org.apache.jdo.tck.util.DataSource;
 
 /*
  * Abstract class for managed relationship tests
  */
-public class AbstractRelationshipTest extends AbstractReaderTest {
+public abstract class AbstractRelationshipTest extends AbstractReaderTest {
 
   protected CompanyModelReader reader = null;
 
@@ -44,7 +42,7 @@ public class AbstractRelationshipTest extends AbstractReaderTest {
     if (isTestToBePerformed()) {
       getPM();
       CompanyFactoryRegistry.registerFactory(pm);
-      reader = new CompanyModelReader(inputFilename);
+      reader = new CompanyModelReader(inputClassname, 0);
       addTearDownClass(reader.getTearDownClassesFromFactory());
       // persist test data
       pm.currentTransaction().begin();

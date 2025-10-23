@@ -17,14 +17,13 @@
 
 package org.apache.jdo.tck.pc.company;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 import org.apache.jdo.tck.pc.company.data.*;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.util.ConversionHelper;
+import org.apache.jdo.tck.util.DataSource;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
@@ -39,16 +38,24 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
 
   public static final String QUERY_TEST = "org/apache/jdo/tck/pc/company/companyForQueryTests.xml";
   public static final String MYLIB_TEST = "org/apache/jdo/tck/pc/mylib/mylibForQueryTests.xml";
-  public static final String SAMPLE_QUERIES_TEST = "org/apache/jdo/tck/pc/company/companyForSampleQueriesTest.xml";
-  public static final String JDOQL_NAVIGATION_TESTS = "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
-  public static final String JDOQL_SUBQUERIES_TESTS = "org/apache/jdo/tck/pc/company/companyForSubqueriesTests.xml";
+  public static final String SAMPLE_QUERIES_TEST =
+      "org/apache/jdo/tck/pc/company/companyForSampleQueriesTest.xml";
+  public static final String JDOQL_NAVIGATION_TESTS =
+      "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
+  public static final String JDOQL_SUBQUERIES_TESTS =
+      "org/apache/jdo/tck/pc/company/companyForSubqueriesTests.xml";
 
-  public static final String RELATIONSHIPS_ALL = "org/apache/jdo/tck/pc/company/companyAllRelationships.xml";
-  public static final String RELATIONSHIPS_1_1 = "org/apache/jdo/tck/pc/company/company1-1Relationships.xml";
-  public static final String RELATIONSHIPS_1_M = "org/apache/jdo/tck/pc/company/company1-MRelationships.xml";
+  public static final String RELATIONSHIPS_ALL =
+      "org/apache/jdo/tck/pc/company/companyAllRelationships.xml";
+  public static final String RELATIONSHIPS_1_1 =
+      "org/apache/jdo/tck/pc/company/company1-1Relationships.xml";
+  public static final String RELATIONSHIPS_1_M =
+      "org/apache/jdo/tck/pc/company/company1-MRelationships.xml";
   public static final String EMBEDDED = "org/apache/jdo/tck/pc/company/companyEmbedded.xml";
-  public static final String RELATIONSHIPS_M_M = "org/apache/jdo/tck/pc/company/companyM-MRelationships.xml";
-  public static final String RELATIONSHIPS_NO = "org/apache/jdo/tck/pc/company/companyNoRelationships.xml";
+  public static final String RELATIONSHIPS_M_M =
+      "org/apache/jdo/tck/pc/company/companyM-MRelationships.xml";
+  public static final String RELATIONSHIPS_NO =
+      "org/apache/jdo/tck/pc/company/companyNoRelationships.xml";
 
   /** The company factory instance. */
   private CompanyFactory companyFactory;
@@ -66,6 +73,26 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
     this(resourceName, Company.class.getClassLoader());
   }
 
+  public CompanyModelReader(String resourceName, int dummy) {
+    super();
+    this.reset();
+    configureFactory();
+    reader = null;
+    try {
+      Class<DataSource<CompanyFactory>> cls =
+          (Class<DataSource<CompanyFactory>>) Class.forName(resourceName);
+      Constructor<DataSource<CompanyFactory>> cstr = cls.getConstructor();
+      DataSource<CompanyFactory> ds = cstr.newInstance();
+      ds.initMe(companyFactory, this);
+    } catch (ClassNotFoundException
+        | InvocationTargetException
+        | NoSuchMethodException
+        | InstantiationException
+        | IllegalAccessException e) {
+      throw new IllegalArgumentException(e);
+    }
+  }
+
   /**
    * Create a CompanyModelReader for the specified resourceName.
    *
@@ -75,74 +102,50 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
   public CompanyModelReader(String resourceName, ClassLoader classLoader) {
     super();
     this.reset();
-//    configureFactory();
- //   reader = new CompanyModelReaderOld(resourceName, classLoader);
+    configureFactory();
+    reader = null;
 
     switch (resourceName) {
       case RELATIONSHIPS_ALL:
-        configureFactory();
         RelationshipsAllData.init(companyFactory, this);
-        reader = null;
         break;
       case RELATIONSHIPS_1_1:
-        configureFactory();
         Relationships1_1Data.init(companyFactory, this);
-        reader = null;
         break;
       case RELATIONSHIPS_1_M:
-        configureFactory();
         Relationships1_MData.init(companyFactory, this);
-        reader = null;
         break;
       case RELATIONSHIPS_M_M:
-        configureFactory();
         RelationshipsM_MData.init(companyFactory, this);
-        reader = null;
         break;
       case RELATIONSHIPS_NO:
-        configureFactory();
         RelationshipsNoData.init(companyFactory, this);
-        reader = null;
         break;
       case EMBEDDED:
-        configureFactory();
         EmbeddedTestData.init(companyFactory, this);
-        reader = null;
         break;
       case JDOQL_NAVIGATION_TESTS:
-        configureFactory();
         NavigationTestData.initNavigationTest(companyFactory, this);
-        reader = null;
         break;
       case JDOQL_SUBQUERIES_TESTS:
-        configureFactory();
         SubqueryTestData.initSubqueryTest(companyFactory, this);
-        reader = null;
         break;
       case QUERY_TEST:
-        configureFactory();
         QueryTestData.initQueryTest(companyFactory, this);
-        reader = null;
         break;
       case SAMPLE_QUERIES_TEST:
-        configureFactory();
         SampleQueryTestData.initSampleQueryTest(companyFactory, this);
-        reader = null;
         break;
       case MYLIB_TEST:
-        configureFactory();
         // TODO use companyModelFactory!
         MylibReader.init(this);
-        this.reader = null;
         break;
       default:
-        reader = new CompanyModelReaderOld(resourceName, classLoader);
-//        this.reader = null;
+        //        this.reader = null;
         System.err.println("ERROR: Not registered: " + resourceName);
-        //throw new IllegalArgumentException("Not registered: " + resourceName);
+        // throw new IllegalArgumentException("Not registered: " + resourceName);
     }
   }
-
 
   public <T> T getBean(String name, Class<T> clazz) {
     if (reader != null) {

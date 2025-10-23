@@ -40,6 +40,7 @@ public abstract class AbstractReaderTest extends JDO_Test {
 
   /** The name of the file containing the bean collection (test data). */
   protected final String inputFilename = System.getProperty("jdo.tck.testdata");
+  protected final String inputClassname = System.getProperty("jdo.tck.testdatasource");
 
   /** The map of String (bean name) to Object (bean). */
   protected final Map<String, Object> oidMap = new HashMap<>();
