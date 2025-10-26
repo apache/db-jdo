@@ -71,13 +71,13 @@ public class NavigationTestData implements CompanyDataSource {
 
     // Employee Constructors
     IFullTimeEmployee emp0 =
-            factory.newFullTimeEmployee(
-                    0, "emp0First", "emp0Last", "emp0Middle", null, addr1, null, 50000);
+        factory.newFullTimeEmployee(
+            0, "emp0First", "emp0Last", "emp0Middle", null, addr1, null, 50000);
     emp0.setBirthdate(date(1962, 7, 10));
     emp0.setHiredate(date(1997, 1, 1));
     IFullTimeEmployee emp1 =
-            factory.newFullTimeEmployee(
-                    1, "emp1First", "emp1Last", "emp1Middle", null, addr1, null, 20000);
+        factory.newFullTimeEmployee(
+            1, "emp1First", "emp1Last", "emp1Middle", null, addr1, null, 20000);
     emp1.setBirthdate(date(1970, 6, 10));
     emp1.setHiredate(date(1999, 1, 1));
     IFullTimeEmployee emp2 =
@@ -96,33 +96,33 @@ public class NavigationTestData implements CompanyDataSource {
     emp4.setBirthdate(date(1973, 7, 6));
     emp4.setHiredate(date(2001, 4, 15));
     IFullTimeEmployee emp5 =
-            factory.newFullTimeEmployee(
-                    5, "emp5First", "emp5Last", "emp5Middle", null, addr3, null, 18000);
+        factory.newFullTimeEmployee(
+            5, "emp5First", "emp5Last", "emp5Middle", null, addr3, null, 18000);
     emp5.setBirthdate(date(1962, 7, 5));
     emp5.setHiredate(date(2002, 11, 1));
     IFullTimeEmployee emp6 =
-            factory.newFullTimeEmployee(
-                    6, "emp6First", "emp6Last", "emp6Middle", null, addr3, null, 22000);
+        factory.newFullTimeEmployee(
+            6, "emp6First", "emp6Last", "emp6Middle", null, addr3, null, 22000);
     emp6.setBirthdate(date(1969, 6, 10));
     emp6.setHiredate(date(2002, 6, 1));
     IFullTimeEmployee emp7 =
-            factory.newFullTimeEmployee(
-                    7, "emp7First", "emp7Last", "emp7Middle", null, addr1, null, 40000);
+        factory.newFullTimeEmployee(
+            7, "emp7First", "emp7Last", "emp7Middle", null, addr1, null, 40000);
     emp7.setBirthdate(date(1970, 6, 10));
     emp7.setHiredate(date(2000, 1, 1));
     IFullTimeEmployee emp8 =
-            factory.newFullTimeEmployee(
-                    8, "emp8First", "emp8Last", "emp8Middle", null, addr2, null, 10000);
+        factory.newFullTimeEmployee(
+            8, "emp8First", "emp8Last", "emp8Middle", null, addr2, null, 10000);
     emp8.setBirthdate(date(1975, 12, 22));
     emp8.setHiredate(date(2003, 8, 1));
     IFullTimeEmployee emp9 =
-            factory.newFullTimeEmployee(
-                    9, "emp9First", "emp9Last", "emp9Middle", null, addr3, null, 12000);
+        factory.newFullTimeEmployee(
+            9, "emp9First", "emp9Last", "emp9Middle", null, addr3, null, 12000);
     emp9.setBirthdate(date(1972, 7, 5));
     emp9.setHiredate(date(2002, 5, 1));
     IFullTimeEmployee emp10 =
-            factory.newFullTimeEmployee(
-                    10, "emp10First", "emp10Last", "emp10Middle", null, addr3, null, 24000);
+        factory.newFullTimeEmployee(
+            10, "emp10First", "emp10Last", "emp10Middle", null, addr3, null, 24000);
     emp10.setBirthdate(date(1972, 7, 5));
     emp10.setHiredate(date(2002, 10, 1));
 

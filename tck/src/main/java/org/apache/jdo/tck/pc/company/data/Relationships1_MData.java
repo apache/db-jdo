@@ -41,13 +41,13 @@ public class Relationships1_MData implements CompanyDataSource {
     IDentalInsurance dentalIns1 =
         factory.newDentalInsurance(11, "Carrier1", BigDecimal.valueOf(99.999));
     IDentalInsurance dentalIns2 =
-            factory.newDentalInsurance(12, "Carrier2", BigDecimal.valueOf(99.999));
+        factory.newDentalInsurance(12, "Carrier2", BigDecimal.valueOf(99.999));
     IDentalInsurance dentalIns3 =
-            factory.newDentalInsurance(13, "Carrier3", BigDecimal.valueOf(99.999));
+        factory.newDentalInsurance(13, "Carrier3", BigDecimal.valueOf(99.999));
     IDentalInsurance dentalIns4 =
-            factory.newDentalInsurance(14, "Carrier4", BigDecimal.valueOf(99.999));
+        factory.newDentalInsurance(14, "Carrier4", BigDecimal.valueOf(99.999));
     IDentalInsurance dentalIns5 =
-            factory.newDentalInsurance(15, "Carrier5", BigDecimal.valueOf(99.999));
+        factory.newDentalInsurance(15, "Carrier5", BigDecimal.valueOf(99.999));
 
     // Project constructors
     IProject proj1 = factory.newProject(1, "orange", BigDecimal.valueOf(2500000.99));

@@ -118,5 +118,4 @@ public class EmbeddedTestData implements CompanyDataSource {
     registry.register("proj2", proj2);
     registry.register("proj3", proj3);
   }
-
 }

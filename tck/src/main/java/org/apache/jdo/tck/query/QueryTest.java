@@ -50,8 +50,7 @@ public abstract class QueryTest extends AbstractReaderTest {
   public static final String SERIALZED_QUERY = "query.ser";
 
   /** */
-  public static final String COMPANY_TESTDATA =
-      "org.apache.jdo.tck.pc.company.data.QueryTestData";
+  public static final String COMPANY_TESTDATA = "org.apache.jdo.tck.pc.company.data.QueryTestData";
 
   /** */
   public static final String MYLIB_TESTDATA = "org.apache.jdo.tck.pc.mylib.MylibReaderTestData";

@@ -17,12 +17,11 @@
 
 package org.apache.jdo.tck.pc.company.data;
 
-import java.math.BigDecimal;
+import static org.apache.jdo.tck.pc.company.data.CompanyModelData.*;
 
+import java.math.BigDecimal;
 import org.apache.jdo.tck.pc.company.*;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
-
-import static org.apache.jdo.tck.pc.company.data.CompanyModelData.*;
 
 public class QueryTestData implements CompanyDataSource {
 
