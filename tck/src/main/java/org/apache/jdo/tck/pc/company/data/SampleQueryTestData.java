@@ -27,12 +27,7 @@ import static org.apache.jdo.tck.pc.company.data.CompanyModelData.*;
 public class SampleQueryTestData implements CompanyDataSource {
 
   @Override
-  public void initMe(CompanyFactory factory, DefaultListableInstanceFactory registry) {
-    init(factory, registry);
-  }
-
-  public static void init(
-          CompanyFactory factory, DefaultListableInstanceFactory registry) {
+  public void init(CompanyFactory factory, DefaultListableInstanceFactory registry) {
     IAddress addr1 =
             factory.newAddress(1, "Unter den Linden 1", "Berlin", "  ", "12345", "Germany");
     IAddress addr2 = factory.newAddress(2, "Broadway 1", "New York", "NY", "10000", "USA");

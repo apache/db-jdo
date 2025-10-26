@@ -28,7 +28,7 @@ public abstract class SubqueriesTest extends QueryTest {
 
   /** */
   public static final String SUBQUERIES_TEST_COMPANY_TESTDATA =
-      "org/apache/jdo/tck/pc/company/companyForSubqueriesTests.xml";
+      "org.apache.jdo.tck.pc.company.data.SubqueryTestData";
 
   /**
    * Returns the name of the company test data resource.

@@ -17,25 +17,17 @@
 
 package org.apache.jdo.tck.pc.order;
 
-import java.util.Date;
-import java.util.Locale;
-import org.apache.jdo.tck.util.ConversionHelper;
 import org.apache.jdo.tck.util.DataSource;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
-import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /** Utility class to create a graph of order model instances from an xml representation. */
 public class OrderModelReaderTestData implements DataSource<OrderFactory> {
 
   @Override
-  public void initMe(OrderFactory factory, DefaultListableInstanceFactory registry) {
-    init(factory, registry);
-  }
-
-  private void init(OrderFactory orderFactory, DefaultListableInstanceFactory registry) {
-    Order order1 = orderFactory.newOrder(1, 3);
-    OrderItem item1 = orderFactory.newOrderItem(order1, 1, "SunRay", 15);
-    OrderItem item2 = orderFactory.newOrderItem(order1, 1, "Sun Ultra 40", 3);
+  public void init(OrderFactory factory, DefaultListableInstanceFactory registry) {
+    Order order1 = factory.newOrder(1, 3);
+    OrderItem item1 = factory.newOrderItem(order1, 1, "SunRay", 15);
+    OrderItem item2 = factory.newOrderItem(order1, 1, "Sun Ultra 40", 3);
     order1.addItem(item1);
     order1.addItem(item2);
     registry.register("order1", order1);

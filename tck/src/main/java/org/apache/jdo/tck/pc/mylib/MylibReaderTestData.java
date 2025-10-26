@@ -24,11 +24,7 @@ import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 public class MylibReaderTestData implements DataSource<DefaultListableInstanceFactory> {
 
   @Override
-  public void initMe(DefaultListableInstanceFactory factory, DefaultListableInstanceFactory registry) {
-    init(registry);
-  }
-
-  public static void init(DefaultListableInstanceFactory registry) {
+  public void init(DefaultListableInstanceFactory factory, DefaultListableInstanceFactory registry) {
     PrimitiveTypes primitiveTypesPositive =
         new PrimitiveTypes(
             1L,

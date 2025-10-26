@@ -9,14 +9,14 @@ public class DefaultListableInstanceFactory {
   private final HashMap<String, Object> rootMap = new HashMap<>();
   private final List<Object> rootList = new ArrayList<>();
 
-  public synchronized Object getBean(String name) {
+  public final synchronized Object getBean(String name) {
     if ("root".equals(name)) {
       return getRootList();
     }
     return rootMap.get(name);
   }
 
-  public synchronized <T> T getBean(String name, Class<T> clazz) {
+  public final synchronized <T> T getBean(String name, Class<T> clazz) {
     return clazz.cast(getBean(name));
   }
 
@@ -25,13 +25,14 @@ public class DefaultListableInstanceFactory {
     rootList.add(obj);
   }
 
-  public synchronized List<Object> getRootList() {
+  /**
+   * Returns a list of root objects. The method expects to find a bean called "root" of type list in
+   * the xml and returns it.
+   *
+   * @return a list of root instances
+   */
+  public final synchronized List<Object> getRootList() {
     return Collections.unmodifiableList(rootList);
-  }
-
-  public synchronized void reset() {
-    rootMap.clear();
-    rootList.clear();
   }
 
   @SuppressWarnings("unchecked")
@@ -45,7 +46,8 @@ public class DefaultListableInstanceFactory {
         | InvocationTargetException
         | NoSuchMethodException
         | InstantiationException
-        | IllegalAccessException e) {
+        | IllegalAccessException
+        | NullPointerException e) {
       throw new IllegalArgumentException("Error executing test data class: " + resourceName, e);
     }
   }

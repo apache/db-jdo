@@ -17,13 +17,8 @@
 
 package org.apache.jdo.tck.pc.company;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import org.apache.jdo.tck.pc.company.data.*;
-import org.apache.jdo.tck.pc.mylib.MylibReaderTestData;
 import org.apache.jdo.tck.util.ConversionHelper;
-import org.apache.jdo.tck.util.DataSource;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
@@ -34,34 +29,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
  */
 public class CompanyModelReader extends DefaultListableInstanceFactory {
 
-  private static final long serialVersionUID = 1L;
-
-  public static final String QUERY_TEST = "org/apache/jdo/tck/pc/company/companyForQueryTests.xml";
-  public static final String MYLIB_TEST = "org/apache/jdo/tck/pc/mylib/mylibForQueryTests.xml";
-  public static final String SAMPLE_QUERIES_TEST =
-      "org/apache/jdo/tck/pc/company/companyForSampleQueriesTest.xml";
-  public static final String JDOQL_NAVIGATION_TESTS =
-      "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
-  public static final String JDOQL_SUBQUERIES_TESTS =
-      "org/apache/jdo/tck/pc/company/companyForSubqueriesTests.xml";
-
-  public static final String RELATIONSHIPS_ALL =
-      "org/apache/jdo/tck/pc/company/companyAllRelationships.xml";
-  public static final String RELATIONSHIPS_1_1 =
-      "org/apache/jdo/tck/pc/company/company1-1Relationships.xml";
-  public static final String RELATIONSHIPS_1_M =
-      "org/apache/jdo/tck/pc/company/company1-MRelationships.xml";
-  public static final String EMBEDDED = "org/apache/jdo/tck/pc/company/companyEmbedded.xml";
-  public static final String RELATIONSHIPS_M_M =
-      "org/apache/jdo/tck/pc/company/companyM-MRelationships.xml";
-  public static final String RELATIONSHIPS_NO =
-      "org/apache/jdo/tck/pc/company/companyNoRelationships.xml";
-
   /** The company factory instance. */
-  private CompanyFactory companyFactory;
-
-  /** Bean definition reader */
-  private final CompanyModelReaderOld reader;
+  private final CompanyFactory companyFactory;
 
   /**
    * Create a CompanyModelReader for the specified resourceName.
@@ -69,128 +38,14 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
    * @param resourceName the name of the resource
    */
   public CompanyModelReader(String resourceName) {
-    // Use the class loader of the Company class to find the resource
-    this(resourceName, Company.class.getClassLoader());
-  }
-
-  public CompanyModelReader(DataSource<CompanyFactory> resource) {
-    super();
-    reader = null;
-    this.reset();
-    configureFactory();
-    resource.initMe(companyFactory, this);
-  }
-
-  @SuppressWarnings("unchecked")
-  public CompanyModelReader(String resourceName, int dummy) {
-    super();
-    this.reset();
-    configureFactory();
-    reader = null;
-    getDataSource(resourceName).initMe(companyFactory, this);
-  }
-
-  /**
-   * Create a CompanyModelReader for the specified resourceName.
-   *
-   * @param resourceName the name of the resource
-   * @param classLoader the ClassLoader for the lookup
-   */
-  public CompanyModelReader(String resourceName, ClassLoader classLoader) {
-    super();
-    this.reset();
-    configureFactory();
-    reader = null;
-
-    if (!resourceName.endsWith(".xml")) {
-      getDataSource(resourceName).initMe(companyFactory, this);
-      return;
-    }
-
-    switch (resourceName) {
-      case RELATIONSHIPS_ALL:
-        RelationshipsAllData.init(companyFactory, this);
-        break;
-      case RELATIONSHIPS_1_1:
-        Relationships1_1Data.init(companyFactory, this);
-        break;
-      case RELATIONSHIPS_1_M:
-        Relationships1_MData.init(companyFactory, this);
-        break;
-      case RELATIONSHIPS_M_M:
-        RelationshipsM_MData.init(companyFactory, this);
-        break;
-      case RELATIONSHIPS_NO:
-        RelationshipsNoData.init(companyFactory, this);
-        break;
-      case EMBEDDED:
-        EmbeddedTestData.init(companyFactory, this);
-        break;
-      case JDOQL_NAVIGATION_TESTS:
-        NavigationTestData.init(companyFactory, this);
-        break;
-      case JDOQL_SUBQUERIES_TESTS:
-        SubqueryTestData.init(companyFactory, this);
-        break;
-      case QUERY_TEST:
-        QueryTestData.init(companyFactory, this);
-        break;
-      case SAMPLE_QUERIES_TEST:
-        SampleQueryTestData.init(companyFactory, this);
-        break;
-      case MYLIB_TEST:
-        // TODO use companyModelFactory!
-        new MylibReaderTestData().initMe(this, this);
-        break;
-      default:
-        //        this.reader = null;
-        System.err.println("ERROR: Not registered: " + resourceName);
-        // throw new IllegalArgumentException("Not registered: " + resourceName);
-    }
-  }
-
-  public <T> T getBean(String name, Class<T> clazz) {
-    if (reader != null) {
-      return reader.getBean(name, clazz);
-    }
-    return super.getBean(name, clazz);
-  }
-
-  /**
-   * Returns a list of root objects. The method expects to find a bean called "root" of type list in
-   * the xml and returns it.
-   *
-   * @return a list of root instances
-   */
-  public List<Object> getRootList() {
-    if (reader != null) {
-      return reader.getRootList();
-    }
-    return super.getRootList();
-  }
-
-  /**
-   * Configure the CompanyModelReader, e.g. register CustomEditor classes to convert the string
-   * representation of a property into an instance of the right type.
-   */
-  private void configureFactory() {
-    // registerCustomEditor(Date.class, JDOCustomDateEditor.class);
     companyFactory = CompanyFactoryRegistry.getInstance();
-    // addSingleton(BEAN_FACTORY_NAME, companyFactory);
+    getDataSource(resourceName).init(companyFactory, this);
   }
 
   /**
    * @return Returns the tearDownClasses.
    */
   public Class<?>[] getTearDownClassesFromFactory() {
-    if (reader != null) {
-      return reader.getTearDownClassesFromFactory();
-    }
-
-    for (Class<?> c : companyFactory.getTearDownClasses()) {
-      System.err.println("TearDownClass: " + c);
-    }
-    System.err.println("TearDownClass: " + Arrays.toString(companyFactory.getTearDownClasses()));
     return companyFactory.getTearDownClasses();
   }
 

@@ -18,5 +18,5 @@
 package org.apache.jdo.tck.util;
 
 public interface DataSource<F> {
-  void initMe(F factory, DefaultListableInstanceFactory registry);
+  void init(F factory, DefaultListableInstanceFactory registry);
 }

@@ -26,8 +26,6 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
 /** Utility class to create a graph of order model instances from an xml representation. */
 public class OrderModelReader extends DefaultListableInstanceFactory {
 
-  private static final long serialVersionUID = 1L;
-
   /** The order factory instance. */
   private OrderFactory orderFactory;
 
@@ -38,18 +36,8 @@ public class OrderModelReader extends DefaultListableInstanceFactory {
    */
   public OrderModelReader(String resourceName) {
     super();
-    configureFactory();
-    getDataSource(resourceName).initMe(orderFactory, this);
-  }
-
-  /**
-   * Configure the OrderModelReader, e.g. register CustomEditor classes to convert the string
-   * representation of a property into an instance of the right type.
-   */
-  private void configureFactory() {
-    // registerCustomEditor(Date.class, JDOCustomDateEditor.class);
     orderFactory = OrderFactoryRegistry.getInstance();
-    // addSingleton(BEAN_FACTORY_NAME, orderFactory);
+    getDataSource(resourceName).init(orderFactory, this);
   }
 
   // Convenience methods
