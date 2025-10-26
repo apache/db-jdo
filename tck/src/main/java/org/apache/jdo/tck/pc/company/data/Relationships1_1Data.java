@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.pc.company.data;
 
-import static org.apache.jdo.tck.pc.company.data.CompanyModelData.*;
+import static org.apache.jdo.tck.util.DataSourceUtil.*;
 
 import java.math.BigDecimal;
 import org.apache.jdo.tck.pc.company.*;

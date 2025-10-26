@@ -19,7 +19,6 @@ package org.apache.jdo.tck.pc.order;
 
 import java.io.Serializable;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Set;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
@@ -29,7 +28,7 @@ public class Order implements Serializable, Comparable<Order>, Comparator<Order>
   private static final long serialVersionUID = 1L;
 
   long orderId;
-  Set<OrderItem> items = new HashSet<>();
+  Set<OrderItem> items;
   long customerId;
 
   public Order() {}
@@ -67,10 +66,6 @@ public class Order implements Serializable, Comparable<Order>, Comparator<Order>
 
   public void setCustomerId(long customerId) {
     this.customerId = customerId;
-  }
-
-  public void addItem(OrderItem item) {
-    items.add(item);
   }
 
   /**

@@ -15,12 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.tck.pc.company.data;
+package org.apache.jdo.tck.util;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public interface CompanyModelData {
+public interface DataSourceUtil {
 
   static Date date(int y, int m, int d) {
     return new GregorianCalendar(y, m - 1, d, 0, 0, 0).getTime();
@@ -35,6 +36,14 @@ public interface CompanyModelData {
     Map<String, String> map = new HashMap<>();
     for (int i = 0; i < objs.length; i += 2) {
       map.put(objs[i], objs[i + 1]);
+    }
+    return map;
+  }
+
+  static <K, V> Map<K, V> toMap(Function<V, K> keyFn, V... objs) {
+    Map<K, V> map = new HashMap<>();
+    for (int i = 0; i < objs.length; i++) {
+      map.put(keyFn.apply(objs[i]), objs[i]);
     }
     return map;
   }

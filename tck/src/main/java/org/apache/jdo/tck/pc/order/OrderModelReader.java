@@ -35,7 +35,6 @@ public class OrderModelReader extends DefaultListableInstanceFactory {
    * @param resourceName the name of the resource
    */
   public OrderModelReader(String resourceName) {
-    super();
     orderFactory = OrderFactoryRegistry.getInstance();
     getDataSource(resourceName).init(orderFactory, this);
   }

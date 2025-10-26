@@ -21,7 +21,7 @@ import org.apache.jdo.tck.util.DataSource;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
 /** Utility class to create a mylib instances for unit tests. */
-public class MylibReaderTestData implements DataSource<DefaultListableInstanceFactory> {
+public class MylibTestData implements DataSource<DefaultListableInstanceFactory> {
 
   @Override
   public void init(

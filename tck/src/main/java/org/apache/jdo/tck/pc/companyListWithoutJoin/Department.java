@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.pc.companyListWithoutJoin;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import org.apache.jdo.tck.util.DeepEquality;
@@ -155,10 +154,7 @@ public class Department
    *
    * @param emp The employee to add to the department.
    */
-  public void addEmployee(IEmployee emp) {
-    if (employees == null) {
-      employees = new ArrayList<>();
-    }
+  public void addEmployee(Employee emp) {
     employees.add(emp);
   }
 

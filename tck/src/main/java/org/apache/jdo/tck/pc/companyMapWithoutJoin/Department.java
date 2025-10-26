@@ -19,7 +19,6 @@ package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
 import java.io.Serializable;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Map;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
@@ -176,13 +175,6 @@ public class Department
    */
   public void setRoles(Map<String, IEmployee> roles) {
     this.roles = roles;
-  }
-
-  public void add(IEmployee emp) {
-    if (roles == null) {
-      roles = new HashMap<>();
-    }
-    roles.put(emp.getRole(), emp);
   }
 
   /**

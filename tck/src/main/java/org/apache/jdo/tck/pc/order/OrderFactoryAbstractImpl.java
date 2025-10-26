@@ -59,7 +59,6 @@ public abstract class OrderFactoryAbstractImpl implements OrderFactory {
     return result;
   }
 
-  @Deprecated // TODO (TZ) remove
   public Order newOrder(long orderId, Set<OrderItem> items, long customerId) {
     Order result = newOrder();
     result.setOrderId(orderId);

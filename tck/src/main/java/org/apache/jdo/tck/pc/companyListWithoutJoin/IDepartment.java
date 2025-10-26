@@ -40,6 +40,4 @@ public interface IDepartment {
   void setCompany(ICompany company);
 
   void setEmployees(List<IEmployee> employees);
-
-  void addEmployee(IEmployee emp);
 }

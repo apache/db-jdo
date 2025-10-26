@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.pc.company.data;
 
-import static org.apache.jdo.tck.pc.company.data.CompanyModelData.*;
+import static org.apache.jdo.tck.util.DataSourceUtil.*;
 
 import org.apache.jdo.tck.pc.company.*;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;

@@ -33,7 +33,7 @@ public class MylibReader extends DefaultListableInstanceFactory {
    */
   public MylibReader(String resourceName) {
     super();
-    new MylibReaderTestData().init(this, this);
+    new MylibTestData().init(this, this);
   }
 
   // Convenience methods

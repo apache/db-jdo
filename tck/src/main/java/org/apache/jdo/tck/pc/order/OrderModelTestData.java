@@ -17,19 +17,20 @@
 
 package org.apache.jdo.tck.pc.order;
 
+import static org.apache.jdo.tck.util.DataSourceUtil.*;
+
 import org.apache.jdo.tck.util.DataSource;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
-/** Utility class to create a graph of order model instances from an xml representation. */
-public class OrderModelReaderTestData implements DataSource<OrderFactory> {
+/** Utility class to create a graph of order model instances. */
+public class OrderModelTestData implements DataSource<OrderFactory> {
 
   @Override
   public void init(OrderFactory factory, DefaultListableInstanceFactory registry) {
     Order order1 = factory.newOrder(1, 3);
     OrderItem item1 = factory.newOrderItem(order1, 1, "SunRay", 15);
     OrderItem item2 = factory.newOrderItem(order1, 1, "Sun Ultra 40", 3);
-    order1.addItem(item1);
-    order1.addItem(item2);
+    order1.setItems(toSet(item1, item2));
     registry.register("order1", order1);
   }
 }
