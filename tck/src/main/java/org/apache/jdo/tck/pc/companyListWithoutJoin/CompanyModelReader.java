@@ -63,9 +63,7 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
     init();
   }
 
-  /**
-   * Company instances for CompletenessTest with Map without join table.
-   */
+  /** Company instances for CompletenessTest with Map without join table. */
   private void init() {
     ICompany company1 =
         companyFactory.newCompany(1L, "Sun Microsystems, Inc.", new Date(1952, 4, 11, 0, 0, 0));
