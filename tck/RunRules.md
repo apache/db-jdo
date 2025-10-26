@@ -91,10 +91,6 @@ files:
     -   `src` - this directory contains the test configuration files and
         directories:
 
-        -   `testdata` - this directory contains data (represented as .xml
-            files) loaded into the datastore for tests. These files must
-            not be modified.
-
         -   `sql` - this directory contains DDL to define the tables used
             in the tests. The files distributed must not be modified.
             Files may be created for databases for which the DDL for the

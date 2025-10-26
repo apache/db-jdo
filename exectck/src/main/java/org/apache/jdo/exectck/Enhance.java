@@ -137,7 +137,7 @@ public class Enhance extends AbstractTCKMojo {
     }
 
     String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};
-    String[] srcDirs = {"jdo", "orm", "testdata"};
+    String[] srcDirs = {"jdo", "orm"};
     String classesDirName = buildDirectory + File.separator + "classes" + File.separator;
 
     // Copy metadata from src to enhanced
@@ -207,13 +207,6 @@ public class Enhance extends AbstractTCKMojo {
           // fully specified name of file (idtype + package + filename)
           String pkgName = fromFileName.substring(startIdx);
           File toFile = new File(enhancedDirName + File.separator + pkgName);
-          toFileName = toFile.toString();
-          FileUtils.copyFile(fromFile, toFile);
-        } else if (srcDir.equals("testdata")) {
-          startIdx = fromFileName.indexOf("org" + File.separator);
-          String pkgName = fromFileName.substring(startIdx);
-          File toFile =
-              new File(enhancedDirName + File.separator + idType + File.separator + pkgName);
           toFileName = toFile.toString();
           FileUtils.copyFile(fromFile, toFile);
         } else {

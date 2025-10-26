@@ -93,9 +93,6 @@
                 <directory>${basedir}/src/main/resources/sql</directory>
             </resource>
             <resource>
-                <directory>${basedir}/src/main/resources/testdata</directory>
-            </resource>
-            <resource>
                 <directory>${basedir}/src/main/resources/meta</directory>
             </resource>
         </resources>
