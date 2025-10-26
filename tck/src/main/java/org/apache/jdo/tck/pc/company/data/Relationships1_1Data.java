@@ -23,7 +23,12 @@ import java.math.BigDecimal;
 import org.apache.jdo.tck.pc.company.*;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
-public class Relationships1_1Data {
+public class Relationships1_1Data implements CompanyDataSource {
+
+  @Override
+  public void initMe(CompanyFactory factory, DefaultListableInstanceFactory registry) {
+    init(factory, registry);
+  }
 
   public static void init(
           CompanyFactory factory, DefaultListableInstanceFactory registry) {

@@ -21,10 +21,9 @@ import static org.apache.jdo.tck.pc.company.data.CompanyModelData.*;
 
 import java.math.BigDecimal;
 import org.apache.jdo.tck.pc.company.*;
-import org.apache.jdo.tck.util.DataSource;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
-public class EmbeddedTestData implements DataSource<CompanyFactory> {
+public class EmbeddedTestData implements CompanyDataSource {
 
   @Override
   public void initMe(CompanyFactory factory, DefaultListableInstanceFactory registry) {

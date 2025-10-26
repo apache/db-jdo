@@ -23,9 +23,14 @@ import java.math.BigDecimal;
 import org.apache.jdo.tck.pc.company.*;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
-public class NavigationTestData {
+public class NavigationTestData implements CompanyDataSource {
 
-  public static void initNavigationTest(
+  @Override
+  public void initMe(CompanyFactory factory, DefaultListableInstanceFactory registry) {
+    init(factory, registry);
+  }
+
+  public static void init(
           CompanyFactory factory, DefaultListableInstanceFactory registry) {
     IAddress addr1 =
         factory.newAddress(1, "Unter den Linden 1", "Berlin", "  ", "12345", "Germany");

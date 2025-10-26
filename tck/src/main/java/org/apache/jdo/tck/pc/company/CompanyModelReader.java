@@ -21,7 +21,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import org.apache.jdo.tck.pc.company.data.*;
-import org.apache.jdo.tck.pc.mylib.MylibReader;
+import org.apache.jdo.tck.pc.mylib.MylibReaderTestData;
 import org.apache.jdo.tck.util.ConversionHelper;
 import org.apache.jdo.tck.util.DataSource;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
@@ -73,24 +73,21 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
     this(resourceName, Company.class.getClassLoader());
   }
 
+  public CompanyModelReader(DataSource<CompanyFactory> resource) {
+    super();
+    reader = null;
+    this.reset();
+    configureFactory();
+    resource.initMe(companyFactory, this);
+  }
+
+  @SuppressWarnings("unchecked")
   public CompanyModelReader(String resourceName, int dummy) {
     super();
     this.reset();
     configureFactory();
     reader = null;
-    try {
-      Class<DataSource<CompanyFactory>> cls =
-          (Class<DataSource<CompanyFactory>>) Class.forName(resourceName);
-      Constructor<DataSource<CompanyFactory>> cstr = cls.getConstructor();
-      DataSource<CompanyFactory> ds = cstr.newInstance();
-      ds.initMe(companyFactory, this);
-    } catch (ClassNotFoundException
-        | InvocationTargetException
-        | NoSuchMethodException
-        | InstantiationException
-        | IllegalAccessException e) {
-      throw new IllegalArgumentException(e);
-    }
+    getDataSource(resourceName).initMe(companyFactory, this);
   }
 
   /**
@@ -104,6 +101,11 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
     this.reset();
     configureFactory();
     reader = null;
+
+    if (!resourceName.endsWith(".xml")) {
+      getDataSource(resourceName).initMe(companyFactory, this);
+      return;
+    }
 
     switch (resourceName) {
       case RELATIONSHIPS_ALL:
@@ -125,20 +127,20 @@ public class CompanyModelReader extends DefaultListableInstanceFactory {
         EmbeddedTestData.init(companyFactory, this);
         break;
       case JDOQL_NAVIGATION_TESTS:
-        NavigationTestData.initNavigationTest(companyFactory, this);
+        NavigationTestData.init(companyFactory, this);
         break;
       case JDOQL_SUBQUERIES_TESTS:
-        SubqueryTestData.initSubqueryTest(companyFactory, this);
+        SubqueryTestData.init(companyFactory, this);
         break;
       case QUERY_TEST:
-        QueryTestData.initQueryTest(companyFactory, this);
+        QueryTestData.init(companyFactory, this);
         break;
       case SAMPLE_QUERIES_TEST:
-        SampleQueryTestData.initSampleQueryTest(companyFactory, this);
+        SampleQueryTestData.init(companyFactory, this);
         break;
       case MYLIB_TEST:
         // TODO use companyModelFactory!
-        MylibReader.init(this);
+        new MylibReaderTestData().initMe(this, this);
         break;
       default:
         //        this.reader = null;

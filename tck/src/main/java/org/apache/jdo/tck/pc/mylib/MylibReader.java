@@ -19,13 +19,10 @@ package org.apache.jdo.tck.pc.mylib;
 
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
-/** Utility class to create a mylib instances from an xml representation. */
+/** Utility class to create mylib test data instances. */
 public class MylibReader extends DefaultListableInstanceFactory {
 
-  private static final long serialVersionUID = 1L;
-
   /** Teardown classes */
-  @SuppressWarnings("rawtypes")
   private static final Class<?>[] tearDownClasses =
       new Class[] {PrimitiveTypes.class, PCClass.class};
 
@@ -36,51 +33,7 @@ public class MylibReader extends DefaultListableInstanceFactory {
    */
   public MylibReader(String resourceName) {
     super();
-    init(this);
-  }
-
-  public static void init(DefaultListableInstanceFactory factory) {
-    System.err.println("MyLibReader2.init()");
-    PrimitiveTypes primitiveTypesPositive =
-        new PrimitiveTypes(
-            1L,
-            false,
-            null,
-            (byte) 0,
-            null,
-            (short) 0,
-            null,
-            4,
-            4,
-            4,
-            Long.valueOf(4),
-            4.0f,
-            4.0f,
-            4.0,
-            4.0,
-            (char) 0,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null);
-    PrimitiveTypes primitiveTypesNegative =
-        new PrimitiveTypes(
-            2L, false, null, (byte) 0, null, (short) 0, null, -4, -4, -4, -4L, -4.0f, -4.0f, -4.0,
-            -4.0, (char) 0, null, null, null, null, null, null);
-    PCClass pcClass1 = new PCClass(1, 10, 10, 0, 0);
-    PCClass pcClass2 = new PCClass(2, 20, 20, 0, 0);
-    PrimitiveTypes primitiveTypesCharacterStringLiterals =
-        new PrimitiveTypes(
-            3, false, null, (byte) 0, null, (short) 0, null, 0, null, 0, null, 0, null, 0, null,
-            (char) 0, (char) 0, null, "Even", null, null, null);
-
-    factory.register("primitiveTypesPositive", primitiveTypesPositive);
-    factory.register("primitiveTypesNegative", primitiveTypesNegative);
-    factory.register("pcClass1", pcClass1);
-    factory.register("pcClass2", pcClass2);
-    factory.register("primitiveTypesCharacterStringLiterals", primitiveTypesCharacterStringLiterals);
+    new MylibReaderTestData().initMe(this, this);
   }
 
   // Convenience methods
@@ -90,7 +43,7 @@ public class MylibReader extends DefaultListableInstanceFactory {
    * <code>null</code> if there is no Address bean with the specified name.
    *
    * @param name the name of the bean to return.
-   * @return the instance of the bean or <code>null</code> if there no Address bean.
+   * @return the instance of the bean or <code>null</code> if there is no Address bean.
    */
   public PrimitiveTypes getPrimitiveTypes(String name) {
     return getBean(name, PrimitiveTypes.class);

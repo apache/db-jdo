@@ -24,9 +24,14 @@ import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
 import static org.apache.jdo.tck.pc.company.data.CompanyModelData.*;
 
-public class QueryTestData {
+public class QueryTestData implements CompanyDataSource {
 
-  public static void initQueryTest(
+  @Override
+  public void initMe(CompanyFactory factory, DefaultListableInstanceFactory registry) {
+    init(factory, registry);
+  }
+
+  public static void init(
           CompanyFactory factory, DefaultListableInstanceFactory registry) {
     IAddress addr1 =
         factory.newAddress(1, "Unter den Linden 1", "Berlin", "  ", "12345", "Germany");

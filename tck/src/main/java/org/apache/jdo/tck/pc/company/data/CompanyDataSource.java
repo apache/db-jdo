@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.tck.util;
+package org.apache.jdo.tck.pc.company.data;
 
-public interface DataSource<F> {
-  void initMe(F factory, DefaultListableInstanceFactory registry);
-}
+import org.apache.jdo.tck.pc.company.CompanyFactory;
+import org.apache.jdo.tck.util.DataSource;
+
+public interface CompanyDataSource extends DataSource<CompanyFactory> {}
