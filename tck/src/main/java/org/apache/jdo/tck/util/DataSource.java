@@ -17,6 +17,26 @@
 
 package org.apache.jdo.tck.util;
 
+/**
+ * Common interface for classes that generate data for tests.
+ *
+ * @param <F> Factory class.
+ */
 public interface DataSource<F> {
+  /**
+   * Implementations should generate test data objects and register them with the registry.
+   *
+   * <p>The "init()" Methods are usually structured as follows:<br>
+   * - Creation of all instances, using the factory if one is available.<br>
+   * - Setting of all properties of all instances.<br>
+   * - Registration of instance with names (root names and bean names) insofar as it is required by
+   * the tests.<br>
+   *
+   * <p>The test class name is usually given as argument to the constructor of the factory class.
+   * Often the name is read from the "org.tck.testdata" property in the config files.
+   *
+   * @param factory Factory instance. May be "null" if no factory is used.
+   * @param registry Registry for named objects (formerly "roots" and "beans").
+   */
   void init(F factory, DefaultListableInstanceFactory registry);
 }
