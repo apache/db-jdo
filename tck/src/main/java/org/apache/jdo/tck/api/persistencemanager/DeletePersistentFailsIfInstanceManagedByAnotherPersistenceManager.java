@@ -92,7 +92,7 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
 
       pcPointArray = new PCPoint[2];
       pcPointArray[0] = p4;
-      pcPointArray[0] = p5;
+      pcPointArray[1] = p5;
       tx.commit();
     } finally {
       if ((tx != null) && tx.isActive()) tx.rollback();
@@ -145,7 +145,7 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager
       tx.begin();
 
       try {
-        pm.deletePersistentAll(pcPointArray);
+        pm.deletePersistentAll((Object[]) pcPointArray);
         fail(
             ASSERTION_FAILED,
             "pm.deletePersistent(Object[]) with pc instance(s) managed by another pm should throw exception");

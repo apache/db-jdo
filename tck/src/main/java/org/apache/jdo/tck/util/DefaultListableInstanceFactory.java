@@ -37,7 +37,6 @@ public class DefaultListableInstanceFactory {
 
   @SuppressWarnings("unchecked")
   public static <F> DataSource<F> getDataSource(String resourceName) {
-    System.err.println("Instantiating data class: " + resourceName);
     try {
       Class<DataSource<F>> cls = (Class<DataSource<F>>) Class.forName(resourceName);
       Constructor<DataSource<F>> cstr = cls.getConstructor();

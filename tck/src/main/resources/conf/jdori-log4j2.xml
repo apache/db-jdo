@@ -41,16 +41,7 @@
     <Logger name="org.apache.jdo.tck" level="info" additivity="false">
       <AppenderRef ref="TCK"/>
     </Logger>
-    <Logger name="org.springframework" level="error" additivity="false">
-      <AppenderRef ref="TCK"/>
-    </Logger>
-    <Logger name="org.apache.jdo.tck.pc.company.CompanyModelReader" level="error" additivity="false">
-      <AppenderRef ref="TCK"/>
-    </Logger>
-    <Logger name="org.apache.jdo.tck.pc.mylib.MylibReader" level="error" additivity="false">
-      <AppenderRef ref="TCK"/>
-    </Logger>
-     
+
      <!-- DataNucleus Loggers -->
 
     <Logger name="DataNucleus" level="warn" additivity="false">

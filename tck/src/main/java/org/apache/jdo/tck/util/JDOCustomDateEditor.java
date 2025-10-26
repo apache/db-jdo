@@ -19,20 +19,16 @@ package org.apache.jdo.tck.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 
-public class JDOCustomDateEditor extends CustomDateEditor {
+public class JDOCustomDateEditor {
 
   /** The format of date values in the xml representation */
   public static final String DATE_PATTERN = "d/MMM/yyyy";
 
-  public JDOCustomDateEditor() {
-    super(new SimpleDateFormat(DATE_PATTERN, Locale.US), true);
-  }
+  private JDOCustomDateEditor() {}
 
   /**
-   * Redturs a string representation of the specified date using DATE_PATTERN as date formatter
+   * Returns a string representation of the specified date using DATE_PATTERN as date formatter
    * pattern.
    *
    * @param date the date

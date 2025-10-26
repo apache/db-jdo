@@ -25,7 +25,6 @@ import java.util.Map;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.LegacyJava;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 /*
  * Abstract class for managed relationship tests
@@ -43,22 +42,6 @@ public abstract class AbstractReaderTest extends JDO_Test {
 
   /** The map of String (bean name) to Object (bean). */
   protected final Map<String, Object> oidMap = new HashMap<>();
-
-  /**
-   * Get the named bean from the bean factory.
-   *
-   * @param factory the bean factory
-   * @param name the name of the bean
-   * @return the named object
-   */
-  protected Object getBean(final DefaultListableBeanFactory factory, final String name) {
-    return doPrivileged(() -> factory.getBean(name));
-  }
-
-  protected <T> T getBean(
-      final DefaultListableBeanFactory factory, Class<T> clazz, final String name) {
-    return doPrivileged(() -> factory.getBean(name, clazz));
-  }
 
   /**
    * Get the named bean from the bean factory.
@@ -86,17 +69,6 @@ public abstract class AbstractReaderTest extends JDO_Test {
       }
       throw new JDOFatalInternalException(e.getMessage());
     }
-  }
-
-  /**
-   * Get the root object from the bean factory.
-   *
-   * @param factory the bean factory
-   * @return the List of objects
-   */
-  @SuppressWarnings("unchecked")
-  protected List<Object> getRootList(DefaultListableBeanFactory factory) {
-    return (List<Object>) getBean(factory, ROOT_NAME);
   }
 
   /**
