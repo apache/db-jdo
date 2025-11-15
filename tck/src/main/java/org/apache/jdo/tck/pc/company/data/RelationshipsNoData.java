@@ -17,10 +17,20 @@
 
 package org.apache.jdo.tck.pc.company.data;
 
-import static org.apache.jdo.tck.util.DataSourceUtil.*;
+import static org.apache.jdo.tck.util.DataSourceUtil.date;
+import static org.apache.jdo.tck.util.DataSourceUtil.toSet;
 
 import java.math.BigDecimal;
-import org.apache.jdo.tck.pc.company.*;
+
+import org.apache.jdo.tck.pc.company.CompanyFactory;
+import org.apache.jdo.tck.pc.company.IAddress;
+import org.apache.jdo.tck.pc.company.ICompany;
+import org.apache.jdo.tck.pc.company.IDentalInsurance;
+import org.apache.jdo.tck.pc.company.IDepartment;
+import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
+import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
+import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
 public class RelationshipsNoData implements CompanyDataSource {

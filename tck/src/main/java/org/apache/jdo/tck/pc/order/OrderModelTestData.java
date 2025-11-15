@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.pc.order;
 
-import static org.apache.jdo.tck.util.DataSourceUtil.*;
+import static org.apache.jdo.tck.util.DataSourceUtil.toSet;
 
 import org.apache.jdo.tck.util.DataSource;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;

@@ -17,7 +17,9 @@
 
 package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
-import static org.apache.jdo.tck.util.DataSourceUtil.*;
+import static org.apache.jdo.tck.util.DataSourceUtil.date;
+import static org.apache.jdo.tck.util.DataSourceUtil.toMap;
+import static org.apache.jdo.tck.util.DataSourceUtil.toSet;
 
 import org.apache.jdo.tck.util.DataSource;
 import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
