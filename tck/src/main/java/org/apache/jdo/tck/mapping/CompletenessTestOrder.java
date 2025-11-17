@@ -48,7 +48,7 @@ public class CompletenessTestOrder extends AbstractReaderTest {
     if (runsWithApplicationIdentity()) {
       getPM();
       OrderFactoryRegistry.registerFactory(pm);
-      OrderModelReader reader = new OrderModelReader(inputFilename);
+      OrderModelReader reader = new OrderModelReader(inputClassname);
       addTearDownClass(reader.getTearDownClassesFromFactory());
       // persist test data
       pm.currentTransaction().begin();
@@ -70,7 +70,7 @@ public class CompletenessTestOrder extends AbstractReaderTest {
       // register the default factory
       OrderFactoryRegistry.registerFactory();
       // get new obj graph to compare persistent graph with
-      OrderModelReader reader = new OrderModelReader(inputFilename);
+      OrderModelReader reader = new OrderModelReader(inputClassname);
       List<Object> rootList = getRootList(reader);
 
       getPM();
