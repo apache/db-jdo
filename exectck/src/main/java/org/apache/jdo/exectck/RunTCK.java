@@ -103,7 +103,7 @@ public class RunTCK extends AbstractTCKMojo {
   private String cleanupaftertest;
 
   /** JVM properties. */
-  @Parameter(property = "jdo.tck.jvmproperties", defaultValue = "-Xmx4G")
+  @Parameter(property = "jdo.tck.jvmproperties", defaultValue = "-Xmx1g")
   private String jvmproperties;
 
   /** Location of tck log file. */

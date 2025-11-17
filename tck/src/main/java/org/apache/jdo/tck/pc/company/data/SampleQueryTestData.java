@@ -23,7 +23,6 @@ import static org.apache.jdo.tck.util.DataSourceUtil.toMap;
 import static org.apache.jdo.tck.util.DataSourceUtil.toSet;
 
 import java.math.BigDecimal;
-
 import org.apache.jdo.tck.pc.company.CompanyFactory;
 import org.apache.jdo.tck.pc.company.IAddress;
 import org.apache.jdo.tck.pc.company.ICompany;
