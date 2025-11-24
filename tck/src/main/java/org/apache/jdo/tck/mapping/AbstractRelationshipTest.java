@@ -44,7 +44,7 @@ public class AbstractRelationshipTest extends AbstractReaderTest {
     if (isTestToBePerformed()) {
       getPM();
       CompanyFactoryRegistry.registerFactory(pm);
-      reader = new CompanyModelReader(inputFilename);
+      reader = new CompanyModelReader(inputClassname);
       addTearDownClass(reader.getTearDownClassesFromFactory());
       // persist test data
       pm.currentTransaction().begin();

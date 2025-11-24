@@ -48,7 +48,7 @@ public class CompletenessTestMap extends AbstractReaderTest {
     if (isTestToBePerformed) {
       getPM();
       CompanyFactoryRegistry.registerFactory(pm);
-      CompanyModelReader reader = new CompanyModelReader(inputFilename);
+      CompanyModelReader reader = new CompanyModelReader(inputClassname);
       addTearDownClass(reader.getTearDownClassesFromFactory());
       // persist test data
       pm.currentTransaction().begin();
@@ -70,7 +70,7 @@ public class CompletenessTestMap extends AbstractReaderTest {
       // register the default factory
       CompanyFactoryRegistry.registerFactory();
       // get new obj graph to compare persistent graph with
-      CompanyModelReader reader = new CompanyModelReader(inputFilename);
+      CompanyModelReader reader = new CompanyModelReader(inputClassname);
       List<Object> rootList = getRootList(reader);
 
       getPM();

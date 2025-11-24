@@ -43,7 +43,7 @@ public class NavigationThroughACollectionField extends QueryTest {
 
   /** */
   public static final String NAVIGATION_TEST_COMPANY_TESTDATA =
-      "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
+      "org.apache.jdo.tck.pc.company.data.NavigationTestData";
 
   /**
    * Returns the name of the company test data resource.

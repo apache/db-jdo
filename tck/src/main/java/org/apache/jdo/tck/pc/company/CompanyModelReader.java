@@ -18,34 +18,20 @@
 package org.apache.jdo.tck.pc.company;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import org.apache.jdo.tck.util.ConversionHelper;
+import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.core.io.ClassPathResource;
 
 /**
  * Utility class to create a graph of company model instances from an xml representation.
  *
  * @author Michael Bouschen
  */
-public class CompanyModelReader extends DefaultListableBeanFactory {
-
-  private static final long serialVersionUID = 1L;
-
-  /** The name of the root list bean. */
-  public static final String ROOT_LIST_NAME = "root";
-
-  /** The bean-factory name in the xml input files. */
-  public static final String BEAN_FACTORY_NAME = "companyFactory";
+public class CompanyModelReader extends DefaultListableInstanceFactory {
 
   /** The company factory instance. */
-  private CompanyFactory companyFactory;
-
-  /** Bean definition reader */
-  private final XmlBeanDefinitionReader reader;
+  private final CompanyFactory companyFactory;
 
   /**
    * Create a CompanyModelReader for the specified resourceName.
@@ -53,42 +39,8 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
    * @param resourceName the name of the resource
    */
   public CompanyModelReader(String resourceName) {
-    // Use the class loader of the Company class to find the resource
-    this(resourceName, Company.class.getClassLoader());
-  }
-
-  /**
-   * Create a CompanyModelReader for the specified resourceName.
-   *
-   * @param resourceName the name of the resource
-   * @param classLoader the ClassLoader for the lookup
-   */
-  public CompanyModelReader(String resourceName, ClassLoader classLoader) {
-    super();
-    configureFactory();
-    this.reader = new XmlBeanDefinitionReader(this);
-    this.reader.loadBeanDefinitions(new ClassPathResource(resourceName, classLoader));
-  }
-
-  /**
-   * Returns a list of root objects. The method expects to find a bean called "root" of type list in
-   * the xml and returns it.
-   *
-   * @return a list of root instances
-   */
-  @SuppressWarnings("unchecked")
-  public List<Object> getRootList() {
-    return (List<Object>) getBean(ROOT_LIST_NAME);
-  }
-
-  /**
-   * Configure the CompanyModelReader, e.g. register CustomEditor classes to convert the string
-   * representation of a property into an instance of the right type.
-   */
-  private void configureFactory() {
-    registerCustomEditor(Date.class, JDOCustomDateEditor.class);
     companyFactory = CompanyFactoryRegistry.getInstance();
-    addSingleton(BEAN_FACTORY_NAME, companyFactory);
+    getDataSource(resourceName).init(companyFactory, this);
   }
 
   /**

@@ -18,30 +18,16 @@
 package org.apache.jdo.tck.pc.order;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import org.apache.jdo.tck.util.ConversionHelper;
+import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.core.io.ClassPathResource;
 
 /** Utility class to create a graph of order model instances from an xml representation. */
-public class OrderModelReader extends DefaultListableBeanFactory {
-
-  private static final long serialVersionUID = 1L;
-
-  /** The name of the root list bean. */
-  public static final String ROOT_LIST_NAME = "root";
-
-  /** The bean-factory name in the xml input files. */
-  public static final String BEAN_FACTORY_NAME = "orderFactory";
+public class OrderModelReader extends DefaultListableInstanceFactory {
 
   /** The order factory instance. */
   private OrderFactory orderFactory;
-
-  /** Bean definition reader */
-  private final XmlBeanDefinitionReader reader;
 
   /**
    * Create a OrderModelReader for the specified resourceName.
@@ -49,42 +35,8 @@ public class OrderModelReader extends DefaultListableBeanFactory {
    * @param resourceName the name of the resource
    */
   public OrderModelReader(String resourceName) {
-    // Use the class loader of the Order class to find the resource
-    this(resourceName, Order.class.getClassLoader());
-  }
-
-  /**
-   * Create a OrderModelReader for the specified resourceName.
-   *
-   * @param resourceName the name of the resource
-   * @param classLoader the ClassLOader for the lookup
-   */
-  public OrderModelReader(String resourceName, ClassLoader classLoader) {
-    super();
-    configureFactory();
-    this.reader = new XmlBeanDefinitionReader(this);
-    this.reader.loadBeanDefinitions(new ClassPathResource(resourceName, classLoader));
-  }
-
-  /**
-   * Returns a list of root objects. The method expects to find a bean called "root" of type list in
-   * the xml and returns it.
-   *
-   * @return a list of root instances
-   */
-  @SuppressWarnings("unchecked")
-  public List<Object> getRootList() {
-    return (List<Object>) getBean(ROOT_LIST_NAME);
-  }
-
-  /**
-   * Configure the OrderModelReader, e.g. register CustomEditor classes to convert the string
-   * representation of a property into an instance of the right type.
-   */
-  private void configureFactory() {
-    registerCustomEditor(Date.class, JDOCustomDateEditor.class);
     orderFactory = OrderFactoryRegistry.getInstance();
-    addSingleton(BEAN_FACTORY_NAME, orderFactory);
+    getDataSource(resourceName).init(orderFactory, this);
   }
 
   // Convenience methods

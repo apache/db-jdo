@@ -50,11 +50,10 @@ public abstract class QueryTest extends AbstractReaderTest {
   public static final String SERIALZED_QUERY = "query.ser";
 
   /** */
-  public static final String COMPANY_TESTDATA =
-      "org/apache/jdo/tck/pc/company/companyForQueryTests.xml";
+  public static final String COMPANY_TESTDATA = "org.apache.jdo.tck.pc.company.data.QueryTestData";
 
   /** */
-  public static final String MYLIB_TESTDATA = "org/apache/jdo/tck/pc/mylib/mylibForQueryTests.xml";
+  public static final String MYLIB_TESTDATA = "org.apache.jdo.tck.pc.mylib.MylibTestData";
 
   /** List of inserted instances (see methods insertPCPoints and getFromInserted). */
   protected final List<PCPoint> persistentPCPoints = new ArrayList<>();

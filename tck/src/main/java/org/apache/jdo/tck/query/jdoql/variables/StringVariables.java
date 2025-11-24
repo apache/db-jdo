@@ -49,7 +49,7 @@ public class StringVariables extends QueryTest {
 
   /** */
   private static final String SAMPLE_QUERIES_TEST_COMPANY_TESTDATA =
-      "org/apache/jdo/tck/pc/company/companyForSampleQueriesTest.xml";
+      "org.apache.jdo.tck.pc.company.data.SampleQueryTestData";
 
   private static final String COLLECTION_STRING_VARIABLE_SSQ =
       "select from org.apache.jdo.tck.pc.company.FullTimeEmployee "

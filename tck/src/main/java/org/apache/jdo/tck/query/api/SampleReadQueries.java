@@ -74,7 +74,7 @@ public class SampleReadQueries extends QueryTest {
 
   /** */
   private static final String SAMPLE_QUERIES_TEST_COMPANY_TESTDATA =
-      "org/apache/jdo/tck/pc/company/companyForSampleQueriesTest.xml";
+      "org.apache.jdo.tck.pc.company.data.SampleQueryTestData";
 
   private static final String SINGLE_STRING_QUERY_01 =
       "select from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > 30000";

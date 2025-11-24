@@ -17,28 +17,14 @@
 
 package org.apache.jdo.tck.pc.mylib;
 
-import java.util.Date;
-import java.util.List;
-import org.apache.jdo.tck.util.JDOCustomDateEditor;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.core.io.ClassPathResource;
+import org.apache.jdo.tck.util.DefaultListableInstanceFactory;
 
-/** Utility class to create a mylib instances from an xml representation. */
-public class MylibReader extends DefaultListableBeanFactory {
-
-  private static final long serialVersionUID = 1L;
-
-  /** The name of the root list bean. */
-  public static final String ROOT_LIST_NAME = "root";
+/** Utility class to create mylib test data instances. */
+public class MylibReader extends DefaultListableInstanceFactory {
 
   /** Teardown classes */
-  @SuppressWarnings("rawtypes")
   private static final Class<?>[] tearDownClasses =
       new Class[] {PrimitiveTypes.class, PCClass.class};
-
-  /** Bean definition reader */
-  private final XmlBeanDefinitionReader reader;
 
   /**
    * Create a MylibReader for the specified resourceName.
@@ -46,40 +32,8 @@ public class MylibReader extends DefaultListableBeanFactory {
    * @param resourceName the name of the resource
    */
   public MylibReader(String resourceName) {
-    // Use the class loader of the PrimitiveTypes class to find the resource
-    this(resourceName, PrimitiveTypes.class.getClassLoader());
-  }
-
-  /**
-   * Create a MylibReader for the specified resourceName.
-   *
-   * @param resourceName the name of the resource
-   * @param classLoader the ClassLoader for the lookup
-   */
-  public MylibReader(String resourceName, ClassLoader classLoader) {
     super();
-    configureFactory();
-    this.reader = new XmlBeanDefinitionReader(this);
-    this.reader.loadBeanDefinitions(new ClassPathResource(resourceName, classLoader));
-  }
-
-  /**
-   * Returns a list of root objects. The method expects to find a bean called "root" of type list in
-   * the xml and returns it.
-   *
-   * @return a list of root instances
-   */
-  @SuppressWarnings("unchecked")
-  public List<Object> getRootList() {
-    return (List<Object>) getBean(ROOT_LIST_NAME);
-  }
-
-  /**
-   * Configure the MylibReader, e.g. register CustomEditor classes to convert the string
-   * representation of a property into an instance of the right type.
-   */
-  private void configureFactory() {
-    registerCustomEditor(Date.class, JDOCustomDateEditor.class);
+    new MylibTestData().init(this, this);
   }
 
   // Convenience methods
@@ -89,7 +43,7 @@ public class MylibReader extends DefaultListableBeanFactory {
    * <code>null</code> if there is no Address bean with the specified name.
    *
    * @param name the name of the bean to return.
-   * @return the instance of the bean or <code>null</code> if there no Address bean.
+   * @return the instance of the bean or <code>null</code> if there is no Address bean.
    */
   public PrimitiveTypes getPrimitiveTypes(String name) {
     return getBean(name, PrimitiveTypes.class);
