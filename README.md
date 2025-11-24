@@ -144,14 +144,9 @@ The *jdo-exectck* Maven plugin has the following options
 
 ### Examples
 
-Example 1 : Installs the database schema for datastore identity for all supported databases.
+This example runs the test configurations specified in `alltests.conf` and `cfg1.conf` on the JDORI, using all supported identity types and databases.
 
-    mvn -Djdo.tck.identitytypes=datastoreidentity jdo-exectck:installSchema
-
-
-Example 2 : Runs the test configurations specified in `alltests.conf` and `cfg1.conf` on the JDORI, using all supported identity types and databases.
-
-    mvn -Djdo.tck.cfglist="alltests.conf cfg1.conf" jdo-exectck:runtck
+    mvn -Djdo.tck.cfglist="alltests.conf cfg1.conf" install
 
 
 
@@ -164,7 +159,6 @@ While running the TCK, maven uses the following configuration files in src/conf:
     * jdo.tck.testdescription : An optional string describing the purpose of these tests
     * jdo.tck.classes : A list of one or more test classes (required)
     * jdo.tck.testdata : The fully qualified file name of the xml test data file(optional)
-    * jdo.tck.standarddata : The fully qualified file name of the xml test data file(optional)
     * jdo.tck.mapping : The file designator that maven.xml uses to build a javax.jdo.option.Mapping value and corresponding schema name (required)
 * exclude.list  : A list of test classes NOT to execute during a TCK test run
 
