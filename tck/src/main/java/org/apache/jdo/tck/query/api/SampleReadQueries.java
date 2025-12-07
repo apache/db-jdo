@@ -168,7 +168,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01a() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery01a " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery01a");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -185,6 +185,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery01a");
+      }
     }
   }
 
@@ -201,7 +204,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01b() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery01b " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery01b");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -218,6 +221,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery01b");
+      }
     }
   }
 
@@ -235,7 +241,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01d() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery01d " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery01d");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -252,6 +258,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery01d");
+      }
     }
   }
 
@@ -268,7 +277,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery01f() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery01f " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery01f");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -287,6 +296,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery01f");
+      }
     }
   }
 
@@ -301,7 +313,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02a() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery02a " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery02a");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -319,6 +331,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery02a");
+      }
     }
   }
 
@@ -332,7 +347,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02b() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery02b " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery02b");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -350,6 +365,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery02b");
+      }
     }
   }
 
@@ -364,7 +382,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02d() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery02d " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery02d");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -381,6 +399,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery02d");
+      }
     }
   }
 
@@ -394,7 +415,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery02f() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery02f " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery02f");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -413,6 +434,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery02f");
+      }
     }
   }
 
@@ -429,7 +453,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03a() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03a " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery03a");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -448,6 +472,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery03a");
+      }
     }
   }
 
@@ -463,7 +490,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03b() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03b " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery03b");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -486,6 +513,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery03b");
+      }
     }
   }
 
@@ -501,7 +531,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03c() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03c " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery03c");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -521,6 +551,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery03c");
+      }
     }
   }
 
@@ -537,7 +570,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03d() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03d " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery03d");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -554,6 +587,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery03d");
+      }
     }
   }
 
@@ -569,7 +605,7 @@ public class SampleReadQueries extends QueryTest {
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery03f() {
     if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03f " + Thread.currentThread().getName());
+      logger.debug("Enter testQuery03f");
     }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
@@ -594,6 +630,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery03f");
+      }
     }
   }
 
@@ -609,6 +648,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery04a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -625,6 +667,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery04a");
+      }
     }
   }
 
@@ -639,6 +684,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery04b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -658,6 +706,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery04b");
+      }
     }
   }
 
@@ -672,6 +723,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery04c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -689,6 +743,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery04c");
+      }
     }
   }
 
@@ -704,6 +761,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery04d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -722,6 +782,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery04d");
+      }
     }
   }
 
@@ -736,6 +799,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery04f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery04f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -757,6 +823,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery04f");
+      }
     }
   }
 
@@ -771,6 +840,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery05a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -789,6 +861,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery05a");
+      }
     }
   }
 
@@ -802,6 +877,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery05b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -823,6 +901,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery05b");
+      }
     }
   }
 
@@ -836,6 +917,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery05c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -855,6 +939,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery05c");
+      }
     }
   }
 
@@ -869,6 +956,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery05d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -884,6 +974,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery015d");
+      }
     }
   }
 
@@ -898,6 +991,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery05f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery05f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -920,6 +1016,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery05f");
+      }
     }
   }
 
@@ -933,6 +1032,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery06a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -950,6 +1052,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery06a");
+      }
     }
   }
 
@@ -962,6 +1067,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery06b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -981,6 +1089,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery06b");
+      }
     }
   }
 
@@ -993,6 +1104,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery06c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1010,6 +1124,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery06c");
+      }
     }
   }
 
@@ -1023,6 +1140,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery06d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1041,6 +1161,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery06d");
+      }
     }
   }
 
@@ -1053,6 +1176,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery06f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery06f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1075,6 +1201,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery06f");
+      }
     }
   }
 
@@ -1088,6 +1217,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery07a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1104,6 +1236,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery07a");
+      }
     }
   }
 
@@ -1116,6 +1251,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery07b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1135,6 +1273,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery07b");
+      }
     }
   }
 
@@ -1147,6 +1288,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery07c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1164,6 +1308,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery07c");
+      }
     }
   }
 
@@ -1177,6 +1324,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery07d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1192,6 +1342,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery07d");
+      }
     }
   }
 
@@ -1205,6 +1358,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery07f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery07f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1226,6 +1382,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery07f");
+      }
     }
   }
 
@@ -1238,6 +1397,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery08a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1254,6 +1416,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery08a");
+      }
     }
   }
 
@@ -1265,6 +1430,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery08b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1284,6 +1452,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery08b");
+      }
     }
   }
 
@@ -1295,6 +1466,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery08c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1312,6 +1486,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery08c");
+      }
     }
   }
 
@@ -1324,6 +1501,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery08d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1341,6 +1521,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery08d");
+      }
     }
   }
 
@@ -1352,6 +1535,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery08f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery08f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1372,6 +1558,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery08f");
+      }
     }
   }
 
@@ -1385,6 +1574,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery09a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1403,6 +1595,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery09a");
+      }
     }
   }
 
@@ -1415,6 +1610,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery09b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1436,6 +1634,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery09b");
+      }
     }
   }
 
@@ -1448,6 +1649,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery09c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1467,6 +1671,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery09c");
+      }
     }
   }
 
@@ -1480,6 +1687,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery09d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1495,6 +1705,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery09d");
+      }
     }
   }
 
@@ -1507,6 +1720,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery09f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery09f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1528,6 +1744,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery09f");
+      }
     }
   }
 
@@ -1541,6 +1760,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery10a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1562,6 +1784,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery10a");
+      }
     }
   }
 
@@ -1574,6 +1799,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery10b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1598,6 +1826,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery10b");
+      }
     }
   }
 
@@ -1610,6 +1841,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery10c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1632,6 +1866,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery10c");
+      }
     }
   }
 
@@ -1645,6 +1882,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery10d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1663,6 +1903,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery10d");
+      }
     }
   }
 
@@ -1675,6 +1918,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10e() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery10e");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1693,6 +1939,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery10e");
+      }
     }
   }
 
@@ -1705,6 +1954,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery10f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery10f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1729,6 +1981,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery10f");
+      }
     }
   }
 
@@ -1741,6 +1996,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery11a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1758,6 +2016,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery11a");
+      }
     }
   }
 
@@ -1770,6 +2031,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery11b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1790,6 +2054,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery11b");
+      }
     }
   }
 
@@ -1802,6 +2069,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery11c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1820,6 +2090,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery11c");
+      }
     }
   }
 
@@ -1833,6 +2106,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery11d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1848,6 +2124,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery11d");
+      }
     }
   }
 
@@ -1860,6 +2139,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery11f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery11f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1880,6 +2162,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery11f");
+      }
     }
   }
 
@@ -1891,6 +2176,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery12a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1908,6 +2196,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery12a");
+      }
     }
   }
 
@@ -1919,6 +2210,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery12b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1939,6 +2233,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery12b");
+      }
     }
   }
 
@@ -1950,6 +2247,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery12c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1968,6 +2268,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery12c");
+      }
     }
   }
 
@@ -1980,6 +2283,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery12d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -1995,6 +2301,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery12d");
+      }
     }
   }
 
@@ -2006,6 +2315,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery12f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery12f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2027,6 +2339,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery12f");
+      }
     }
   }
 
@@ -2040,6 +2355,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery13a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2062,6 +2380,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery13a");
+      }
     }
   }
 
@@ -2074,6 +2395,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery13b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2096,6 +2420,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery13b");
+      }
     }
   }
 
@@ -2109,6 +2436,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery13d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2129,6 +2459,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery13d");
+      }
     }
   }
 
@@ -2141,6 +2474,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13e() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery13e");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2161,6 +2497,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery13e");
+      }
     }
   }
 
@@ -2173,6 +2512,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery13f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery13f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2197,6 +2539,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery13f");
+      }
     }
   }
 
@@ -2208,6 +2553,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery14a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2224,6 +2572,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery14a");
+      }
     }
   }
 
@@ -2235,6 +2586,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery14b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2254,6 +2608,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery14b");
+      }
     }
   }
 
@@ -2265,6 +2622,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery14c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2282,6 +2642,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery14c");
+      }
     }
   }
 
@@ -2294,6 +2657,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery14d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2309,6 +2675,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery14d");
+      }
     }
   }
 
@@ -2320,6 +2689,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery14f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery14f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2340,6 +2712,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery14f");
+      }
     }
   }
 
@@ -2351,6 +2726,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery15a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2371,6 +2749,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery15a");
+      }
     }
   }
 
@@ -2382,6 +2763,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery15b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2404,6 +2788,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery15b");
+      }
     }
   }
 
@@ -2415,6 +2802,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery15c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2435,6 +2825,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery15c");
+      }
     }
   }
 
@@ -2447,6 +2840,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery15d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2463,6 +2859,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery15d");
+      }
     }
   }
 
@@ -2474,6 +2873,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery15f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery15f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2495,6 +2897,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery15f");
+      }
     }
   }
 
@@ -2509,6 +2914,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery16a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2525,6 +2933,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery16a");
+      }
     }
   }
 
@@ -2538,6 +2949,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery16b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2557,6 +2971,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery16b");
+      }
     }
   }
 
@@ -2570,6 +2987,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery16c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2587,6 +3007,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery16c");
+      }
     }
   }
 
@@ -2601,6 +3024,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery16d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2616,6 +3042,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery16d");
+      }
     }
   }
 
@@ -2629,6 +3058,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery16f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery16f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2649,6 +3081,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery16f");
+      }
     }
   }
 
@@ -2662,6 +3097,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery17a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2678,6 +3116,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery17a");
+      }
     }
   }
 
@@ -2690,6 +3131,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery17b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2709,6 +3153,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery17b");
+      }
     }
   }
 
@@ -2721,6 +3168,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17c() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery17c");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2738,6 +3188,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery17c");
+      }
     }
   }
 
@@ -2751,6 +3204,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery17d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2766,6 +3222,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery17d");
+      }
     }
   }
 
@@ -2778,6 +3237,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery17f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery17f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2798,6 +3260,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery17f");
+      }
     }
   }
 
@@ -2810,6 +3275,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery18a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2827,6 +3295,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery18a");
+      }
     }
   }
 
@@ -2838,6 +3309,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery18b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2855,6 +3329,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery18b");
+      }
     }
   }
 
@@ -2867,6 +3344,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery18d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2881,6 +3361,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery18d");
+      }
     }
   }
 
@@ -2892,6 +3375,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18e() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery18e");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2906,6 +3392,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery18e");
+      }
     }
   }
 
@@ -2918,6 +3407,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery18f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery18f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2936,6 +3428,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery18f");
+      }
     }
   }
 
@@ -2948,6 +3443,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery19a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2967,6 +3465,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery19a");
+      }
     }
   }
 
@@ -2978,6 +3479,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery19b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -2997,6 +3501,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery19b");
+      }
     }
   }
 
@@ -3009,6 +3516,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery19d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -3023,6 +3533,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery19d");
+      }
     }
   }
 
@@ -3034,6 +3547,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery19f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery19f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -3053,6 +3569,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery19f");
+      }
     }
   }
 
@@ -3068,6 +3587,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery20a() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery20a");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -3088,6 +3610,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery20a");
+      }
     }
   }
 
@@ -3102,6 +3627,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery20b() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery20b");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -3122,6 +3650,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery20b");
+      }
     }
   }
 
@@ -3137,6 +3668,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery20d() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery20d");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -3151,6 +3685,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery20d");
+      }
     }
   }
 
@@ -3166,6 +3703,9 @@ public class SampleReadQueries extends QueryTest {
   @Test
   @Execution(ExecutionMode.CONCURRENT)
   public void testQuery20f() {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Enter testQuery20f");
+    }
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
@@ -3187,6 +3727,9 @@ public class SampleReadQueries extends QueryTest {
       tx.commit();
     } finally {
       cleanupPM(pm);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Leave testQuery20f");
+      }
     }
   }
 
