@@ -16,27 +16,16 @@
  */
 package org.apache.jdo.tck.query.api;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.jdo.JDOQLTypedQuery;
-import javax.jdo.JDOQLTypedSubquery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.CollectionExpression;
 import javax.jdo.query.NumericExpression;
 import javax.jdo.query.StringExpression;
-import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.Department;
-import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.pc.company.FullTimeEmployee;
-import org.apache.jdo.tck.pc.company.Person;
-import org.apache.jdo.tck.pc.company.QDepartment;
-import org.apache.jdo.tck.pc.company.QEmployee;
-import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
+
+import org.apache.jdo.tck.pc.company.*;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.EqualityHelper;
 import org.junit.jupiter.api.*;
@@ -64,7 +53,7 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
  * </ul>
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class SampleReadQueries extends QueryTest {
+public class SampleReadQueries2 extends QueryTest {
 
   /** */
   private static final String ASSERTION_FAILED = "Assertion (SampleReadQueries) failed: ";
@@ -152,73 +141,28 @@ public class SampleReadQueries extends QueryTest {
           + " (select AVG(e.weeklyhours) from this.department.employees e where e.manager == this.manager)";
 
   /**
-   * Basic query.
+   * Navigation through multi-valued field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the constant 30000. Note that the float value for salary is unwrapped for the
-   * comparison with the literal int value, which is promoted to float using numeric promotion. If
-   * the value for the salary field in a candidate instance isnull, then it cannot be unwrapped for
-   * the comparison, and the candidate instance is rejected.
+   * <p>This query selects all Department instances from the candidate collection where the
+   * collection of Employee instances contains at least one Employee instance having a salary
+   * greater than the value passed as a parameter.
    */
   @SuppressWarnings("unchecked")
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery01a() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery01a 1 " + Thread.currentThread().getName());
-    }
-    PersistenceManager pm = getPMF().getPersistenceManager();
-    logger.debug("testQuery01a 2 " + Thread.currentThread().getName());
-    Transaction tx = pm.currentTransaction();
-    logger.debug("testQuery01a 3 " + Thread.currentThread().getName());
-    try {
-      tx.begin();
-      logger.debug("testQuery01a 4 " + Thread.currentThread().getName());
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
-      logger.debug("testQuery01a 5 " + Thread.currentThread().getName());
-      try (Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000")) {
-        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute();
-        logger.debug("testQuery01a 6 " + Thread.currentThread().getName());
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_01, emps, expected);
-        logger.debug("testQuery01a 7 " + Thread.currentThread().getName());
-      } catch (Exception ex) {
-        logger.debug("testQuery01a 8 " + Thread.currentThread().getName());
-        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-      }
-      logger.debug("testQuery01a 9 " + Thread.currentThread().getName());
-      tx.commit();
-    } finally {
-      logger.debug("testQuery01a 10 " + Thread.currentThread().getName());
-      cleanupPM(pm);
-      logger.debug("testQuery01a 11 " + Thread.currentThread().getName());
-    }
-  }
-
-  /**
-   * Basic query.
-   *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the constant 30000. Note that the float value for salary is unwrapped for the
-   * comparison with the literal int value, which is promoted to float using numeric promotion. If
-   * the value for the salary field in a candidate instance isnull, then it cannot be unwrapped for
-   * the comparison, and the candidate instance is rejected.
-   */
-  @Test
-  @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery01b() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery01b " + Thread.currentThread().getName());
-    }
+  public void testQuery05a() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
-      try (Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000")) {
-        List<FullTimeEmployee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_01, emps, expected);
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
+      try (Query<Department> q =
+          pm.newQuery(Department.class, "employees.contains (emp) && emp.weeklyhours > hours")) {
+        q.declareVariables("Employee emp");
+        q.declareParameters("double hours");
+        List<Department> deps = (List<Department>) q.execute(30.);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -229,264 +173,342 @@ public class SampleReadQueries extends QueryTest {
   }
 
   /**
-   * Basic query.
+   * Navigation through multi-valued field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the constant 30000. Note that the float value for salary is unwrapped for the
-   * comparison with the literal int value, which is promoted to float using numeric promotion. If
-   * the value for the salary field in a candidate instance isnull, then it cannot be unwrapped for
-   * the comparison, and the candidate instance is rejected.
+   * <p>This query selects all Department instances from the candidate collection where the
+   * collection of Employee instances contains at least one Employee instance having a salary
+   * greater than the value passed as a parameter.
    */
-  @SuppressWarnings("unchecked")
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery01d() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery01d " + Thread.currentThread().getName());
-    }
+  public void testQuery05b() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
-      try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_01)) {
-        List<FullTimeEmployee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_01, emps, expected);
-      } catch (Exception ex) {
-        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-      }
-      tx.commit();
-    } finally {
-      cleanupPM(pm);
-    }
-  }
-
-  /**
-   * Basic query.
-   *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the constant 30000. Note that the float value for salary is unwrapped for the
-   * comparison with the literal int value, which is promoted to float using numeric promotion. If
-   * the value for the salary field in a candidate instance isnull, then it cannot be unwrapped for
-   * the comparison, and the candidate instance is rejected.
-   */
-  @Test
-  @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery01f() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery01f " + Thread.currentThread().getName());
-    }
-    PersistenceManager pm = getPMF().getPersistenceManager();
-    Transaction tx = pm.currentTransaction();
-    try {
-      tx.begin();
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
-      try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
-        q.filter(cand.salary.gt(30000.));
-        List<FullTimeEmployee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_01, emps, expected);
-      } catch (Exception ex) {
-        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-      }
-      tx.commit();
-    } finally {
-      cleanupPM(pm);
-    }
-  }
-
-  /**
-   * Basic query with ordering.
-   *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the constant 30000, and returns a Collection ordered based on employee salary.
-   */
-  @SuppressWarnings("unchecked")
-  @Test
-  @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery02a() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery02a " + Thread.currentThread().getName());
-    }
-    PersistenceManager pm = getPMF().getPersistenceManager();
-    Transaction tx = pm.currentTransaction();
-    try {
-      tx.begin();
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5", "emp2");
-      try (Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000")) {
-        q.setOrdering("salary ascending");
-        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute();
-        checkQueryResultWithOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_02, emps, expected);
-      } catch (Exception ex) {
-        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-      }
-      tx.commit();
-    } finally {
-      cleanupPM(pm);
-    }
-  }
-
-  /**
-   * Basic query with ordering.
-   *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the constant 30000, and returns a Collection ordered based on employee salary.
-   */
-  @Test
-  @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery02b() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery02b " + Thread.currentThread().getName());
-    }
-    PersistenceManager pm = getPMF().getPersistenceManager();
-    Transaction tx = pm.currentTransaction();
-    try {
-      tx.begin();
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5", "emp2");
-      try (Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000")) {
-        q.setOrdering("salary ascending");
-        List<FullTimeEmployee> emps = q.executeList();
-        checkQueryResultWithOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_02, emps, expected);
-      } catch (Exception ex) {
-        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-      }
-      tx.commit();
-    } finally {
-      cleanupPM(pm);
-    }
-  }
-
-  /**
-   * Basic query with ordering.
-   *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the constant 30000, and returns a Collection ordered based on employee salary.
-   */
-  @SuppressWarnings("unchecked")
-  @Test
-  @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery02d() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery02d " + Thread.currentThread().getName());
-    }
-    PersistenceManager pm = getPMF().getPersistenceManager();
-    Transaction tx = pm.currentTransaction();
-    try {
-      tx.begin();
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5", "emp2");
-      try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_02)) {
-        List<FullTimeEmployee> emps = q.executeList();
-        checkQueryResultWithOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_02, emps, expected);
-      } catch (Exception ex) {
-        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-      }
-      tx.commit();
-    } finally {
-      cleanupPM(pm);
-    }
-  }
-
-  /**
-   * Basic query with ordering.
-   *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the constant 30000, and returns a Collection ordered based on employee salary.
-   */
-  @Test
-  @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery02f() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery02f " + Thread.currentThread().getName());
-    }
-    PersistenceManager pm = getPMF().getPersistenceManager();
-    Transaction tx = pm.currentTransaction();
-    try {
-      tx.begin();
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5", "emp2");
-      try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
-        q.filter(cand.salary.gt(30000.)).orderBy(cand.salary.asc());
-        List<FullTimeEmployee> emps = q.executeList();
-        checkQueryResultWithOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_02, emps, expected);
-      } catch (Exception ex) {
-        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-      }
-      tx.commit();
-    } finally {
-      cleanupPM(pm);
-    }
-  }
-
-  /**
-   * Parameter passing.
-   *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the value passed as a parameter and the name starts with the value passed as a
-   * second parameter. If the value for the salary field in a candidate instance is null, then it
-   * cannot be unwrapped for the comparison, and the candidate instance is rejected.
-   */
-  @SuppressWarnings("unchecked")
-  @Test
-  @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery03a() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03a " + Thread.currentThread().getName());
-    }
-    PersistenceManager pm = getPMF().getPersistenceManager();
-    Transaction tx = pm.currentTransaction();
-    try {
-      tx.begin();
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
-      try (Query<FullTimeEmployee> q =
-          pm.newQuery(FullTimeEmployee.class, "salary > sal && firstname.startsWith(begin)")) {
-        q.declareParameters("Double sal, String begin");
-        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute(30000., "M");
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_03, emps, expected);
-      } catch (Exception ex) {
-        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-      }
-      tx.commit();
-    } finally {
-      cleanupPM(pm);
-    }
-  }
-
-  /**
-   * Parameter passing.
-   *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the value passed as a parameter and the name starts with the value passed as a
-   * second parameter. If the value for the salary field in a candidate instance is null, then it
-   * cannot be unwrapped for the comparison, and the candidate instance is rejected.
-   */
-  @Test
-  @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery03b() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03b " + Thread.currentThread().getName());
-    }
-    PersistenceManager pm = getPMF().getPersistenceManager();
-    Transaction tx = pm.currentTransaction();
-    try {
-      tx.begin();
-      List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
-      try (Query<FullTimeEmployee> q =
-          pm.newQuery(FullTimeEmployee.class, "salary > sal && firstname.startsWith(begin)")) {
-        q.declareParameters("Double sal, String begin");
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
+      try (Query<Department> q =
+          pm.newQuery(Department.class, "employees.contains (emp) && emp.weeklyhours > hours")) {
+        q.declareVariables("Employee emp");
+        q.declareParameters("double hours");
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("sal", 30000.);
-        paramValues.put("begin", "M");
+        paramValues.put("hours", 30.);
+        q.setNamedParameters(paramValues);
+        List<Department> deps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all Department instances from the candidate collection where the
+   * collection of Employee instances contains at least one Employee instance having a salary
+   * greater than the value passed as a parameter.
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery05c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
+      try (Query<Department> q =
+          pm.newQuery(Department.class, "employees.contains (emp) && emp.weeklyhours > hours")) {
+        q.declareVariables("Employee emp");
+        q.declareParameters("double hours");
+        q.setParameters(30.);
+        List<Department> deps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all Department instances from the candidate collection where the
+   * collection of Employee instances contains at least one Employee instance having a salary
+   * greater than the value passed as a parameter.
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery05d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
+      try (Query<Department> q = pm.newQuery(SINGLE_STRING_QUERY_05)) {
+        List<Department> deps = (List<Department>) q.execute(30.);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all Department instances from the candidate collection where the
+   * collection of Employee instances contains at least one Employee instance having a salary
+   * greater than the value passed as a parameter.
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery05f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
+      try (JDOQLTypedQuery<Department> q = pm.newJDOQLTypedQuery(Department.class)) {
+        QDepartment cand = QDepartment.candidate("this");
+        QEmployee emp = QEmployee.variable("emp");
+        NumericExpression<Double> hours = q.numericParameter("hours", double.class);
+        q.filter(cand.employees.contains(emp).and(emp.weeklyhours.gt(hours)));
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("hours", 30.);
+        q.setParameters(paramValues);
+        List<Department> deps = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Membership in a collection.
+   *
+   * <p>This query selects all Department instances where the name field is contained in a parameter
+   * collection, which in this example consists of three department names.
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery06a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
+      try (Query<Department> q = pm.newQuery(Department.class, "depts.contains(name)")) {
+        q.declareParameters("java.util.Collection depts");
+        List<String> deptNames = Arrays.asList("R&D", "Sales", "Marketing");
+        List<Department> result = (List<Department>) q.execute(deptNames);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Membership in a collection.
+   *
+   * <p>This query selects all Department instances where the name field is contained in a parameter
+   * collection, which in this example consists of three department names.
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery06b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
+      try (Query<Department> q = pm.newQuery(Department.class, "depts.contains(name)")) {
+        q.declareParameters("java.util.Collection depts");
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("depts", Arrays.asList("R&D", "Sales", "Marketing"));
+        q.setNamedParameters(paramValues);
+        List<Department> result = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Membership in a collection.
+   *
+   * <p>This query selects all Department instances where the name field is contained in a parameter
+   * collection, which in this example consists of three department names.
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery06c() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
+      try (Query<Department> q = pm.newQuery(Department.class, "depts.contains(name)")) {
+        q.declareParameters("java.util.Collection depts");
+        q.setParameters(Arrays.asList("R&D", "Sales", "Marketing"));
+        List<Department> result = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Membership in a collection.
+   *
+   * <p>This query selects all Department instances where the name field is contained in a parameter
+   * collection, which in this example consists of three department names.
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery06d() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
+      try (Query<Department> q = pm.newQuery(SINGLE_STRING_QUERY_06)) {
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("depts", Arrays.asList("R&D", "Sales", "Marketing"));
+        q.setNamedParameters(paramValues);
+        List<Department> result = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Membership in a collection.
+   *
+   * <p>This query selects all Department instances where the name field is contained in a parameter
+   * collection, which in this example consists of three department names.
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery06f() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<Department> expected =
+          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
+      try (JDOQLTypedQuery<Department> q = pm.newJDOQLTypedQuery(Department.class)) {
+        QDepartment cand = QDepartment.candidate("this");
+        CollectionExpression<Collection<String>, String> depts =
+            q.collectionParameter("depts", String.class);
+        q.filter(depts.contains(cand.name));
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("depts", Arrays.asList("R&D", "Sales", "Marketing"));
+        q.setParameters(paramValues);
+        List<Department> result = q.executeList();
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
+   */
+  @SuppressWarnings("unchecked")
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery07a() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
+        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute("German");
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
+      } catch (Exception ex) {
+        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+      }
+      tx.commit();
+    } finally {
+      cleanupPM(pm);
+    }
+  }
+
+  /**
+   * Navigation through multi-valued field.
+   *
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
+   */
+  @Test
+  @Execution(ExecutionMode.CONCURRENT)
+  public void testQuery07b() {
+    PersistenceManager pm = getPMF().getPersistenceManager();
+    Transaction tx = pm.currentTransaction();
+    try {
+      tx.begin();
+      List<FullTimeEmployee> expected =
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+      try (Query<FullTimeEmployee> q =
+          pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("lang", "German");
         q.setNamedParameters(paramValues);
         List<FullTimeEmployee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_03, emps, expected);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -497,31 +519,25 @@ public class SampleReadQueries extends QueryTest {
   }
 
   /**
-   * Parameter passing.
+   * Navigation through multi-valued field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the value passed as a parameter and the name starts with the value passed as a
-   * second parameter. If the value for the salary field in a candidate instance is null, then it
-   * cannot be unwrapped for the comparison, and the candidate instance is rejected.
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
    */
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery03c() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03c " + Thread.currentThread().getName());
-    }
+  public void testQuery07c() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
       List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
       try (Query<FullTimeEmployee> q =
-          pm.newQuery(FullTimeEmployee.class, "salary > sal && firstname.startsWith(begin)")) {
-        q.declareParameters("Double sal, String begin");
-        q.setParameters(30000., "M");
+          pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
+        q.setParameters("German");
         List<FullTimeEmployee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_03, emps, expected);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -532,29 +548,24 @@ public class SampleReadQueries extends QueryTest {
   }
 
   /**
-   * Parameter passing.
+   * Navigation through multi-valued field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the value passed as a parameter and the name starts with the value passed as a
-   * second parameter. If the value for the salary field in a candidate instance is null, then it
-   * cannot be unwrapped for the comparison, and the candidate instance is rejected.
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
    */
   @SuppressWarnings("unchecked")
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery03d() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03d " + Thread.currentThread().getName());
-    }
+  public void testQuery07d() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
       List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
-      try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_03)) {
-        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute(30000., "M");
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_03, emps, expected);
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
+      try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_07)) {
+        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute("German");
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -565,36 +576,30 @@ public class SampleReadQueries extends QueryTest {
   }
 
   /**
-   * Parameter passing.
+   * Navigation through multi-valued field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the salary is
-   * greater than the value passed as a parameter and the name starts with the value passed as a
-   * second parameter. If the value for the salary field in a candidate instance is null, then it
-   * cannot be unwrapped for the comparison, and the candidate instance is rejected.
+   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
+   * German (i.e. the language set includes the string "German").
    */
+  @SuppressWarnings("unchecked")
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery03f() {
-    if (logger.isDebugEnabled()) {
-      logger.debug("testQuery03f " + Thread.currentThread().getName());
-    }
+  public void testQuery07f() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
       List<FullTimeEmployee> expected =
-          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
+          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
       try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
-        NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
-        StringExpression begin = q.stringParameter("begin");
-        q.filter(cand.salary.gt(sal).and(cand.firstname.startsWith(begin)));
+        StringExpression lang = q.stringParameter("lang");
+        q.filter(cand.languages.contains(lang));
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("sal", 30000.);
-        paramValues.put("begin", "M");
+        paramValues.put("lang", "German");
         q.setParameters(paramValues);
         List<FullTimeEmployee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_03, emps, expected);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -605,27 +610,24 @@ public class SampleReadQueries extends QueryTest {
   }
 
   /**
-   * Navigation through single-valued field.
+   * Projection of a Single Field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the value of
-   * the name field in the Department instance associated with the Employee instance is equal to the
-   * value passed as a parameter. If the value for the dept field in a candidate instance is null,
-   * then it cannot be navigated for the comparison, and the candidate instance is rejected.
+   * <p>This query selects names of all Employees who work in the parameter department.
    */
   @SuppressWarnings("unchecked")
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery04a() {
+  public void testQuery08a() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
-      List<Employee> expected =
-          getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
-      try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == dep")) {
-        q.declareParameters("String dep");
-        List<Employee> emps = (List<Employee>) q.execute("R&D");
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_04, emps, expected);
+      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
+      try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == deptName")) {
+        q.setResult("firstname");
+        q.declareParameters("String deptName");
+        List<String> names = (List<String>) q.execute("R&D");
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -636,29 +638,26 @@ public class SampleReadQueries extends QueryTest {
   }
 
   /**
-   * Navigation through single-valued field.
+   * Projection of a Single Field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the value of
-   * the name field in the Department instance associated with the Employee instance is equal to the
-   * value passed as a parameter. If the value for the dept field in a candidate instance is null,
-   * then it cannot be navigated for the comparison, and the candidate instance is rejected.
+   * <p>This query selects names of all Employees who work in the parameter department.
    */
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery04b() {
+  public void testQuery08b() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
-      List<Employee> expected =
-          getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
-      try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == dep")) {
-        q.declareParameters("String dep");
+      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
+      try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == deptName")) {
+        q.setResult("firstname");
+        q.declareParameters("String deptName");
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("dep", "R&D");
+        paramValues.put("deptName", "R&D");
         q.setNamedParameters(paramValues);
-        List<Employee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_04, emps, expected);
+        List<String> names = q.executeResultList(String.class);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -669,27 +668,24 @@ public class SampleReadQueries extends QueryTest {
   }
 
   /**
-   * Navigation through single-valued field.
+   * Projection of a Single Field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the value of
-   * the name field in the Department instance associated with the Employee instance is equal to the
-   * value passed as a parameter. If the value for the dept field in a candidate instance is null,
-   * then it cannot be navigated for the comparison, and the candidate instance is rejected.
+   * <p>This query selects names of all Employees who work in the parameter department.
    */
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery04c() {
+  public void testQuery08c() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
-      List<Employee> expected =
-          getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
-      try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == dep")) {
-        q.declareParameters("String dep");
+      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
+      try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == deptName")) {
+        q.setResult("firstname");
+        q.declareParameters("String deptName");
         q.setParameters("R&D");
-        List<Employee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_04, emps, expected);
+        List<String> names = q.executeResultList(String.class);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -700,29 +696,25 @@ public class SampleReadQueries extends QueryTest {
   }
 
   /**
-   * Navigation through single-valued field.
+   * Projection of a Single Field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the value of
-   * the name field in the Department instance associated with the Employee instance is equal to the
-   * value passed as a parameter. If the value for the dept field in a candidate instance is null,
-   * then it cannot be navigated for the comparison, and the candidate instance is rejected.
+   * <p>This query selects names of all Employees who work in the parameter department.
    */
   @SuppressWarnings("unchecked")
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery04d() {
+  public void testQuery08d() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
-      List<Employee> expected =
-          getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
-      try (Query<Employee> q = pm.newQuery(SINGLE_STRING_QUERY_04)) {
+      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
+      try (Query<Employee> q = pm.newQuery(SINGLE_STRING_QUERY_08)) {
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("dep", "R&D");
+        paramValues.put("deptName", "R&D");
         q.setNamedParameters(paramValues);
-        List<Employee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_04, emps, expected);
+        List<String> names = q.executeResultList(String.class);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -733,31 +725,27 @@ public class SampleReadQueries extends QueryTest {
   }
 
   /**
-   * Navigation through single-valued field.
+   * Projection of a Single Field.
    *
-   * <p>This query selects all Employee instances from the candidate collection where the value of
-   * the name field in the Department instance associated with the Employee instance is equal to the
-   * value passed as a parameter. If the value for the dept field in a candidate instance is null,
-   * then it cannot be navigated for the comparison, and the candidate instance is rejected.
+   * <p>This query selects names of all Employees who work in the parameter department.
    */
   @Test
   @Execution(ExecutionMode.CONCURRENT)
-  public void testQuery04f() {
+  public void testQuery08f() {
     PersistenceManager pm = getPMF().getPersistenceManager();
     Transaction tx = pm.currentTransaction();
     try {
       tx.begin();
-      List<Employee> expected =
-          getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
+      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
       try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
         QEmployee cand = QEmployee.candidate("this");
-        StringExpression dep = q.stringParameter("dep");
-        q.filter(cand.department.name.eq(dep));
+        StringExpression deptName = q.stringParameter("deptName");
+        q.filter(cand.department.name.eq(deptName)).result(false, cand.firstname);
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("dep", "R&D");
+        paramValues.put("deptName", "R&D");
         q.setParameters(paramValues);
-        List<Employee> emps = q.executeList();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_04, emps, expected);
+        List<String> names = q.executeResultList(String.class);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
       } catch (Exception ex) {
         fail(ASSERTION_FAILED, ex.getLocalizedMessage());
       }
@@ -767,621 +755,6 @@ public class SampleReadQueries extends QueryTest {
     }
   }
 
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all Department instances from the candidate collection where the
-//   * collection of Employee instances contains at least one Employee instance having a salary
-//   * greater than the value passed as a parameter.
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery05a() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
-//      try (Query<Department> q =
-//          pm.newQuery(Department.class, "employees.contains (emp) && emp.weeklyhours > hours")) {
-//        q.declareVariables("Employee emp");
-//        q.declareParameters("double hours");
-//        List<Department> deps = (List<Department>) q.execute(30.);
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all Department instances from the candidate collection where the
-//   * collection of Employee instances contains at least one Employee instance having a salary
-//   * greater than the value passed as a parameter.
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery05b() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
-//      try (Query<Department> q =
-//          pm.newQuery(Department.class, "employees.contains (emp) && emp.weeklyhours > hours")) {
-//        q.declareVariables("Employee emp");
-//        q.declareParameters("double hours");
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("hours", 30.);
-//        q.setNamedParameters(paramValues);
-//        List<Department> deps = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all Department instances from the candidate collection where the
-//   * collection of Employee instances contains at least one Employee instance having a salary
-//   * greater than the value passed as a parameter.
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery05c() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
-//      try (Query<Department> q =
-//          pm.newQuery(Department.class, "employees.contains (emp) && emp.weeklyhours > hours")) {
-//        q.declareVariables("Employee emp");
-//        q.declareParameters("double hours");
-//        q.setParameters(30.);
-//        List<Department> deps = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all Department instances from the candidate collection where the
-//   * collection of Employee instances contains at least one Employee instance having a salary
-//   * greater than the value passed as a parameter.
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery05d() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
-//      try (Query<Department> q = pm.newQuery(SINGLE_STRING_QUERY_05)) {
-//        List<Department> deps = (List<Department>) q.execute(30.);
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all Department instances from the candidate collection where the
-//   * collection of Employee instances contains at least one Employee instance having a salary
-//   * greater than the value passed as a parameter.
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery05f() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1");
-//      try (JDOQLTypedQuery<Department> q = pm.newJDOQLTypedQuery(Department.class)) {
-//        QDepartment cand = QDepartment.candidate("this");
-//        QEmployee emp = QEmployee.variable("emp");
-//        NumericExpression<Double> hours = q.numericParameter("hours", double.class);
-//        q.filter(cand.employees.contains(emp).and(emp.weeklyhours.gt(hours)));
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("hours", 30.);
-//        q.setParameters(paramValues);
-//        List<Department> deps = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Membership in a collection.
-//   *
-//   * <p>This query selects all Department instances where the name field is contained in a parameter
-//   * collection, which in this example consists of three department names.
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery06a() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
-//      try (Query<Department> q = pm.newQuery(Department.class, "depts.contains(name)")) {
-//        q.declareParameters("java.util.Collection depts");
-//        List<String> deptNames = Arrays.asList("R&D", "Sales", "Marketing");
-//        List<Department> result = (List<Department>) q.execute(deptNames);
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Membership in a collection.
-//   *
-//   * <p>This query selects all Department instances where the name field is contained in a parameter
-//   * collection, which in this example consists of three department names.
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery06b() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
-//      try (Query<Department> q = pm.newQuery(Department.class, "depts.contains(name)")) {
-//        q.declareParameters("java.util.Collection depts");
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("depts", Arrays.asList("R&D", "Sales", "Marketing"));
-//        q.setNamedParameters(paramValues);
-//        List<Department> result = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Membership in a collection.
-//   *
-//   * <p>This query selects all Department instances where the name field is contained in a parameter
-//   * collection, which in this example consists of three department names.
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery06c() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
-//      try (Query<Department> q = pm.newQuery(Department.class, "depts.contains(name)")) {
-//        q.declareParameters("java.util.Collection depts");
-//        q.setParameters(Arrays.asList("R&D", "Sales", "Marketing"));
-//        List<Department> result = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Membership in a collection.
-//   *
-//   * <p>This query selects all Department instances where the name field is contained in a parameter
-//   * collection, which in this example consists of three department names.
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery06d() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
-//      try (Query<Department> q = pm.newQuery(SINGLE_STRING_QUERY_06)) {
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("depts", Arrays.asList("R&D", "Sales", "Marketing"));
-//        q.setNamedParameters(paramValues);
-//        List<Department> result = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Membership in a collection.
-//   *
-//   * <p>This query selects all Department instances where the name field is contained in a parameter
-//   * collection, which in this example consists of three department names.
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery06f() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<Department> expected =
-//          getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
-//      try (JDOQLTypedQuery<Department> q = pm.newJDOQLTypedQuery(Department.class)) {
-//        QDepartment cand = QDepartment.candidate("this");
-//        CollectionExpression<Collection<String>, String> depts =
-//            q.collectionParameter("depts", String.class);
-//        q.filter(depts.contains(cand.name));
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("depts", Arrays.asList("R&D", "Sales", "Marketing"));
-//        q.setParameters(paramValues);
-//        List<Department> result = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_06, result, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
-//   * German (i.e. the language set includes the string "German").
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery07a() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<FullTimeEmployee> expected =
-//          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
-//      try (Query<FullTimeEmployee> q =
-//          pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
-//        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute("German");
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
-//   * German (i.e. the language set includes the string "German").
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery07b() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<FullTimeEmployee> expected =
-//          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
-//      try (Query<FullTimeEmployee> q =
-//          pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("lang", "German");
-//        q.setNamedParameters(paramValues);
-//        List<FullTimeEmployee> emps = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
-//   * German (i.e. the language set includes the string "German").
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery07c() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<FullTimeEmployee> expected =
-//          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
-//      try (Query<FullTimeEmployee> q =
-//          pm.newQuery(FullTimeEmployee.class, "languages.contains(:lang)")) {
-//        q.setParameters("German");
-//        List<FullTimeEmployee> emps = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
-//   * German (i.e. the language set includes the string "German").
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery07d() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<FullTimeEmployee> expected =
-//          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
-//      try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_07)) {
-//        List<FullTimeEmployee> emps = (List<FullTimeEmployee>) q.execute("German");
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Navigation through multi-valued field.
-//   *
-//   * <p>This query selects all FullTimeEmployee instances from the candidate collection speaking
-//   * German (i.e. the language set includes the string "German").
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery07f() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<FullTimeEmployee> expected =
-//          getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
-//      try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
-//        QFullTimeEmployee cand = QFullTimeEmployee.candidate("this");
-//        StringExpression lang = q.stringParameter("lang");
-//        q.filter(cand.languages.contains(lang));
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("lang", "German");
-//        q.setParameters(paramValues);
-//        List<FullTimeEmployee> emps = q.executeList();
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_07, emps, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Projection of a Single Field.
-//   *
-//   * <p>This query selects names of all Employees who work in the parameter department.
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery08a() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
-//      try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == deptName")) {
-//        q.setResult("firstname");
-//        q.declareParameters("String deptName");
-//        List<String> names = (List<String>) q.execute("R&D");
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Projection of a Single Field.
-//   *
-//   * <p>This query selects names of all Employees who work in the parameter department.
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery08b() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
-//      try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == deptName")) {
-//        q.setResult("firstname");
-//        q.declareParameters("String deptName");
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("deptName", "R&D");
-//        q.setNamedParameters(paramValues);
-//        List<String> names = q.executeResultList(String.class);
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Projection of a Single Field.
-//   *
-//   * <p>This query selects names of all Employees who work in the parameter department.
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery08c() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
-//      try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == deptName")) {
-//        q.setResult("firstname");
-//        q.declareParameters("String deptName");
-//        q.setParameters("R&D");
-//        List<String> names = q.executeResultList(String.class);
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Projection of a Single Field.
-//   *
-//   * <p>This query selects names of all Employees who work in the parameter department.
-//   */
-//  @SuppressWarnings("unchecked")
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery08d() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
-//      try (Query<Employee> q = pm.newQuery(SINGLE_STRING_QUERY_08)) {
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("deptName", "R&D");
-//        q.setNamedParameters(paramValues);
-//        List<String> names = q.executeResultList(String.class);
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
-//  /**
-//   * Projection of a Single Field.
-//   *
-//   * <p>This query selects names of all Employees who work in the parameter department.
-//   */
-//  @Test
-//  @Execution(ExecutionMode.CONCURRENT)
-//  public void testQuery08f() {
-//    PersistenceManager pm = getPMF().getPersistenceManager();
-//    Transaction tx = pm.currentTransaction();
-//    try {
-//      tx.begin();
-//      List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
-//      try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
-//        QEmployee cand = QEmployee.candidate("this");
-//        StringExpression deptName = q.stringParameter("deptName");
-//        q.filter(cand.department.name.eq(deptName)).result(false, cand.firstname);
-//        Map<String, Object> paramValues = new HashMap<>();
-//        paramValues.put("deptName", "R&D");
-//        q.setParameters(paramValues);
-//        List<String> names = q.executeResultList(String.class);
-//        checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_08, names, expected);
-//      } catch (Exception ex) {
-//        fail(ASSERTION_FAILED, ex.getLocalizedMessage());
-//      }
-//      tx.commit();
-//    } finally {
-//      cleanupPM(pm);
-//    }
-//  }
-//
 //  /**
 //   * Projection of Multiple Fields and Expressions.
 //   *
