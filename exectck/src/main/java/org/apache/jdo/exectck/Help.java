@@ -118,7 +118,7 @@ public class Help extends AbstractMojo {
     msg.append("* jdo.tck.parallel.config.dynamic.factor:\n");
     msg.append(
         "  Computes the desired parallelism based on the number of available processors/cores "
-            + "multiplied by the factor configuration parameter. Defaults to 0.6.\n");
+            + "multiplied by the factor configuration parameter. Default: junit default.\n");
     msg.append("* jdo.tck.datastore.supportsQueryCancel:\n");
     msg.append(
         "  Setting this parameter to true indicates whether the datastore supports query canceling.\n");
