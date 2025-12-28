@@ -138,6 +138,7 @@ The *jdo-exectck* Maven plugin has the following options
 * -Djdo.tck.testrunner.details: Output mode for test run. Use one of: none, summary, flat, tree, verbose, testfeed. If `none`is selected, then only the summary and test failures are shown.
 * -Djdo.tck.testrunner.colors: Setting this parameter to *enable* displays colors in the junit result log file.
 * -Djdo.tck.parallel.execution: Setting this parameter to *false* will disable parallel exceution of tck test methods in parallel threads.
+* -Djdo.tck.parallel.config.dynamic.factor: Computes the desired parallelism based on the number of available processors/cores multiplied by the factor configuration parameter. Defaults to 0.6.
 * -Djdo.tck.datastore.supportsQueryCancel: Setting this parameter to *true* indicates whether the datastore supports query canceling.
 * -Dproject.lib.ext.directory: Location of third party libraries such as JNDI.
 * -Ddatabase.runtck.sysproperties: Properties to use in accessing database.
