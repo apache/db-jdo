@@ -142,10 +142,7 @@ public class RunTCK extends AbstractTCKMojo {
    * Computes the desired parallelism based on the number of available processors/cores multiplied
    * by factor configuration parameter.
    */
-  @Parameter(
-      property = "jdo.tck.parallel.config.dynamic.factor",
-      defaultValue = "0.6",
-      required = true)
+  @Parameter(property = "jdo.tck.parallel.config.dynamic.factor")
   private String testParallelDynamicFactor;
 
   /** Whether the datastore supports query canceling. */
@@ -565,9 +562,11 @@ public class RunTCK extends AbstractTCKMojo {
     command.add("--details=" + testRunnerDetails);
     command.add("--config");
     command.add("junit.jupiter.execution.parallel.enabled=" + testParallelExecution);
-    command.add("--config");
-    command.add(
-        "junit.jupiter.execution.parallel.config.dynamic.factor=" + testParallelDynamicFactor);
+    if (testParallelDynamicFactor != null && !testParallelDynamicFactor.trim().isEmpty()) {
+      command.add("--config");
+      command.add(
+          "junit.jupiter.execution.parallel.config.dynamic.factor=" + testParallelDynamicFactor);
+    }
     // add Test classes
     for (String testClass : classesList) {
       // skip empty entries
