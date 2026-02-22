@@ -493,5 +493,14 @@
                 <version.spdx-maven-plugin>0.6.3</version.spdx-maven-plugin>
             </properties>
         </profile>
+        <profile>
+            <id>jdk11-plugin-fix-version</id>
+            <activation>
+                <jdk>[11,17)</jdk>
+            </activation>
+            <properties>
+                <version.spdx-maven-plugin>0.7.4</version.spdx-maven-plugin>
+            </properties>
+        </profile>
     </profiles>
 </project>

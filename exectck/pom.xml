@@ -74,6 +74,8 @@
                 <artifactId>maven-plugin-plugin</artifactId>
                 <configuration>
                     <goalPrefix>exectck</goalPrefix>
+                    <requiredJavaVersion>[1.8,)</requiredJavaVersion>
+                    <requiredMavenVersion>[3.3,)</requiredMavenVersion>
                 </configuration>
             </plugin>
             <plugin>
