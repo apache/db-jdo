@@ -256,6 +256,31 @@
                     <version>5.0.0</version>
                 </dependency>
             </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <showWarnings>${showWarnings}</showWarnings>
+                            <fork>true</fork>
+                            <compilerArgument>${compilerArgument}</compilerArgument>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>org.datanucleus</groupId>
+                                    <artifactId>datanucleus-jdo-query</artifactId>
+                                    <version>5.0.10</version>
+                                </path>
+                                <path>
+                                    <groupId>javax.jdo</groupId>
+                                    <artifactId>jdo-api</artifactId>
+                                    <version>3.3-SNAPSHOT</version>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>jdori-dn6</id>
@@ -325,6 +350,28 @@
             </dependencies>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <showWarnings>${showWarnings}</showWarnings>
+                            <fork>true</fork>
+                            <compilerArgument>${compilerArgument}</compilerArgument>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>org.datanucleus</groupId>
+                                    <artifactId>datanucleus-jdo-query</artifactId>
+                                    <version>6.0.2</version>
+                                </path>
+                                <path>
+                                    <groupId>javax.jdo</groupId>
+                                    <artifactId>jdo-api</artifactId>
+                                    <version>3.3-SNAPSHOT</version>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </plugin>
+
                     <plugin>
                     <!-- This plugin makes sure to run the profile with a JDK 11 or above -->
                         <groupId>org.apache.maven.plugins</groupId>

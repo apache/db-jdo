@@ -166,6 +166,7 @@
         <project.build.outputTimestamp>1661453031</project.build.outputTimestamp>
         <showWarnings></showWarnings>
         <compilerArgument></compilerArgument>
+        <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
         <version.maven-plugin-api>3.9.11</version.maven-plugin-api>
@@ -338,8 +339,6 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
                     <showWarnings>${showWarnings}</showWarnings>
                     <fork>true</fork>
                     <compilerArgument>${compilerArgument}</compilerArgument>
