@@ -81,13 +81,53 @@ jobs:
           retention-days: 14
           path: tck/target/logs/**/*
 
+  build-jdo-nucleus-6-mac:
+    name: Build JDO & Run TCK - DataNucleus 6 - Mac
+    needs: format-check
+    strategy:
+      matrix:
+        # run different builds with the listed java versions
+        java: [ 17 ]
+      fail-fast: false
+    runs-on: macos-26
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup java
+        uses: actions/setup-java@v4
+        with:
+          # specifies the OpenJdk that should be used; 'zulu' is the default for GitHub actions
+          distribution: 'zulu'
+          java-version: ${{ matrix.java }}
+
+      # Builds JDO & Runs the TCK
+      - name: Build JDO & Run TCK
+        run: |
+          mvn -B --no-transfer-progress -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install -Pjdori-dn6
+
+      # Exports the TCK logs in case the build fails
+      - name: Export TCK logs
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: tck-logs-jdk-${{ matrix.java }}
+          retention-days: 14
+          path: tck/target/logs/**/*
+
   build-jdo-nucleus-6:
     name: Build JDO & Run TCK - DataNucleus 6
     needs: format-check
     strategy:
       matrix:
         # run different builds with the listed java versions
-        java: [ 11, 21 ]
+        java: [ 11, 25 ]
         # run different builds with the listed java versions
         os: [ ubuntu-latest, windows-latest ]
         exclude:
