@@ -1066,7 +1066,7 @@ public class JDOImplHelper extends java.lang.Object {
       StateInterrogation si = sit.next();
       try {
         if (si.makeDirty(pc, fieldName)) return;
-      } catch (Throwable t) {
+      } catch (Exception t) {
         // ignore exceptions from errant StateInterrogations
       }
     }
@@ -1091,7 +1091,7 @@ public class JDOImplHelper extends java.lang.Object {
       Boolean result;
       try {
         result = sibr.is(pc, si);
-      } catch (Throwable t) {
+      } catch (Exception t) {
         continue; // ignore exceptions from errant StateInterrogations
       }
       if (result != null) return result.booleanValue();
@@ -1117,7 +1117,7 @@ public class JDOImplHelper extends java.lang.Object {
       Object result;
       try {
         result = sibr.get(pc, si);
-      } catch (Throwable t) {
+      } catch (Exception t) {
         continue; // ignore exceptions from errant StateInterrogations
       }
       if (result != null) return result;

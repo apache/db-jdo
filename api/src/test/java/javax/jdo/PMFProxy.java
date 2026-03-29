@@ -26,13 +26,11 @@ public class PMFProxy implements InvocationHandler {
   private String connectionDriverName;
 
   public static PersistenceManagerFactory newInstance() {
-    PersistenceManagerFactory pmf =
-        (PersistenceManagerFactory)
-            Proxy.newProxyInstance(
-                PMFProxy.class.getClassLoader(),
-                new Class[] {PersistenceManagerFactory.class},
-                new PMFProxy());
-    return pmf;
+    return (PersistenceManagerFactory)
+        Proxy.newProxyInstance(
+            PMFProxy.class.getClassLoader(),
+            new Class[] {PersistenceManagerFactory.class},
+            new PMFProxy());
   }
 
   /*

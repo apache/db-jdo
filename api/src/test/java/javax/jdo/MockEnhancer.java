@@ -55,7 +55,9 @@ public class MockEnhancer implements JDOEnhancer {
   @SuppressWarnings("unused")
   private String outputDirectory = null;
 
-  public MockEnhancer() {}
+  public MockEnhancer() {
+    // This method body is intentionally left blank
+  }
 
   public Properties getProperties() {
     return props;
@@ -130,6 +132,7 @@ public class MockEnhancer implements JDOEnhancer {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
+  @Override
   public byte[] transform(
       ClassLoader loader,
       String className,

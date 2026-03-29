@@ -44,7 +44,9 @@ class InstanceLifecycleEventTest extends AbstractTest {
   final Object detachTarget = new Object();
 
   /** Creates a new instance of SingleFieldIdentityTest */
-  public InstanceLifecycleEventTest() {}
+  public InstanceLifecycleEventTest() {
+    // This method body is intentionally left blank
+  }
 
   @Test
   void testConstructorCreateEvent() {

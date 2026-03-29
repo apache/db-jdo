@@ -195,32 +195,8 @@ public class Enhancer {
               (String) entry.getValue());
         }
       }
-      enhancer.setVerbose(verbose);
-      if (loader != null) {
-        enhancer.setClassLoader(loader);
-      }
+      setEnhancerProperties(enhancer);
 
-      int numberOfClasses = classFileNames.size();
-      if (numberOfClasses != 0) {
-        enhancer.addClasses(classFileNames.toArray(new String[numberOfClasses]));
-      }
-      int numberOfFiles = jdoFileNames.size();
-      if (numberOfFiles != 0) {
-        enhancer.addFiles(jdoFileNames.toArray(new String[numberOfFiles]));
-      }
-      if (!jarFileNames.isEmpty()) {
-        for (String jarFileName : jarFileNames) {
-          enhancer.addJar(jarFileName);
-        }
-      }
-      if (persistenceUnitNames != null) {
-        for (String persistenceUnitName : persistenceUnitNames) {
-          enhancer.addPersistenceUnit(persistenceUnitName);
-        }
-      }
-      if (directoryName != null) {
-        enhancer.setOutputDirectory(directoryName);
-      }
       if (checkOnly) {
         numberOfValidatedClasses = enhancer.validate();
         addVerboseMessage("MSG_EnhancerValidatedClasses", numberOfValidatedClasses); // NOI18N
@@ -255,11 +231,45 @@ public class Enhancer {
   }
 
   /**
+   * Set the properties of the JDOEnhancer.
+   *
+   * @param enhancer the enhancer insatance
+   */
+  private void setEnhancerProperties(JDOEnhancer enhancer) {
+    enhancer.setVerbose(verbose);
+    if (loader != null) {
+      enhancer.setClassLoader(loader);
+    }
+
+    int numberOfClasses = classFileNames.size();
+    if (numberOfClasses != 0) {
+      enhancer.addClasses(classFileNames.toArray(new String[numberOfClasses]));
+    }
+    int numberOfFiles = jdoFileNames.size();
+    if (numberOfFiles != 0) {
+      enhancer.addFiles(jdoFileNames.toArray(new String[numberOfFiles]));
+    }
+    if (!jarFileNames.isEmpty()) {
+      for (String jarFileName : jarFileNames) {
+        enhancer.addJar(jarFileName);
+      }
+    }
+    if (persistenceUnitNames != null) {
+      for (String persistenceUnitName : persistenceUnitNames) {
+        enhancer.addPersistenceUnit(persistenceUnitName);
+      }
+    }
+    if (directoryName != null) {
+      enhancer.setOutputDirectory(directoryName);
+    }
+  }
+
+  /**
    * Parse the command line arguments. Put the results into fields.
    *
    * @param args the command line arguments
    */
-  private void parseArgs(String[] args) {
+  private void parseArgs(String[] args) { // NOSONAR Cognitive Complexity
     boolean doneWithOptions = false;
     fileNames = new ArrayList<>();
     for (int i = 0; i < args.length; ++i) {
@@ -358,7 +368,8 @@ public class Enhancer {
    *
    * If the recursion flag is set, directories contained in directories are examined, recursively.
    */
-  private void parseFiles(String[] fileNames, boolean search, boolean recurse) {
+  private void parseFiles(
+      String[] fileNames, boolean search, boolean recurse) { // NOSONAR Cognitive Complexity
     for (String fileName : fileNames) {
       if (fileName.endsWith(JAR_FILE_SUFFIX)) {
         // add to jar file names

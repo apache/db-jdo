@@ -26,7 +26,9 @@ package javax.jdo.annotations;
 public class Line {
 
   /** Creates a new instance of Line */
-  public Line() {}
+  public Line() {
+    // This method body is intentionally left blank
+  }
 
   Point point1;
   Point point2;

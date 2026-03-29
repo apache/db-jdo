@@ -36,9 +36,9 @@ public class PCPoint implements PersistenceCapable {
   protected transient StateManager jdoStateManager;
   protected transient byte jdoFlags;
   private static final int jdoInheritedFieldCount = 0;
-  private static final String jdoFieldNames[] = {"x", "y"};
-  private static final Class<?> jdoFieldTypes[];
-  private static final byte jdoFieldFlags[] = {
+  private static final String[] jdoFieldNames = {"x", "y"};
+  private static final Class<?>[] jdoFieldTypes;
+  private static final byte[] jdoFieldFlags = {
     (byte)
         (PersistenceCapable.CHECK_READ
             + PersistenceCapable.CHECK_WRITE
@@ -63,7 +63,9 @@ public class PCPoint implements PersistenceCapable {
   }
 
   /** JDO required no-args constructor. */
-  public PCPoint() {}
+  public PCPoint() {
+    // This method body is intentionally left blank
+  }
 
   /** Constructor. */
   public PCPoint(int x, Integer y) {
@@ -198,13 +200,13 @@ public class PCPoint implements PersistenceCapable {
     if (statemanager != null) jdoFlags = statemanager.replacingFlags(this);
   }
 
-  public final void jdoReplaceFields(int fields[]) {
+  public final void jdoReplaceFields(int[] fields) {
     if (fields == null) throw new IllegalArgumentException("fields is null");
     int i = fields.length;
     for (int j = 0; j < i; j++) jdoReplaceField(fields[j]);
   }
 
-  public final void jdoProvideFields(int fields[]) {
+  public final void jdoProvideFields(int[] fields) {
     if (fields == null) throw new IllegalArgumentException("fields is null");
     int i = fields.length;
     for (int j = 0; j < i; j++) jdoProvideField(fields[j]);
@@ -219,14 +221,22 @@ public class PCPoint implements PersistenceCapable {
   // that declare objectid-class in xml metadata:
 
   public void jdoCopyKeyFieldsToObjectId(
-      PersistenceCapable.ObjectIdFieldSupplier objectidfieldsupplier, Object obj) {}
+      PersistenceCapable.ObjectIdFieldSupplier objectidfieldsupplier, Object obj) {
+    // This method body is intentionally left blank
+  }
 
-  public void jdoCopyKeyFieldsToObjectId(Object obj) {}
+  public void jdoCopyKeyFieldsToObjectId(Object obj) {
+    // This method body is intentionally left blank
+  }
 
   public void jdoCopyKeyFieldsFromObjectId(
-      PersistenceCapable.ObjectIdFieldConsumer objectidfieldconsumer, Object obj) {}
+      PersistenceCapable.ObjectIdFieldConsumer objectidfieldconsumer, Object obj) {
+    // This method body is intentionally left blank
+  }
 
-  protected void jdoCopyKeyFieldsFromObjectId(Object obj) {}
+  protected void jdoCopyKeyFieldsFromObjectId(Object obj) {
+    // This method body is intentionally left blank
+  }
 
   public Object jdoNewObjectIdInstance() {
     return null;
@@ -321,8 +331,9 @@ public class PCPoint implements PersistenceCapable {
           y = (Integer) statemanager.replacingObjectField(this, field);
           return;
         }
+      default:
+        throw new IllegalArgumentException("field number out of range");
     }
-    throw new IllegalArgumentException("field number out of range");
   }
 
   public void jdoProvideField(int field) {
@@ -342,11 +353,12 @@ public class PCPoint implements PersistenceCapable {
           statemanager.providedObjectField(this, field, y);
           return;
         }
+      default:
+        throw new IllegalArgumentException("field number out of range");
     }
-    throw new IllegalArgumentException("field number out of range");
   }
 
-  public void jdoCopyFields(Object obj, int fieldNumbers[]) {
+  public void jdoCopyFields(Object obj, int[] fieldNumbers) {
     if (jdoStateManager == null) throw new IllegalStateException("jdoStateManager is null");
     if (!(obj instanceof PCPoint)) throw new ClassCastException(obj.getClass().getName());
     if (fieldNumbers == null) throw new IllegalArgumentException("fieldNumber is null");
@@ -373,8 +385,9 @@ public class PCPoint implements PersistenceCapable {
           y = pcpoint.y;
           return;
         }
+      default:
+        throw new IllegalArgumentException("field number out of range");
     }
-    throw new IllegalArgumentException("field number out of range");
   }
 
   private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {

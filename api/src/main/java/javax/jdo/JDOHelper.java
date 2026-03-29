@@ -744,7 +744,7 @@ public class JDOHelper implements Constants {
     try {
       while ((line = reader.readLine()) != null) {
         line = line.trim();
-        if (line.length() == 0 || line.startsWith("#")) {
+        if (line.isEmpty() || line.startsWith("#")) {
           continue;
         }
         // else assume first line of text is the PMF class name
@@ -1580,7 +1580,7 @@ public class JDOHelper implements Constants {
     Enumeration<URL> urls = null;
     try {
       urls = getResources(loader, Constants.SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
-    } catch (Throwable ex) {
+    } catch (Exception ex) {
       exceptions.add(ex);
     }
 
@@ -1591,7 +1591,7 @@ public class JDOHelper implements Constants {
           String enhancerClassName = getClassNameFromURL(urls.nextElement());
           Class<?> enhancerClass = forName(enhancerClassName, true, ctrLoader);
           return (JDOEnhancer) enhancerClass.newInstance();
-        } catch (Throwable ex) {
+        } catch (Exception ex) {
           // remember exceptions from failed enhancer invocations
           exceptions.add(ex);
         }

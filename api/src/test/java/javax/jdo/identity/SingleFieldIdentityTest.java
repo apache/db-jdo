@@ -42,7 +42,9 @@ class SingleFieldIdentityTest extends AbstractTest {
   Object scti3;
 
   /** Creates a new instance of SingleFieldIdentityTest */
-  public SingleFieldIdentityTest() {}
+  public SingleFieldIdentityTest() {
+    // This method body is intentionally left blank
+  }
 
   @Test
   void testConstructor() {

@@ -30,8 +30,11 @@ import org.junit.jupiter.api.Test;
 class IntIdentityTest extends SingleFieldIdentityTest {
 
   /** Creates a new instance of IntIdentityTest */
-  public IntIdentityTest() {}
+  public IntIdentityTest() {
+    // This method body is intentionally left blank
+  }
 
+  @Override
   @Test
   void testConstructor() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
@@ -74,6 +77,7 @@ class IntIdentityTest extends SingleFieldIdentityTest {
         "No exception caught for illegal String.");
   }
 
+  @Override
   @Test
   void testSerialized() {
     IntIdentity c1 = new IntIdentity(Object.class, 1);
