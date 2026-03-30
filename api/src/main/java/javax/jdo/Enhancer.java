@@ -368,8 +368,8 @@ public class Enhancer {
    *
    * If the recursion flag is set, directories contained in directories are examined, recursively.
    */
-  private void parseFiles(
-      String[] fileNames, boolean search, boolean recurse) { // NOSONAR Cognitive Complexity
+  private void parseFiles( // NOSONAR Cognitive Complexity
+      String[] fileNames, boolean search, boolean recurse) {
     for (String fileName : fileNames) {
       if (fileName.endsWith(JAR_FILE_SUFFIX)) {
         // add to jar file names
