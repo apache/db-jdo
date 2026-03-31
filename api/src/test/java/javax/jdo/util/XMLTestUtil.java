@@ -505,7 +505,7 @@ public class XMLTestUtil {
   }
 
   /** Command line tool to test JDO metadata files. Usage: XMLTestUtil [-r] <file or directory>+ */
-  public static void main(String args[]) {
+  public static void main(String[] args) {
     String[] fromProp = checkMetadataSystemProperty();
     boolean recursive = Boolean.getBoolean(RECURSIVE_PROP);
 
