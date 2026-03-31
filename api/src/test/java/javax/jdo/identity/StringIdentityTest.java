@@ -30,8 +30,11 @@ import org.junit.jupiter.api.Test;
 class StringIdentityTest extends SingleFieldIdentityTest {
 
   /** Creates a new instance of StringIdentityTest */
-  public StringIdentityTest() {}
+  public StringIdentityTest() {
+    // This method body is intentionally left blank
+  }
 
+  @Override
   @Test
   void testConstructor() {
     StringIdentity c1 = new StringIdentity(Object.class, "1");
@@ -48,6 +51,7 @@ class StringIdentityTest extends SingleFieldIdentityTest {
     Assertions.assertEquals(c1, c2, "Equal StringIdentity instances compare not equal.");
   }
 
+  @Override
   @Test
   void testSerialized() {
     StringIdentity c1 = new StringIdentity(Object.class, "1");

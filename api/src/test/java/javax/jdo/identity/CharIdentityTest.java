@@ -32,8 +32,11 @@ import org.junit.jupiter.api.Test;
 class CharIdentityTest extends SingleFieldIdentityTest {
 
   /** Creates a new instance of CharIdentityTest */
-  public CharIdentityTest() {}
+  public CharIdentityTest() {
+    // This method body is intentionally left blank
+  }
 
+  @Override
   @Test
   void testConstructor() {
     CharIdentity c1 = new CharIdentity(Object.class, 'a');
@@ -84,6 +87,7 @@ class CharIdentityTest extends SingleFieldIdentityTest {
         "No exception caught for String too short.");
   }
 
+  @Override
   @Test
   void testSerialized() {
     CharIdentity c1 = new CharIdentity(Object.class, 'a');

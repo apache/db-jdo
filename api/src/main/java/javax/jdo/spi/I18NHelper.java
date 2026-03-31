@@ -80,7 +80,7 @@ public class I18NHelper {
   private I18NHelper(String bundleName, ClassLoader loader) {
     try {
       bundle = loadBundle(bundleName, loader);
-    } catch (Throwable e) {
+    } catch (Exception e) {
       failure = e;
     }
   }

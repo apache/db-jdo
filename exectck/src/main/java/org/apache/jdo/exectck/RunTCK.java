@@ -187,7 +187,7 @@ public class RunTCK extends AbstractTCKMojo {
   @Override
   public void execute() throws MojoExecutionException {
     if (!doRunTCK) {
-      System.out.println("Skipping RunTCK goal!");
+      System.out.println("Skipping RunTCK goal!"); // NOSONAR System.out
       return;
     }
 
@@ -257,7 +257,8 @@ public class RunTCK extends AbstractTCKMojo {
           String confFileName = confDirectory + FS + cfg;
           if (!new File(confFileName).exists()) {
             // Conf file nor found => continue
-            System.out.println("ERROR: Configuration file " + confFileName + " not found.");
+            System.out.println( // NOSONAR System.out
+                "ERROR: Configuration file " + confFileName + " not found.");
             continue;
           }
           Properties props = PropertyUtils.getProperties(confDirectory + FS + cfg);
@@ -267,7 +268,8 @@ public class RunTCK extends AbstractTCKMojo {
           }
           List<String> classesList = getTestClasses(props, cfg, excludeFile);
           if (classesList.isEmpty()) {
-            System.out.println("Skipping configuration " + cfg + ": classes excluded");
+            System.out.println( // NOSONAR System.out
+                "Skipping configuration " + cfg + ": classes excluded");
             continue;
           }
 
@@ -343,7 +345,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     PropertyUtils.string2Collection(dblist, dbs);
     PropertyUtils.string2Collection(identitytypes, idtypes);
-    System.out.println(
+    System.out.println( // NOSONAR System.out
         "*>TCK to be run for implementation '"
             + impl
             + "' on \n"
@@ -357,7 +359,7 @@ public class RunTCK extends AbstractTCKMojo {
             + identitytypes);
 
     // Properties required for test execution
-    System.out.println("cleanupaftertest is " + cleanupaftertest);
+    System.out.println("cleanupaftertest is " + cleanupaftertest); // NOSONAR System.out
 
     List<String> propsString = new ArrayList<>();
     propsString.add("-Dverbose=" + verbose);
@@ -408,7 +410,7 @@ public class RunTCK extends AbstractTCKMojo {
       URL url1 = enhancedDir.toURI().toURL();
       URL url2 = new File(buildDirectory + FS + CLASSES_DIR_NAME + FS).toURI().toURL();
       if (runtckVerbose) {
-        System.out.println("url2 is " + url2.toString());
+        System.out.println("url2 is " + url2.toString()); // NOSONAR System.out
       }
       cpList.add(url1);
       cpList.add(url2);
@@ -426,7 +428,7 @@ public class RunTCK extends AbstractTCKMojo {
     }
     cpString = Utilities.urls2ClasspathString(cpList);
     if (runtckVerbose) {
-      System.out.println("\nClasspath is " + cpString);
+      System.out.println("\nClasspath is " + cpString); // NOSONAR System.out
     }
     return cpString;
   }
@@ -532,7 +534,7 @@ public class RunTCK extends AbstractTCKMojo {
    * @param logFilePrefix
    * @return
    */
-  private int executeTestClass(
+  private int executeTestClass( // NOSONAR Methods should not have too many parameters
       String cpString,
       List<String> cfgPropsString,
       List<String> classesList,
@@ -570,18 +572,18 @@ public class RunTCK extends AbstractTCKMojo {
     // add Test classes
     for (String testClass : classesList) {
       // skip empty entries
-      if (testClass != null && testClass.trim().length() > 0) {
+      if (testClass != null && !testClass.trim().isEmpty()) {
         command.add("-c");
         command.add(testClass);
       }
     }
 
     if (debugTCK) {
-      System.out.println("Using debug arguments: \n" + debugDirectives);
+      System.out.println("Using debug arguments: \n" + debugDirectives); // NOSONAR System.out
     }
 
     // invoke class runner
-    System.out.print(
+    System.out.print( // NOSONAR System.out
         "*> Running tests for "
             + cfg
             + " with "
@@ -598,17 +600,18 @@ public class RunTCK extends AbstractTCKMojo {
     try {
       resultValue = Utilities.invokeCommand(command, new File(buildDirectory), junitLogFilename);
       if (resultValue == 0) {
-        System.out.println("success");
+        System.out.println("success"); // NOSONAR System.out
       } else {
-        System.out.println("FAIL");
+        System.out.println("FAIL"); // NOSONAR System.out
       }
       if (runtckVerbose) {
-        System.out.println("\nCommand line is: \n" + command.toString());
-        System.out.println("Test exit value is " + resultValue);
-        System.out.println("Test result output:\n" + fileToString(junitLogFilename));
+        System.out.println("\nCommand line is: \n" + command.toString()); // NOSONAR System.out
+        System.out.println("Test exit value is " + resultValue); // NOSONAR System.out
+        System.out.println( // NOSONAR System.out
+            "Test result output:\n" + fileToString(junitLogFilename));
       }
     } catch (java.lang.RuntimeException re) {
-      System.out.println("Exception on command " + command);
+      System.out.println("Exception on command " + command); // NOSONAR System.out
     }
     return resultValue;
   }
@@ -625,14 +628,15 @@ public class RunTCK extends AbstractTCKMojo {
       File logFile = new File(implLogFile);
       FileUtils.moveFile(logFile, new File(testLogFilename));
     } catch (Exception e) {
-      System.out.println(">> Error moving implementation log file: " + e.getMessage());
+      System.out.println( // NOSONAR System.out
+          ">> Error moving implementation log file: " + e.getMessage());
     }
     String tckLogFilename = logFilePrefix + TCK_LOG_FILE;
     try {
       File logFile = new File(tckLogFile);
       FileUtils.moveFile(logFile, new File(tckLogFilename));
     } catch (Exception e) {
-      System.out.println(">> Error moving tck log file: " + e.getMessage());
+      System.out.println(">> Error moving tck log file: " + e.getMessage()); // NOSONAR System.out
     }
   }
 
@@ -653,12 +657,12 @@ public class RunTCK extends AbstractTCKMojo {
     try {
       FileUtils.forceDeleteOnExit(new File(implLogFile));
     } catch (Exception e) {
-      System.out.println(">> Error deleting log file: " + e.getMessage());
+      System.out.println(">> Error deleting log file: " + e.getMessage()); // NOSONAR System.out
     }
     try {
       FileUtils.forceDeleteOnExit(new File(TCK_LOG_FILE));
     } catch (Exception e) {
-      System.out.println(">> Error deleting log file: " + e.getMessage());
+      System.out.println(">> Error deleting log file: " + e.getMessage()); // NOSONAR System.out
     }
 
     // Output results
@@ -670,7 +674,7 @@ public class RunTCK extends AbstractTCKMojo {
     command.add("org.apache.jdo.tck.util.ResultSummary");
     command.add(logDir);
     Utilities.invokeCommand(command, new File(buildDirectory), resultSummaryLogFile);
-    System.out.println(fileToString(resultSummaryLogFile));
+    System.out.println(fileToString(resultSummaryLogFile)); // NOSONAR System.out
 
     // Create system configuration description file
     command.set(3, "org.apache.jdo.tck.util.SystemCfgSummary");
@@ -678,6 +682,17 @@ public class RunTCK extends AbstractTCKMojo {
     command.add("system_config.txt");
     Utilities.invokeCommand(command, new File(buildDirectory), null);
 
+    copyMetadata(cfgDirName);
+
+    if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
+      throw new MojoExecutionException("Aborted TCK test run after 1 failure.");
+    }
+    if (TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY.equals(onFailure) && failureCount > 0) {
+      throw new MojoExecutionException("There were " + failureCount + " TCK test failures.");
+    }
+  }
+
+  private void copyMetadata(String cfgDirName) throws MojoExecutionException {
     // Copy metadata from enhanced to configuration logs directory
     for (String idtype : idtypes) {
       String fromDirName = buildDirectory + FS + "enhanced" + FS + impl + FS + idtype + FS;
@@ -705,13 +720,6 @@ public class RunTCK extends AbstractTCKMojo {
           }
         }
       }
-    }
-
-    if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
-      throw new MojoExecutionException("Aborted TCK test run after 1 failure.");
-    }
-    if (TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY.equals(onFailure) && failureCount > 0) {
-      throw new MojoExecutionException("There were " + failureCount + " TCK test failures.");
     }
   }
 

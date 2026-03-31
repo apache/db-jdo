@@ -26,7 +26,9 @@ package javax.jdo.annotations;
 public class Point {
 
   /** Creates a new instance of Point */
-  public Point() {}
+  public Point() {
+    // This method body is intentionally left blank
+  }
 
   int x;
   Integer y;

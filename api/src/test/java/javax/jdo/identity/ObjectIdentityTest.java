@@ -58,8 +58,11 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   }
 
   /** Creates a new instance of ObjectIdentityTest */
-  public ObjectIdentityTest() {}
+  public ObjectIdentityTest() {
+    // This method body is intentionally left blank
+  }
 
+  @Override
   @Test
   void testConstructor() {
     ObjectIdentity c1 = new ObjectIdentity(Object.class, new IdClass(1));

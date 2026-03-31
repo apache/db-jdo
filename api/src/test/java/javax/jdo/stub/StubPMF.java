@@ -332,31 +332,57 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
   public DataStoreCache getDataStoreCache() {
     return new DataStoreCache() {
 
-      public void evict(Object oid) {}
+      public void evict(Object oid) {
+        // This method body is intentionally left blank
+      }
 
-      public void evictAll() {}
+      public void evictAll() {
+        // This method body is intentionally left blank
+      }
 
-      public void evictAll(Object... oids) {}
+      public void evictAll(Object... oids) {
+        // This method body is intentionally left blank
+      }
 
-      public void evictAll(Collection<?> oids) {}
+      public void evictAll(Collection<?> oids) {
+        // This method body is intentionally left blank
+      }
 
-      public void evictAll(boolean subclasses, Class<?> pcClass) {}
+      public void evictAll(boolean subclasses, Class<?> pcClass) {
+        // This method body is intentionally left blank
+      }
 
-      public void pin(Object oid) {}
+      public void pin(Object oid) {
+        // This method body is intentionally left blank
+      }
 
-      public void pinAll(Collection<?> oids) {}
+      public void pinAll(Collection<?> oids) {
+        // This method body is intentionally left blank
+      }
 
-      public void pinAll(Object... oids) {}
+      public void pinAll(Object... oids) {
+        // This method body is intentionally left blank
+      }
 
-      public void pinAll(boolean subclasses, Class<?> pcClass) {}
+      public void pinAll(boolean subclasses, Class<?> pcClass) {
+        // This method body is intentionally left blank
+      }
 
-      public void unpin(Object oid) {}
+      public void unpin(Object oid) {
+        // This method body is intentionally left blank
+      }
 
-      public void unpinAll(Collection<?> oids) {}
+      public void unpinAll(Collection<?> oids) {
+        // This method body is intentionally left blank
+      }
 
-      public void unpinAll(Object... oids) {}
+      public void unpinAll(Object... oids) {
+        // This method body is intentionally left blank
+      }
 
-      public void unpinAll(boolean subclasses, Class<?> pcClass) {}
+      public void unpinAll(boolean subclasses, Class<?> pcClass) {
+        // This method body is intentionally left blank
+      }
     };
   }
 

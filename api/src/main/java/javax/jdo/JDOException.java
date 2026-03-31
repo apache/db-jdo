@@ -208,33 +208,7 @@ public class JDOException extends java.lang.RuntimeException {
     // include failed object information
     if (failed != null) {
       sb.append("\n").append(MSG.msg("MSG_FailedObject"));
-      String failedToString = null;
-      try {
-        failedToString = failed.toString();
-      } catch (Exception ex) {
-        // include the information from the exception thrown by failed.toString
-        Object objectId = JDOHelper.getObjectId(failed);
-        if (objectId == null) {
-          failedToString =
-              MSG.msg(
-                  "MSG_ExceptionGettingFailedToString", // NOI18N
-                  exceptionToString(ex));
-        } else {
-          // include the ObjectId information
-          String objectIdToString = null;
-          try {
-            objectIdToString = objectId.toString();
-          } catch (Exception ex2) {
-            objectIdToString = exceptionToString(ex2);
-          }
-          failedToString =
-              MSG.msg(
-                  "MSG_ExceptionGettingFailedToStringObjectId", // NOI18N
-                  exceptionToString(ex),
-                  objectIdToString);
-        }
-      }
-      sb.append(failedToString);
+      sb.append(failedToString());
     }
     // include nested Throwable information, but only if not called by
     // printStackTrace; the stacktrace will include the cause anyway.
@@ -315,5 +289,35 @@ public class JDOException extends java.lang.RuntimeException {
     String s = ex.getClass().getName();
     String message = ex.getMessage();
     return (message != null) ? (s + ": " + message) : s;
+  }
+
+  private String failedToString() {
+    String failedToString = null;
+    try {
+      failedToString = failed.toString();
+    } catch (Exception ex) {
+      // include the information from the exception thrown by failed.toString
+      Object objectId = JDOHelper.getObjectId(failed);
+      if (objectId == null) {
+        failedToString =
+            MSG.msg(
+                "MSG_ExceptionGettingFailedToString", // NOI18N
+                exceptionToString(ex));
+      } else {
+        // include the ObjectId information
+        String objectIdToString = null;
+        try {
+          objectIdToString = objectId.toString();
+        } catch (Exception ex2) {
+          objectIdToString = exceptionToString(ex2);
+        }
+        failedToString =
+            MSG.msg(
+                "MSG_ExceptionGettingFailedToStringObjectId", // NOI18N
+                exceptionToString(ex),
+                objectIdToString);
+      }
+    }
+    return failedToString;
   }
 }

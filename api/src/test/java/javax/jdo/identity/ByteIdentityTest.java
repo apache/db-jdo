@@ -30,8 +30,11 @@ import org.junit.jupiter.api.Test;
 class ByteIdentityTest extends SingleFieldIdentityTest {
 
   /** Creates a new instance of ByteIdentityTest */
-  public ByteIdentityTest() {}
+  public ByteIdentityTest() {
+    // This method body is intentionally left blank
+  }
 
+  @Override
   @Test
   void testConstructor() {
     ByteIdentity c1 = new ByteIdentity(Object.class, (byte) 1);
@@ -76,6 +79,7 @@ class ByteIdentityTest extends SingleFieldIdentityTest {
         "No exception caught for illegal String.");
   }
 
+  @Override
   @Test
   void testSerialized() {
     ByteIdentity c1 = new ByteIdentity(Object.class, (byte) 1);

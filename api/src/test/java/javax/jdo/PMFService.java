@@ -21,7 +21,9 @@ import java.util.Map;
 /** */
 public class PMFService implements Constants {
 
-  public PMFService() {}
+  public PMFService() {
+    // This method body is intentionally left blank
+  }
 
   public static PersistenceManagerFactory getPersistenceManagerFactory(
       Map<?, ?> overrides, Map<?, ?> props) {

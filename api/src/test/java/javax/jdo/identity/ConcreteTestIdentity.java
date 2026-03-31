@@ -53,10 +53,12 @@ public class ConcreteTestIdentity extends SingleFieldIdentity<ConcreteTestIdenti
     throw new UnsupportedOperationException("Not implemented");
   }
 
+  @Override
   public void writeExternal(ObjectOutput out) throws IOException {
     super.writeExternal(out);
   }
 
+  @Override
   public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
     super.readExternal(in);
   }

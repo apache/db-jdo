@@ -317,34 +317,34 @@ public class XMLTestUtil {
 
     /** Return the error location for the file under test. */
     private String getErrorLocation(int lineNumber, int columnNumber) {
-      String[] lines = getLines();
-      int length = lines.length;
+      String[] linesArray = getLines();
+      int length = linesArray.length;
       if (lineNumber > length) {
         return "Line number "
             + lineNumber
-            + " exceeds the number of lines in the file ("
-            + lines.length
+            + " exceeds the number of linesArray in the file ("
+            + linesArray.length
             + ")";
       } else if (lineNumber < 1) {
         return "Line number " + lineNumber + " does not allow retriving the error location.";
       }
       StringBuffer buf = new StringBuffer();
       if (lineNumber > 2) {
-        buf.append(lines[lineNumber - 3]);
+        buf.append(linesArray[lineNumber - 3]);
         buf.append(NL);
-        buf.append(lines[lineNumber - 2]);
+        buf.append(linesArray[lineNumber - 2]);
         buf.append(NL);
       }
-      buf.append(lines[lineNumber - 1]);
+      buf.append(linesArray[lineNumber - 1]);
       buf.append(NL);
       for (int i = 1; i < columnNumber; ++i) {
         buf.append(' ');
       }
       buf.append("^\n");
       if (lineNumber + 1 < length) {
-        buf.append(lines[lineNumber]);
+        buf.append(linesArray[lineNumber]);
         buf.append(NL);
-        buf.append(lines[lineNumber + 1]);
+        buf.append(linesArray[lineNumber + 1]);
         buf.append(NL);
       }
       return buf.toString();
@@ -493,7 +493,7 @@ public class XMLTestUtil {
   private static String[] checkMetadataSystemProperty() {
     String[] ret = null;
     String metadata = System.getProperty(METADATA_PROP);
-    if ((metadata != null) && (metadata.length() > 0)) {
+    if ((metadata != null) && (!metadata.isEmpty())) {
       List<String> entries = new ArrayList<>();
       StringTokenizer st = new StringTokenizer(metadata, DELIM);
       while (st.hasMoreTokens()) {

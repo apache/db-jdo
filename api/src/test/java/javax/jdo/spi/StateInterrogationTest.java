@@ -45,7 +45,9 @@ class StateInterrogationTest extends AbstractTest {
   private final JDOImplHelper implHelper = JDOImplHelper.getInstance();
 
   /** Creates a new instance of StateInterrogationTest */
-  public StateInterrogationTest() {}
+  public StateInterrogationTest() {
+    // This method body is intentionally left blank
+  }
 
   @Test
   void testGetObjectIdNull() {
