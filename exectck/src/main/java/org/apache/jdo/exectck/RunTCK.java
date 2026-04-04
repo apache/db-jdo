@@ -533,7 +533,7 @@ public class RunTCK extends AbstractTCKMojo {
    * @param logFilePrefix
    * @return
    */
-  @SuppressWarnings("java:S00107") // Methods should not have too many parameters
+  @SuppressWarnings("java:S107") // Methods should not have too many parameters
   private int executeTestClass(
       String cpString,
       List<String> cfgPropsString,
