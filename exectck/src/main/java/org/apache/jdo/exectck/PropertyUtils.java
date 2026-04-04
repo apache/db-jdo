@@ -48,6 +48,7 @@ public class PropertyUtils {
    * @param confDir directory where config files are found
    * @param mappings object to containg mapping values
    */
+  @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
   public static void mappingsSet(
       Collection<String> cfglist, String confDir, Collection<String> mappings) {
 
@@ -56,7 +57,7 @@ public class PropertyUtils {
       String confName = confDir + File.separator + cfg;
       if (!new File(confName).exists()) {
         // Conf file nor found => continue
-        System.out.println( // NOSONAR System.out
+        System.out.println(
             "ERROR: Configuration file " + confName + " not found.");
         continue;
       }

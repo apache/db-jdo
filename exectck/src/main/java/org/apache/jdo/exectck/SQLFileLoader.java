@@ -132,7 +132,8 @@ public class SQLFileLoader {
    * @return the next non comment character
    * @throws IOException If an I/O error occurs
    */
-  private int next() throws IOException { // NOSONAR Cognitive Complexity
+  @SuppressWarnings("java:S3776") // Cognitive Complexity of methods should not be too high
+  private int next() throws IOException {
     int result = this.nextChar;
     switch (this.nextChar) {
       case '\'':
