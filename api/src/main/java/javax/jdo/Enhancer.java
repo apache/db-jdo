@@ -370,8 +370,7 @@ public class Enhancer {
    * If the recursion flag is set, directories contained in directories are examined, recursively.
    */
   @SuppressWarnings("java:S3776") // Cognitive Complexity of methods should not be too high
-  private void parseFiles(
-      String[] fileNames, boolean search, boolean recurse) {
+  private void parseFiles(String[] fileNames, boolean search, boolean recurse) {
     for (String fileName : fileNames) {
       if (fileName.endsWith(JAR_FILE_SUFFIX)) {
         // add to jar file names

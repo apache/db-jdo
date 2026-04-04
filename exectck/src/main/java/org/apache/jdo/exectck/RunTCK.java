@@ -258,8 +258,7 @@ public class RunTCK extends AbstractTCKMojo {
           String confFileName = confDirectory + FS + cfg;
           if (!new File(confFileName).exists()) {
             // Conf file nor found => continue
-            System.out.println(
-                "ERROR: Configuration file " + confFileName + " not found.");
+            System.out.println("ERROR: Configuration file " + confFileName + " not found.");
             continue;
           }
           Properties props = PropertyUtils.getProperties(confDirectory + FS + cfg);
@@ -269,8 +268,7 @@ public class RunTCK extends AbstractTCKMojo {
           }
           List<String> classesList = getTestClasses(props, cfg, excludeFile);
           if (classesList.isEmpty()) {
-            System.out.println(
-                "Skipping configuration " + cfg + ": classes excluded");
+            System.out.println("Skipping configuration " + cfg + ": classes excluded");
             continue;
           }
 
@@ -609,8 +607,7 @@ public class RunTCK extends AbstractTCKMojo {
       if (runtckVerbose) {
         System.out.println("\nCommand line is: \n" + command.toString());
         System.out.println("Test exit value is " + resultValue);
-        System.out.println(
-            "Test result output:\n" + fileToString(junitLogFilename));
+        System.out.println("Test result output:\n" + fileToString(junitLogFilename));
       }
     } catch (java.lang.RuntimeException re) {
       System.out.println("Exception on command " + command);
@@ -630,8 +627,7 @@ public class RunTCK extends AbstractTCKMojo {
       File logFile = new File(implLogFile);
       FileUtils.moveFile(logFile, new File(testLogFilename));
     } catch (Exception e) {
-      System.out.println(
-          ">> Error moving implementation log file: " + e.getMessage());
+      System.out.println(">> Error moving implementation log file: " + e.getMessage());
     }
     String tckLogFilename = logFilePrefix + TCK_LOG_FILE;
     try {
