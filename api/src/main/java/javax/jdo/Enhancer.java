@@ -457,6 +457,7 @@ public class Enhancer {
    *
    * @param exitValue the process exit value
    */
+  @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
   private void exit(int exitValue) {
     System.out.print(verboseBuffer.toString());
     System.err.print(errorBuffer.toString());

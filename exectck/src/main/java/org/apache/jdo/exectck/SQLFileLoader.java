@@ -348,10 +348,10 @@ public class SQLFileLoader {
       try {
         SQLFileLoader loader = new SQLFileLoader(arg);
         List<String> stmts = loader.getStatements();
-        System.out.println(loader.getConnect());
-        System.out.println(loader.getUser());
-        System.out.println(loader.getPassword());
-        stmts.forEach(System.out::println);
+        Utilities.println(loader.getConnect());
+        Utilities.println(loader.getUser());
+        Utilities.println(loader.getPassword());
+        stmts.forEach(Utilities::println);
       } catch (IOException ex) {
         System.err.println(ex);
       }

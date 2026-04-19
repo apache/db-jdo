@@ -133,6 +133,6 @@ public class Help extends AbstractMojo {
     msg.append("     mvn integration-test -D jdo.tck.impl=\"iut\"\n");
     msg.append("\n END EXECTCK HELP INFORMATION\n");
 
-    System.out.println(msg.toString());
+    Utilities.println(msg.toString());
   }
 }

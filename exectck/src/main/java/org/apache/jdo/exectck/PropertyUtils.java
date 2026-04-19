@@ -57,7 +57,7 @@ public class PropertyUtils {
       String confName = confDir + File.separator + cfg;
       if (!new File(confName).exists()) {
         // Conf file nor found => continue
-        System.out.println("ERROR: Configuration file " + confName + " not found.");
+        Utilities.println("ERROR: Configuration file " + confName + " not found.");
         continue;
       }
 
