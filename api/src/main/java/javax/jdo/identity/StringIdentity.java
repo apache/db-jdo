@@ -35,7 +35,7 @@ public class StringIdentity extends SingleFieldIdentity<StringIdentity> {
 
   private static final long serialVersionUID = 1L;
 
-  /** The key is stored in the superclass field keyAsObject. */
+  /* The key is stored in the superclass field keyAsObject. */
 
   /**
    * Constructor with class and key.
