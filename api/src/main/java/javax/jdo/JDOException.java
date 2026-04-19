@@ -232,6 +232,7 @@ public class JDOException extends java.lang.RuntimeException {
    * @param s <code>PrintStream</code> to use for output
    */
   @Override
+  @SuppressWarnings("java:S2445") // Blocks should be synchronized on "private final" fields
   public void printStackTrace(java.io.PrintStream s) {
     int len = nested == null ? 0 : nested.length;
     synchronized (s) {
@@ -257,6 +258,7 @@ public class JDOException extends java.lang.RuntimeException {
    * @param s <code>PrintWriter</code> to use for output
    */
   @Override
+  @SuppressWarnings("java:S2445") // Blocks should be synchronized on "private final" fields
   public void printStackTrace(java.io.PrintWriter s) {
     int len = nested == null ? 0 : nested.length;
     synchronized (s) {
