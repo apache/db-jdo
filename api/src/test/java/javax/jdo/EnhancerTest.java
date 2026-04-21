@@ -436,6 +436,7 @@ class EnhancerTest extends AbstractTest {
             + errorString);
   }
 
+  @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
   private InvocationResult invokeEnhancer(String string) {
     InvocationResult result = new InvocationResult();
     try {

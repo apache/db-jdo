@@ -269,7 +269,8 @@ public class Enhancer {
    *
    * @param args the command line arguments
    */
-  private void parseArgs(String[] args) { // NOSONAR Cognitive Complexity
+  @SuppressWarnings("java:S3776") // Cognitive Complexity of methods should not be too high
+  private void parseArgs(String[] args) {
     boolean doneWithOptions = false;
     fileNames = new ArrayList<>();
     for (int i = 0; i < args.length; ++i) {
@@ -368,8 +369,8 @@ public class Enhancer {
    *
    * If the recursion flag is set, directories contained in directories are examined, recursively.
    */
-  private void parseFiles( // NOSONAR Cognitive Complexity
-      String[] fileNames, boolean search, boolean recurse) {
+  @SuppressWarnings("java:S3776") // Cognitive Complexity of methods should not be too high
+  private void parseFiles(String[] fileNames, boolean search, boolean recurse) {
     for (String fileName : fileNames) {
       if (fileName.endsWith(JAR_FILE_SUFFIX)) {
         // add to jar file names
@@ -456,6 +457,7 @@ public class Enhancer {
    *
    * @param exitValue the process exit value
    */
+  @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
   private void exit(int exitValue) {
     System.out.print(verboseBuffer.toString());
     System.err.print(errorBuffer.toString());

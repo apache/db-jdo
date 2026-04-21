@@ -132,4 +132,19 @@ public class Utilities {
       return 1;
     }
   }
+
+  @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
+  public static void print(String s) {
+    System.out.print(s);
+  }
+
+  @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
+  public static void println(String s) {
+    System.out.println(s);
+  }
+
+  @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
+  public static void println() {
+    System.out.println();
+  }
 }

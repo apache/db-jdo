@@ -45,13 +45,13 @@ public class InstallSchema extends AbstractTCKMojo {
   public void execute() throws MojoExecutionException {
 
     if (!doInstallSchema) {
-      System.out.println("Skipping InstallSchema goal!");
+      Utilities.println("Skipping InstallSchema goal!");
       return;
     }
 
     if (cfgs == null) {
       if (cfgList != null) {
-        System.out.println("cfgList is " + cfgList);
+        Utilities.println("cfgList is " + cfgList);
         cfgs = new HashSet<String>();
         PropertyUtils.string2Collection(cfgList, cfgs);
       } else {
@@ -73,7 +73,7 @@ public class InstallSchema extends AbstractTCKMojo {
     PropertyUtils.string2Collection(dblist, dbs);
     PropertyUtils.string2Collection(identitytypes, idtypes);
     PropertyUtils.mappingsSet(cfgs, confDirectory, mappings);
-    System.out.println(
+    Utilities.println(
         "*>Schemas to be installed for \n  configurations: "
             + cfgs.toString()
             + "\n  databases: "
@@ -121,7 +121,7 @@ public class InstallSchema extends AbstractTCKMojo {
       // Create database
       for (String idtype : idtypes) {
         for (String mapping : mappings) {
-          System.out.print(
+          Utilities.print(
               "*> Installing schema" + mapping + ".sql for " + db + " " + idtype + " ... ");
 
           String outFileName =
@@ -151,21 +151,21 @@ public class InstallSchema extends AbstractTCKMojo {
             loadSQLFileUsingJDBC(db, dbDirName, sqlFileName, outFileName);
           } catch (Exception ex) {
             success = false;
-            System.out.println("FAILED!");
+            Utilities.println("FAILED!");
             ex.printStackTrace();
-            System.out.println("*> Classpath is ");
+            Utilities.println("*> Classpath is ");
             Utilities.printClasspath();
-            System.out.println(
+            Utilities.println(
                 "*> jdo.tck.basedir is \n    " + System.getProperty("jdo.tck.basedir"));
-            System.out.println(
+            Utilities.println(
                 "*> java.security.manager is \n    " + System.getProperty("java.security.manager"));
-            System.out.println(
+            Utilities.println(
                 "*> java.security.policy is \n    " + System.getProperty("java.security.policy"));
-            System.out.println("*> dbDirName is \n    " + dbDirName);
-            System.out.println("*> outFileName is \n    " + outFileName);
+            Utilities.println("*> dbDirName is \n    " + dbDirName);
+            Utilities.println("*> outFileName is \n    " + outFileName);
           } finally {
             if (success) {
-              System.out.println("done");
+              Utilities.println("done");
             }
           }
         }
@@ -173,8 +173,8 @@ public class InstallSchema extends AbstractTCKMojo {
 
       finalizeDB(db, dbDirName);
 
-      System.out.println("*> See diagnostic output in " + dbLogsDir + ".");
-      System.out.println();
+      Utilities.println("*> See diagnostic output in " + dbLogsDir + ".");
+      Utilities.println();
     }
   }
 
@@ -217,7 +217,7 @@ public class InstallSchema extends AbstractTCKMojo {
       System.setProperty("ij.outfile", outFileName);
       org.apache.derby.tools.ij.main(args);
     } catch (IOException ioex) {
-      System.out.println("FAILED!");
+      Utilities.println("FAILED!");
       throw new MojoExecutionException("*> Failed to execute ij: " + ioex.getLocalizedMessage());
     }
   }

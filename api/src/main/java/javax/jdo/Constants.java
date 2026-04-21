@@ -23,6 +23,7 @@ package javax.jdo;
  * @since 2.1
  * @version 3.0
  */
+@SuppressWarnings("squid:S1214") // Interfaces should not solely consist of constants
 public interface Constants {
 
   /**
@@ -898,7 +899,7 @@ public interface Constants {
    * @see PersistenceManagerFactory#getProperties()
    * @since 2.1
    */
-  static String NONCONFIGURABLE_PROPERTY_VENDOR_NAME = "VendorName";
+  static String NONCONFIGURABLE_PROPERTY_VENDOR_NAME = PROPERTY_ENHANCER_VENDOR_NAME;
 
   /**
    * Nonconfigurable property constant "VersionNumber"
@@ -906,7 +907,7 @@ public interface Constants {
    * @see PersistenceManagerFactory#getProperties()
    * @since 2.1
    */
-  static String NONCONFIGURABLE_PROPERTY_VERSION_NUMBER = "VersionNumber";
+  static String NONCONFIGURABLE_PROPERTY_VERSION_NUMBER = PROPERTY_ENHANCER_VERSION_NUMBER;
 
   /**
    * Specified value "javax.jdo.option.TransactionType"

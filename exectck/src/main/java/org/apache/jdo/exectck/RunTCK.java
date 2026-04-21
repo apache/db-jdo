@@ -187,7 +187,7 @@ public class RunTCK extends AbstractTCKMojo {
   @Override
   public void execute() throws MojoExecutionException {
     if (!doRunTCK) {
-      System.out.println("Skipping RunTCK goal!"); // NOSONAR System.out
+      Utilities.println("Skipping RunTCK goal!");
       return;
     }
 
@@ -257,8 +257,7 @@ public class RunTCK extends AbstractTCKMojo {
           String confFileName = confDirectory + FS + cfg;
           if (!new File(confFileName).exists()) {
             // Conf file nor found => continue
-            System.out.println( // NOSONAR System.out
-                "ERROR: Configuration file " + confFileName + " not found.");
+            Utilities.println("ERROR: Configuration file " + confFileName + " not found.");
             continue;
           }
           Properties props = PropertyUtils.getProperties(confDirectory + FS + cfg);
@@ -268,8 +267,7 @@ public class RunTCK extends AbstractTCKMojo {
           }
           List<String> classesList = getTestClasses(props, cfg, excludeFile);
           if (classesList.isEmpty()) {
-            System.out.println( // NOSONAR System.out
-                "Skipping configuration " + cfg + ": classes excluded");
+            Utilities.println("Skipping configuration " + cfg + ": classes excluded");
             continue;
           }
 
@@ -345,7 +343,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     PropertyUtils.string2Collection(dblist, dbs);
     PropertyUtils.string2Collection(identitytypes, idtypes);
-    System.out.println( // NOSONAR System.out
+    Utilities.println(
         "*>TCK to be run for implementation '"
             + impl
             + "' on \n"
@@ -359,7 +357,7 @@ public class RunTCK extends AbstractTCKMojo {
             + identitytypes);
 
     // Properties required for test execution
-    System.out.println("cleanupaftertest is " + cleanupaftertest); // NOSONAR System.out
+    Utilities.println("cleanupaftertest is " + cleanupaftertest);
 
     List<String> propsString = new ArrayList<>();
     propsString.add("-Dverbose=" + verbose);
@@ -410,7 +408,7 @@ public class RunTCK extends AbstractTCKMojo {
       URL url1 = enhancedDir.toURI().toURL();
       URL url2 = new File(buildDirectory + FS + CLASSES_DIR_NAME + FS).toURI().toURL();
       if (runtckVerbose) {
-        System.out.println("url2 is " + url2.toString()); // NOSONAR System.out
+        Utilities.println("url2 is " + url2.toString());
       }
       cpList.add(url1);
       cpList.add(url2);
@@ -428,7 +426,7 @@ public class RunTCK extends AbstractTCKMojo {
     }
     cpString = Utilities.urls2ClasspathString(cpList);
     if (runtckVerbose) {
-      System.out.println("\nClasspath is " + cpString); // NOSONAR System.out
+      Utilities.println("\nClasspath is " + cpString);
     }
     return cpString;
   }
@@ -534,7 +532,8 @@ public class RunTCK extends AbstractTCKMojo {
    * @param logFilePrefix
    * @return
    */
-  private int executeTestClass( // NOSONAR Methods should not have too many parameters
+  @SuppressWarnings("java:S107") // Methods should not have too many parameters
+  private int executeTestClass(
       String cpString,
       List<String> cfgPropsString,
       List<String> classesList,
@@ -579,11 +578,11 @@ public class RunTCK extends AbstractTCKMojo {
     }
 
     if (debugTCK) {
-      System.out.println("Using debug arguments: \n" + debugDirectives); // NOSONAR System.out
+      Utilities.println("Using debug arguments: \n" + debugDirectives);
     }
 
     // invoke class runner
-    System.out.print( // NOSONAR System.out
+    Utilities.print(
         "*> Running tests for "
             + cfg
             + " with "
@@ -600,18 +599,17 @@ public class RunTCK extends AbstractTCKMojo {
     try {
       resultValue = Utilities.invokeCommand(command, new File(buildDirectory), junitLogFilename);
       if (resultValue == 0) {
-        System.out.println("success"); // NOSONAR System.out
+        Utilities.println("success");
       } else {
-        System.out.println("FAIL"); // NOSONAR System.out
+        Utilities.println("FAIL");
       }
       if (runtckVerbose) {
-        System.out.println("\nCommand line is: \n" + command.toString()); // NOSONAR System.out
-        System.out.println("Test exit value is " + resultValue); // NOSONAR System.out
-        System.out.println( // NOSONAR System.out
-            "Test result output:\n" + fileToString(junitLogFilename));
+        Utilities.println("\nCommand line is: \n" + command.toString());
+        Utilities.println("Test exit value is " + resultValue);
+        Utilities.println("Test result output:\n" + fileToString(junitLogFilename));
       }
     } catch (java.lang.RuntimeException re) {
-      System.out.println("Exception on command " + command); // NOSONAR System.out
+      Utilities.println("Exception on command " + command);
     }
     return resultValue;
   }
@@ -628,15 +626,14 @@ public class RunTCK extends AbstractTCKMojo {
       File logFile = new File(implLogFile);
       FileUtils.moveFile(logFile, new File(testLogFilename));
     } catch (Exception e) {
-      System.out.println( // NOSONAR System.out
-          ">> Error moving implementation log file: " + e.getMessage());
+      Utilities.println(">> Error moving implementation log file: " + e.getMessage());
     }
     String tckLogFilename = logFilePrefix + TCK_LOG_FILE;
     try {
       File logFile = new File(tckLogFile);
       FileUtils.moveFile(logFile, new File(tckLogFilename));
     } catch (Exception e) {
-      System.out.println(">> Error moving tck log file: " + e.getMessage()); // NOSONAR System.out
+      Utilities.println(">> Error moving tck log file: " + e.getMessage());
     }
   }
 
@@ -657,12 +654,12 @@ public class RunTCK extends AbstractTCKMojo {
     try {
       FileUtils.forceDeleteOnExit(new File(implLogFile));
     } catch (Exception e) {
-      System.out.println(">> Error deleting log file: " + e.getMessage()); // NOSONAR System.out
+      Utilities.println(">> Error deleting log file: " + e.getMessage());
     }
     try {
       FileUtils.forceDeleteOnExit(new File(TCK_LOG_FILE));
     } catch (Exception e) {
-      System.out.println(">> Error deleting log file: " + e.getMessage()); // NOSONAR System.out
+      Utilities.println(">> Error deleting log file: " + e.getMessage());
     }
 
     // Output results
@@ -674,7 +671,7 @@ public class RunTCK extends AbstractTCKMojo {
     command.add("org.apache.jdo.tck.util.ResultSummary");
     command.add(logDir);
     Utilities.invokeCommand(command, new File(buildDirectory), resultSummaryLogFile);
-    System.out.println(fileToString(resultSummaryLogFile)); // NOSONAR System.out
+    Utilities.println(fileToString(resultSummaryLogFile));
 
     // Create system configuration description file
     command.set(3, "org.apache.jdo.tck.util.SystemCfgSummary");

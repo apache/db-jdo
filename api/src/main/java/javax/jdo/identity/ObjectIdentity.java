@@ -41,7 +41,7 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
 
   private static final long serialVersionUID = 1L;
 
-  /** The key is stored in the superclass field keyAsObject. */
+  /* The key is stored in the superclass field keyAsObject. */
 
   /** The JDOImplHelper instance used for parsing the String to an Object. */
   private static final JDOImplHelper HELPER = doPrivileged(JDOImplHelper::getInstance);

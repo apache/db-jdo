@@ -100,7 +100,7 @@ public class Enhance extends AbstractTCKMojo {
   public void execute() throws MojoExecutionException, MojoFailureException {
 
     if (!doEnhance) {
-      System.out.println("Skipping Enhance goal!");
+      Utilities.println("Skipping Enhance goal!");
       return;
     }
 
@@ -162,18 +162,18 @@ public class Enhance extends AbstractTCKMojo {
           Thread.currentThread().setContextClassLoader(loggingPropsCl);
         }
         if (runtckVerbose) {
-          System.out.println("ClassLoader ContextClassLoader:");
+          Utilities.println("ClassLoader ContextClassLoader:");
           Utilities.printClasspath(Thread.currentThread().getContextClassLoader());
         }
-        System.out.println("Get enhancer");
+        Utilities.println("Get enhancer");
         JDOEnhancer enhancer = JDOHelper.getEnhancer(enhancerLoader);
-        System.out.println("enhancer.setVerbose()");
+        Utilities.println("enhancer.setVerbose()");
         enhancer.setVerbose(true);
-        System.out.println("enhancer.setClassLoader()");
+        Utilities.println("enhancer.setClassLoader()");
         enhancer.setClassLoader(enhancerLoader);
         String[] classArr = classes.toArray(new String[0]);
         enhancer.addClasses(classArr);
-        System.out.println("Enhancing classes for identity type " + idtype);
+        Utilities.println("Enhancing classes for identity type " + idtype);
         // enhancer needs  org/apache/jdo/tck/util/DeepEquality
         enhancer.enhance();
         Thread.currentThread().setContextClassLoader(prevCl);
@@ -185,7 +185,7 @@ public class Enhance extends AbstractTCKMojo {
       // Move log to per-test location
       moveLogs(idtype);
     }
-    System.out.println();
+    Utilities.println();
   }
 
   private void copyMetadata(
@@ -280,7 +280,7 @@ public class Enhance extends AbstractTCKMojo {
       enhancerLoader =
           new URLClassLoader(cpList1.toArray(classPathURLs1), getClass().getClassLoader());
       if (runtckVerbose) {
-        System.out.println("ClassLoader enhancerLoader:");
+        Utilities.println("ClassLoader enhancerLoader:");
         Utilities.printClasspath(enhancerLoader);
       }
     } catch (MalformedURLException ex) {
@@ -319,7 +319,7 @@ public class Enhance extends AbstractTCKMojo {
             + "-"
             + impl
             + ".txt";
-    System.out.println("testLogFilename is " + testLogFilename);
+    Utilities.println("testLogFilename is " + testLogFilename);
     try {
       File logFile = new File(implLogFile);
       File testLogFile = new File(testLogFilename);
@@ -328,7 +328,7 @@ public class Enhance extends AbstractTCKMojo {
       FileUtils.write(logFile, "", Charset.defaultCharset());
       FileUtils.forceDeleteOnExit(logFile);
     } catch (Exception e) {
-      System.out.println(">> Error moving implementation log file: " + e.getMessage());
+      Utilities.println(">> Error moving implementation log file: " + e.getMessage());
     }
   }
 }

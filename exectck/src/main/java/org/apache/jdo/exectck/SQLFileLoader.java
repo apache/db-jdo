@@ -132,7 +132,8 @@ public class SQLFileLoader {
    * @return the next non comment character
    * @throws IOException If an I/O error occurs
    */
-  private int next() throws IOException { // NOSONAR Cognitive Complexity
+  @SuppressWarnings("java:S3776") // Cognitive Complexity of methods should not be too high
+  private int next() throws IOException {
     int result = this.nextChar;
     switch (this.nextChar) {
       case '\'':
@@ -347,10 +348,10 @@ public class SQLFileLoader {
       try {
         SQLFileLoader loader = new SQLFileLoader(arg);
         List<String> stmts = loader.getStatements();
-        System.out.println(loader.getConnect());
-        System.out.println(loader.getUser());
-        System.out.println(loader.getPassword());
-        stmts.forEach(System.out::println);
+        Utilities.println(loader.getConnect());
+        Utilities.println(loader.getUser());
+        Utilities.println(loader.getPassword());
+        stmts.forEach(Utilities::println);
       } catch (IOException ex) {
         System.err.println(ex);
       }
