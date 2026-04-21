@@ -74,10 +74,10 @@ public class Utilities {
     if (loader instanceof URLClassLoader) {
       // Get the URLs
       URL[] urls = ((URLClassLoader) loader).getURLs();
-      System.out.println(urls.length + " URL(s) for loader: ");
+      println(urls.length + " URL(s) for loader: ");
       for (URL url : urls) {
         if (url != null) {
-          System.out.println("    " + url.getFile());
+          println("    " + url.getFile());
         }
       }
     }
@@ -125,7 +125,7 @@ public class Utilities {
     } catch (JDOException jdoex) {
       jdoex.printStackTrace();
       Throwable[] throwables = jdoex.getNestedExceptions();
-      System.out.println("Exception throwables of size: " + throwables.length);
+      println("Exception throwables of size: " + throwables.length);
       for (Throwable throwable : throwables) {
         throwable.printStackTrace();
       }
@@ -142,6 +142,12 @@ public class Utilities {
   public static void println(String s) {
     System.out.println(s);
   }
+
+  @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
+  public static void println(Throwable t) {
+    System.out.println(t);
+  }
+
 
   @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
   public static void println() {

@@ -353,7 +353,7 @@ public class SQLFileLoader {
         Utilities.println(loader.getPassword());
         stmts.forEach(Utilities::println);
       } catch (IOException ex) {
-        System.err.println(ex);
+        Utilities.println(ex);
       }
     }
   }
