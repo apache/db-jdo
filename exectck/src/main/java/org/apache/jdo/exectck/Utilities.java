@@ -148,7 +148,6 @@ public class Utilities {
     System.out.println(t);
   }
 
-
   @SuppressWarnings("java:S106") // Standard outputs should not be used directly to log anything
   public static void println() {
     System.out.println();
