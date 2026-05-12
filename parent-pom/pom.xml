@@ -356,6 +356,9 @@
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
+                <configuration>
+                    <excludesFile>${maven.multiModuleProjectDirectory}/.rat-excludes</excludesFile>
+                </configuration>
             </plugin>
         </plugins>
     </build>
