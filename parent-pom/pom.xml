@@ -182,7 +182,6 @@
         <version.maven-bundle-plugin>5.1.9</version.maven-bundle-plugin>
         <version.fmt-maven-plugin>2.29</version.fmt-maven-plugin>
         <version.cyclonedx-maven-plugin>2.9.1</version.cyclonedx-maven-plugin>
-        <version.spdx-maven-plugin>1.0.3</version.spdx-maven-plugin>
     </properties>
 
     <dependencyManagement>
@@ -306,30 +305,6 @@
                     <configuration>
                         <outputName>${project.artifactId}-${project.version}-cyclonedx</outputName>
                         <outputFormat>json</outputFormat>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.spdx</groupId>
-                    <artifactId>spdx-maven-plugin</artifactId>
-                    <version>${version.spdx-maven-plugin}</version>
-                    <executions>
-                        <execution>
-                            <id>build-sbom-spdx</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>createSPDX</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <outputFormat>JSON</outputFormat>
-                        <spdxFile>${project.build.directory}/${project.artifactId}-${project.version}-spdx.json</spdxFile>
-                        <defaultFileCopyright>Copyright (c) 2005-2025 The Apache Software Foundation</defaultFileCopyright>
-                        <defaultLicenseInformationInFile>Apache-2.0</defaultLicenseInformationInFile>
-                        <defaultFileConcludedLicense>Apache-2.0</defaultFileConcludedLicense>
-                        <licenseDeclared>Apache-2.0</licenseDeclared>
-                        <includeTestScope>false</includeTestScope>
-                        <sbomType>consolidated</sbomType>
                     </configuration>
                 </plugin>
             </plugins>
@@ -487,22 +462,102 @@
         </profile>
 
         <profile>
-            <id>jdk8-plugin-fix-version</id>
+            <id>jdk8-spdx-plugin</id>
             <activation>
                 <jdk>[1.8,1.9)</jdk>
             </activation>
-            <properties>
-                <version.spdx-maven-plugin>0.6.3</version.spdx-maven-plugin>
-            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.spdx</groupId>
+                        <artifactId>spdx-maven-plugin</artifactId>
+                        <version>0.6.3</version>
+                        <executions>
+                            <execution>
+                              <id>build-sbom-spdx</id>
+                              <phase>package</phase>
+                              <goals>
+                                  <goal>createSPDX</goal>
+                              </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <outputFormat>JSON</outputFormat>
+                            <spdxFile>${project.build.directory}/${project.artifactId}-${project.version}-spdx.json</spdxFile>
+                            <defaultFileCopyright>Copyright (c) 2005-2025 The Apache Software Foundation</defaultFileCopyright>
+                            <defaultLicenseInformationInFile>Apache-2.0</defaultLicenseInformationInFile>
+                            <defaultFileConcludedLicense>Apache-2.0</defaultFileConcludedLicense>
+                            <licenseDeclared>Apache-2.0</licenseDeclared>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
-            <id>jdk11-plugin-fix-version</id>
+            <id>jdk11-spdx-plugin</id>
             <activation>
                 <jdk>[11,17)</jdk>
             </activation>
-            <properties>
-                <version.spdx-maven-plugin>0.7.4</version.spdx-maven-plugin>
-            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.spdx</groupId>
+                        <artifactId>spdx-maven-plugin</artifactId>
+                        <version>0.7.4</version>
+                        <executions>
+                            <execution>
+                              <id>build-sbom-spdx</id>
+                              <phase>package</phase>
+                              <goals>
+                                  <goal>createSPDX</goal>
+                              </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <outputFormat>JSON</outputFormat>
+                            <spdxFile>${project.build.directory}/${project.artifactId}-${project.version}-spdx.json</spdxFile>
+                            <defaultFileCopyright>Copyright (c) 2005-2025 The Apache Software Foundation</defaultFileCopyright>
+                            <defaultLicenseInformationInFile>Apache-2.0</defaultLicenseInformationInFile>
+                            <defaultFileConcludedLicense>Apache-2.0</defaultFileConcludedLicense>
+                            <licenseDeclared>Apache-2.0</licenseDeclared>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jdk17-spdx-plugin</id>
+            <activation>
+                <jdk>[17,)</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.spdx</groupId>
+                        <artifactId>spdx-maven-plugin</artifactId>
+                        <version>1.0.3</version>
+                        <executions>
+                            <execution>
+                              <id>build-sbom-spdx</id>
+                              <phase>package</phase>
+                              <goals>
+                                  <goal>createSPDX</goal>
+                              </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <outputFormat>JSON</outputFormat>
+                            <spdxFile>${project.build.directory}/${project.artifactId}-${project.version}-spdx.json</spdxFile>
+                            <defaultFileCopyright>Copyright (c) 2005-2025 The Apache Software Foundation</defaultFileCopyright>
+                            <defaultLicenseInformationInFile>Apache-2.0</defaultLicenseInformationInFile>
+                            <defaultFileConcludedLicense>Apache-2.0</defaultFileConcludedLicense>
+                            <licenseDeclared>Apache-2.0</licenseDeclared>
+                            <includeTestScope>false</includeTestScope>
+                            <sbomType>consolidated</sbomType>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>
