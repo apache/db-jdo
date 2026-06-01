@@ -882,25 +882,35 @@ other) as a separate project with its own threat model. Confirm? Are
 there embedder-facing guarantees the API makes that we have not
 captured? *(maps to §2, §3)*
 
+(maintainer) The framing is correct. There or no additional embedder-facing guarantees.
+
 **Q2.** Proposed answer: a JDOQL parser / SQL escaping / transaction
 atomicity / cache poisoning report against DataNucleus is upstream to
 DataNucleus, not in scope here. A report against the *API contract*
 that the API itself forces an implementation to be unsafe is in scope.
 Is that the right split? *(maps to §3 item 1, §11a)*
 
+(maintainer) Yes, that is the right split.
+
 **Q3.** The datastore (Derby for the TCK, anything for production) is
 modeled as a trusted control-plane. Confirm? *(maps to §3 item 3)*
+
+(maintainer) Yes.
 
 **Q4.** Anyone who can land a `.jar` / `.class` / `.jdo` /
 `jdoconfig.xml` on the JDO classpath is treated as an embedder-trusted
 actor, because the classpath is part of the embedder's
 trusted-code-base contract. Confirm? *(maps to §3 item 4)*
 
+(maintainer) Yes.
+
 **Q5.** Pre-Java-17 the `JDOPermission` SPI gates were a real
 SecurityManager boundary; Java 17+ deprecated `SecurityManager` and
 `LegacyJava` makes the wrappers no-ops. The model takes the post-Java-17
 stance as default. Confirm? *(maps to §3 item 6, §5a, §8 P1, §9
 false-friend, §11a)*
+
+(maintainer) Correct.
 
 **Q6.** `SingleFieldIdentity.readExternal` and `ObjectIdentity.readExternal`
 read a class name and (for `ObjectIdentity`) a full `Object` from the
@@ -912,6 +922,8 @@ API ship a default filter (which would change §3 item 7, §9, §10
 item 3, §11a, §11)? *(maps to §3 item 7, §6, §9, §10 item 3,
 §11, §11a)*
 
+(maintainer) Confirmed. TODO?
+
 **Q7.** The default `DocumentBuilderFactory` disables DOCTYPE
 declarations *(documented at `JDOHelper.java` line 1148)*. A report that
 requires the embedder to have called
@@ -922,22 +934,34 @@ other JAXP entry points (e.g. in `JDOHelper.readJDOConfigFromURL`) that
 predate or bypass the hardened default? *(maps to §3 item 8, §5a, §8 P2,
 §9, §11)*
 
+(maintainer) Confirmed. TODO?
+
 ### Wave 2 — XML, classpath, callbacks
 
 **Q8.** Proposed unsupported-component list: `tck/`, `exectck/`, `parent-pom/`,
 `lib/`, `specification/`, `jdo_checks.xml`, root `pom.xml`. Anything to
 add or remove? *(maps to §3 item 9, §13)*
 
+(maintainer) Correct.
+
 **Q9.** MSRV: the parent-pom declares Java 8 source/target. Is the
 runtime target the same (i.e. is the released jar usable on Java 8
 JREs), or is the project actively dropping Java 8 in 3.3? The model's
 §5 assumption is "Java 8+". *(maps to §5)*
+
+(maintainer) The assumption is correct.
 
 **Q10.** `PersistenceManager` thread-association: the API package
 javadoc says a PM is associated with at most one thread at a time, but
 no formal guarantee. Confirm that the API itself makes *no*
 thread-safety claim across PM instances — and that concurrent abuse of
 a single PM is implementation behaviour. *(maps to §5)*
+
+(maintainer) A PM may be associated with multiple threads if 
+PersistenceManager.setMultithreaded(...) is set to "true".
+Concurrent use of a single PM is implementation behavior. The JDO API
+library should support multi-threaded use and provide minimum safeguard 
+against wrong usage.
 
 **Q11.** Confirm the "what `jdo-api` does NOT do to its host" inventory
 in §5: no listening sockets; no signal handlers; no spawned processes
@@ -946,12 +970,16 @@ in §5: no listening sockets; no signal handlers; no spawned processes
 exceptions, particularly under unusual JNDI providers or unusual
 classloaders? *(maps to §5)*
 
+(maintainer) The assumptions are correct.
+
 **Q12.** Are the two "embedder-supplied factory" hooks
 (`registerDocumentBuilderFactory`, `registerErrorHandler`) the *only*
 places where the embedder can replace a JDO-default with a
 custom-and-possibly-unsafe implementation, or are there other
 similar SPIs we should enumerate under §5a (e.g. for I18N, classloader
 strategy)? *(maps to §5a)*
+
+(maintainer) These are the only two hooks.
 
 ### Wave 3 — JDOQL surface, identity, lifecycle
 
@@ -962,12 +990,18 @@ a security stance? Should §11 carry a "prefer the typed API where
 possible" misuse-pattern entry, or is that premature for a
 spec-level document? *(maps to §5a, §8 P5, §11)*
 
+(maintainer) This is premature, both should be treated equals.
+
 **Q14.** §6 size/shape/rate: the API has no input caps and the
 implementation is responsible for resource bounds. Confirm? *(maps to
 §6, §9)*
 
+(maintainer) Confirmed.
+
 **Q15.** Side-channel observers (cache timing, branch prediction) and
 local non-`embedder` users are out of scope (proposed). *(maps to §7, §9)*
+
+(maintainer) Correct.
 
 **Q16.** The `Detachable.jdoDetachedState` array — proposed answer is
 that JDO does *not* sign or HMAC it, and an attacker who can mutate
@@ -976,25 +1010,39 @@ the correct framing, or does the spec actually require an integrity
 check at re-attach time we should describe as §8? *(maps to §9
 false-friend, §11)*
 
+(maintainer) The framing is correct. No integrity check is required.
+
 ### Wave 4 — meta
 
 **Q17.** Should this document live at `docs/threat-model.md` (proposed,
 new directory) or as a sibling of `README.md` at the repo root? *(meta)*
 
+(maintainer) It should live at `docs/threat-model.md`.
+
 **Q18.** Is there an existing JDO threat-model artefact we should
 reconcile against rather than supersede (Confluence, internal wiki,
 JDO-* JIRA closure history)? *(meta — §3.1a of the rubric)*
+
+(maintainer) No.
 
 **Q19.** Should this draft also pick up the JDO specification document
 once Tilmann Zäschke's separate question about including the spec
 returns? If yes, what is the scope split between "API jar threat model"
 and "spec threat model"? *(meta — open per the briefing)*
 
+(maintainer) If possible, the scan agent should use the JDO specification document at 
+https://github.com/clr-apache/jdo-specification/tree/main/src .
+If that cannot be accessed, 
+https://github.com/clr-apache/jdo-specification/blob/main/releases/JDO-3.2.1.pdf should be used.
+If that is also not available, neither should be used.
+
 **Q20.** §11a is currently populated from API-shape reasoning only.
 Can the PMC contribute 3–5 patterns from inbound JDO-* JIRA history
 ("we ruled this out as not a vulnerability")? §11a is the highest-leverage
 suppression input for an automated scan agent and is currently the
 section a real triage history would most strengthen. *(meta — §11a)*
+
+(maintainer) Nothing yet.
 
 **Q21.** No website cross-check was possible during this draft (the
 producer environment denied `https://db.apache.org/jdo/` and
@@ -1003,8 +1051,13 @@ publish a security policy on its website that this model should
 reconcile against — and is there a `SECURITY.md` we missed elsewhere in
 the org (e.g. in a sibling DB repo)? *(meta — §3.1a)*
 
+(maintainer) The only additional security information is available
+in the specification mentioned in the answer to **Q19.** .
+
 **Q22.** What kind of change to JDO should trigger a model revision
 (proposed list in §12 — confirm or correct)? *(meta — §12)*
+
+(maintainer) Confirmed.
 
 ---
 
