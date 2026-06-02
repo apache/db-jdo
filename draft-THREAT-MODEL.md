@@ -959,9 +959,10 @@ a single PM is implementation behaviour. *(maps to §5)*
 
 *(maintainer)* A PM may be associated with multiple threads if 
 `PersistenceManager.setMultithreaded(...)` is set to `true`.
-Concurrent use of a single PM is implementation behavior. The JDO API
-library should support multi-threaded use and provide minimum safeguard 
-against wrong usage.
+Concurrent use of a single PM is embedder responsibility. 
+That said, the JDO API library should support multi-threaded use and provide minimum safeguard against wrong usage. The API should make it easy
+for embedders to use it correctly and should be designed such that 
+behavior under concurrency is not surprising to embedders.
 
 **Q11.** Confirm the "what `jdo-api` does NOT do to its host" inventory
 in §5: no listening sockets; no signal handlers; no spawned processes
