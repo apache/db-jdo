@@ -21,13 +21,18 @@
 
 ## §1 Header
 
-- **Project**: Apache JDO — `apache/db-jdo`, under the Apache DB PMC. Reference
-  implementation home for the Java Data Objects (JDO) persistence API. Also
-  contains the JDO Technology Compatibility Kit (TCK), a Maven plugin that
-  drives the TCK against the reference implementation or against a third-party
-  Implementation Under Test, and (historically) the JDO specification document
-  *(documented: `README.md`)*. The DB PMC also covers Apache Torque and JDOQL;
-  those repos are explicitly out of scope of this model.
+- **Project**: Apache JDO — `github.com/apache/db-jdo`, under the Apache DB PMC.
+  Home for the Java Data Objects (JDO) persistence API.
+  Contains:
+  - api: the user-facing library;
+  - tck: the JDO Technology Compatibility Kit (TCK);
+  - exectck: a Maven plugin that
+  drives the TCK against a third-party **Implementation Under Test**
+  (defaults to use the DataNucleus Reference Implementation); and
+  - (historically) the JDO specification document
+  *(documented: `README.md`)*.
+- **NOTE** The DB PMC also covers the Apache Torque sub-project,
+  which is explicitly out of scope of this model.
 - **Version / commit**: drafted against the `main` branch, HEAD
   `60c77b6` ("JDO-847: fix spdx warnings with java8 and java11"). Most recent
   release line is `jdo-api 3.2.x`; the in-repo `parent-pom` declares
@@ -922,7 +927,7 @@ API ship a default filter (which would change §3 item 7, §9, §10
 item 3, §11a, §11)? *(maps to §3 item 7, §6, §9, §10 item 3,
 §11, §11a)*
 
-*(maintainer)* Confirmed, this is `BY-DESIGN`. TODO?
+*(maintainer)* Confirmed, this is `BY-DESIGN`.
 
 **Q7.** The default `DocumentBuilderFactory` disables DOCTYPE
 declarations *(documented at `JDOHelper.java` line 1148)*. A report that
@@ -934,7 +939,7 @@ other JAXP entry points (e.g. in `JDOHelper.readJDOConfigFromURL`) that
 predate or bypass the hardened default? *(maps to §3 item 8, §5a, §8 P2,
 §9, §11)*
 
-(maintainer) Confirmed. TODO?
+(maintainer) Confirmed.
 
 ### Wave 2 — XML, classpath, callbacks
 
@@ -949,7 +954,7 @@ runtime target the same (i.e. is the released jar usable on Java 8
 JREs), or is the project actively dropping Java 8 in 3.3? The model's
 §5 assumption is "Java 8+". *(maps to §5)*
 
-*(maintainer)* The assumption is correct.
+*(maintainer)* The assumption is correct. Java 8 is expected to be supported at least in 3.2.x releases.
 
 **Q10.** `PersistenceManager` thread-association: the API package
 javadoc says a PM is associated with at most one thread at a time, but
@@ -960,7 +965,9 @@ a single PM is implementation behaviour. *(maps to §5)*
 *(maintainer)* A PM may be associated with multiple threads if 
 `PersistenceManager.setMultithreaded(...)` is set to `true`.
 Concurrent use of a single PM is embedder responsibility. 
-That said, the JDO API library should support multi-threaded use and provide minimum safeguard against wrong usage. The API should make it easy
+That said, the JDO Implementation library (external to the jdo-api itself) 
+should support multi-threaded use *(when setMultithreaded is set to true)*
+and provide safeguard against wrong usage. The API should make it easy
 for embedders to use it correctly and should be designed such that 
 behavior under concurrency is not surprising to embedders.
 
@@ -991,7 +998,7 @@ a security stance? Should §11 carry a "prefer the typed API where
 possible" misuse-pattern entry, or is that premature for a
 spec-level document? *(maps to §5a, §8 P5, §11)*
 
-*(maintainer)* This is premature, both should be treated equals.
+*(maintainer)* This is premature, both should be treated as equals.
 
 **Q14.** §6 size/shape/rate: the API has no input caps and the
 implementation is responsible for resource bounds. Confirm? *(maps to
@@ -1018,7 +1025,9 @@ false-friend, §11)*
 **Q17.** Should this document live at `docs/threat-model.md` (proposed,
 new directory) or as a sibling of `README.md` at the repo root? *(meta)*
 
-*(maintainer)* It should live at `docs/threat-model.md`.
+*(maintainer)* Discussion needed. This project should follow recommendations
+from the security team regarding location of the threat model to be consistent
+with other projects. An alternative location might be `docs/THREAT-MODEL.md`.
 
 **Q18.** Is there an existing JDO threat-model artefact we should
 reconcile against rather than supersede (Confluence, internal wiki,
@@ -1032,10 +1041,12 @@ returns? If yes, what is the scope split between "API jar threat model"
 and "spec threat model"? *(meta — open per the briefing)*
 
 *(maintainer)* If possible, the scan agent should use the JDO specification document at 
-https://github.com/clr-apache/jdo-specification/tree/main/src .
+https://github.com/clr-apache/jdo-specification/tree/main/src which is a public repository.
 If that cannot be accessed, 
 https://github.com/clr-apache/jdo-specification/blob/main/releases/JDO-3.2.1.pdf should be used.
 If that is also not available, neither should be used.
+A potential use of the specification would be to verify that
+the API and specification are consistent with each other.
 
 **Q20.** §11a is currently populated from API-shape reasoning only.
 Can the PMC contribute 3–5 patterns from inbound JDO-* JIRA history
@@ -1043,7 +1054,8 @@ Can the PMC contribute 3–5 patterns from inbound JDO-* JIRA history
 suppression input for an automated scan agent and is currently the
 section a real triage history would most strengthen. *(meta — §11a)*
 
-*(maintainer)* Nothing yet.
+*(maintainer)* Nothing yet. The TCK could possibly be scanned as an independent
+source of actual API usage.
 
 **Q21.** No website cross-check was possible during this draft (the
 producer environment denied `https://db.apache.org/jdo/` and
