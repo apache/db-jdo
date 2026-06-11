@@ -24,7 +24,7 @@
 - **Written against:** `main` @ HEAD (2026-06), JDO API 3.2-line.
 - **Author:** ASF Security team, drafted via the threat-model-producer rubric
   (Michael Scovetta rubric) at the Apache JDO PMC's request (path 3).
-- **Status:** DRAFT — under maintainer review (2026-06-08). Not yet ratified.
+- **Status:** APPROVED by three PMC members who are maintainers
 - **Version binding:** This model is versioned with the project. A report
   against JDO API version *N* is triaged against the model as it stood at *N*,
   not at HEAD.
@@ -350,14 +350,17 @@ implementation's query/connection layer (§3).
   connection properties, `jdoconfig.xml`, classpath) are all trusted, and
   `jdo-api` has no untrusted-input adversary of its own. Confirm? (Lands in
   §2/§4/§7.) *(backs the §2/§4/§7 inferred tags.)*
+  - (**maintainer**) Confirmed.
 - **Q2.** Is any of `jdo-api`'s own state thread-safety a property you claim
   (e.g. `JDOImplHelper` class/metadata registration under concurrent
   classloading), or is all thread-safety delegated to the implementation per
   the spec? (Lands in §5/§8.)
+  - (**maintainer**) Confirmed; all thread-safety is delegated to the implementation.
 - **Q3.** Confirm the negative-side-effects inventory: `jdo-api` opens no
   sockets, spawns no processes, installs no signal handlers, and does no I/O
   beyond reading the configured JDO config resource/file and `System`
-  properties. Anything to add? (Lands in §5/§8.)
+  properties. (Lands in §5/§8.)
+  - (**maintainer**) Confirmed.
 
 **Wave 2 — deserialization & legacy.**
 
@@ -365,10 +368,12 @@ implementation's query/connection layer (§3).
   identity / detached / exception objects from untrusted sources is a
   downstream responsibility (we have it in §9/§10), or does the PMC consider
   any serialized-form hardening to be in `jdo-api`'s remit? (Lands in §9/§10.)
+  - (**maintainer**) Confirmed; there is no safe-deserialization guarantee for JDO objects.
 - **Q5.** The `JDOPermission` / SecurityManager / `doPrivileged` machinery is
   effectively inert on JEP 411 JDKs. Do you still claim any SecurityManager-based
   property for older deployments, or should §5/§9 state plainly that no
   SecurityManager-enforced guarantee is made going forward? (Lands in §5/§9.)
+  - (**maintainer**) Confirmed; SecurityManager usage is legacy backward compatibility only.
 
 **Wave 3 — coexistence & spec.**
 
@@ -377,10 +382,12 @@ implementation's query/connection layer (§3).
   `THREAT_MODEL.md`. Confirm the disclosure channel (the JDO PMC private list /
   the ASF security process) so the `SECURITY.md` points to the right place.
   (Lands in §1.)
+  - (**maintainer**) Confirmed.
 - **Q7.** The JDO specification documents intended behavior. Should any
   spec-level security statement (e.g. around identity, detachment, or the
   permission model) be lifted into §8/§9 as a claimed/disclaimed property, or
   is the spec purely reference material as Tilmann indicated? (Lands in §8/§9.)
+  - (**maintainer**) Confirmed; the specification is purely for reference.
 
 ## §15 Appendix — existing-policy back-map
 
