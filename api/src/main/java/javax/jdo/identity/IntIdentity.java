@@ -128,7 +128,7 @@ public class IntIdentity extends SingleFieldIdentity<IntIdentity> {
       throw new ClassCastException("object is null");
     }
     int result = super.compare(o);
-    return (result == 0) ? (key - o.key) : result;
+    return (result == 0) ? Integer.compare(key, o.key) : result;
   }
 
   /**

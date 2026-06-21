@@ -129,20 +129,7 @@ public class LongIdentity extends SingleFieldIdentity<LongIdentity> {
       throw new ClassCastException("object is null");
     }
     int result = super.compare(o);
-    if (result == 0) {
-      long diff = key - o.key;
-      if (diff == 0) {
-        return 0;
-      } else {
-        if (diff < 0) {
-          return -1;
-        } else {
-          return 1;
-        }
-      }
-    } else {
-      return result;
-    }
+    return (result == 0) ? Long.compare(key, o.key) : result;
   }
 
   /**
