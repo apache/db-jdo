@@ -109,7 +109,7 @@ public class LegacyJava {
 
     public void checkPermission(JDOPermission permission) {
       try {
-        checkPermissionMethod.invoke(null, permission);
+        checkPermissionMethod.invoke(sm, permission);
       } catch (IllegalAccessException | InvocationTargetException e) {
         throw new JDOFatalInternalException(e.getMessage());
       }
