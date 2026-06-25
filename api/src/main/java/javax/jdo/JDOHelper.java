@@ -1153,7 +1153,7 @@ public class JDOHelper implements Constants {
     factory.setNamespaceAware(true);
     factory.setValidating(false);
     factory.setIgnoringElementContentWhitespace(true);
-    factory.setExpandEntityReferences(true);
+    factory.setExpandEntityReferences(false);
 
     return factory;
   }
