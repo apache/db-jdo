@@ -59,8 +59,9 @@ public class CloseWithoutPermissionThrowsSecurityException extends JDO_Test {
     SecurityManager oldSecMgr = System.getSecurityManager();
     try {
       System.setSecurityManager(new MySecurityManager());
-    } catch (SecurityException se) {
-      // running with the TCK SecurityManager; don't run this test
+    } catch (SecurityException | UnsupportedOperationException se) {
+      // SecurityException: running with the TCK SecurityManager; don't run this test
+      // UnsupportedOperationException: running Java 24, SecurityManager is present but disabled
       return;
     }
 
