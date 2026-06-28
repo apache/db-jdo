@@ -134,8 +134,8 @@ public class LegacyJava {
    */
   private static boolean initIsSecurityDeprecated() {
     try {
-      Method getSecurityManager = System.class.getMethod("getSecurityManager");
-      return getSecurityManager.isAnnotationPresent(Deprecated.class);
+      System.class.getMethod("getSecurityManager");
+      return false;
     } catch (NoSuchMethodException e) {
       return true;
     }
