@@ -141,8 +141,8 @@ class IntIdentityTest extends SingleFieldIdentityTest {
     Assertions.assertTrue(
         c1.compareTo(c4) > 0, "Not equal IntIdentity instances have wrong compareTo result");
     Assertions.assertTrue(
-            c6.compareTo(c7) < 0, "Not equal LongIdentity instances have wrong compareTo result");
+        c6.compareTo(c7) < 0, "Not equal LongIdentity instances have wrong compareTo result");
     Assertions.assertTrue(
-            c7.compareTo(c6) > 0, "Not equal LongIdentity instances have wrong compareTo result");
+        c7.compareTo(c6) > 0, "Not equal LongIdentity instances have wrong compareTo result");
   }
 }
