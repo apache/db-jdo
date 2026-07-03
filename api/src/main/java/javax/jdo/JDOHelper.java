@@ -1590,7 +1590,7 @@ public class JDOHelper implements Constants {
         try {
           String enhancerClassName = getClassNameFromURL(urls.nextElement());
           Class<?> enhancerClass = forName(enhancerClassName, true, ctrLoader);
-          return (JDOEnhancer) enhancerClass.newInstance();
+          return (JDOEnhancer) enhancerClass.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
           // remember exceptions from failed enhancer invocations
           exceptions.add(ex);
