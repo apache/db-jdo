@@ -74,3 +74,34 @@ notifications:
   jobs:         jdo-dev@db.apache.org
   discussions:  jdo-dev@db.apache.org
   jira_options: link label
+
+project:
+  metadata:
+    key: db-jdo
+    committee: db
+    name: Apache JDO
+    description: The POJO approach separates data manipulation (done by accessing
+      Java data members in the Java domain objects) from database manipulation (done
+      by calling the JDO interface methods). This separation of concerns leads to
+      a high degree of independence of the Java view of data from the database view
+      of the data.
+    short_description: Java Data Objects (JDO) is a standard way to access persistent
+      data in databases, using plain old Java objects (POJO) to represent persistent
+      data.
+    homepage: https://db.apache.org/jdo/
+    download_page: https://db.apache.org/jdo/downloads.html
+    bug_database: https://issues.apache.org/jira/projects/JDO
+    mailing_lists: https://db.apache.org/jdo/mail-lists.html
+    repositories:
+    - https://github.com/apache/db-jdo
+    standards:
+    - https://db.apache.org/jdo/specifications.html
+    categories:
+    - database
+    programming_languages:
+    - Java
+  policy:
+    vote_recipients:
+      to: jdo-dev@db.apache.org
+  features:
+    atr_sync: true
