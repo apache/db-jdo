@@ -1133,11 +1133,36 @@ public class JDOHelper implements Constants {
     return propertiesByNameInAllConfigs.get(name);
   }
 
+  /**
+   * The name of the boolean system property that, when set to "true", disables the re-application
+   * of the secure XML parsing defaults to a DocumentBuilderFactory registered via {@link
+   * JDOImplHelper#registerDocumentBuilderFactory}. By default a registered factory is hardened
+   * before each use exactly like the default factory (DOCTYPE declarations disallowed, entity
+   * references not expanded), so that registering a factory cannot silently re-enable external
+   * entity processing (XXE) during jdoconfig.xml parsing.
+   *
+   * @since 3.3
+   */
+  public static final String PROPERTY_ALLOW_UNSAFE_DOCUMENT_BUILDER_FACTORY =
+      "javax.jdo.allowUnsafeDocumentBuilderFactory"; // NOI18N
+
   protected static DocumentBuilderFactory getDocumentBuilderFactory() {
     @SuppressWarnings("static-access")
     DocumentBuilderFactory factory = IMPL_HELPER.getRegisteredDocumentBuilderFactory();
     if (factory == null) {
       factory = getDefaultDocumentBuilderFactory();
+    } else if (!Boolean.getBoolean(PROPERTY_ALLOW_UNSAFE_DOCUMENT_BUILDER_FACTORY)) {
+      // Re-apply the secure defaults to the registered factory before every parse.
+      // Registration is an SPI open to any code in the process; without this, a factory
+      // registered with default settings would re-enable DOCTYPE processing (external
+      // entities / XXE) for every jdoconfig.xml on the classpath.
+      try {
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      } catch (ParserConfigurationException e) {
+        // fail closed: do not parse with a factory that cannot disable DOCTYPEs
+        throw new JDOFatalUserException(e.getMessage());
+      }
+      factory.setExpandEntityReferences(false);
     }
     return factory;
   }
