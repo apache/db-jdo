@@ -31,12 +31,15 @@ import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
+import javax.jdo.Constants;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDONullIdentityException;
 import javax.jdo.JDOUserException;
 import javax.jdo.LegacyJava;
 import javax.jdo.spi.JDOImplHelper;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /** */
@@ -60,6 +63,22 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   /** Creates a new instance of ObjectIdentityTest */
   public ObjectIdentityTest() {
     // This method body is intentionally left blank
+  }
+
+  /** Allow the test key classes by exact name, so that other classes stay disallowed. */
+  @BeforeAll
+  static void setAllowedIdentityKeyClasses() {
+    System.setProperty(
+        Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES,
+        "javax.jdo.identity.ObjectIdentityTest$IdClass,"
+            + "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoStringConstructor,"
+            + "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoPublicStringConstructor");
+  }
+
+  /** Restore the default allowlist. */
+  @AfterAll
+  static void clearAllowedIdentityKeyClasses() {
+    System.clearProperty(Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES);
   }
 
   @Override
@@ -425,6 +444,38 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
     Assertions.assertEquals(c1.getKeyAsObject(), new IdClass(1), "keyAsObject doesn't match.");
   }
 
+  @Test
+  void testStringConstructorDefaultAllowedKeyClass() {
+    // java.math.* is in the built-in allowlist; no system property entry needed
+    ObjectIdentity c1 = new ObjectIdentity(Object.class, "java.math.BigDecimal:123.45");
+    Assertions.assertEquals(new BigDecimal("123.45"), c1.getKeyAsObject());
+  }
+
+  @Test
+  void testStringConstructorDisallowedKeyClass() {
+    // java.io.File has a public (String) constructor but is not an allowed key class
+    JDOUserException ex =
+        Assertions.assertThrows(
+            JDOUserException.class,
+            () -> new ObjectIdentity(Object.class, "java.io.File:/tmp/x"),
+            "Failed to catch expected JDOUserException for disallowed key class.");
+    Assertions.assertTrue(
+        ex.getMessage().contains(Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES),
+        "Exception should name the allowlist system property: " + ex.getMessage());
+  }
+
+  @Test
+  void testStringConstructorDisallowedKeyClassNotInitialized() {
+    Assertions.assertThrows(
+        JDOUserException.class,
+        () ->
+            new ObjectIdentity(
+                Object.class, "javax.jdo.identity.ObjectIdentityTest$StaticInitCanary:x"),
+        "Failed to catch expected JDOUserException for disallowed key class.");
+    Assertions.assertFalse(
+        canaryStaticInitRun, "Static initializer of a disallowed key class must not run.");
+  }
+
   private <T> void validateNestedException(JDOUserException ex, Class<T> expected) {
     Throwable[] nesteds = ex.getNestedExceptions();
     if (nesteds == null || nesteds.length != 1) {
@@ -473,6 +524,20 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
         IdClass other = (IdClass) obj;
         return value == other.value;
       }
+    }
+  }
+
+  /** Set by StaticInitCanary's static initializer; must remain false. */
+  static boolean canaryStaticInitRun = false;
+
+  /** Not in the allowlist; its static initializer must never run via ObjectIdentity. */
+  public static class StaticInitCanary {
+    static {
+      canaryStaticInitRun = true;
+    }
+
+    public StaticInitCanary(String str) {
+      // This method body is intentionally left blank
     }
   }
 

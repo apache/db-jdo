@@ -29,6 +29,7 @@ import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Currency;
@@ -814,11 +815,72 @@ public class JDOImplHelper extends java.lang.Object {
     }
   }
 
+  /** Package prefixes of key classes always allowed for String construction. */
+  private static final String[] DEFAULT_ALLOWED_KEY_CLASS_PREFIXES = {
+    "java.lang.", "java.math.", "java.time." // NOI18N
+  };
+
+  /** Individual key classes always allowed for String construction. */
+  private static final Set<String> DEFAULT_ALLOWED_KEY_CLASS_NAMES =
+      new HashSet<>(
+          Arrays.asList(
+              "java.util.Date", // NOI18N
+              "java.util.Locale", // NOI18N
+              "java.util.Currency", // NOI18N
+              "java.util.UUID")); // NOI18N
+
+  /**
+   * Determine whether the given class may be instantiated from a String by {@link
+   * #construct(String, String)}. A class is allowed if it belongs to the built-in set of value
+   * classes or is named by the system property {@link
+   * Constants#PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES}.
+   *
+   * @param keyClass the candidate key class
+   * @return true if the class may be constructed from a String
+   */
+  private static boolean isIdentityKeyClassAllowed(Class<?> keyClass) {
+    String name = keyClass.getName();
+    for (String prefix : DEFAULT_ALLOWED_KEY_CLASS_PREFIXES) {
+      if (name.startsWith(prefix)) {
+        return true;
+      }
+    }
+    if (DEFAULT_ALLOWED_KEY_CLASS_NAMES.contains(name)) {
+      return true;
+    }
+    String allowed = System.getProperty(Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES);
+    if (allowed != null) {
+      for (String rawEntry : allowed.split(",")) { // NOI18N
+        String entry = rawEntry.trim();
+        if (entry.isEmpty()) {
+          continue;
+        }
+        if ("*".equals(entry)) { // NOI18N
+          return true;
+        }
+        if (entry.endsWith(".*")) { // NOI18N
+          if (name.startsWith(entry.substring(0, entry.length() - 1))) {
+            return true;
+          }
+        } else if (entry.equals(name)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   /**
    * Construct an instance of the parameter class, using the keyString as an argument to the
-   * constructor. If the class has a StringConstructor instance registered, use it. If not, try to
-   * find a constructor for the class with a single String argument. Otherwise, throw a
-   * JDOUserException.
+   * constructor. If the class has a StringConstructor instance registered, use it. If not, and the
+   * class is an allowed identity key class, try to find a constructor for the class with a single
+   * String argument. Otherwise, throw a JDOUserException.
+   *
+   * <p>Because the class name typically originates from the String form of an identity, which may
+   * come from an untrusted source, only classes with a registered {@link StringConstructor}, the
+   * built-in value classes, or classes named by the system property {@link
+   * Constants#PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES} are instantiated. The named class is loaded
+   * without initializing it, so no code of a disallowed class runs.
    *
    * @param className the name of the class
    * @param keyString the String parameter for the constructor
@@ -827,16 +889,23 @@ public class JDOImplHelper extends java.lang.Object {
   public static Object construct(String className, String keyString) {
     StringConstructor stringConstructor;
     try {
-      Class<?> keyClass = Class.forName(className);
+      // load without initializing: no static initializer of an unvetted class may run
+      Class<?> keyClass = Class.forName(className, false, JDOImplHelper.class.getClassLoader());
       synchronized (stringConstructorMap) {
         stringConstructor = stringConstructorMap.get(keyClass);
       }
       if (stringConstructor != null) {
         return stringConstructor.construct(keyString);
-      } else {
-        Constructor<?> keyConstructor = keyClass.getConstructor(String.class);
-        return keyConstructor.newInstance(keyString);
       }
+      if (!isIdentityKeyClassAllowed(keyClass)) {
+        throw new JDOUserException(
+            msg.msg(
+                "EXC_ObjectIdentityStringConstructionKeyClassNotAllowed", // NOI18N
+                className,
+                Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES));
+      }
+      Constructor<?> keyConstructor = keyClass.getConstructor(String.class);
+      return keyConstructor.newInstance(keyString);
     } catch (JDOException ex) {
       throw ex;
     } catch (Exception ex) {

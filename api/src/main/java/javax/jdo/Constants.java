@@ -1042,4 +1042,23 @@ public interface Constants {
    * @since 2.2
    */
   public static final String TX_SERIALIZABLE = "serializable";
+
+  /**
+   * The name of the system property used to extend the set of key classes that {@link
+   * javax.jdo.spi.JDOImplHelper#construct(String, String)} may instantiate from a String. The value
+   * is a comma-separated list of entries; an entry is either a fully-qualified class name, a
+   * package prefix ending in "<code>.*</code>", or "<code>*</code>" to disable the restriction
+   * entirely (restoring the previous, unrestricted behavior).
+   *
+   * <p>By default only classes with a registered {@link
+   * javax.jdo.spi.JDOImplHelper.StringConstructor}, classes in <code> java.lang</code>, <code>
+   * java.math</code> and <code>java.time</code>, and a small set of <code> java.util</code> value
+   * classes may be constructed. This prevents the String form of an identity (see {@link
+   * javax.jdo.identity.ObjectIdentity}), which may originate from an untrusted source, from loading
+   * and instantiating arbitrary classes.
+   *
+   * @since 3.3
+   */
+  static final String PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES =
+      "javax.jdo.allowedIdentityKeyClasses"; // NOI18N
 }
