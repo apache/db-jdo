@@ -815,24 +815,6 @@ public class JDOImplHelper extends java.lang.Object {
     }
   }
 
-  /**
-   * The name of the system property used to extend the set of key classes that {@link
-   * #construct(String, String)} may instantiate from a String. The value is a comma-separated list
-   * of entries; an entry is either a fully-qualified class name, a package prefix ending in
-   * "<code>.*</code>", or "<code>*</code>" to disable the restriction entirely (restoring the
-   * previous, unrestricted behavior).
-   *
-   * <p>By default only classes with a registered {@link StringConstructor}, classes in <code>
-   * java.lang</code>, <code>java.math</code> and <code>java.time</code>, and a small set of <code>
-   * java.util</code> value classes may be constructed. This prevents the String form of an
-   * identity (see {@link javax.jdo.identity.ObjectIdentity}), which may originate from an
-   * untrusted source, from loading and instantiating arbitrary classes.
-   *
-   * @since 3.3
-   */
-  public static final String PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES =
-      "javax.jdo.allowedIdentityKeyClasses"; // NOI18N
-
   /** Package prefixes of key classes always allowed for String construction. */
   private static final String[] DEFAULT_ALLOWED_KEY_CLASS_PREFIXES = {
     "java.lang.", "java.math.", "java.time." // NOI18N
@@ -850,7 +832,8 @@ public class JDOImplHelper extends java.lang.Object {
   /**
    * Determine whether the given class may be instantiated from a String by {@link
    * #construct(String, String)}. A class is allowed if it belongs to the built-in set of value
-   * classes or is named by the system property {@link #PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES}.
+   * classes or is named by the system property {@link
+   * Constants#PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES}.
    *
    * @param keyClass the candidate key class
    * @return true if the class may be constructed from a String
@@ -865,7 +848,7 @@ public class JDOImplHelper extends java.lang.Object {
     if (DEFAULT_ALLOWED_KEY_CLASS_NAMES.contains(name)) {
       return true;
     }
-    String allowed = System.getProperty(PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES);
+    String allowed = System.getProperty(Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES);
     if (allowed != null) {
       for (String rawEntry : allowed.split(",")) { // NOI18N
         String entry = rawEntry.trim();
@@ -896,8 +879,8 @@ public class JDOImplHelper extends java.lang.Object {
    * <p>Because the class name typically originates from the String form of an identity, which may
    * come from an untrusted source, only classes with a registered {@link StringConstructor}, the
    * built-in value classes, or classes named by the system property {@link
-   * #PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES} are instantiated. The named class is loaded without
-   * initializing it, so no code of a disallowed class runs.
+   * Constants#PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES} are instantiated. The named class is loaded
+   * without initializing it, so no code of a disallowed class runs.
    *
    * @param className the name of the class
    * @param keyString the String parameter for the constructor
@@ -919,7 +902,7 @@ public class JDOImplHelper extends java.lang.Object {
             msg.msg(
                 "EXC_ObjectIdentityStringConstructionKeyClassNotAllowed", // NOI18N
                 className,
-                PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES));
+                Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES));
       }
       Constructor<?> keyConstructor = keyClass.getConstructor(String.class);
       return keyConstructor.newInstance(keyString);

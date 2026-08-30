@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
+import javax.jdo.Constants;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDONullIdentityException;
 import javax.jdo.JDOUserException;
@@ -68,7 +69,7 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   @BeforeAll
   static void setAllowedIdentityKeyClasses() {
     System.setProperty(
-        JDOImplHelper.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES,
+        Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES,
         "javax.jdo.identity.ObjectIdentityTest$IdClass,"
             + "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoStringConstructor,"
             + "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoPublicStringConstructor");
@@ -77,7 +78,7 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   /** Restore the default allowlist. */
   @AfterAll
   static void clearAllowedIdentityKeyClasses() {
-    System.clearProperty(JDOImplHelper.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES);
+    System.clearProperty(Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES);
   }
 
   @Override
@@ -459,7 +460,7 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
             () -> new ObjectIdentity(Object.class, "java.io.File:/tmp/x"),
             "Failed to catch expected JDOUserException for disallowed key class.");
     Assertions.assertTrue(
-        ex.getMessage().contains(JDOImplHelper.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES),
+        ex.getMessage().contains(Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES),
         "Exception should name the allowlist system property: " + ex.getMessage());
   }
 
