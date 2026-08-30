@@ -611,8 +611,7 @@ public class JDOImplHelper extends java.lang.Object {
    * JDOPermission("manageMetadata")</code>.
    *
    * @param factory the DocumentBuilderFactory instance to use
-   * @throws SecurityException if the caller is not authorized for
-   *     JDOPermission("manageMetadata").
+   * @throws SecurityException if the caller is not authorized for JDOPermission("manageMetadata").
    * @since 2.1
    */
   public synchronized void registerDocumentBuilderFactory(DocumentBuilderFactory factory) {
@@ -641,8 +640,7 @@ public class JDOImplHelper extends java.lang.Object {
    * JDOPermission("manageMetadata")</code>.
    *
    * @param handler the ErrorHandler instance to use
-   * @throws SecurityException if the caller is not authorized for
-   *     JDOPermission("manageMetadata").
+   * @throws SecurityException if the caller is not authorized for JDOPermission("manageMetadata").
    * @since 2.1
    */
   public synchronized void registerErrorHandler(ErrorHandler handler) {

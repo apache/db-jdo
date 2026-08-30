@@ -1042,4 +1042,17 @@ public interface Constants {
    * @since 2.2
    */
   public static final String TX_SERIALIZABLE = "serializable";
+
+  /**
+   * The name of the boolean system property that, when set to "true", disables the re-application
+   * of the secure XML parsing defaults to a DocumentBuilderFactory registered via {@link
+   * javax.jdo.spi.JDOImplHelper#registerDocumentBuilderFactory}. By default a registered factory is
+   * hardened before each use exactly like the default factory (DOCTYPE declarations disallowed,
+   * entity references not expanded), so that registering a factory cannot silently re-enable
+   * external entity processing (XXE) during jdoconfig.xml parsing.
+   *
+   * @since 3.3
+   */
+  static final String PROPERTY_ALLOW_UNSAFE_DOCUMENT_BUILDER_FACTORY =
+      "javax.jdo.allowUnsafeDocumentBuilderFactory"; // NOI18N
 }
