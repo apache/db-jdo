@@ -1138,6 +1138,18 @@ public class JDOHelper implements Constants {
     DocumentBuilderFactory factory = IMPL_HELPER.getRegisteredDocumentBuilderFactory();
     if (factory == null) {
       factory = getDefaultDocumentBuilderFactory();
+    } else if (!Boolean.getBoolean(Constants.PROPERTY_ALLOW_UNSAFE_DOCUMENT_BUILDER_FACTORY)) {
+      // Re-apply the secure defaults to the registered factory before every parse.
+      // Registration is an SPI open to any code in the process; without this, a factory
+      // registered with default settings would re-enable DOCTYPE processing (external
+      // entities / XXE) for every jdoconfig.xml on the classpath.
+      try {
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      } catch (ParserConfigurationException e) {
+        // fail closed: do not parse with a factory that cannot disable DOCTYPEs
+        throw new JDOFatalUserException(e.getMessage());
+      }
+      factory.setExpandEntityReferences(false);
     }
     return factory;
   }
