@@ -65,6 +65,10 @@ import org.xml.sax.ErrorHandler;
  * call go through the security manager, only the call to get an instance is checked. Once an
  * implementation has an instance, any of the methods can be invoked without security checks.
  *
+ * <p>The security-manager checks described here are only performed on JVMs that still provide a
+ * Java <code>SecurityManager</code> (deprecated for removal by JEP 411). On Java 17 and later no
+ * check is performed and these functions are available to all code in the process.
+ *
  * @version 2.1
  */
 public class JDOImplHelper extends java.lang.Object {

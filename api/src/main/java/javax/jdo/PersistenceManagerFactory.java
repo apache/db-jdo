@@ -61,6 +61,10 @@ public interface PersistenceManagerFactory extends Serializable {
    * Close this PersistenceManagerFactory. Check for JDOPermission("closePersistenceManagerFactory")
    * and if not authorized, throw SecurityException.
    *
+   * <p>The permission check is only performed on JVMs that still provide a Java <code>
+   * SecurityManager</code> (deprecated for removal by JEP 411); on Java 17 and later no check is
+   * performed and any caller may close the factory.
+   *
    * <p>If the authorization check succeeds, check to see that all PersistenceManager instances
    * obtained from this PersistenceManagerFactory have no active transactions. If any
    * PersistenceManager instances have an active transaction, throw a JDOUserException, with one
