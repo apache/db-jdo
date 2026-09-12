@@ -1579,7 +1579,11 @@ public class JDOHelper implements Constants {
     int numberOfJDOEnhancers = 0;
     Enumeration<URL> urls = null;
     try {
-      urls = getResources(loader, Constants.SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
+      // Use ctrLoader (falls back to the context class loader when the caller
+      // passed null) for the service-resource lookup, matching the class
+      // loading below; passing the original loader made getEnhancer(null)
+      // always fail with an NPE inside the resource lookup.
+      urls = getResources(ctrLoader, Constants.SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
     } catch (Exception ex) {
       exceptions.add(ex);
     }
