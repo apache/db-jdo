@@ -584,17 +584,19 @@ public class JDOImplHelper extends java.lang.Object {
     SecurityManager sm = LegacyJava.getSecurityManager();
     if (sm != null) {
       sm.checkPermission(JDOPermission.SET_STATE_MANAGER);
-      synchronized (authorizedStateManagerClasses) {
-        for (Iterator<?> it = smClasses.iterator(); it.hasNext(); ) {
-          Object smClass = it.next();
-          if (!(smClass instanceof Class)) {
-            throw new ClassCastException(
-                msg.msg(
-                    "ERR_StateManagerClassCast", // NOI18N
-                    smClass.getClass().getName()));
-          }
-          registerAuthorizedStateManagerClass((Class<?>) it.next());
+    }
+    synchronized (authorizedStateManagerClasses) {
+      for (Object smClass : smClasses) {
+        if (!(smClass instanceof Class)) {
+          throw new ClassCastException(
+              msg.msg(
+                  "ERR_StateManagerClassCast", // NOI18N
+                  smClass.getClass().getName()));
         }
+        // register the element that was just validated (the loop formerly advanced the
+        // iterator a second time here, registering the unvalidated successor instead and
+        // throwing NoSuchElementException on odd-sized collections)
+        registerAuthorizedStateManagerClass((Class<?>) smClass);
       }
     }
   }
