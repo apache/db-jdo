@@ -17,7 +17,9 @@
 
 package javax.jdo.spi;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Properties;
 import javax.jdo.Constants;
 import javax.jdo.JDOUserException;
@@ -166,6 +168,29 @@ class JDOImplHelperTest extends AbstractTest {
     JDOImplHelper.registerClass(
         JDOImplHelperTest.class, new String[0], new Class[0], new byte[0], null, null);
     Assertions.assertNull(event, "Unexpected event ");
+  }
+
+  /**
+   * Test that registerAuthorizedStateManagerClasses validates and registers every element of the
+   * collection. The loop formerly advanced the iterator twice per iteration, registering the
+   * unvalidated successor of each validated element and throwing NoSuchElementException on
+   * odd-sized collections.
+   */
+  @Test
+  void testRegisterAuthorizedStateManagerClassesOddSized() {
+    List<Class<?>> classes = Arrays.asList(String.class, Integer.class, Long.class);
+    // must validate and register all three elements without NoSuchElementException
+    JDOImplHelper.registerAuthorizedStateManagerClasses(classes);
+  }
+
+  /** Test that a non-Class element is rejected with the documented ClassCastException. */
+  @Test
+  void testRegisterAuthorizedStateManagerClassesNonClassElement() {
+    List<Object> elements = Arrays.asList(String.class, "not a class");
+    Assertions.assertThrows(
+        ClassCastException.class,
+        () -> JDOImplHelper.registerAuthorizedStateManagerClasses(elements),
+        "Missing ClassCastException for non-Class element");
   }
 
   /** Test that an unknown standard property causes JDOUserException. */
