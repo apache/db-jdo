@@ -83,7 +83,7 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
                 + // NOI18N
                 MSG.msg(
                     "EXC_ObjectIdentityStringConstructionUsage", // NOI18N
-                    paramString));
+                    sanitized(paramString)));
       }
       int indexOfDelimiter = paramString.indexOf(STRING_DELIMITER);
       if (indexOfDelimiter < 0) {
@@ -92,7 +92,7 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
                 + // NOI18N
                 MSG.msg(
                     "EXC_ObjectIdentityStringConstructionUsage", // NOI18N
-                    paramString));
+                    sanitized(paramString)));
       }
       keyString = paramString.substring(indexOfDelimiter + 1);
       className = paramString.substring(0, indexOfDelimiter);
@@ -105,6 +105,25 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
 
   /** Constructor only for Externalizable. */
   public ObjectIdentity() {}
+
+  /**
+   * Replace ISO control characters (e.g. CR/LF) in untrusted text that is echoed into exception
+   * messages, so crafted input cannot forge additional log lines when the message is logged.
+   *
+   * @param text the untrusted text, possibly null
+   * @return the text with control characters replaced by spaces
+   */
+  private static String sanitized(String text) {
+    if (text == null) {
+      return null;
+    }
+    StringBuilder buf = new StringBuilder(text.length());
+    for (int i = 0; i < text.length(); i++) {
+      char c = text.charAt(i);
+      buf.append(Character.isISOControl(c) ? ' ' : c);
+    }
+    return buf.toString();
+  }
 
   /**
    * Return the key.
