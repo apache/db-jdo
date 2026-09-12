@@ -845,12 +845,38 @@ public class JDOImplHelper extends java.lang.Object {
       InstantiationException,
       IllegalAccessException,
       InvocationTargetException */
+      /* Deliberately do not embed ex.toString() in the message: the failure
+      kind (ClassNotFoundException vs. NoSuchMethodException vs. constructor
+      failure) would let a caller probing with attacker-controlled identity
+      strings fingerprint which classes exist on the classpath. The original
+      exception stays attached as the nested exception for diagnostics.
+      Control characters are stripped from the echoed input so crafted
+      identity strings cannot forge log lines. */
       throw new JDOUserException(
           msg.msg(
               "EXC_ObjectIdentityStringConstruction", // NOI18N
-              new Object[] {ex.toString(), className, keyString}),
+              new Object[] {"", sanitized(className), sanitized(keyString)}),
           ex);
     }
+  }
+
+  /**
+   * Replace ISO control characters (e.g. CR/LF) in untrusted text that is echoed into exception
+   * messages, so crafted input cannot forge additional log lines when the message is logged.
+   *
+   * @param text the untrusted text, possibly null
+   * @return the text with control characters replaced by spaces
+   */
+  private static String sanitized(String text) {
+    if (text == null) {
+      return null;
+    }
+    StringBuilder buf = new StringBuilder(text.length());
+    for (int i = 0; i < text.length(); i++) {
+      char c = text.charAt(i);
+      buf.append(Character.isISOControl(c) ? ' ' : c);
+    }
+    return buf.toString();
   }
 
   /**

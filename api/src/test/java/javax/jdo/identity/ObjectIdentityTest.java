@@ -222,6 +222,55 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   }
 
   @Test
+  void testBadStringConstructorMessageUniformAcrossFailureKinds() {
+    // The construct-failure message must not reveal whether the named class
+    // exists on the classpath: ClassNotFoundException and NoSuchMethodException
+    // must produce the same text (modulo the echoed class name). The original
+    // exception remains available as the nested exception.
+    JDOUserException notFound =
+        Assertions.assertThrows(
+            JDOUserException.class,
+            () -> new ObjectIdentity(Object.class, "no.such.Clazz:yy"),
+            "Failed to catch expected exception.");
+    JDOUserException noCtor =
+        Assertions.assertThrows(
+            JDOUserException.class,
+            () ->
+                new ObjectIdentity(
+                    Object.class,
+                    "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoStringConstructor:yy"),
+            "Failed to catch expected exception.");
+    String normalizedNotFound = notFound.getMessage().replace("no.such.Clazz", "CLASS");
+    String normalizedNoCtor =
+        noCtor
+            .getMessage()
+            .replace(
+                "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoStringConstructor", "CLASS");
+    Assertions.assertEquals(
+        normalizedNotFound,
+        normalizedNoCtor,
+        "Exception message must not distinguish failure kinds (classpath oracle).");
+    Assertions.assertFalse(
+        notFound.getMessage().contains("ClassNotFoundException"),
+        "Exception message must not embed the underlying exception type.");
+  }
+
+  @Test
+  void testBadStringConstructorControlCharactersNotEchoed() {
+    JDOUserException ex =
+        Assertions.assertThrows(
+            JDOUserException.class,
+            () -> new ObjectIdentity(Object.class, "no.such.Clazz:evil\nFORGED LOG LINE"),
+            "Failed to catch expected exception.");
+    Assertions.assertFalse(
+        ex.getMessage().contains("evil\nFORGED"),
+        "Control characters from the identity string must not be echoed verbatim.");
+    Assertions.assertTrue(
+        ex.getMessage().contains("evil FORGED"),
+        "Sanitized identity string should still be echoed for diagnostics.");
+  }
+
+  @Test
   void testBadStringConstructorIllegalArgument() {
     JDOUserException ex =
         Assertions.assertThrows(
