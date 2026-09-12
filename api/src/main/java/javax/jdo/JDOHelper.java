@@ -1453,11 +1453,63 @@ public class JDOHelper implements Constants {
   }
 
   /**
+   * The name of the boolean system property that, when set to "true", allows JNDI locations with a
+   * URL scheme other than "java" (for example "ldap://..." or "rmi://...") to be passed to the
+   * JNDI-based {@link #getPersistenceManagerFactory(String, Context, ClassLoader)} overloads. Such
+   * locations are rejected by default because a URL-scheme lookup selects the naming provider from
+   * the location string itself and, depending on the JVM and provider configuration, can trigger
+   * remote class loading or deserialization of untrusted data (JNDI injection).
+   *
+   * @since 3.3
+   */
+  public static final String PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS =
+      "javax.jdo.allowUrlSchemeJndiLocations"; // NOI18N
+
+  /**
+   * Reject JNDI locations carrying a URL scheme other than "java" unless explicitly allowed via
+   * the system property named by {@link #PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS}. The JNDI
+   * location must come from trusted deployment configuration, never from request data.
+   *
+   * @param jndiLocation the JNDI location to check
+   */
+  private static void assertPermittedJndiLocation(String jndiLocation) {
+    int colon = jndiLocation.indexOf(':');
+    int slash = jndiLocation.indexOf('/');
+    if (colon <= 0 || (slash != -1 && slash < colon)) {
+      // no URL scheme: JNDI only treats "scheme:" ahead of any '/' as a URL
+      return;
+    }
+    String scheme = jndiLocation.substring(0, colon);
+    if (!scheme.matches("[A-Za-z][A-Za-z0-9+.\\-]*")) {
+      // not a syntactically valid scheme; the provider treats the location as a plain name
+      return;
+    }
+    if ("java".equalsIgnoreCase(scheme)) {
+      // local component-environment names such as "java:comp/env/jdo/PMF"
+      return;
+    }
+    if (Boolean.getBoolean(PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS)) {
+      return;
+    }
+    throw new JDOFatalUserException(
+        MSG.msg(
+            "EXC_GetPMFUrlSchemeJndiLocation", // NOI18N
+            jndiLocation,
+            scheme,
+            PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS));
+  }
+
+  /**
    * Returns a {@link PersistenceManagerFactory} at the JNDI location specified by <code>
    * jndiLocation</code> in the context <code>context</code>. If <code>context</code> is <code>null
    * </code>, <code>new InitialContext()</code> will be used. This method is equivalent to invoking
    * {@link #getPersistenceManagerFactory(String,Context,ClassLoader)} with <code>
    * Thread.currentThread().getContextClassLoader()</code> as the <code>loader</code> argument.
+   *
+   * <p><b>Security note:</b> <code>jndiLocation</code> must come from trusted deployment
+   * configuration, never from request or user data. Locations with a URL scheme other than "java"
+   * (e.g. "ldap://...") are rejected unless the system property named by {@link
+   * #PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS} is set to "true".
    *
    * @since 2.0
    * @param jndiLocation the JNDI location containing the PersistenceManagerFactory
@@ -1476,6 +1528,11 @@ public class JDOHelper implements Constants {
    * PersistenceManagerFactory} with <code>loader</code>. Any <code>NamingException</code>s thrown
    * will be wrapped in a {@link JDOFatalUserException}.
    *
+   * <p><b>Security note:</b> <code>jndiLocation</code> must come from trusted deployment
+   * configuration, never from request or user data. Locations with a URL scheme other than "java"
+   * (e.g. "ldap://...") are rejected unless the system property named by {@link
+   * #PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS} is set to "true".
+   *
    * @since 2.0
    * @param jndiLocation the JNDI location containing the PersistenceManagerFactory
    * @param context the context in which to find the named PersistenceManagerFactory
@@ -1487,6 +1544,7 @@ public class JDOHelper implements Constants {
     if (jndiLocation == null)
       throw new JDOFatalUserException(MSG.msg("EXC_GetPMFNullJndiLoc")); // NOI18N
     if (loader == null) throw new JDOFatalUserException(MSG.msg("EXC_GetPMFNullLoader")); // NOI18N
+    assertPermittedJndiLocation(jndiLocation);
     try {
       if (context == null) context = new InitialContext();
 
