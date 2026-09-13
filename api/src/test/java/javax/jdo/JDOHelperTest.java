@@ -500,6 +500,35 @@ class JDOHelperTest extends AbstractTest {
     }
   }
 
+  /** Test that a URL-scheme JNDI location is rejected by default. */
+  @Test
+  void testGetPMFUrlSchemeJNDIRejected() {
+    Context context = getInitialContext();
+    JDOFatalUserException ex =
+        Assertions.assertThrows(
+            JDOFatalUserException.class,
+            () ->
+                JDOHelper.getPersistenceManagerFactory("ldap://attacker.example:389/cn=x", context),
+            "URL-scheme JNDI location should result in JDOFatalUserException");
+    Assertions.assertTrue(
+        ex.getMessage().contains(JDOHelper.PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS),
+        "Exception should mention the opt-in system property but was: " + ex.getMessage());
+  }
+
+  /** Test that a composite-name JNDI location is not blocked by the URL-scheme check. */
+  @Test
+  void testGetPMFCompositeNameJNDINotBlockedBySchemeCheck() {
+    Context context = getInitialContext();
+    JDOFatalUserException ex =
+        Assertions.assertThrows(
+            JDOFatalUserException.class,
+            () -> JDOHelper.getPersistenceManagerFactory("java:comp/env/jdo/PMF", context),
+            "Unbound JNDI name should result in JDOFatalUserException");
+    Assertions.assertFalse(
+        ex.getMessage().contains(JDOHelper.PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS),
+        "Composite name must not be rejected by the URL-scheme check but was: " + ex.getMessage());
+  }
+
   private Context getInitialContext() {
     try {
       return new InitialContext();
