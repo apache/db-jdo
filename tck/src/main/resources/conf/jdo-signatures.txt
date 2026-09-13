@@ -254,6 +254,8 @@ public interface javax.jdo.Constants {
         = "javax/jdo/jdoquery_3_0.xsd";
     static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
         = "";
+    String PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS
+       = "javax.jdo.allowUrlSchemeJndiLocations";
     public static final String TX_READ_UNCOMMITTED = "read-uncommitted"; 
     public static final String TX_READ_COMMITTED = "read-committed"; 
     public static final String TX_REPEATABLE_READ = "repeatable-read"; 

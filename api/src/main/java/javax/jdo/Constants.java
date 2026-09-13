@@ -17,6 +17,8 @@
 
 package javax.jdo;
 
+import javax.naming.Context;
+
 /**
  * Constant values used in JDO.
  *
@@ -1042,4 +1044,18 @@ public interface Constants {
    * @since 2.2
    */
   public static final String TX_SERIALIZABLE = "serializable";
+
+  /**
+   * The name of the boolean system property that, when set to "true", allows JNDI locations with a
+   * URL scheme other than "java" (for example "ldap://..." or "rmi://...") to be passed to the
+   * JNDI-based {@link JDOHelper#getPersistenceManagerFactory(String, Context, ClassLoader)}
+   * overloads. Such locations are rejected by default because a URL-scheme lookup selects the
+   * naming provider from the location string itself and, depending on the JVM and provider
+   * configuration, can trigger remote class loading or deserialization of untrusted data (JNDI
+   * injection).
+   *
+   * @since 3.3
+   */
+  String PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS =
+      "javax.jdo.allowUrlSchemeJndiLocations"; // NOI18N
 }

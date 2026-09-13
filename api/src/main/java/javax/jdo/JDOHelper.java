@@ -1453,22 +1453,9 @@ public class JDOHelper implements Constants {
   }
 
   /**
-   * The name of the boolean system property that, when set to "true", allows JNDI locations with a
-   * URL scheme other than "java" (for example "ldap://..." or "rmi://...") to be passed to the
-   * JNDI-based {@link #getPersistenceManagerFactory(String, Context, ClassLoader)} overloads. Such
-   * locations are rejected by default because a URL-scheme lookup selects the naming provider from
-   * the location string itself and, depending on the JVM and provider configuration, can trigger
-   * remote class loading or deserialization of untrusted data (JNDI injection).
-   *
-   * @since 3.3
-   */
-  public static final String PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS =
-      "javax.jdo.allowUrlSchemeJndiLocations"; // NOI18N
-
-  /**
-   * Reject JNDI locations carrying a URL scheme other than "java" unless explicitly allowed via
-   * the system property named by {@link #PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS}. The JNDI
-   * location must come from trusted deployment configuration, never from request data.
+   * Reject JNDI locations carrying a URL scheme other than "java" unless explicitly allowed via the
+   * system property named by {@link #PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS}. The JNDI location
+   * must come from trusted deployment configuration, never from request data.
    *
    * @param jndiLocation the JNDI location to check
    */

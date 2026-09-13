@@ -508,8 +508,7 @@ class JDOHelperTest extends AbstractTest {
         Assertions.assertThrows(
             JDOFatalUserException.class,
             () ->
-                JDOHelper.getPersistenceManagerFactory(
-                    "ldap://attacker.example:389/cn=x", context),
+                JDOHelper.getPersistenceManagerFactory("ldap://attacker.example:389/cn=x", context),
             "URL-scheme JNDI location should result in JDOFatalUserException");
     Assertions.assertTrue(
         ex.getMessage().contains(JDOHelper.PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS),
@@ -527,8 +526,7 @@ class JDOHelperTest extends AbstractTest {
             "Unbound JNDI name should result in JDOFatalUserException");
     Assertions.assertFalse(
         ex.getMessage().contains(JDOHelper.PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS),
-        "Composite name must not be rejected by the URL-scheme check but was: "
-            + ex.getMessage());
+        "Composite name must not be rejected by the URL-scheme check but was: " + ex.getMessage());
   }
 
   private Context getInitialContext() {
