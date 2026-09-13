@@ -115,10 +115,10 @@ public interface PersistenceCapable {
    * LOAD_REQUIRED.
    *
    * <p>The permission check described above is only performed on JVMs that still provide a Java
-   * <code>SecurityManager</code> (deprecated for removal by JEP 411). On Java 17 and later no
-   * check is performed, any code in the process may replace the StateManager (gaining full read
-   * and write access to the instance's persistent fields), and the <code>SecurityException</code>
-   * documented below is never thrown. Do not rely on this check as a security boundary.
+   * <code>SecurityManager</code> (deprecated for removal by JEP 411). On Java 17 and later no check
+   * is performed, any code in the process may replace the StateManager (gaining full read and write
+   * access to the instance's persistent fields), and the <code>SecurityException</code> documented
+   * below is never thrown. Do not rely on this check as a security boundary.
    *
    * @param sm The StateManager which will own this instance, or null to reset the instance to
    *     transient state

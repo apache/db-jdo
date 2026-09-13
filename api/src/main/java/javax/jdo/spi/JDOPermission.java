@@ -66,9 +66,9 @@ package javax.jdo.spi;
  * </tr>
  * </table>
  *
- * <p><strong>Deprecation note (JEP 411):</strong> enforcement of <code>JDOPermission</code>
- * depends on the Java <code>SecurityManager</code>, which was deprecated for removal in Java 17
- * and is disabled or absent in later releases. On such JVMs none of the checks described above are
+ * <p><strong>Deprecation note (JEP 411):</strong> enforcement of <code>JDOPermission</code> depends
+ * on the Java <code>SecurityManager</code>, which was deprecated for removal in Java 17 and is
+ * disabled or absent in later releases. On such JVMs none of the checks described above are
  * performed: the guarded operations are available to all code in the process, and the documented
  * <code>SecurityException</code> is never thrown. Do not rely on <code>JDOPermission</code> as a
  * security boundary on Java 17 or later.

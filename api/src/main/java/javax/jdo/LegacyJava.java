@@ -231,8 +231,8 @@ public class LegacyJava {
    * Enforce the invariant documented in the class javadoc: the public doPrivileged() fallbacks may
    * only run on JVMs where java.security.AccessController has been removed (there they execute the
    * action on the caller's own stack, with no security context to escalate to). On JVMs that still
-   * provide AccessController, callers must go through the {@link #doPrivilegedAction} /
-   * {@link #doPrivilegedExceptionAction} Method handles, which resolve to the real
+   * provide AccessController, callers must go through the {@link #doPrivilegedAction} / {@link
+   * #doPrivilegedExceptionAction} Method handles, which resolve to the real
    * AccessController.doPrivileged.
    *
    * @throws JDOFatalInternalException if AccessController is still available on this JVM
