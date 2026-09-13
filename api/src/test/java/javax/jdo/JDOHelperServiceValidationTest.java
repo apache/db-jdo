@@ -29,8 +29,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests that service-file discovery verifies the candidate class before running any of its code:
- * a class named by a META-INF/services/javax.jdo.JDOEnhancer resource that does not implement
+ * Tests that service-file discovery verifies the candidate class before running any of its code: a
+ * class named by a META-INF/services/javax.jdo.JDOEnhancer resource that does not implement
  * JDOEnhancer must be rejected without executing its static initializer or constructor.
  */
 class JDOHelperServiceValidationTest extends AbstractTest {
