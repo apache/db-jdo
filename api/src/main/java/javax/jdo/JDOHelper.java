@@ -1138,7 +1138,7 @@ public class JDOHelper implements Constants {
     DocumentBuilderFactory factory = IMPL_HELPER.getRegisteredDocumentBuilderFactory();
     if (factory == null) {
       factory = getDefaultDocumentBuilderFactory();
-    } else if (!Boolean.getBoolean(Constants.PROPERTY_ALLOW_UNSAFE_DOCUMENT_BUILDER_FACTORY)) {
+    } else {
       // Re-apply the secure defaults to the registered factory before every parse.
       // Registration is an SPI open to any code in the process; without this, a factory
       // registered with default settings would re-enable DOCTYPE processing (external

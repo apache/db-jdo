@@ -37,7 +37,6 @@ class JDOHelperDocumentBuilderFactoryTest extends AbstractTest {
   @AfterEach
   void cleanup() {
     JDOImplHelper.getInstance().registerDocumentBuilderFactory(null);
-    System.clearProperty(JDOHelper.PROPERTY_ALLOW_UNSAFE_DOCUMENT_BUILDER_FACTORY);
   }
 
   /** The default factory is hardened. */
@@ -71,17 +70,4 @@ class JDOHelperDocumentBuilderFactoryTest extends AbstractTest {
         "The registered DocumentBuilderFactory must not expand entity references");
   }
 
-  /** The documented opt-out restores the previous behavior. */
-  @Test
-  void testRegisteredFactoryOptOut() throws ParserConfigurationException {
-    System.setProperty(JDOHelper.PROPERTY_ALLOW_UNSAFE_DOCUMENT_BUILDER_FACTORY, "true");
-    DocumentBuilderFactory unhardened = DocumentBuilderFactory.newInstance();
-    JDOImplHelper.getInstance().registerDocumentBuilderFactory(unhardened);
-
-    DocumentBuilderFactory factory = JDOHelper.getDocumentBuilderFactory();
-    Assertions.assertSame(unhardened, factory, "The registered factory must be preferred");
-    Assertions.assertFalse(
-        factory.getFeature(DISALLOW_DOCTYPE_DECL),
-        "With the opt-out property set, the registered factory must not be modified");
-  }
 }
