@@ -1042,5 +1042,4 @@ public interface Constants {
    * @since 2.2
    */
   public static final String TX_SERIALIZABLE = "serializable";
-
 }

@@ -69,5 +69,4 @@ class JDOHelperDocumentBuilderFactoryTest extends AbstractTest {
         factory.isExpandEntityReferences(),
         "The registered DocumentBuilderFactory must not expand entity references");
   }
-
 }
