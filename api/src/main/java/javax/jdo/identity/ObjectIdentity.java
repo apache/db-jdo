@@ -67,8 +67,7 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
    * <p>If <code>param</code> is a <code>String</code>, it is parsed as
    * "&lt;className&gt;:&lt;keyString&gt;" and the key instance is constructed by {@link
    * JDOImplHelper#construct(String, String)}. Because the String form may originate from an
-   * untrusted source, only allowed identity key classes may be named by it; see {@link
-   * JDOImplHelper#PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES}.
+   * untrusted source, only allowed identity key classes may be named by it.
    *
    * @param pcClass the class
    * @param param the key

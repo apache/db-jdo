@@ -832,8 +832,7 @@ public class JDOImplHelper extends java.lang.Object {
   /**
    * Determine whether the given class may be instantiated from a String by {@link
    * #construct(String, String)}. A class is allowed if it belongs to the built-in set of value
-   * classes or is named by the system property {@link
-   * Constants#PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES}.
+   * classes.
    *
    * @param keyClass the candidate key class
    * @return true if the class may be constructed from a String
@@ -848,25 +847,6 @@ public class JDOImplHelper extends java.lang.Object {
     if (DEFAULT_ALLOWED_KEY_CLASS_NAMES.contains(name)) {
       return true;
     }
-    String allowed = System.getProperty(Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES);
-    if (allowed != null) {
-      for (String rawEntry : allowed.split(",")) { // NOI18N
-        String entry = rawEntry.trim();
-        if (entry.isEmpty()) {
-          continue;
-        }
-        if ("*".equals(entry)) { // NOI18N
-          return true;
-        }
-        if (entry.endsWith(".*")) { // NOI18N
-          if (name.startsWith(entry.substring(0, entry.length() - 1))) {
-            return true;
-          }
-        } else if (entry.equals(name)) {
-          return true;
-        }
-      }
-    }
     return false;
   }
 
@@ -877,10 +857,9 @@ public class JDOImplHelper extends java.lang.Object {
    * String argument. Otherwise, throw a JDOUserException.
    *
    * <p>Because the class name typically originates from the String form of an identity, which may
-   * come from an untrusted source, only classes with a registered {@link StringConstructor}, the
-   * built-in value classes, or classes named by the system property {@link
-   * Constants#PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES} are instantiated. The named class is loaded
-   * without initializing it, so no code of a disallowed class runs.
+   * come from an untrusted source, only classes with a registered {@link StringConstructor}, or the
+   * built-in value classes are instantiated. The named class is loaded without initializing it, so
+   * no code of a disallowed class runs.
    *
    * @param className the name of the class
    * @param keyString the String parameter for the constructor
@@ -901,8 +880,7 @@ public class JDOImplHelper extends java.lang.Object {
         throw new JDOUserException(
             msg.msg(
                 "EXC_ObjectIdentityStringConstructionKeyClassNotAllowed", // NOI18N
-                className,
-                Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES));
+                className));
       }
       Constructor<?> keyConstructor = keyClass.getConstructor(String.class);
       return keyConstructor.newInstance(keyString);

@@ -31,15 +31,12 @@ import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
-import javax.jdo.Constants;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDONullIdentityException;
 import javax.jdo.JDOUserException;
 import javax.jdo.LegacyJava;
 import javax.jdo.spi.JDOImplHelper;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /** */
@@ -63,22 +60,6 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   /** Creates a new instance of ObjectIdentityTest */
   public ObjectIdentityTest() {
     // This method body is intentionally left blank
-  }
-
-  /** Allow the test key classes by exact name, so that other classes stay disallowed. */
-  @BeforeAll
-  static void setAllowedIdentityKeyClasses() {
-    System.setProperty(
-        Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES,
-        "javax.jdo.identity.ObjectIdentityTest$IdClass,"
-            + "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoStringConstructor,"
-            + "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoPublicStringConstructor");
-  }
-
-  /** Restore the default allowlist. */
-  @AfterAll
-  static void clearAllowedIdentityKeyClasses() {
-    System.clearProperty(Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES);
   }
 
   @Override
@@ -138,25 +119,6 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   }
 
   @Test
-  void testStringConstructor() {
-    ObjectIdentity c1 =
-        new ObjectIdentity(Object.class, "javax.jdo.identity.ObjectIdentityTest$IdClass:1");
-    ObjectIdentity c2 =
-        new ObjectIdentity(Object.class, "javax.jdo.identity.ObjectIdentityTest$IdClass:1");
-    ObjectIdentity c3 =
-        new ObjectIdentity(Object.class, "javax.jdo.identity.ObjectIdentityTest$IdClass:2");
-    Assertions.assertEquals(c1, c2, "Equal ObjectIdentity instances compare not equal.");
-    Assertions.assertNotEquals(c1, c3, "Not equal ObjectIdentity instances compare equal");
-  }
-
-  @Test
-  void testToStringConstructor() {
-    ObjectIdentity c1 = new ObjectIdentity(Object.class, new IdClass(1));
-    ObjectIdentity c2 = new ObjectIdentity(Object.class, c1.toString());
-    Assertions.assertEquals(c1, c2, "Equal ObjectIdentity instances compare not equal.");
-  }
-
-  @Test
   void testDateCompareTo() {
     ObjectIdentity c1 = new ObjectIdentity(Object.class, new Date(1));
     ObjectIdentity c2 = new ObjectIdentity(Object.class, new Date(1));
@@ -205,51 +167,11 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   }
 
   @Test
-  void testBadStringConstructorBadClassName() {
-    JDOUserException ex =
-        Assertions.assertThrows(
-            JDOUserException.class,
-            () -> new ObjectIdentity(Object.class, "xx:yy"),
-            "Failed to catch expected ClassNotFoundException.");
-    validateNestedException(ex, ClassNotFoundException.class);
-  }
-
-  @Test
-  void testBadStringConstructorNoStringConstructor() {
-    JDOUserException ex =
-        Assertions.assertThrows(
-            JDOUserException.class,
-            () ->
-                new ObjectIdentity(
-                    Object.class,
-                    "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoStringConstructor:yy"),
-            "Failed to catch expected NoSuchMethodException.");
-    validateNestedException(ex, NoSuchMethodException.class);
-  }
-
-  @Test
-  void testBadStringConstructorNoPublicStringConstructor() {
-    JDOUserException ex =
-        Assertions.assertThrows(
-            JDOUserException.class,
-            () ->
-                new ObjectIdentity(
-                    Object.class,
-                    "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoPublicStringConstructor:yy"),
-            "Failed to catch expected NoSuchMethodException.");
-    validateNestedException(ex, NoSuchMethodException.class);
-  }
-
-  @Test
-  void testBadStringConstructorIllegalArgument() {
-    JDOUserException ex =
-        Assertions.assertThrows(
-            JDOUserException.class,
-            () ->
-                new ObjectIdentity(
-                    Object.class, "javax.jdo.identity.ObjectIdentityTest$IdClass:yy"),
-            "Failed to catch expected InvocationTargetException.");
-    validateNestedException(ex, InvocationTargetException.class);
+  void testNotAnAllowedIdentityKeyClass() {
+    Assertions.assertThrows(
+        JDOUserException.class,
+        () -> new ObjectIdentity(Object.class, "javax.jdo.identity.ObjectIdentityTest$IdClass:yy"),
+        "Failed to catch expected JDOUserException.");
   }
 
   @Test
@@ -459,9 +381,6 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
             JDOUserException.class,
             () -> new ObjectIdentity(Object.class, "java.io.File:/tmp/x"),
             "Failed to catch expected JDOUserException for disallowed key class.");
-    Assertions.assertTrue(
-        ex.getMessage().contains(Constants.PROPERTY_ALLOWED_IDENTITY_KEY_CLASSES),
-        "Exception should name the allowlist system property: " + ex.getMessage());
   }
 
   @Test
