@@ -605,8 +605,7 @@ public class JDOImplHelper extends java.lang.Object {
    * DocumentBuilderFactory.newInstance().
    *
    * <p>Note: secure XML parsing defaults (DOCTYPE declarations disallowed, entity references not
-   * expanded) are re-applied to the registered factory before each use, unless the system property
-   * <code>javax.jdo.allowUnsafeDocumentBuilderFactory</code> is set to "true". When running with a
+   * expanded) are re-applied to the registered factory before each use. When running with a
    * legacy SecurityManager, the caller must be authorized for <code>
    * JDOPermission("manageMetadata")</code>.
    *
