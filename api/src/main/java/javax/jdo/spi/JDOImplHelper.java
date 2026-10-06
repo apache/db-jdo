@@ -603,10 +603,21 @@ public class JDOImplHelper extends java.lang.Object {
    * META-INF/jdoconfig.xml. The default is governed by the semantics of
    * DocumentBuilderFactory.newInstance().
    *
+   * <p>Note: secure XML parsing defaults (DOCTYPE declarations disallowed, entity references not
+   * expanded) are re-applied to the registered factory before each use. When running with a legacy
+   * SecurityManager, the caller must be authorized for <code>
+   * JDOPermission("manageMetadata")</code>.
+   *
    * @param factory the DocumentBuilderFactory instance to use
+   * @throws SecurityException if the caller is not authorized for JDOPermission("manageMetadata").
    * @since 2.1
    */
   public synchronized void registerDocumentBuilderFactory(DocumentBuilderFactory factory) {
+    SecurityManager sec = LegacyJava.getSecurityManager();
+    if (sec != null) {
+      // throws exception if caller is not authorized
+      sec.checkPermission(JDOPermission.MANAGE_METADATA);
+    }
     documentBuilderFactory = factory;
   }
 
@@ -622,12 +633,20 @@ public class JDOImplHelper extends java.lang.Object {
 
   /**
    * Register an ErrorHandler instance for use in parsing the resource(s) META-INF/jdoconfig.xml.
-   * The default is an ErrorHandler that throws on error or fatalError and ignores warnings.
+   * The default is an ErrorHandler that throws on error or fatalError and ignores warnings. When
+   * running with a legacy SecurityManager, the caller must be authorized for <code>
+   * JDOPermission("manageMetadata")</code>.
    *
    * @param handler the ErrorHandler instance to use
+   * @throws SecurityException if the caller is not authorized for JDOPermission("manageMetadata").
    * @since 2.1
    */
   public synchronized void registerErrorHandler(ErrorHandler handler) {
+    SecurityManager sec = LegacyJava.getSecurityManager();
+    if (sec != null) {
+      // throws exception if caller is not authorized
+      sec.checkPermission(JDOPermission.MANAGE_METADATA);
+    }
     errorHandler = handler;
   }
 
