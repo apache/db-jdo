@@ -42,6 +42,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.stream.Collectors;
 import javax.jdo.Constants;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
@@ -161,11 +162,8 @@ public class JDOImplHelper extends java.lang.Object {
 
   static Set<String> createUserConfigurableStandardPropertiesLowerCased() {
     Set<String> mixedCased = createUserConfigurableStandardProperties();
-    Set<String> lowerCased = new HashSet<>(mixedCased.size());
-
-    for (String propertyName : mixedCased) {
-      lowerCased.add(propertyName.toLowerCase());
-    }
+    Set<String> lowerCased =
+        mixedCased.stream().map(String::toLowerCase).collect(Collectors.toSet());
     return Collections.unmodifiableSet(lowerCased);
   }
 
