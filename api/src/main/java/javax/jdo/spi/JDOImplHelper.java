@@ -844,10 +844,7 @@ public class JDOImplHelper extends java.lang.Object {
         return true;
       }
     }
-    if (DEFAULT_ALLOWED_KEY_CLASS_NAMES.contains(name)) {
-      return true;
-    }
-    return false;
+    return DEFAULT_ALLOWED_KEY_CLASS_NAMES.contains(name);
   }
 
   /**
