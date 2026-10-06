@@ -376,11 +376,11 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   @Test
   void testStringConstructorDisallowedKeyClass() {
     // java.io.File has a public (String) constructor but is not an allowed key class
-    JDOUserException ex =
-        Assertions.assertThrows(
-            JDOUserException.class,
-            () -> new ObjectIdentity(Object.class, "java.io.File:/tmp/x"),
-            "Failed to catch expected JDOUserException for disallowed key class.");
+    Assertions.assertThrows(
+        JDOUserException.class,
+        () -> 
+            new ObjectIdentity(Object.class, "java.io.File:/tmp/x"),
+                "Failed to catch expected JDOUserException for disallowed key class.");
   }
 
   @Test
