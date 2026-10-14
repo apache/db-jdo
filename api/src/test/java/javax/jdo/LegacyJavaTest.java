@@ -20,6 +20,8 @@ package javax.jdo;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.security.Permission;
+import java.security.PrivilegedAction;
+import java.security.PrivilegedExceptionAction;
 import javax.jdo.spi.JDOImplHelper;
 import javax.jdo.spi.JDOPermission;
 import org.junit.jupiter.api.Test;
@@ -43,10 +45,29 @@ public class LegacyJavaTest {
     }
 
     try {
-      // Try with security manager
-      assertThrows(JDOFatalInternalException.class, JDOImplHelper::getInstance);
+      // Try with security manager: a denial must surface as the SecurityException
+      // documented on JDOImplHelper.getInstance(), not as an internal error.
+      assertThrows(SecurityException.class, JDOImplHelper::getInstance);
     } finally {
       System.setSecurityManager(oldSecMgr);
+    }
+  }
+
+  @Test
+  public void testPublicDoPrivilegedFallbacksAreGuarded() throws Exception {
+    if (LegacyJava.isSecurityManagerDeprecated()) {
+      // AccessController has been removed: the fallbacks simply run the action.
+      assertEquals("ok", LegacyJava.doPrivileged((PrivilegedAction<String>) () -> "ok"));
+      assertEquals("ok", LegacyJava.doPrivileged((PrivilegedExceptionAction<String>) () -> "ok"));
+    } else {
+      // AccessController still exists: the public fallbacks must refuse to run
+      // (class javadoc invariant - callers go through the Method handles instead).
+      assertThrows(
+          JDOFatalInternalException.class,
+          () -> LegacyJava.doPrivileged((PrivilegedAction<String>) () -> "ok"));
+      assertThrows(
+          JDOFatalInternalException.class,
+          () -> LegacyJava.doPrivileged((PrivilegedExceptionAction<String>) () -> "ok"));
     }
   }
 
