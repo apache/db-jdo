@@ -540,4 +540,20 @@ class JDOHelperTest extends AbstractTest {
       return null;
     }
   }
+
+  /**
+   * Test that getEnhancer(null) falls back to the thread context class loader for the
+   * META-INF/services resource lookup as well as for the class loading. Previously the resource
+   * lookup used the original null loader, so getEnhancer(null) always threw JDOFatalUserException
+   * ("no enhancer available") even though a TCCL-visible enhancer exists.
+   */
+  @Test
+  void testGetEnhancerNullLoaderUsesContextClassLoader() {
+    JDOEnhancer enhancer = JDOHelper.getEnhancer(null);
+    Assertions.assertNotNull(enhancer, "getEnhancer(null) returned null");
+    Assertions.assertEquals(
+        MockEnhancer.class,
+        enhancer.getClass(),
+        "getEnhancer(null) did not load the enhancer visible to the context class loader");
+  }
 }
