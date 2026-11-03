@@ -43,6 +43,13 @@ import javax.jdo.spi.JDOPermission;
  * accessible from other classes and thus allow *any* caller to execute *any* code with
  * doPrivileged() with the security context of LegacyJava. For the same reason the doPrivileged()
  * implementations in the calling classes must be *private*.
+ *
+ * <p>The public doPrivileged() methods declared at the bottom of this class do not violate that
+ * rule: they are the reflective fallback targets used only on JVMs where AccessController has been
+ * removed, where they run the action directly on the caller's own stack without any security
+ * context. To keep them from ever becoming the generic escalation primitive warned about above,
+ * they throw JDOFatalInternalException when invoked on a JVM that still provides
+ * java.security.AccessController.
  */
 public class LegacyJava {
 
@@ -81,7 +88,7 @@ public class LegacyJava {
     try {
       sm = getSecurityManager.invoke(null);
     } catch (IllegalAccessException | InvocationTargetException e) {
-      throw new JDOFatalInternalException(e.getMessage());
+      throw new JDOFatalInternalException(e.getMessage(), e);
     }
     if (sm == null) {
       return null;
@@ -107,24 +114,43 @@ public class LegacyJava {
     Object sm = null;
     Method checkPermissionMethod = null;
 
-    public void checkPermission(JDOPermission permission) {
+    public synchronized void checkPermission(JDOPermission permission) {
       try {
         checkPermissionMethod.invoke(sm, permission);
-      } catch (IllegalAccessException | InvocationTargetException e) {
-        throw new JDOFatalInternalException(e.getMessage());
+      } catch (InvocationTargetException e) {
+        Throwable cause = e.getCause();
+        if (cause instanceof SecurityException) {
+          // Preserve the documented contract of the JDO permission checks
+          // (e.g. JDOImplHelper.getInstance()): a denial by the security
+          // manager surfaces as SecurityException, not as an internal error
+          // with a lost cause.
+          throw (SecurityException) cause;
+        }
+        if (cause instanceof RuntimeException) {
+          throw (RuntimeException) cause;
+        }
+        if (cause instanceof Error) {
+          throw (Error) cause;
+        }
+        throw new JDOFatalInternalException(e.getMessage(), e);
+      } catch (IllegalAccessException e) {
+        throw new JDOFatalInternalException(e.getMessage(), e);
       }
     }
 
-    public void updateSecurityManager(Object sm) {
+    public synchronized void updateSecurityManager(Object sm) {
       if (this.sm != sm) {
-        // We have a new security manager!
-        this.sm = sm;
+        // We have a new security manager! Resolve the checkPermission method
+        // before publishing the new manager; both methods are synchronized so
+        // a concurrent checkPermission never observes a half-updated wrapper
+        // (previously the two fields were assigned non-atomically).
         if (sm != null) {
           checkPermissionMethod =
               findMethod("java.lang.SecurityManager", "checkPermission", Permission.class);
         } else {
           checkPermissionMethod = null;
         }
+        this.sm = sm;
       }
     }
   }
@@ -175,6 +201,7 @@ public class LegacyJava {
    * @return Return value of the action.
    */
   public static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+    requireAccessControllerRemoved();
     return privilegedAction.run();
   }
 
@@ -190,12 +217,31 @@ public class LegacyJava {
    */
   public static <T> T doPrivileged(PrivilegedExceptionAction<T> privilegedAction)
       throws PrivilegedActionException {
+    requireAccessControllerRemoved();
     try {
       return privilegedAction.run();
     } catch (RuntimeException e) {
       throw e;
     } catch (Exception e) {
       throw new PrivilegedActionException(e);
+    }
+  }
+
+  /**
+   * Enforce the invariant documented in the class javadoc: the public doPrivileged() fallbacks may
+   * only run on JVMs where java.security.AccessController has been removed (there they execute the
+   * action on the caller's own stack, with no security context to escalate to). On JVMs that still
+   * provide AccessController, callers must go through the {@link #doPrivilegedAction} / {@link
+   * #doPrivilegedExceptionAction} Method handles, which resolve to the real
+   * AccessController.doPrivileged.
+   *
+   * @throws JDOFatalInternalException if AccessController is still available on this JVM
+   */
+  private static void requireAccessControllerRemoved() {
+    if (!IS_SECURITY_DEPRECATED) {
+      throw new JDOFatalInternalException(
+          "LegacyJava.doPrivileged must not be invoked directly on a JVM that still provides "
+              + "java.security.AccessController");
     }
   }
 }
