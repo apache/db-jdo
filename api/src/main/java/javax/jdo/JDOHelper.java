@@ -44,6 +44,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Pattern;
 import javax.jdo.spi.I18NHelper;
 import javax.jdo.spi.JDOImplHelper;
 import javax.jdo.spi.JDOImplHelper.StateInterrogationBooleanReturn;
@@ -741,6 +742,7 @@ public class JDOHelper implements Constants {
     InputStream is = openStream(url);
     BufferedReader reader = new BufferedReader(new InputStreamReader(is));
     String line = null;
+    Pattern splitRegex = Pattern.compile("\\s");
     try {
       while ((line = reader.readLine()) != null) {
         line = line.trim();
@@ -748,7 +750,7 @@ public class JDOHelper implements Constants {
           continue;
         }
         // else assume first line of text is the PMF class name
-        String[] tokens = line.split("\\s");
+        String[] tokens = splitRegex.split(line);
         String pmfClassName = tokens[0];
         int indexOfComment = pmfClassName.indexOf("#");
         if (indexOfComment == -1) {
@@ -971,12 +973,20 @@ public class JDOHelper implements Constants {
   protected static PersistenceManagerFactory invokeGetPersistenceManagerFactoryOnImplementation(
       String pmfClassName, Map<?, ?> overrides, Map<?, ?> properties, ClassLoader cl) {
     try {
-      Class<?> implClass = forName(pmfClassName, true, cl);
+      // load without initializing: no code of the candidate class (which may be named by
+      // the first-match-wins services lookup) runs before the method has been verified
+      Class<?> implClass = forName(pmfClassName, false, cl);
       Method m =
           getMethod(
               implClass,
               "getPersistenceManagerFactory", // NOI18N
               overrides != null ? new Class[] {Map.class, Map.class} : new Class[] {Map.class});
+      if (!PersistenceManagerFactory.class.isAssignableFrom(m.getReturnType())) {
+        // reject before invoking: otherwise the static initializers and method body of an
+        // arbitrary candidate class would run before the type check
+        throw new JDOFatalInternalException(
+            MSG.msg("EXC_GetPMFClassCastException", pmfClassName)); // NOI18N
+      }
       PersistenceManagerFactory pmf =
           (PersistenceManagerFactory)
               invoke(
@@ -1589,7 +1599,13 @@ public class JDOHelper implements Constants {
         numberOfJDOEnhancers++;
         try {
           String enhancerClassName = getClassNameFromURL(urls.nextElement());
-          Class<?> enhancerClass = forName(enhancerClassName, true, ctrLoader);
+          // load without initializing and verify assignability before running any code of
+          // the candidate class named by the (first-match-wins) services file
+          Class<?> enhancerClass = forName(enhancerClassName, false, ctrLoader);
+          if (!JDOEnhancer.class.isAssignableFrom(enhancerClass)) {
+            throw new JDOFatalUserException(
+                MSG.msg("EXC_GetEnhancerClassNotAssignable", enhancerClassName)); // NOI18N
+          }
           return (JDOEnhancer) enhancerClass.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
           // remember exceptions from failed enhancer invocations
