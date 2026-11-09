@@ -742,13 +742,14 @@ public class JDOHelper implements Constants {
     BufferedReader reader = new BufferedReader(new InputStreamReader(is));
     String line = null;
     try {
+      Pattern pattern = Pattern.compile("\\s");
       while ((line = reader.readLine()) != null) {
         line = line.trim();
         if (line.isEmpty() || line.startsWith("#")) {
           continue;
         }
         // else assume first line of text is the PMF class name
-        String[] tokens = line.split("\\s");
+        String[] tokens = pattern.split(line);
         String pmfClassName = tokens[0];
         int indexOfComment = pmfClassName.indexOf("#");
         if (indexOfComment == -1) {
