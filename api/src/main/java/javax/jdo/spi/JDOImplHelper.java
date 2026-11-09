@@ -29,6 +29,7 @@ import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Currency;
@@ -41,6 +42,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.stream.Collectors;
 import javax.jdo.Constants;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
@@ -64,6 +66,10 @@ import org.xml.sax.ErrorHandler;
  * provided by this class only if they are authorized by the security manager. To avoid having every
  * call go through the security manager, only the call to get an instance is checked. Once an
  * implementation has an instance, any of the methods can be invoked without security checks.
+ *
+ * <p>The security-manager checks described here are only performed on JVMs that still provide a
+ * Java <code>SecurityManager</code> (deprecated for removal by JEP 411). On Java 17 and later no
+ * check is performed and these functions are available to all code in the process.
  *
  * @version 2.1
  */
@@ -160,11 +166,8 @@ public class JDOImplHelper extends java.lang.Object {
 
   static Set<String> createUserConfigurableStandardPropertiesLowerCased() {
     Set<String> mixedCased = createUserConfigurableStandardProperties();
-    Set<String> lowerCased = new HashSet<>(mixedCased.size());
-
-    for (String propertyName : mixedCased) {
-      lowerCased.add(propertyName.toLowerCase());
-    }
+    Set<String> lowerCased =
+        mixedCased.stream().map(String::toLowerCase).collect(Collectors.toSet());
     return Collections.unmodifiableSet(lowerCased);
   }
 
@@ -584,17 +587,19 @@ public class JDOImplHelper extends java.lang.Object {
     SecurityManager sm = LegacyJava.getSecurityManager();
     if (sm != null) {
       sm.checkPermission(JDOPermission.SET_STATE_MANAGER);
-      synchronized (authorizedStateManagerClasses) {
-        for (Iterator<?> it = smClasses.iterator(); it.hasNext(); ) {
-          Object smClass = it.next();
-          if (!(smClass instanceof Class)) {
-            throw new ClassCastException(
-                msg.msg(
-                    "ERR_StateManagerClassCast", // NOI18N
-                    smClass.getClass().getName()));
-          }
-          registerAuthorizedStateManagerClass((Class<?>) it.next());
+    }
+    synchronized (authorizedStateManagerClasses) {
+      for (Object smClass : smClasses) {
+        if (!(smClass instanceof Class)) {
+          throw new ClassCastException(
+              msg.msg(
+                  "ERR_StateManagerClassCast", // NOI18N
+                  smClass.getClass().getName()));
         }
+        // register the element that was just validated (the loop formerly advanced the
+        // iterator a second time here, registering the unvalidated successor instead and
+        // throwing NoSuchElementException on odd-sized collections)
+        registerAuthorizedStateManagerClass((Class<?>) smClass);
       }
     }
   }
@@ -814,11 +819,48 @@ public class JDOImplHelper extends java.lang.Object {
     }
   }
 
+  /** Package prefixes of key classes always allowed for String construction. */
+  private static final String[] DEFAULT_ALLOWED_KEY_CLASS_PREFIXES = {
+    "java.lang.", "java.math.", "java.time." // NOI18N
+  };
+
+  /** Individual key classes always allowed for String construction. */
+  private static final Set<String> DEFAULT_ALLOWED_KEY_CLASS_NAMES =
+      new HashSet<>(
+          Arrays.asList(
+              "java.util.Date", // NOI18N
+              "java.util.Locale", // NOI18N
+              "java.util.Currency", // NOI18N
+              "java.util.UUID")); // NOI18N
+
+  /**
+   * Determine whether the given class may be instantiated from a String by {@link
+   * #construct(String, String)}. A class is allowed if it belongs to the built-in set of value
+   * classes.
+   *
+   * @param keyClass the candidate key class
+   * @return true if the class may be constructed from a String
+   */
+  private static boolean isIdentityKeyClassAllowed(Class<?> keyClass) {
+    String name = keyClass.getName();
+    for (String prefix : DEFAULT_ALLOWED_KEY_CLASS_PREFIXES) {
+      if (name.startsWith(prefix)) {
+        return true;
+      }
+    }
+    return DEFAULT_ALLOWED_KEY_CLASS_NAMES.contains(name);
+  }
+
   /**
    * Construct an instance of the parameter class, using the keyString as an argument to the
-   * constructor. If the class has a StringConstructor instance registered, use it. If not, try to
-   * find a constructor for the class with a single String argument. Otherwise, throw a
-   * JDOUserException.
+   * constructor. If the class has a StringConstructor instance registered, use it. If not, and the
+   * class is an allowed identity key class, try to find a constructor for the class with a single
+   * String argument. Otherwise, throw a JDOUserException.
+   *
+   * <p>Because the class name typically originates from the String form of an identity, which may
+   * come from an untrusted source, only classes with a registered {@link StringConstructor}, or the
+   * built-in value classes are instantiated. The named class is loaded without initializing it, so
+   * no code of a disallowed class runs.
    *
    * @param className the name of the class
    * @param keyString the String parameter for the constructor
@@ -827,16 +869,22 @@ public class JDOImplHelper extends java.lang.Object {
   public static Object construct(String className, String keyString) {
     StringConstructor stringConstructor;
     try {
-      Class<?> keyClass = Class.forName(className);
+      // load without initializing: no static initializer of an unvetted class may run
+      Class<?> keyClass = Class.forName(className, false, JDOImplHelper.class.getClassLoader());
       synchronized (stringConstructorMap) {
         stringConstructor = stringConstructorMap.get(keyClass);
       }
       if (stringConstructor != null) {
         return stringConstructor.construct(keyString);
-      } else {
-        Constructor<?> keyConstructor = keyClass.getConstructor(String.class);
-        return keyConstructor.newInstance(keyString);
       }
+      if (!isIdentityKeyClassAllowed(keyClass)) {
+        throw new JDOUserException(
+            msg.msg(
+                "EXC_ObjectIdentityStringConstructionKeyClassNotAllowed", // NOI18N
+                className));
+      }
+      Constructor<?> keyConstructor = keyClass.getConstructor(String.class);
+      return keyConstructor.newInstance(keyString);
     } catch (JDOException ex) {
       throw ex;
     } catch (Exception ex) {
