@@ -744,7 +744,6 @@ public class JDOHelper implements Constants {
     String line = null;
     Pattern splitRegex = Pattern.compile("\\s");
     try {
-      Pattern pattern = Pattern.compile("\\s");
       while ((line = reader.readLine()) != null) {
         line = line.trim();
         if (line.isEmpty() || line.startsWith("#")) {
