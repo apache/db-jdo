@@ -169,9 +169,9 @@ class ObjectIdentityTest extends SingleFieldIdentityTest {
   @Test
   void testNotAnAllowedIdentityKeyClass() {
     Assertions.assertThrows(
-            JDOUserException.class,
-            () -> new ObjectIdentity(Object.class, "javax.jdo.identity.ObjectIdentityTest$IdClass:yy"),
-            "Failed to catch expected JDOUserException.");
+        JDOUserException.class,
+        () -> new ObjectIdentity(Object.class, "javax.jdo.identity.ObjectIdentityTest$IdClass:yy"),
+        "Failed to catch expected JDOUserException.");
   }
 
   @Test
