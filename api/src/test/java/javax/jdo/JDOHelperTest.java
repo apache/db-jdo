@@ -494,10 +494,37 @@ class JDOHelperTest extends AbstractTest {
     Assertions.assertEquals(2, nesteds.length, "should have been 2 nested exceptions");
     for (int i = 0; i < nesteds.length; i++) {
       Throwable t = nesteds[i];
-      Assertions.assertTrue(
-          t instanceof JDOUserException,
-          "nested exception " + i + " should have been JDOUserException");
+      Assertions.assertInstanceOf(JDOUserException.class, t, "nested exception " + i + " should have been JDOUserException");
     }
+  }
+
+  /** Test that a URL-scheme JNDI location is rejected by default. */
+  @Test
+  void testGetPMFUrlSchemeJNDIRejected() {
+    Context context = getInitialContext();
+    JDOFatalUserException ex =
+        Assertions.assertThrows(
+            JDOFatalUserException.class,
+            () ->
+                JDOHelper.getPersistenceManagerFactory("ldap://attacker.example:389/cn=x", context),
+            "URL-scheme JNDI location should result in JDOFatalUserException");
+    Assertions.assertTrue(
+        ex.getMessage().contains("JNDI injection"),
+        "Exception should mention 'JNDI injection' but was: " + ex.getMessage());
+  }
+
+  /** Test that a composite-name JNDI location is not blocked by the URL-scheme check. */
+  @Test
+  void testGetPMFCompositeNameJNDINotBlockedBySchemeCheck() {
+    Context context = getInitialContext();
+    JDOFatalUserException ex =
+        Assertions.assertThrows(
+            JDOFatalUserException.class,
+            () -> JDOHelper.getPersistenceManagerFactory("java:comp/env/jdo/PMF", context),
+            "Unbound JNDI name should result in JDOFatalUserException");
+    Assertions.assertFalse(
+        ex.getMessage().contains("JNDI injection)"),
+        "Composite name must not be rejected by the URL-scheme check but was: " + ex.getMessage());
   }
 
   private Context getInitialContext() {

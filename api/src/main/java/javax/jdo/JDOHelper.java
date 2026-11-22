@@ -1463,11 +1463,42 @@ public class JDOHelper implements Constants {
   }
 
   /**
+   * Reject JNDI locations carrying a URL scheme other than "java".
+   *
+   * @param jndiLocation the JNDI location to check
+   */
+  private static void assertPermittedJndiLocation(String jndiLocation) {
+    int colon = jndiLocation.indexOf(':');
+    int slash = jndiLocation.indexOf('/');
+    if (colon <= 0 || (slash != -1 && slash < colon)) {
+      // no URL scheme: JNDI only treats "scheme:" ahead of any '/' as a URL
+      return;
+    }
+    String scheme = jndiLocation.substring(0, colon);
+    if (!scheme.matches("[A-Za-z][A-Za-z0-9+.\\-]*")) {
+      // not a syntactically valid scheme; the provider treats the location as a plain name
+      return;
+    }
+    if ("java".equalsIgnoreCase(scheme)) {
+      // local component-environment names such as "java:comp/env/jdo/PMF"
+      return;
+    }
+    throw new JDOFatalUserException(
+        MSG.msg(
+            "EXC_GetPMFUrlSchemeJndiLocation", // NOI18N
+            jndiLocation,
+            scheme));
+  }
+
+  /**
    * Returns a {@link PersistenceManagerFactory} at the JNDI location specified by <code>
    * jndiLocation</code> in the context <code>context</code>. If <code>context</code> is <code>null
    * </code>, <code>new InitialContext()</code> will be used. This method is equivalent to invoking
    * {@link #getPersistenceManagerFactory(String,Context,ClassLoader)} with <code>
    * Thread.currentThread().getContextClassLoader()</code> as the <code>loader</code> argument.
+   *
+   * <p><b>Security note:</b> Any <code>jndiLocation</code> with a URL scheme other than "java"
+   * (e.g. "ldap://...") is rejected.
    *
    * @since 2.0
    * @param jndiLocation the JNDI location containing the PersistenceManagerFactory
@@ -1486,6 +1517,9 @@ public class JDOHelper implements Constants {
    * PersistenceManagerFactory} with <code>loader</code>. Any <code>NamingException</code>s thrown
    * will be wrapped in a {@link JDOFatalUserException}.
    *
+   * <p><b>Security note:</b> Any <code>jndiLocation</code> with a URL scheme other than "java"
+   * (e.g. "ldap://...") is rejected.
+   *
    * @since 2.0
    * @param jndiLocation the JNDI location containing the PersistenceManagerFactory
    * @param context the context in which to find the named PersistenceManagerFactory
@@ -1497,6 +1531,7 @@ public class JDOHelper implements Constants {
     if (jndiLocation == null)
       throw new JDOFatalUserException(MSG.msg("EXC_GetPMFNullJndiLoc")); // NOI18N
     if (loader == null) throw new JDOFatalUserException(MSG.msg("EXC_GetPMFNullLoader")); // NOI18N
+    assertPermittedJndiLocation(jndiLocation);
     try {
       if (context == null) context = new InitialContext();
 
