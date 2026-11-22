@@ -915,7 +915,7 @@ public class JDOImplHelper extends java.lang.Object {
    * @param text the untrusted text, possibly null
    * @return the text with control characters replaced by spaces
    */
-  private static String sanitized(String text) {
+  public static String sanitized(String text) {
     if (text == null) {
       return null;
     }
