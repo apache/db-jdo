@@ -989,6 +989,7 @@ public class javax.jdo.spi.JDOImplHelper extends Object {
     public static void checkAuthorizedStateManagerClass(Class smClass);
     public Object registerStringConstructor(Class cls, javax.jdo.spi.JDOImplHelper$StringConstructor sc);
     public static Object construct(String className, String keyString);
+    public static java.lang.String sanitized(java.lang.String);
     public synchronized void registerDateFormat(java.text.DateFormat df);
     public synchronized void registerErrorHandler(org.xml.sax.ErrorHandler);
     public static org.xml.sax.ErrorHandler getRegisteredErrorHandler();
