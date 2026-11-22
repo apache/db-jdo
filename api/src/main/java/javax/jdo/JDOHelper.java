@@ -1463,9 +1463,7 @@ public class JDOHelper implements Constants {
   }
 
   /**
-   * Reject JNDI locations carrying a URL scheme other than "java" unless explicitly allowed via the
-   * system property named by {@link #PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS}. The JNDI location
-   * must come from trusted deployment configuration, never from request data.
+   * Reject JNDI locations carrying a URL scheme other than "java".
    *
    * @param jndiLocation the JNDI location to check
    */
@@ -1485,15 +1483,11 @@ public class JDOHelper implements Constants {
       // local component-environment names such as "java:comp/env/jdo/PMF"
       return;
     }
-    if (Boolean.getBoolean(PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS)) {
-      return;
-    }
     throw new JDOFatalUserException(
         MSG.msg(
             "EXC_GetPMFUrlSchemeJndiLocation", // NOI18N
             jndiLocation,
-            scheme,
-            PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS));
+            scheme));
   }
 
   /**
@@ -1503,10 +1497,8 @@ public class JDOHelper implements Constants {
    * {@link #getPersistenceManagerFactory(String,Context,ClassLoader)} with <code>
    * Thread.currentThread().getContextClassLoader()</code> as the <code>loader</code> argument.
    *
-   * <p><b>Security note:</b> <code>jndiLocation</code> must come from trusted deployment
-   * configuration, never from request or user data. Locations with a URL scheme other than "java"
-   * (e.g. "ldap://...") are rejected unless the system property named by {@link
-   * #PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS} is set to "true".
+   * <p><b>Security note:</b> Any <code>jndiLocation</code> with a URL scheme other than "java"
+   * (e.g. "ldap://...") is rejected.
    *
    * @since 2.0
    * @param jndiLocation the JNDI location containing the PersistenceManagerFactory
@@ -1525,10 +1517,8 @@ public class JDOHelper implements Constants {
    * PersistenceManagerFactory} with <code>loader</code>. Any <code>NamingException</code>s thrown
    * will be wrapped in a {@link JDOFatalUserException}.
    *
-   * <p><b>Security note:</b> <code>jndiLocation</code> must come from trusted deployment
-   * configuration, never from request or user data. Locations with a URL scheme other than "java"
-   * (e.g. "ldap://...") are rejected unless the system property named by {@link
-   * #PROPERTY_ALLOW_URL_SCHEME_JNDI_LOCATIONS} is set to "true".
+   * <p><b>Security note:</b> Any <code>jndiLocation</code> with a URL scheme other than "java"
+   * (e.g. "ldap://...") is rejected.
    *
    * @since 2.0
    * @param jndiLocation the JNDI location containing the PersistenceManagerFactory
