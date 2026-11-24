@@ -88,7 +88,7 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
                 + // NOI18N
                 MSG.msg(
                     "EXC_ObjectIdentityStringConstructionUsage", // NOI18N
-                    paramString));
+                    JDOImplHelper.sanitized(paramString)));
       }
       int indexOfDelimiter = paramString.indexOf(STRING_DELIMITER);
       if (indexOfDelimiter < 0) {
@@ -97,7 +97,7 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
                 + // NOI18N
                 MSG.msg(
                     "EXC_ObjectIdentityStringConstructionUsage", // NOI18N
-                    paramString));
+                    JDOImplHelper.sanitized(paramString)));
       }
       keyString = paramString.substring(indexOfDelimiter + 1);
       className = paramString.substring(0, indexOfDelimiter);
